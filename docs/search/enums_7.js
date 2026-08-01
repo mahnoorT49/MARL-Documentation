@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['objext_5fflags_0',['objext_flags',['../memcontrol_8h.html#ab52d480df31b7b59a023c3c20d1eab1b',1,'memcontrol.h']]],
-  ['oom_5fconstraint_1',['oom_constraint',['../oom_8h.html#ad80d2292b0b22cb3f4649dd7152a5f65',1,'oom.h']]]
+  ['node_5fstat_5fitem_0',['node_stat_item',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409',1,'mmzone.h']]]
 ];

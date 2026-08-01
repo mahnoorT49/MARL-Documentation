@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['slab_5fflags_0',['slab_flags',['../slub_8c.html#a19ddf199e3e76102bb4ef74e10bc2bf0',1,'slub.c']]],
-  ['stat_5fitem_1',['stat_item',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3',1,'slub.c']]]
+  ['rmqueue_5fmode_0',['rmqueue_mode',['../page__alloc_8c.html#af8b124ed11d7295b7ce3cab1f6e51803',1,'page_alloc.c']]]
 ];

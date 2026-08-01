@@ -88,5 +88,6 @@ var searchData=
   ['procs1_85',['procs1',['../structcgroup__file__ctx.html#a07ed52743a4f3a7ca33b0586f941fb3b',1,'cgroup_file_ctx']]],
   ['protection_5fsupport_86',['protection_support',['../structpage__counter.html#a96e19452c0392f76c85ef36a9cbec881',1,'page_counter']]],
   ['psi_87',['psi',['../structcgroup__file__ctx.html#ace58e06cc788c56bdd7f6f744e48e98e',1,'cgroup_file_ctx']]],
-  ['put_5fcss_5fset_5flocked_88',['put_css_set_locked',['../cgroup-internal_8h.html#a6103b359164aab19494cacec60e73e6e',1,'put_css_set_locked(struct css_set *cset):&#160;cgroup.c'],['../cgroup_8c.html#a6103b359164aab19494cacec60e73e6e',1,'put_css_set_locked(struct css_set *cset):&#160;cgroup.c']]]
+  ['purge_88',['purge',['../structvmap__block.html#ac1a54cd5950ce62cf4f5e9f33c07b324',1,'vmap_block']]],
+  ['put_5fcss_5fset_5flocked_89',['put_css_set_locked',['../cgroup-internal_8h.html#a6103b359164aab19494cacec60e73e6e',1,'put_css_set_locked(struct css_set *cset):&#160;cgroup.c'],['../cgroup_8c.html#a6103b359164aab19494cacec60e73e6e',1,'put_css_set_locked(struct css_set *cset):&#160;cgroup.c']]]
 ];

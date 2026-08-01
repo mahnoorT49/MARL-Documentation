@@ -30,6 +30,7 @@ var annotated_dup =
     [ "per_cpu_pages", "structper__cpu__pages.html", "structper__cpu__pages" ],
     [ "per_cpu_zonestat", "structper__cpu__zonestat.html", null ],
     [ "pglist_data", "structpglist__data.html", "structpglist__data" ],
+    [ "rb_list", "structrb__list.html", "structrb__list" ],
     [ "reserve_mem_table", "structreserve__mem__table.html", "structreserve__mem__table" ],
     [ "slab_sheaf", "structslab__sheaf.html", "structslab__sheaf" ],
     [ "slabobj_ext", "structslabobj__ext.html", null ],
@@ -38,6 +39,10 @@ var annotated_dup =
     [ "sock_cgroup_data", "structsock__cgroup__data.html", null ],
     [ "track", "structtrack.html", "structtrack" ],
     [ "uncharge_gather", "structuncharge__gather.html", "structuncharge__gather" ],
+    [ "vfree_deferred", "structvfree__deferred.html", "structvfree__deferred" ],
+    [ "vmap_block", "structvmap__block.html", "structvmap__block" ],
+    [ "vmap_block_queue", "structvmap__block__queue.html", "structvmap__block__queue" ],
+    [ "vmap_pool", "structvmap__pool.html", "structvmap__pool" ],
     [ "zone", "structzone.html", "structzone" ],
     [ "zonelist", "structzonelist.html", "structzonelist" ],
     [ "zoneref", "structzoneref.html", "structzoneref" ]

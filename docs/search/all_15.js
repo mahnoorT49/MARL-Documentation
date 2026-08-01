@@ -26,5 +26,6 @@ var searchData=
   ['workingset_5frefault_5ffile_23',['WORKINGSET_REFAULT_FILE',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409a9c89f20ead988e25f5f20c19f46c3a55',1,'mmzone.h']]],
   ['workingset_5frestore_5fanon_24',['WORKINGSET_RESTORE_ANON',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409a057ecf1466f50acc903188d67b09032d',1,'mmzone.h']]],
   ['workingset_5frestore_5fbase_25',['WORKINGSET_RESTORE_BASE',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409a45058dfbe50298c1cc6f4cd0dae05a4d',1,'mmzone.h']]],
-  ['workingset_5frestore_5ffile_26',['WORKINGSET_RESTORE_FILE',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409af5dad3e561cd84abf8e1a5cf2a70c9e3',1,'mmzone.h']]]
+  ['workingset_5frestore_5ffile_26',['WORKINGSET_RESTORE_FILE',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409af5dad3e561cd84abf8e1a5cf2a70c9e3',1,'mmzone.h']]],
+  ['wq_27',['wq',['../structvfree__deferred.html#aab75403b3b147766ca1363f5ca63c759',1,'vfree_deferred']]]
 ];

@@ -1,11 +1,24 @@
 <map id="kvfree_call_rcu" name="kvfree_call_rcu">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,115,57"/>
-<area shape="rect" id="Node000002" href="$slub_8c.html#ac88c4c777e1cffcd536d365ce527ba94" title=" " alt="" coords="186,5,243,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,32,173,25,168,27,116,38"/>
-<area shape="rect" id="Node000004" href="$slub_8c.html#aab67ab42a61b6c5e9839ad29673ab397" title=" " alt="" coords="163,56,266,83"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="115,50,150,58,145,59,115,56"/>
-<area shape="rect" id="Node000003" href="$slub_8c.html#a97d9c37b943449ab48e32c6d2499261f" title=" " alt="" coords="338,5,389,32"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="243,16,325,18,320,19,244,21"/>
-<area shape="rect" id="Node000005" href="$slub_8c.html#a70ca65a76ef553580b08c2809918562e" title=" " alt="" coords="314,56,413,83"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="266,67,301,69,296,69,267,72"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,99,115,125"/>
+<area shape="rect" id="Node000002" href="$slub_8c.html#ac88c4c777e1cffcd536d365ce527ba94" title=" " alt="" coords="186,73,243,100"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,100,173,92,168,95,116,106"/>
+<area shape="rect" id="Node000008" href="$slub_8c.html#aab67ab42a61b6c5e9839ad29673ab397" title=" " alt="" coords="163,124,266,151"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="115,118,150,126,145,127,116,124"/>
+<area shape="rect" id="Node000003" href="$vmalloc_8c.html#a11f4356743c8b35598174fba5035aee5" title=" " alt="" coords="314,124,429,151"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="244,93,316,118,311,119,243,98"/>
+<area shape="rect" id="Node000004" href="$slub_8c.html#a97d9c37b943449ab48e32c6d2499261f" title=" " alt="" coords="513,5,563,32"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="243,76,313,59,500,24,495,27,315,64,244,82"/>
+<area shape="rect" id="Node000005" href="$vmalloc_8c.html#a2aeead9450a5b920c65bea908edead23" title=" " alt="" coords="346,73,397,100"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="243,91,334,94,328,95,244,96"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="343,81,259,81,258,76,349,79"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="396,74,496,35,501,34,398,79"/>
+<area shape="rect" id="Node000006" href="$vmalloc_8c.html#ae57ef71b686f9e0fa536cd948632082f" title=" " alt="" coords="477,131,599,157"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="397,92,486,125,480,125,397,98"/>
+<area shape="rect" id="Node000007" href="$vmalloc_8c.html#a876e3efe295a93f23b3dadee17edb49a" title=" " alt="" coords="490,80,586,107"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="397,85,477,90,472,91,397,90"/>
+<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="509,79,504,71,508,62,519,56,538,53,558,56,570,65,565,64,556,61,538,59,521,61,512,65,510,71,514,81"/>
+<area shape="poly" id="edge12_Node000008_Node000003" title=" " alt="" coords="266,135,301,137,296,138,267,140"/>
+<area shape="poly" id="edge13_Node000008_Node000005" title=" " alt="" coords="258,121,329,100,334,99,259,126"/>
+<area shape="rect" id="Node000009" href="$slub_8c.html#a70ca65a76ef553580b08c2809918562e" title=" " alt="" coords="322,175,421,201"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="259,149,316,169,311,169,258,154"/>
 </map>

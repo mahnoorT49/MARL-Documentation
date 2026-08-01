@@ -14,5 +14,7 @@ var searchData=
   ['gfp_5ftranshuge_11',['GFP_TRANSHUGE',['../gfp__types_8h.html#a66d5593582f48e97dd261cf4ee077fcc',1,'gfp_types.h']]],
   ['gfp_5ftranshuge_5flight_12',['GFP_TRANSHUGE_LIGHT',['../gfp__types_8h.html#a8ca0823b8dc982881aaa8132177d6e15',1,'gfp_types.h']]],
   ['gfp_5fuser_13',['GFP_USER',['../gfp__types_8h.html#a4d9a73993b4c57bf15ddd4af4a20d1ca',1,'gfp_types.h']]],
-  ['gfp_5fzonemask_14',['GFP_ZONEMASK',['../gfp__types_8h.html#a029e5d00a4df009a62ff023b14a1d0aa',1,'gfp_types.h']]]
+  ['gfp_5fvmalloc32_14',['GFP_VMALLOC32',['../vmalloc_8c.html#a533f39b3cee6a4fb5e3b132350600246',1,'vmalloc.c']]],
+  ['gfp_5fvmalloc_5fsupported_15',['GFP_VMALLOC_SUPPORTED',['../vmalloc_8c.html#af915249eedbd51677111778b5e069aa7',1,'vmalloc.c']]],
+  ['gfp_5fzonemask_16',['GFP_ZONEMASK',['../gfp__types_8h.html#a029e5d00a4df009a62ff023b14a1d0aa',1,'gfp_types.h']]]
 ];

@@ -1249,6 +1249,11 @@ Here is the caller graph for this function:</div>
 <p>GFP_NOWAIT and GFP_ATOMIC are supported, the __GFP_NORETRY modifier is not. __GFP_RETRY_MAYFAIL is supported, and it should be used only if kmalloc is preferable to the vmalloc fallback, due to visible performance drawbacks.</p>
 <p>Return: pointer to the allocated memory of NULL in case of failure </p>
 <div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_ab1d30d15a6d616aace5b1c7bcdca235c_cgraph.svg" width="671" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_ab1d30d15a6d616aace5b1c7bcdca235c_icgraph.svg" width="362" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -1557,7 +1562,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_acf02f598ca19168507ba421f4f04121b_cgraph.svg" width="362" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_acf02f598ca19168507ba421f4f04121b_cgraph.svg" width="856" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1799,7 +1804,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a2b2b823d900179f3ce00625e96170bd5_cgraph.svg" width="352" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a2b2b823d900179f3ce00625e96170bd5_cgraph.svg" width="587" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1821,7 +1826,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_ad0ba5f4b279b3c0c64fccf1fa3a4aae5_cgraph.svg" width="516" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_ad0ba5f4b279b3c0c64fccf1fa3a4aae5_cgraph.svg" width="751" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1843,7 +1848,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a7af27e86ccaac46d57afba7cbc6a2b36_cgraph.svg" width="620" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a7af27e86ccaac46d57afba7cbc6a2b36_cgraph.svg" width="1251" height="519"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1981,7 +1986,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a97d9c37b943449ab48e32c6d2499261f_icgraph.svg" width="1198" height="943"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a97d9c37b943449ab48e32c6d2499261f_icgraph.svg" width="1374" height="1372"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -2579,17 +2584,17 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p><a class="el" href="#ac88c4c777e1cffcd536d365ce527ba94">kvfree()</a> - Free memory. @addr: Pointer to allocated memory.</p>
-<p>kvfree frees memory allocated by any of vmalloc(), <a class="el" href="slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a> or <a class="el" href="slab_8h.html#aacbb1d218fb9bc08259e0b2a0ec39701">kvmalloc()</a>. It is slightly more efficient to use <a class="el" href="#a97d9c37b943449ab48e32c6d2499261f">kfree()</a> or vfree() if you are certain that you know which one to use.</p>
+<p>kvfree frees memory allocated by any of vmalloc(), <a class="el" href="slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a> or <a class="el" href="slab_8h.html#aacbb1d218fb9bc08259e0b2a0ec39701">kvmalloc()</a>. It is slightly more efficient to use <a class="el" href="#a97d9c37b943449ab48e32c6d2499261f">kfree()</a> or <a class="el" href="vmalloc_8c.html#a2aeead9450a5b920c65bea908edead23">vfree()</a> if you are certain that you know which one to use.</p>
 <p>Context: Either preemptible task context or not-NMI interrupt. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_ac88c4c777e1cffcd536d365ce527ba94_cgraph.svg" width="167" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_ac88c4c777e1cffcd536d365ce527ba94_cgraph.svg" width="402" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_ac88c4c777e1cffcd536d365ce527ba94_icgraph.svg" width="472" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_ac88c4c777e1cffcd536d365ce527ba94_icgraph.svg" width="848" height="383"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -2611,7 +2616,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_aab67ab42a61b6c5e9839ad29673ab397_cgraph.svg" width="262" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_aab67ab42a61b6c5e9839ad29673ab397_cgraph.svg" width="595" height="315"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -2644,7 +2649,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a8b5ec11aa0d4f83c22220d622f283acd_cgraph.svg" width="331" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a8b5ec11aa0d4f83c22220d622f283acd_cgraph.svg" width="566" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -2697,7 +2702,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a2220e9cf8bc3e195879ba1107d746e63_cgraph.svg" width="435" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slub_8c_a2220e9cf8bc3e195879ba1107d746e63_cgraph.svg" width="1066" height="519"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>

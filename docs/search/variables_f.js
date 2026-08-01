@@ -27,5 +27,6 @@ var searchData=
   ['procs_24',['procs',['../structcgroup__file__ctx.html#a827fb8569a3bb9c754fa793ab71c67ca',1,'cgroup_file_ctx']]],
   ['procs1_25',['procs1',['../structcgroup__file__ctx.html#a07ed52743a4f3a7ca33b0586f941fb3b',1,'cgroup_file_ctx']]],
   ['protection_5fsupport_26',['protection_support',['../structpage__counter.html#a96e19452c0392f76c85ef36a9cbec881',1,'page_counter']]],
-  ['psi_27',['psi',['../structcgroup__file__ctx.html#ace58e06cc788c56bdd7f6f744e48e98e',1,'cgroup_file_ctx']]]
+  ['psi_27',['psi',['../structcgroup__file__ctx.html#ace58e06cc788c56bdd7f6f744e48e98e',1,'cgroup_file_ctx']]],
+  ['purge_28',['purge',['../structvmap__block.html#ac1a54cd5950ce62cf4f5e9f33c07b324',1,'vmap_block']]]
 ];

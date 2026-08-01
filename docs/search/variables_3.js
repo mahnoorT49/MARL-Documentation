@@ -26,7 +26,7 @@ var searchData=
   ['contig_5fpage_5fdata_23',['contig_page_data',['../mmzone_8h.html#acd01532dd1d9bdad91ebd4e11932b31f',1,'contig_page_data:&#160;memblock.c'],['../memblock_8c.html#a2ff15b087ba007643b611f383b616e32',1,'contig_page_data:&#160;memblock.c']]],
   ['contiguous_24',['contiguous',['../structzone.html#a7bacb149c4262e0266fb162457149d48',1,'zone']]],
   ['count_25',['count',['../structper__cpu__pages.html#a97c2e052ad53a4d27cec90627d01d897',1,'per_cpu_pages']]],
-  ['cpu_26',['cpu',['../structtrack.html#adc90e1f540a973ccb4f00114cdce2a9a',1,'track']]],
+  ['cpu_26',['cpu',['../structtrack.html#adc90e1f540a973ccb4f00114cdce2a9a',1,'track::cpu'],['../structvmap__block.html#abb4322ceff63ad53f62b2a7a98eba198',1,'vmap_block::cpu']]],
   ['cpuset_5fclone_5fchildren_27',['cpuset_clone_children',['../structcgroup__fs__context.html#a07c7ad4143d774c16f746d76b17d4cca',1,'cgroup_fs_context']]],
   ['cset_28',['cset',['../structcgrp__cset__link.html#a0217cb14a63a2b33cc5c2a0030098789',1,'cgrp_cset_link']]],
   ['cset_5flink_29',['cset_link',['../structcgrp__cset__link.html#afaeef19a7009e6ab415ab73ff74e053a',1,'cgrp_cset_link']]],

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['high_0',['high',['../structper__cpu__pages.html#a5785d4930534b71d6fed09c8b440ee96',1,'per_cpu_pages::high'],['../structpage__counter.html#aa2f3fdd9e3d72605892e61ab88c96e37',1,'page_counter::high']]],
-  ['high_5fmax_1',['high_max',['../structper__cpu__pages.html#ad6465e4740e84ab5b41c83af9b81a9f2',1,'per_cpu_pages']]],
-  ['high_5fmin_2',['high_min',['../structper__cpu__pages.html#a8af581adc9a34ba5a2c1b5d1b99c9e99',1,'per_cpu_pages']]]
+  ['head_0',['head',['../structrb__list.html#a394312e8cd068e59ffbbbf79d678356f',1,'rb_list::head'],['../structvmap__pool.html#a82967d42f4dbe416ca6783ead6b80707',1,'vmap_pool::head']]],
+  ['high_1',['high',['../structper__cpu__pages.html#a5785d4930534b71d6fed09c8b440ee96',1,'per_cpu_pages::high'],['../structpage__counter.html#aa2f3fdd9e3d72605892e61ab88c96e37',1,'page_counter::high']]],
+  ['high_5fmax_2',['high_max',['../structper__cpu__pages.html#ad6465e4740e84ab5b41c83af9b81a9f2',1,'per_cpu_pages']]],
+  ['high_5fmin_3',['high_min',['../structper__cpu__pages.html#a8af581adc9a34ba5a2c1b5d1b99c9e99',1,'per_cpu_pages']]]
 ];

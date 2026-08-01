@@ -6,5 +6,6 @@ var dir_fc11452e4696bd8c0943c731770ef0fd =
     [ "page_alloc.c", "page__alloc_8c.html", "page__alloc_8c" ],
     [ "page_counter.c", "page__counter_8c.html", "page__counter_8c" ],
     [ "slab_common.c", "slab__common_8c.html", "slab__common_8c" ],
-    [ "slub.c", "slub_8c.html", "slub_8c" ]
+    [ "slub.c", "slub_8c.html", "slub_8c" ],
+    [ "vmalloc.c", "vmalloc_8c.html", "vmalloc_8c" ]
 ];
