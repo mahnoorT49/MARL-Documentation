@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['max_5fcompact_5fretries_0',['MAX_COMPACT_RETRIES',['../page__alloc_8c.html#a3ed62c1617cac7a0de9ee5f5f2ba0a5e',1,'page_alloc.c']]],
+  ['max_5fempty_5fsheaves_1',['MAX_EMPTY_SHEAVES',['../slub_8c.html#a5d24308caef024a190383c068de31e9c',1,'slub.c']]],
+  ['max_5ffull_5fsheaves_2',['MAX_FULL_SHEAVES',['../slub_8c.html#af22e01d74a1cc67c4f0e6f3e188f7419',1,'slub.c']]],
+  ['max_5fnr_5fgens_3',['MAX_NR_GENS',['../mmzone_8h.html#a10781929e436b09507d67b8a440e0af1',1,'mmzone.h']]],
+  ['max_5fnr_5ftiers_4',['MAX_NR_TIERS',['../mmzone_8h.html#a39ad1e72b1c24a95af435fa016039828',1,'mmzone.h']]],
+  ['max_5fobjs_5fper_5fpage_5',['MAX_OBJS_PER_PAGE',['../slub_8c.html#a0500fafb7975b76f660a8bf9e102e38c',1,'slub.c']]],
+  ['max_5forder_5fnr_5fpages_6',['MAX_ORDER_NR_PAGES',['../mmzone_8h.html#a5304800468c5b37e1105b970c371092a',1,'mmzone.h']]],
+  ['max_5fpage_5forder_7',['MAX_PAGE_ORDER',['../mmzone_8h.html#a814eef2990feb2f86d513e37065dd554',1,'mmzone.h']]],
+  ['max_5fpartial_8',['MAX_PARTIAL',['../slub_8c.html#a2c724583a70b546f2c8621699a640876',1,'slub.c']]],
+  ['max_5fzones_5fper_5fzonelist_9',['MAX_ZONES_PER_ZONELIST',['../mmzone_8h.html#a6361133aa68b0166d8004ad4e9c0c18c',1,'mmzone.h']]],
+  ['mem_5fcgroup_5fid_5fmax_10',['MEM_CGROUP_ID_MAX',['../memcontrol_8c.html#a619284057062815044ac947a867e6a9b',1,'memcontrol.c']]],
+  ['mem_5fcgroup_5fid_5fshift_11',['MEM_CGROUP_ID_SHIFT',['../memcontrol_8h.html#ae3864e835c7b04f4feccbf591ae85c8d',1,'memcontrol.h']]],
+  ['mem_5fcgroup_5fsockets_5fenabled_12',['mem_cgroup_sockets_enabled',['../memcontrol_8h.html#ac358006a89e923bda1ff958d0184ea82',1,'memcontrol.h']]],
+  ['memblock_5fdbg_13',['memblock_dbg',['../memblock_8c.html#a99bb1c79f8ef1a7118f845212927b9a8',1,'memblock.c']]],
+  ['memcg_5fdelay_5fprecision_5fshift_14',['MEMCG_DELAY_PRECISION_SHIFT',['../memcontrol_8c.html#a640f97e40b5a429151e83f952ecb0666',1,'memcontrol.c']]],
+  ['memcg_5fdelay_5fscaling_5fshift_15',['MEMCG_DELAY_SCALING_SHIFT',['../memcontrol_8c.html#a15d8e721526381a14874accdfab9715c',1,'memcontrol.c']]],
+  ['memcg_5fmax_5fhigh_5fdelay_5fjiffies_16',['MEMCG_MAX_HIGH_DELAY_JIFFIES',['../memcontrol_8c.html#a5642646c5d44d529e9d79abb34634362',1,'memcontrol.c']]],
+  ['memcg_5fvmstat_5fsize_17',['MEMCG_VMSTAT_SIZE',['../memcontrol_8c.html#aa2c77ca1fcfc9bde93d3a61656db7ed0',1,'memcontrol.c']]],
+  ['min_5fnr_5fgens_18',['MIN_NR_GENS',['../mmzone_8h.html#a153462639e0b71827d3e388dbeb6dd30',1,'mmzone.h']]],
+  ['min_5fpartial_19',['MIN_PARTIAL',['../slub_8c.html#a283448b6a911db4525eb67b0abb6f470',1,'slub.c']]],
+  ['min_5fpercpu_5fpagelist_5fhigh_5ffraction_20',['MIN_PERCPU_PAGELIST_HIGH_FRACTION',['../page__alloc_8c.html#a6a4ddfffeb5152fc4c19fe0d88916f0a',1,'page_alloc.c']]]
+];

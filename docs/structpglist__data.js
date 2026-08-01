@@ -1,0 +1,26 @@
+var structpglist__data =
+[
+    [ "CACHELINE_PADDING", "structpglist__data.html#a1af4df2786350f4e286f21781ca3a54f", null ],
+    [ "CACHELINE_PADDING", "structpglist__data.html#a5fa27f920e59255c261230eb0de02421", null ],
+    [ "__lruvec", "structpglist__data.html#a6a175cf5647ea7a42374d3f588de983e", null ],
+    [ "flags", "structpglist__data.html#ae5f3a76d97901671245d5dd3cf031ee0", null ],
+    [ "kswapd", "structpglist__data.html#ae17af85762902d65cd50d67b97dbab84", null ],
+    [ "kswapd_failures", "structpglist__data.html#ace59e247590d1e8aa6a915c0a562c700", null ],
+    [ "kswapd_highest_zoneidx", "structpglist__data.html#a2903bd4b4aeed30cdaa3cad2ddad95f5", null ],
+    [ "kswapd_order", "structpglist__data.html#a08cf85b2e40ae2109df0552826c78a16", null ],
+    [ "kswapd_wait", "structpglist__data.html#aabf4026f57497cee9881452fec034df5", null ],
+    [ "node_id", "structpglist__data.html#af6b37a8b60abfaa04aad03ecc1b0396a", null ],
+    [ "node_present_pages", "structpglist__data.html#aafdebd264a12e7bcef64861f50b05a08", null ],
+    [ "node_spanned_pages", "structpglist__data.html#ae60f503698010798977e16009969df72", null ],
+    [ "node_start_pfn", "structpglist__data.html#acc7c4a468d53a88b91f881f119617e4a", null ],
+    [ "node_zonelists", "structpglist__data.html#ac32308fa580c6ff4e02b12c4ba6d3434", null ],
+    [ "node_zones", "structpglist__data.html#a4efe1dc7860b75910e8178591869a55e", null ],
+    [ "nr_reclaim_start", "structpglist__data.html#ad375b5b62c3bf921e11f023297bbcf3b", null ],
+    [ "nr_writeback_throttled", "structpglist__data.html#a2d9d109aac7e836e1eab4a5a0162539e", null ],
+    [ "nr_zones", "structpglist__data.html#a86a05c1cfbf75b08d8bdb84abb8768dd", null ],
+    [ "per_cpu_nodestats", "structpglist__data.html#ab6ecf41bcc9df250a61036348710abca", null ],
+    [ "pfmemalloc_wait", "structpglist__data.html#aa9e9d66c3eeb8b52b1836c11d7c6296a", null ],
+    [ "reclaim_wait", "structpglist__data.html#ae45a4278de784a1a742d877b13140a7f", null ],
+    [ "totalreserve_pages", "structpglist__data.html#ae44d591152d86855726eecf28373e5ca", null ],
+    [ "vm_stat", "structpglist__data.html#ad715440c11b01ec24ffc9281a1fc707e", null ]
+];
