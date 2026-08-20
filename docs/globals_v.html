@@ -120,27 +120,52 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_v.html
 
 
 <h3 class="doxsection"><a id="index_v" name="index_v"></a>- v -</h3><ul>
-<li>vfree()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a2aeead9450a5b920c65bea908edead23">vmalloc.c</a></li>
-<li>vfree_atomic()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a876e3efe295a93f23b3dadee17edb49a">vmalloc.c</a></li>
-<li>vm_area_add_early()&#160;:&#160;<a class="el" href="vmalloc_8c.html#ade3d115cfab652d9c0ec29ff0c6e8135">vmalloc.c</a></li>
+<li>vcalloc&#160;:&#160;<a class="el" href="vmalloc_8h.html#aeaec68fe396182f9f32aee1de69d9b8f">vmalloc.h</a></li>
+<li>vcalloc_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#ab86908daadfbfc00add9673b23cd90b8">vmalloc.h</a></li>
+<li>vfree()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a2aeead9450a5b920c65bea908edead23">vmalloc.c</a></li>
+<li>vfree_atomic()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a876e3efe295a93f23b3dadee17edb49a">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a876e3efe295a93f23b3dadee17edb49a">vmalloc.c</a></li>
+<li>VM_ALLOC&#160;:&#160;<a class="el" href="vmalloc_8h.html#a368cef2ce42510c470a6037647d10d10">vmalloc.h</a></li>
+<li>VM_ALLOW_HUGE_VMAP&#160;:&#160;<a class="el" href="vmalloc_8h.html#a87b3a6a6e0d67cb79a31c95bdcd57bdf">vmalloc.h</a></li>
+<li>vm_area_add_early()&#160;:&#160;<a class="el" href="vmalloc_8h.html#ab8c6dfc84af0bb6ee203e906744db264">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#ade3d115cfab652d9c0ec29ff0c6e8135">vmalloc.c</a></li>
 <li>vm_area_map_pages()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a09b9e6fc4db632d52b5893d9e3e27a90">vmalloc.c</a></li>
-<li>vm_area_register_early()&#160;:&#160;<a class="el" href="vmalloc_8c.html#ac0b47269376fe0ceb8a0610f5cce8add">vmalloc.c</a></li>
+<li>vm_area_register_early()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a35acd2398f1281faa7859d4b6ec0ed52">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#ac0b47269376fe0ceb8a0610f5cce8add">vmalloc.c</a></li>
 <li>vm_area_unmap_pages()&#160;:&#160;<a class="el" href="vmalloc_8c.html#ac81142171e3c168ccb0dccfa066d8c51">vmalloc.c</a></li>
-<li>vm_map_ram()&#160;:&#160;<a class="el" href="vmalloc_8c.html#acd02620225f5b290f8935dbc1e45b18e">vmalloc.c</a></li>
-<li>vm_unmap_aliases()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a80f7345092c599bf5a7648045113ae99">vmalloc.c</a></li>
-<li>vm_unmap_ram()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a9a0fddcf890f2c86b2d7e95b75335ce3">vmalloc.c</a></li>
-<li>vmalloc_32_noprof()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a47132a114321960fbb4f457d81929a84">vmalloc.c</a></li>
-<li>vmalloc_32_user_noprof()&#160;:&#160;<a class="el" href="vmalloc_8c.html#af7b40ee00611cbd6404afb1d9ac048b5">vmalloc.c</a></li>
-<li>vmalloc_huge_node_noprof()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a777505867c03034cf31692efd98eba4b">vmalloc.c</a></li>
+<li>VM_DEFER_KMEMLEAK&#160;:&#160;<a class="el" href="vmalloc_8h.html#a39e8d7a956e0d609f89f3908105c4592">vmalloc.h</a></li>
+<li>VM_DMA_COHERENT&#160;:&#160;<a class="el" href="vmalloc_8h.html#afa81448fd8bd60cdd111d3d18683582a">vmalloc.h</a></li>
+<li>VM_FLUSH_RESET_PERMS&#160;:&#160;<a class="el" href="vmalloc_8h.html#a0bca02b8d5d5cc283d8b39502f7c0a6f">vmalloc.h</a></li>
+<li>VM_IOREMAP&#160;:&#160;<a class="el" href="vmalloc_8h.html#a0e9129da5a74c2d5607342039277e938">vmalloc.h</a></li>
+<li>VM_KASAN&#160;:&#160;<a class="el" href="vmalloc_8h.html#a2bea29648c68ee66b4a9e8b4bffd6361">vmalloc.h</a></li>
+<li>VM_MAP&#160;:&#160;<a class="el" href="vmalloc_8h.html#abf5ad359d5be0b62e123ff13d0a1504c">vmalloc.h</a></li>
+<li>VM_MAP_PUT_PAGES&#160;:&#160;<a class="el" href="vmalloc_8h.html#aa0730efe140e67a58748375186ce3885">vmalloc.h</a></li>
+<li>vm_map_ram()&#160;:&#160;<a class="el" href="vmalloc_8h.html#acd02620225f5b290f8935dbc1e45b18e">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#acd02620225f5b290f8935dbc1e45b18e">vmalloc.c</a></li>
+<li>VM_NO_GUARD&#160;:&#160;<a class="el" href="vmalloc_8h.html#aab693f55b52f2ffbb35861ddf6c5daa3">vmalloc.h</a></li>
+<li>VM_SPARSE&#160;:&#160;<a class="el" href="vmalloc_8h.html#aa5b04ed153ac6615d7b127b3269e2179">vmalloc.h</a></li>
+<li>vm_swappiness&#160;:&#160;<a class="el" href="vmscan_8c.html#a3353cba50b91facb2b38035a1bac1727">vmscan.c</a></li>
+<li>VM_UNINITIALIZED&#160;:&#160;<a class="el" href="vmalloc_8h.html#ada6d7140e48da590089ecb27abeeea6f">vmalloc.h</a></li>
+<li>vm_unmap_aliases()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a80f7345092c599bf5a7648045113ae99">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a80f7345092c599bf5a7648045113ae99">vmalloc.c</a></li>
+<li>vm_unmap_ram()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a9a0fddcf890f2c86b2d7e95b75335ce3">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a9a0fddcf890f2c86b2d7e95b75335ce3">vmalloc.c</a></li>
+<li>VM_USERMAP&#160;:&#160;<a class="el" href="vmalloc_8h.html#a81cc3e5712a7ace846ac4fda63996bf6">vmalloc.h</a></li>
+<li>vmalloc&#160;:&#160;<a class="el" href="vmalloc_8h.html#a4fa760a1e23c4b642add844f040ae713">vmalloc.h</a></li>
+<li>vmalloc_32&#160;:&#160;<a class="el" href="vmalloc_8h.html#a77dbad2382c3e4a50ddea513a0707f01">vmalloc.h</a></li>
+<li>vmalloc_32_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#ac6848b9d54cb5091ca63dfcbefa31c9c">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a47132a114321960fbb4f457d81929a84">vmalloc.c</a></li>
+<li>vmalloc_32_user&#160;:&#160;<a class="el" href="vmalloc_8h.html#acd8f9b4506906e6ca4e40df96df20206">vmalloc.h</a></li>
+<li>vmalloc_32_user_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a3d6948aff55023868844e1e7acc7dc24">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#af7b40ee00611cbd6404afb1d9ac048b5">vmalloc.c</a></li>
+<li>vmalloc_array&#160;:&#160;<a class="el" href="vmalloc_8h.html#a01f0fbc1aa2822c31ee6d4d133f8b440">vmalloc.h</a></li>
+<li>vmalloc_array_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#ac7122667f698a4e1d5f56b2d626c0dae">vmalloc.h</a></li>
+<li>vmalloc_huge_node&#160;:&#160;<a class="el" href="vmalloc_8h.html#acf45152e1bd8d16cfd865b33f48b99fb">vmalloc.h</a></li>
+<li>vmalloc_huge_node_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a01cad822997f4c4f9e2a52812b0ee465">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a777505867c03034cf31692efd98eba4b">vmalloc.c</a></li>
 <li>vmalloc_init()&#160;:&#160;<a class="el" href="vmalloc_8c.html#ab07c7ebcaaf28eac4ad5dcd65ea93853">vmalloc.c</a></li>
-<li>vmalloc_node_noprof()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a9ffa472d57190a8380b5f5cec94a61da">vmalloc.c</a></li>
-<li>vmalloc_noprof()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a6ea4fe97fcbd9a903faa781285828e64">vmalloc.c</a></li>
+<li>vmalloc_node&#160;:&#160;<a class="el" href="vmalloc_8h.html#a3b2d920abf792e259839419e3d968148">vmalloc.h</a></li>
+<li>vmalloc_node_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a0b7c63637ea87d83d60146d028461289">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a9ffa472d57190a8380b5f5cec94a61da">vmalloc.c</a></li>
+<li>vmalloc_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a745a0ec4a695b4a615cd738d70b9e91f">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a6ea4fe97fcbd9a903faa781285828e64">vmalloc.c</a></li>
 <li>VMALLOC_PAGES&#160;:&#160;<a class="el" href="vmalloc_8c.html#acd06a06d6f57a608b065b708985daa09">vmalloc.c</a></li>
 <li>VMALLOC_SPACE&#160;:&#160;<a class="el" href="vmalloc_8c.html#a89014c9f21dfa33c68c9a70d446043a5">vmalloc.c</a></li>
 <li>vmalloc_to_page()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a71fc509a3d1848607c05b39386f3a3a1">vmalloc.c</a></li>
 <li>vmalloc_to_pfn()&#160;:&#160;<a class="el" href="vmalloc_8c.html#af4f07edfaa217472bc249bbae951028c">vmalloc.c</a></li>
-<li>vmalloc_user_noprof()&#160;:&#160;<a class="el" href="vmalloc_8c.html#af12cc1ac7f988e9be9c4f3f0a33fe823">vmalloc.c</a></li>
-<li>vmap()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a6abc66bc01119bd5e7bc61dd8f3c6274">vmalloc.c</a></li>
+<li>VMALLOC_TOTAL&#160;:&#160;<a class="el" href="vmalloc_8h.html#a7346086a6de3c2c9d8abeace544984f8">vmalloc.h</a></li>
+<li>vmalloc_user&#160;:&#160;<a class="el" href="vmalloc_8h.html#a05a3f3e79e71ba84906314a0f29cd506">vmalloc.h</a></li>
+<li>vmalloc_user_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a84a7ff920eb1687729b77513aafd82b7">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#af12cc1ac7f988e9be9c4f3f0a33fe823">vmalloc.c</a></li>
+<li>vmap()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a6abc66bc01119bd5e7bc61dd8f3c6274">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a6abc66bc01119bd5e7bc61dd8f3c6274">vmalloc.c</a></li>
 <li>VMAP_BBMAP_BITS&#160;:&#160;<a class="el" href="vmalloc_8c.html#acccc8e96d9b0e085e54f5f8a00e78a25">vmalloc.c</a></li>
 <li>VMAP_BBMAP_BITS_MAX&#160;:&#160;<a class="el" href="vmalloc_8c.html#a0f79ac91c68297030ccf84b25db37865">vmalloc.c</a></li>
 <li>VMAP_BBMAP_BITS_MIN&#160;:&#160;<a class="el" href="vmalloc_8c.html#aff837396f9bc7268b44258e51d0bfe8c">vmalloc.c</a></li>
@@ -151,8 +176,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_v.html
 <li>VMAP_MAX_ALLOC&#160;:&#160;<a class="el" href="vmalloc_8c.html#a67e272fe6d9b3f1d6474859844d31f7b">vmalloc.c</a></li>
 <li>VMAP_MIN&#160;:&#160;<a class="el" href="vmalloc_8c.html#a3c437280b08e1740b770214328b6c20e">vmalloc.c</a></li>
 <li>vmap_page_range()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a39f4a18f90f8c3ce36572d93a59cb22c">vmalloc.c</a></li>
-<li>vmap_pages_range()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a00e002a837662a6657c266ca9a997a2e">vmalloc.c</a></li>
+<li>vmap_pages_range()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a00e002a837662a6657c266ca9a997a2e">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a00e002a837662a6657c266ca9a997a2e">vmalloc.c</a></li>
 <li>vmap_pages_range_noflush()&#160;:&#160;<a class="el" href="vmalloc_8c.html#aa1e0deb33c77529eea2c14940f91bc37">vmalloc.c</a></li>
+<li>vmap_pfn()&#160;:&#160;<a class="el" href="vmalloc_8h.html#ab218c25270faa6b418d9a3859dc066ad">vmalloc.h</a></li>
 <li>VMAP_PURGE_THRESHOLD&#160;:&#160;<a class="el" href="vmalloc_8c.html#ad004d9139df431e84413a6730710e0b3">vmalloc.c</a></li>
 <li>VMAP_RAM&#160;:&#160;<a class="el" href="vmalloc_8c.html#a40190ac44ef0ce580cc1ca2dff4b4b4e">vmalloc.c</a></li>
 <li>vmpressure_to_memcg()&#160;:&#160;<a class="el" href="memcontrol_8c.html#ae77288845f20446390072f678e7a5bb0">memcontrol.c</a></li>
@@ -161,13 +187,20 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_v.html
 <li>VMSCAN_THROTTLE_NOPROGRESS&#160;:&#160;<a class="el" href="mmzone_8h.html#af14e5bfad718e129a885979753be280aa3dceee575ebd4d609fe29311b13194b1">mmzone.h</a></li>
 <li>vmscan_throttle_state&#160;:&#160;<a class="el" href="mmzone_8h.html#af14e5bfad718e129a885979753be280a">mmzone.h</a></li>
 <li>VMSCAN_THROTTLE_WRITEBACK&#160;:&#160;<a class="el" href="mmzone_8h.html#af14e5bfad718e129a885979753be280aac8f8253ea4db22ea0e6ed29c047d4215">mmzone.h</a></li>
-<li>vread_iter()&#160;:&#160;<a class="el" href="vmalloc_8c.html#ad9f5fb23122792d02fb4b9a116bb552d">vmalloc.c</a></li>
-<li>vrealloc_node_align_noprof()&#160;:&#160;<a class="el" href="vmalloc_8c.html#afbf9756d42bb1e07738a4eea213dba47">vmalloc.c</a></li>
-<li>vunmap()&#160;:&#160;<a class="el" href="vmalloc_8c.html#af115207536ac97045f67feba98e766d5">vmalloc.c</a></li>
+<li>vread_iter()&#160;:&#160;<a class="el" href="vmalloc_8h.html#ad9f5fb23122792d02fb4b9a116bb552d">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#ad9f5fb23122792d02fb4b9a116bb552d">vmalloc.c</a></li>
+<li>vrealloc&#160;:&#160;<a class="el" href="vmalloc_8h.html#abcec25323fef6b663262a625402bf1f1">vmalloc.h</a></li>
+<li>vrealloc_node&#160;:&#160;<a class="el" href="vmalloc_8h.html#a576799e803eb199f6f2dd74ca7c34e37">vmalloc.h</a></li>
+<li>vrealloc_node_align&#160;:&#160;<a class="el" href="vmalloc_8h.html#a9e9f6e589cdf47eba9c5f15b8c59ed90">vmalloc.h</a></li>
+<li>vrealloc_node_align_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a5e8f69c662b265347214d2aa20e6a490">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#afbf9756d42bb1e07738a4eea213dba47">vmalloc.c</a></li>
+<li>vrealloc_node_noprof&#160;:&#160;<a class="el" href="vmalloc_8h.html#a58246ca0bb2b12a66c09404d7e6bd90f">vmalloc.h</a></li>
+<li>vrealloc_noprof&#160;:&#160;<a class="el" href="vmalloc_8h.html#af93d29a3ed963b054e488aa4404e3a0e">vmalloc.h</a></li>
+<li>vunmap()&#160;:&#160;<a class="el" href="vmalloc_8h.html#af115207536ac97045f67feba98e766d5">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#af115207536ac97045f67feba98e766d5">vmalloc.c</a></li>
 <li>vunmap_range()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a565049476219e919d8f6dd24ef917cd5">vmalloc.c</a></li>
 <li>vunmap_range_noflush()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a80a3260928d403f4980a094110e6eac2">vmalloc.c</a></li>
-<li>vzalloc_node_noprof()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a95d39aa86e14a500654693099a1735ae">vmalloc.c</a></li>
-<li>vzalloc_noprof()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a2dbfc5e80080d5c4b2a4c165c6edf959">vmalloc.c</a></li>
+<li>vzalloc&#160;:&#160;<a class="el" href="vmalloc_8h.html#a5868566242b769d58025e333da614bee">vmalloc.h</a></li>
+<li>vzalloc_node&#160;:&#160;<a class="el" href="vmalloc_8h.html#a5a98e640b51e42b458cd21d2b92e60f7">vmalloc.h</a></li>
+<li>vzalloc_node_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#ab72e5fd1501ee5bc0ec456497b28f47d">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a95d39aa86e14a500654693099a1735ae">vmalloc.c</a></li>
+<li>vzalloc_noprof()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a64f7afd1e1788467018eb5b9d3c518f3">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a2dbfc5e80080d5c4b2a4c165c6edf959">vmalloc.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,10 +1,19 @@
 var searchData=
 [
-  ['random_5fkmalloc_5fseed_0',['random_kmalloc_seed',['../slab_8h.html#aeb9e5811858b58e1bed33fab1b0d4ccf',1,'slab.h']]],
-  ['rcu_5ffree_1',['rcu_free',['../structslub__percpu__sheaves.html#af9f3456ea78e4820698f1c83f0a35da9',1,'slub_percpu_sheaves']]],
-  ['rcu_5fhead_2',['rcu_head',['../structslab__sheaf.html#a47b06ea81d660f29f50bb5c841cef051',1,'slab_sheaf::rcu_head'],['../structvmap__block.html#a2fe47fc2011b536044f0c821394b43ff',1,'vmap_block::rcu_head']]],
-  ['reclaim_5fwait_3',['reclaim_wait',['../structpglist__data.html#ae45a4278de784a1a742d877b13140a7f',1,'pglist_data']]],
-  ['refaults_4',['refaults',['../structlruvec.html#a3a38d3648608eccac5f7efbf607560f6',1,'lruvec']]],
-  ['release_5fagent_5',['release_agent',['../structcgroup__fs__context.html#ad415ae22b75d2864463b5bb5bc520292',1,'cgroup_fs_context']]],
-  ['root_6',['root',['../structcgroup__fs__context.html#ad00343ca8f285549977f513d0f07dda1',1,'cgroup_fs_context::root'],['../structrb__list.html#a14bce6e7efadf2b004445432af3f3077',1,'rb_list::root']]]
+  ['random_5fkmalloc_5fseed_0',['random_kmalloc_seed',['../include_2linux_2slab_8h.html#aeb9e5811858b58e1bed33fab1b0d4ccf',1,'slab.h']]],
+  ['ranges_1',['ranges',['../structcma.html#afb04d2a1c3b7d37e96db6c758ddd50a5',1,'cma']]],
+  ['rb_5fnode_2',['rb_node',['../structvmap__area.html#a7708377c31d5e0eff5224c835444eaf7',1,'vmap_area']]],
+  ['rcu_5ffree_3',['rcu_free',['../structslub__percpu__sheaves.html#af9f3456ea78e4820698f1c83f0a35da9',1,'slub_percpu_sheaves']]],
+  ['rcu_5fhead_4',['rcu_head',['../structslab.html#a4bc220325d21916aef80acb158c24004',1,'slab::rcu_head'],['../structslab__sheaf.html#a47b06ea81d660f29f50bb5c841cef051',1,'slab_sheaf::rcu_head'],['../structvmap__block.html#a2fe47fc2011b536044f0c821394b43ff',1,'vmap_block::rcu_head']]],
+  ['reciprocal_5fsize_5',['reciprocal_size',['../structkmem__cache.html#a0c55bbf9466495138f58e2898772b8ba',1,'kmem_cache']]],
+  ['reclaim_5fidx_6',['reclaim_idx',['../structscan__control.html#a1b09069243b6fa11ce9ba95e4a18fe0c',1,'scan_control']]],
+  ['reclaim_5fstate_7',['reclaim_state',['../structscan__control.html#aac675657cdd7fb2ef7e21c8dbf2af1bb',1,'scan_control']]],
+  ['reclaim_5fwait_8',['reclaim_wait',['../structpglist__data.html#ae45a4278de784a1a742d877b13140a7f',1,'pglist_data']]],
+  ['red_5fleft_5fpad_9',['red_left_pad',['../structkmem__cache.html#a03a3372359ea34511dc96149a20e7625',1,'kmem_cache']]],
+  ['refaults_10',['refaults',['../structlruvec.html#a3a38d3648608eccac5f7efbf607560f6',1,'lruvec']]],
+  ['refcount_11',['refcount',['../structkmem__cache.html#a3d27babbb3fee8d7f8671bec9c747d92',1,'kmem_cache']]],
+  ['release_5fagent_12',['release_agent',['../structcgroup__fs__context.html#ad415ae22b75d2864463b5bb5bc520292',1,'cgroup_fs_context']]],
+  ['requested_5fsize_13',['requested_size',['../structvm__struct.html#a5bc2dc4d068d331e534dea024fd4ca24',1,'vm_struct']]],
+  ['right_5ffree_14',['right_free',['../structpcpu__block__md.html#a6793dd7d6bb3dd01f511acbad369b9cf',1,'pcpu_block_md']]],
+  ['root_15',['root',['../structcgroup__fs__context.html#ad00343ca8f285549977f513d0f07dda1',1,'cgroup_fs_context::root'],['../structrb__list.html#a14bce6e7efadf2b004445432af3f3077',1,'rb_list::root']]]
 ];

@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structkmem__ca
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="slab_8h_source.html">slab.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -132,9 +132,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a7efebb20f3223f92acdebc7730fd7afa" id="r_a7efebb20f3223f92acdebc7730fd7afa"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a7efebb20f3223f92acdebc7730fd7afa">sheaf_capacity</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>struct <a class="el" href="structkmem__cache__args.html">kmem_cache_args</a> - Less common arguments for <a class="el" href="slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a></p>
+<div class="textblock"><p>struct <a class="el" href="structkmem__cache__args.html">kmem_cache_args</a> - Less common arguments for <a class="el" href="include_2linux_2slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a></p>
 <p>Any uninitialized fields of the structure are interpreted as unused. The exception is @freeptr_offset where %0 is a valid value, so @use_freeptr_offset must be also set to true in order to interpret the field as used. For @useroffset %0 is also valid, but only with non-%0 @usersize.</p>
-<p>When NULL args is passed to <a class="el" href="slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a>, it is equivalent to all fields unused. </p>
+<p>When NULL args is passed to <a class="el" href="include_2linux_2slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a>, it is equivalent to all fields unused. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="aa573dbd1390ac87c6eab589ba28300dd" name="aa573dbd1390ac87c6eab589ba28300dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa573dbd1390ac87c6eab589ba28300dd">&#9670;&#160;</a></span>align</h2>
@@ -202,9 +202,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>@sheaf_capacity: Enable sheaves of given capacity for the cache.</p>
 <p>With a non-zero value, allocations from the cache go through caching arrays called sheaves. Each cpu has a main sheaf that's always present, and a spare sheaf that may be not present. When both become empty, there's an attempt to replace an empty sheaf with a full sheaf from the per-node barn.</p>
-<p>When no full sheaf is available, and gfp flags allow blocking, a sheaf is allocated and filled from slab(s) using bulk allocation. Otherwise the allocation falls back to the normal operation allocating a single object from a slab.</p>
+<p>When no full sheaf is available, and gfp flags allow blocking, a sheaf is allocated and filled from <a class="el" href="structslab.html">slab(s)</a> using bulk allocation. Otherwise the allocation falls back to the normal operation allocating a single object from a slab.</p>
 <p>Analogically when freeing and both percpu sheaves are full, the barn may replace it with an empty sheaf, unless it's over capacity. In that case a sheaf is bulk freed to slab pages.</p>
-<p>The sheaves do not enforce NUMA placement of objects, so allocations via <a class="el" href="slab_8h.html#a27a5f6d0118cdfae88f7237c34056219">kmem_cache_alloc_node()</a> with a node specified other than NUMA_NO_NODE will bypass them.</p>
+<p>The sheaves do not enforce NUMA placement of objects, so allocations via <a class="el" href="include_2linux_2slab_8h.html#a27a5f6d0118cdfae88f7237c34056219">kmem_cache_alloc_node()</a> with a node specified other than NUMA_NO_NODE will bypass them.</p>
 <p>Bulk allocation and free operations also try to use the cpu sheaves and barn, but fallback to using slab pages directly.</p>
 <p>When slub_debug is enabled for the cache, the sheaf_capacity argument is ignored.</p>
 <p>%0 means no sheaves will be created. </p>
@@ -259,7 +259,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/linux/<a class="el" href="slab_8h_source.html">slab.h</a></li>
+<li>include/linux/<a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

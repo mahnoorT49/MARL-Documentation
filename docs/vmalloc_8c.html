@@ -118,12 +118,12 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('vmalloc_8c.htm
   <div class="headertitle"><div class="title">vmalloc.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;linux/vmalloc.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="vmalloc_8h_source.html">linux/vmalloc.h</a>&gt;</code><br />
 <code>#include &lt;linux/mm.h&gt;</code><br />
 <code>#include &lt;linux/module.h&gt;</code><br />
 <code>#include &lt;linux/highmem.h&gt;</code><br />
 <code>#include &lt;linux/sched/signal.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="slab_8h_source.html">linux/slab.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="include_2linux_2slab_8h_source.html">linux/slab.h</a>&gt;</code><br />
 <code>#include &lt;linux/spinlock.h&gt;</code><br />
 <code>#include &lt;linux/interrupt.h&gt;</code><br />
 <code>#include &lt;linux/proc_fs.h&gt;</code><br />
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('vmalloc_8c.htm
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for vmalloc.c:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c__incl.svg" width="4876" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c__incl.svg" width="5194" height="336"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -219,36 +219,36 @@ Functions</h2></td></tr>
 <tr class="memitem:a089bba79efcc56f101339ba5f3793c05" id="r_a089bba79efcc56f101339ba5f3793c05"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a089bba79efcc56f101339ba5f3793c05">__vmap_pages_range_noflush</a> (unsigned long addr, unsigned long end, pgprot_t prot, struct page **pages, unsigned int page_shift)</td></tr>
 <tr class="memitem:aa1e0deb33c77529eea2c14940f91bc37" id="r_aa1e0deb33c77529eea2c14940f91bc37"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa1e0deb33c77529eea2c14940f91bc37">vmap_pages_range_noflush</a> (unsigned long addr, unsigned long end, pgprot_t prot, struct page **pages, unsigned int page_shift, gfp_t gfp_mask)</td></tr>
 <tr class="memitem:a00e002a837662a6657c266ca9a997a2e" id="r_a00e002a837662a6657c266ca9a997a2e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a00e002a837662a6657c266ca9a997a2e">vmap_pages_range</a> (unsigned long addr, unsigned long end, pgprot_t prot, struct page **pages, unsigned int page_shift)</td></tr>
-<tr class="memitem:a09b9e6fc4db632d52b5893d9e3e27a90" id="r_a09b9e6fc4db632d52b5893d9e3e27a90"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a09b9e6fc4db632d52b5893d9e3e27a90">vm_area_map_pages</a> (struct vm_struct *area, unsigned long start, unsigned long end, struct page **pages)</td></tr>
-<tr class="memitem:ac81142171e3c168ccb0dccfa066d8c51" id="r_ac81142171e3c168ccb0dccfa066d8c51"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac81142171e3c168ccb0dccfa066d8c51">vm_area_unmap_pages</a> (struct vm_struct *area, unsigned long start, unsigned long end)</td></tr>
+<tr class="memitem:a09b9e6fc4db632d52b5893d9e3e27a90" id="r_a09b9e6fc4db632d52b5893d9e3e27a90"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a09b9e6fc4db632d52b5893d9e3e27a90">vm_area_map_pages</a> (struct <a class="el" href="structvm__struct.html">vm_struct</a> *area, unsigned long start, unsigned long end, struct page **pages)</td></tr>
+<tr class="memitem:ac81142171e3c168ccb0dccfa066d8c51" id="r_ac81142171e3c168ccb0dccfa066d8c51"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac81142171e3c168ccb0dccfa066d8c51">vm_area_unmap_pages</a> (struct <a class="el" href="structvm__struct.html">vm_struct</a> *area, unsigned long start, unsigned long end)</td></tr>
 <tr class="memitem:ad8d1140e5d3b0e178828da01e85dda93" id="r_ad8d1140e5d3b0e178828da01e85dda93"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad8d1140e5d3b0e178828da01e85dda93">is_vmalloc_or_module_addr</a> (const void *x)</td></tr>
 <tr class="memitem:ab1c2afdd8b6e8000f672774874703ff1" id="r_ab1c2afdd8b6e8000f672774874703ff1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab1c2afdd8b6e8000f672774874703ff1">EXPORT_SYMBOL_GPL</a> (<a class="el" href="#ad8d1140e5d3b0e178828da01e85dda93">is_vmalloc_or_module_addr</a>)</td></tr>
 <tr class="memitem:a71fc509a3d1848607c05b39386f3a3a1" id="r_a71fc509a3d1848607c05b39386f3a3a1"><td class="memItemLeft">struct page *&#160;</td><td class="memItemRight"><a class="el" href="#a71fc509a3d1848607c05b39386f3a3a1">vmalloc_to_page</a> (const void *vmalloc_addr)</td></tr>
 <tr class="memitem:a6e84caff1853975ff5227cca65416925" id="r_a6e84caff1853975ff5227cca65416925"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6e84caff1853975ff5227cca65416925">EXPORT_SYMBOL</a> (<a class="el" href="#a71fc509a3d1848607c05b39386f3a3a1">vmalloc_to_page</a>)</td></tr>
 <tr class="memitem:af4f07edfaa217472bc249bbae951028c" id="r_af4f07edfaa217472bc249bbae951028c"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#af4f07edfaa217472bc249bbae951028c">vmalloc_to_pfn</a> (const void *vmalloc_addr)</td></tr>
 <tr class="memitem:ad5af9fceda91822be4c6cf8d410c78fa" id="r_ad5af9fceda91822be4c6cf8d410c78fa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad5af9fceda91822be4c6cf8d410c78fa">EXPORT_SYMBOL</a> (<a class="el" href="#af4f07edfaa217472bc249bbae951028c">vmalloc_to_pfn</a>)</td></tr>
-<tr class="memitem:af329ed75925298385657632304ab167f" id="r_af329ed75925298385657632304ab167f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af329ed75925298385657632304ab167f">RB_DECLARE_CALLBACKS_MAX</a> (static, free_vmap_area_rb_augment_cb, struct vmap_area, rb_node, unsigned long, subtree_max_size, va_size)</td></tr>
+<tr class="memitem:af329ed75925298385657632304ab167f" id="r_af329ed75925298385657632304ab167f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af329ed75925298385657632304ab167f">RB_DECLARE_CALLBACKS_MAX</a> (static, free_vmap_area_rb_augment_cb, struct <a class="el" href="structvmap__area.html">vmap_area</a>, rb_node, unsigned long, subtree_max_size, va_size)</td></tr>
 <tr class="memitem:a547c47daa166e8cadaaf265ba6b69757" id="r_a547c47daa166e8cadaaf265ba6b69757"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a547c47daa166e8cadaaf265ba6b69757">register_vmap_purge_notifier</a> (struct notifier_block *nb)</td></tr>
 <tr class="memitem:a6e80d5faeec8b99b496c60df43393a2b" id="r_a6e80d5faeec8b99b496c60df43393a2b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6e80d5faeec8b99b496c60df43393a2b">EXPORT_SYMBOL_GPL</a> (<a class="el" href="#a547c47daa166e8cadaaf265ba6b69757">register_vmap_purge_notifier</a>)</td></tr>
 <tr class="memitem:a53df2f1dbd235cb854fe8a1ce017fc53" id="r_a53df2f1dbd235cb854fe8a1ce017fc53"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a53df2f1dbd235cb854fe8a1ce017fc53">unregister_vmap_purge_notifier</a> (struct notifier_block *nb)</td></tr>
 <tr class="memitem:a0ca3b78cc6089e8f840e29852ded5e02" id="r_a0ca3b78cc6089e8f840e29852ded5e02"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0ca3b78cc6089e8f840e29852ded5e02">EXPORT_SYMBOL_GPL</a> (<a class="el" href="#a53df2f1dbd235cb854fe8a1ce017fc53">unregister_vmap_purge_notifier</a>)</td></tr>
-<tr class="memitem:a27fc6020f6bedb8e2ffe7e1bdbd5383c" id="r_a27fc6020f6bedb8e2ffe7e1bdbd5383c"><td class="memItemLeft">struct vmap_area *&#160;</td><td class="memItemRight"><a class="el" href="#a27fc6020f6bedb8e2ffe7e1bdbd5383c">find_vmap_area</a> (unsigned long addr)</td></tr>
+<tr class="memitem:a27fc6020f6bedb8e2ffe7e1bdbd5383c" id="r_a27fc6020f6bedb8e2ffe7e1bdbd5383c"><td class="memItemLeft">struct <a class="el" href="structvmap__area.html">vmap_area</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a27fc6020f6bedb8e2ffe7e1bdbd5383c">find_vmap_area</a> (unsigned long addr)</td></tr>
 <tr class="memitem:a80f7345092c599bf5a7648045113ae99" id="r_a80f7345092c599bf5a7648045113ae99"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a80f7345092c599bf5a7648045113ae99">vm_unmap_aliases</a> (void)</td></tr>
 <tr class="memitem:a5e33efb61a70556d2f9ebb0dbaadfb67" id="r_a5e33efb61a70556d2f9ebb0dbaadfb67"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5e33efb61a70556d2f9ebb0dbaadfb67">EXPORT_SYMBOL_GPL</a> (<a class="el" href="#a80f7345092c599bf5a7648045113ae99">vm_unmap_aliases</a>)</td></tr>
 <tr class="memitem:a9a0fddcf890f2c86b2d7e95b75335ce3" id="r_a9a0fddcf890f2c86b2d7e95b75335ce3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9a0fddcf890f2c86b2d7e95b75335ce3">vm_unmap_ram</a> (const void *mem, unsigned int count)</td></tr>
 <tr class="memitem:a7188cae7332d74f3f3f51d4d00b9c949" id="r_a7188cae7332d74f3f3f51d4d00b9c949"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7188cae7332d74f3f3f51d4d00b9c949">EXPORT_SYMBOL</a> (<a class="el" href="#a9a0fddcf890f2c86b2d7e95b75335ce3">vm_unmap_ram</a>)</td></tr>
 <tr class="memitem:acd02620225f5b290f8935dbc1e45b18e" id="r_acd02620225f5b290f8935dbc1e45b18e"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#acd02620225f5b290f8935dbc1e45b18e">vm_map_ram</a> (struct page **pages, unsigned int count, int node)</td></tr>
 <tr class="memitem:a19f37122032e55e692c0343332748be3" id="r_a19f37122032e55e692c0343332748be3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a19f37122032e55e692c0343332748be3">EXPORT_SYMBOL</a> (<a class="el" href="#acd02620225f5b290f8935dbc1e45b18e">vm_map_ram</a>)</td></tr>
-<tr class="memitem:a31c63ff43f099d7004766481b8eb2a01" id="r_a31c63ff43f099d7004766481b8eb2a01"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a31c63ff43f099d7004766481b8eb2a01">get_vm_area_page_order</a> (struct vm_struct *vm)</td></tr>
-<tr class="memitem:ade3d115cfab652d9c0ec29ff0c6e8135" id="r_ade3d115cfab652d9c0ec29ff0c6e8135"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#ade3d115cfab652d9c0ec29ff0c6e8135">vm_area_add_early</a> (struct vm_struct *vm)</td></tr>
-<tr class="memitem:ac0b47269376fe0ceb8a0610f5cce8add" id="r_ac0b47269376fe0ceb8a0610f5cce8add"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#ac0b47269376fe0ceb8a0610f5cce8add">vm_area_register_early</a> (struct vm_struct *vm, size_t align)</td></tr>
-<tr class="memitem:af575bf68e263ce21bbbe0baca21cc979" id="r_af575bf68e263ce21bbbe0baca21cc979"><td class="memItemLeft">struct vm_struct *&#160;</td><td class="memItemRight"><a class="el" href="#af575bf68e263ce21bbbe0baca21cc979">__get_vm_area_node</a> (unsigned long size, unsigned long align, unsigned long shift, unsigned long flags, unsigned long start, unsigned long end, int node, gfp_t gfp_mask, const void *caller)</td></tr>
-<tr class="memitem:a2c321a3f8c4e82448185d00fbe5d59fc" id="r_a2c321a3f8c4e82448185d00fbe5d59fc"><td class="memItemLeft">struct vm_struct *&#160;</td><td class="memItemRight"><a class="el" href="#a2c321a3f8c4e82448185d00fbe5d59fc">__get_vm_area_caller</a> (unsigned long size, unsigned long flags, unsigned long start, unsigned long end, const void *caller)</td></tr>
-<tr class="memitem:ad435cc2d2a600160f3af2be75e695c02" id="r_ad435cc2d2a600160f3af2be75e695c02"><td class="memItemLeft">struct vm_struct *&#160;</td><td class="memItemRight"><a class="el" href="#ad435cc2d2a600160f3af2be75e695c02">get_vm_area</a> (unsigned long size, unsigned long flags)</td></tr>
+<tr class="memitem:a31c63ff43f099d7004766481b8eb2a01" id="r_a31c63ff43f099d7004766481b8eb2a01"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a31c63ff43f099d7004766481b8eb2a01">get_vm_area_page_order</a> (struct <a class="el" href="structvm__struct.html">vm_struct</a> *vm)</td></tr>
+<tr class="memitem:ade3d115cfab652d9c0ec29ff0c6e8135" id="r_ade3d115cfab652d9c0ec29ff0c6e8135"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#ade3d115cfab652d9c0ec29ff0c6e8135">vm_area_add_early</a> (struct <a class="el" href="structvm__struct.html">vm_struct</a> *vm)</td></tr>
+<tr class="memitem:ac0b47269376fe0ceb8a0610f5cce8add" id="r_ac0b47269376fe0ceb8a0610f5cce8add"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#ac0b47269376fe0ceb8a0610f5cce8add">vm_area_register_early</a> (struct <a class="el" href="structvm__struct.html">vm_struct</a> *vm, size_t align)</td></tr>
+<tr class="memitem:af575bf68e263ce21bbbe0baca21cc979" id="r_af575bf68e263ce21bbbe0baca21cc979"><td class="memItemLeft">struct <a class="el" href="structvm__struct.html">vm_struct</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af575bf68e263ce21bbbe0baca21cc979">__get_vm_area_node</a> (unsigned long size, unsigned long align, unsigned long shift, unsigned long flags, unsigned long start, unsigned long end, int node, gfp_t gfp_mask, const void *caller)</td></tr>
+<tr class="memitem:a2c321a3f8c4e82448185d00fbe5d59fc" id="r_a2c321a3f8c4e82448185d00fbe5d59fc"><td class="memItemLeft">struct <a class="el" href="structvm__struct.html">vm_struct</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a2c321a3f8c4e82448185d00fbe5d59fc">__get_vm_area_caller</a> (unsigned long size, unsigned long flags, unsigned long start, unsigned long end, const void *caller)</td></tr>
+<tr class="memitem:ad435cc2d2a600160f3af2be75e695c02" id="r_ad435cc2d2a600160f3af2be75e695c02"><td class="memItemLeft">struct <a class="el" href="structvm__struct.html">vm_struct</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad435cc2d2a600160f3af2be75e695c02">get_vm_area</a> (unsigned long size, unsigned long flags)</td></tr>
 <tr class="memitem:a7f000feab0e52d878551859ab1f2f225" id="r_a7f000feab0e52d878551859ab1f2f225"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7f000feab0e52d878551859ab1f2f225">EXPORT_SYMBOL</a> (<a class="el" href="#ad435cc2d2a600160f3af2be75e695c02">get_vm_area</a>)</td></tr>
-<tr class="memitem:aba16c8b63bd88ec38cc502bdc37598e4" id="r_aba16c8b63bd88ec38cc502bdc37598e4"><td class="memItemLeft">struct vm_struct *&#160;</td><td class="memItemRight"><a class="el" href="#aba16c8b63bd88ec38cc502bdc37598e4">get_vm_area_caller</a> (unsigned long size, unsigned long flags, const void *caller)</td></tr>
-<tr class="memitem:a15953778ee3f894cc6715d5f7e5bdaed" id="r_a15953778ee3f894cc6715d5f7e5bdaed"><td class="memItemLeft">struct vm_struct *&#160;</td><td class="memItemRight"><a class="el" href="#a15953778ee3f894cc6715d5f7e5bdaed">find_vm_area</a> (const void *addr)</td></tr>
-<tr class="memitem:ae57ef71b686f9e0fa536cd948632082f" id="r_ae57ef71b686f9e0fa536cd948632082f"><td class="memItemLeft">struct vm_struct *&#160;</td><td class="memItemRight"><a class="el" href="#ae57ef71b686f9e0fa536cd948632082f">remove_vm_area</a> (const void *addr)</td></tr>
+<tr class="memitem:aba16c8b63bd88ec38cc502bdc37598e4" id="r_aba16c8b63bd88ec38cc502bdc37598e4"><td class="memItemLeft">struct <a class="el" href="structvm__struct.html">vm_struct</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aba16c8b63bd88ec38cc502bdc37598e4">get_vm_area_caller</a> (unsigned long size, unsigned long flags, const void *caller)</td></tr>
+<tr class="memitem:a15953778ee3f894cc6715d5f7e5bdaed" id="r_a15953778ee3f894cc6715d5f7e5bdaed"><td class="memItemLeft">struct <a class="el" href="structvm__struct.html">vm_struct</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a15953778ee3f894cc6715d5f7e5bdaed">find_vm_area</a> (const void *addr)</td></tr>
+<tr class="memitem:ae57ef71b686f9e0fa536cd948632082f" id="r_ae57ef71b686f9e0fa536cd948632082f"><td class="memItemLeft">struct <a class="el" href="structvm__struct.html">vm_struct</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae57ef71b686f9e0fa536cd948632082f">remove_vm_area</a> (const void *addr)</td></tr>
 <tr class="memitem:a876e3efe295a93f23b3dadee17edb49a" id="r_a876e3efe295a93f23b3dadee17edb49a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a876e3efe295a93f23b3dadee17edb49a">vfree_atomic</a> (const void *addr)</td></tr>
 <tr class="memitem:a2aeead9450a5b920c65bea908edead23" id="r_a2aeead9450a5b920c65bea908edead23"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2aeead9450a5b920c65bea908edead23">vfree</a> (const void *addr)</td></tr>
 <tr class="memitem:aa5a26bd035e4db456863ccb9b65d88f5" id="r_aa5a26bd035e4db456863ccb9b65d88f5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa5a26bd035e4db456863ccb9b65d88f5">EXPORT_SYMBOL</a> (<a class="el" href="#a2aeead9450a5b920c65bea908edead23">vfree</a>)</td></tr>
@@ -284,7 +284,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a4cf06feeca551e895c56816fa2aad779" id="r_a4cf06feeca551e895c56816fa2aad779"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4cf06feeca551e895c56816fa2aad779">remap_vmalloc_range_partial</a> (struct vm_area_struct *vma, unsigned long uaddr, void *kaddr, unsigned long pgoff, unsigned long size)</td></tr>
 <tr class="memitem:a0cb5dbe0a4270c86c2eb4d40252a1be7" id="r_a0cb5dbe0a4270c86c2eb4d40252a1be7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0cb5dbe0a4270c86c2eb4d40252a1be7">remap_vmalloc_range</a> (struct vm_area_struct *vma, void *addr, unsigned long pgoff)</td></tr>
 <tr class="memitem:a31f50bdfa2856164724bdd4605675af6" id="r_a31f50bdfa2856164724bdd4605675af6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a31f50bdfa2856164724bdd4605675af6">EXPORT_SYMBOL</a> (<a class="el" href="#a0cb5dbe0a4270c86c2eb4d40252a1be7">remap_vmalloc_range</a>)</td></tr>
-<tr class="memitem:aef11fbe09279a47f2b64adee7d75b1e0" id="r_aef11fbe09279a47f2b64adee7d75b1e0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aef11fbe09279a47f2b64adee7d75b1e0">free_vm_area</a> (struct vm_struct *area)</td></tr>
+<tr class="memitem:aef11fbe09279a47f2b64adee7d75b1e0" id="r_aef11fbe09279a47f2b64adee7d75b1e0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aef11fbe09279a47f2b64adee7d75b1e0">free_vm_area</a> (struct <a class="el" href="structvm__struct.html">vm_struct</a> *area)</td></tr>
 <tr class="memitem:a6b87f56be78d5fcf88e33899384aaa32" id="r_a6b87f56be78d5fcf88e33899384aaa32"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6b87f56be78d5fcf88e33899384aaa32">EXPORT_SYMBOL_GPL</a> (<a class="el" href="#aef11fbe09279a47f2b64adee7d75b1e0">free_vm_area</a>)</td></tr>
 <tr class="memitem:ab07c7ebcaaf28eac4ad5dcd65ea93853" id="r_ab07c7ebcaaf28eac4ad5dcd65ea93853"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#ab07c7ebcaaf28eac4ad5dcd65ea93853">vmalloc_init</a> (void)</td></tr>
 </table>
@@ -657,7 +657,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct vm_struct * __get_vm_area_caller </td>
+          <td class="memname">struct <a class="el" href="structvm__struct.html">vm_struct</a> * __get_vm_area_caller </td>
           <td>(</td>
           <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
         </tr>
@@ -698,7 +698,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct vm_struct * __get_vm_area_node </td>
+          <td class="memname">struct <a class="el" href="structvm__struct.html">vm_struct</a> * __get_vm_area_node </td>
           <td>(</td>
           <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
         </tr>
@@ -862,7 +862,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>__vmalloc_node_range - allocate virtually contiguous memory @size: allocation size @align: desired alignment @start: vm area range start @end: vm area range end @gfp_mask: flags for the page level allocator @prot: protection mask for the allocated pages @vm_flags: additional vm area flags (e.g. VM_NO_GUARD) @node: node to use for allocation or NUMA_NO_NODE @caller: caller's return address</p>
 <p>Allocate enough pages to cover @size from the page level allocator with @gfp_mask flags and map them into contiguous virtual range with protection @prot.</p>
-<p>Supported GFP classes: GFP_KERNEL, GFP_ATOMIC, GFP_NOWAIT, GFP_NOFS and GFP_NOIO. Zone modifiers are not supported. Please note GFP_ATOMIC and GFP_NOWAIT are supported only by __vmalloc().</p>
+<p>Supported GFP classes: GFP_KERNEL, GFP_ATOMIC, GFP_NOWAIT, GFP_NOFS and GFP_NOIO. Zone modifiers are not supported. Please note GFP_ATOMIC and GFP_NOWAIT are supported only by <a class="el" href="vmalloc_8h.html#abf4d6ac386bd660cbdd449b5cfefc11d">__vmalloc()</a>.</p>
 <p>Retry modifiers: only __GFP_NOFAIL is supported; __GFP_NORETRY and __GFP_RETRY_MAYFAIL are not supported.</p>
 <p>__GFP_NOWARN can be used to suppress failure messages.</p>
 <p>Can not be called from interrupt nor NMI contexts. Return: the address of the area or NULL on failure </p>
@@ -986,7 +986,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a1354f64307b6cb0522f3e6648f86239a">__vmalloc_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#aeb6040703261f85263641356d7a34544">__vmalloc_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1008,7 +1008,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#ad435cc2d2a600160f3af2be75e695c02">get_vm_area</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#ad435cc2d2a600160f3af2be75e695c02">get_vm_area</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1052,7 +1052,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a0cb5dbe0a4270c86c2eb4d40252a1be7">remap_vmalloc_range</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a0cb5dbe0a4270c86c2eb4d40252a1be7">remap_vmalloc_range</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1074,7 +1074,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a2aeead9450a5b920c65bea908edead23">vfree</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vfree</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1096,7 +1096,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#acd02620225f5b290f8935dbc1e45b18e">vm_map_ram</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#acd02620225f5b290f8935dbc1e45b18e">vm_map_ram</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1118,7 +1118,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a9a0fddcf890f2c86b2d7e95b75335ce3">vm_unmap_ram</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a9a0fddcf890f2c86b2d7e95b75335ce3">vm_unmap_ram</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1140,7 +1140,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a47132a114321960fbb4f457d81929a84">vmalloc_32_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#ac6848b9d54cb5091ca63dfcbefa31c9c">vmalloc_32_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1162,7 +1162,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#af7b40ee00611cbd6404afb1d9ac048b5">vmalloc_32_user_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a3d6948aff55023868844e1e7acc7dc24">vmalloc_32_user_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1184,7 +1184,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a9ffa472d57190a8380b5f5cec94a61da">vmalloc_node_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a0b7c63637ea87d83d60146d028461289">vmalloc_node_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1206,7 +1206,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a6ea4fe97fcbd9a903faa781285828e64">vmalloc_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a745a0ec4a695b4a615cd738d70b9e91f">vmalloc_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1272,7 +1272,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#af12cc1ac7f988e9be9c4f3f0a33fe823">vmalloc_user_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a84a7ff920eb1687729b77513aafd82b7">vmalloc_user_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1294,7 +1294,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a6abc66bc01119bd5e7bc61dd8f3c6274">vmap</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a6abc66bc01119bd5e7bc61dd8f3c6274">vmap</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1316,7 +1316,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#afbf9756d42bb1e07738a4eea213dba47">vrealloc_node_align_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a5e8f69c662b265347214d2aa20e6a490">vrealloc_node_align_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1338,7 +1338,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#af115207536ac97045f67feba98e766d5">vunmap</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#af115207536ac97045f67feba98e766d5">vunmap</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1360,7 +1360,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a95d39aa86e14a500654693099a1735ae">vzalloc_node_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#ab72e5fd1501ee5bc0ec456497b28f47d">vzalloc_node_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1382,7 +1382,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a2dbfc5e80080d5c4b2a4c165c6edf959">vzalloc_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a64f7afd1e1788467018eb5b9d3c518f3">vzalloc_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1404,7 +1404,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL_GPL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#aef11fbe09279a47f2b64adee7d75b1e0">free_vm_area</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#aef11fbe09279a47f2b64adee7d75b1e0">free_vm_area</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1448,7 +1448,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL_GPL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a547c47daa166e8cadaaf265ba6b69757">register_vmap_purge_notifier</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a547c47daa166e8cadaaf265ba6b69757">register_vmap_purge_notifier</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1470,7 +1470,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL_GPL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a53df2f1dbd235cb854fe8a1ce017fc53">unregister_vmap_purge_notifier</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a53df2f1dbd235cb854fe8a1ce017fc53">unregister_vmap_purge_notifier</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1492,7 +1492,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL_GPL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a80f7345092c599bf5a7648045113ae99">vm_unmap_aliases</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a80f7345092c599bf5a7648045113ae99">vm_unmap_aliases</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1514,7 +1514,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL_GPL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a777505867c03034cf31692efd98eba4b">vmalloc_huge_node_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="vmalloc_8h.html#a01cad822997f4c4f9e2a52812b0ee465">vmalloc_huge_node_noprof</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1534,7 +1534,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct vm_struct * find_vm_area </td>
+          <td class="memname">struct <a class="el" href="structvm__struct.html">vm_struct</a> * find_vm_area </td>
           <td>(</td>
           <td class="paramtype">const void *</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
@@ -1564,7 +1564,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct vmap_area * find_vmap_area </td>
+          <td class="memname">struct <a class="el" href="structvmap__area.html">vmap_area</a> * find_vmap_area </td>
           <td>(</td>
           <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
@@ -1588,7 +1588,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void free_vm_area </td>
           <td>(</td>
-          <td class="paramtype">struct vm_struct *</td>          <td class="paramname"><span class="paramname"><em>area</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structvm__struct.html">vm_struct</a> *</td>          <td class="paramname"><span class="paramname"><em>area</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1613,7 +1613,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct vm_struct * get_vm_area </td>
+          <td class="memname">struct <a class="el" href="structvm__struct.html">vm_struct</a> * get_vm_area </td>
           <td>(</td>
           <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
         </tr>
@@ -1647,7 +1647,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct vm_struct * get_vm_area_caller </td>
+          <td class="memname">struct <a class="el" href="structvm__struct.html">vm_struct</a> * get_vm_area_caller </td>
           <td>(</td>
           <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
         </tr>
@@ -1685,7 +1685,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">unsigned int get_vm_area_page_order </td>
           <td>(</td>
-          <td class="paramtype">struct vm_struct *</td>          <td class="paramname"><span class="paramname"><em>vm</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structvm__struct.html">vm_struct</a> *</td>          <td class="paramname"><span class="paramname"><em>vm</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1746,7 +1746,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_a11f4356743c8b35598174fba5035aee5_icgraph.svg" width="1186" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_a11f4356743c8b35598174fba5035aee5_icgraph.svg" width="1242" height="863"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1773,7 +1773,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_ad8d1140e5d3b0e178828da01e85dda93_icgraph.svg" width="990" height="276"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_ad8d1140e5d3b0e178828da01e85dda93_icgraph.svg" width="1044" height="454"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1831,7 +1831,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct vmap_area</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structvmap__area.html">vmap_area</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1977,7 +1977,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct vm_struct * remove_vm_area </td>
+          <td class="memname">struct <a class="el" href="structvm__struct.html">vm_struct</a> * remove_vm_area </td>
           <td>(</td>
           <td class="paramtype">const void *</td>          <td class="paramname"><span class="paramname"><em>addr</em></span></td><td>)</td>
           <td></td>
@@ -1990,7 +1990,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_ae57ef71b686f9e0fa536cd948632082f_icgraph.svg" width="908" height="408"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_ae57ef71b686f9e0fa536cd948632082f_icgraph.svg" width="911" height="586"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -2031,8 +2031,8 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>vfree - Release memory allocated by vmalloc() @addr: Memory base address</p>
-<p>Free the virtually continuous memory area starting at @addr, as obtained from one of the vmalloc() family of APIs. This will usually also free the physical memory underlying the virtual allocation, but that memory is reference counted, so it will not be freed until the last user goes away.</p>
+<p>vfree - Release memory allocated by <a class="el" href="vmalloc_8h.html#a4fa760a1e23c4b642add844f040ae713">vmalloc()</a> @addr: Memory base address</p>
+<p>Free the virtually continuous memory area starting at @addr, as obtained from one of the <a class="el" href="vmalloc_8h.html#a4fa760a1e23c4b642add844f040ae713">vmalloc()</a> family of APIs. This will usually also free the physical memory underlying the virtual allocation, but that memory is reference counted, so it will not be freed until the last user goes away.</p>
 <p>If @addr is NULL, no operation is performed.</p>
 <p>Context: May sleep if called <em>not</em> from interrupt context. Must not be called in NMI context (strictly speaking, it could be if we have CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG, but making the calling conventions for <a class="el" href="#a2aeead9450a5b920c65bea908edead23">vfree()</a> arch-dependent would be a really bad idea). </p>
 <div class="dynheader">
@@ -2043,7 +2043,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_a2aeead9450a5b920c65bea908edead23_icgraph.svg" width="655" height="311"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_a2aeead9450a5b920c65bea908edead23_icgraph.svg" width="659" height="459"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -2062,7 +2062,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>vfree_atomic - release memory allocated by vmalloc() @addr: memory base address</p>
+<p>vfree_atomic - release memory allocated by <a class="el" href="vmalloc_8h.html#a4fa760a1e23c4b642add844f040ae713">vmalloc()</a> @addr: memory base address</p>
 <p>This one is just like <a class="el" href="#a2aeead9450a5b920c65bea908edead23">vfree()</a> but can be called in any atomic context except NMIs. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
@@ -2072,7 +2072,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_a876e3efe295a93f23b3dadee17edb49a_icgraph.svg" width="800" height="311"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_a876e3efe295a93f23b3dadee17edb49a_icgraph.svg" width="803" height="459"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -2086,12 +2086,12 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void __init vm_area_add_early </td>
           <td>(</td>
-          <td class="paramtype">struct vm_struct *</td>          <td class="paramname"><span class="paramname"><em>vm</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structvm__struct.html">vm_struct</a> *</td>          <td class="paramname"><span class="paramname"><em>vm</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>vm_area_add_early - add vmap area early during boot @vm: vm_struct to add</p>
+<p>vm_area_add_early - add vmap area early during boot @vm: <a class="el" href="structvm__struct.html">vm_struct</a> to add</p>
 <p>This function is used to add fixed kernel vm area to vmlist before <a class="el" href="#ab07c7ebcaaf28eac4ad5dcd65ea93853">vmalloc_init()</a> is called. @vm-&gt;addr, @vm-&gt;size, and @vm-&gt;flags should contain proper values and the other fields should be zero.</p>
 <p>DO NOT USE THIS FUNCTION UNLESS YOU KNOW WHAT YOU'RE DOING. </p>
 
@@ -2106,7 +2106,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">int vm_area_map_pages </td>
           <td>(</td>
-          <td class="paramtype">struct vm_struct *</td>          <td class="paramname"><span class="paramname"><em>area</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structvm__struct.html">vm_struct</a> *</td>          <td class="paramname"><span class="paramname"><em>area</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2143,7 +2143,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void __init vm_area_register_early </td>
           <td>(</td>
-          <td class="paramtype">struct vm_struct *</td>          <td class="paramname"><span class="paramname"><em>vm</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structvm__struct.html">vm_struct</a> *</td>          <td class="paramname"><span class="paramname"><em>vm</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2152,7 +2152,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>vm_area_register_early - register vmap area early during boot @vm: vm_struct to register @align: requested alignment</p>
+<p>vm_area_register_early - register vmap area early during boot @vm: <a class="el" href="structvm__struct.html">vm_struct</a> to register @align: requested alignment</p>
 <p>This function is used to register kernel vm area before <a class="el" href="#ab07c7ebcaaf28eac4ad5dcd65ea93853">vmalloc_init()</a> is called. @vm-&gt;size and @vm-&gt;flags should contain proper values on entry and other fields should be zero. On return, vm-&gt;addr contains the allocated address.</p>
 <p>DO NOT USE THIS FUNCTION UNLESS YOU KNOW WHAT YOU'RE DOING. </p>
 
@@ -2167,7 +2167,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void vm_area_unmap_pages </td>
           <td>(</td>
-          <td class="paramtype">struct vm_struct *</td>          <td class="paramname"><span class="paramname"><em>area</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structvm__struct.html">vm_struct</a> *</td>          <td class="paramname"><span class="paramname"><em>area</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2417,7 +2417,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>vmalloc_node - allocate memory on a specific node @size: allocation size @node: numa node</p>
 <p>Allocate enough pages to cover @size from the page level allocator and map them into contiguous kernel virtual space.</p>
-<p>For tight control over page level allocator and protection flags use __vmalloc() instead.</p>
+<p>For tight control over page level allocator and protection flags use <a class="el" href="vmalloc_8h.html#abf4d6ac386bd660cbdd449b5cfefc11d">__vmalloc()</a> instead.</p>
 <p>Return: pointer to the allocated memory or NULL on error </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
@@ -2448,7 +2448,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>vmalloc - allocate virtually contiguous memory @size: allocation size</p>
 <p>Allocate enough pages to cover @size from the page level allocator and map them into contiguous kernel virtual space.</p>
-<p>For tight control over page level allocator and protection flags use __vmalloc() instead.</p>
+<p>For tight control over page level allocator and protection flags use <a class="el" href="vmalloc_8h.html#abf4d6ac386bd660cbdd449b5cfefc11d">__vmalloc()</a> instead.</p>
 <p>Return: pointer to the allocated memory or NULL on error </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
@@ -2485,7 +2485,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_a71fc509a3d1848607c05b39386f3a3a1_icgraph.svg" width="708" height="276"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="vmalloc_8c_a71fc509a3d1848607c05b39386f3a3a1_icgraph.svg" width="763" height="454"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -2741,8 +2741,8 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p><a class="el" href="#ad9f5fb23122792d02fb4b9a116bb552d">vread_iter()</a> - read vmalloc area in a safe way to an iterator. @iter: the iterator to which data should be written. @addr: vm address. @count: number of bytes to be read.</p>
 <p>This function checks that addr is a valid vmalloc'ed area, and copy data from that area to a given buffer. If the given memory range of [addr...addr+count) includes some valid address, data is copied to proper area of @buf. If there are memory holes, they'll be zero-filled. IOREMAP area is treated as memory hole and no copy is done.</p>
-<p>If [addr...addr+count) doesn't includes any intersects with alive vm_struct area, returns 0. @buf should be kernel's buffer.</p>
-<p>Note: In usual ops, vread() is never necessary because the caller should know vmalloc() area is valid and can use memcpy(). This is for routines which have to access vmalloc area without any information, as /proc/kcore.</p>
+<p>If [addr...addr+count) doesn't includes any intersects with alive <a class="el" href="structvm__struct.html">vm_struct</a> area, returns 0. @buf should be kernel's buffer.</p>
+<p>Note: In usual ops, vread() is never necessary because the caller should know <a class="el" href="vmalloc_8h.html#a4fa760a1e23c4b642add844f040ae713">vmalloc()</a> area is valid and can use memcpy(). This is for routines which have to access vmalloc area without any information, as /proc/kcore.</p>
 <p>Return: number of bytes for which addr and buf should be increased (same number as @count) or %0 if [addr...addr+count) doesn't include any intersection with valid vmalloc area </p>
 
 </div>
@@ -2945,7 +2945,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>vzalloc - allocate virtually contiguous memory with zero fill @size: allocation size</p>
 <p>Allocate enough pages to cover @size from the page level allocator and map them into contiguous kernel virtual space. The memory allocated is set to zero.</p>
-<p>For tight control over page level allocator and protection flags use __vmalloc() instead.</p>
+<p>For tight control over page level allocator and protection flags use <a class="el" href="vmalloc_8h.html#abf4d6ac386bd660cbdd449b5cfefc11d">__vmalloc()</a> instead.</p>
 <p>Return: pointer to the allocated memory or NULL on error </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>

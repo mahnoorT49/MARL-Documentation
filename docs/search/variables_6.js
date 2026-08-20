@@ -1,12 +1,22 @@
 var searchData=
 [
   ['failcnt_0',['failcnt',['../structpage__counter.html#a998c7490a5b7a9c5bf710a908659af9a',1,'page_counter']]],
-  ['file_5fcost_1',['file_cost',['../structlruvec.html#a32fac3e332313df8b7c37ee91611b97c',1,'lruvec']]],
-  ['flags_2',['flags',['../structlruvec.html#a1935dbb69bc7dfec1a02b41644f08cb7',1,'lruvec::flags'],['../structper__cpu__pages.html#a67ed071045bbc9f5a452d8698b4a4acd',1,'per_cpu_pages::flags'],['../structzone.html#a78ad0dd8cf367cc356c1afd7e3460cc3',1,'zone::flags'],['../structpglist__data.html#ae5f3a76d97901671245d5dd3cf031ee0',1,'pglist_data::flags'],['../structcgroup__fs__context.html#aac4a000134257176684ac7450be454d9',1,'cgroup_fs_context::flags'],['../structmemcg__stock__pcp.html#a448ae31a95f3e82ac66059440b6587e5',1,'memcg_stock_pcp::flags'],['../structobj__stock__pcp.html#a184f69281524675016760948e0a34faa',1,'obj_stock_pcp::flags'],['../structpartial__context.html#aedba6a9331b84c3b1b20c7b0ec6d1abb',1,'partial_context::flags'],['../structpartial__bulk__context.html#a3b70076ffb6a5b1341c8193f63efdd3f',1,'partial_bulk_context::flags'],['../slab_8h.html#a87339f115a0975a129ebf95946fe26d6',1,'flags:&#160;slab.h']]],
-  ['free_3',['free',['../structvmap__block__queue.html#a768d911f4130c6e128412deee29725de',1,'vmap_block_queue::free'],['../structvmap__block.html#a951945b79431ea05f4242eebb58188e6',1,'vmap_block::free']]],
-  ['free_5farea_4',['free_area',['../structzone.html#a1d4db213c79fc88399e72efc7d8692fd',1,'zone']]],
-  ['free_5fcount_5',['free_count',['../structper__cpu__pages.html#a22ca01a295c418c073e57a01698cb978',1,'per_cpu_pages']]],
-  ['free_5flist_6',['free_list',['../structfree__area.html#a63e2ec718d712a5df94ed5dd85414334',1,'free_area::free_list'],['../structvmap__block.html#a4e262e88c0b935f2ee78366b04e041c3',1,'vmap_block::free_list']]],
-  ['freelist_7',['freelist',['../structdetached__freelist.html#a792c6eccd920279229b7367bbac93cfd',1,'detached_freelist']]],
-  ['freeptr_5foffset_8',['freeptr_offset',['../structkmem__cache__args.html#a3d50163dd13c6090455a91a9c8079eea',1,'kmem_cache_args']]]
+  ['file_5fcost_1',['file_cost',['../structlruvec.html#a32fac3e332313df8b7c37ee91611b97c',1,'lruvec::file_cost'],['../structscan__control.html#a1cddb1949c30bf5fcd00ccdcd8d6404d',1,'scan_control::file_cost']]],
+  ['file_5fis_5ftiny_2',['file_is_tiny',['../structscan__control.html#a870d2a7178cb604ed21f87229963430d',1,'scan_control']]],
+  ['file_5ftaken_3',['file_taken',['../structscan__control.html#a03f061d554fc4642fb13e54fed9cf321',1,'scan_control']]],
+  ['first_5ffree_4',['first_free',['../structpcpu__block__md.html#afff382af3cb0c39612270b9ee00e9f37',1,'pcpu_block_md']]],
+  ['first_5fzpdesc_5',['first_zpdesc',['../structzspage.html#aca366812f1404dba7490b2f337e14747',1,'zspage']]],
+  ['flags_6',['flags',['../structcma.html#ac53840d37f1734d46308dd1b33e4f50e',1,'cma::flags'],['../structlruvec.html#a1935dbb69bc7dfec1a02b41644f08cb7',1,'lruvec::flags'],['../structper__cpu__pages.html#a67ed071045bbc9f5a452d8698b4a4acd',1,'per_cpu_pages::flags'],['../structzone.html#a78ad0dd8cf367cc356c1afd7e3460cc3',1,'zone::flags'],['../structpglist__data.html#ae5f3a76d97901671245d5dd3cf031ee0',1,'pglist_data::flags'],['../structswap__cluster__info.html#a3d5c6a6f6ef013d1d54103d7d23fdd5f',1,'swap_cluster_info::flags'],['../structvm__struct.html#a8c456bd222e970dc349ea9a63eef5261',1,'vm_struct::flags'],['../structvmap__area.html#a919b570a07b248fc93c0c305ee6bb499',1,'vmap_area::flags'],['../structcgroup__fs__context.html#aac4a000134257176684ac7450be454d9',1,'cgroup_fs_context::flags'],['../structmemcg__stock__pcp.html#a448ae31a95f3e82ac66059440b6587e5',1,'memcg_stock_pcp::flags'],['../structobj__stock__pcp.html#a184f69281524675016760948e0a34faa',1,'obj_stock_pcp::flags'],['../structslab.html#adc7797ec3f598c4174c5abc0e1702cf8',1,'slab::flags'],['../structkmem__cache.html#a9dfd0efce4d2a009f4b5ea43940620cb',1,'kmem_cache::flags'],['../structpartial__context.html#aedba6a9331b84c3b1b20c7b0ec6d1abb',1,'partial_context::flags'],['../structpartial__bulk__context.html#a3b70076ffb6a5b1341c8193f63efdd3f',1,'partial_bulk_context::flags'],['../include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6',1,'flags:&#160;slab.h']]],
+  ['force_5fdeactivate_7',['force_deactivate',['../structscan__control.html#afaeb85e80d4518721388059c8357cead',1,'scan_control']]],
+  ['free_8',['free',['../structmempool.html#acf0b53cf836c29dda99f27721c56cda2',1,'mempool::free'],['../structvmap__block__queue.html#a768d911f4130c6e128412deee29725de',1,'vmap_block_queue::free'],['../structvmap__block.html#a951945b79431ea05f4242eebb58188e6',1,'vmap_block::free']]],
+  ['free_5farea_9',['free_area',['../structzone.html#a1d4db213c79fc88399e72efc7d8692fd',1,'zone']]],
+  ['free_5fbytes_10',['free_bytes',['../structpcpu__chunk.html#af83f80e7e925decbc4de9102435c13be',1,'pcpu_chunk']]],
+  ['free_5fcount_11',['free_count',['../structper__cpu__pages.html#a22ca01a295c418c073e57a01698cb978',1,'per_cpu_pages']]],
+  ['free_5flist_12',['free_list',['../structfree__area.html#a63e2ec718d712a5df94ed5dd85414334',1,'free_area::free_list'],['../structvmap__block.html#a4e262e88c0b935f2ee78366b04e041c3',1,'vmap_block::free_list']]],
+  ['freelist_13',['freelist',['../structfreelist__counters.html#a541281c99905848431c0e6586ab318fc',1,'freelist_counters::freelist'],['../structdetached__freelist.html#a792c6eccd920279229b7367bbac93cfd',1,'detached_freelist::freelist']]],
+  ['freeobj_14',['freeobj',['../structzspage.html#a3483e5b61da2cf53fb395867c214d180',1,'zspage']]],
+  ['freeptr_5foffset_15',['freeptr_offset',['../structkmem__cache__args.html#a3d50163dd13c6090455a91a9c8079eea',1,'kmem_cache_args']]],
+  ['frozen_16',['frozen',['../structfreelist__counters.html#a9be7578759667fe4f8494528537b81dc',1,'freelist_counters']]],
+  ['fullness_17',['fullness',['../structzspage.html#a4d461592e86d4b52e89b6022492bb9d4',1,'zspage']]],
+  ['fullness_5flist_18',['fullness_list',['../structsize__class.html#a2f628e42d09ef5657993f499ff602f4f',1,'size_class']]]
 ];

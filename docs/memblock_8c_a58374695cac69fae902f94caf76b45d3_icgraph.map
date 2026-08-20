@@ -1,5 +1,11 @@
 <map id="memblock_phys_free" name="memblock_phys_free">
-<area shape="rect" id="Node000001" title=" " alt="" coords="164,5,309,32"/>
-<area shape="rect" id="Node000002" href="$memblock_8c.html#af4e17523d4c9b63515e60d6e0c002e21" title=" " alt="" coords="5,5,116,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,19,116,21,116,16,150,18"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="600,43,746,69"/>
+<area shape="rect" id="Node000002" href="$cma_8c.html#a8069ccd7aae99dd4d6e5a139f23a5345" title=" " alt="" coords="387,5,552,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="582,43,553,41,553,36,588,43"/>
+<area shape="rect" id="Node000003" href="$memblock_8c.html#af4e17523d4c9b63515e60d6e0c002e21" title=" " alt="" coords="414,72,525,99"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="588,68,526,80,525,75,583,69"/>
+<area shape="rect" id="Node000004" href="$percpu_8c.html#a3da9f6b222a8fa24f6da4456c4ebaf2d" title=" " alt="" coords="199,72,339,99"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="396,85,340,88,339,83,402,85"/>
+<area shape="rect" id="Node000005" href="$percpu_8c.html#ac8b82138ec0a2b741025f4448ceded55" title=" " alt="" coords="5,72,151,99"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="181,85,151,88,151,83,186,85"/>
 </map>

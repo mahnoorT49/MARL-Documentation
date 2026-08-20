@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pg_5fdata_5ft_0',['pg_data_t',['../mmzone_8h.html#ac77dec54d61bde469fa83c52f7615340',1,'mmzone.h']]]
+  ['kmem_5fbuckets_0',['kmem_buckets',['../include_2linux_2slab_8h.html#a7a9f1b6f32b0c51c6b6094a309a0928f',1,'slab.h']]]
 ];

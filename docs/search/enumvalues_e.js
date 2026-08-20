@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['vmscan_5fthrottle_5fcongested_0',['VMSCAN_THROTTLE_CONGESTED',['../mmzone_8h.html#af14e5bfad718e129a885979753be280aa46f6b0f5b4ce0c45402302054d0b5aab',1,'mmzone.h']]],
-  ['vmscan_5fthrottle_5fisolated_1',['VMSCAN_THROTTLE_ISOLATED',['../mmzone_8h.html#af14e5bfad718e129a885979753be280aae901b6cc5633c78c4a1452411920e68d',1,'mmzone.h']]],
-  ['vmscan_5fthrottle_5fnoprogress_2',['VMSCAN_THROTTLE_NOPROGRESS',['../mmzone_8h.html#af14e5bfad718e129a885979753be280aa3dceee575ebd4d609fe29311b13194b1',1,'mmzone.h']]],
-  ['vmscan_5fthrottle_5fwriteback_3',['VMSCAN_THROTTLE_WRITEBACK',['../mmzone_8h.html#af14e5bfad718e129a885979753be280aac8f8253ea4db22ea0e6ed29c047d4215',1,'mmzone.h']]]
+  ['track_5falloc_0',['TRACK_ALLOC',['../slub_8c.html#a1ab285278f6aadbcc5642de1ac8132dca04bc065371a1532fccc8c815ee4359e1',1,'slub.c']]],
+  ['track_5ffree_1',['TRACK_FREE',['../slub_8c.html#a1ab285278f6aadbcc5642de1ac8132dca556c78dd6818801ab4a7a8cded450d58',1,'slub.c']]]
 ];

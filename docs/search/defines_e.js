@@ -1,23 +1,13 @@
 var searchData=
 [
-  ['page_5falloc_5fcostly_5forder_0',['PAGE_ALLOC_COSTLY_ORDER',['../mmzone_8h.html#a243a5537279d199adcb7cd9eb0efda25',1,'mmzone.h']]],
-  ['page_5fblock_5fmax_5forder_1',['PAGE_BLOCK_MAX_ORDER',['../mmzone_8h.html#aab5758dae67845c55e1d72c626b4aa2e',1,'mmzone.h']]],
-  ['page_5fcounter_5fmax_2',['PAGE_COUNTER_MAX',['../page__counter_8h.html#a7095311e0ca4511db9f1cabcb9531164',1,'page_counter.h']]],
-  ['pass_5fbucket_5fparam_3',['PASS_BUCKET_PARAM',['../slab_8h.html#a7d24a73e1c9a0fe65cb20098db5cf9f7',1,'slab.h']]],
-  ['pass_5fbucket_5fparams_4',['PASS_BUCKET_PARAMS',['../slab_8h.html#a7b69d6967fe4216a5169ba9d2a596a52',1,'slab.h']]],
-  ['pcp_5fspin_5flock_5fmaybe_5firqsave_5',['pcp_spin_lock_maybe_irqsave',['../page__alloc_8c.html#ac8111277462a243af04b225e556af6ce',1,'page_alloc.c']]],
-  ['pcp_5fspin_5ftrylock_6',['pcp_spin_trylock',['../page__alloc_8c.html#acb9cdda6e740d6775ebde167007b55de',1,'page_alloc.c']]],
-  ['pcp_5fspin_5funlock_7',['pcp_spin_unlock',['../page__alloc_8c.html#a8501ab68e8e1bbb16ae6dddb2bbe2b3c',1,'page_alloc.c']]],
-  ['pcp_5fspin_5funlock_5fmaybe_5firqrestore_8',['pcp_spin_unlock_maybe_irqrestore',['../page__alloc_8c.html#ae398b07c056daeb17096ff20a50e1aee',1,'page_alloc.c']]],
-  ['pcp_5ftrylock_5ffinish_9',['pcp_trylock_finish',['../page__alloc_8c.html#a62671ae95e386defacd19ccfc7f667e4',1,'page_alloc.c']]],
-  ['pcp_5ftrylock_5fprepare_10',['pcp_trylock_prepare',['../page__alloc_8c.html#a7c7fa85f4efb1cc7e248635f2143d300',1,'page_alloc.c']]],
-  ['pcpf_5ffree_5fhigh_5fbatch_11',['PCPF_FREE_HIGH_BATCH',['../mmzone_8h.html#aa667dfa698b6604a9f4a3efbf6565ad4',1,'mmzone.h']]],
-  ['pcpf_5fprev_5ffree_5fhigh_5forder_12',['PCPF_PREV_FREE_HIGH_ORDER',['../mmzone_8h.html#ad040e84c9733809e29a7776322aebcde',1,'mmzone.h']]],
-  ['pcpu_5fspin_5ftrylock_13',['pcpu_spin_trylock',['../page__alloc_8c.html#a27b0139d3b606871b843b5613b280b6e',1,'page_alloc.c']]],
-  ['pcpu_5fspin_5funlock_14',['pcpu_spin_unlock',['../page__alloc_8c.html#a20b3d49694264ae8486ed200a84e3707',1,'page_alloc.c']]],
-  ['pcpu_5ftask_5fpin_15',['pcpu_task_pin',['../page__alloc_8c.html#a043de45edecddaa540a3b9bbb410e50e',1,'page_alloc.c']]],
-  ['pcpu_5ftask_5funpin_16',['pcpu_task_unpin',['../page__alloc_8c.html#a981eb519d36692fd8458b66ad95408c3',1,'page_alloc.c']]],
-  ['pcs_5fbatch_5fmax_17',['PCS_BATCH_MAX',['../slub_8c.html#a8cd66117c41a1d1e63181ca307cd18ec',1,'slub.c']]],
-  ['pfn_5fin_5fpresent_5fsection_18',['pfn_in_present_section',['../mmzone_8h.html#afb8328f79f16638058a9179660ce9874',1,'mmzone.h']]],
-  ['pr_5ffmt_19',['pr_fmt',['../cgroup_8c.html#a1f8c165bf4196327bc3abff648276d92',1,'cgroup.c']]]
+  ['obj_5fallocated_5ftag_0',['OBJ_ALLOCATED_TAG',['../zsmalloc_8c.html#a88b6b79cef5e9097760690936bf02c64',1,'zsmalloc.c']]],
+  ['obj_5findex_5fbits_1',['OBJ_INDEX_BITS',['../zsmalloc_8c.html#a22e07e1428d15b887f7ccf0ce774174f',1,'zsmalloc.c']]],
+  ['obj_5findex_5fmask_2',['OBJ_INDEX_MASK',['../zsmalloc_8c.html#a69d63b8157a39a7f80349972731a6166',1,'zsmalloc.c']]],
+  ['obj_5ftag_5fbits_3',['OBJ_TAG_BITS',['../zsmalloc_8c.html#a36fb9889362865fd333720d0952d9043',1,'zsmalloc.c']]],
+  ['obj_5ftag_5fmask_4',['OBJ_TAG_MASK',['../zsmalloc_8c.html#a8230181d96f50873be0cc11b9de6ddba',1,'zsmalloc.c']]],
+  ['objcgs_5fclear_5fmask_5',['OBJCGS_CLEAR_MASK',['../slub_8c.html#acb8d79e419be282e8d7d5dc9d1ca1049',1,'slub.c']]],
+  ['objexts_5fflags_5fmask_6',['OBJEXTS_FLAGS_MASK',['../memcontrol_8h.html#a20031f5882d4a0cc5feeb0a10d82fe1f',1,'memcontrol.h']]],
+  ['ofp_5fpeak_5funset_7',['OFP_PEAK_UNSET',['../memcontrol_8c.html#a476eec1531280c76b59f16227b1659bc',1,'memcontrol.c']]],
+  ['oo_5fmask_8',['OO_MASK',['../slub_8c.html#a6b57c415931c2b9d3336c299de8546f3',1,'slub.c']]],
+  ['oo_5fshift_9',['OO_SHIFT',['../slub_8c.html#adb796379b006fc652c09fe7970535f81',1,'slub.c']]]
 ];

@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('slab__common_8
   <div class="headertitle"><div class="title">slab_common.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="slab_8h_source.html">linux/slab.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="include_2linux_2slab_8h_source.html">linux/slab.h</a>&gt;</code><br />
 <code>#include &lt;linux/mm.h&gt;</code><br />
 <code>#include &lt;linux/poison.h&gt;</code><br />
 <code>#include &lt;linux/interrupt.h&gt;</code><br />
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('slab__common_8
 <code>#include &lt;linux/cpu.h&gt;</code><br />
 <code>#include &lt;linux/uaccess.h&gt;</code><br />
 <code>#include &lt;linux/seq_file.h&gt;</code><br />
-<code>#include &lt;linux/dma-mapping.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="dma-mapping_8h_source.html">linux/dma-mapping.h</a>&gt;</code><br />
 <code>#include &lt;linux/swiotlb.h&gt;</code><br />
 <code>#include &lt;linux/proc_fs.h&gt;</code><br />
 <code>#include &lt;linux/debugfs.h&gt;</code><br />
@@ -144,11 +144,12 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('slab__common_8
 <code>#include &lt;trace/events/rcu.h&gt;</code><br />
 <code>#include &quot;../kernel/rcu/rcu.h&quot;</code><br />
 <code>#include &quot;internal.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="mm_2slab_8h_source.html">slab.h</a>&quot;</code><br />
 <code>#include &lt;trace/events/kmem.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for slab_common.c:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slab__common_8c__incl.svg" width="5223" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slab__common_8c__incl.svg" width="3818" height="336"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
@@ -159,45 +160,45 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6ec8aa05b40f30a6c271ac5432482def" id="r_a6ec8aa05b40f30a6c271ac5432482def"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6ec8aa05b40f30a6c271ac5432482def">LIST_HEAD</a> (slab_caches)</td></tr>
-<tr class="memitem:ac6bb3958292c62092984c15772eaa264" id="r_ac6bb3958292c62092984c15772eaa264"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac6bb3958292c62092984c15772eaa264">DEFINE_MUTEX</a> (slab_mutex)</td></tr>
+<tr class="memitem:a6ec8aa05b40f30a6c271ac5432482def" id="r_a6ec8aa05b40f30a6c271ac5432482def"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6ec8aa05b40f30a6c271ac5432482def">LIST_HEAD</a> (<a class="el" href="mm_2slab_8h.html#afefa73e7eff760d2e242ba067b2dd106">slab_caches</a>)</td></tr>
+<tr class="memitem:ac6bb3958292c62092984c15772eaa264" id="r_ac6bb3958292c62092984c15772eaa264"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac6bb3958292c62092984c15772eaa264">DEFINE_MUTEX</a> (<a class="el" href="mm_2slab_8h.html#ae45aed562f37f9e7a0484ab9d5eb51a0">slab_mutex</a>)</td></tr>
 <tr class="memitem:a45f6484aa3bbf8ba5e908965931163e2" id="r_a45f6484aa3bbf8ba5e908965931163e2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a45f6484aa3bbf8ba5e908965931163e2">__setup_param</a> (&quot;slub_nomerge&quot;, slub_nomerge, setup_slab_nomerge, 0)</td></tr>
 <tr class="memitem:aaf44dd125ae80d97b0aeadb80daa384c" id="r_aaf44dd125ae80d97b0aeadb80daa384c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaf44dd125ae80d97b0aeadb80daa384c">__setup_param</a> (&quot;slub_merge&quot;, slub_merge, setup_slab_merge, 0)</td></tr>
 <tr class="memitem:a37bd5de43d3b72cfaa6ba86a4648009f" id="r_a37bd5de43d3b72cfaa6ba86a4648009f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a37bd5de43d3b72cfaa6ba86a4648009f">__setup</a> (&quot;slab_nomerge&quot;, setup_slab_nomerge)</td></tr>
 <tr class="memitem:a0f67efccbfd44e5c1888fae970874a10" id="r_a0f67efccbfd44e5c1888fae970874a10"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0f67efccbfd44e5c1888fae970874a10">__setup</a> (&quot;slab_merge&quot;, setup_slab_merge)</td></tr>
-<tr class="memitem:a5bd16e3b15781af9206192bbccb2b07c" id="r_a5bd16e3b15781af9206192bbccb2b07c"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a5bd16e3b15781af9206192bbccb2b07c">kmem_cache_size</a> (struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *s)</td></tr>
+<tr class="memitem:a5bd16e3b15781af9206192bbccb2b07c" id="r_a5bd16e3b15781af9206192bbccb2b07c"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a5bd16e3b15781af9206192bbccb2b07c">kmem_cache_size</a> (struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *s)</td></tr>
 <tr class="memitem:aadf1a9be83a53024c1f9533aae2637cf" id="r_aadf1a9be83a53024c1f9533aae2637cf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aadf1a9be83a53024c1f9533aae2637cf">EXPORT_SYMBOL</a> (<a class="el" href="#a5bd16e3b15781af9206192bbccb2b07c">kmem_cache_size</a>)</td></tr>
-<tr class="memitem:aa5fa72b16a62d6be10572da0d755f15d" id="r_aa5fa72b16a62d6be10572da0d755f15d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa5fa72b16a62d6be10572da0d755f15d">slab_unmergeable</a> (struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *s)</td></tr>
+<tr class="memitem:aa5fa72b16a62d6be10572da0d755f15d" id="r_aa5fa72b16a62d6be10572da0d755f15d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa5fa72b16a62d6be10572da0d755f15d">slab_unmergeable</a> (struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *s)</td></tr>
 <tr class="memitem:a9d9af2d066cf07faf2dc6db722fc9d04" id="r_a9d9af2d066cf07faf2dc6db722fc9d04"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9d9af2d066cf07faf2dc6db722fc9d04">slab_args_unmergeable</a> (struct <a class="el" href="structkmem__cache__args.html">kmem_cache_args</a> *args, slab_flags_t flags)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a99f9dc554025e678426a6c4ac60cb06e" id="r_a99f9dc554025e678426a6c4ac60cb06e"><td class="memItemLeft">enum slab_state&#160;</td><td class="memItemRight"><a class="el" href="#a99f9dc554025e678426a6c4ac60cb06e">slab_state</a></td></tr>
+<tr class="memitem:a99f9dc554025e678426a6c4ac60cb06e" id="r_a99f9dc554025e678426a6c4ac60cb06e"><td class="memItemLeft">enum <a class="el" href="mm_2slab_8h.html#add0c1ef8c5770117de419dc9873056f1">slab_state</a>&#160;</td><td class="memItemRight"><a class="el" href="#a99f9dc554025e678426a6c4ac60cb06e">slab_state</a></td></tr>
 <tr class="memitem:af4b044400a24a5717f41ea8fe4dc963a" id="r_af4b044400a24a5717f41ea8fe4dc963a"><td class="memItemLeft">struct kmem_cache *&#160;</td><td class="memItemRight"><a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-member-group" class="groupheader"><a id="member-group" name="member-group"></a>
 : A prefix string which is used in /proc/slabinfo to identify this</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p>kmem_buckets_create - Create a set of caches that handle dynamic sized allocations via <a class="el" href="slab_8h.html#a14043d12b33ee858117ecb472d4aecfe">kmem_buckets_alloc()</a></p>
-<p>cache. The individual caches with have their sizes as the suffix. @flags: SLAB flags (see <a class="el" href="slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a> for details). @useroffset: Starting offset within an allocation that may be copied to/from userspace. @usersize: How many bytes, starting at @useroffset, may be copied to/from userspace. @ctor: A constructor for the objects, run when new allocations are made.</p>
+<tr><td class="ititle" colspan="2"><p>kmem_buckets_create - Create a set of caches that handle dynamic sized allocations via <a class="el" href="include_2linux_2slab_8h.html#a14043d12b33ee858117ecb472d4aecfe">kmem_buckets_alloc()</a></p>
+<p>cache. The individual caches with have their sizes as the suffix. @flags: SLAB flags (see <a class="el" href="include_2linux_2slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a> for details). @useroffset: Starting offset within an allocation that may be copied to/from userspace. @usersize: How many bytes, starting at @useroffset, may be copied to/from userspace. @ctor: A constructor for the objects, run when new allocations are made.</p>
 <p>Cannot be called within an interrupt, but can be interrupted.</p>
-<p>Return: a pointer to the cache on success, NULL on failure. When CONFIG_SLAB_BUCKETS is not enabled, ZERO_SIZE_PTR is returned, and subsequent calls to <a class="el" href="slab_8h.html#a14043d12b33ee858117ecb472d4aecfe">kmem_buckets_alloc()</a> will fall back to <a class="el" href="slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a>. (i.e. callers only need to check for NULL on failure.) </p>
+<p>Return: a pointer to the cache on success, NULL on failure. When CONFIG_SLAB_BUCKETS is not enabled, ZERO_SIZE_PTR is returned, and subsequent calls to <a class="el" href="include_2linux_2slab_8h.html#a14043d12b33ee858117ecb472d4aecfe">kmem_buckets_alloc()</a> will fall back to <a class="el" href="include_2linux_2slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a>. (i.e. callers only need to check for NULL on failure.) </p>
 </td></tr>
 <tr class="memitem:a65e1df628459026d1e8d3ce0e69d9e8e" id="r_a65e1df628459026d1e8d3ce0e69d9e8e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a65e1df628459026d1e8d3ce0e69d9e8e">KMALLOC_DMA_NAME</a>(sz)</td></tr>
 <tr class="memitem:a9ab88aceeb57ae5f822332ca51cca670" id="r_a9ab88aceeb57ae5f822332ca51cca670"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9ab88aceeb57ae5f822332ca51cca670">KMALLOC_CGROUP_NAME</a>(sz)</td></tr>
 <tr class="memitem:a73747eb8ffad79296c275d937176f971" id="r_a73747eb8ffad79296c275d937176f971"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a73747eb8ffad79296c275d937176f971">KMALLOC_RCL_NAME</a>(sz)</td></tr>
 <tr class="memitem:a68d0178cffacaa3d1646a03a5be01ce1" id="r_a68d0178cffacaa3d1646a03a5be01ce1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a68d0178cffacaa3d1646a03a5be01ce1">KMALLOC_RANDOM_NAME</a>(N,  sz)</td></tr>
 <tr class="memitem:aa6e46b9d6e8802d5b61f5b40c91bf6d5" id="r_aa6e46b9d6e8802d5b61f5b40c91bf6d5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa6e46b9d6e8802d5b61f5b40c91bf6d5">INIT_KMALLOC_INFO</a>(__size,  __short_size)</td></tr>
-<tr class="memitem:a72fa9af38b72c1fb95f49de85c8318a6" id="r_a72fa9af38b72c1fb95f49de85c8318a6"><td class="memItemLeft">const struct kmalloc_info_struct kmalloc_info[]&#160;</td><td class="memItemRight"><a class="el" href="#a72fa9af38b72c1fb95f49de85c8318a6">__initconst</a></td></tr>
-<tr class="memitem:abe28f9f64b9812d93b93b67b313ef4de" id="r_abe28f9f64b9812d93b93b67b313ef4de"><td class="memItemLeft"><a class="el" href="slab_8h.html#a7a9f1b6f32b0c51c6b6094a309a0928f">kmem_buckets</a> *&#160;</td><td class="memItemRight"><a class="el" href="#abe28f9f64b9812d93b93b67b313ef4de">kmem_buckets_create</a> (const char *name, slab_flags_t flags, unsigned int useroffset, unsigned int usersize, void(*ctor)(void *))</td></tr>
+<tr class="memitem:a72fa9af38b72c1fb95f49de85c8318a6" id="r_a72fa9af38b72c1fb95f49de85c8318a6"><td class="memItemLeft">const struct <a class="el" href="structkmalloc__info__struct.html">kmalloc_info_struct</a> <a class="el" href="mm_2slab_8h.html#a7a27a2974c82e55f292dc4ffd71f1265">kmalloc_info</a>[]&#160;</td><td class="memItemRight"><a class="el" href="#a72fa9af38b72c1fb95f49de85c8318a6">__initconst</a></td></tr>
+<tr class="memitem:abe28f9f64b9812d93b93b67b313ef4de" id="r_abe28f9f64b9812d93b93b67b313ef4de"><td class="memItemLeft"><a class="el" href="include_2linux_2slab_8h.html#a7a9f1b6f32b0c51c6b6094a309a0928f">kmem_buckets</a> *&#160;</td><td class="memItemRight"><a class="el" href="#abe28f9f64b9812d93b93b67b313ef4de">kmem_buckets_create</a> (const char *name, slab_flags_t flags, unsigned int useroffset, unsigned int usersize, void(*ctor)(void *))</td></tr>
 <tr class="memitem:a5be8670ce159a02d4a2425fe3e2ec2da" id="r_a5be8670ce159a02d4a2425fe3e2ec2da"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5be8670ce159a02d4a2425fe3e2ec2da">EXPORT_SYMBOL</a> (<a class="el" href="#abe28f9f64b9812d93b93b67b313ef4de">kmem_buckets_create</a>)</td></tr>
-<tr class="memitem:a8fb8621a7d686333e59fc88bdd12edf8" id="r_a8fb8621a7d686333e59fc88bdd12edf8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8fb8621a7d686333e59fc88bdd12edf8">slab_kmem_cache_release</a> (struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *s)</td></tr>
-<tr class="memitem:a0ed417eb6258e26997a82b132776f54a" id="r_a0ed417eb6258e26997a82b132776f54a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0ed417eb6258e26997a82b132776f54a">kmem_cache_destroy</a> (struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *s)</td></tr>
+<tr class="memitem:a8fb8621a7d686333e59fc88bdd12edf8" id="r_a8fb8621a7d686333e59fc88bdd12edf8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8fb8621a7d686333e59fc88bdd12edf8">slab_kmem_cache_release</a> (struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *s)</td></tr>
+<tr class="memitem:a0ed417eb6258e26997a82b132776f54a" id="r_a0ed417eb6258e26997a82b132776f54a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0ed417eb6258e26997a82b132776f54a">kmem_cache_destroy</a> (struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *s)</td></tr>
 <tr class="memitem:a16f3e67470dcce21554947c58239085e" id="r_a16f3e67470dcce21554947c58239085e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a16f3e67470dcce21554947c58239085e">EXPORT_SYMBOL</a> (<a class="el" href="#a0ed417eb6258e26997a82b132776f54a">kmem_cache_destroy</a>)</td></tr>
-<tr class="memitem:ac7cd14d6bbc6b3fec2d1c20702faf6a6" id="r_ac7cd14d6bbc6b3fec2d1c20702faf6a6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac7cd14d6bbc6b3fec2d1c20702faf6a6">kmem_cache_shrink</a> (struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *cachep)</td></tr>
+<tr class="memitem:ac7cd14d6bbc6b3fec2d1c20702faf6a6" id="r_ac7cd14d6bbc6b3fec2d1c20702faf6a6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac7cd14d6bbc6b3fec2d1c20702faf6a6">kmem_cache_shrink</a> (struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *cachep)</td></tr>
 <tr class="memitem:ac14182cc459cc1fc8aaa71c3988f9bff" id="r_ac14182cc459cc1fc8aaa71c3988f9bff"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac14182cc459cc1fc8aaa71c3988f9bff">EXPORT_SYMBOL</a> (<a class="el" href="#ac7cd14d6bbc6b3fec2d1c20702faf6a6">kmem_cache_shrink</a>)</td></tr>
 <tr class="memitem:a940d5fcfd9b3dcf05bdc6b7488f01c33" id="r_a940d5fcfd9b3dcf05bdc6b7488f01c33"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a940d5fcfd9b3dcf05bdc6b7488f01c33">slab_is_available</a> (void)</td></tr>
-<tr class="memitem:a3adc109d906bbd3a554d9e7ecd21d4b4" id="r_a3adc109d906bbd3a554d9e7ecd21d4b4"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#a3adc109d906bbd3a554d9e7ecd21d4b4">create_boot_cache</a> (struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *s, const char *name, unsigned int size, slab_flags_t flags, unsigned int useroffset, unsigned int usersize)</td></tr>
-<tr class="memitem:a7afbd1a21e5b38c11a9bc28b897caa4e" id="r_a7afbd1a21e5b38c11a9bc28b897caa4e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7afbd1a21e5b38c11a9bc28b897caa4e">EXPORT_SYMBOL</a> (<a class="el" href="slab_8h.html#ad3b0d2d036963f22a9f32bd9b8ccba82">kmalloc_caches</a>)</td></tr>
+<tr class="memitem:a3adc109d906bbd3a554d9e7ecd21d4b4" id="r_a3adc109d906bbd3a554d9e7ecd21d4b4"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#a3adc109d906bbd3a554d9e7ecd21d4b4">create_boot_cache</a> (struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *s, const char *name, unsigned int size, slab_flags_t flags, unsigned int useroffset, unsigned int usersize)</td></tr>
+<tr class="memitem:a7afbd1a21e5b38c11a9bc28b897caa4e" id="r_a7afbd1a21e5b38c11a9bc28b897caa4e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7afbd1a21e5b38c11a9bc28b897caa4e">EXPORT_SYMBOL</a> (<a class="el" href="include_2linux_2slab_8h.html#ad3b0d2d036963f22a9f32bd9b8ccba82">kmalloc_caches</a>)</td></tr>
 <tr class="memitem:a2b814faa932a75fad705b1b9d5e5d630" id="r_a2b814faa932a75fad705b1b9d5e5d630"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#a2b814faa932a75fad705b1b9d5e5d630">kmalloc_size_roundup</a> (size_t size)</td></tr>
 <tr class="memitem:ac27188045204c8dbdfce806ba89bcd6b" id="r_ac27188045204c8dbdfce806ba89bcd6b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac27188045204c8dbdfce806ba89bcd6b">EXPORT_SYMBOL</a> (<a class="el" href="#a2b814faa932a75fad705b1b9d5e5d630">kmalloc_size_roundup</a>)</td></tr>
 <tr class="memitem:a584475249be61f5a8ad33941008e8b62" id="r_a584475249be61f5a8ad33941008e8b62"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#a584475249be61f5a8ad33941008e8b62">setup_kmalloc_cache_index_table</a> (void)</td></tr>
@@ -205,10 +206,10 @@ Variables</h2></td></tr>
 <tr class="memitem:ad170e79ad1536b6add9a37ed410819f5" id="r_ad170e79ad1536b6add9a37ed410819f5"><td class="memItemLeft">gfp_t&#160;</td><td class="memItemRight"><a class="el" href="#ad170e79ad1536b6add9a37ed410819f5">kmalloc_fix_flags</a> (gfp_t flags)</td></tr>
 <tr class="memitem:a2d2646034fc567fc383390023c1fc39c" id="r_a2d2646034fc567fc383390023c1fc39c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2d2646034fc567fc383390023c1fc39c">kfree_sensitive</a> (const void *p)</td></tr>
 <tr class="memitem:a0642ddf7593f24806cfd30ae8b63567a" id="r_a0642ddf7593f24806cfd30ae8b63567a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0642ddf7593f24806cfd30ae8b63567a">EXPORT_SYMBOL</a> (<a class="el" href="#a2d2646034fc567fc383390023c1fc39c">kfree_sensitive</a>)</td></tr>
-<tr class="memitem:a880c4fc90788754c4efa4b4e784ef79c" id="r_a880c4fc90788754c4efa4b4e784ef79c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a880c4fc90788754c4efa4b4e784ef79c">EXPORT_TRACEPOINT_SYMBOL</a> (<a class="el" href="slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc</a>)</td></tr>
-<tr class="memitem:a0d7db75e9c2d6147a7fadc8a2b7315b6" id="r_a0d7db75e9c2d6147a7fadc8a2b7315b6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0d7db75e9c2d6147a7fadc8a2b7315b6">EXPORT_TRACEPOINT_SYMBOL</a> (<a class="el" href="slab_8h.html#a25a85450e1021b8c861f084b722b00d5">kmem_cache_alloc</a>)</td></tr>
-<tr class="memitem:a8d186283c1c4c6d253897a6b6bfa5019" id="r_a8d186283c1c4c6d253897a6b6bfa5019"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8d186283c1c4c6d253897a6b6bfa5019">EXPORT_TRACEPOINT_SYMBOL</a> (<a class="el" href="slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>)</td></tr>
-<tr class="memitem:a6cd5dfc17bd6994a82404d958dec4bb6" id="r_a6cd5dfc17bd6994a82404d958dec4bb6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6cd5dfc17bd6994a82404d958dec4bb6">EXPORT_TRACEPOINT_SYMBOL</a> (<a class="el" href="slab_8h.html#a3515b5b594edddb8f4910f5a76b9f4bd">kmem_cache_free</a>)</td></tr>
+<tr class="memitem:a880c4fc90788754c4efa4b4e784ef79c" id="r_a880c4fc90788754c4efa4b4e784ef79c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a880c4fc90788754c4efa4b4e784ef79c">EXPORT_TRACEPOINT_SYMBOL</a> (<a class="el" href="include_2linux_2slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc</a>)</td></tr>
+<tr class="memitem:a0d7db75e9c2d6147a7fadc8a2b7315b6" id="r_a0d7db75e9c2d6147a7fadc8a2b7315b6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0d7db75e9c2d6147a7fadc8a2b7315b6">EXPORT_TRACEPOINT_SYMBOL</a> (<a class="el" href="include_2linux_2slab_8h.html#a25a85450e1021b8c861f084b722b00d5">kmem_cache_alloc</a>)</td></tr>
+<tr class="memitem:a8d186283c1c4c6d253897a6b6bfa5019" id="r_a8d186283c1c4c6d253897a6b6bfa5019"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8d186283c1c4c6d253897a6b6bfa5019">EXPORT_TRACEPOINT_SYMBOL</a> (<a class="el" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>)</td></tr>
+<tr class="memitem:a6cd5dfc17bd6994a82404d958dec4bb6" id="r_a6cd5dfc17bd6994a82404d958dec4bb6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6cd5dfc17bd6994a82404d958dec4bb6">EXPORT_TRACEPOINT_SYMBOL</a> (<a class="el" href="include_2linux_2slab_8h.html#a3515b5b594edddb8f4910f5a76b9f4bd">kmem_cache_free</a>)</td></tr>
 <tr class="memitem:a2268455e48709f6d6c4a942ca4023507" id="r_a2268455e48709f6d6c4a942ca4023507"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2268455e48709f6d6c4a942ca4023507">kvfree_call_rcu</a> (struct rcu_head *head, void *ptr)</td></tr>
 <tr class="memitem:adf024a27b142e5cd57bdcd8eaa6201de" id="r_adf024a27b142e5cd57bdcd8eaa6201de"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adf024a27b142e5cd57bdcd8eaa6201de">EXPORT_SYMBOL_GPL</a> (<a class="el" href="#a2268455e48709f6d6c4a942ca4023507">kvfree_call_rcu</a>)</td></tr>
 <tr class="memitem:ab46deab91b8fe781b8d616913c2ed0b8" id="r_ab46deab91b8fe781b8d616913c2ed0b8"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#ab46deab91b8fe781b8d616913c2ed0b8">kvfree_rcu_init</a> (void)</td></tr>
@@ -217,7 +218,7 @@ Variables</h2></td></tr>
 : A string which is used in /proc/slabinfo to identify this cache.</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>__kmem_cache_create_args - Create a kmem cache.</p>
 <p>@object_size: The size of objects to be created in this cache. @args: Additional arguments for the cache creation (see &amp;struct <a class="el" href="structkmem__cache__args.html">kmem_cache_args</a>). @flags: See the descriptions of individual flags. The common ones are listed in the description below.</p>
-<p>Not to be called directly, use the <a class="el" href="slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a> wrapper with the same parameters.</p>
+<p>Not to be called directly, use the <a class="el" href="include_2linux_2slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a> wrapper with the same parameters.</p>
 <p>Commonly used @flags:</p>
 <p>&amp;SLAB_ACCOUNT - Account allocations to memcg.</p>
 <p>&amp;SLAB_HWCACHE_ALIGN - Align objects on cache line boundaries.</p>
@@ -226,7 +227,7 @@ Variables</h2></td></tr>
 <p>Context: Cannot be called within a interrupt, but can be interrupted.</p>
 <p>Return: a pointer to the cache on success, NULL on failure. </p>
 </td></tr>
-<tr class="memitem:a01ef3c3389f42bf1de2af0cc515e0e51" id="r_a01ef3c3389f42bf1de2af0cc515e0e51"><td class="memItemLeft">struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a01ef3c3389f42bf1de2af0cc515e0e51">__kmem_cache_create_args</a> (const char *name, unsigned int object_size, struct <a class="el" href="structkmem__cache__args.html">kmem_cache_args</a> *args, slab_flags_t flags)</td></tr>
+<tr class="memitem:a01ef3c3389f42bf1de2af0cc515e0e51" id="r_a01ef3c3389f42bf1de2af0cc515e0e51"><td class="memItemLeft">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a01ef3c3389f42bf1de2af0cc515e0e51">__kmem_cache_create_args</a> (const char *name, unsigned int object_size, struct <a class="el" href="structkmem__cache__args.html">kmem_cache_args</a> *args, slab_flags_t flags)</td></tr>
 <tr class="memitem:a17d20a368481a89b91ddce69caa8a77b" id="r_a17d20a368481a89b91ddce69caa8a77b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a17d20a368481a89b91ddce69caa8a77b">EXPORT_SYMBOL</a> (<a class="el" href="#a01ef3c3389f42bf1de2af0cc515e0e51">__kmem_cache_create_args</a>)</td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
@@ -263,15 +264,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">{                               \</div>
-<div class="line">    .name[<a class="code hl_enumvalue" href="slab_8h.html#a244bededdcadb039793dfa743f79b9d4a2ddc06bb0b6e0dca9c10e090b3949956">KMALLOC_NORMAL</a>]  = <span class="stringliteral">&quot;kmalloc-&quot;</span> #__short_size,  \</div>
+<div class="line">    .name[<a class="code hl_enumvalue" href="include_2linux_2slab_8h.html#a244bededdcadb039793dfa743f79b9d4a2ddc06bb0b6e0dca9c10e090b3949956">KMALLOC_NORMAL</a>]  = <span class="stringliteral">&quot;kmalloc-&quot;</span> #__short_size,  \</div>
 <div class="line">    KMALLOC_RCL_NAME(__short_size)              \</div>
 <div class="line">    KMALLOC_CGROUP_NAME(__short_size)           \</div>
 <div class="line">    KMALLOC_DMA_NAME(__short_size)              \</div>
-<div class="line">    KMALLOC_RANDOM_NAME(<a class="code hl_define" href="slab_8h.html#a5df83d316d637b2ec2fe439038d37860">RANDOM_KMALLOC_CACHES_NR</a>, __short_size) \</div>
+<div class="line">    KMALLOC_RANDOM_NAME(<a class="code hl_define" href="include_2linux_2slab_8h.html#a5df83d316d637b2ec2fe439038d37860">RANDOM_KMALLOC_CACHES_NR</a>, __short_size) \</div>
 <div class="line">    .size = __size,                     \</div>
 <div class="line">}</div>
-<div class="ttc" id="aslab_8h_html_a244bededdcadb039793dfa743f79b9d4a2ddc06bb0b6e0dca9c10e090b3949956"><div class="ttname"><a href="slab_8h.html#a244bededdcadb039793dfa743f79b9d4a2ddc06bb0b6e0dca9c10e090b3949956">KMALLOC_NORMAL</a></div><div class="ttdeci">@ KMALLOC_NORMAL</div><div class="ttdef"><b>Definition</b> slab.h:630</div></div>
-<div class="ttc" id="aslab_8h_html_a5df83d316d637b2ec2fe439038d37860"><div class="ttname"><a href="slab_8h.html#a5df83d316d637b2ec2fe439038d37860">RANDOM_KMALLOC_CACHES_NR</a></div><div class="ttdeci">#define RANDOM_KMALLOC_CACHES_NR</div><div class="ttdef"><b>Definition</b> slab.h:618</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a244bededdcadb039793dfa743f79b9d4a2ddc06bb0b6e0dca9c10e090b3949956"><div class="ttname"><a href="include_2linux_2slab_8h.html#a244bededdcadb039793dfa743f79b9d4a2ddc06bb0b6e0dca9c10e090b3949956">KMALLOC_NORMAL</a></div><div class="ttdeci">@ KMALLOC_NORMAL</div><div class="ttdef"><b>Definition</b> slab.h:630</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a5df83d316d637b2ec2fe439038d37860"><div class="ttname"><a href="include_2linux_2slab_8h.html#a5df83d316d637b2ec2fe439038d37860">RANDOM_KMALLOC_CACHES_NR</a></div><div class="ttdeci">#define RANDOM_KMALLOC_CACHES_NR</div><div class="ttdef"><b>Definition</b> slab.h:618</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -344,8 +345,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">.name[<a class="code hl_enumvalue" href="slab_8h.html#a244bededdcadb039793dfa743f79b9d4ae9f82780dfd1480b74f82199dc8d29d5">KMALLOC_RECLAIM</a>] = <span class="stringliteral">&quot;kmalloc-rcl-&quot;</span> #sz,</div>
-<div class="ttc" id="aslab_8h_html_a244bededdcadb039793dfa743f79b9d4ae9f82780dfd1480b74f82199dc8d29d5"><div class="ttname"><a href="slab_8h.html#a244bededdcadb039793dfa743f79b9d4ae9f82780dfd1480b74f82199dc8d29d5">KMALLOC_RECLAIM</a></div><div class="ttdeci">@ KMALLOC_RECLAIM</div><div class="ttdef"><b>Definition</b> slab.h:642</div></div>
+<b>Value:</b><div class="fragment"><div class="line">.name[<a class="code hl_enumvalue" href="include_2linux_2slab_8h.html#a244bededdcadb039793dfa743f79b9d4ae9f82780dfd1480b74f82199dc8d29d5">KMALLOC_RECLAIM</a>] = <span class="stringliteral">&quot;kmalloc-rcl-&quot;</span> #sz,</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a244bededdcadb039793dfa743f79b9d4ae9f82780dfd1480b74f82199dc8d29d5"><div class="ttname"><a href="include_2linux_2slab_8h.html#a244bededdcadb039793dfa743f79b9d4ae9f82780dfd1480b74f82199dc8d29d5">KMALLOC_RECLAIM</a></div><div class="ttdeci">@ KMALLOC_RECLAIM</div><div class="ttdef"><b>Definition</b> slab.h:642</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -360,12 +361,12 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="slab_8h.html#a6fce67019e3e6a221351e14ab5cecb87">SLAB_RECLAIM_ACCOUNT</a> | <a class="code hl_define" href="slab_8h.html#a4ceeef567e9a1691f247a3e8c865e74b">SLAB_CACHE_DMA</a> | \</div>
-<div class="line"><a class="code hl_define" href="slab_8h.html#a54b5f769bd0b5896fed018145b8bfd85">SLAB_CACHE_DMA32</a> | <a class="code hl_define" href="slab_8h.html#a532770cca5b827356ee98ffe3f5b5417">SLAB_ACCOUNT</a>)</div>
-<div class="ttc" id="aslab_8h_html_a4ceeef567e9a1691f247a3e8c865e74b"><div class="ttname"><a href="slab_8h.html#a4ceeef567e9a1691f247a3e8c865e74b">SLAB_CACHE_DMA</a></div><div class="ttdeci">#define SLAB_CACHE_DMA</div><div class="ttdef"><b>Definition</b> slab.h:96</div></div>
-<div class="ttc" id="aslab_8h_html_a532770cca5b827356ee98ffe3f5b5417"><div class="ttname"><a href="slab_8h.html#a532770cca5b827356ee98ffe3f5b5417">SLAB_ACCOUNT</a></div><div class="ttdeci">#define SLAB_ACCOUNT</div><div class="ttdef"><b>Definition</b> slab.h:205</div></div>
-<div class="ttc" id="aslab_8h_html_a54b5f769bd0b5896fed018145b8bfd85"><div class="ttname"><a href="slab_8h.html#a54b5f769bd0b5896fed018145b8bfd85">SLAB_CACHE_DMA32</a></div><div class="ttdeci">#define SLAB_CACHE_DMA32</div><div class="ttdef"><b>Definition</b> slab.h:98</div></div>
-<div class="ttc" id="aslab_8h_html_a6fce67019e3e6a221351e14ab5cecb87"><div class="ttname"><a href="slab_8h.html#a6fce67019e3e6a221351e14ab5cecb87">SLAB_RECLAIM_ACCOUNT</a></div><div class="ttdeci">#define SLAB_RECLAIM_ACCOUNT</div><div class="ttdef"><b>Definition</b> slab.h:236</div></div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="include_2linux_2slab_8h.html#a6fce67019e3e6a221351e14ab5cecb87">SLAB_RECLAIM_ACCOUNT</a> | <a class="code hl_define" href="include_2linux_2slab_8h.html#a4ceeef567e9a1691f247a3e8c865e74b">SLAB_CACHE_DMA</a> | \</div>
+<div class="line"><a class="code hl_define" href="include_2linux_2slab_8h.html#a54b5f769bd0b5896fed018145b8bfd85">SLAB_CACHE_DMA32</a> | <a class="code hl_define" href="include_2linux_2slab_8h.html#a532770cca5b827356ee98ffe3f5b5417">SLAB_ACCOUNT</a>)</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a4ceeef567e9a1691f247a3e8c865e74b"><div class="ttname"><a href="include_2linux_2slab_8h.html#a4ceeef567e9a1691f247a3e8c865e74b">SLAB_CACHE_DMA</a></div><div class="ttdeci">#define SLAB_CACHE_DMA</div><div class="ttdef"><b>Definition</b> slab.h:96</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a532770cca5b827356ee98ffe3f5b5417"><div class="ttname"><a href="include_2linux_2slab_8h.html#a532770cca5b827356ee98ffe3f5b5417">SLAB_ACCOUNT</a></div><div class="ttdeci">#define SLAB_ACCOUNT</div><div class="ttdef"><b>Definition</b> slab.h:205</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a54b5f769bd0b5896fed018145b8bfd85"><div class="ttname"><a href="include_2linux_2slab_8h.html#a54b5f769bd0b5896fed018145b8bfd85">SLAB_CACHE_DMA32</a></div><div class="ttdeci">#define SLAB_CACHE_DMA32</div><div class="ttdef"><b>Definition</b> slab.h:98</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a6fce67019e3e6a221351e14ab5cecb87"><div class="ttname"><a href="include_2linux_2slab_8h.html#a6fce67019e3e6a221351e14ab5cecb87">SLAB_RECLAIM_ACCOUNT</a></div><div class="ttdeci">#define SLAB_RECLAIM_ACCOUNT</div><div class="ttdef"><b>Definition</b> slab.h:236</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -380,14 +381,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(SLAB_DEBUG_FLAGS | <a class="code hl_define" href="slab_8h.html#a76aff4e693dc29c222939b24b2e6b9e6">SLAB_TYPESAFE_BY_RCU</a> | \</div>
-<div class="line"><a class="code hl_define" href="slab_8h.html#afc9c016261a8e1940a34810151b8df5a">SLAB_NOLEAKTRACE</a> | <a class="code hl_define" href="slab_8h.html#a6a66b3e3d556a625d8fb4038dcf25cda">SLAB_FAILSLAB</a> | <a class="code hl_define" href="slab_8h.html#a340d60f4650d7bdb3cf9a57f04a42019">SLAB_NO_MERGE</a> | \</div>
-<div class="line"><a class="code hl_define" href="slab_8h.html#aadb663e36af451ea4bc9ed52f89ff54d">SLAB_OBJ_EXT_IN_OBJ</a>)</div>
-<div class="ttc" id="aslab_8h_html_a340d60f4650d7bdb3cf9a57f04a42019"><div class="ttname"><a href="slab_8h.html#a340d60f4650d7bdb3cf9a57f04a42019">SLAB_NO_MERGE</a></div><div class="ttdeci">#define SLAB_NO_MERGE</div><div class="ttdef"><b>Definition</b> slab.h:188</div></div>
-<div class="ttc" id="aslab_8h_html_a6a66b3e3d556a625d8fb4038dcf25cda"><div class="ttname"><a href="slab_8h.html#a6a66b3e3d556a625d8fb4038dcf25cda">SLAB_FAILSLAB</a></div><div class="ttdeci">#define SLAB_FAILSLAB</div><div class="ttdef"><b>Definition</b> slab.h:194</div></div>
-<div class="ttc" id="aslab_8h_html_a76aff4e693dc29c222939b24b2e6b9e6"><div class="ttname"><a href="slab_8h.html#a76aff4e693dc29c222939b24b2e6b9e6">SLAB_TYPESAFE_BY_RCU</a></div><div class="ttdeci">#define SLAB_TYPESAFE_BY_RCU</div><div class="ttdef"><b>Definition</b> slab.h:164</div></div>
-<div class="ttc" id="aslab_8h_html_aadb663e36af451ea4bc9ed52f89ff54d"><div class="ttname"><a href="slab_8h.html#aadb663e36af451ea4bc9ed52f89ff54d">SLAB_OBJ_EXT_IN_OBJ</a></div><div class="ttdeci">#define SLAB_OBJ_EXT_IN_OBJ</div><div class="ttdef"><b>Definition</b> slab.h:248</div></div>
-<div class="ttc" id="aslab_8h_html_afc9c016261a8e1940a34810151b8df5a"><div class="ttname"><a href="slab_8h.html#afc9c016261a8e1940a34810151b8df5a">SLAB_NOLEAKTRACE</a></div><div class="ttdeci">#define SLAB_NOLEAKTRACE</div><div class="ttdef"><b>Definition</b> slab.h:176</div></div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_define" href="mm_2slab_8h.html#a1b1ab7ceeb746dc61c4ea05102dd13e5">SLAB_DEBUG_FLAGS</a> | <a class="code hl_define" href="include_2linux_2slab_8h.html#a76aff4e693dc29c222939b24b2e6b9e6">SLAB_TYPESAFE_BY_RCU</a> | \</div>
+<div class="line"><a class="code hl_define" href="include_2linux_2slab_8h.html#afc9c016261a8e1940a34810151b8df5a">SLAB_NOLEAKTRACE</a> | <a class="code hl_define" href="include_2linux_2slab_8h.html#a6a66b3e3d556a625d8fb4038dcf25cda">SLAB_FAILSLAB</a> | <a class="code hl_define" href="include_2linux_2slab_8h.html#a340d60f4650d7bdb3cf9a57f04a42019">SLAB_NO_MERGE</a> | \</div>
+<div class="line"><a class="code hl_define" href="include_2linux_2slab_8h.html#aadb663e36af451ea4bc9ed52f89ff54d">SLAB_OBJ_EXT_IN_OBJ</a>)</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a340d60f4650d7bdb3cf9a57f04a42019"><div class="ttname"><a href="include_2linux_2slab_8h.html#a340d60f4650d7bdb3cf9a57f04a42019">SLAB_NO_MERGE</a></div><div class="ttdeci">#define SLAB_NO_MERGE</div><div class="ttdef"><b>Definition</b> slab.h:188</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a6a66b3e3d556a625d8fb4038dcf25cda"><div class="ttname"><a href="include_2linux_2slab_8h.html#a6a66b3e3d556a625d8fb4038dcf25cda">SLAB_FAILSLAB</a></div><div class="ttdeci">#define SLAB_FAILSLAB</div><div class="ttdef"><b>Definition</b> slab.h:194</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a76aff4e693dc29c222939b24b2e6b9e6"><div class="ttname"><a href="include_2linux_2slab_8h.html#a76aff4e693dc29c222939b24b2e6b9e6">SLAB_TYPESAFE_BY_RCU</a></div><div class="ttdeci">#define SLAB_TYPESAFE_BY_RCU</div><div class="ttdef"><b>Definition</b> slab.h:164</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_aadb663e36af451ea4bc9ed52f89ff54d"><div class="ttname"><a href="include_2linux_2slab_8h.html#aadb663e36af451ea4bc9ed52f89ff54d">SLAB_OBJ_EXT_IN_OBJ</a></div><div class="ttdeci">#define SLAB_OBJ_EXT_IN_OBJ</div><div class="ttdef"><b>Definition</b> slab.h:248</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_afc9c016261a8e1940a34810151b8df5a"><div class="ttname"><a href="include_2linux_2slab_8h.html#afc9c016261a8e1940a34810151b8df5a">SLAB_NOLEAKTRACE</a></div><div class="ttdeci">#define SLAB_NOLEAKTRACE</div><div class="ttdef"><b>Definition</b> slab.h:176</div></div>
+<div class="ttc" id="amm_2slab_8h_html_a1b1ab7ceeb746dc61c4ea05102dd13e5"><div class="ttname"><a href="mm_2slab_8h.html#a1b1ab7ceeb746dc61c4ea05102dd13e5">SLAB_DEBUG_FLAGS</a></div><div class="ttdeci">#define SLAB_DEBUG_FLAGS</div><div class="ttdef"><b>Definition</b> slab.h:418</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -399,7 +401,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> * __kmem_cache_create_args </td>
+          <td class="memname">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> * __kmem_cache_create_args </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>
@@ -541,7 +543,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void __init create_boot_cache </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -573,7 +575,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slab__common_8c_a3adc109d906bbd3a554d9e7ecd21d4b4_cgraph.svg" width="564" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slab__common_8c_a3adc109d906bbd3a554d9e7ecd21d4b4_cgraph.svg" width="702" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -614,7 +616,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_MUTEX </td>
           <td>(</td>
-          <td class="paramtype">slab_mutex</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="mm_2slab_8h.html#ae45aed562f37f9e7a0484ab9d5eb51a0">slab_mutex</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -631,7 +633,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#a01ef3c3389f42bf1de2af0cc515e0e51">__kmem_cache_create_args</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#a01ef3c3389f42bf1de2af0cc515e0e51">__kmem_cache_create_args</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -653,7 +655,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#a1baa0270036ebe789565e70941a6c79a">kfree_sensitive</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#a1baa0270036ebe789565e70941a6c79a">kfree_sensitive</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -675,7 +677,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#ad3b0d2d036963f22a9f32bd9b8ccba82">kmalloc_caches</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#ad3b0d2d036963f22a9f32bd9b8ccba82">kmalloc_caches</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -692,7 +694,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#a2b814faa932a75fad705b1b9d5e5d630">kmalloc_size_roundup</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#a2b814faa932a75fad705b1b9d5e5d630">kmalloc_size_roundup</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -714,7 +716,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#abe28f9f64b9812d93b93b67b313ef4de">kmem_buckets_create</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#abe28f9f64b9812d93b93b67b313ef4de">kmem_buckets_create</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -736,7 +738,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#a0ed417eb6258e26997a82b132776f54a">kmem_cache_destroy</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#a0ed417eb6258e26997a82b132776f54a">kmem_cache_destroy</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -758,7 +760,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#af4b8d568d8df7affba9555c1c67a7e1b">kmem_cache_shrink</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#af4b8d568d8df7affba9555c1c67a7e1b">kmem_cache_shrink</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -780,7 +782,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#a5bd16e3b15781af9206192bbccb2b07c">kmem_cache_size</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#a5bd16e3b15781af9206192bbccb2b07c">kmem_cache_size</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -824,7 +826,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_TRACEPOINT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -846,7 +848,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_TRACEPOINT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -863,7 +865,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_TRACEPOINT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#a25a85450e1021b8c861f084b722b00d5">kmem_cache_alloc</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#a25a85450e1021b8c861f084b722b00d5">kmem_cache_alloc</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -880,7 +882,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_TRACEPOINT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="slab_8h.html#a3515b5b594edddb8f4910f5a76b9f4bd">kmem_cache_free</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="include_2linux_2slab_8h.html#a3515b5b594edddb8f4910f5a76b9f4bd">kmem_cache_free</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -909,7 +911,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>kfree_sensitive - Clear sensitive information in memory before freeing <code class="param"></code>: object to free memory of</p>
 <p>The memory of the object <code class="param">points</code> to is zeroed before freed. If <code class="param">is</code> NULL, <a class="el" href="#a2d2646034fc567fc383390023c1fc39c">kfree_sensitive()</a> does nothing.</p>
-<p>Note: this function zeroes the whole allocated buffer which can be a good deal bigger than the requested buffer size passed to <a class="el" href="slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a>. So be careful when using this function in performance sensitive code. </p>
+<p>Note: this function zeroes the whole allocated buffer which can be a good deal bigger than the requested buffer size passed to <a class="el" href="include_2linux_2slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a>. So be careful when using this function in performance sensitive code. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -956,8 +958,8 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>kmalloc_size_roundup - Report allocation bucket size for the given size</p>
 <p>@size: Number of bytes to round up from.</p>
-<p>This returns the number of bytes that would be available in a <a class="el" href="slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a> allocation of @size bytes. For example, a 126 byte request would be rounded up to the next sized kmalloc bucket, 128 bytes. (This is strictly for the general-purpose <a class="el" href="slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a>-based allocations, and is not for the pre-sized <a class="el" href="slab_8h.html#a25a85450e1021b8c861f084b722b00d5">kmem_cache_alloc()</a>-based allocations.)</p>
-<p>Use this to <a class="el" href="slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a> the full bucket size ahead of time instead of using <a class="el" href="slub_8c.html#aad92a67e3451f0b7971c08ecad26b2e4">ksize()</a> to query the size after an allocation. </p>
+<p>This returns the number of bytes that would be available in a <a class="el" href="include_2linux_2slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a> allocation of @size bytes. For example, a 126 byte request would be rounded up to the next sized kmalloc bucket, 128 bytes. (This is strictly for the general-purpose <a class="el" href="include_2linux_2slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a>-based allocations, and is not for the pre-sized <a class="el" href="include_2linux_2slab_8h.html#a25a85450e1021b8c861f084b722b00d5">kmem_cache_alloc()</a>-based allocations.)</p>
+<p>Use this to <a class="el" href="include_2linux_2slab_8h.html#ab39d1834eaedb0985332521b254f2e01">kmalloc()</a> the full bucket size ahead of time instead of using <a class="el" href="slub_8c.html#aad92a67e3451f0b7971c08ecad26b2e4">ksize()</a> to query the size after an allocation. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -973,7 +975,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="slab_8h.html#a7a9f1b6f32b0c51c6b6094a309a0928f">kmem_buckets</a> * kmem_buckets_create </td>
+          <td class="memname"><a class="el" href="include_2linux_2slab_8h.html#a7a9f1b6f32b0c51c6b6094a309a0928f">kmem_buckets</a> * kmem_buckets_create </td>
           <td>(</td>
           <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>
@@ -1021,7 +1023,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void kmem_cache_destroy </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1048,7 +1050,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">int kmem_cache_shrink </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>cachep</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>cachep</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1078,7 +1080,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">unsigned int kmem_cache_size </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1148,7 +1150,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">LIST_HEAD </td>
           <td>(</td>
-          <td class="paramtype">slab_caches</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="mm_2slab_8h.html#afefa73e7eff760d2e242ba067b2dd106">slab_caches</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1230,7 +1232,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void slab_kmem_cache_release </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1238,7 +1240,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slab__common_8c_a8fb8621a7d686333e59fc88bdd12edf8_cgraph.svg" width="400" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slab__common_8c_a8fb8621a7d686333e59fc88bdd12edf8_cgraph.svg" width="538" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1252,7 +1254,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">int slab_unmergeable </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1321,7 +1323,7 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum slab_state slab_state</td>
+          <td class="memname">enum <a class="el" href="mm_2slab_8h.html#add0c1ef8c5770117de419dc9873056f1">slab_state</a> <a class="el" href="mm_2slab_8h.html#add0c1ef8c5770117de419dc9873056f1">slab_state</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

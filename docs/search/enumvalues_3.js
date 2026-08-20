@@ -2,9 +2,21 @@ var searchData=
 [
   ['cgroup_5ffile_5fprocs_0',['CGROUP_FILE_PROCS',['../cgroup-v1_8c.html#aa47db798b80e12173425c215f563e05ca4560b2af476a7d7ecd4cc2ef1de6ca7c',1,'cgroup-v1.c']]],
   ['cgroup_5ffile_5ftasks_1',['CGROUP_FILE_TASKS',['../cgroup-v1_8c.html#aa47db798b80e12173425c215f563e05ca88d05d6331b90430321eddf69aeb81fe',1,'cgroup-v1.c']]],
-  ['cmpxchg_5fdouble_5ffail_2',['CMPXCHG_DOUBLE_FAIL',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3ab9f8b14b3c90b265b563d1bf8135daa1',1,'slub.c']]],
-  ['constraint_5fcpuset_3',['CONSTRAINT_CPUSET',['../oom_8h.html#ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba',1,'oom.h']]],
-  ['constraint_5fmemcg_4',['CONSTRAINT_MEMCG',['../oom_8h.html#ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026',1,'oom.h']]],
-  ['constraint_5fmemory_5fpolicy_5',['CONSTRAINT_MEMORY_POLICY',['../oom_8h.html#ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9',1,'oom.h']]],
-  ['constraint_5fnone_6',['CONSTRAINT_NONE',['../oom_8h.html#ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e',1,'oom.h']]]
+  ['cluster_5fflag_5fdiscard_2',['CLUSTER_FLAG_DISCARD',['../swap_8h.html#ace24bc63617314bc2350f70ff32ddf46a497d4fd9705703e6035c2e88ce3d16b2',1,'swap.h']]],
+  ['cluster_5fflag_5ffrag_3',['CLUSTER_FLAG_FRAG',['../swap_8h.html#ace24bc63617314bc2350f70ff32ddf46ab5b17bd366984087888181de06418c47',1,'swap.h']]],
+  ['cluster_5fflag_5ffree_4',['CLUSTER_FLAG_FREE',['../swap_8h.html#ace24bc63617314bc2350f70ff32ddf46a6f0b4a315f8439d0d33f65f109cc710e',1,'swap.h']]],
+  ['cluster_5fflag_5ffull_5',['CLUSTER_FLAG_FULL',['../swap_8h.html#ace24bc63617314bc2350f70ff32ddf46ab459a9c03fc240e11e1e55d3fab71e63',1,'swap.h']]],
+  ['cluster_5fflag_5fmax_6',['CLUSTER_FLAG_MAX',['../swap_8h.html#ace24bc63617314bc2350f70ff32ddf46a2e284cb9518f0e7aaa787f9b332420a0',1,'swap.h']]],
+  ['cluster_5fflag_5fnone_7',['CLUSTER_FLAG_NONE',['../swap_8h.html#ace24bc63617314bc2350f70ff32ddf46a454ed18711132cbe9419818e079cc356',1,'swap.h']]],
+  ['cluster_5fflag_5fnonfull_8',['CLUSTER_FLAG_NONFULL',['../swap_8h.html#ace24bc63617314bc2350f70ff32ddf46a50d044df37b04e05476f6b700d90cc29',1,'swap.h']]],
+  ['cluster_5fflag_5fusable_9',['CLUSTER_FLAG_USABLE',['../swap_8h.html#ace24bc63617314bc2350f70ff32ddf46a4ff9a7fc56d2467ed0d9c93b3d7b0a23',1,'swap.h']]],
+  ['cma_5factivated_10',['CMA_ACTIVATED',['../cma_8h.html#a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9',1,'cma.h']]],
+  ['cma_5freserve_5fpages_5fon_5ferror_11',['CMA_RESERVE_PAGES_ON_ERROR',['../cma_8h.html#a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51',1,'cma.h']]],
+  ['cma_5fzones_5finvalid_12',['CMA_ZONES_INVALID',['../cma_8h.html#a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25',1,'cma.h']]],
+  ['cma_5fzones_5fvalid_13',['CMA_ZONES_VALID',['../cma_8h.html#a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab',1,'cma.h']]],
+  ['cmpxchg_5fdouble_5ffail_14',['CMPXCHG_DOUBLE_FAIL',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3ab9f8b14b3c90b265b563d1bf8135daa1',1,'slub.c']]],
+  ['constraint_5fcpuset_15',['CONSTRAINT_CPUSET',['../oom_8h.html#ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba',1,'oom.h']]],
+  ['constraint_5fmemcg_16',['CONSTRAINT_MEMCG',['../oom_8h.html#ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026',1,'oom.h']]],
+  ['constraint_5fmemory_5fpolicy_17',['CONSTRAINT_MEMORY_POLICY',['../oom_8h.html#ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9',1,'oom.h']]],
+  ['constraint_5fnone_18',['CONSTRAINT_NONE',['../oom_8h.html#ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e',1,'oom.h']]]
 ];

@@ -1,8 +1,14 @@
 var searchData=
 [
-  ['re_5ffit_5ftype_0',['RE_FIT_TYPE',['../vmalloc_8c.html#a02b14794ec966816ffe397474b985361a23fcbb0eacc311240b03087a6ecdcf7e',1,'vmalloc.c']]],
-  ['rmqueue_5fclaim_1',['RMQUEUE_CLAIM',['../page__alloc_8c.html#af8b124ed11d7295b7ce3cab1f6e51803af1939be4bc3e66c9184acd5fecb00098',1,'page_alloc.c']]],
-  ['rmqueue_5fcma_2',['RMQUEUE_CMA',['../page__alloc_8c.html#af8b124ed11d7295b7ce3cab1f6e51803ab201883507c9cbd68762141813797c73',1,'page_alloc.c']]],
-  ['rmqueue_5fnormal_3',['RMQUEUE_NORMAL',['../page__alloc_8c.html#af8b124ed11d7295b7ce3cab1f6e51803a3089afd0bfd5979ec51b85550be10540',1,'page_alloc.c']]],
-  ['rmqueue_5fsteal_4',['RMQUEUE_STEAL',['../page__alloc_8c.html#af8b124ed11d7295b7ce3cab1f6e51803a6b0e05f3f3b7a1eba94b09a67c6fab85',1,'page_alloc.c']]]
+  ['page_5factivate_0',['PAGE_ACTIVATE',['../vmscan_8c.html#ac2f7b4c6556f1feabb4c410723c22e7facdb42fe8e4952432715603d1d3fa0f66',1,'vmscan.c']]],
+  ['page_5fclean_1',['PAGE_CLEAN',['../vmscan_8c.html#ac2f7b4c6556f1feabb4c410723c22e7fa975caf78610f273cc317ac8c291e3957',1,'vmscan.c']]],
+  ['page_5fkeep_2',['PAGE_KEEP',['../vmscan_8c.html#ac2f7b4c6556f1feabb4c410723c22e7fa7a92f2105efa5f682e33a22336d9cc14',1,'vmscan.c']]],
+  ['page_5fsuccess_3',['PAGE_SUCCESS',['../vmscan_8c.html#ac2f7b4c6556f1feabb4c410723c22e7fa8984d36c597cd0123ed9444f99142a4d',1,'vmscan.c']]],
+  ['partial_4',['PARTIAL',['../mm_2slab_8h.html#add0c1ef8c5770117de419dc9873056f1a34d1361202d8c9652ed81b53cda15159',1,'slab.h']]],
+  ['pgdat_5freclaim_5flocked_5',['PGDAT_RECLAIM_LOCKED',['../mmzone_8h.html#ad455d068fe48b83f21258fbe0976b21ca4f181ac3e6de1d58c65393f8bad20933',1,'mmzone.h']]],
+  ['pgdat_5fwriteback_6',['PGDAT_WRITEBACK',['../mmzone_8h.html#ad455d068fe48b83f21258fbe0976b21ca7026b14a5f8bf3467f3e74b451d63aff',1,'mmzone.h']]],
+  ['pgdemote_5fdirect_7',['PGDEMOTE_DIRECT',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409aa72eea1d34a157ba0851dc863ef9bd8c',1,'mmzone.h']]],
+  ['pgdemote_5fkhugepaged_8',['PGDEMOTE_KHUGEPAGED',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409a31938c2fbc58c7f021a33ed612cf4f5c',1,'mmzone.h']]],
+  ['pgdemote_5fkswapd_9',['PGDEMOTE_KSWAPD',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409aeb16bf6951e9ae75f5d9dbd8fe162c38',1,'mmzone.h']]],
+  ['pgdemote_5fproactive_10',['PGDEMOTE_PROACTIVE',['../mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409ae9c8f8cd7f810f43b8fc9f0395824f30',1,'mmzone.h']]]
 ];

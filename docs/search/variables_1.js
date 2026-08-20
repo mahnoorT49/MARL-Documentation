@@ -1,9 +1,20 @@
 var searchData=
 [
-  ['addr_0',['addr',['../structtrack.html#a6c131640b04d43225c1795ded9551f9a',1,'track']]],
-  ['aggregate_1',['aggregate',['../structaggregate__control.html#a9fa611250a1c6fd543db8d059eb88236',1,'aggregate_control']]],
-  ['align_2',['align',['../structkmem__cache__args.html#aa573dbd1390ac87c6eab589ba28300dd',1,'kmem_cache_args']]],
-  ['all_5fss_3',['all_ss',['../structcgroup__fs__context.html#a9e379ff3ea9dab272101e890ac4295f3',1,'cgroup_fs_context']]],
-  ['alloc_5ffactor_4',['alloc_factor',['../structper__cpu__pages.html#aff90e3d1b3a9e56259ad93572bd0d7bf',1,'per_cpu_pages']]],
-  ['anon_5fcost_5',['anon_cost',['../structlruvec.html#a9bffe84ea852f0e64e7f3882d89abc05',1,'lruvec']]]
+  ['active_5fobjs_0',['active_objs',['../structslabinfo.html#a48937acef847a5ecb9a0752688350424',1,'slabinfo']]],
+  ['active_5fslabs_1',['active_slabs',['../structslabinfo.html#ab6f1c560e02a69e7b162b2ad15266de0',1,'slabinfo']]],
+  ['addr_2',['addr',['../structdma__iova__state.html#a2ca1cf8ef91a6d175bb979a2f6cc8b2f',1,'dma_iova_state::addr'],['../structvm__struct.html#ad8d546c22160194946c6e523a1a847f8',1,'vm_struct::addr'],['../structtrack.html#a6c131640b04d43225c1795ded9551f9a',1,'track::addr']]],
+  ['aggregate_3',['aggregate',['../structaggregate__control.html#a9fa611250a1c6fd543db8d059eb88236',1,'aggregate_control']]],
+  ['algo_4',['algo',['../structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa',1,'gen_pool']]],
+  ['align_5',['align',['../structgenpool__data__align.html#afd23b3b4df1c47592a4fff8ff9837c81',1,'genpool_data_align::align'],['../structkmem__cache__args.html#aa573dbd1390ac87c6eab589ba28300dd',1,'kmem_cache_args::align'],['../structkmem__cache.html#a770d4702e0b609eef63d90a8e682d7ae',1,'kmem_cache::align']]],
+  ['all_5fss_6',['all_ss',['../structcgroup__fs__context.html#a9e379ff3ea9dab272101e890ac4295f3',1,'cgroup_fs_context']]],
+  ['alloc_7',['alloc',['../structmempool.html#a25aceb879a859ec933bf04764057db01',1,'mempool']]],
+  ['alloc_5ffactor_8',['alloc_factor',['../structper__cpu__pages.html#aff90e3d1b3a9e56259ad93572bd0d7bf',1,'per_cpu_pages']]],
+  ['alloc_5fmap_9',['alloc_map',['../structpcpu__chunk.html#a1a8bc07016e4d49c7efe2443a833eb16',1,'pcpu_chunk']]],
+  ['alloc_5fmutex_10',['alloc_mutex',['../structcma.html#a26192936b7b1c2340ab1ca0d5f756a5c',1,'cma']]],
+  ['allocation_11',['allocation',['../structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc',1,'dma_pool']]],
+  ['allocflags_12',['allocflags',['../structkmem__cache.html#a0a8ea9ac1d984e078ec4ed337dbb62b6',1,'kmem_cache']]],
+  ['anon_5fcost_13',['anon_cost',['../structlruvec.html#a9bffe84ea852f0e64e7f3882d89abc05',1,'lruvec::anon_cost'],['../structscan__control.html#a055f58e28632e35f05a649f8f3215208',1,'scan_control::anon_cost']]],
+  ['attrs_14',['attrs',['../structdma__devres.html#a3a8f3925a4dc25948694d6e2139ceac5',1,'dma_devres']]],
+  ['avail_15',['avail',['../structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed',1,'gen_pool_chunk']]],
+  ['available_5fcount_16',['available_count',['../structcma.html#a25968f3f1b5cd037e0fca6958c09651b',1,'cma']]]
 ];

@@ -1,5 +1,19 @@
 var searchData=
 [
-  ['track_5falloc_0',['TRACK_ALLOC',['../slub_8c.html#a1ab285278f6aadbcc5642de1ac8132dca04bc065371a1532fccc8c815ee4359e1',1,'slub.c']]],
-  ['track_5ffree_1',['TRACK_FREE',['../slub_8c.html#a1ab285278f6aadbcc5642de1ac8132dca556c78dd6818801ab4a7a8cded450d58',1,'slub.c']]]
+  ['scan_5fanon_0',['SCAN_ANON',['../vmscan_8c.html#a86c2cea44596ebd410e51106d059fd0cafa1c8a89e9ec958c3def2ec11bc32390',1,'vmscan.c']]],
+  ['scan_5fequal_1',['SCAN_EQUAL',['../vmscan_8c.html#a86c2cea44596ebd410e51106d059fd0cae5e9c00995b16a0f18228582167f0383',1,'vmscan.c']]],
+  ['scan_5ffile_2',['SCAN_FILE',['../vmscan_8c.html#a86c2cea44596ebd410e51106d059fd0ca2ff895185b2ddf1d542e6960e8b83c97',1,'vmscan.c']]],
+  ['scan_5ffract_3',['SCAN_FRACT',['../vmscan_8c.html#a86c2cea44596ebd410e51106d059fd0caa4e02c235c5b15e55d5acb5251b1b912',1,'vmscan.c']]],
+  ['sheaf_5falloc_4',['SHEAF_ALLOC',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3a833d754dd1928928238f8c7617b09efb',1,'slub.c']]],
+  ['sheaf_5fflush_5',['SHEAF_FLUSH',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3a7a3881422c77cd71668877d18fca25a8',1,'slub.c']]],
+  ['sheaf_5ffree_6',['SHEAF_FREE',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3a11e06b3008ce8c86dab2aeaf04495b3e',1,'slub.c']]],
+  ['sheaf_5fprefill_5ffast_7',['SHEAF_PREFILL_FAST',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3a0e69d7adb02480021a92ac56ec228cb4',1,'slub.c']]],
+  ['sheaf_5fprefill_5foversize_8',['SHEAF_PREFILL_OVERSIZE',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3ae9d9d44f684c55beb71ba93ec825a5ac',1,'slub.c']]],
+  ['sheaf_5fprefill_5fslow_9',['SHEAF_PREFILL_SLOW',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3a1c5ce8d3ffbc4d8dc2a78dad9fd78afd',1,'slub.c']]],
+  ['sheaf_5frefill_10',['SHEAF_REFILL',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3a4e15bb4d3a4f66ba44230ca264e13d0c',1,'slub.c']]],
+  ['sheaf_5freturn_5ffast_11',['SHEAF_RETURN_FAST',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3a074ce8dbd599a48ddd25706a9affa8a6',1,'slub.c']]],
+  ['sheaf_5freturn_5fslow_12',['SHEAF_RETURN_SLOW',['../slub_8c.html#a941fceda51e3eafd88dec169928b92a3a8af4a0e61bbe043b32eebae7f8f734f4',1,'slub.c']]],
+  ['sl_5flocked_13',['SL_locked',['../slub_8c.html#a19ddf199e3e76102bb4ef74e10bc2bf0ac785a13cddb3f792e598e7e1e1c0a9fa',1,'slub.c']]],
+  ['sl_5fpartial_14',['SL_partial',['../slub_8c.html#a19ddf199e3e76102bb4ef74e10bc2bf0a653850732f9cb938cdf6619adbcff9fd',1,'slub.c']]],
+  ['sl_5fpfmemalloc_15',['SL_pfmemalloc',['../slub_8c.html#a19ddf199e3e76102bb4ef74e10bc2bf0a9d634c0ee8971f7a1f864ac5c9bfb2a1',1,'slub.c']]]
 ];

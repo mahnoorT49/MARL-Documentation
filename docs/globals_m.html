@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_m.html
 
 
 <h3 class="doxsection"><a id="index_m" name="index_m"></a>- m -</h3><ul>
+<li>MAGIC_VAL_BITS&#160;:&#160;<a class="el" href="zsmalloc_8c.html#ad83ea4d12a3fc248e58b99f89660c5fe">zsmalloc.c</a></li>
 <li>MAX_COMPACT_RETRIES&#160;:&#160;<a class="el" href="page__alloc_8c.html#a3ed62c1617cac7a0de9ee5f5f2ba0a5e">page_alloc.c</a></li>
 <li>MAX_EMPTY_SHEAVES&#160;:&#160;<a class="el" href="slub_8c.html#a5d24308caef024a190383c068de31e9c">slub.c</a></li>
 <li>MAX_FULL_SHEAVES&#160;:&#160;<a class="el" href="slub_8c.html#af22e01d74a1cc67c4f0e6f3e188f7419">slub.c</a></li>
@@ -132,6 +133,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_m.html
 <li>MAX_PARTIAL&#160;:&#160;<a class="el" href="slub_8c.html#a2c724583a70b546f2c8621699a640876">slub.c</a></li>
 <li>max_pfn&#160;:&#160;<a class="el" href="memblock_8c.html#a17af2d8edc383fc6f567f3cc6689c0ec">memblock.c</a></li>
 <li>max_possible_pfn&#160;:&#160;<a class="el" href="memblock_8c.html#a57141fb5a2af07ef93ffaa0e716f0e89">memblock.c</a></li>
+<li>MAX_POSSIBLE_PHYSMEM_BITS&#160;:&#160;<a class="el" href="zsmalloc_8c.html#a00681735cf7f1ffead57f88e8e230bd9">zsmalloc.c</a></li>
 <li>MAX_VA_SIZE_PAGES&#160;:&#160;<a class="el" href="vmalloc_8c.html#a49a9434bd3be814f407d23a158c4c7f7">vmalloc.c</a></li>
 <li>MAX_ZONELISTS&#160;:&#160;<a class="el" href="mmzone_8h.html#a84820424b8da1e611570a924155e51f4a3225128d48ee428805847398fd6e3b91">mmzone.h</a></li>
 <li>MAX_ZONES_PER_ZONELIST&#160;:&#160;<a class="el" href="mmzone_8h.html#a6361133aa68b0166d8004ad4e9c0c18c">mmzone.h</a></li>
@@ -172,8 +174,8 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_m.html
 <li>mem_cgroup_swapin_charge_folio()&#160;:&#160;<a class="el" href="memcontrol_8c.html#adf7330aaaec3f4b661a784b08b9d7c09">memcontrol.c</a></li>
 <li>mem_cgroup_update_lru_size()&#160;:&#160;<a class="el" href="memcontrol_8c.html#a1f8379fe45c497631c714511c991dd01">memcontrol.c</a></li>
 <li>mem_map&#160;:&#160;<a class="el" href="mmzone_8h.html#a28a30f9c3edb7a1a11cb84a168ac0702">mmzone.h</a></li>
-<li>memalloc_apply_gfp_scope()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a003f56d75368f13a3519ddc63f2dd817">vmalloc.c</a></li>
-<li>memalloc_restore_scope()&#160;:&#160;<a class="el" href="vmalloc_8c.html#ae20c4becd07d9295ee66c64e0d830a22">vmalloc.c</a></li>
+<li>memalloc_apply_gfp_scope()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a003f56d75368f13a3519ddc63f2dd817">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a003f56d75368f13a3519ddc63f2dd817">vmalloc.c</a></li>
+<li>memalloc_restore_scope()&#160;:&#160;<a class="el" href="vmalloc_8h.html#ae20c4becd07d9295ee66c64e0d830a22">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#ae20c4becd07d9295ee66c64e0d830a22">vmalloc.c</a></li>
 <li>memblock_add()&#160;:&#160;<a class="el" href="memblock_8c.html#aa1c37d02973fd2f0eaf4f976ebe90ac5">memblock.c</a></li>
 <li>memblock_add_node()&#160;:&#160;<a class="el" href="memblock_8c.html#ab9238f8848df2efe3032fe285eb7eef6">memblock.c</a></li>
 <li>memblock_addrs_overlap()&#160;:&#160;<a class="el" href="memblock_8c.html#a2c72a8f8bb20e5275d6f6be628a8bd3c">memblock.c</a></li>
@@ -257,7 +259,41 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_m.html
 <li>MEMINIT_EARLY&#160;:&#160;<a class="el" href="mmzone_8h.html#a3ea84d0336c7d5c783b738a2e5da2c89a32b4ebb1f4fee4a93f70031316d8b73d">mmzone.h</a></li>
 <li>MEMINIT_HOTPLUG&#160;:&#160;<a class="el" href="mmzone_8h.html#a3ea84d0336c7d5c783b738a2e5da2c89a6899fed3268bcfcc5530b9faac26fc3d">mmzone.h</a></li>
 <li>memory_cgrp_subsys&#160;:&#160;<a class="el" href="memcontrol_8c.html#aa66eb44800a5281940b62014d2f151ac">memcontrol.c</a></li>
+<li>MEMORY_RECLAIM_NULL&#160;:&#160;<a class="el" href="vmscan_8c.html#a2cfb6859cd1849180e80cdab80bec8a3a50922e4aecc380db1f117c3c2a0a2b5b">vmscan.c</a></li>
+<li>MEMORY_RECLAIM_SWAPPINESS&#160;:&#160;<a class="el" href="vmscan_8c.html#a2cfb6859cd1849180e80cdab80bec8a3aa6999617aaa31c30c6887d1c739157cd">vmscan.c</a></li>
+<li>MEMORY_RECLAIM_SWAPPINESS_MAX&#160;:&#160;<a class="el" href="vmscan_8c.html#a2cfb6859cd1849180e80cdab80bec8a3abb2f978cfbc0b7b8344a60d8af8c05a0">vmscan.c</a></li>
 <li>memory_stat_show()&#160;:&#160;<a class="el" href="memcontrol_8c.html#a40e55f95e09395b59152ab5e58987fa1">memcontrol.c</a></li>
+<li>mempool_alloc&#160;:&#160;<a class="el" href="mempool_8h.html#a20bfe65a57f28b2b9e131387b1b8c8f5">mempool.h</a></li>
+<li>mempool_alloc_bulk&#160;:&#160;<a class="el" href="mempool_8h.html#ad8e1f4121191bd6b9038524776e7b547">mempool.h</a></li>
+<li>mempool_alloc_bulk_noprof()&#160;:&#160;<a class="el" href="mempool_8h.html#ae6837631834847bd84b9aabe2b6f9327">mempool.h</a>, <a class="el" href="mempool_8c.html#ab91918127d1346b26a4c30532ed301c7">mempool.c</a></li>
+<li>mempool_alloc_noprof()&#160;:&#160;<a class="el" href="mempool_8h.html#ac72eb10d23f6c8c8a2539cecca54f658">mempool.h</a>, <a class="el" href="mempool_8c.html#a0e528e21ec0656babff777288807492c">mempool.c</a></li>
+<li>mempool_alloc_pages()&#160;:&#160;<a class="el" href="mempool_8h.html#a429600afff4cc4bcc682e14eedb2bccf">mempool.h</a>, <a class="el" href="mempool_8c.html#a429600afff4cc4bcc682e14eedb2bccf">mempool.c</a></li>
+<li>mempool_alloc_preallocated()&#160;:&#160;<a class="el" href="mempool_8h.html#a44871b72fb0477c9f799aa4509198370">mempool.h</a>, <a class="el" href="mempool_8c.html#a4c91ee4d8df718b92e9c9a4af8944116">mempool.c</a></li>
+<li>mempool_alloc_slab()&#160;:&#160;<a class="el" href="mempool_8h.html#a9a9ec11e46b6c945e05bb2aac5276d06">mempool.h</a>, <a class="el" href="mempool_8c.html#a9a9ec11e46b6c945e05bb2aac5276d06">mempool.c</a></li>
+<li>mempool_alloc_t&#160;:&#160;<a class="el" href="mempool_8h.html#aa3ebe74937095cc4646710910e85d73a">mempool.h</a></li>
+<li>mempool_create&#160;:&#160;<a class="el" href="mempool_8h.html#ac1e78eb208a3d22f4ac47644f339cd1e">mempool.h</a></li>
+<li>mempool_create_kmalloc_pool&#160;:&#160;<a class="el" href="mempool_8h.html#a01d78c355941fcc90890c2f5280d1329">mempool.h</a></li>
+<li>mempool_create_node&#160;:&#160;<a class="el" href="mempool_8h.html#a7d3198f8dcd6385d11760949c0204a7d">mempool.h</a></li>
+<li>mempool_create_node_noprof()&#160;:&#160;<a class="el" href="mempool_8h.html#abf1c58e586a3da5d0cc6afca53e3fb5f">mempool.h</a>, <a class="el" href="mempool_8c.html#a5ffadb7c298647b14cb7b369ac6f691d">mempool.c</a></li>
+<li>mempool_create_page_pool&#160;:&#160;<a class="el" href="mempool_8h.html#aa310b3a8ba9e56c516f46d5f5f6695b9">mempool.h</a></li>
+<li>mempool_create_slab_pool&#160;:&#160;<a class="el" href="mempool_8h.html#aa9bbe61bbe0e14caf7bbf80e3a99015c">mempool.h</a></li>
+<li>mempool_destroy()&#160;:&#160;<a class="el" href="mempool_8h.html#a3bfa9a64f3c754b37893558557cff1b6">mempool.h</a>, <a class="el" href="mempool_8c.html#a3bfa9a64f3c754b37893558557cff1b6">mempool.c</a></li>
+<li>mempool_exit()&#160;:&#160;<a class="el" href="mempool_8h.html#a1d6224bf46b653c88d09a1348ddd04de">mempool.h</a>, <a class="el" href="mempool_8c.html#a1d6224bf46b653c88d09a1348ddd04de">mempool.c</a></li>
+<li>mempool_free()&#160;:&#160;<a class="el" href="mempool_8h.html#ac11eb5ca59dae86c648177220cbd9d0c">mempool.h</a>, <a class="el" href="mempool_8c.html#ac11eb5ca59dae86c648177220cbd9d0c">mempool.c</a></li>
+<li>mempool_free_bulk()&#160;:&#160;<a class="el" href="mempool_8h.html#a5f86895cab8c3b0ed5fbb2caa26e34c4">mempool.h</a>, <a class="el" href="mempool_8c.html#af5b80d438fd43127837f2f76d07a5be5">mempool.c</a></li>
+<li>mempool_free_pages()&#160;:&#160;<a class="el" href="mempool_8h.html#a56d32531c2bfb573fea2bb6188e9e57f">mempool.h</a>, <a class="el" href="mempool_8c.html#a56d32531c2bfb573fea2bb6188e9e57f">mempool.c</a></li>
+<li>mempool_free_slab()&#160;:&#160;<a class="el" href="mempool_8h.html#abc58c5b3d5a6bbe1af665a6ee234e2b5">mempool.h</a>, <a class="el" href="mempool_8c.html#abc58c5b3d5a6bbe1af665a6ee234e2b5">mempool.c</a></li>
+<li>mempool_free_t&#160;:&#160;<a class="el" href="mempool_8h.html#aa7a07e918cc5b934c9395824f215d92c">mempool.h</a></li>
+<li>mempool_init&#160;:&#160;<a class="el" href="mempool_8h.html#a64c629a4c5cdbed266e00ad55c85e659">mempool.h</a></li>
+<li>mempool_init_kmalloc_pool&#160;:&#160;<a class="el" href="mempool_8h.html#abe6a54044a7d1055d417314f0cc8ff58">mempool.h</a></li>
+<li>mempool_init_node()&#160;:&#160;<a class="el" href="mempool_8h.html#a03170c149901214d66e5e365b1ef13e4">mempool.h</a>, <a class="el" href="mempool_8c.html#a03170c149901214d66e5e365b1ef13e4">mempool.c</a></li>
+<li>mempool_init_noprof()&#160;:&#160;<a class="el" href="mempool_8h.html#aa9829e7618eb6d16f2da5cfbceefa621">mempool.h</a>, <a class="el" href="mempool_8c.html#aa9829e7618eb6d16f2da5cfbceefa621">mempool.c</a></li>
+<li>mempool_init_page_pool&#160;:&#160;<a class="el" href="mempool_8h.html#ad24992a6169367424dc785315bd66707">mempool.h</a></li>
+<li>mempool_init_slab_pool&#160;:&#160;<a class="el" href="mempool_8h.html#ae9d66e6a28255340e56228e35eafc79b">mempool.h</a></li>
+<li>mempool_kfree()&#160;:&#160;<a class="el" href="mempool_8h.html#a91f3a618909353ee778baf7e2a2b4eb4">mempool.h</a>, <a class="el" href="mempool_8c.html#a91f3a618909353ee778baf7e2a2b4eb4">mempool.c</a></li>
+<li>mempool_kmalloc()&#160;:&#160;<a class="el" href="mempool_8h.html#a1dde6440353fb1a40e222fb2895febf8">mempool.h</a>, <a class="el" href="mempool_8c.html#a1dde6440353fb1a40e222fb2895febf8">mempool.c</a></li>
+<li>mempool_resize()&#160;:&#160;<a class="el" href="mempool_8h.html#a0db246f41fb8e7fb744228150cc3508c">mempool.h</a>, <a class="el" href="mempool_8c.html#a0db246f41fb8e7fb744228150cc3508c">mempool.c</a></li>
+<li>mempool_t&#160;:&#160;<a class="el" href="mempool_8h.html#a0fb06b598611007b528701484140636c">mempool.h</a></li>
 <li>MIGRATE_HIGHATOMIC&#160;:&#160;<a class="el" href="mmzone_8h.html#ae632273c4909482b279ed0e527a94b5fa815da9ea8864e1dc9ca36032eb58f7b4">mmzone.h</a></li>
 <li>MIGRATE_MOVABLE&#160;:&#160;<a class="el" href="mmzone_8h.html#ae632273c4909482b279ed0e527a94b5fabc44279e195d07f6bd354560f14b2c24">mmzone.h</a></li>
 <li>MIGRATE_PCPTYPES&#160;:&#160;<a class="el" href="mmzone_8h.html#ae632273c4909482b279ed0e527a94b5fa5b81964ab81a9818979086c75160117a">mmzone.h</a></li>
@@ -274,7 +310,13 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_m.html
 <li>mod_lruvec_kmem_state()&#160;:&#160;<a class="el" href="memcontrol_8c.html#a151b599a8feb76df3c26555fa01db7c7">memcontrol.c</a></li>
 <li>mod_lruvec_state()&#160;:&#160;<a class="el" href="memcontrol_8c.html#aa709b07985912b09b7b6c27b068a118e">memcontrol.c</a></li>
 <li>mod_memcg_state()&#160;:&#160;<a class="el" href="memcontrol_8c.html#a1fb946455cf9d2cec24a3dd97c7bc7aa">memcontrol.c</a></li>
+<li>MODULE_AUTHOR()&#160;:&#160;<a class="el" href="zsmalloc_8c.html#a2d28005c571731e72d69413c357cfdfe">zsmalloc.c</a></li>
+<li>MODULE_DESCRIPTION()&#160;:&#160;<a class="el" href="zsmalloc_8c.html#adc823c05b29644fd8d0cb00d92d1e2c5">zsmalloc.c</a></li>
+<li>module_exit()&#160;:&#160;<a class="el" href="zsmalloc_8c.html#ab37c50ae9bb41463316de19dc5862858">zsmalloc.c</a></li>
+<li>module_init()&#160;:&#160;<a class="el" href="vmscan_8c.html#a53393537d882f75250afb1f41f897ec6">vmscan.c</a>, <a class="el" href="zsmalloc_8c.html#a5f9abe95763c10acbbb51f6c23cb1d2d">zsmalloc.c</a></li>
+<li>MODULE_LICENSE()&#160;:&#160;<a class="el" href="zsmalloc_8c.html#a5c95e2cd11cba226f5f3513060a8928e">zsmalloc.c</a></li>
 <li>movable_zone&#160;:&#160;<a class="el" href="mmzone_8h.html#aa6de1545a35d51404f1b7c5f36586c8e">mmzone.h</a>, <a class="el" href="page__alloc_8c.html#aa6de1545a35d51404f1b7c5f36586c8e">page_alloc.c</a></li>
+<li>move_fn_t&#160;:&#160;<a class="el" href="swap_8c.html#a55bf7162009ab53e5f6980982feff7a7">swap.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

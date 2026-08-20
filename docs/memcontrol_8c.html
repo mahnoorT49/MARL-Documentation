@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('memcontrol_8c.
 <code>#include &lt;linux/list.h&gt;</code><br />
 <code>#include &lt;linux/mutex.h&gt;</code><br />
 <code>#include &lt;linux/rbtree.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="slab_8h_source.html">linux/slab.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="include_2linux_2slab_8h_source.html">linux/slab.h</a>&gt;</code><br />
 <code>#include &lt;linux/swapops.h&gt;</code><br />
 <code>#include &lt;linux/spinlock.h&gt;</code><br />
 <code>#include &lt;linux/fs.h&gt;</code><br />
@@ -159,6 +159,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('memcontrol_8c.
 <code>#include &quot;internal.h&quot;</code><br />
 <code>#include &lt;net/sock.h&gt;</code><br />
 <code>#include &lt;net/ip.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="mm_2slab_8h_source.html">slab.h</a>&quot;</code><br />
 <code>#include &quot;memcontrol-v1.h&quot;</code><br />
 <code>#include &lt;linux/uaccess.h&gt;</code><br />
 <code>#include &lt;trace/events/memcg.h&gt;</code><br />
@@ -166,7 +167,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('memcontrol_8c.
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for memcontrol.c:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="memcontrol_8c__incl.svg" width="5799" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="memcontrol_8c__incl.svg" width="5539" height="336"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -260,8 +261,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a3abddc4be1110f7ca820e0c9370bb35b" id="r_a3abddc4be1110f7ca820e0c9370bb35b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3abddc4be1110f7ca820e0c9370bb35b">__memcg_kmem_uncharge_page</a> (struct page *page, int order)</td></tr>
 <tr class="memitem:a601c0323744a7c8b5254ca073a4340a7" id="r_a601c0323744a7c8b5254ca073a4340a7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a601c0323744a7c8b5254ca073a4340a7">obj_cgroup_charge</a> (struct obj_cgroup *objcg, gfp_t gfp, size_t size)</td></tr>
 <tr class="memitem:a9257100d1c46d6570a73893534318b1b" id="r_a9257100d1c46d6570a73893534318b1b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9257100d1c46d6570a73893534318b1b">obj_cgroup_uncharge</a> (struct obj_cgroup *objcg, size_t size)</td></tr>
-<tr class="memitem:aba423f0bcd88afffb142a025d060c553" id="r_aba423f0bcd88afffb142a025d060c553"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aba423f0bcd88afffb142a025d060c553">__memcg_slab_post_alloc_hook</a> (struct <a class="el" href="slab__common_8c.html#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *s, struct list_lru *lru, gfp_t flags, size_t size, void **p)</td></tr>
-<tr class="memitem:ac2aaf22fd430478a89e2cf6f1e75df2f" id="r_ac2aaf22fd430478a89e2cf6f1e75df2f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac2aaf22fd430478a89e2cf6f1e75df2f">__memcg_slab_free_hook</a> (struct <a class="el" href="slab__common_8c.html#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *s, struct slab *slab, void **p, int objects, unsigned long obj_exts)</td></tr>
+<tr class="memitem:aba423f0bcd88afffb142a025d060c553" id="r_aba423f0bcd88afffb142a025d060c553"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aba423f0bcd88afffb142a025d060c553">__memcg_slab_post_alloc_hook</a> (struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *s, struct list_lru *lru, gfp_t flags, size_t size, void **p)</td></tr>
+<tr class="memitem:ac2aaf22fd430478a89e2cf6f1e75df2f" id="r_ac2aaf22fd430478a89e2cf6f1e75df2f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac2aaf22fd430478a89e2cf6f1e75df2f">__memcg_slab_free_hook</a> (struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *s, struct slab *slab, void **p, int objects, unsigned long obj_exts)</td></tr>
 <tr class="memitem:aea7d0825ed2d871da3aa4514e205c526" id="r_aea7d0825ed2d871da3aa4514e205c526"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aea7d0825ed2d871da3aa4514e205c526">split_page_memcg</a> (struct page *page, unsigned order)</td></tr>
 <tr class="memitem:af85f132900cf92938c131ad945eb3d61" id="r_af85f132900cf92938c131ad945eb3d61"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af85f132900cf92938c131ad945eb3d61">folio_split_memcg_refs</a> (struct folio *folio, unsigned old_order, unsigned new_order)</td></tr>
 <tr class="memitem:ae866781ba949c75da2cd124fcecbf20d" id="r_ae866781ba949c75da2cd124fcecbf20d"><td class="memItemLeft">void __maybe_unused&#160;</td><td class="memItemRight"><a class="el" href="#ae866781ba949c75da2cd124fcecbf20d">mem_cgroup_private_id_get_many</a> (struct mem_cgroup *memcg, unsigned int n)</td></tr>
@@ -713,12 +714,12 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void __memcg_slab_free_hook </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="slab__common_8c.html#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct slab *</td>          <td class="paramname"><span class="paramname"><em>slab</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structslab.html">slab</a> *</td>          <td class="paramname"><span class="paramname"><em>slab</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -749,7 +750,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">bool __memcg_slab_post_alloc_hook </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="slab__common_8c.html#af4b044400a24a5717f41ea8fe4dc963a">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structkmem__cache.html">kmem_cache</a> *</td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

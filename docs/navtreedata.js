@@ -31,6 +31,7 @@ var NAVTREE =
     [ "page within the block of interest", "_the.html", null ],
     [ "@pfn", "and.html", null ],
     [ "that was isolated", "_page.html", null ],
+    [ "page which may or may not belong to a slab.", "_a.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -57,14 +58,18 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_page.html",
-"functions_c.html",
-"memblock_8c.html#a9ebdcd66db37e24ea352f0539ad3afe7",
-"mmzone_8h.html#a153462639e0b71827d3e388dbeb6dd30",
-"page__alloc_8c.html#aae49382409a2e0827f8c7cf42afcb862",
-"slab_8h.html#aacbb1d218fb9bc08259e0b2a0ec39701",
-"structcgroup__fs__context.html#a4f69988ca577a545d9aed6d8e5478053",
-"structvmap__block.html#ae825e6a77a5f542879cb0e46e37145a1"
+"_a.html",
+"cgroup_8h.html#ae24b0776d5efc0398b2385e1946e8f48",
+"gfp__types_8h.html#a01e37e52e366faf6ce7067b231abf7ae",
+"include_2linux_2slab_8h.html#a6fce67019e3e6a221351e14ab5cecb87",
+"memcontrol_8c.html#a06035107a25eb3263a98ade373b4476b",
+"mm_2slab_8h.html#af3906c465dac60e87d91ac453d6aed3b",
+"oom__kill_8c.html#ae00ee46e52e5e22872a1c9e1e50ce21a",
+"slab__common_8c.html#a65e1df628459026d1e8d3ce0e69d9e8e",
+"structdetached__freelist.html",
+"structper__cpu__pages.html#aff90e3d1b3a9e56259ad93572bd0d7bf",
+"swap_8c.html#a2ade93c7e27c2623c0dd9f0849a1e7d6",
+"vmalloc_8h.html#ada6d7140e48da590089ecb27abeeea6f"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

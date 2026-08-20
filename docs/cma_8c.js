@@ -1,0 +1,25 @@
+var cma_8c =
+[
+    [ "cma_init_memrange", "structcma__init__memrange.html", "structcma__init__memrange" ],
+    [ "CREATE_TRACE_POINTS", "cma_8c.html#a40473b47b4871fa538a0fa131f94e774", null ],
+    [ "pr_fmt", "cma_8c.html#a1f8c165bf4196327bc3abff648276d92", null ],
+    [ "cma_alloc", "cma_8c.html#af7a793465730821d26e8c45648016639", null ],
+    [ "cma_alloc_frozen", "cma_8c.html#ac35a4b2b31cca6119a7093e816a998eb", null ],
+    [ "cma_alloc_frozen_compound", "cma_8c.html#a22b347d50955579a42ff3089c98060cf", null ],
+    [ "cma_declare_contiguous_multi", "cma_8c.html#a8069ccd7aae99dd4d6e5a139f23a5345", null ],
+    [ "cma_declare_contiguous_nid", "cma_8c.html#a67300d38c8a1a69d9f4c8866dc44840a", null ],
+    [ "cma_for_each_area", "cma_8c.html#a2a33f2c3a50c713637f3c762b8670df9", null ],
+    [ "cma_get_base", "cma_8c.html#a97879508444bf1cf0c647505085ba504", null ],
+    [ "cma_get_name", "cma_8c.html#a6f4f77adf3f68c2bbac1b733ae827684", null ],
+    [ "cma_get_size", "cma_8c.html#a9f7d52d2cfaa4e1a6dcf0526ae9270bc", null ],
+    [ "cma_init_reserved_mem", "cma_8c.html#a5ccbf330662756d587dfe604278dd9c7", null ],
+    [ "cma_intersects", "cma_8c.html#a937e5521fb9113af3b37fda02820a1bb", null ],
+    [ "cma_release", "cma_8c.html#a4b281ce37a51283e854d78f8fe173842", null ],
+    [ "cma_release_frozen", "cma_8c.html#a3d62bdf586b754ec4478956ad546bae9", null ],
+    [ "cma_reserve_early", "cma_8c.html#a550ca763d3df127f16bbac0f6a99be91", null ],
+    [ "cma_reserve_pages_on_error", "cma_8c.html#a4cfd6bb06859c6a59bfa1ed0906cebf8", null ],
+    [ "cma_validate_zones", "cma_8c.html#af1391b7a3d38b6146c38f7ab0b7b5f26", null ],
+    [ "core_initcall", "cma_8c.html#a8afff3562f7a5c0db63909d8b3b82d82", null ],
+    [ "cma_area_count", "cma_8c.html#a890d3a98f067086f7789ad66f2ccd5c2", null ],
+    [ "cma_areas", "cma_8c.html#a084edff8321843b394f345da9e200edc", null ]
+];

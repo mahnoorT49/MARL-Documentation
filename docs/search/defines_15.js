@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['zero_5for_5fnull_5fptr_0',['ZERO_OR_NULL_PTR',['../include_2linux_2slab_8h.html#ac2dfdb419646bdff16b40992e0ab3a2f',1,'slab.h']]],
+  ['zero_5fsize_5fptr_1',['ZERO_SIZE_PTR',['../include_2linux_2slab_8h.html#a99a824de9e36862b0c9201c3f39b0ba5',1,'slab.h']]],
+  ['zone_5fidx_2',['zone_idx',['../mmzone_8h.html#a15e9dafc96fcfcaf02bf7ddeed2c77ec',1,'mmzone.h']]],
+  ['zoneid_5fmask_3',['ZONEID_MASK',['../mmzone_8h.html#a901021d086b1fd56a5547a88019dfa01',1,'mmzone.h']]],
+  ['zoneid_5fpgoff_4',['ZONEID_PGOFF',['../mmzone_8h.html#a8b9ecce5a6dc3bc709b6730f41618471',1,'mmzone.h']]],
+  ['zoneid_5fpgshift_5',['ZONEID_PGSHIFT',['../mmzone_8h.html#a31a659c5de7de022cac0159bfeeffa43',1,'mmzone.h']]],
+  ['zoneid_5fshift_6',['ZONEID_SHIFT',['../mmzone_8h.html#af54150ce1de273531308feaf5c94816a',1,'mmzone.h']]],
+  ['zones_5fmask_7',['ZONES_MASK',['../mmzone_8h.html#a4e0e488c755e99cb5a8aceeb33626963',1,'mmzone.h']]],
+  ['zones_5fpgoff_8',['ZONES_PGOFF',['../mmzone_8h.html#af91ff19503aa42464f0ddbf80ad8653e',1,'mmzone.h']]],
+  ['zones_5fpgshift_9',['ZONES_PGSHIFT',['../mmzone_8h.html#a7972f321331900330e273a2536a92201',1,'mmzone.h']]],
+  ['zs_5falign_10',['ZS_ALIGN',['../zsmalloc_8c.html#a924dc3e276a7a014f72ca7f880ba4060',1,'zsmalloc.c']]],
+  ['zs_5fhandle_5fsize_11',['ZS_HANDLE_SIZE',['../zsmalloc_8c.html#a526c4397e22f2d955c85e54f3800a575',1,'zsmalloc.c']]],
+  ['zs_5fmax_5falloc_5fsize_12',['ZS_MAX_ALLOC_SIZE',['../zsmalloc_8c.html#a6dcedf09799171e72aed9d85fc1c0be1',1,'zsmalloc.c']]],
+  ['zs_5fmax_5fpages_5fper_5fzspage_13',['ZS_MAX_PAGES_PER_ZSPAGE',['../zsmalloc_8c.html#af1f7b06c7a83ffd2f37dc615fbffa959',1,'zsmalloc.c']]],
+  ['zs_5fmin_5falloc_5fsize_14',['ZS_MIN_ALLOC_SIZE',['../zsmalloc_8c.html#a5bbaec5e8d179fe92c80f8400083d57e',1,'zsmalloc.c']]],
+  ['zs_5fpage_5funlocked_15',['ZS_PAGE_UNLOCKED',['../zsmalloc_8c.html#aca3ab53e39359cca7d0aa9895c94b867',1,'zsmalloc.c']]],
+  ['zs_5fpage_5fwrlocked_16',['ZS_PAGE_WRLOCKED',['../zsmalloc_8c.html#aa3f618c3067b08abe25715c3addfad08',1,'zsmalloc.c']]],
+  ['zs_5fsize_5fclass_5fdelta_17',['ZS_SIZE_CLASS_DELTA',['../zsmalloc_8c.html#a6dffdc9a5deb8dfdbf4359962e99e39c',1,'zsmalloc.c']]],
+  ['zs_5fsize_5fclasses_18',['ZS_SIZE_CLASSES',['../zsmalloc_8c.html#a4864db1fc833cab58b5f01cbacaaf594',1,'zsmalloc.c']]],
+  ['zspage_5fmagic_19',['ZSPAGE_MAGIC',['../zsmalloc_8c.html#aa4fa5da731b2025746f80d6029d1924c',1,'zsmalloc.c']]]
+];

@@ -122,26 +122,49 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_f.html
 <h3 class="doxsection"><a id="index_f" name="index_f"></a>- f -</h3><ul>
 <li>find_lock_task_mm()&#160;:&#160;<a class="el" href="oom_8h.html#a63add4ec9a8055221f83d425aae186b3">oom.h</a>, <a class="el" href="oom__kill_8c.html#a63add4ec9a8055221f83d425aae186b3">oom_kill.c</a></li>
 <li>find_suitable_fallback()&#160;:&#160;<a class="el" href="page__alloc_8c.html#a94e4383fa1507fcf936aa3929a99a28b">page_alloc.c</a></li>
-<li>find_vm_area()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a15953778ee3f894cc6715d5f7e5bdaed">vmalloc.c</a></li>
-<li>find_vmap_area()&#160;:&#160;<a class="el" href="vmalloc_8c.html#a27fc6020f6bedb8e2ffe7e1bdbd5383c">vmalloc.c</a></li>
+<li>find_vm_area()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a15953778ee3f894cc6715d5f7e5bdaed">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a15953778ee3f894cc6715d5f7e5bdaed">vmalloc.c</a></li>
+<li>find_vmap_area()&#160;:&#160;<a class="el" href="vmalloc_8h.html#a27fc6020f6bedb8e2ffe7e1bdbd5383c">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#a27fc6020f6bedb8e2ffe7e1bdbd5383c">vmalloc.c</a></li>
+<li>FIRST_OBJ_PAGE_TYPE_MASK&#160;:&#160;<a class="el" href="zsmalloc_8c.html#a40fcd2ddcae830948c4b8d21be2dc4f2">zsmalloc.c</a></li>
 <li>first_online_pgdat()&#160;:&#160;<a class="el" href="mmzone_8h.html#a275e6b6f0323bd9165375e7e57544a99">mmzone.h</a></li>
 <li>fit_type&#160;:&#160;<a class="el" href="vmalloc_8c.html#a02b14794ec966816ffe397474b985361">vmalloc.c</a></li>
-<li>fixup_red_left()&#160;:&#160;<a class="el" href="slub_8c.html#a70ca65a76ef553580b08c2809918562e">slub.c</a></li>
+<li>fixup_red_left()&#160;:&#160;<a class="el" href="mm_2slab_8h.html#a70ca65a76ef553580b08c2809918562e">slab.h</a>, <a class="el" href="slub_8c.html#a70ca65a76ef553580b08c2809918562e">slub.c</a></li>
 <li>FL_FIT_TYPE&#160;:&#160;<a class="el" href="vmalloc_8c.html#a02b14794ec966816ffe397474b985361a66554c1966697c7427b64efae8216b5a">vmalloc.c</a></li>
-<li>flags&#160;:&#160;<a class="el" href="slab_8h.html#a87339f115a0975a129ebf95946fe26d6">slab.h</a></li>
-<li>flush_all_rcu_sheaves()&#160;:&#160;<a class="el" href="slub_8c.html#afdd7e2db4e8317a9c17ec3dd601abda4">slub.c</a></li>
-<li>flush_rcu_sheaves_on_cache()&#160;:&#160;<a class="el" href="slub_8c.html#ad08bde61ed917e1ee341d4b99dedbe37">slub.c</a></li>
+<li>flags&#160;:&#160;<a class="el" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">slab.h</a></li>
+<li>flush_all_rcu_sheaves()&#160;:&#160;<a class="el" href="mm_2slab_8h.html#afdd7e2db4e8317a9c17ec3dd601abda4">slab.h</a>, <a class="el" href="slub_8c.html#afdd7e2db4e8317a9c17ec3dd601abda4">slub.c</a></li>
+<li>flush_rcu_sheaves_on_cache()&#160;:&#160;<a class="el" href="mm_2slab_8h.html#ad08bde61ed917e1ee341d4b99dedbe37">slab.h</a>, <a class="el" href="slub_8c.html#ad08bde61ed917e1ee341d4b99dedbe37">slub.c</a></li>
 <li>FLUSH_TIME&#160;:&#160;<a class="el" href="memcontrol_8c.html#a14e7fe8b4fafc9f88b7459a337eee9fd">memcontrol.c</a></li>
 <li>FLUSHING_CACHED_CHARGE&#160;:&#160;<a class="el" href="memcontrol_8c.html#a3c28366e6c07d9110b5096ca72b73e2b">memcontrol.c</a></li>
+<li>folio_activate()&#160;:&#160;<a class="el" href="swap_8c.html#a2ade93c7e27c2623c0dd9f0849a1e7d6">swap.c</a></li>
+<li>folio_add_lru()&#160;:&#160;<a class="el" href="swap_8c.html#a748e20c79b2f3f9a7861641784e180ba">swap.c</a></li>
+<li>folio_add_lru_vma()&#160;:&#160;<a class="el" href="swap_8c.html#aa2df6e948a26f4d288787917fb948208">swap.c</a></li>
+<li>folio_alloc_swap()&#160;:&#160;<a class="el" href="swapfile_8c.html#a4f016f41b8d218e843962ded4dad348e">swapfile.c</a></li>
+<li>folio_batch_add_and_move&#160;:&#160;<a class="el" href="swap_8c.html#a45230958a9c9323d98f855166b25d5fd">swap.c</a></li>
+<li>folio_batch_remove_exceptionals()&#160;:&#160;<a class="el" href="swap_8c.html#a023928eab59882763a081966f8f2e4e8">swap.c</a></li>
+<li>folio_deactivate()&#160;:&#160;<a class="el" href="swap_8c.html#abeeef6f333b42e5b34eea1faa9dcbe0a">swap.c</a></li>
+<li>folio_dup_swap()&#160;:&#160;<a class="el" href="swapfile_8c.html#abd8cba2dabc02410e4c4fcf595c9d712">swapfile.c</a></li>
+<li>folio_free_swap()&#160;:&#160;<a class="el" href="swapfile_8c.html#a9cfe0a4459586c57a3a6f16ba77d8035">swapfile.c</a></li>
+<li>folio_isolate_lru()&#160;:&#160;<a class="el" href="vmscan_8c.html#af72902fe30fa6b5a06f0729d650e481a">vmscan.c</a></li>
 <li>folio_lruvec_lock()&#160;:&#160;<a class="el" href="memcontrol_8c.html#af25abce8ad7b5946b46b0936805262c9">memcontrol.c</a></li>
 <li>folio_lruvec_lock_irq()&#160;:&#160;<a class="el" href="memcontrol_8c.html#ab98eda6393d88d00f03d8d17e6bfcb64">memcontrol.c</a></li>
 <li>folio_lruvec_lock_irqsave()&#160;:&#160;<a class="el" href="memcontrol_8c.html#a4b0b3a0eac09d96b2e7e395460956656">memcontrol.c</a></li>
+<li>folio_mark_accessed()&#160;:&#160;<a class="el" href="swap_8c.html#a64ea14cffb102246a5569d2f5c9f2a3d">swap.c</a></li>
+<li>folio_mark_lazyfree()&#160;:&#160;<a class="el" href="swap_8c.html#a9d8f2f07ba5a50346adb5931c168e9f0">swap.c</a></li>
 <li>folio_migratetype&#160;:&#160;<a class="el" href="mmzone_8h.html#a39d248330b98a708361ec02dabf25452">mmzone.h</a></li>
+<li>folio_put_swap()&#160;:&#160;<a class="el" href="swapfile_8c.html#a1e378a4dc95994290a80f625d481ad0f">swapfile.c</a></li>
+<li>folio_putback_lru()&#160;:&#160;<a class="el" href="vmscan_8c.html#ae4accacc60970afa7c8c298ca0caaf5a">vmscan.c</a></li>
+<li>folio_references&#160;:&#160;<a class="el" href="vmscan_8c.html#a95025b86354b8416f1a5535bba1415a0">vmscan.c</a></li>
+<li>folio_rotate_reclaimable()&#160;:&#160;<a class="el" href="swap_8c.html#ac7d49ec61e56c72c8a3ff7af8bbb2559">swap.c</a></li>
 <li>folio_split_memcg_refs()&#160;:&#160;<a class="el" href="memcontrol_8c.html#af85f132900cf92938c131ad945eb3d61">memcontrol.c</a></li>
+<li>FOLIOREF_ACTIVATE&#160;:&#160;<a class="el" href="vmscan_8c.html#a95025b86354b8416f1a5535bba1415a0ac6347657a5732177f06001f0a3848ada">vmscan.c</a></li>
+<li>FOLIOREF_KEEP&#160;:&#160;<a class="el" href="vmscan_8c.html#a95025b86354b8416f1a5535bba1415a0a5f3c1eee5b935cf0d0e563aa5cb19fd3">vmscan.c</a></li>
+<li>FOLIOREF_RECLAIM&#160;:&#160;<a class="el" href="vmscan_8c.html#a95025b86354b8416f1a5535bba1415a0aba7c397658e2876c1c47d92ee0ba16af">vmscan.c</a></li>
+<li>FOLIOREF_RECLAIM_CLEAN&#160;:&#160;<a class="el" href="vmscan_8c.html#a95025b86354b8416f1a5535bba1415a0a609cbed074b4e88376617de74624977d">vmscan.c</a></li>
+<li>folios_put_refs()&#160;:&#160;<a class="el" href="swap_8c.html#a65d7ad226963eb57392114c5157c116b">swap.c</a></li>
 <li>for_each_css&#160;:&#160;<a class="el" href="cgroup_8c.html#a3bce8fd47a82f165db3435eb09937b45">cgroup.c</a></li>
 <li>for_each_evictable_lru&#160;:&#160;<a class="el" href="mmzone_8h.html#ae4d0f84047b20843ca1d39af5459ab17">mmzone.h</a></li>
 <li>for_each_kmem_cache_node&#160;:&#160;<a class="el" href="slub_8c.html#aa1a90f5e37d38adf2f66ed7d319b7fdf">slub.c</a></li>
 <li>for_each_lru&#160;:&#160;<a class="el" href="mmzone_8h.html#a8309bde333c5b7658bdfa79c0642aa04">mmzone.h</a></li>
+<li>for_each_managed_zone_pgdat&#160;:&#160;<a class="el" href="vmscan_8c.html#a6934396131fa03b3a0a1903c5be02565">vmscan.c</a></li>
 <li>for_each_memblock_type&#160;:&#160;<a class="el" href="memblock_8c.html#ab418610f9f68a2d44325d56186b2f07b">memblock.c</a></li>
 <li>for_each_migratetype_order&#160;:&#160;<a class="el" href="mmzone_8h.html#a33deb083d20edf49f26ca5effbe6a55e">mmzone.h</a></li>
 <li>for_each_object&#160;:&#160;<a class="el" href="slub_8c.html#a46cfaca21aca0a21eb22cb86c88e0340">slub.c</a></li>
@@ -168,6 +191,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_f.html
 <li>free_pages_exact()&#160;:&#160;<a class="el" href="page__alloc_8c.html#aa0585d3acdf6b0d001ccaf5847a377a7">page_alloc.c</a></li>
 <li>free_pages_nolock()&#160;:&#160;<a class="el" href="page__alloc_8c.html#aa26558c34bc1b8990acc19ca35ec97db">page_alloc.c</a></li>
 <li>free_pages_prepare()&#160;:&#160;<a class="el" href="page__alloc_8c.html#a0b3410b8d9d93611eef8c2b4ee46b3c2">page_alloc.c</a></li>
+<li>free_percpu()&#160;:&#160;<a class="el" href="percpu_8c.html#af832b6277c0e78c53c58ec127407abd1">percpu.c</a></li>
 <li>FREE_RCU_SHEAF&#160;:&#160;<a class="el" href="slub_8c.html#a941fceda51e3eafd88dec169928b92a3a1ea4240f7172dd2d4a7723c0752412ce">slub.c</a></li>
 <li>FREE_RCU_SHEAF_FAIL&#160;:&#160;<a class="el" href="slub_8c.html#a941fceda51e3eafd88dec169928b92a3a2b267ec2612daeef4de99c7695125669">slub.c</a></li>
 <li>FREE_REMOVE_PARTIAL&#160;:&#160;<a class="el" href="slub_8c.html#a941fceda51e3eafd88dec169928b92a3a0fe1b9a6eed8f593d46f680f9d29c18e">slub.c</a></li>
@@ -176,7 +200,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_f.html
 <li>FREE_SLAB&#160;:&#160;<a class="el" href="slub_8c.html#a941fceda51e3eafd88dec169928b92a3a72b13c3d1fc6817166f1791e5f8a90e3">slub.c</a></li>
 <li>FREE_SLOWPATH&#160;:&#160;<a class="el" href="slub_8c.html#a941fceda51e3eafd88dec169928b92a3a4a018e8350786ecd2224e40fcfa60a77">slub.c</a></li>
 <li>free_unref_folios()&#160;:&#160;<a class="el" href="page__alloc_8c.html#ac5e35526aeea87923990814980e60782">page_alloc.c</a></li>
-<li>free_vm_area()&#160;:&#160;<a class="el" href="vmalloc_8c.html#aef11fbe09279a47f2b64adee7d75b1e0">vmalloc.c</a></li>
+<li>free_vm_area()&#160;:&#160;<a class="el" href="vmalloc_8h.html#aef11fbe09279a47f2b64adee7d75b1e0">vmalloc.h</a>, <a class="el" href="vmalloc_8c.html#aef11fbe09279a47f2b64adee7d75b1e0">vmalloc.c</a></li>
+<li>freelist_full_t&#160;:&#160;<a class="el" href="mm_2slab_8h.html#ad6c2c50deaac3f3112676b8d1ade3de4">slab.h</a></li>
+<li>FULL&#160;:&#160;<a class="el" href="mm_2slab_8h.html#add0c1ef8c5770117de419dc9873056f1ad08f8ac0aa8dfb59589824359772459e">slab.h</a></li>
+<li>FULLNESS_BITS&#160;:&#160;<a class="el" href="zsmalloc_8c.html#a5e7c7b8ce55f263b5404fb811f8c9125">zsmalloc.c</a></li>
+<li>fullness_group&#160;:&#160;<a class="el" href="zsmalloc_8c.html#ad49ab2576a238ebefe966398e04fc07c">zsmalloc.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
