@@ -1108,7 +1108,7 @@ int unregister_oom_notifier(struct notifier_block *nb)
 EXPORT_SYMBOL_GPL(unregister_oom_notifier);
 
 /**
- * out_of_memory - kill the "best" process when we run out of memory
+ * out_of_memory - kill the "best" process when we run out of memory check something
  * @oc: pointer to struct oom_control
  *
  * If we run out of memory, we have the choice between either
