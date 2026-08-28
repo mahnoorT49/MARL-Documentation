@@ -1,7 +1,0 @@
-\chapter{page which may or may not belong to a slab. }
-\hypertarget{_a}{}\label{_a}\index{page which may or may not belong to a slab.@{page which may or may not belong to a slab.}}
-page\+\_\+slab -\/ Converts from struct page to its slab.  
-
-Return:\+ The slab which contains this page or NULL if the page does not belong to a slab. This includes pages returned from large kmalloc.
-
-Function Description:\+ Converts a struct page pointer to a struct slab pointer. It handles compound pages by following the compound\+\_\+head pointer and verifies the page type is PGTY\+\_\+slab. Returns the slab pointer or NULL if the page does not belong to a slab. 
