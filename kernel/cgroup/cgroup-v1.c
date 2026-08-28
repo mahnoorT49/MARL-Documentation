@@ -19,7 +19,7 @@
 
 #include <trace/events/cgroup.h>
 
-/*
+/**
  * pidlists linger the following amount before being destroyed.  The goal
  * is avoiding frequent destruction in the middle of consecutive read calls
  * Expiring in the middle is a performance problem not a correctness one.
@@ -27,32 +27,42 @@
  */
 #define CGROUP_PIDLIST_DESTROY_DELAY	HZ
 
-/* Controllers blocked by the commandline in v1 */
+/** Controllers blocked by the commandline in v1 
+ * 
+ * 
+ * Description: Bitmask of cgroup1 subsystems that are disabled via the cgroup_no_v1= boot parameter. This prevents certain controllers from being used in cgroup1.
+ */
 static u32 cgroup_no_v1_mask;
 
-/* disable named v1 mounts */
+/** disable named v1 mounts */
 static bool cgroup_no_v1_named;
 
-/* Show unavailable controllers in /proc/cgroups */
+/** Show unavailable controllers in /proc/cgroups */
 static bool proc_show_all;
 
-/*
+/**
  * pidlist destructions need to be flushed on cgroup destruction.  Use a
  * separate workqueue as flush domain.
  */
 static struct workqueue_struct *cgroup_pidlist_destroy_wq;
 
-/* protects cgroup_subsys->release_agent_path */
+/** protects cgroup_subsys->release_agent_path */
 static DEFINE_SPINLOCK(release_agent_path_lock);
 
+/**
+ * Function Description: Checks if a cgroup1 subsystem with the given ID is disabled via the command line. Returns true if the subsystem is in the cgroup_no_v1_mask. This is used to prevent certain controllers from being used in cgroup1.
+ */
 bool cgroup1_ssid_disabled(int ssid)
 {
 	return cgroup_no_v1_mask & (1 << ssid);
 }
 
+/**
+ * Function Description: Checks if a cgroup1 subsystem is absent (not available). Returns true if the subsystem has no legacy_cftypes and has dfl_cftypes. This is used for file-less controllers like perf_event.
+ */
 static bool cgroup1_subsys_absent(struct cgroup_subsys *ss)
 {
-	/* Check also dfl_cftypes for file-less controllers, i.e. perf_event */
+	/** Check also dfl_cftypes for file-less controllers, i.e. perf_event */
 	return ss->legacy_cftypes == NULL && ss->dfl_cftypes;
 }
 
@@ -62,6 +72,9 @@ static bool cgroup1_subsys_absent(struct cgroup_subsys *ss)
  * @tsk: the task to be attached
  *
  * Return: %0 on success or a negative errno code on failure
+ * 
+ * 
+ * Function Description: Attaches a task to all cgroups of another task. It iterates through all cgroup roots and attaches the task to each cgroup that the "from" task belongs to. Returns 0 on success or a negative error code.
  */
 int cgroup_attach_task_all(struct task_struct *from, struct task_struct *tsk)
 {
@@ -100,6 +113,9 @@ EXPORT_SYMBOL_GPL(cgroup_attach_task_all);
  * can slip out of migration through forking.
  *
  * Return: %0 on success or a negative errno code on failure
+ * 
+ * 
+ * Function Description: Moves all tasks from one cgroup to another. It iterates through tasks in the source cgroup and migrates them one by one to the destination cgroup. Returns 0 on success or a negative error code. This is only supported on cgroup1.
  */
 int cgroup_transfer_tasks(struct cgroup *to, struct cgroup *from)
 {
@@ -159,7 +175,7 @@ out_err:
 	return ret;
 }
 
-/*
+/**
  * Stuff for reading the 'tasks'/'procs' files.
  *
  * Reading this file can return large amounts of data if a cgroup has
@@ -175,33 +191,39 @@ enum cgroup_filetype {
 	CGROUP_FILE_TASKS,
 };
 
-/*
+/**
  * A pidlist is a list of pids that virtually represents the contents of one
  * of the cgroup files ("procs" or "tasks"). We keep a list of such pidlists,
  * a pair (one each for procs, tasks) for each pid namespace that's relevant
  * to the cgroup.
+ * 
+ * 
+ * struct Description: This structure holds a list of PIDs for a cgroup's "tasks" or "procs" file. It contains the key (type and namespace), the array of PIDs, length, links for list management, owner cgroup, and a delayed work for destruction. It is used to cache the list of processes in a cgroup for efficient reading.
  */
 struct cgroup_pidlist {
-	/*
+	/**
 	 * used to find which pidlist is wanted. doesn't change as long as
 	 * this particular list stays in the list.
-	*/
+	 */
 	struct { enum cgroup_filetype type; struct pid_namespace *ns; } key;
-	/* array of xids */
+	/** array of xids */
 	pid_t *list;
-	/* how many elements the above list has */
+	/** how many elements the above list has */
 	int length;
-	/* each of these stored in a list by its cgroup */
+	/** each of these stored in a list by its cgroup */
 	struct list_head links;
-	/* pointer to the cgroup we belong to, for list removal purposes */
+	/** pointer to the cgroup we belong to, for list removal purposes */
 	struct cgroup *owner;
-	/* for delayed destruction */
+	/** for delayed destruction */
 	struct delayed_work destroy_dwork;
 };
 
-/*
+/**
  * Used to destroy all pidlists lingering waiting for destroy timer.  None
  * should be left afterwards.
+ * 
+ * 
+ * Function Description: Destroys all pidlists associated with a cgroup. It schedules destruction work for each pidlist and then flushes the workqueue to ensure all are destroyed. Called during cgroup destruction.
  */
 void cgroup1_pidlist_destroy_all(struct cgroup *cgrp)
 {
@@ -216,6 +238,9 @@ void cgroup1_pidlist_destroy_all(struct cgroup *cgrp)
 	BUG_ON(!list_empty(&cgrp->pidlists));
 }
 
+/**
+ * Function Description: Work function for destroying a pidlist. It removes the pidlist from its cgroup's list and frees the memory. This is called asynchronously after a delay to allow for repeated reads.
+ */
 static void cgroup_pidlist_destroy_work_fn(struct work_struct *work)
 {
 	struct delayed_work *dwork = to_delayed_work(work);
@@ -240,9 +265,12 @@ static void cgroup_pidlist_destroy_work_fn(struct work_struct *work)
 	kfree(tofree);
 }
 
-/*
+/**
  * pidlist_uniq - given a kmalloc()ed list, strip out all duplicate entries
  * Returns the number of unique elements.
+ * 
+ * 
+ * Function Description: Strips out duplicate entries from a sorted PID list. It walks through the list and compacts it to contain only unique PIDs. Returns the number of unique elements.
  */
 static int pidlist_uniq(pid_t *list, int length)
 {
@@ -270,7 +298,7 @@ after:
 	return dest;
 }
 
-/*
+/**
  * The two pid files - task and cgroup.procs - guaranteed that the result
  * is sorted, which forced this whole pidlist fiasco.  As pid order is
  * different per namespace, each namespace needs differently sorted list,
@@ -278,12 +306,18 @@ after:
  * sorted by task pointer.  As pidlists can be fairly large, allocating one
  * per open file is dangerous, so cgroup had to implement shared pool of
  * pidlists keyed by cgroup and namespace.
+ * 
+ * 
+ * Function Description: Comparison function for sorting PIDs. It subtracts one PID from another. Used with sort() to sort PID arrays.
  */
 static int cmppid(const void *a, const void *b)
 {
 	return *(pid_t *)a - *(pid_t *)b;
 }
 
+/**
+ * Function Description: Finds a pidlist for a cgroup and file type in the current PID namespace. It searches the cgroup's pidlist list for a matching key. Returns the pidlist or NULL if not found.
+ */
 static struct cgroup_pidlist *cgroup_pidlist_find(struct cgroup *cgrp,
 						  enum cgroup_filetype type)
 {
@@ -299,11 +333,14 @@ static struct cgroup_pidlist *cgroup_pidlist_find(struct cgroup *cgrp,
 	return NULL;
 }
 
-/*
+/**
  * find the appropriate pidlist for our purpose (given procs vs tasks)
  * returns with the lock on that pidlist already held, and takes care
  * of the use count, or returns NULL with no locks held if we're out of
  * memory.
+ * 
+ * 
+ * Function Description: Finds or creates a pidlist for a cgroup and file type. If the pidlist doesn't exist, it allocates a new one and adds it to the cgroup's list. Returns the pidlist or NULL on allocation failure.
  */
 static struct cgroup_pidlist *cgroup_pidlist_find_create(struct cgroup *cgrp,
 						enum cgroup_filetype type)
@@ -330,8 +367,11 @@ static struct cgroup_pidlist *cgroup_pidlist_find_create(struct cgroup *cgrp,
 	return l;
 }
 
-/*
+/**
  * Load a cgroup's pidarray with either procs' tgids or tasks' pids
+ * 
+ * 
+ * Function Description: Loads a cgroup's pidlist with either task PIDs or thread group IDs. It counts tasks, allocates an array, populates it, sorts it, and removes duplicates. Returns 0 on success or a negative error code.
  */
 static int pidlist_array_load(struct cgroup *cgrp, enum cgroup_filetype type,
 			      struct cgroup_pidlist **lp)
@@ -388,12 +428,14 @@ static int pidlist_array_load(struct cgroup *cgrp, enum cgroup_filetype type,
 	return 0;
 }
 
-/*
+/**
  * seq_file methods for the tasks/procs files. The seq_file position is the
  * next pid to display; the seq_file iterator is a pointer to the pid
  * in the cgroup->l->list array.
+ * 
+ * 
+ * Function Description: Starts a seq_file iteration over a pidlist. It finds or creates the pidlist, then binary-searches for the starting position. Returns the next PID to display or NULL if at the end.
  */
-
 static void *cgroup_pidlist_start(struct seq_file *s, loff_t *pos)
 {
 	/*
@@ -455,6 +497,9 @@ static void *cgroup_pidlist_start(struct seq_file *s, loff_t *pos)
 	return iter;
 }
 
+/**
+ * Function Description: Stops a seq_file iteration over a pidlist. It schedules the pidlist for delayed destruction and releases the mutex. Called when iteration is complete.
+ */
 static void cgroup_pidlist_stop(struct seq_file *s, void *v)
 {
 	struct kernfs_open_file *of = s->private;
@@ -467,6 +512,9 @@ static void cgroup_pidlist_stop(struct seq_file *s, void *v)
 	mutex_unlock(&seq_css(s)->cgroup->pidlist_mutex);
 }
 
+/**
+ * Function Description: Advances to the next PID in a pidlist. It increments the pointer and updates the position. Returns the next PID or NULL if at the end.
+ */
 static void *cgroup_pidlist_next(struct seq_file *s, void *v, loff_t *pos)
 {
 	struct kernfs_open_file *of = s->private;
@@ -488,6 +536,9 @@ static void *cgroup_pidlist_next(struct seq_file *s, void *v, loff_t *pos)
 	}
 }
 
+/**
+ * Function Description: Shows a single PID from a pidlist in seq_file output. It prints the PID on a line. Used for the "tasks" and "cgroup.procs" files.
+ */
 static int cgroup_pidlist_show(struct seq_file *s, void *v)
 {
 	seq_printf(s, "%d\n", *(int *)v);
@@ -495,6 +546,9 @@ static int cgroup_pidlist_show(struct seq_file *s, void *v)
 	return 0;
 }
 
+/**
+ * Function Description: Internal function for writing to cgroup.procs or tasks files. It parses the input, gets the task, checks permissions, and attaches the task to the cgroup. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t __cgroup1_procs_write(struct kernfs_open_file *of,
 				     char *buf, size_t nbytes, loff_t off,
 				     bool threadgroup)
@@ -539,18 +593,27 @@ out_unlock:
 	return ret ?: nbytes;
 }
 
+/**
+ * Function Description: Write handler for cgroup.procs file. It calls __cgroup1_procs_write() with threadgroup=true to attach a whole thread group. This is the handler for moving processes between cgroups.
+ */
 static ssize_t cgroup1_procs_write(struct kernfs_open_file *of,
 				   char *buf, size_t nbytes, loff_t off)
 {
 	return __cgroup1_procs_write(of, buf, nbytes, off, true);
 }
 
+/**
+ * Function Description: Write handler for tasks file. It calls __cgroup1_procs_write() with threadgroup=false to attach a single task. This is the handler for moving individual tasks.
+ */
 static ssize_t cgroup1_tasks_write(struct kernfs_open_file *of,
 				   char *buf, size_t nbytes, loff_t off)
 {
 	return __cgroup1_procs_write(of, buf, nbytes, off, false);
 }
 
+/**
+ * Function Description: Write handler for release_agent file. It sets the release agent path for the cgroup root. Requires CAP_SYS_ADMIN in the init user namespace.
+ */
 static ssize_t cgroup_release_agent_write(struct kernfs_open_file *of,
 					  char *buf, size_t nbytes, loff_t off)
 {
@@ -579,6 +642,9 @@ static ssize_t cgroup_release_agent_write(struct kernfs_open_file *of,
 	return nbytes;
 }
 
+/**
+ * Function Description: Show handler for release_agent file. It displays the current release agent path for the cgroup root.
+ */
 static int cgroup_release_agent_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -590,18 +656,27 @@ static int cgroup_release_agent_show(struct seq_file *seq, void *v)
 	return 0;
 }
 
+/**
+ * Function Description: Show handler for cgroup.sane_behavior file. It always prints "0" to indicate the cgroup is using legacy behavior. This exists for compatibility.
+ */
 static int cgroup_sane_behavior_show(struct seq_file *seq, void *v)
 {
 	seq_puts(seq, "0\n");
 	return 0;
 }
 
+/**
+ * Function Description: Read handler for notify_on_release file. It returns whether the notify-on-release flag is set for the cgroup.
+ */
 static u64 cgroup_read_notify_on_release(struct cgroup_subsys_state *css,
 					 struct cftype *cft)
 {
 	return notify_on_release(css->cgroup);
 }
 
+/**
+ * Function Description: Write handler for notify_on_release file. It sets or clears the notify-on-release flag for the cgroup.
+ */
 static int cgroup_write_notify_on_release(struct cgroup_subsys_state *css,
 					  struct cftype *cft, u64 val)
 {
@@ -612,12 +687,18 @@ static int cgroup_write_notify_on_release(struct cgroup_subsys_state *css,
 	return 0;
 }
 
+/**
+ * Function Description: Read handler for cgroup.clone_children file. It returns whether the clone-children flag is set for the cgroup (used by cpuset).
+ */
 static u64 cgroup_clone_children_read(struct cgroup_subsys_state *css,
 				      struct cftype *cft)
 {
 	return test_bit(CGRP_CPUSET_CLONE_CHILDREN, &css->cgroup->flags);
 }
 
+/**
+ * Function Description: Write handler for cgroup.clone_children file. It sets or clears the clone-children flag for the cgroup.
+ */
 static int cgroup_clone_children_write(struct cgroup_subsys_state *css,
 				       struct cftype *cft, u64 val)
 {
@@ -628,7 +709,11 @@ static int cgroup_clone_children_write(struct cgroup_subsys_state *css,
 	return 0;
 }
 
-/* cgroup core interface files for the legacy hierarchies */
+/** cgroup core interface files for the legacy hierarchies 
+ * 
+ * 
+ * Variable Description: This is an array of cftype structures defining the core interface files for cgroup1 (legacy) hierarchies. Each entry represents a file that appears in cgroup directories, with handlers for reading and writing. The files include "cgroup.procs" (for moving thread groups), "tasks" (for moving individual tasks), "notify_on_release" (control release notifications), "release_agent" (path to the release agent program, only on root), "cgroup.clone_children" (cpuset cloning behavior), and "cgroup.sane_behavior" (indicates legacy mode). The array is terminated by an empty entry.
+ */
 struct cftype cgroup1_base_files[] = {
 	{
 		.name = "cgroup.procs",
@@ -673,7 +758,12 @@ struct cftype cgroup1_base_files[] = {
 	{ }	/* terminate */
 };
 
-/* Display information about each subsystem and each hierarchy */
+/** 
+ * Display information about each subsystem and each hierarchy 
+ * 
+ * 
+ * Function Description: Show handler for /proc/cgroupstats. It displays information about each cgroup subsystem, including hierarchy ID, number of cgroups, and enabled status.
+ */
 int proc_cgroupstats_show(struct seq_file *m, void *v)
 {
 	struct cgroup_subsys *ss;
@@ -715,6 +805,9 @@ int proc_cgroupstats_show(struct seq_file *m, void *v)
  * space.
  *
  * Return: %0 on success or a negative errno code on failure
+ * 
+ * 
+ * Function Description: Builds cgroupstats for a given cgroup dentry. It iterates through tasks in the cgroup and counts running, sleeping, uninterruptible, stopped, and I/O waiting tasks. Used by taskstats.
  */
 int cgroupstats_build(struct cgroupstats *stats, struct dentry *dentry)
 {
@@ -768,6 +861,9 @@ int cgroupstats_build(struct cgroupstats *stats, struct dentry *dentry)
 	return 0;
 }
 
+/**
+ * Function Description: Checks if a cgroup should trigger the release agent. It checks if notify_on_release is set, the cgroup is empty, has no online children, and is not dead. If so, it schedules the release agent work.
+ */
 void cgroup1_check_for_release(struct cgroup *cgrp)
 {
 	if (notify_on_release(cgrp) && !cgroup_is_populated(cgrp) &&
@@ -775,7 +871,7 @@ void cgroup1_check_for_release(struct cgroup *cgrp)
 		schedule_work(&cgrp->release_agent_work);
 }
 
-/*
+/**
  * Notify userspace when a cgroup is released, by running the
  * configured release agent with the name of the cgroup (path
  * relative to the root of cgroup file system) as the argument.
@@ -797,6 +893,9 @@ void cgroup1_check_for_release(struct cgroup *cgrp)
  * release agent task.  We don't bother to wait because the caller of
  * this routine has no use for the exit status of the release agent
  * task, so no sense holding our caller up for that.
+ * 
+ * 
+ * Function Description: Work function for the cgroup1 release agent. It builds the command line with the release agent path and cgroup path, then executes it using call_usermodehelper().
  */
 void cgroup1_release_agent(struct work_struct *work)
 {
@@ -841,8 +940,11 @@ out_free:
 	kfree(pathbuf);
 }
 
-/*
+/**
  * cgroup_rename - Only allow simple rename of directories in place.
+ * 
+ * 
+ * Function Description: Renames a cgroup directory. It checks for invalid characters and only allows renaming in place. This is the rename handler for cgroup1.
  */
 static int cgroup1_rename(struct kernfs_node *kn, struct kernfs_node *new_parent,
 			  const char *new_name_str)
@@ -880,6 +982,9 @@ static int cgroup1_rename(struct kernfs_node *kn, struct kernfs_node *new_parent
 	return ret;
 }
 
+/**
+ * Function Description: Shows mount options for a cgroup1 root. It displays subsystem names, flags, release agent path, clone_children flag, and name. Used for /proc/mounts.
+ */
 static int cgroup1_show_options(struct seq_file *seq, struct kernfs_root *kf_root)
 {
 	struct cgroup_root *root = cgroup_root_from_kf(kf_root);
@@ -911,6 +1016,9 @@ static int cgroup1_show_options(struct seq_file *seq, struct kernfs_root *kf_roo
 	return 0;
 }
 
+/**
+ * Enumeration Description: This enumeration defines the mount options available for cgroup1 (legacy) filesystems. Each value represents a specific mount parameter that can be passed during cgroup mount or remount operations. Options include Opt_all (enable all subsystems), Opt_clone_children (clone cpuset configuration), Opt_cpuset_v2_mode (use cpuset v2 behavior), Opt_name (specify hierarchy name), Opt_none (mount with no subsystems), Opt_noprefix (no subsystem name prefix), Opt_release_agent (specify release agent path), Opt_xattr (enable extended attributes), Opt_favordynmods (enable per-threadgroup locking), and Opt_nofavordynmods (disable per-threadgroup locking). 
+ */
 enum cgroup1_param {
 	Opt_all,
 	Opt_clone_children,
@@ -924,6 +1032,9 @@ enum cgroup1_param {
 	Opt_nofavordynmods,
 };
 
+/**
+ * Variable Description: fs_parameter_spec array for cgroup1 mount options. This defines all the valid mount parameters for cgroup1 filesystems. 
+ */
 const struct fs_parameter_spec cgroup1_fs_parameters[] = {
 	fsparam_flag  ("all",		Opt_all),
 	fsparam_flag  ("clone_children", Opt_clone_children),
@@ -938,6 +1049,9 @@ const struct fs_parameter_spec cgroup1_fs_parameters[] = {
 	{}
 };
 
+/**
+ * Function Description: Parses a single mount parameter for cgroup1. It handles subsystem names, flags (noprefix, xattr, clone_children, etc.), release_agent, and name. Returns 0 on success or a negative error code.
+ */
 int cgroup1_parse_param(struct fs_context *fc, struct fs_parameter *param)
 {
 	struct cgroup_fs_context *ctx = cgroup_fc2context(fc);
@@ -1034,6 +1148,9 @@ int cgroup1_parse_param(struct fs_context *fc, struct fs_parameter *param)
 	return 0;
 }
 
+/**
+ * Function Description: Validates cgroup filesystem mount options. It checks for conflicts between options and ensures the options are valid. Returns 0 on success or a negative error code.
+ */
 static int check_cgroupfs_options(struct fs_context *fc)
 {
 	struct cgroup_fs_context *ctx = cgroup_fc2context(fc);
@@ -1089,6 +1206,9 @@ static int check_cgroupfs_options(struct fs_context *fc)
 	return 0;
 }
 
+/**
+ * Function Description: Reconfigures a cgroup1 mount (remount). It checks for option changes and validates them, then rebinds subsystems as needed. Returns 0 on success or a negative error code.
+ */
 int cgroup1_reconfigure(struct fs_context *fc)
 {
 	struct cgroup_fs_context *ctx = cgroup_fc2context(fc);
@@ -1145,6 +1265,9 @@ int cgroup1_reconfigure(struct fs_context *fc)
 	return ret;
 }
 
+/**
+ * Variable Description: kernfs syscall operations for cgroup1. This includes rename, show_options, mkdir, rmdir, and show_path handlers.
+ */
 struct kernfs_syscall_ops cgroup1_kf_syscall_ops = {
 	.rename			= cgroup1_rename,
 	.show_options		= cgroup1_show_options,
@@ -1153,13 +1276,16 @@ struct kernfs_syscall_ops cgroup1_kf_syscall_ops = {
 	.show_path		= cgroup_show_path,
 };
 
-/*
+/**
  * The guts of cgroup1 mount - find or create cgroup_root to use.
  * Called with cgroup_mutex held; returns 0 on success, -E... on
  * error and positive - in case when the candidate is busy dying.
  * On success it stashes a reference to cgroup_root into given
  * cgroup_fs_context; that reference is *NOT* counting towards the
  * cgroup_root refcount.
+ * 
+ * 
+ * Function Description: Finds or creates a cgroup root to use for a cgroup1 mount. It searches for an existing root matching the requested options, or creates a new one if none exists. Returns 0 on success or a negative error code.
  */
 static int cgroup1_root_to_use(struct fs_context *fc)
 {
@@ -1253,6 +1379,9 @@ static int cgroup1_root_to_use(struct fs_context *fc)
 	return ret;
 }
 
+/**
+ * Function Description: Gets the cgroup1 filesystem tree during mount. It checks permissions, finds or creates the root, and sets up the filesystem. Returns 0 on success or a negative error code.
+ */
 int cgroup1_get_tree(struct fs_context *fc)
 {
 	struct cgroup_fs_context *ctx = cgroup_fc2context(fc);
@@ -1294,6 +1423,9 @@ int cgroup1_get_tree(struct fs_context *fc)
  *
  * On success, the cgroup is returned. On failure, ERR_PTR is returned.
  * We limit it to cgroup1 only.
+ * 
+ * 
+ * Function Description: Gets the cgroup of a task in a specific cgroup1 hierarchy identified by hierarchy ID. Returns the cgroup on success or ERR_PTR on failure. This is used for exporting cgroup information to userspace.
  */
 struct cgroup *task_get_cgroup1(struct task_struct *tsk, int hierarchy_id)
 {
@@ -1319,6 +1451,9 @@ struct cgroup *task_get_cgroup1(struct task_struct *tsk, int hierarchy_id)
 	return cgrp;
 }
 
+/**
+ * Function Description: Initializes the workqueue for cgroup1 pidlist destruction. This is called at core init time to create the dedicated workqueue.
+ */
 static int __init cgroup1_wq_init(void)
 {
 	/*
@@ -1332,6 +1467,9 @@ static int __init cgroup1_wq_init(void)
 }
 core_initcall(cgroup1_wq_init);
 
+/**
+ * Function Description: Boot parameter handler for cgroup_no_v1=. It parses the string and sets the cgroup_no_v1_mask to disable certain controllers on cgroup1. Called during early boot.
+ */
 static int __init cgroup_no_v1(char *str)
 {
 	struct cgroup_subsys *ss;
@@ -1365,6 +1503,9 @@ static int __init cgroup_no_v1(char *str)
 }
 __setup("cgroup_no_v1=", cgroup_no_v1);
 
+/**
+ * Function Description: Boot parameter handler for cgroup_v1_proc=. It sets the proc_show_all flag to control whether unavailable controllers are shown in /proc/cgroups. Called during early boot.
+ */
 static int __init cgroup_v1_proc(char *str)
 {
 	return (kstrtobool(str, &proc_show_all) == 0);

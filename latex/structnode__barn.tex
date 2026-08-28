@@ -1,0 +1,82 @@
+\doxysection{node\+\_\+barn Struct Reference}
+\hypertarget{structnode__barn}{}\label{structnode__barn}\index{node\_barn@{node\_barn}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+spinlock\+\_\+t \doxymbox{\hyperlink{structnode__barn_ad2991b363218311db538ae5ba8395e02}{lock}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structnode__barn_a35f1fc76296e62031b0c0ec23d11356a}{sheaves\+\_\+full}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structnode__barn_a2d1674cddb97ff41e4bf6fa8fb14715d}{sheaves\+\_\+empty}}
+\item 
+unsigned int \doxymbox{\hyperlink{structnode__barn_a14893da9a3b9feaf5190bf61bf06c115}{nr\+\_\+full}}
+\item 
+unsigned int \doxymbox{\hyperlink{structnode__barn_aa429fdf18a129cdc1e989e3c6f6c31a5}{nr\+\_\+empty}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct Description:\+ This structure represents a per-\/\+NUMA-\/node barn for caching sheaves. It contains a spinlock, lists of full and empty sheaves, and counters for each. It is used to balance sheaves between CPUs on the same node. 
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00436}{436}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+
+
+\label{structnode__barn_doc-variable-members}
+\Hypertarget{structnode__barn_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structnode__barn_ad2991b363218311db538ae5ba8395e02}\index{node\_barn@{node\_barn}!lock@{lock}}
+\index{lock@{lock}!node\_barn@{node\_barn}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily \label{structnode__barn_ad2991b363218311db538ae5ba8395e02} 
+spinlock\+\_\+t node\+\_\+barn::\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00437}{437}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structnode__barn_aa429fdf18a129cdc1e989e3c6f6c31a5}\index{node\_barn@{node\_barn}!nr\_empty@{nr\_empty}}
+\index{nr\_empty@{nr\_empty}!node\_barn@{node\_barn}}
+\doxysubsubsection{\texorpdfstring{nr\_empty}{nr\_empty}}
+{\footnotesize\ttfamily \label{structnode__barn_aa429fdf18a129cdc1e989e3c6f6c31a5} 
+unsigned int node\+\_\+barn::\+nr\+\_\+empty}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00441}{441}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structnode__barn_a14893da9a3b9feaf5190bf61bf06c115}\index{node\_barn@{node\_barn}!nr\_full@{nr\_full}}
+\index{nr\_full@{nr\_full}!node\_barn@{node\_barn}}
+\doxysubsubsection{\texorpdfstring{nr\_full}{nr\_full}}
+{\footnotesize\ttfamily \label{structnode__barn_a14893da9a3b9feaf5190bf61bf06c115} 
+unsigned int node\+\_\+barn::\+nr\+\_\+full}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00440}{440}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structnode__barn_a2d1674cddb97ff41e4bf6fa8fb14715d}\index{node\_barn@{node\_barn}!sheaves\_empty@{sheaves\_empty}}
+\index{sheaves\_empty@{sheaves\_empty}!node\_barn@{node\_barn}}
+\doxysubsubsection{\texorpdfstring{sheaves\_empty}{sheaves\_empty}}
+{\footnotesize\ttfamily \label{structnode__barn_a2d1674cddb97ff41e4bf6fa8fb14715d} 
+struct list\+\_\+head node\+\_\+barn::\+sheaves\+\_\+empty}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00439}{439}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structnode__barn_a35f1fc76296e62031b0c0ec23d11356a}\index{node\_barn@{node\_barn}!sheaves\_full@{sheaves\_full}}
+\index{sheaves\_full@{sheaves\_full}!node\_barn@{node\_barn}}
+\doxysubsubsection{\texorpdfstring{sheaves\_full}{sheaves\_full}}
+{\footnotesize\ttfamily \label{structnode__barn_a35f1fc76296e62031b0c0ec23d11356a} 
+struct list\+\_\+head node\+\_\+barn::\+sheaves\+\_\+full}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00438}{438}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{slub_8c}{slub.\+c}}\end{DoxyCompactItemize}

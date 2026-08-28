@@ -1,0 +1,140 @@
+\doxysection{tools/\+lib/\+slab.c File Reference}
+\hypertarget{slab_8c}{}\label{slab_8c}\index{tools/lib/slab.c@{tools/lib/slab.c}}
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$urcu/\+uatomic.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+slab.\+h$>$}\newline
+{\ttfamily \+\#include $<$malloc.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+gfp.\+h$>$}\newline
+Include dependency graph for slab.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{slab_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{slab_8c_ac08a1826ac2025ae94550289a6323268}{kmalloc}} (size\+\_\+t size, gfp\+\_\+t gfp)
+\item 
+void \doxymbox{\hyperlink{slab_8c_af7105034bf054e37218d6ade20db4684}{kfree}} (void \texorpdfstring{$\ast$}{*}p)
+\item 
+void \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{slab_8c_a24545cc31c46063a2a628e85715b43c2}{kmalloc\+\_\+array}} (size\+\_\+t n, size\+\_\+t size, gfp\+\_\+t gfp)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{slab_8c_a908dca68c09a2d6dd007da9876997320}{kmalloc\+\_\+nr\+\_\+allocated}}
+\item 
+int \doxymbox{\hyperlink{slab_8c_af8f3995ef8883f37c1c0a6c824953058}{kmalloc\+\_\+verbose}}
+\end{DoxyCompactItemize}
+
+
+\label{slab_8c_doc-func-members}
+\Hypertarget{slab_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{slab_8c_af7105034bf054e37218d6ade20db4684}\index{slab.c@{slab.c}!kfree@{kfree}}
+\index{kfree@{kfree}!slab.c@{slab.c}}
+\doxysubsubsection{\texorpdfstring{kfree()}{kfree()}}
+{\footnotesize\ttfamily \label{slab_8c_af7105034bf054e37218d6ade20db4684} 
+void kfree (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})}
+
+Function Description:\+ Frees the memory pointed to by the given pointer using free(). It first checks if the pointer is NULL; if so, it does nothing. Before freeing, it decreases the global allocation counter to keep track of active allocations. If verbose mode is enabled, it prints the address of the memory being freed. 
+
+Definition at line \doxymbox{\hyperlink{slab_8c_source_l00036}{36}} of file \doxymbox{\hyperlink{slab_8c_source}{slab.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{if}\ (!p)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00040\ \ \ \ \ uatomic\_dec(\&\doxymbox{\hyperlink{slab_8c_a908dca68c09a2d6dd007da9876997320}{kmalloc\_nr\_allocated}});}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{slab_8c_af8f3995ef8883f37c1c0a6c824953058}{kmalloc\_verbose}})}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Freeing\ \%p\ to\ malloc\(\backslash\)n"{}},\ p);}
+\DoxyCodeLine{00043\ \ \ \ \ free(p);}
+\DoxyCodeLine{00044\ \}}
+
+\end{DoxyCode}
+\Hypertarget{slab_8c_ac08a1826ac2025ae94550289a6323268}\index{slab.c@{slab.c}!kmalloc@{kmalloc}}
+\index{kmalloc@{kmalloc}!slab.c@{slab.c}}
+\doxysubsubsection{\texorpdfstring{kmalloc()}{kmalloc()}}
+{\footnotesize\ttfamily \label{slab_8c_ac08a1826ac2025ae94550289a6323268} 
+void \texorpdfstring{$\ast$}{*} kmalloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size}{, }\item[{gfp\+\_\+t}]{gfp}{}\end{DoxyParamCaption})}
+
+Function Description:\+ Allocates memory of the given size using malloc(). It first checks if memory reclaim is allowed; if not, it returns NULL. After allocation, it increases the global counter to track how many allocations are active. If verbose mode is on, it prints the address of the allocated memory. If the \+\_\+\+\_\+\+GFP\+\_\+\+ZERO flag is set, it fills the memory with zeros before returning the pointer. 
+
+Definition at line \doxymbox{\hyperlink{slab_8c_source_l00017}{17}} of file \doxymbox{\hyperlink{slab_8c_source}{slab.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ *ret;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(gfp\ \&\ \doxymbox{\hyperlink{gfp__types_8h_ab153fd7013afc4532247a97daa3f10f7}{\_\_GFP\_DIRECT\_RECLAIM}}))}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ ret\ =\ malloc(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{00025\ \ \ \ \ uatomic\_inc(\&\doxymbox{\hyperlink{slab_8c_a908dca68c09a2d6dd007da9876997320}{kmalloc\_nr\_allocated}});}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{slab_8c_af8f3995ef8883f37c1c0a6c824953058}{kmalloc\_verbose}})}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Allocating\ \%p\ from\ malloc\(\backslash\)n"{}},\ ret);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{if}\ (gfp\ \&\ \doxymbox{\hyperlink{gfp__types_8h_a4f8b1c2d9b67cd332e7420150128bcad}{\_\_GFP\_ZERO}})}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ memset(ret,\ 0,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00031\ \}}
+
+\end{DoxyCode}
+\Hypertarget{slab_8c_a24545cc31c46063a2a628e85715b43c2}\index{slab.c@{slab.c}!kmalloc\_array@{kmalloc\_array}}
+\index{kmalloc\_array@{kmalloc\_array}!slab.c@{slab.c}}
+\doxysubsubsection{\texorpdfstring{kmalloc\_array()}{kmalloc\_array()}}
+{\footnotesize\ttfamily \label{slab_8c_a24545cc31c46063a2a628e85715b43c2} 
+void \texorpdfstring{$\ast$}{*} kmalloc\+\_\+array (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n}{, }\item[{size\+\_\+t}]{size}{, }\item[{gfp\+\_\+t}]{gfp}{}\end{DoxyParamCaption})}
+
+Function Description:\+ Allocates memory for an array of n items, where each item is size bytes, using calloc() (which also zeroes the memory). It first checks if memory reclaim is allowed; if not, it returns NULL. After allocation, it increases the global counter and prints the address if verbose mode is on. If the \+\_\+\+\_\+\+GFP\+\_\+\+ZERO flag is set, it explicitly zeroes the memory again to be safe, then returns the pointer. 
+
+Definition at line \doxymbox{\hyperlink{slab_8c_source_l00049}{49}} of file \doxymbox{\hyperlink{slab_8c_source}{slab.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ *ret;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(gfp\ \&\ \doxymbox{\hyperlink{gfp__types_8h_ab153fd7013afc4532247a97daa3f10f7}{\_\_GFP\_DIRECT\_RECLAIM}}))}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ ret\ =\ calloc(n,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{00057\ \ \ \ \ uatomic\_inc(\&\doxymbox{\hyperlink{slab_8c_a908dca68c09a2d6dd007da9876997320}{kmalloc\_nr\_allocated}});}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{slab_8c_af8f3995ef8883f37c1c0a6c824953058}{kmalloc\_verbose}})}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Allocating\ \%p\ from\ calloc\(\backslash\)n"{}},\ ret);}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{if}\ (gfp\ \&\ \doxymbox{\hyperlink{gfp__types_8h_a4f8b1c2d9b67cd332e7420150128bcad}{\_\_GFP\_ZERO}})}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ memset(ret,\ 0,\ n\ *\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00063\ \}}
+
+\end{DoxyCode}
+
+
+\label{slab_8c_doc-var-members}
+\Hypertarget{slab_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{slab_8c_a908dca68c09a2d6dd007da9876997320}\index{slab.c@{slab.c}!kmalloc\_nr\_allocated@{kmalloc\_nr\_allocated}}
+\index{kmalloc\_nr\_allocated@{kmalloc\_nr\_allocated}!slab.c@{slab.c}}
+\doxysubsubsection{\texorpdfstring{kmalloc\_nr\_allocated}{kmalloc\_nr\_allocated}}
+{\footnotesize\ttfamily \label{slab_8c_a908dca68c09a2d6dd007da9876997320} 
+int kmalloc\+\_\+nr\+\_\+allocated}
+
+
+
+Definition at line \doxymbox{\hyperlink{slab_8c_source_l00011}{11}} of file \doxymbox{\hyperlink{slab_8c_source}{slab.\+c}}.
+
+\Hypertarget{slab_8c_af8f3995ef8883f37c1c0a6c824953058}\index{slab.c@{slab.c}!kmalloc\_verbose@{kmalloc\_verbose}}
+\index{kmalloc\_verbose@{kmalloc\_verbose}!slab.c@{slab.c}}
+\doxysubsubsection{\texorpdfstring{kmalloc\_verbose}{kmalloc\_verbose}}
+{\footnotesize\ttfamily \label{slab_8c_af8f3995ef8883f37c1c0a6c824953058} 
+int kmalloc\+\_\+verbose}
+
+
+
+Definition at line \doxymbox{\hyperlink{slab_8c_source_l00012}{12}} of file \doxymbox{\hyperlink{slab_8c_source}{slab.\+c}}.
+

@@ -124,7 +124,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8564de1652875c065a099ccf532250c0" id="r_a8564de1652875c065a099ccf532250c0"><td class="memItemLeft">struct llist_head&#160;</td><td class="memItemRight"><a class="el" href="#a8564de1652875c065a099ccf532250c0">list</a></td></tr>
 <tr class="memitem:aab75403b3b147766ca1363f5ca63c759" id="r_aab75403b3b147766ca1363f5ca63c759"><td class="memItemLeft">struct work_struct&#160;</td><td class="memItemRight"><a class="el" href="#aab75403b3b147766ca1363f5ca63c759">wq</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>struct Description: This structure is used for deferring <a class="el" href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vfree()</a> operations from atomic contexts. It contains a lockless list of addresses to free and a work_struct to process them. It is used to safely free vmalloc memory from interrupt context. </p>
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8c_source.html#l00093">93</a> of file <a class="el" href="vmalloc_8c_source.html">vmalloc.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a8564de1652875c065a099ccf532250c0" name="a8564de1652875c065a099ccf532250c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8564de1652875c065a099ccf532250c0">&#9670;&#160;</a></span>list</h2>
 
@@ -136,6 +140,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8c_source.html#l00094">94</a> of file <a class="el" href="vmalloc_8c_source.html">vmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -151,10 +157,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8c_source.html#l00095">95</a> of file <a class="el" href="vmalloc_8c_source.html">vmalloc.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="vmalloc_8c.html">vmalloc.c</a></li>
+<li>mm/<a class="el" href="vmalloc_8c_source.html">vmalloc.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

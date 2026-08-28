@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded',() => { initNavTree('structsock__cgroup__data.html','',''); });
+document.addEventListener('DOMContentLoaded',() => { initNavTree('structsock__cgroup__data.html','','structsock__cgroup__data-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,6 +120,75 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structsock__cg
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for sock_cgroup_data:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structsock__cgroup__data__coll__graph.svg" width="1375" height="292"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ad8f80137a18ab6e350f7e6df13ff735f" id="r_ad8f80137a18ab6e350f7e6df13ff735f"><td class="memItemLeft">struct <a class="el" href="structcgroup.html">cgroup</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad8f80137a18ab6e350f7e6df13ff735f">cgroup</a></td></tr>
+<tr class="memitem:a064e377721d87be017509957fe68f5b0" id="r_a064e377721d87be017509957fe68f5b0"><td class="memItemLeft">u32&#160;</td><td class="memItemRight"><a class="el" href="#a064e377721d87be017509957fe68f5b0">classid</a></td></tr>
+<tr class="memitem:a31cef0b343333add56b168fe6ae16a1b" id="r_a31cef0b343333add56b168fe6ae16a1b"><td class="memItemLeft">u16&#160;</td><td class="memItemRight"><a class="el" href="#a31cef0b343333add56b168fe6ae16a1b">prioidx</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>CONFIG_CGROUPS <a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a> is embedded at sock-&gt;sk_cgrp_data and contains per-socket cgroup information except for memcg association.</p>
+<p>On legacy hierarchies, net_prio and net_cls controllers directly set attributes on each sock which can then be tested by the network layer. On the default hierarchy, each sock is associated with the cgroup it was created in and the networking layer can match the cgroup directly.</p>
+<p>struct Description: This structure holds per-socket cgroup information for network controllers. It contains the cgroup pointer for v2, and classid and prioidx for v1 controllers. The network layer uses this to enforce network policies based on cgroups. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00990">990</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ad8f80137a18ab6e350f7e6df13ff735f" name="ad8f80137a18ab6e350f7e6df13ff735f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8f80137a18ab6e350f7e6df13ff735f">&#9670;&#160;</a></span>cgroup</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structcgroup.html">cgroup</a>* sock_cgroup_data::cgroup</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00991">991</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+
+</div>
+</div>
+<a id="a064e377721d87be017509957fe68f5b0" name="a064e377721d87be017509957fe68f5b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a064e377721d87be017509957fe68f5b0">&#9670;&#160;</a></span>classid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 sock_cgroup_data::classid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>v2 </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00993">993</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+
+</div>
+</div>
+<a id="a31cef0b343333add56b168fe6ae16a1b" name="a31cef0b343333add56b168fe6ae16a1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31cef0b343333add56b168fe6ae16a1b">&#9670;&#160;</a></span>prioidx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 sock_cgroup_data::prioidx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>v1 </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00996">996</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/linux/<a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a></li>
 </ul>

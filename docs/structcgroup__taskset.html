@@ -120,6 +120,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structcgroup__
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for cgroup_taskset:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structcgroup__taskset__coll__graph.svg" width="1350" height="635"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -128,10 +133,15 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aa131fbeecaad26788a553b2ea74444ff" id="r_aa131fbeecaad26788a553b2ea74444ff"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa131fbeecaad26788a553b2ea74444ff">nr_tasks</a></td></tr>
 <tr class="memitem:a2724e1af3cd9f18d5774d555ba9f4e1b" id="r_a2724e1af3cd9f18d5774d555ba9f4e1b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2724e1af3cd9f18d5774d555ba9f4e1b">ssid</a></td></tr>
 <tr class="memitem:abdb85de3636c7e62e90a5b0920ae3638" id="r_abdb85de3636c7e62e90a5b0920ae3638"><td class="memItemLeft">struct list_head *&#160;</td><td class="memItemRight"><a class="el" href="#abdb85de3636c7e62e90a5b0920ae3638">csets</a></td></tr>
-<tr class="memitem:a57286caefb3073a21f29948ef6ca6b54" id="r_a57286caefb3073a21f29948ef6ca6b54"><td class="memItemLeft">struct css_set *&#160;</td><td class="memItemRight"><a class="el" href="#a57286caefb3073a21f29948ef6ca6b54">cur_cset</a></td></tr>
+<tr class="memitem:a57286caefb3073a21f29948ef6ca6b54" id="r_a57286caefb3073a21f29948ef6ca6b54"><td class="memItemLeft">struct <a class="el" href="structcss__set.html">css_set</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a57286caefb3073a21f29948ef6ca6b54">cur_cset</a></td></tr>
 <tr class="memitem:ade2c45fd220fe65dae667d7034e26867" id="r_ade2c45fd220fe65dae667d7034e26867"><td class="memItemLeft">struct task_struct *&#160;</td><td class="memItemRight"><a class="el" href="#ade2c45fd220fe65dae667d7034e26867">cur_task</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>used to track tasks and csets during migration</p>
+<p>struct Description: This structure holds the set of tasks and css_sets involved in a cgroup migration. It contains source and destination cset lists, task count, subsystem ID being processed, and iteration state. It is used during task migration between cgroups. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00127">127</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="abdb85de3636c7e62e90a5b0920ae3638" name="abdb85de3636c7e62e90a5b0920ae3638"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abdb85de3636c7e62e90a5b0920ae3638">&#9670;&#160;</a></span>csets</h2>
 
@@ -143,6 +153,11 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Fields for cgroup_taskset_*() iteration.</p>
+<p>Before migration is committed, the target migration tasks are on -&gt;mg_tasks of the csets on -&gt;src_csets. After, on -&gt;mg_tasks of the csets on -&gt;dst_csets. -&gt;csets point to either -&gt;src_csets or -&gt;dst_csets depending on whether migration is committed.</p>
+<p>-&gt;cur_csets and -&gt;cur_task point to the current task position during iteration. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00149">149</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -153,10 +168,12 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct css_set* cgroup_taskset::cur_cset</td>
+          <td class="memname">struct <a class="el" href="structcss__set.html">css_set</a>* cgroup_taskset::cur_cset</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00150">150</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -172,6 +189,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00151">151</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
+
 </div>
 </div>
 <a id="a728ad6fdab50ae922b80c781334793f8" name="a728ad6fdab50ae922b80c781334793f8"></a>
@@ -186,6 +205,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00130">130</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
+
 </div>
 </div>
 <a id="aa131fbeecaad26788a553b2ea74444ff" name="aa131fbeecaad26788a553b2ea74444ff"></a>
@@ -199,6 +220,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>the number of tasks in the set </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00133">133</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -213,6 +237,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>the src and dst cset list running through cset-&gt;mg_node </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00129">129</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -227,6 +254,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>the subsys currently being processed </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00136">136</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>

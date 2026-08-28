@@ -1,19 +1,21 @@
 <map id="detached_freelist" name="detached_freelist">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,464,126,491"/>
-<area shape="rect" id="Node000002" href="$structslab.html" title=" " alt="" coords="74,323,119,349"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,364,71,464,66,463,88,365"/>
-<area shape="rect" id="Node000003" href="$structkmem__cache.html" title=" " alt="" coords="94,224,194,251"/>
-<area shape="poly" id="edge9_Node000001_Node000003" title=" " alt="" coords="104,261,73,287,59,304,49,323,43,362,46,402,54,437,63,464,58,464,49,438,40,402,37,362,44,322,54,301,69,284,106,256"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,263,97,276,92,299,95,323,90,322,87,299,92,274,107,258"/>
-<area shape="rect" id="Node000005" href="$structslab__sheaf.html" title=" " alt="" coords="151,323,236,349"/>
-<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="162,261,171,273,192,323,186,322,166,276,161,266"/>
-<area shape="rect" id="Node000004" href="$structslub__percpu__sheaves.html" title=" " alt="" coords="176,464,323,491"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="261,448,263,439,271,390,270,350,255,314,225,277,208,263,189,254,189,249,210,259,229,273,260,311,275,349,276,391,268,441,264,452"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="195,363,200,401,213,439,234,464,229,463,208,441,195,402,192,367"/>
-<area shape="rect" id="Node000006" href="$structkmem__cache__order__objects.html" title=" " alt="" coords="23,104,207,131"/>
-<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="122,143,144,224,138,224,121,148"/>
-<area shape="rect" id="Node000007" href="$structkmem__cache__node.html" title=" " alt="" coords="232,104,366,131"/>
-<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="269,143,162,225,159,222,272,138"/>
-<area shape="rect" id="Node000008" href="$structnode__barn.html" title=" " alt="" coords="258,5,340,32"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="300,45,301,104,296,103,298,50"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="143,464,263,491"/>
+<area shape="rect" id="Node000002" href="$structslab.html" title=" " alt="" coords="211,323,256,349"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,363,208,465,203,462,225,365"/>
+<area shape="rect" id="Node000003" href="$structkmem__cache.html" title=" " alt="" coords="232,224,331,251"/>
+<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="240,261,210,287,196,304,186,323,180,362,183,402,191,437,200,465,195,463,186,438,178,402,175,362,181,322,192,301,206,284,244,257"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="245,258,234,276,229,299,232,323,227,322,224,299,229,274,241,262"/>
+<area shape="rect" id="Node000005" href="$structslab__sheaf.html" title=" " alt="" coords="289,323,373,349"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="299,261,308,273,329,323,324,322,303,276,298,266"/>
+<area shape="rect" id="Node000004" href="$structslub__percpu__sheaves.html" title=" " alt="" coords="313,464,460,491"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="398,448,400,439,408,390,407,350,393,314,362,277,345,263,326,254,326,249,348,259,366,273,397,311,412,349,414,391,405,441,402,452"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="332,363,337,401,350,439,371,464,366,463,346,441,332,402,329,367"/>
+<area shape="rect" id="Node000006" href="$structkmem__cache__order__objects.html" title=" " alt="" coords="5,104,190,131"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="130,137,264,222,260,225,130,142"/>
+<area shape="rect" id="Node000007" href="$structkmem__cache__stats.html" title=" " alt="" coords="214,104,349,131"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="283,144,284,224,279,223,280,149"/>
+<area shape="rect" id="Node000008" href="$structkmem__cache__node.html" title=" " alt="" coords="373,104,507,131"/>
+<area shape="poly" id="edge8_Node000003_Node000008" title=" " alt="" coords="421,140,390,173,354,202,312,226,309,221,351,198,387,169,417,143"/>
+<area shape="rect" id="Node000009" href="$structnode__barn.html" title=" " alt="" coords="400,5,481,32"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="441,45,443,105,438,103,439,50"/>
 </map>

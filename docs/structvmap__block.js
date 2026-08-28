@@ -1,6 +1,6 @@
 var structvmap__block =
 [
-    [ "DECLARE_BITMAP", "structvmap__block.html#ae715179ad0a2aad61601c88b770dec55", null ],
+    [ "DECLARE_BITMAP", "structvmap__block.html#a6bab6a383b570193723c039ec67189db", null ],
     [ "cpu", "structvmap__block.html#abb4322ceff63ad53f62b2a7a98eba198", null ],
     [ "dirty", "structvmap__block.html#a809737b5cf3cf30645b10519a53ed31a", null ],
     [ "dirty_max", "structvmap__block.html#a359f560bace151dc29576614d8cdad18", null ],

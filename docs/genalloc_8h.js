@@ -6,8 +6,13 @@ var genalloc_8h =
     [ "genpool_data_fixed", "structgenpool__data__fixed.html", "structgenpool__data__fixed" ],
     [ "genpool_algo_t", "genalloc_8h.html#a003652a94f6f84df23fbdeb4fb381c13", null ],
     [ "devm_gen_pool_create", "genalloc_8h.html#a5c0953e104f4c45ab25e35ae88df4bde", null ],
+    [ "gen_pool_add", "genalloc_8h.html#ad120d998148855d947cd90f7f508f85c", null ],
     [ "gen_pool_add_owner", "genalloc_8h.html#a6bbb4ed72405a4ae46980f32111901d9", null ],
+    [ "gen_pool_add_virt", "genalloc_8h.html#a74665b05896ad50f71b158136fd919ad", null ],
+    [ "gen_pool_alloc", "genalloc_8h.html#a638c4bdecbf8b382920089b335f75099", null ],
+    [ "gen_pool_alloc_algo", "genalloc_8h.html#a3ab7a8671a33ee60a3b3f65e97f1b586", null ],
     [ "gen_pool_alloc_algo_owner", "genalloc_8h.html#a82613a35becfc3fe664a8cc55b28d858", null ],
+    [ "gen_pool_alloc_owner", "genalloc_8h.html#a117c4c52cbbade37f957d4058f121798", null ],
     [ "gen_pool_avail", "genalloc_8h.html#abf9d26abd849226744e15c1cecbe94ff", null ],
     [ "gen_pool_best_fit", "genalloc_8h.html#a36dee0d2e8f3847a1a3fa968c2250c5f", null ],
     [ "gen_pool_create", "genalloc_8h.html#a146cdd0d92177f877acb0e82ad65a3f0", null ],
@@ -23,10 +28,12 @@ var genalloc_8h =
     [ "gen_pool_first_fit_order_align", "genalloc_8h.html#a02a2dd51b33fbf43009c204c0718b601", null ],
     [ "gen_pool_fixed_alloc", "genalloc_8h.html#af7e021192c4541ba5dda17bf3df88c45", null ],
     [ "gen_pool_for_each_chunk", "genalloc_8h.html#ad33c35c873e976c4b6c026a1e0d79c2b", null ],
+    [ "gen_pool_free", "genalloc_8h.html#a05f3f32d1526b3d0a2d534b6deb442ef", null ],
     [ "gen_pool_free_owner", "genalloc_8h.html#a9a9b4b9df7b9bfc314df2f2b0145d4fc", null ],
     [ "gen_pool_get", "genalloc_8h.html#a73baa960dc09460f2aa4c9d8c9c326b4", null ],
     [ "gen_pool_has_addr", "genalloc_8h.html#ab1cda6c64f32b28965c4f0e44b48622b", null ],
     [ "gen_pool_set_algo", "genalloc_8h.html#a01f03aede4b699df122f62d1e75da65f", null ],
     [ "gen_pool_size", "genalloc_8h.html#a34c006f34196f28797a12b6aaf98fbec", null ],
-    [ "gen_pool_virt_to_phys", "genalloc_8h.html#aa04986e92cd89671950442f1546129c0", null ]
+    [ "gen_pool_virt_to_phys", "genalloc_8h.html#aa04986e92cd89671950442f1546129c0", null ],
+    [ "of_gen_pool_get", "genalloc_8h.html#a35481ce6de372a867c5cf13756b27245", null ]
 ];

@@ -37,11 +37,17 @@
 #include <linux/platform_device.h>
 #include <linux/vmalloc.h>
 
+/**
+ * Function Description: Calculates the size of a memory chunk by subtracting the start address from the end address and adding one. It returns the total number of bytes in the chunk.
+ */
 static inline size_t chunk_size(const struct gen_pool_chunk *chunk)
 {
 	return chunk->end_addr - chunk->start_addr + 1;
 }
 
+/**
+ * Function Description: Tries to set specific bits in a bitmap without using locks. It reads the current value, checks if the bits are already set, and if not, uses atomic compare-and-exchange to set them. If the bits are already set, it returns an error.
+ */
 static inline int
 set_bits_ll(unsigned long *addr, unsigned long mask_to_set)
 {
@@ -56,6 +62,9 @@ set_bits_ll(unsigned long *addr, unsigned long mask_to_set)
 	return 0;
 }
 
+/**
+ * Function Description: Tries to clear specific bits in a bitmap without using locks. It reads the current value, checks if the bits are already cleared, and if not, uses atomic compare-and-exchange to clear them. If the bits are not all set, it returns an error.
+ */
 static inline int
 clear_bits_ll(unsigned long *addr, unsigned long mask_to_clear)
 {
@@ -70,7 +79,7 @@ clear_bits_ll(unsigned long *addr, unsigned long mask_to_clear)
 	return 0;
 }
 
-/*
+/**
  * bitmap_set_ll - set the specified number of bits at the specified position
  * @map: pointer to a bitmap
  * @start: a bit position in @map
@@ -80,6 +89,9 @@ clear_bits_ll(unsigned long *addr, unsigned long mask_to_clear)
  * can set/clear the same bitmap simultaneously without lock. If two
  * users set the same bit, one user will return remain bits, otherwise
  * return 0.
+ * 
+ * 
+ * Function Description: Sets a number of bits in a bitmap from a given starting position without using locks. It breaks the operation into chunks that fit within a single long word and calls set_bits_ll() for each chunk. If any part fails, it returns the number of bits that could not be set.
  */
 static unsigned long
 bitmap_set_ll(unsigned long *map, unsigned long start, unsigned long nr)
@@ -106,7 +118,7 @@ bitmap_set_ll(unsigned long *map, unsigned long start, unsigned long nr)
 	return 0;
 }
 
-/*
+/**
  * bitmap_clear_ll - clear the specified number of bits at the specified position
  * @map: pointer to a bitmap
  * @start: a bit position in @map
@@ -116,6 +128,9 @@ bitmap_set_ll(unsigned long *map, unsigned long start, unsigned long nr)
  * can set/clear the same bitmap simultaneously without lock. If two
  * users clear the same bit, one user will return remain bits,
  * otherwise return 0.
+ * 
+ * 
+ * Function Description: Clears a number of bits in a bitmap from a given starting position without using locks. It breaks the operation into chunks that fit within a single long word and calls clear_bits_ll() for each chunk. If any part fails, it returns the number of bits that could not be cleared.
  */
 static unsigned long
 bitmap_clear_ll(unsigned long *map, unsigned long start, unsigned long nr)
@@ -149,6 +164,9 @@ bitmap_clear_ll(unsigned long *map, unsigned long start, unsigned long nr)
  *
  * Create a new special memory pool that can be used to manage special purpose
  * memory not managed by the regular kmalloc/kfree interface.
+ * 
+ * 
+ * Function Description: Creates a new memory pool and initializes it. It allocates memory for the pool structure, sets up a lock to protect the pool, initializes the list of memory chunks, and sets the default allocation algorithm to first-fit. It returns the newly created pool.
  */
 struct gen_pool *gen_pool_create(int min_alloc_order, int nid)
 {
@@ -180,6 +198,9 @@ EXPORT_SYMBOL(gen_pool_create);
  * Add a new chunk of special memory to the specified pool.
  *
  * Returns 0 on success or a -ve errno on failure.
+ * 
+ * 
+ * Function Description: Adds a new chunk of memory to an existing pool. It calculates how many bits are needed for the chunk based on the size and allocation order, allocates memory for the chunk structure and bitmap, and stores the chunk's physical and virtual addresses. It then adds the chunk to the pool's list while holding a lock.
  */
 int gen_pool_add_owner(struct gen_pool *pool, unsigned long virt, phys_addr_t phys,
 		 size_t size, int nid, void *owner)
@@ -213,6 +234,9 @@ EXPORT_SYMBOL(gen_pool_add_owner);
  * @addr: starting address of memory
  *
  * Returns the physical address on success, or -1 on error.
+ * 
+ * 
+ * Function Description: Converts a virtual address to its corresponding physical address for a given pool. It searches through all the chunks in the pool to find which chunk contains the address, then calculates the physical address by adding the offset to the chunk's physical start address.
  */
 phys_addr_t gen_pool_virt_to_phys(struct gen_pool *pool, unsigned long addr)
 {
@@ -238,6 +262,9 @@ EXPORT_SYMBOL(gen_pool_virt_to_phys);
  *
  * Destroy the specified special memory pool. Verifies that there are no
  * outstanding allocations.
+ * 
+ * 
+ * Function Description: Destroys a memory pool and frees all its memory. It goes through each chunk in the pool, verifies that all bits are free (no active allocations), removes the chunk from the list, and frees it. It then frees the pool structure itself.
  */
 void gen_pool_destroy(struct gen_pool *pool)
 {
@@ -273,6 +300,9 @@ EXPORT_SYMBOL(gen_pool_destroy);
  * Uses the pool allocation function (with first-fit algorithm by default).
  * Can not be used in NMI handler on architectures without
  * NMI-safe cmpxchg implementation.
+ * 
+ * 
+ * Function Description: Allocates memory from a pool using a specified allocation algorithm. It calculates how many bits are needed for the requested size, searches through each chunk to find a free region using the algorithm, and then atomically sets the bits to mark them as allocated. It also updates the available space counter and optionally returns the chunk owner.
  */
 unsigned long gen_pool_alloc_algo_owner(struct gen_pool *pool, size_t size,
 		genpool_algo_t algo, void *data, void **owner)
@@ -337,6 +367,9 @@ EXPORT_SYMBOL(gen_pool_alloc_algo_owner);
  * NMI-safe cmpxchg implementation.
  *
  * Return: virtual address of the allocated memory, or %NULL on failure
+ * 
+ * 
+ * Function Description: Allocates memory from a pool for DMA usage using the default allocation algorithm. It is a wrapper that calls the more general allocation function and also returns the physical address needed for DMA operations.
  */
 void *gen_pool_dma_alloc(struct gen_pool *pool, size_t size, dma_addr_t *dma)
 {
@@ -358,6 +391,9 @@ EXPORT_SYMBOL(gen_pool_dma_alloc);
  * architectures without NMI-safe cmpxchg implementation.
  *
  * Return: virtual address of the allocated memory, or %NULL on failure
+ * 
+ * 
+ * Function Description: Allocates memory from a pool for DMA usage using a specified allocation algorithm. It calls the main allocation function to get a virtual address and then converts that address to a physical address for DMA. It returns the virtual address or NULL on failure.
  */
 void *gen_pool_dma_alloc_algo(struct gen_pool *pool, size_t size,
 		dma_addr_t *dma, genpool_algo_t algo, void *data)
@@ -391,6 +427,9 @@ EXPORT_SYMBOL(gen_pool_dma_alloc_algo);
  * without NMI-safe cmpxchg implementation.
  *
  * Return: virtual address of the allocated memory, or %NULL on failure
+ * 
+ * 
+ * Function Description: Allocates memory from a pool for DMA usage with a specific alignment requirement. It creates alignment data and passes it to the allocation function that handles aligned allocations. The allocated memory will start at an address aligned to the specified number of bytes.
  */
 void *gen_pool_dma_alloc_align(struct gen_pool *pool, size_t size,
 		dma_addr_t *dma, int align)
@@ -415,6 +454,9 @@ EXPORT_SYMBOL(gen_pool_dma_alloc_align);
  * NMI-safe cmpxchg implementation.
  *
  * Return: virtual address of the allocated zeroed memory, or %NULL on failure
+ * 
+ * 
+ * Function Description: Allocates zeroed memory from a pool for DMA usage using the default algorithm. It allocates memory and then fills it with zeros before returning. This is useful when you need initialized memory for DMA operations.
  */
 void *gen_pool_dma_zalloc(struct gen_pool *pool, size_t size, dma_addr_t *dma)
 {
@@ -436,6 +478,9 @@ EXPORT_SYMBOL(gen_pool_dma_zalloc);
  * architectures without NMI-safe cmpxchg implementation.
  *
  * Return: virtual address of the allocated zeroed memory, or %NULL on failure
+ * 
+ * 
+ * Function Description: Allocates zeroed memory from a pool for DMA usage using a specified algorithm. It allocates memory using the given algorithm, then zeroes the allocated memory before returning it to ensure no sensitive data is exposed.
  */
 void *gen_pool_dma_zalloc_algo(struct gen_pool *pool, size_t size,
 		dma_addr_t *dma, genpool_algo_t algo, void *data)
@@ -462,6 +507,9 @@ EXPORT_SYMBOL(gen_pool_dma_zalloc_algo);
  * architectures without NMI-safe cmpxchg implementation.
  *
  * Return: virtual address of the allocated zeroed memory, or %NULL on failure
+ * 
+ * 
+ * Function Description: Allocates zeroed memory from a pool for DMA usage with alignment requirements. It combines alignment and zeroing features, ensuring the allocated memory is properly aligned and filled with zeros.
  */
 void *gen_pool_dma_zalloc_align(struct gen_pool *pool, size_t size,
 		dma_addr_t *dma, int align)
@@ -483,6 +531,9 @@ EXPORT_SYMBOL(gen_pool_dma_zalloc_align);
  * Free previously allocated special memory back to the specified
  * pool.  Can not be used in NMI handler on architectures without
  * NMI-safe cmpxchg implementation.
+ * 
+ * 
+ * Function Description: Frees previously allocated memory back to the pool. It finds the chunk containing the address, calculates the bit position, clears the bits atomically to mark them as free, updates the available space counter, and optionally returns the chunk owner.
  */
 void gen_pool_free_owner(struct gen_pool *pool, unsigned long addr, size_t size,
 		void **owner)
@@ -527,6 +578,9 @@ EXPORT_SYMBOL(gen_pool_free_owner);
  *
  * Call @func for every chunk of generic memory pool.  The @func is
  * called with rcu_read_lock held.
+ * 
+ * 
+ * Function Description: Calls a given function for each memory chunk in the pool. It walks through the list of chunks with read lock protection and executes the user-provided callback function on each chunk.
  */
 void gen_pool_for_each_chunk(struct gen_pool *pool,
 	void (*func)(struct gen_pool *pool, struct gen_pool_chunk *chunk, void *data),
@@ -549,6 +603,9 @@ EXPORT_SYMBOL(gen_pool_for_each_chunk);
  *
  * Check if the range of addresses falls within the specified pool. Returns
  * true if the entire range is contained in the pool and false otherwise.
+ * 
+ * 
+ * Function Description: Checks whether a given address range falls completely within a pool. It searches through all chunks and verifies that both the start and end addresses are contained in the same chunk. Returns true if the whole range is in the pool, false otherwise.
  */
 bool gen_pool_has_addr(struct gen_pool *pool, unsigned long start,
 			size_t size)
@@ -576,6 +633,8 @@ EXPORT_SYMBOL(gen_pool_has_addr);
  * @pool: pool to get available free space
  *
  * Return available free space of the specified pool.
+ * 
+ * Function Description: Calculates and returns the total available free space in a pool. It goes through all chunks in the pool, reads the available space counter for each chunk, and adds them together to get the total free space.
  */
 size_t gen_pool_avail(struct gen_pool *pool)
 {
@@ -595,6 +654,9 @@ EXPORT_SYMBOL_GPL(gen_pool_avail);
  * @pool: pool to get size
  *
  * Return size in bytes of memory managed by the pool.
+ * 
+ * 
+ * Function Description: Calculates and returns the total size of all memory managed by a pool. It goes through each chunk and adds up their sizes to get the total amount of memory in the pool.
  */
 size_t gen_pool_size(struct gen_pool *pool)
 {
@@ -618,6 +680,9 @@ EXPORT_SYMBOL_GPL(gen_pool_size);
  * Call @algo for each memory allocation in the pool.
  * If @algo is NULL use gen_pool_first_fit as default
  * memory allocation function.
+ * 
+ * 
+ * Function Description: Changes the allocation algorithm used by a pool. It takes a new algorithm function and associated data, and sets them as the pool's allocation method. If no algorithm is provided, it falls back to the default first-fit algorithm.
  */
 void gen_pool_set_algo(struct gen_pool *pool, genpool_algo_t algo, void *data)
 {
@@ -643,6 +708,9 @@ EXPORT_SYMBOL(gen_pool_set_algo);
  * @data: additional data - unused
  * @pool: pool to find the fit region memory from
  * @start_addr: not used in this function
+ * 
+ * 
+ * Function Description: Finds the first free region in a bitmap that can accommodate the requested number of bits. It searches from the given start position and returns the starting bit of the first available region that is large enough, without any alignment requirements.
  */
 unsigned long gen_pool_first_fit(unsigned long *map, unsigned long size,
 		unsigned long start, unsigned int nr, void *data,
@@ -662,6 +730,9 @@ EXPORT_SYMBOL(gen_pool_first_fit);
  * @data: data for alignment
  * @pool: pool to get order from
  * @start_addr: start addr of alloction chunk
+ * 
+ * 
+ * Function Description: Finds the first free region in a bitmap that meets both size and alignment requirements. It calculates alignment mask and offset based on the chunk's start address and the requested alignment, then searches for a suitable region that satisfies both conditions.
  */
 unsigned long gen_pool_first_fit_align(unsigned long *map, unsigned long size,
 		unsigned long start, unsigned int nr, void *data,
@@ -690,6 +761,9 @@ EXPORT_SYMBOL(gen_pool_first_fit_align);
  * @data: data for alignment
  * @pool: pool to get order from
  * @start_addr: not used in this function
+ * 
+ * 
+ * Function Description: Reserves a specific fixed region in a pool. It uses the offset provided in the data to find a region at a particular position. If the specified region is already in use or not free, it returns an error by indicating the region is not available.
  */
 unsigned long gen_pool_fixed_alloc(unsigned long *map, unsigned long size,
 		unsigned long start, unsigned int nr, void *data,
@@ -725,6 +799,9 @@ EXPORT_SYMBOL(gen_pool_fixed_alloc);
  * @data: additional data - unused
  * @pool: pool to find the fit region memory from
  * @start_addr: not used in this function
+ * 
+ * 
+ * Function Description: Finds the first free region that is aligned to the order (power of two) of the requested size. It calculates an alignment mask based on the number of bits needed and searches for a region that naturally aligns to that size boundary.
  */
 unsigned long gen_pool_first_fit_order_align(unsigned long *map,
 		unsigned long size, unsigned long start,
@@ -750,6 +827,9 @@ EXPORT_SYMBOL(gen_pool_first_fit_order_align);
  *
  * Iterate over the bitmap to find the smallest free region
  * which we can allocate the memory.
+ * 
+ * 
+ * Function Description: Finds the best-fitting free region that matches the size requirement. Unlike first-fit which stops at the first available region, this searches through all free regions and returns the smallest region that can accommodate the request, which helps reduce memory fragmentation.
  */
 unsigned long gen_pool_best_fit(unsigned long *map, unsigned long size,
 		unsigned long start, unsigned int nr, void *data,
@@ -777,11 +857,17 @@ unsigned long gen_pool_best_fit(unsigned long *map, unsigned long size,
 }
 EXPORT_SYMBOL(gen_pool_best_fit);
 
+/*
+ * Function Description: This is a release function used by device management code. It is called automatically when a device is removed and destroys the associated memory pool to prevent memory leaks.
+*/
 static void devm_gen_pool_release(struct device *dev, void *res)
 {
 	gen_pool_destroy(*(struct gen_pool **)res);
 }
 
+/*
+ * Function Description: This is a match function used to find a specific pool during device management operations. It compares the pool's name with the provided name to determine if the pool matches the search criteria.
+*/
 static int devm_gen_pool_match(struct device *dev, void *res, void *data)
 {
 	struct gen_pool **p = res;
@@ -802,6 +888,9 @@ static int devm_gen_pool_match(struct device *dev, void *res, void *data)
  * @name: name of a gen_pool or NULL, identifies a particular gen_pool on device
  *
  * Returns the gen_pool for the device if one is present, or NULL.
+ * 
+ * 
+ * Function Description: Retrieves a memory pool associated with a device. It searches through the device's managed resources to find a pool with the given name and returns it, or returns NULL if no matching pool is found.
  */
 struct gen_pool *gen_pool_get(struct device *dev, const char *name)
 {
@@ -825,6 +914,9 @@ EXPORT_SYMBOL_GPL(gen_pool_get);
  * Create a new special memory pool that can be used to manage special purpose
  * memory not managed by the regular kmalloc/kfree interface. The pool will be
  * automatically destroyed by the device management code.
+ * 
+ * 
+ * Function Description: Creates a new memory pool that is automatically managed by the device. It creates a pool, stores it in the device's resource list, and ensures it will be automatically destroyed when the device is removed. If a name is provided, it uniquely identifies the pool.
  */
 struct gen_pool *devm_gen_pool_create(struct device *dev, int min_alloc_order,
 				      int nid, const char *name)
@@ -875,6 +967,9 @@ EXPORT_SYMBOL(devm_gen_pool_create);
  * Returns the pool that contains the chunk starting at the physical
  * address of the device tree node pointed at by the phandle property,
  * or NULL if not found.
+ * 
+ * 
+ * Function Description: Finds a memory pool using a device tree property. It parses a phandle property from the device tree, finds the corresponding device, and retrieves the pool associated with that device. This is used in systems where memory pools are defined in the device tree.
  */
 struct gen_pool *of_gen_pool_get(struct device_node *np,
 	const char *propname, int index)

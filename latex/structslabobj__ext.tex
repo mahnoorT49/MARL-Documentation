@@ -1,0 +1,62 @@
+\doxysection{slabobj\+\_\+ext Struct Reference}
+\hypertarget{structslabobj__ext}{}\label{structslabobj__ext}\index{slabobj\_ext@{slabobj\_ext}}
+
+
+{\ttfamily \+\#include $<$memcontrol.\+h$>$}
+
+
+
+Collaboration diagram for slabobj\+\_\+ext:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structslabobj__ext__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structobj__cgroup}{obj\+\_\+cgroup}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structslabobj__ext_aaab3e2cbb94d80b5f5c5172e94366551}{objcg}}
+\item 
+union codetag\+\_\+ref \doxymbox{\hyperlink{structslabobj__ext_a18dd67939d7a25455d81eb6edadebc26}{ref}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Extended information for slab objects stored as an array in page-\/\texorpdfstring{$>$}{>}memcg\+\_\+data if MEMCG\+\_\+\+DATA\+\_\+\+OBJEXTS is set.
+
+struct Description:\+ This structure holds extended information for slab objects. It contains the object cgroup pointer for memcg accounting and a code tag reference for memory allocation profiling. It is stored as an array in page-\/\texorpdfstring{$>$}{>}memcg\+\_\+data when MEMCG\+\_\+\+DATA\+\_\+\+OBJEXTS is set. 
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l01642}{1642}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+
+
+\label{structslabobj__ext_doc-variable-members}
+\Hypertarget{structslabobj__ext_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structslabobj__ext_aaab3e2cbb94d80b5f5c5172e94366551}\index{slabobj\_ext@{slabobj\_ext}!objcg@{objcg}}
+\index{objcg@{objcg}!slabobj\_ext@{slabobj\_ext}}
+\doxysubsubsection{\texorpdfstring{objcg}{objcg}}
+{\footnotesize\ttfamily \label{structslabobj__ext_aaab3e2cbb94d80b5f5c5172e94366551} 
+struct \doxymbox{\hyperlink{structobj__cgroup}{obj\+\_\+cgroup}}\texorpdfstring{$\ast$}{*} slabobj\+\_\+ext::\+objcg}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l01644}{1644}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+\Hypertarget{structslabobj__ext_a18dd67939d7a25455d81eb6edadebc26}\index{slabobj\_ext@{slabobj\_ext}!ref@{ref}}
+\index{ref@{ref}!slabobj\_ext@{slabobj\_ext}}
+\doxysubsubsection{\texorpdfstring{ref}{ref}}
+{\footnotesize\ttfamily \label{structslabobj__ext_a18dd67939d7a25455d81eb6edadebc26} 
+union codetag\+\_\+ref slabobj\+\_\+ext::\+ref}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l01647}{1647}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{memcontrol_8h}{memcontrol.\+h}}\end{DoxyCompactItemize}

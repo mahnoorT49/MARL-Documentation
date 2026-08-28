@@ -14,6 +14,7 @@ var structpcpu__chunk =
     [ "nr_empty_pop_pages", "structpcpu__chunk.html#ac3335d45652717865551908eff5eae75", null ],
     [ "nr_pages", "structpcpu__chunk.html#a8893c6464be390c900839dd6a4158ef6", null ],
     [ "nr_populated", "structpcpu__chunk.html#a041b6ff36a55be6a3a8e23dad7f67ad5", null ],
+    [ "obj_exts", "structpcpu__chunk.html#a53046fd20b0cdf765331ecaf6d9d460f", null ],
     [ "populated", "structpcpu__chunk.html#a0c3107dee18a69cc46fe089ebc3d200b", null ],
     [ "start_offset", "structpcpu__chunk.html#acdbc018e2be2473c5bd85afb3947a01f", null ]
 ];

@@ -1,0 +1,434 @@
+\doxysection{mm/\+percpu-\/internal.h File Reference}
+\hypertarget{percpu-internal_8h}{}\label{percpu-internal_8h}\index{mm/percpu-\/internal.h@{mm/percpu-\/internal.h}}
+{\ttfamily \+\#include $<$linux/\+types.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+percpu.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+memcontrol.\+h$>$}\newline
+Include dependency graph for percpu-\/internal.h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{percpu-internal_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structpcpu__block__md}{pcpu\+\_\+block\+\_\+md}}
+\item 
+struct \doxymbox{\hyperlink{structpcpuobj__ext}{pcpuobj\+\_\+ext}}
+\item 
+struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{percpu-internal_8h_acd134ce0ffb13bbc9910d5486ad323f9}{NEED\+\_\+\+PCPUOBJ\+\_\+\+EXT}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \doxymbox{\hyperlink{percpu-internal_8h_a8dedeb5db00f0c883e4f3753e4342920}{need\+\_\+pcpuobj\+\_\+ext}} (void)
+\item 
+static int \doxymbox{\hyperlink{percpu-internal_8h_adafc7ba5a7e9d502ae222b053efeffc0}{pcpu\+\_\+chunk\+\_\+nr\+\_\+blocks}} (struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*}chunk)
+\item 
+static int \doxymbox{\hyperlink{percpu-internal_8h_a3a3bdb346903f20a8eebbeee7ffc0453}{pcpu\+\_\+nr\+\_\+pages\+\_\+to\+\_\+map\+\_\+bits}} (int pages)
+\item 
+static int \doxymbox{\hyperlink{percpu-internal_8h_a17d09274f26c6cc1315b85c3bddef6d4}{pcpu\+\_\+chunk\+\_\+map\+\_\+bits}} (struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*}chunk)
+\item 
+static size\+\_\+t \doxymbox{\hyperlink{percpu-internal_8h_a293e01124fc592ddcf8923886d9b7ab7}{pcpu\+\_\+obj\+\_\+full\+\_\+size}} (size\+\_\+t size)
+\item 
+static void \doxymbox{\hyperlink{percpu-internal_8h_a78cc799a02e39ebf601d15b9e06c1b70}{pcpu\+\_\+stats\+\_\+save\+\_\+ai}} (const struct pcpu\+\_\+alloc\+\_\+info \texorpdfstring{$\ast$}{*}ai)
+\item 
+static void \doxymbox{\hyperlink{percpu-internal_8h_a9d576d4db9874ae2cf02fd03bd45d4d9}{pcpu\+\_\+stats\+\_\+area\+\_\+alloc}} (struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*}chunk, size\+\_\+t size)
+\item 
+static void \doxymbox{\hyperlink{percpu-internal_8h_ab5b672bd5f1a3e5872d8aa4381731653}{pcpu\+\_\+stats\+\_\+area\+\_\+dealloc}} (struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*}chunk)
+\item 
+static void \doxymbox{\hyperlink{percpu-internal_8h_af6ef92d0b8e083d78995cfd1c0fe692f}{pcpu\+\_\+stats\+\_\+chunk\+\_\+alloc}} (void)
+\item 
+static void \doxymbox{\hyperlink{percpu-internal_8h_a7b6c83c8a242310afdfe33acb6a4f840}{pcpu\+\_\+stats\+\_\+chunk\+\_\+dealloc}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+spinlock\+\_\+t \doxymbox{\hyperlink{percpu-internal_8h_a2a1cf830a7c9565efd0cdf6aec83064b}{pcpu\+\_\+lock}}
+\item 
+struct list\+\_\+head \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{percpu-internal_8h_a6ec456c1e9b8592dd8bee3f82c264ebe}{pcpu\+\_\+chunk\+\_\+lists}}
+\item 
+int \doxymbox{\hyperlink{percpu-internal_8h_a9e9d0e5ee50a92a19bcef7fbd451cacd}{pcpu\+\_\+nr\+\_\+slots}}
+\item 
+int \doxymbox{\hyperlink{percpu-internal_8h_a7d66aac5792df8a82465185afd24be96}{pcpu\+\_\+sidelined\+\_\+slot}}
+\item 
+int \doxymbox{\hyperlink{percpu-internal_8h_a9e95798af4ebbcebd6e50cb784f0dc80}{pcpu\+\_\+to\+\_\+depopulate\+\_\+slot}}
+\item 
+int \doxymbox{\hyperlink{percpu-internal_8h_a6637a541cb0ec4dcd1fd9433f8f61b8c}{pcpu\+\_\+nr\+\_\+empty\+\_\+pop\+\_\+pages}}
+\item 
+struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{percpu-internal_8h_aae2bd63bf6f5fc01978a82dbbe6b0dc0}{pcpu\+\_\+first\+\_\+chunk}}
+\item 
+struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{percpu-internal_8h_a6c825d62cbaa0b11364dfb342c76c9ad}{pcpu\+\_\+reserved\+\_\+chunk}}
+\end{DoxyCompactItemize}
+
+
+\label{percpu-internal_8h_doc-define-members}
+\Hypertarget{percpu-internal_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{percpu-internal_8h_acd134ce0ffb13bbc9910d5486ad323f9}\index{percpu-\/internal.h@{percpu-\/internal.h}!NEED\_PCPUOBJ\_EXT@{NEED\_PCPUOBJ\_EXT}}
+\index{NEED\_PCPUOBJ\_EXT@{NEED\_PCPUOBJ\_EXT}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{NEED\_PCPUOBJ\_EXT}{NEED\_PCPUOBJ\_EXT}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_acd134ce0ffb13bbc9910d5486ad323f9} 
+\+\#define NEED\+\_\+\+PCPUOBJ\+\_\+\+EXT}
+
+
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+
+\label{percpu-internal_8h_doc-func-members}
+\Hypertarget{percpu-internal_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{percpu-internal_8h_a8dedeb5db00f0c883e4f3753e4342920}\index{percpu-\/internal.h@{percpu-\/internal.h}!need\_pcpuobj\_ext@{need\_pcpuobj\_ext}}
+\index{need\_pcpuobj\_ext@{need\_pcpuobj\_ext}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{need\_pcpuobj\_ext()}{need\_pcpuobj\_ext()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a8dedeb5db00f0c883e4f3753e4342920} 
+bool need\+\_\+pcpuobj\+\_\+ext (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00090}{90}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00091\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{if}\ (IS\_ENABLED(CONFIG\_MEM\_ALLOC\_PROFILING))}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{memcontrol_8h_a86ddc15eaf30f9ffbef6b15a219a0d93}{mem\_cgroup\_kmem\_disabled}}())}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00097\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_a8dedeb5db00f0c883e4f3753e4342920_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=305pt]{percpu-internal_8h_a8dedeb5db00f0c883e4f3753e4342920_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{percpu-internal_8h_a17d09274f26c6cc1315b85c3bddef6d4}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_chunk\_map\_bits@{pcpu\_chunk\_map\_bits}}
+\index{pcpu\_chunk\_map\_bits@{pcpu\_chunk\_map\_bits}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_chunk\_map\_bits()}{pcpu\_chunk\_map\_bits()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a17d09274f26c6cc1315b85c3bddef6d4} 
+int pcpu\+\_\+chunk\+\_\+map\+\_\+bits (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*}}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+pcpu\+\_\+chunk\+\_\+map\+\_\+bits -\/ helper to convert nr\+\_\+pages to size of bitmap @chunk:\+ chunk of interest
+
+This conversion is from the number of physical pages that the chunk serves to the number of bits in the bitmap. 
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00141}{141}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00142\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{percpu-internal_8h_a3a3bdb346903f20a8eebbeee7ffc0453}{pcpu\_nr\_pages\_to\_map\_bits}}(chunk-\/>\doxymbox{\hyperlink{structpcpu__chunk_a8893c6464be390c900839dd6a4158ef6}{nr\_pages}});}
+\DoxyCodeLine{00144\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_a17d09274f26c6cc1315b85c3bddef6d4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_a17d09274f26c6cc1315b85c3bddef6d4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{percpu-internal_8h_adafc7ba5a7e9d502ae222b053efeffc0}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_chunk\_nr\_blocks@{pcpu\_chunk\_nr\_blocks}}
+\index{pcpu\_chunk\_nr\_blocks@{pcpu\_chunk\_nr\_blocks}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_chunk\_nr\_blocks()}{pcpu\_chunk\_nr\_blocks()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_adafc7ba5a7e9d502ae222b053efeffc0} 
+int pcpu\+\_\+chunk\+\_\+nr\+\_\+blocks (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*}}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+pcpu\+\_\+chunk\+\_\+nr\+\_\+blocks -\/ converts nr\+\_\+pages to \# of md\+\_\+blocks @chunk:\+ chunk of interest
+
+This conversion is from the number of physical pages that the chunk serves to the number of bitmap blocks used. 
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00117}{117}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00118\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{return}\ chunk-\/>\doxymbox{\hyperlink{structpcpu__chunk_a8893c6464be390c900839dd6a4158ef6}{nr\_pages}}\ *\ PAGE\_SIZE\ /\ PCPU\_BITMAP\_BLOCK\_SIZE;}
+\DoxyCodeLine{00120\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_adafc7ba5a7e9d502ae222b053efeffc0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{percpu-internal_8h_a3a3bdb346903f20a8eebbeee7ffc0453}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_nr\_pages\_to\_map\_bits@{pcpu\_nr\_pages\_to\_map\_bits}}
+\index{pcpu\_nr\_pages\_to\_map\_bits@{pcpu\_nr\_pages\_to\_map\_bits}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_nr\_pages\_to\_map\_bits()}{pcpu\_nr\_pages\_to\_map\_bits()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a3a3bdb346903f20a8eebbeee7ffc0453} 
+int pcpu\+\_\+nr\+\_\+pages\+\_\+to\+\_\+map\+\_\+bits (\begin{DoxyParamCaption}\item[{int}]{pages}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+pcpu\+\_\+nr\+\_\+pages\+\_\+to\+\_\+map\+\_\+bits -\/ converts the pages to size of bitmap @pages:\+ number of physical pages
+
+This conversion is from physical pages to the number of bits required in the bitmap. 
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00129}{129}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00130\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{return}\ pages\ *\ PAGE\_SIZE\ /\ PCPU\_MIN\_ALLOC\_SIZE;}
+\DoxyCodeLine{00132\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_a3a3bdb346903f20a8eebbeee7ffc0453_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{percpu-internal_8h_a293e01124fc592ddcf8923886d9b7ab7}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_obj\_full\_size@{pcpu\_obj\_full\_size}}
+\index{pcpu\_obj\_full\_size@{pcpu\_obj\_full\_size}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_obj\_full\_size()}{pcpu\_obj\_full\_size()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a293e01124fc592ddcf8923886d9b7ab7} 
+size\+\_\+t pcpu\+\_\+obj\+\_\+full\+\_\+size (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+pcpu\+\_\+obj\+\_\+full\+\_\+size -\/ helper to calculate size of each accounted object @size:\+ size of area to allocate in bytes
+
+For each accounted object there is an extra space which is used to store \doxylink{structobj__cgroup}{obj\+\_\+cgroup} membership if kmemcg is not disabled. Charge it too. 
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00153}{153}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00154\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ extra\_size\ =\ 0;}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_MEMCG }}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{memcontrol_8h_a86ddc15eaf30f9ffbef6b15a219a0d93}{mem\_cgroup\_kmem\_disabled}}())}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ extra\_size\ +=\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ /\ PCPU\_MIN\_ALLOC\_SIZE\ *\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structobj__cgroup}{obj\_cgroup}}\ *);}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ *\ num\_possible\_cpus()\ +\ extra\_size;}
+\DoxyCodeLine{00163\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_a293e01124fc592ddcf8923886d9b7ab7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_a293e01124fc592ddcf8923886d9b7ab7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{percpu-internal_8h_a9d576d4db9874ae2cf02fd03bd45d4d9}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_stats\_area\_alloc@{pcpu\_stats\_area\_alloc}}
+\index{pcpu\_stats\_area\_alloc@{pcpu\_stats\_area\_alloc}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_stats\_area\_alloc()}{pcpu\_stats\_area\_alloc()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a9d576d4db9874ae2cf02fd03bd45d4d9} 
+void pcpu\+\_\+stats\+\_\+area\+\_\+alloc (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*}}]{chunk}{, }\item[{size\+\_\+t}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00270}{270}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00271\ \{}
+\DoxyCodeLine{00272\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_a9d576d4db9874ae2cf02fd03bd45d4d9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{percpu-internal_8h_ab5b672bd5f1a3e5872d8aa4381731653}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_stats\_area\_dealloc@{pcpu\_stats\_area\_dealloc}}
+\index{pcpu\_stats\_area\_dealloc@{pcpu\_stats\_area\_dealloc}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_stats\_area\_dealloc()}{pcpu\_stats\_area\_dealloc()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_ab5b672bd5f1a3e5872d8aa4381731653} 
+void pcpu\+\_\+stats\+\_\+area\+\_\+dealloc (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}} \texorpdfstring{$\ast$}{*}}]{chunk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00274}{274}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00275\ \{}
+\DoxyCodeLine{00276\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_ab5b672bd5f1a3e5872d8aa4381731653_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{percpu-internal_8h_af6ef92d0b8e083d78995cfd1c0fe692f}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_stats\_chunk\_alloc@{pcpu\_stats\_chunk\_alloc}}
+\index{pcpu\_stats\_chunk\_alloc@{pcpu\_stats\_chunk\_alloc}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_stats\_chunk\_alloc()}{pcpu\_stats\_chunk\_alloc()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_af6ef92d0b8e083d78995cfd1c0fe692f} 
+void pcpu\+\_\+stats\+\_\+chunk\+\_\+alloc (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00278}{278}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00279\ \{}
+\DoxyCodeLine{00280\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_af6ef92d0b8e083d78995cfd1c0fe692f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{percpu-internal_8h_a7b6c83c8a242310afdfe33acb6a4f840}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_stats\_chunk\_dealloc@{pcpu\_stats\_chunk\_dealloc}}
+\index{pcpu\_stats\_chunk\_dealloc@{pcpu\_stats\_chunk\_dealloc}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_stats\_chunk\_dealloc()}{pcpu\_stats\_chunk\_dealloc()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a7b6c83c8a242310afdfe33acb6a4f840} 
+void pcpu\+\_\+stats\+\_\+chunk\+\_\+dealloc (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00282}{282}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00283\ \{}
+\DoxyCodeLine{00284\ \}}
+
+\end{DoxyCode}
+\Hypertarget{percpu-internal_8h_a78cc799a02e39ebf601d15b9e06c1b70}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_stats\_save\_ai@{pcpu\_stats\_save\_ai}}
+\index{pcpu\_stats\_save\_ai@{pcpu\_stats\_save\_ai}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_stats\_save\_ai()}{pcpu\_stats\_save\_ai()}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a78cc799a02e39ebf601d15b9e06c1b70} 
+void pcpu\+\_\+stats\+\_\+save\+\_\+ai (\begin{DoxyParamCaption}\item[{const struct pcpu\+\_\+alloc\+\_\+info \texorpdfstring{$\ast$}{*}}]{ai}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{percpu-internal_8h_source_l00266}{266}} of file \doxymbox{\hyperlink{percpu-internal_8h_source}{percpu-\/internal.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00267\ \{}
+\DoxyCodeLine{00268\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu-internal_8h_a78cc799a02e39ebf601d15b9e06c1b70_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{percpu-internal_8h_doc-var-members}
+\Hypertarget{percpu-internal_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{percpu-internal_8h_a6ec456c1e9b8592dd8bee3f82c264ebe}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_chunk\_lists@{pcpu\_chunk\_lists}}
+\index{pcpu\_chunk\_lists@{pcpu\_chunk\_lists}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_chunk\_lists}{pcpu\_chunk\_lists}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a6ec456c1e9b8592dd8bee3f82c264ebe} 
+struct list\+\_\+head\texorpdfstring{$\ast$}{*} pcpu\+\_\+chunk\+\_\+lists\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{percpu-internal_8h_aae2bd63bf6f5fc01978a82dbbe6b0dc0}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_first\_chunk@{pcpu\_first\_chunk}}
+\index{pcpu\_first\_chunk@{pcpu\_first\_chunk}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_first\_chunk}{pcpu\_first\_chunk}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_aae2bd63bf6f5fc01978a82dbbe6b0dc0} 
+struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}}\texorpdfstring{$\ast$}{*} pcpu\+\_\+first\+\_\+chunk\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{percpu-internal_8h_a2a1cf830a7c9565efd0cdf6aec83064b}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_lock@{pcpu\_lock}}
+\index{pcpu\_lock@{pcpu\_lock}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_lock}{pcpu\_lock}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a2a1cf830a7c9565efd0cdf6aec83064b} 
+spinlock\+\_\+t pcpu\+\_\+lock\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{percpu-internal_8h_a6637a541cb0ec4dcd1fd9433f8f61b8c}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_nr\_empty\_pop\_pages@{pcpu\_nr\_empty\_pop\_pages}}
+\index{pcpu\_nr\_empty\_pop\_pages@{pcpu\_nr\_empty\_pop\_pages}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_nr\_empty\_pop\_pages}{pcpu\_nr\_empty\_pop\_pages}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a6637a541cb0ec4dcd1fd9433f8f61b8c} 
+int pcpu\+\_\+nr\+\_\+empty\+\_\+pop\+\_\+pages\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{percpu_8c_source_l00180}{180}} of file \doxymbox{\hyperlink{percpu_8c_source}{percpu.\+c}}.
+
+\Hypertarget{percpu-internal_8h_a9e9d0e5ee50a92a19bcef7fbd451cacd}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_nr\_slots@{pcpu\_nr\_slots}}
+\index{pcpu\_nr\_slots@{pcpu\_nr\_slots}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_nr\_slots}{pcpu\_nr\_slots}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a9e9d0e5ee50a92a19bcef7fbd451cacd} 
+int pcpu\+\_\+nr\+\_\+slots\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{percpu-internal_8h_a6c825d62cbaa0b11364dfb342c76c9ad}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_reserved\_chunk@{pcpu\_reserved\_chunk}}
+\index{pcpu\_reserved\_chunk@{pcpu\_reserved\_chunk}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_reserved\_chunk}{pcpu\_reserved\_chunk}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a6c825d62cbaa0b11364dfb342c76c9ad} 
+struct \doxymbox{\hyperlink{structpcpu__chunk}{pcpu\+\_\+chunk}}\texorpdfstring{$\ast$}{*} pcpu\+\_\+reserved\+\_\+chunk\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{percpu-internal_8h_a7d66aac5792df8a82465185afd24be96}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_sidelined\_slot@{pcpu\_sidelined\_slot}}
+\index{pcpu\_sidelined\_slot@{pcpu\_sidelined\_slot}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_sidelined\_slot}{pcpu\_sidelined\_slot}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a7d66aac5792df8a82465185afd24be96} 
+int pcpu\+\_\+sidelined\+\_\+slot\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{percpu-internal_8h_a9e95798af4ebbcebd6e50cb784f0dc80}\index{percpu-\/internal.h@{percpu-\/internal.h}!pcpu\_to\_depopulate\_slot@{pcpu\_to\_depopulate\_slot}}
+\index{pcpu\_to\_depopulate\_slot@{pcpu\_to\_depopulate\_slot}!percpu-\/internal.h@{percpu-\/internal.h}}
+\doxysubsubsection{\texorpdfstring{pcpu\_to\_depopulate\_slot}{pcpu\_to\_depopulate\_slot}}
+{\footnotesize\ttfamily \label{percpu-internal_8h_a9e95798af4ebbcebd6e50cb784f0dc80} 
+int pcpu\+\_\+to\+\_\+depopulate\+\_\+slot\hspace{0.3cm}{\ttfamily [extern]}}
+

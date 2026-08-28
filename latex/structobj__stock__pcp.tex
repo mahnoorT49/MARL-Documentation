@@ -1,0 +1,128 @@
+\doxysection{obj\+\_\+stock\+\_\+pcp Struct Reference}
+\hypertarget{structobj__stock__pcp}{}\label{structobj__stock__pcp}\index{obj\_stock\_pcp@{obj\_stock\_pcp}}
+
+
+Collaboration diagram for obj\+\_\+stock\+\_\+pcp:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structobj__stock__pcp__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+local\+\_\+trylock\+\_\+t \doxymbox{\hyperlink{structobj__stock__pcp_afc5d2af83902cdde55c1968b97b07251}{lock}}
+\item 
+unsigned int \doxymbox{\hyperlink{structobj__stock__pcp_ae5e0f99f9b23638cc7b66c59e47d2cc4}{nr\+\_\+bytes}}
+\item 
+struct \doxymbox{\hyperlink{structobj__cgroup}{obj\+\_\+cgroup}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structobj__stock__pcp_a24f6b50ee33d19e70da3fafe4f483c6c}{cached\+\_\+objcg}}
+\item 
+struct \doxymbox{\hyperlink{structpglist__data}{pglist\+\_\+data}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structobj__stock__pcp_a811aeae387220c78f8e62f0841d03d33}{cached\+\_\+pgdat}}
+\item 
+int \doxymbox{\hyperlink{structobj__stock__pcp_ac970b282f62e22e74f7de44410e8c713}{nr\+\_\+slab\+\_\+reclaimable\+\_\+b}}
+\item 
+int \doxymbox{\hyperlink{structobj__stock__pcp_a941c6103b060edece05aaa1489da0f2e}{nr\+\_\+slab\+\_\+unreclaimable\+\_\+b}}
+\item 
+struct work\+\_\+struct \doxymbox{\hyperlink{structobj__stock__pcp_a2bff9fe7a03c3874cf1043beef71da64}{work}}
+\item 
+unsigned long \doxymbox{\hyperlink{structobj__stock__pcp_a184f69281524675016760948e0a34faa}{flags}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8c_source_l01808}{1808}} of file \doxymbox{\hyperlink{memcontrol_8c_source}{memcontrol.\+c}}.
+
+
+
+\label{structobj__stock__pcp_doc-variable-members}
+\Hypertarget{structobj__stock__pcp_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structobj__stock__pcp_a24f6b50ee33d19e70da3fafe4f483c6c}\index{obj\_stock\_pcp@{obj\_stock\_pcp}!cached\_objcg@{cached\_objcg}}
+\index{cached\_objcg@{cached\_objcg}!obj\_stock\_pcp@{obj\_stock\_pcp}}
+\doxysubsubsection{\texorpdfstring{cached\_objcg}{cached\_objcg}}
+{\footnotesize\ttfamily \label{structobj__stock__pcp_a24f6b50ee33d19e70da3fafe4f483c6c} 
+struct \doxymbox{\hyperlink{structobj__cgroup}{obj\+\_\+cgroup}}\texorpdfstring{$\ast$}{*} obj\+\_\+stock\+\_\+pcp::\+cached\+\_\+objcg}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8c_source_l01811}{1811}} of file \doxymbox{\hyperlink{memcontrol_8c_source}{memcontrol.\+c}}.
+
+\Hypertarget{structobj__stock__pcp_a811aeae387220c78f8e62f0841d03d33}\index{obj\_stock\_pcp@{obj\_stock\_pcp}!cached\_pgdat@{cached\_pgdat}}
+\index{cached\_pgdat@{cached\_pgdat}!obj\_stock\_pcp@{obj\_stock\_pcp}}
+\doxysubsubsection{\texorpdfstring{cached\_pgdat}{cached\_pgdat}}
+{\footnotesize\ttfamily \label{structobj__stock__pcp_a811aeae387220c78f8e62f0841d03d33} 
+struct \doxymbox{\hyperlink{structpglist__data}{pglist\+\_\+data}}\texorpdfstring{$\ast$}{*} obj\+\_\+stock\+\_\+pcp::\+cached\+\_\+pgdat}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8c_source_l01812}{1812}} of file \doxymbox{\hyperlink{memcontrol_8c_source}{memcontrol.\+c}}.
+
+\Hypertarget{structobj__stock__pcp_a184f69281524675016760948e0a34faa}\index{obj\_stock\_pcp@{obj\_stock\_pcp}!flags@{flags}}
+\index{flags@{flags}!obj\_stock\_pcp@{obj\_stock\_pcp}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structobj__stock__pcp_a184f69281524675016760948e0a34faa} 
+unsigned long obj\+\_\+stock\+\_\+pcp::\+flags}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8c_source_l01817}{1817}} of file \doxymbox{\hyperlink{memcontrol_8c_source}{memcontrol.\+c}}.
+
+\Hypertarget{structobj__stock__pcp_afc5d2af83902cdde55c1968b97b07251}\index{obj\_stock\_pcp@{obj\_stock\_pcp}!lock@{lock}}
+\index{lock@{lock}!obj\_stock\_pcp@{obj\_stock\_pcp}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily \label{structobj__stock__pcp_afc5d2af83902cdde55c1968b97b07251} 
+local\+\_\+trylock\+\_\+t obj\+\_\+stock\+\_\+pcp::\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8c_source_l01809}{1809}} of file \doxymbox{\hyperlink{memcontrol_8c_source}{memcontrol.\+c}}.
+
+\Hypertarget{structobj__stock__pcp_ae5e0f99f9b23638cc7b66c59e47d2cc4}\index{obj\_stock\_pcp@{obj\_stock\_pcp}!nr\_bytes@{nr\_bytes}}
+\index{nr\_bytes@{nr\_bytes}!obj\_stock\_pcp@{obj\_stock\_pcp}}
+\doxysubsubsection{\texorpdfstring{nr\_bytes}{nr\_bytes}}
+{\footnotesize\ttfamily \label{structobj__stock__pcp_ae5e0f99f9b23638cc7b66c59e47d2cc4} 
+unsigned int obj\+\_\+stock\+\_\+pcp::\+nr\+\_\+bytes}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8c_source_l01810}{1810}} of file \doxymbox{\hyperlink{memcontrol_8c_source}{memcontrol.\+c}}.
+
+\Hypertarget{structobj__stock__pcp_ac970b282f62e22e74f7de44410e8c713}\index{obj\_stock\_pcp@{obj\_stock\_pcp}!nr\_slab\_reclaimable\_b@{nr\_slab\_reclaimable\_b}}
+\index{nr\_slab\_reclaimable\_b@{nr\_slab\_reclaimable\_b}!obj\_stock\_pcp@{obj\_stock\_pcp}}
+\doxysubsubsection{\texorpdfstring{nr\_slab\_reclaimable\_b}{nr\_slab\_reclaimable\_b}}
+{\footnotesize\ttfamily \label{structobj__stock__pcp_ac970b282f62e22e74f7de44410e8c713} 
+int obj\+\_\+stock\+\_\+pcp::\+nr\+\_\+slab\+\_\+reclaimable\+\_\+b}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8c_source_l01813}{1813}} of file \doxymbox{\hyperlink{memcontrol_8c_source}{memcontrol.\+c}}.
+
+\Hypertarget{structobj__stock__pcp_a941c6103b060edece05aaa1489da0f2e}\index{obj\_stock\_pcp@{obj\_stock\_pcp}!nr\_slab\_unreclaimable\_b@{nr\_slab\_unreclaimable\_b}}
+\index{nr\_slab\_unreclaimable\_b@{nr\_slab\_unreclaimable\_b}!obj\_stock\_pcp@{obj\_stock\_pcp}}
+\doxysubsubsection{\texorpdfstring{nr\_slab\_unreclaimable\_b}{nr\_slab\_unreclaimable\_b}}
+{\footnotesize\ttfamily \label{structobj__stock__pcp_a941c6103b060edece05aaa1489da0f2e} 
+int obj\+\_\+stock\+\_\+pcp::\+nr\+\_\+slab\+\_\+unreclaimable\+\_\+b}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8c_source_l01814}{1814}} of file \doxymbox{\hyperlink{memcontrol_8c_source}{memcontrol.\+c}}.
+
+\Hypertarget{structobj__stock__pcp_a2bff9fe7a03c3874cf1043beef71da64}\index{obj\_stock\_pcp@{obj\_stock\_pcp}!work@{work}}
+\index{work@{work}!obj\_stock\_pcp@{obj\_stock\_pcp}}
+\doxysubsubsection{\texorpdfstring{work}{work}}
+{\footnotesize\ttfamily \label{structobj__stock__pcp_a2bff9fe7a03c3874cf1043beef71da64} 
+struct work\+\_\+struct obj\+\_\+stock\+\_\+pcp::\+work}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8c_source_l01816}{1816}} of file \doxymbox{\hyperlink{memcontrol_8c_source}{memcontrol.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{memcontrol_8c}{memcontrol.\+c}}\end{DoxyCompactItemize}

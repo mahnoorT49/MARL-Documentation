@@ -130,22 +130,49 @@ Include dependency graph for rstat.c:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c__incl.svg" width="1274" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-</div><table class="memberdecls">
+</div>
+<p><a href="rstat_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af44bd30b28c91d64aab50b0191dd4845" id="r_af44bd30b28c91d64aab50b0191dd4845"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af44bd30b28c91d64aab50b0191dd4845">__css_rstat_updated</a> (struct cgroup_subsys_state *css, int cpu)</td></tr>
-<tr class="memitem:a0d49aa809528f6cc2d1c5713f8245125" id="r_a0d49aa809528f6cc2d1c5713f8245125"><td class="memItemLeft">__bpf_kfunc void&#160;</td><td class="memItemRight"><a class="el" href="#a0d49aa809528f6cc2d1c5713f8245125">css_rstat_updated</a> (struct cgroup_subsys_state *css, int cpu)</td></tr>
+<tr class="memitem:ad1868ae4f8fc33b8ad66e1446cb8af11" id="r_ad1868ae4f8fc33b8ad66e1446cb8af11"><td class="memItemLeft">static&#160;</td><td class="memItemRight"><a class="el" href="#ad1868ae4f8fc33b8ad66e1446cb8af11">DEFINE_SPINLOCK</a> (rstat_base_lock)</td></tr>
+<tr class="memitem:ad6e1fabb6d4f273cf56c73334b3f176d" id="r_ad6e1fabb6d4f273cf56c73334b3f176d"><td class="memItemLeft">static&#160;</td><td class="memItemRight"><a class="el" href="#ad6e1fabb6d4f273cf56c73334b3f176d">DEFINE_PER_CPU</a> (struct llist_head, rstat_backlog_list)</td></tr>
+<tr class="memitem:ad72111bdd11fb45c02b2971133696e5b" id="r_ad72111bdd11fb45c02b2971133696e5b"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ad72111bdd11fb45c02b2971133696e5b">cgroup_base_stat_flush</a> (struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu)</td></tr>
+<tr class="memitem:ad5c996fe59a423d5b4136ec59fa9b4c2" id="r_ad5c996fe59a423d5b4136ec59fa9b4c2"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ad5c996fe59a423d5b4136ec59fa9b4c2">css_uses_rstat</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css)</td></tr>
+<tr class="memitem:a5cfd09042964bac6d1f65ac9072d59d4" id="r_a5cfd09042964bac6d1f65ac9072d59d4"><td class="memItemLeft">static struct css_rstat_cpu *&#160;</td><td class="memItemRight"><a class="el" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css, int cpu)</td></tr>
+<tr class="memitem:aa2875263772af7365c21ca6a7d1bf220" id="r_aa2875263772af7365c21ca6a7d1bf220"><td class="memItemLeft">static struct cgroup_rstat_base_cpu *&#160;</td><td class="memItemRight"><a class="el" href="#aa2875263772af7365c21ca6a7d1bf220">cgroup_rstat_base_cpu</a> (struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu)</td></tr>
+<tr class="memitem:a8a429ab64c98e5f3d3b65d63784bad23" id="r_a8a429ab64c98e5f3d3b65d63784bad23"><td class="memItemLeft">static spinlock_t *&#160;</td><td class="memItemRight"><a class="el" href="#a8a429ab64c98e5f3d3b65d63784bad23">ss_rstat_lock</a> (struct <a class="el" href="structcgroup__subsys.html">cgroup_subsys</a> *ss)</td></tr>
+<tr class="memitem:a6fc3c5c18b9bd75214eb604e6f4d8c55" id="r_a6fc3c5c18b9bd75214eb604e6f4d8c55"><td class="memItemLeft">static struct llist_head *&#160;</td><td class="memItemRight"><a class="el" href="#a6fc3c5c18b9bd75214eb604e6f4d8c55">ss_lhead_cpu</a> (struct <a class="el" href="structcgroup__subsys.html">cgroup_subsys</a> *ss, int cpu)</td></tr>
+<tr class="memitem:af44bd30b28c91d64aab50b0191dd4845" id="r_af44bd30b28c91d64aab50b0191dd4845"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af44bd30b28c91d64aab50b0191dd4845">__css_rstat_updated</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css, int cpu)</td></tr>
+<tr class="memitem:a0d49aa809528f6cc2d1c5713f8245125" id="r_a0d49aa809528f6cc2d1c5713f8245125"><td class="memItemLeft">__bpf_kfunc void&#160;</td><td class="memItemRight"><a class="el" href="#a0d49aa809528f6cc2d1c5713f8245125">css_rstat_updated</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css, int cpu)</td></tr>
+<tr class="memitem:a4144ec10bee67760fd613f06cafeed3e" id="r_a4144ec10bee67760fd613f06cafeed3e"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a4144ec10bee67760fd613f06cafeed3e">__css_process_update_tree</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css, int cpu)</td></tr>
+<tr class="memitem:a64263cc1216e3df2bfe501dcb653de87" id="r_a64263cc1216e3df2bfe501dcb653de87"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a64263cc1216e3df2bfe501dcb653de87">css_process_update_tree</a> (struct <a class="el" href="structcgroup__subsys.html">cgroup_subsys</a> *ss, int cpu)</td></tr>
+<tr class="memitem:afb34bcc365dff084fb4ed7992160cf9f" id="r_afb34bcc365dff084fb4ed7992160cf9f"><td class="memItemLeft">static struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *&#160;</td><td class="memItemRight"><a class="el" href="#afb34bcc365dff084fb4ed7992160cf9f">css_rstat_push_children</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *head, struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *child, int cpu)</td></tr>
+<tr class="memitem:a957b8cd1c1b269379cd6fd6c7b1cd0cf" id="r_a957b8cd1c1b269379cd6fd6c7b1cd0cf"><td class="memItemLeft">static struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a957b8cd1c1b269379cd6fd6c7b1cd0cf">css_rstat_updated_list</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *root, int cpu)</td></tr>
 <tr class="memitem:a633c82492117b371cadb7a0a269cb776" id="r_a633c82492117b371cadb7a0a269cb776"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a633c82492117b371cadb7a0a269cb776">__bpf_hook_start</a> ()</td></tr>
-<tr class="memitem:a97789243431c8c7f986b296efcee43fc" id="r_a97789243431c8c7f986b296efcee43fc"><td class="memItemLeft">__weak noinline void&#160;</td><td class="memItemRight"><a class="el" href="#a97789243431c8c7f986b296efcee43fc">bpf_rstat_flush</a> (struct cgroup *cgrp, struct cgroup *parent, int cpu)</td></tr>
+<tr class="memitem:a97789243431c8c7f986b296efcee43fc" id="r_a97789243431c8c7f986b296efcee43fc"><td class="memItemLeft">__weak noinline void&#160;</td><td class="memItemRight"><a class="el" href="#a97789243431c8c7f986b296efcee43fc">bpf_rstat_flush</a> (struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, struct <a class="el" href="structcgroup.html">cgroup</a> *parent, int cpu)</td></tr>
 <tr class="memitem:a2efa9f5e81ca1b58a7800143df9048ea" id="r_a2efa9f5e81ca1b58a7800143df9048ea"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2efa9f5e81ca1b58a7800143df9048ea">__bpf_hook_end</a> ()</td></tr>
-<tr class="memitem:a8b0be1a8c477dd64fe01d7021959ef0d" id="r_a8b0be1a8c477dd64fe01d7021959ef0d"><td class="memItemLeft">__bpf_kfunc void&#160;</td><td class="memItemRight"><a class="el" href="#a8b0be1a8c477dd64fe01d7021959ef0d">css_rstat_flush</a> (struct cgroup_subsys_state *css)</td></tr>
-<tr class="memitem:a70b7d624bdd18e80aaaf97a26ad4d12b" id="r_a70b7d624bdd18e80aaaf97a26ad4d12b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a70b7d624bdd18e80aaaf97a26ad4d12b">css_rstat_init</a> (struct cgroup_subsys_state *css)</td></tr>
-<tr class="memitem:a7f157f74be84475471813e39c07b93c6" id="r_a7f157f74be84475471813e39c07b93c6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7f157f74be84475471813e39c07b93c6">css_rstat_exit</a> (struct cgroup_subsys_state *css)</td></tr>
-<tr class="memitem:a321b7954535f612da01b000d2e0bc5de" id="r_a321b7954535f612da01b000d2e0bc5de"><td class="memItemLeft">int __init&#160;</td><td class="memItemRight"><a class="el" href="#a321b7954535f612da01b000d2e0bc5de">ss_rstat_init</a> (struct <a class="el" href="cgroup-internal_8h.html#a5456eafc4eac34d6cda02119c6e83259">cgroup_subsys</a> *ss)</td></tr>
-<tr class="memitem:a992bbae3b1e46d75120f13a56d786d50" id="r_a992bbae3b1e46d75120f13a56d786d50"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a992bbae3b1e46d75120f13a56d786d50">__cgroup_account_cputime</a> (struct cgroup *cgrp, u64 delta_exec)</td></tr>
-<tr class="memitem:a4d68962a6975b4396a2b8e125f875ba3" id="r_a4d68962a6975b4396a2b8e125f875ba3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4d68962a6975b4396a2b8e125f875ba3">__cgroup_account_cputime_field</a> (struct cgroup *cgrp, enum cpu_usage_stat index, u64 delta_exec)</td></tr>
+<tr class="memitem:a67238dd5ed4c71d7b4168d48b6df32b1" id="r_a67238dd5ed4c71d7b4168d48b6df32b1"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a67238dd5ed4c71d7b4168d48b6df32b1">__css_rstat_lock</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css, int cpu_in_loop) __acquires(<a class="el" href="#a8a429ab64c98e5f3d3b65d63784bad23">ss_rstat_lock</a>(css -&gt; ss))</td></tr>
+<tr class="memitem:af943f60f1c347123f2b1d67ae68dd990" id="r_af943f60f1c347123f2b1d67ae68dd990"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#af943f60f1c347123f2b1d67ae68dd990">__css_rstat_unlock</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css, int cpu_in_loop) __releases(<a class="el" href="#a8a429ab64c98e5f3d3b65d63784bad23">ss_rstat_lock</a>(css -&gt; ss))</td></tr>
+<tr class="memitem:a8b0be1a8c477dd64fe01d7021959ef0d" id="r_a8b0be1a8c477dd64fe01d7021959ef0d"><td class="memItemLeft">__bpf_kfunc void&#160;</td><td class="memItemRight"><a class="el" href="#a8b0be1a8c477dd64fe01d7021959ef0d">css_rstat_flush</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css)</td></tr>
+<tr class="memitem:a70b7d624bdd18e80aaaf97a26ad4d12b" id="r_a70b7d624bdd18e80aaaf97a26ad4d12b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a70b7d624bdd18e80aaaf97a26ad4d12b">css_rstat_init</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css)</td></tr>
+<tr class="memitem:a7f157f74be84475471813e39c07b93c6" id="r_a7f157f74be84475471813e39c07b93c6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7f157f74be84475471813e39c07b93c6">css_rstat_exit</a> (struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *css)</td></tr>
+<tr class="memitem:a321b7954535f612da01b000d2e0bc5de" id="r_a321b7954535f612da01b000d2e0bc5de"><td class="memItemLeft">int __init&#160;</td><td class="memItemRight"><a class="el" href="#a321b7954535f612da01b000d2e0bc5de">ss_rstat_init</a> (struct <a class="el" href="structcgroup__subsys.html">cgroup_subsys</a> *ss)</td></tr>
+<tr class="memitem:a9d323965522fd40130da06b469fd3375" id="r_a9d323965522fd40130da06b469fd3375"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a9d323965522fd40130da06b469fd3375">cgroup_base_stat_add</a> (struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *dst_bstat, struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *src_bstat)</td></tr>
+<tr class="memitem:ab2a496fd2f480ac22d3634c5e49ceee2" id="r_ab2a496fd2f480ac22d3634c5e49ceee2"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ab2a496fd2f480ac22d3634c5e49ceee2">cgroup_base_stat_sub</a> (struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *dst_bstat, struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *src_bstat)</td></tr>
+<tr class="memitem:ad88826dd2e6cc4de372bc8cf9481cb2e" id="r_ad88826dd2e6cc4de372bc8cf9481cb2e"><td class="memItemLeft">static struct <a class="el" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad88826dd2e6cc4de372bc8cf9481cb2e">cgroup_base_stat_cputime_account_begin</a> (struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, unsigned long *flags)</td></tr>
+<tr class="memitem:a12b264bf0968214aeb012b4c1694537a" id="r_a12b264bf0968214aeb012b4c1694537a"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a12b264bf0968214aeb012b4c1694537a">cgroup_base_stat_cputime_account_end</a> (struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, struct <a class="el" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> *rstatbc, unsigned long flags)</td></tr>
+<tr class="memitem:a992bbae3b1e46d75120f13a56d786d50" id="r_a992bbae3b1e46d75120f13a56d786d50"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a992bbae3b1e46d75120f13a56d786d50">__cgroup_account_cputime</a> (struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, u64 delta_exec)</td></tr>
+<tr class="memitem:a4d68962a6975b4396a2b8e125f875ba3" id="r_a4d68962a6975b4396a2b8e125f875ba3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4d68962a6975b4396a2b8e125f875ba3">__cgroup_account_cputime_field</a> (struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, enum cpu_usage_stat index, u64 delta_exec)</td></tr>
+<tr class="memitem:a7dc5136d6a692c1fe9c6a8f2ef766d81" id="r_a7dc5136d6a692c1fe9c6a8f2ef766d81"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a7dc5136d6a692c1fe9c6a8f2ef766d81">root_cgroup_cputime</a> (struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *bstat)</td></tr>
+<tr class="memitem:ab170aea2435bfbd892eb722c0759326b" id="r_ab170aea2435bfbd892eb722c0759326b"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ab170aea2435bfbd892eb722c0759326b">cgroup_force_idle_show</a> (struct seq_file *seq, struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *bstat)</td></tr>
 <tr class="memitem:a27529a34dfc67971b96c51cf080cf7c6" id="r_a27529a34dfc67971b96c51cf080cf7c6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a27529a34dfc67971b96c51cf080cf7c6">cgroup_base_stat_cputime_show</a> (struct seq_file *seq)</td></tr>
-<tr class="memitem:a362c6c59e756f08f6474902174ab30cd" id="r_a362c6c59e756f08f6474902174ab30cd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a362c6c59e756f08f6474902174ab30cd">late_initcall</a> (bpf_rstat_kfunc_init)</td></tr>
+<tr class="memitem:af532b95896c8fb40eb106f697eef113e" id="r_af532b95896c8fb40eb106f697eef113e"><td class="memItemLeft">static int __init&#160;</td><td class="memItemRight"><a class="el" href="#af532b95896c8fb40eb106f697eef113e">bpf_rstat_kfunc_init</a> (void)</td></tr>
+<tr class="memitem:a362c6c59e756f08f6474902174ab30cd" id="r_a362c6c59e756f08f6474902174ab30cd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a362c6c59e756f08f6474902174ab30cd">late_initcall</a> (<a class="el" href="#af532b95896c8fb40eb106f697eef113e">bpf_rstat_kfunc_init</a>)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa1940a9eb1bc0ec9c451bf5b03e30806" id="r_aa1940a9eb1bc0ec9c451bf5b03e30806"><td class="memItemLeft">static const struct btf_kfunc_id_set&#160;</td><td class="memItemRight"><a class="el" href="#aa1940a9eb1bc0ec9c451bf5b03e30806">bpf_rstat_kfunc_set</a></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a2efa9f5e81ca1b58a7800143df9048ea" name="a2efa9f5e81ca1b58a7800143df9048ea"></a>
@@ -191,7 +218,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void __cgroup_account_cputime </td>
           <td>(</td>
-          <td class="paramtype">struct cgroup *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structcgroup.html">cgroup</a> *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -200,6 +227,28 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Accounts execution runtime for a cgroup. It calls the account begin function, adds the delta to the sum_exec_runtime field, and then calls the account end function. This is used to track total CPU time consumed by a cgroup. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00702">702</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  703</span>{</div>
+<div class="line"><span class="lineno">  704</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> *rstatbc;</div>
+<div class="line"><span class="lineno">  705</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>;</div>
+<div class="line"><span class="lineno">  706</span> </div>
+<div class="line"><span class="lineno">  707</span>    rstatbc = <a class="code hl_function" href="#ad88826dd2e6cc4de372bc8cf9481cb2e">cgroup_base_stat_cputime_account_begin</a>(cgrp, &amp;<a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  708</span>    rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a021f4d97c9cef41c57cac8490624b335">bstat</a>.<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.sum_exec_runtime += delta_exec;</div>
+<div class="line"><span class="lineno">  709</span>    <a class="code hl_function" href="#a12b264bf0968214aeb012b4c1694537a">cgroup_base_stat_cputime_account_end</a>(cgrp, rstatbc, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  710</span>}</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a87339f115a0975a129ebf95946fe26d6"><div class="ttname"><a href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a></div><div class="ttdeci">static __always_inline gfp_t flags</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01021">slab.h:1022</a></div></div>
+<div class="ttc" id="arstat_8c_html_a12b264bf0968214aeb012b4c1694537a"><div class="ttname"><a href="#a12b264bf0968214aeb012b4c1694537a">cgroup_base_stat_cputime_account_end</a></div><div class="ttdeci">static void cgroup_base_stat_cputime_account_end(struct cgroup *cgrp, struct cgroup_rstat_base_cpu *rstatbc, unsigned long flags)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00690">rstat.c:690</a></div></div>
+<div class="ttc" id="arstat_8c_html_ad88826dd2e6cc4de372bc8cf9481cb2e"><div class="ttname"><a href="#ad88826dd2e6cc4de372bc8cf9481cb2e">cgroup_base_stat_cputime_account_begin</a></div><div class="ttdeci">static struct cgroup_rstat_base_cpu * cgroup_base_stat_cputime_account_begin(struct cgroup *cgrp, unsigned long *flags)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00678">rstat.c:678</a></div></div>
+<div class="ttc" id="astructcgroup__base__stat_html_a5a0c345d5c846771b9d76d619ed8a25f"><div class="ttname"><a href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cgroup_base_stat::cputime</a></div><div class="ttdeci">struct task_cputime cputime</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00396">cgroup-defs.h:396</a></div></div>
+<div class="ttc" id="astructcgroup__rstat__base__cpu_html"><div class="ttname"><a href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a></div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00446">cgroup-defs.h:446</a></div></div>
+<div class="ttc" id="astructcgroup__rstat__base__cpu_html_a021f4d97c9cef41c57cac8490624b335"><div class="ttname"><a href="structcgroup__rstat__base__cpu.html#a021f4d97c9cef41c57cac8490624b335">cgroup_rstat_base_cpu::bstat</a></div><div class="ttdeci">struct cgroup_base_stat bstat</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00452">cgroup-defs.h:452</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a992bbae3b1e46d75120f13a56d786d50_cgraph.svg" width="766" height="163"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -212,7 +261,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void __cgroup_account_cputime_field </td>
           <td>(</td>
-          <td class="paramtype">struct cgroup *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structcgroup.html">cgroup</a> *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -226,6 +275,228 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Accounts CPU time for a specific field type for a cgroup. It adds the delta to the appropriate field (user time, system time, nice time, or force idle time) based on the index. This provides more detailed CPU time accounting for different types of CPU usage. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00715">715</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  717</span>{</div>
+<div class="line"><span class="lineno">  718</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> *rstatbc;</div>
+<div class="line"><span class="lineno">  719</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>;</div>
+<div class="line"><span class="lineno">  720</span> </div>
+<div class="line"><span class="lineno">  721</span>    rstatbc = <a class="code hl_function" href="#ad88826dd2e6cc4de372bc8cf9481cb2e">cgroup_base_stat_cputime_account_begin</a>(cgrp, &amp;<a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  722</span> </div>
+<div class="line"><span class="lineno">  723</span>    <span class="keywordflow">switch</span> (index) {</div>
+<div class="line"><span class="lineno">  724</span>    <span class="keywordflow">case</span> CPUTIME_NICE:</div>
+<div class="line"><span class="lineno">  725</span>        rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a021f4d97c9cef41c57cac8490624b335">bstat</a>.<a class="code hl_variable" href="structcgroup__base__stat.html#a7c803163102e2e73bda0eeae13c860e8">ntime</a> += delta_exec;</div>
+<div class="line"><span class="lineno">  726</span>        fallthrough;</div>
+<div class="line"><span class="lineno">  727</span>    <span class="keywordflow">case</span> CPUTIME_USER:</div>
+<div class="line"><span class="lineno">  728</span>        rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a021f4d97c9cef41c57cac8490624b335">bstat</a>.<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.utime += delta_exec;</div>
+<div class="line"><span class="lineno">  729</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  730</span>    <span class="keywordflow">case</span> CPUTIME_SYSTEM:</div>
+<div class="line"><span class="lineno">  731</span>    <span class="keywordflow">case</span> CPUTIME_IRQ:</div>
+<div class="line"><span class="lineno">  732</span>    <span class="keywordflow">case</span> CPUTIME_SOFTIRQ:</div>
+<div class="line"><span class="lineno">  733</span>        rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a021f4d97c9cef41c57cac8490624b335">bstat</a>.<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.stime += delta_exec;</div>
+<div class="line"><span class="lineno">  734</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  735</span><span class="preprocessor">#ifdef CONFIG_SCHED_CORE</span></div>
+<div class="line"><span class="lineno">  736</span>    <span class="keywordflow">case</span> CPUTIME_FORCEIDLE:</div>
+<div class="line"><span class="lineno">  737</span>        rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a021f4d97c9cef41c57cac8490624b335">bstat</a>.<a class="code hl_variable" href="structcgroup__base__stat.html#a416917f7ab2955cc42823b11d46493df">forceidle_sum</a> += delta_exec;</div>
+<div class="line"><span class="lineno">  738</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  739</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  740</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><span class="lineno">  741</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  742</span>    }</div>
+<div class="line"><span class="lineno">  743</span> </div>
+<div class="line"><span class="lineno">  744</span>    <a class="code hl_function" href="#a12b264bf0968214aeb012b4c1694537a">cgroup_base_stat_cputime_account_end</a>(cgrp, rstatbc, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  745</span>}</div>
+<div class="ttc" id="astructcgroup__base__stat_html_a416917f7ab2955cc42823b11d46493df"><div class="ttname"><a href="structcgroup__base__stat.html#a416917f7ab2955cc42823b11d46493df">cgroup_base_stat::forceidle_sum</a></div><div class="ttdeci">u64 forceidle_sum</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00399">cgroup-defs.h:399</a></div></div>
+<div class="ttc" id="astructcgroup__base__stat_html_a7c803163102e2e73bda0eeae13c860e8"><div class="ttname"><a href="structcgroup__base__stat.html#a7c803163102e2e73bda0eeae13c860e8">cgroup_base_stat::ntime</a></div><div class="ttdeci">u64 ntime</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00401">cgroup-defs.h:401</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a4d68962a6975b4396a2b8e125f875ba3_cgraph.svg" width="766" height="163"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a4144ec10bee67760fd613f06cafeed3e" name="a4144ec10bee67760fd613f06cafeed3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4144ec10bee67760fd613f06cafeed3e">&#9670;&#160;</a></span>__css_process_update_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __css_process_update_tree </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Builds the update tree by walking up the css hierarchy and linking each ancestor into the updated tree. It ensures that if a css is updated, all its ancestors are also marked as updated. This creates the tree structure needed for efficient flushing. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00161">161</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  162</span>{</div>
+<div class="line"><span class="lineno">  163</span>    <span class="comment">/* put @css and all ancestors on the corresponding updated lists */</span></div>
+<div class="line"><span class="lineno">  164</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><span class="lineno">  165</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *rstatc = <a class="code hl_function" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a>(css, cpu);</div>
+<div class="line"><span class="lineno">  166</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *<a class="code hl_variable" href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">parent</a> = css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">parent</a>;</div>
+<div class="line"><span class="lineno">  167</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *prstatc;</div>
+<div class="line"><span class="lineno">  168</span> </div>
+<div class="line"><span class="lineno">  169</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  170</span><span class="comment">         * Both additions and removals are bottom-up.  If a cgroup</span></div>
+<div class="line"><span class="lineno">  171</span><span class="comment">         * is already in the tree, all ancestors are.</span></div>
+<div class="line"><span class="lineno">  172</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">if</span> (rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a>)</div>
+<div class="line"><span class="lineno">  174</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  175</span> </div>
+<div class="line"><span class="lineno">  176</span>        <span class="comment">/* Root has no parent to link it to, but mark it busy */</span></div>
+<div class="line"><span class="lineno">  177</span>        <span class="keywordflow">if</span> (!parent) {</div>
+<div class="line"><span class="lineno">  178</span>            rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a> = css;</div>
+<div class="line"><span class="lineno">  179</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  180</span>        }</div>
+<div class="line"><span class="lineno">  181</span> </div>
+<div class="line"><span class="lineno">  182</span>        prstatc = <a class="code hl_function" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a>(parent, cpu);</div>
+<div class="line"><span class="lineno">  183</span>        rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a> = prstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">updated_children</a>;</div>
+<div class="line"><span class="lineno">  184</span>        prstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">updated_children</a> = css;</div>
+<div class="line"><span class="lineno">  185</span> </div>
+<div class="line"><span class="lineno">  186</span>        css = parent;</div>
+<div class="line"><span class="lineno">  187</span>    }</div>
+<div class="line"><span class="lineno">  188</span>}</div>
+<div class="ttc" id="arstat_8c_html_a5cfd09042964bac6d1f65ac9072d59d4"><div class="ttname"><a href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a></div><div class="ttdeci">static struct css_rstat_cpu * css_rstat_cpu(struct cgroup_subsys_state *css, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00035">rstat.c:35</a></div></div>
+<div class="ttc" id="astructcgroup__subsys__state_html"><div class="ttname"><a href="structcgroup__subsys__state.html">cgroup_subsys_state</a></div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00206">cgroup-defs.h:206</a></div></div>
+<div class="ttc" id="astructcgroup__subsys__state_html_a41f172ec664169930bcb375dfe2693f5"><div class="ttname"><a href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">cgroup_subsys_state::parent</a></div><div class="ttdeci">struct cgroup_subsys_state * parent</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00271">cgroup-defs.h:271</a></div></div>
+<div class="ttc" id="astructcss__rstat__cpu_html"><div class="ttname"><a href="structcss__rstat__cpu.html">css_rstat_cpu</a></div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00426">cgroup-defs.h:426</a></div></div>
+<div class="ttc" id="astructcss__rstat__cpu_html_abe2c97d75cf0bf4e5a5af460063cb08e"><div class="ttname"><a href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">css_rstat_cpu::updated_children</a></div><div class="ttdeci">struct cgroup_subsys_state * updated_children</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00432">cgroup-defs.h:432</a></div></div>
+<div class="ttc" id="astructcss__rstat__cpu_html_af40bda6384878b6030464126830de211"><div class="ttname"><a href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">css_rstat_cpu::updated_next</a></div><div class="ttdeci">struct cgroup_subsys_state * updated_next</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00433">cgroup-defs.h:433</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a4144ec10bee67760fd613f06cafeed3e_cgraph.svg" width="347" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a4144ec10bee67760fd613f06cafeed3e_icgraph.svg" width="3095" height="679"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a67238dd5ed4c71d7b4168d48b6df32b1" name="a67238dd5ed4c71d7b4168d48b6df32b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67238dd5ed4c71d7b4168d48b6df32b1">&#9670;&#160;</a></span>__css_rstat_lock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __css_rstat_lock </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu_in_loop</em></span>&#160;) -&gt; ss))</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00406">406</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  409</span>{</div>
+<div class="line"><span class="lineno">  410</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup.html">cgroup</a> *cgrp = css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a8287eea9c1dd6e9063050313f6b1e63c">cgroup</a>;</div>
+<div class="line"><span class="lineno">  411</span>    spinlock_t *lock;</div>
+<div class="line"><span class="lineno">  412</span>    <span class="keywordtype">bool</span> contended;</div>
+<div class="line"><span class="lineno">  413</span> </div>
+<div class="line"><span class="lineno">  414</span>    lock = <a class="code hl_function" href="#a8a429ab64c98e5f3d3b65d63784bad23">ss_rstat_lock</a>(css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aaf6b93b579d638cfd4c054b324da3253">ss</a>);</div>
+<div class="line"><span class="lineno">  415</span>    contended = !spin_trylock_irq(lock);</div>
+<div class="line"><span class="lineno">  416</span>    <span class="keywordflow">if</span> (contended) {</div>
+<div class="line"><span class="lineno">  417</span>        trace_cgroup_rstat_lock_contended(cgrp, cpu_in_loop, contended);</div>
+<div class="line"><span class="lineno">  418</span>        spin_lock_irq(lock);</div>
+<div class="line"><span class="lineno">  419</span>    }</div>
+<div class="line"><span class="lineno">  420</span>    trace_cgroup_rstat_locked(cgrp, cpu_in_loop, contended);</div>
+<div class="line"><span class="lineno">  421</span>}</div>
+<div class="ttc" id="arstat_8c_html_a8a429ab64c98e5f3d3b65d63784bad23"><div class="ttname"><a href="#a8a429ab64c98e5f3d3b65d63784bad23">ss_rstat_lock</a></div><div class="ttdeci">static spinlock_t * ss_rstat_lock(struct cgroup_subsys *ss)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00053">rstat.c:53</a></div></div>
+<div class="ttc" id="astructcgroup__subsys__state_html_a8287eea9c1dd6e9063050313f6b1e63c"><div class="ttname"><a href="structcgroup__subsys__state.html#a8287eea9c1dd6e9063050313f6b1e63c">cgroup_subsys_state::cgroup</a></div><div class="ttdeci">struct cgroup * cgroup</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00208">cgroup-defs.h:208</a></div></div>
+<div class="ttc" id="astructcgroup__subsys__state_html_aaf6b93b579d638cfd4c054b324da3253"><div class="ttname"><a href="structcgroup__subsys__state.html#aaf6b93b579d638cfd4c054b324da3253">cgroup_subsys_state::ss</a></div><div class="ttdeci">struct cgroup_subsys * ss</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00211">cgroup-defs.h:211</a></div></div>
+<div class="ttc" id="astructcgroup_html"><div class="ttname"><a href="structcgroup.html">cgroup</a></div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00517">cgroup-defs.h:517</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a67238dd5ed4c71d7b4168d48b6df32b1_cgraph.svg" width="279" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a67238dd5ed4c71d7b4168d48b6df32b1_icgraph.svg" width="2623" height="650"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af943f60f1c347123f2b1d67ae68dd990" name="af943f60f1c347123f2b1d67ae68dd990"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af943f60f1c347123f2b1d67ae68dd990">&#9670;&#160;</a></span>__css_rstat_unlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __css_rstat_unlock </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu_in_loop</em></span>&#160;) -&gt; ss))</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Releases the rstat lock for a given css with tracing. It calls trace_cgroup_rstat_unlock() and then releases the spinlock. This is the counterpart to <a class="el" href="#a67238dd5ed4c71d7b4168d48b6df32b1">__css_rstat_lock()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00426">426</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  429</span>{</div>
+<div class="line"><span class="lineno">  430</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup.html">cgroup</a> *cgrp = css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a8287eea9c1dd6e9063050313f6b1e63c">cgroup</a>;</div>
+<div class="line"><span class="lineno">  431</span>    spinlock_t *lock;</div>
+<div class="line"><span class="lineno">  432</span> </div>
+<div class="line"><span class="lineno">  433</span>    lock = <a class="code hl_function" href="#a8a429ab64c98e5f3d3b65d63784bad23">ss_rstat_lock</a>(css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aaf6b93b579d638cfd4c054b324da3253">ss</a>);</div>
+<div class="line"><span class="lineno">  434</span>    trace_cgroup_rstat_unlock(cgrp, cpu_in_loop, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  435</span>    spin_unlock_irq(lock);</div>
+<div class="line"><span class="lineno">  436</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_af943f60f1c347123f2b1d67ae68dd990_cgraph.svg" width="292" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_af943f60f1c347123f2b1d67ae68dd990_icgraph.svg" width="2636" height="650"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -238,7 +509,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void __css_rstat_updated </td>
           <td>(</td>
-          <td class="paramtype">struct cgroup_subsys_state *</td>          <td class="paramname"><span class="paramname"><em>css</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -249,11 +520,74 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>__css_rstat_updated - keep track of updated rstat_cpu @css: target cgroup subsystem state @cpu: cpu on which rstat_cpu was updated</p>
 <p>Atomically inserts the css in the ss's llist for the given cpu. This is reentrant safe i.e. safe against softirq, hardirq and nmi. The ss's llist will be processed at the flush time to create the update tree.</p>
-<p>NOTE: if the user needs the guarantee that the updater either add itself in the lockless list or the concurrent flusher flushes its updated stats, a memory barrier is needed before the call to <a class="el" href="#af44bd30b28c91d64aab50b0191dd4845">__css_rstat_updated()</a> i.e. a barrier after updating the per-cpu stats and before calling <a class="el" href="#af44bd30b28c91d64aab50b0191dd4845">__css_rstat_updated()</a>. </p>
+<p>NOTE: if the user needs the guarantee that the updater either add itself in the lockless list or the concurrent flusher flushes its updated stats, a memory barrier is needed before the call to <a class="el" href="#af44bd30b28c91d64aab50b0191dd4845">__css_rstat_updated()</a> i.e. a barrier after updating the per-cpu stats and before calling <a class="el" href="#af44bd30b28c91d64aab50b0191dd4845">__css_rstat_updated()</a>.</p>
+<p>Function Description: Marks a css as updated on a specific CPU by atomically adding it to a lockless list. It prevents duplicate insertion by checking if the node is already on a list. This function can be called from any context including NMI handlers, and uses atomic operations for safety. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00089">89</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   90</span>{</div>
+<div class="line"><span class="lineno">   91</span>    <span class="keyword">struct </span>llist_head *lhead;</div>
+<div class="line"><span class="lineno">   92</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *rstatc;</div>
+<div class="line"><span class="lineno">   93</span>    <span class="keyword">struct </span>llist_node *self;</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span>    <span class="comment">/* Prevent access to uninitialized rstat pointers. */</span></div>
+<div class="line"><span class="lineno">   96</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="#ad5c996fe59a423d5b4136ec59fa9b4c2">css_uses_rstat</a>(css))</div>
+<div class="line"><span class="lineno">   97</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>    lockdep_assert_preemption_disabled();</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  102</span><span class="comment">     * The lockless insertion below relies on NMI-safe cmpxchg;</span></div>
+<div class="line"><span class="lineno">  103</span><span class="comment">     * bail out in NMI on archs that don&#39;t provide it.</span></div>
+<div class="line"><span class="lineno">  104</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  105</span>    <span class="keywordflow">if</span> (!IS_ENABLED(CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG) &amp;&amp; in_nmi())</div>
+<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  107</span> </div>
+<div class="line"><span class="lineno">  108</span>    rstatc = <a class="code hl_function" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a>(css, cpu);</div>
+<div class="line"><span class="lineno">  109</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  110</span><span class="comment">     * If already on list return. This check is racy and smp_mb() is needed</span></div>
+<div class="line"><span class="lineno">  111</span><span class="comment">     * to pair it with the smp_mb() in css_process_update_tree() if the</span></div>
+<div class="line"><span class="lineno">  112</span><span class="comment">     * guarantee that the updated stats are visible to concurrent flusher is</span></div>
+<div class="line"><span class="lineno">  113</span><span class="comment">     * needed.</span></div>
+<div class="line"><span class="lineno">  114</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  115</span>    <span class="keywordflow">if</span> (llist_on_list(&amp;rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#a4524b5d0f06aa75acbdf073b07fd170c">lnode</a>))</div>
+<div class="line"><span class="lineno">  116</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  117</span> </div>
+<div class="line"><span class="lineno">  118</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  119</span><span class="comment">     * This function can be renentered by irqs and nmis for the same cgroup</span></div>
+<div class="line"><span class="lineno">  120</span><span class="comment">     * and may try to insert the same per-cpu lnode into the llist. Note</span></div>
+<div class="line"><span class="lineno">  121</span><span class="comment">     * that llist_add() does not protect against such scenarios. In addition</span></div>
+<div class="line"><span class="lineno">  122</span><span class="comment">     * this same per-cpu lnode can be modified through init_llist_node()</span></div>
+<div class="line"><span class="lineno">  123</span><span class="comment">     * from css_rstat_flush() running on a different CPU.</span></div>
+<div class="line"><span class="lineno">  124</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  125</span><span class="comment">     * To protect against such stacked contexts of irqs/nmis, we use the</span></div>
+<div class="line"><span class="lineno">  126</span><span class="comment">     * fact that lnode points to itself when not on a list and then use</span></div>
+<div class="line"><span class="lineno">  127</span><span class="comment">     * try_cmpxchg() to atomically set to NULL to select the winner</span></div>
+<div class="line"><span class="lineno">  128</span><span class="comment">     * which will call llist_add(). The losers can assume the insertion is</span></div>
+<div class="line"><span class="lineno">  129</span><span class="comment">     * successful and the winner will eventually add the per-cpu lnode to</span></div>
+<div class="line"><span class="lineno">  130</span><span class="comment">     * the llist.</span></div>
+<div class="line"><span class="lineno">  131</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  132</span><span class="comment">     * Please note that we can not use this_cpu_cmpxchg() here as on some</span></div>
+<div class="line"><span class="lineno">  133</span><span class="comment">     * archs it is not safe against modifications from multiple CPUs.</span></div>
+<div class="line"><span class="lineno">  134</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  135</span>    self = &amp;rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#a4524b5d0f06aa75acbdf073b07fd170c">lnode</a>;</div>
+<div class="line"><span class="lineno">  136</span>    <span class="keywordflow">if</span> (!try_cmpxchg(&amp;rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#a4524b5d0f06aa75acbdf073b07fd170c">lnode</a>.next, &amp;self, NULL))</div>
+<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  138</span> </div>
+<div class="line"><span class="lineno">  139</span>    lhead = <a class="code hl_function" href="#a6fc3c5c18b9bd75214eb604e6f4d8c55">ss_lhead_cpu</a>(css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aaf6b93b579d638cfd4c054b324da3253">ss</a>, cpu);</div>
+<div class="line"><span class="lineno">  140</span>    llist_add(&amp;rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#a4524b5d0f06aa75acbdf073b07fd170c">lnode</a>, lhead);</div>
+<div class="line"><span class="lineno">  141</span>}</div>
+<div class="ttc" id="arstat_8c_html_a6fc3c5c18b9bd75214eb604e6f4d8c55"><div class="ttname"><a href="#a6fc3c5c18b9bd75214eb604e6f4d8c55">ss_lhead_cpu</a></div><div class="ttdeci">static struct llist_head * ss_lhead_cpu(struct cgroup_subsys *ss, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00064">rstat.c:64</a></div></div>
+<div class="ttc" id="arstat_8c_html_ad5c996fe59a423d5b4136ec59fa9b4c2"><div class="ttname"><a href="#ad5c996fe59a423d5b4136ec59fa9b4c2">css_uses_rstat</a></div><div class="ttdeci">static bool css_uses_rstat(struct cgroup_subsys_state *css)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00027">rstat.c:27</a></div></div>
+<div class="ttc" id="astructcss__rstat__cpu_html_a4524b5d0f06aa75acbdf073b07fd170c"><div class="ttname"><a href="structcss__rstat__cpu.html#a4524b5d0f06aa75acbdf073b07fd170c">css_rstat_cpu::lnode</a></div><div class="ttdeci">struct llist_node lnode</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00435">cgroup-defs.h:435</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_af44bd30b28c91d64aab50b0191dd4845_cgraph.svg" width="312" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_af44bd30b28c91d64aab50b0191dd4845_icgraph.svg" width="330" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_af44bd30b28c91d64aab50b0191dd4845_icgraph.svg" width="2288" height="1296"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -267,12 +601,12 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">__weak noinline void bpf_rstat_flush </td>
           <td>(</td>
-          <td class="paramtype">struct cgroup *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structcgroup.html">cgroup</a> *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct cgroup *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structcgroup.html">cgroup</a> *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -281,10 +615,200 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: This is a weak function that acts as a hook for BPF programs to attach and flush their own statistics. BPF programs can override this function to collect and flush custom cgroup stats during the rstat flush process. This enables a complete BPF workflow with rstat. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00387">387</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  389</span>{</div>
+<div class="line"><span class="lineno">  390</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a97789243431c8c7f986b296efcee43fc_icgraph.svg" width="2610" height="599"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af532b95896c8fb40eb106f697eef113e" name="af532b95896c8fb40eb106f697eef113e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af532b95896c8fb40eb106f697eef113e">&#9670;&#160;</a></span>bpf_rstat_kfunc_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int __init bpf_rstat_kfunc_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: This is a late initialization function that registers BPF kfuncs for rstat. It registers <a class="el" href="#a0d49aa809528f6cc2d1c5713f8245125">css_rstat_updated()</a> and <a class="el" href="#a8b0be1a8c477dd64fe01d7021959ef0d">css_rstat_flush()</a> as BPF kfuncs, allowing BPF programs to call these functions. This enables BPF-based cgroup statistics collection. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00855">855</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  856</span>{</div>
+<div class="line"><span class="lineno">  857</span>    <span class="keywordflow">return</span> register_btf_kfunc_id_set(BPF_PROG_TYPE_TRACING,</div>
+<div class="line"><span class="lineno">  858</span>                     &amp;<a class="code hl_variable" href="#aa1940a9eb1bc0ec9c451bf5b03e30806">bpf_rstat_kfunc_set</a>);</div>
+<div class="line"><span class="lineno">  859</span>}</div>
+<div class="ttc" id="arstat_8c_html_aa1940a9eb1bc0ec9c451bf5b03e30806"><div class="ttname"><a href="#aa1940a9eb1bc0ec9c451bf5b03e30806">bpf_rstat_kfunc_set</a></div><div class="ttdeci">static const struct btf_kfunc_id_set bpf_rstat_kfunc_set</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00847">rstat.c:847</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_af532b95896c8fb40eb106f697eef113e_icgraph.svg" width="280" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9d323965522fd40130da06b469fd3375" name="a9d323965522fd40130da06b469fd3375"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d323965522fd40130da06b469fd3375">&#9670;&#160;</a></span>cgroup_base_stat_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cgroup_base_stat_add </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *</td>          <td class="paramname"><span class="paramname"><em>dst_bstat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *</td>          <td class="paramname"><span class="paramname"><em>src_bstat</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Functions for cgroup basic resource statistics implemented on top of rstat.</p>
+<p>Function Description: Adds one <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> structure to another. It adds the CPU time statistics (user time, system time, execution runtime, force idle sum, and nice time) from the source to the destination. This is a helper function for accumulating statistics. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00605">605</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  607</span>{</div>
+<div class="line"><span class="lineno">  608</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.utime += src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.utime;</div>
+<div class="line"><span class="lineno">  609</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.stime += src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.stime;</div>
+<div class="line"><span class="lineno">  610</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.sum_exec_runtime += src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.sum_exec_runtime;</div>
+<div class="line"><span class="lineno">  611</span><span class="preprocessor">#ifdef CONFIG_SCHED_CORE</span></div>
+<div class="line"><span class="lineno">  612</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a416917f7ab2955cc42823b11d46493df">forceidle_sum</a> += src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a416917f7ab2955cc42823b11d46493df">forceidle_sum</a>;</div>
+<div class="line"><span class="lineno">  613</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  614</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a7c803163102e2e73bda0eeae13c860e8">ntime</a> += src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a7c803163102e2e73bda0eeae13c860e8">ntime</a>;</div>
+<div class="line"><span class="lineno">  615</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a9d323965522fd40130da06b469fd3375_icgraph.svg" width="2852" height="662"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad88826dd2e6cc4de372bc8cf9481cb2e" name="ad88826dd2e6cc4de372bc8cf9481cb2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad88826dd2e6cc4de372bc8cf9481cb2e">&#9670;&#160;</a></span>cgroup_base_stat_cputime_account_begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> * cgroup_base_stat_cputime_account_begin </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup.html">cgroup</a> *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long *</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Begins a critical section for updating a cgroup's CPU time statistics. It acquires the per-CPU rstat base data, starts a u64_stats update, and returns the rstat data pointer with flags for the update. This must be paired with <a class="el" href="#a12b264bf0968214aeb012b4c1694537a">cgroup_base_stat_cputime_account_end()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00678">678</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  679</span>{</div>
+<div class="line"><span class="lineno">  680</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> *rstatbc;</div>
+<div class="line"><span class="lineno">  681</span> </div>
+<div class="line"><span class="lineno">  682</span>    rstatbc = get_cpu_ptr(cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a545fd8294dbab3f92a47b709baf82bee">rstat_base_cpu</a>);</div>
+<div class="line"><span class="lineno">  683</span>    *<a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a> = u64_stats_update_begin_irqsave(&amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#aa91a6896689f010fb6ff4ee7cdf8ff5d">bsync</a>);</div>
+<div class="line"><span class="lineno">  684</span>    <span class="keywordflow">return</span> rstatbc;</div>
+<div class="line"><span class="lineno">  685</span>}</div>
+<div class="ttc" id="astructcgroup__rstat__base__cpu_html_aa91a6896689f010fb6ff4ee7cdf8ff5d"><div class="ttname"><a href="structcgroup__rstat__base__cpu.html#aa91a6896689f010fb6ff4ee7cdf8ff5d">cgroup_rstat_base_cpu::bsync</a></div><div class="ttdeci">struct u64_stats_sync bsync</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00451">cgroup-defs.h:451</a></div></div>
+<div class="ttc" id="astructcgroup_html_a545fd8294dbab3f92a47b709baf82bee"><div class="ttname"><a href="structcgroup.html#a545fd8294dbab3f92a47b709baf82bee">cgroup::rstat_base_cpu</a></div><div class="ttdeci">struct cgroup_rstat_base_cpu __percpu * rstat_base_cpu</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00633">cgroup-defs.h:633</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_ad88826dd2e6cc4de372bc8cf9481cb2e_icgraph.svg" width="416" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a12b264bf0968214aeb012b4c1694537a" name="a12b264bf0968214aeb012b4c1694537a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12b264bf0968214aeb012b4c1694537a">&#9670;&#160;</a></span>cgroup_base_stat_cputime_account_end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cgroup_base_stat_cputime_account_end </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup.html">cgroup</a> *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> *</td>          <td class="paramname"><span class="paramname"><em>rstatbc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Ends a critical section for updating a cgroup's CPU time statistics. It completes the u64_stats update, marks the css as updated, and releases the per-CPU data. This is the counterpart to <a class="el" href="#ad88826dd2e6cc4de372bc8cf9481cb2e">cgroup_base_stat_cputime_account_begin()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00690">690</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  693</span>{</div>
+<div class="line"><span class="lineno">  694</span>    u64_stats_update_end_irqrestore(&amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#aa91a6896689f010fb6ff4ee7cdf8ff5d">bsync</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  695</span>    <a class="code hl_function" href="#af44bd30b28c91d64aab50b0191dd4845">__css_rstat_updated</a>(&amp;cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a2873e9bf47be8dafe93e04fe3a83ef39">self</a>, smp_processor_id());</div>
+<div class="line"><span class="lineno">  696</span>    put_cpu_ptr(rstatbc);</div>
+<div class="line"><span class="lineno">  697</span>}</div>
+<div class="ttc" id="arstat_8c_html_af44bd30b28c91d64aab50b0191dd4845"><div class="ttname"><a href="#af44bd30b28c91d64aab50b0191dd4845">__css_rstat_updated</a></div><div class="ttdeci">void __css_rstat_updated(struct cgroup_subsys_state *css, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00089">rstat.c:89</a></div></div>
+<div class="ttc" id="astructcgroup_html_a2873e9bf47be8dafe93e04fe3a83ef39"><div class="ttname"><a href="structcgroup.html#a2873e9bf47be8dafe93e04fe3a83ef39">cgroup::self</a></div><div class="ttdeci">struct cgroup_subsys_state self</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00519">cgroup-defs.h:519</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a12b264bf0968214aeb012b4c1694537a_cgraph.svg" width="538" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a97789243431c8c7f986b296efcee43fc_icgraph.svg" width="888" height="114"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a12b264bf0968214aeb012b4c1694537a_icgraph.svg" width="416" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -303,10 +827,385 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+<p>Function Description: Shows the CPU time statistics for a cgroup in a seq_file. For non-root cgroups, it flushes the stats, acquires the lock, reads the bstat, and adjusts the cputime. For the root cgroup, it calls <a class="el" href="#a7dc5136d6a692c1fe9c6a8f2ef766d81">root_cgroup_cputime()</a>. It then prints usage, user, system, and nice time in microseconds, along with force idle time if configured. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00805">805</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  806</span>{</div>
+<div class="line"><span class="lineno">  807</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup.html">cgroup</a> *cgrp = seq_css(seq)-&gt;cgroup;</div>
+<div class="line"><span class="lineno">  808</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__base__stat.html">cgroup_base_stat</a> bstat;</div>
+<div class="line"><span class="lineno">  809</span> </div>
+<div class="line"><span class="lineno">  810</span>    <span class="keywordflow">if</span> (cgroup_parent(cgrp)) {</div>
+<div class="line"><span class="lineno">  811</span>        <a class="code hl_function" href="#a8b0be1a8c477dd64fe01d7021959ef0d">css_rstat_flush</a>(&amp;cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a2873e9bf47be8dafe93e04fe3a83ef39">self</a>);</div>
+<div class="line"><span class="lineno">  812</span>        <a class="code hl_function" href="#a67238dd5ed4c71d7b4168d48b6df32b1">__css_rstat_lock</a>(&amp;cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a2873e9bf47be8dafe93e04fe3a83ef39">self</a>, -1);</div>
+<div class="line"><span class="lineno">  813</span>        bstat = cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a2ef8902e789f0de444dba868442d9292">bstat</a>;</div>
+<div class="line"><span class="lineno">  814</span>        cputime_adjust(&amp;cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a2ef8902e789f0de444dba868442d9292">bstat</a>.<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>, &amp;cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a8dd1270ef3af572af6f0e3628dcb1b76">prev_cputime</a>,</div>
+<div class="line"><span class="lineno">  815</span>                   &amp;bstat.cputime.utime, &amp;bstat.cputime.stime);</div>
+<div class="line"><span class="lineno">  816</span>        <a class="code hl_function" href="#af943f60f1c347123f2b1d67ae68dd990">__css_rstat_unlock</a>(&amp;cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a2873e9bf47be8dafe93e04fe3a83ef39">self</a>, -1);</div>
+<div class="line"><span class="lineno">  817</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  818</span>        <a class="code hl_function" href="#a7dc5136d6a692c1fe9c6a8f2ef766d81">root_cgroup_cputime</a>(&amp;bstat);</div>
+<div class="line"><span class="lineno">  819</span>    }</div>
+<div class="line"><span class="lineno">  820</span> </div>
+<div class="line"><span class="lineno">  821</span>    do_div(bstat.cputime.sum_exec_runtime, NSEC_PER_USEC);</div>
+<div class="line"><span class="lineno">  822</span>    do_div(bstat.cputime.utime, NSEC_PER_USEC);</div>
+<div class="line"><span class="lineno">  823</span>    do_div(bstat.cputime.stime, NSEC_PER_USEC);</div>
+<div class="line"><span class="lineno">  824</span>    do_div(bstat.ntime, NSEC_PER_USEC);</div>
+<div class="line"><span class="lineno">  825</span> </div>
+<div class="line"><span class="lineno">  826</span>    seq_printf(seq, <span class="stringliteral">&quot;usage_usec %llu\n&quot;</span></div>
+<div class="line"><span class="lineno">  827</span>            <span class="stringliteral">&quot;user_usec %llu\n&quot;</span></div>
+<div class="line"><span class="lineno">  828</span>            <span class="stringliteral">&quot;system_usec %llu\n&quot;</span></div>
+<div class="line"><span class="lineno">  829</span>            <span class="stringliteral">&quot;nice_usec %llu\n&quot;</span>,</div>
+<div class="line"><span class="lineno">  830</span>            bstat.cputime.sum_exec_runtime,</div>
+<div class="line"><span class="lineno">  831</span>            bstat.cputime.utime,</div>
+<div class="line"><span class="lineno">  832</span>            bstat.cputime.stime,</div>
+<div class="line"><span class="lineno">  833</span>            bstat.ntime);</div>
+<div class="line"><span class="lineno">  834</span> </div>
+<div class="line"><span class="lineno">  835</span>    <a class="code hl_function" href="#ab170aea2435bfbd892eb722c0759326b">cgroup_force_idle_show</a>(seq, &amp;bstat);</div>
+<div class="line"><span class="lineno">  836</span>}</div>
+<div class="ttc" id="arstat_8c_html_a67238dd5ed4c71d7b4168d48b6df32b1"><div class="ttname"><a href="#a67238dd5ed4c71d7b4168d48b6df32b1">__css_rstat_lock</a></div><div class="ttdeci">static void __css_rstat_lock(struct cgroup_subsys_state *css, int cpu_in_loop) __acquires(ss_rstat_lock(css -&gt; ss))</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00406">rstat.c:406</a></div></div>
+<div class="ttc" id="arstat_8c_html_a7dc5136d6a692c1fe9c6a8f2ef766d81"><div class="ttname"><a href="#a7dc5136d6a692c1fe9c6a8f2ef766d81">root_cgroup_cputime</a></div><div class="ttdeci">static void root_cgroup_cputime(struct cgroup_base_stat *bstat)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00756">rstat.c:756</a></div></div>
+<div class="ttc" id="arstat_8c_html_a8b0be1a8c477dd64fe01d7021959ef0d"><div class="ttname"><a href="#a8b0be1a8c477dd64fe01d7021959ef0d">css_rstat_flush</a></div><div class="ttdeci">__bpf_kfunc void css_rstat_flush(struct cgroup_subsys_state *css)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00454">rstat.c:454</a></div></div>
+<div class="ttc" id="arstat_8c_html_ab170aea2435bfbd892eb722c0759326b"><div class="ttname"><a href="#ab170aea2435bfbd892eb722c0759326b">cgroup_force_idle_show</a></div><div class="ttdeci">static void cgroup_force_idle_show(struct seq_file *seq, struct cgroup_base_stat *bstat)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00792">rstat.c:792</a></div></div>
+<div class="ttc" id="arstat_8c_html_af943f60f1c347123f2b1d67ae68dd990"><div class="ttname"><a href="#af943f60f1c347123f2b1d67ae68dd990">__css_rstat_unlock</a></div><div class="ttdeci">static void __css_rstat_unlock(struct cgroup_subsys_state *css, int cpu_in_loop) __releases(ss_rstat_lock(css -&gt; ss))</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00426">rstat.c:426</a></div></div>
+<div class="ttc" id="astructcgroup__base__stat_html"><div class="ttname"><a href="structcgroup__base__stat.html">cgroup_base_stat</a></div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00395">cgroup-defs.h:395</a></div></div>
+<div class="ttc" id="astructcgroup_html_a2ef8902e789f0de444dba868442d9292"><div class="ttname"><a href="structcgroup.html#a2ef8902e789f0de444dba868442d9292">cgroup::bstat</a></div><div class="ttdeci">struct cgroup_base_stat bstat</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00644">cgroup-defs.h:644</a></div></div>
+<div class="ttc" id="astructcgroup_html_a8dd1270ef3af572af6f0e3628dcb1b76"><div class="ttname"><a href="structcgroup.html#a8dd1270ef3af572af6f0e3628dcb1b76">cgroup::prev_cputime</a></div><div class="ttdeci">struct prev_cputime prev_cputime</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00645">cgroup-defs.h:645</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a27529a34dfc67971b96c51cf080cf7c6_cgraph.svg" width="540" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a27529a34dfc67971b96c51cf080cf7c6_cgraph.svg" width="1246" height="378"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a27529a34dfc67971b96c51cf080cf7c6_icgraph.svg" width="384" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad72111bdd11fb45c02b2971133696e5b" name="ad72111bdd11fb45c02b2971133696e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad72111bdd11fb45c02b2971133696e5b">&#9670;&#160;</a></span>cgroup_base_stat_flush()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cgroup_base_stat_flush </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup.html">cgroup</a> *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Flushes per-CPU base statistics for a cgroup to its parent. It reads the per-CPU stats, calculates the delta since the last flush, adds it to the cgroup's global stats, and propagates the delta up to the parent. This is called during the rstat flush process. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00635">635</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  636</span>{</div>
+<div class="line"><span class="lineno">  637</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> *rstatbc = <a class="code hl_function" href="#aa2875263772af7365c21ca6a7d1bf220">cgroup_rstat_base_cpu</a>(cgrp, cpu);</div>
+<div class="line"><span class="lineno">  638</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup.html">cgroup</a> *parent = cgroup_parent(cgrp);</div>
+<div class="line"><span class="lineno">  639</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> *prstatbc;</div>
+<div class="line"><span class="lineno">  640</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__base__stat.html">cgroup_base_stat</a> delta;</div>
+<div class="line"><span class="lineno">  641</span>    <span class="keywordtype">unsigned</span> seq;</div>
+<div class="line"><span class="lineno">  642</span> </div>
+<div class="line"><span class="lineno">  643</span>    <span class="comment">/* Root-level stats are sourced from system-wide CPU stats */</span></div>
+<div class="line"><span class="lineno">  644</span>    <span class="keywordflow">if</span> (!parent)</div>
+<div class="line"><span class="lineno">  645</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  646</span> </div>
+<div class="line"><span class="lineno">  647</span>    <span class="comment">/* fetch the current per-cpu values */</span></div>
+<div class="line"><span class="lineno">  648</span>    <span class="keywordflow">do</span> {</div>
+<div class="line"><span class="lineno">  649</span>        seq = __u64_stats_fetch_begin(&amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#aa91a6896689f010fb6ff4ee7cdf8ff5d">bsync</a>);</div>
+<div class="line"><span class="lineno">  650</span>        delta = rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a021f4d97c9cef41c57cac8490624b335">bstat</a>;</div>
+<div class="line"><span class="lineno">  651</span>    } <span class="keywordflow">while</span> (__u64_stats_fetch_retry(&amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#aa91a6896689f010fb6ff4ee7cdf8ff5d">bsync</a>, seq));</div>
+<div class="line"><span class="lineno">  652</span> </div>
+<div class="line"><span class="lineno">  653</span>    <span class="comment">/* propagate per-cpu delta to cgroup and per-cpu global statistics */</span></div>
+<div class="line"><span class="lineno">  654</span>    <a class="code hl_function" href="#ab2a496fd2f480ac22d3634c5e49ceee2">cgroup_base_stat_sub</a>(&amp;delta, &amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a0e760ef4ce70b3f8e677697a909cdeeb">last_bstat</a>);</div>
+<div class="line"><span class="lineno">  655</span>    <a class="code hl_function" href="#a9d323965522fd40130da06b469fd3375">cgroup_base_stat_add</a>(&amp;cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a2ef8902e789f0de444dba868442d9292">bstat</a>, &amp;delta);</div>
+<div class="line"><span class="lineno">  656</span>    <a class="code hl_function" href="#a9d323965522fd40130da06b469fd3375">cgroup_base_stat_add</a>(&amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a0e760ef4ce70b3f8e677697a909cdeeb">last_bstat</a>, &amp;delta);</div>
+<div class="line"><span class="lineno">  657</span>    <a class="code hl_function" href="#a9d323965522fd40130da06b469fd3375">cgroup_base_stat_add</a>(&amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a269cf167d55e4568ea257a2779931e07">subtree_bstat</a>, &amp;delta);</div>
+<div class="line"><span class="lineno">  658</span> </div>
+<div class="line"><span class="lineno">  659</span>    <span class="comment">/* propagate cgroup and per-cpu global delta to parent (unless that&#39;s root) */</span></div>
+<div class="line"><span class="lineno">  660</span>    <span class="keywordflow">if</span> (cgroup_parent(parent)) {</div>
+<div class="line"><span class="lineno">  661</span>        delta = cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a2ef8902e789f0de444dba868442d9292">bstat</a>;</div>
+<div class="line"><span class="lineno">  662</span>        <a class="code hl_function" href="#ab2a496fd2f480ac22d3634c5e49ceee2">cgroup_base_stat_sub</a>(&amp;delta, &amp;cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a46004127aac9c6e490a908d7145ec15d">last_bstat</a>);</div>
+<div class="line"><span class="lineno">  663</span>        <a class="code hl_function" href="#a9d323965522fd40130da06b469fd3375">cgroup_base_stat_add</a>(&amp;parent-&gt;<a class="code hl_variable" href="structcgroup.html#a2ef8902e789f0de444dba868442d9292">bstat</a>, &amp;delta);</div>
+<div class="line"><span class="lineno">  664</span>        <a class="code hl_function" href="#a9d323965522fd40130da06b469fd3375">cgroup_base_stat_add</a>(&amp;cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a46004127aac9c6e490a908d7145ec15d">last_bstat</a>, &amp;delta);</div>
+<div class="line"><span class="lineno">  665</span> </div>
+<div class="line"><span class="lineno">  666</span>        delta = rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a269cf167d55e4568ea257a2779931e07">subtree_bstat</a>;</div>
+<div class="line"><span class="lineno">  667</span>        prstatbc = <a class="code hl_function" href="#aa2875263772af7365c21ca6a7d1bf220">cgroup_rstat_base_cpu</a>(parent, cpu);</div>
+<div class="line"><span class="lineno">  668</span>        <a class="code hl_function" href="#ab2a496fd2f480ac22d3634c5e49ceee2">cgroup_base_stat_sub</a>(&amp;delta, &amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a3d452fa6c712e3e17d72a1050e3fd064">last_subtree_bstat</a>);</div>
+<div class="line"><span class="lineno">  669</span>        <a class="code hl_function" href="#a9d323965522fd40130da06b469fd3375">cgroup_base_stat_add</a>(&amp;prstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a269cf167d55e4568ea257a2779931e07">subtree_bstat</a>, &amp;delta);</div>
+<div class="line"><span class="lineno">  670</span>        <a class="code hl_function" href="#a9d323965522fd40130da06b469fd3375">cgroup_base_stat_add</a>(&amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#a3d452fa6c712e3e17d72a1050e3fd064">last_subtree_bstat</a>, &amp;delta);</div>
+<div class="line"><span class="lineno">  671</span>    }</div>
+<div class="line"><span class="lineno">  672</span>}</div>
+<div class="ttc" id="arstat_8c_html_a9d323965522fd40130da06b469fd3375"><div class="ttname"><a href="#a9d323965522fd40130da06b469fd3375">cgroup_base_stat_add</a></div><div class="ttdeci">static void cgroup_base_stat_add(struct cgroup_base_stat *dst_bstat, struct cgroup_base_stat *src_bstat)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00605">rstat.c:605</a></div></div>
+<div class="ttc" id="arstat_8c_html_aa2875263772af7365c21ca6a7d1bf220"><div class="ttname"><a href="#aa2875263772af7365c21ca6a7d1bf220">cgroup_rstat_base_cpu</a></div><div class="ttdeci">static struct cgroup_rstat_base_cpu * cgroup_rstat_base_cpu(struct cgroup *cgrp, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00044">rstat.c:44</a></div></div>
+<div class="ttc" id="arstat_8c_html_ab2a496fd2f480ac22d3634c5e49ceee2"><div class="ttname"><a href="#ab2a496fd2f480ac22d3634c5e49ceee2">cgroup_base_stat_sub</a></div><div class="ttdeci">static void cgroup_base_stat_sub(struct cgroup_base_stat *dst_bstat, struct cgroup_base_stat *src_bstat)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00620">rstat.c:620</a></div></div>
+<div class="ttc" id="astructcgroup__rstat__base__cpu_html_a0e760ef4ce70b3f8e677697a909cdeeb"><div class="ttname"><a href="structcgroup__rstat__base__cpu.html#a0e760ef4ce70b3f8e677697a909cdeeb">cgroup_rstat_base_cpu::last_bstat</a></div><div class="ttdeci">struct cgroup_base_stat last_bstat</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00458">cgroup-defs.h:458</a></div></div>
+<div class="ttc" id="astructcgroup__rstat__base__cpu_html_a269cf167d55e4568ea257a2779931e07"><div class="ttname"><a href="structcgroup__rstat__base__cpu.html#a269cf167d55e4568ea257a2779931e07">cgroup_rstat_base_cpu::subtree_bstat</a></div><div class="ttdeci">struct cgroup_base_stat subtree_bstat</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00466">cgroup-defs.h:466</a></div></div>
+<div class="ttc" id="astructcgroup__rstat__base__cpu_html_a3d452fa6c712e3e17d72a1050e3fd064"><div class="ttname"><a href="structcgroup__rstat__base__cpu.html#a3d452fa6c712e3e17d72a1050e3fd064">cgroup_rstat_base_cpu::last_subtree_bstat</a></div><div class="ttdeci">struct cgroup_base_stat last_subtree_bstat</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00472">cgroup-defs.h:472</a></div></div>
+<div class="ttc" id="astructcgroup_html_a46004127aac9c6e490a908d7145ec15d"><div class="ttname"><a href="structcgroup.html#a46004127aac9c6e490a908d7145ec15d">cgroup::last_bstat</a></div><div class="ttdeci">struct cgroup_base_stat last_bstat</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00643">cgroup-defs.h:643</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_ad72111bdd11fb45c02b2971133696e5b_cgraph.svg" width="375" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_ad72111bdd11fb45c02b2971133696e5b_icgraph.svg" width="2662" height="599"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab2a496fd2f480ac22d3634c5e49ceee2" name="ab2a496fd2f480ac22d3634c5e49ceee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2a496fd2f480ac22d3634c5e49ceee2">&#9670;&#160;</a></span>cgroup_base_stat_sub()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cgroup_base_stat_sub </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *</td>          <td class="paramname"><span class="paramname"><em>dst_bstat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *</td>          <td class="paramname"><span class="paramname"><em>src_bstat</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Subtracts one <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> structure from another. It subtracts all CPU time statistics from the source from the destination. This is used for calculating deltas between snapshots. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00620">620</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  622</span>{</div>
+<div class="line"><span class="lineno">  623</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.utime -= src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.utime;</div>
+<div class="line"><span class="lineno">  624</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.stime -= src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.stime;</div>
+<div class="line"><span class="lineno">  625</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.sum_exec_runtime -= src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>.sum_exec_runtime;</div>
+<div class="line"><span class="lineno">  626</span><span class="preprocessor">#ifdef CONFIG_SCHED_CORE</span></div>
+<div class="line"><span class="lineno">  627</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a416917f7ab2955cc42823b11d46493df">forceidle_sum</a> -= src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a416917f7ab2955cc42823b11d46493df">forceidle_sum</a>;</div>
+<div class="line"><span class="lineno">  628</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  629</span>    dst_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a7c803163102e2e73bda0eeae13c860e8">ntime</a> -= src_bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a7c803163102e2e73bda0eeae13c860e8">ntime</a>;</div>
+<div class="line"><span class="lineno">  630</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_ab2a496fd2f480ac22d3634c5e49ceee2_icgraph.svg" width="2852" height="662"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab170aea2435bfbd892eb722c0759326b" name="ab170aea2435bfbd892eb722c0759326b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab170aea2435bfbd892eb722c0759326b">&#9670;&#160;</a></span>cgroup_force_idle_show()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cgroup_force_idle_show </td>
+          <td>(</td>
+          <td class="paramtype">struct seq_file *</td>          <td class="paramname"><span class="paramname"><em>seq</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *</td>          <td class="paramname"><span class="paramname"><em>bstat</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Shows the core scheduler force idle time for a cgroup in a seq_file. It extracts the forceidle_sum from the bstat and prints it in microseconds. This is called when displaying cgroup CPU time statistics through the cgroup interface. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00792">792</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  793</span>{</div>
+<div class="line"><span class="lineno">  794</span><span class="preprocessor">#ifdef CONFIG_SCHED_CORE</span></div>
+<div class="line"><span class="lineno">  795</span>    u64 forceidle_time = bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a416917f7ab2955cc42823b11d46493df">forceidle_sum</a>;</div>
+<div class="line"><span class="lineno">  796</span> </div>
+<div class="line"><span class="lineno">  797</span>    do_div(forceidle_time, NSEC_PER_USEC);</div>
+<div class="line"><span class="lineno">  798</span>    seq_printf(seq, <span class="stringliteral">&quot;core_sched.force_idle_usec %llu\n&quot;</span>, forceidle_time);</div>
+<div class="line"><span class="lineno">  799</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  800</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_ab170aea2435bfbd892eb722c0759326b_icgraph.svg" width="594" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa2875263772af7365c21ca6a7d1bf220" name="aa2875263772af7365c21ca6a7d1bf220"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2875263772af7365c21ca6a7d1bf220">&#9670;&#160;</a></span>cgroup_rstat_base_cpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct cgroup_rstat_base_cpu * cgroup_rstat_base_cpu </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup.html">cgroup</a> *</td>          <td class="paramname"><span class="paramname"><em>cgrp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Returns the per-CPU base rstat data for a given cgroup and CPU. It retrieves the rstat_base_cpu pointer from the cgroup and returns the data for the specified CPU. This is used for tracking basic resource statistics. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00044">44</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   46</span>{</div>
+<div class="line"><span class="lineno">   47</span>    <span class="keywordflow">return</span> per_cpu_ptr(cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a545fd8294dbab3f92a47b709baf82bee">rstat_base_cpu</a>, cpu);</div>
+<div class="line"><span class="lineno">   48</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_aa2875263772af7365c21ca6a7d1bf220_icgraph.svg" width="2471" height="862"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a64263cc1216e3df2bfe501dcb653de87" name="a64263cc1216e3df2bfe501dcb653de87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64263cc1216e3df2bfe501dcb653de87">&#9670;&#160;</a></span>css_process_update_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void css_process_update_tree </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys.html">cgroup_subsys</a> *</td>          <td class="paramname"><span class="paramname"><em>ss</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Processes the lockless list of updated css nodes for a specific CPU and subsystem. It removes nodes from the list and calls <a class="el" href="#a4144ec10bee67760fd613f06cafeed3e">__css_process_update_tree()</a> for each one to build the full update tree. This is called before flushing stats. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00193">193</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  194</span>{</div>
+<div class="line"><span class="lineno">  195</span>    <span class="keyword">struct </span>llist_head *lhead = <a class="code hl_function" href="#a6fc3c5c18b9bd75214eb604e6f4d8c55">ss_lhead_cpu</a>(ss, cpu);</div>
+<div class="line"><span class="lineno">  196</span>    <span class="keyword">struct </span>llist_node *lnode;</div>
+<div class="line"><span class="lineno">  197</span> </div>
+<div class="line"><span class="lineno">  198</span>    <span class="keywordflow">while</span> ((lnode = llist_del_first_init(lhead))) {</div>
+<div class="line"><span class="lineno">  199</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *rstatc;</div>
+<div class="line"><span class="lineno">  200</span> </div>
+<div class="line"><span class="lineno">  201</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  202</span><span class="comment">         * smp_mb() is needed here (more specifically in between</span></div>
+<div class="line"><span class="lineno">  203</span><span class="comment">         * init_llist_node() and per-cpu stats flushing) if the</span></div>
+<div class="line"><span class="lineno">  204</span><span class="comment">         * guarantee is required by a rstat user where etiher the</span></div>
+<div class="line"><span class="lineno">  205</span><span class="comment">         * updater should add itself on the lockless list or the</span></div>
+<div class="line"><span class="lineno">  206</span><span class="comment">         * flusher flush the stats updated by the updater who have</span></div>
+<div class="line"><span class="lineno">  207</span><span class="comment">         * observed that they are already on the list. The</span></div>
+<div class="line"><span class="lineno">  208</span><span class="comment">         * corresponding barrier pair for this one should be before</span></div>
+<div class="line"><span class="lineno">  209</span><span class="comment">         * __css_rstat_updated() by the user.</span></div>
+<div class="line"><span class="lineno">  210</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  211</span><span class="comment">         * For now, there aren&#39;t any such user, so not adding the</span></div>
+<div class="line"><span class="lineno">  212</span><span class="comment">         * barrier here but if such a use-case arise, please add</span></div>
+<div class="line"><span class="lineno">  213</span><span class="comment">         * smp_mb() here.</span></div>
+<div class="line"><span class="lineno">  214</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  215</span> </div>
+<div class="line"><span class="lineno">  216</span>        rstatc = container_of(<a class="code hl_variable" href="structcss__rstat__cpu.html#a4524b5d0f06aa75acbdf073b07fd170c">lnode</a>, <span class="keyword">struct</span> <a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a>, <a class="code hl_variable" href="structcss__rstat__cpu.html#a4524b5d0f06aa75acbdf073b07fd170c">lnode</a>);</div>
+<div class="line"><span class="lineno">  217</span>        <a class="code hl_function" href="#a4144ec10bee67760fd613f06cafeed3e">__css_process_update_tree</a>(rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#a793b84fb00c02b0d6fa39d1feb05253e">owner</a>, cpu);</div>
+<div class="line"><span class="lineno">  218</span>    }</div>
+<div class="line"><span class="lineno">  219</span>}</div>
+<div class="ttc" id="arstat_8c_html_a4144ec10bee67760fd613f06cafeed3e"><div class="ttname"><a href="#a4144ec10bee67760fd613f06cafeed3e">__css_process_update_tree</a></div><div class="ttdeci">static void __css_process_update_tree(struct cgroup_subsys_state *css, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00161">rstat.c:161</a></div></div>
+<div class="ttc" id="astructcss__rstat__cpu_html_a793b84fb00c02b0d6fa39d1feb05253e"><div class="ttname"><a href="structcss__rstat__cpu.html#a793b84fb00c02b0d6fa39d1feb05253e">css_rstat_cpu::owner</a></div><div class="ttdeci">struct cgroup_subsys_state * owner</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00436">cgroup-defs.h:436</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a64263cc1216e3df2bfe501dcb653de87_cgraph.svg" width="566" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a64263cc1216e3df2bfe501dcb653de87_icgraph.svg" width="2863" height="662"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5cfd09042964bac6d1f65ac9072d59d4" name="a5cfd09042964bac6d1f65ac9072d59d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cfd09042964bac6d1f65ac9072d59d4">&#9670;&#160;</a></span>css_rstat_cpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct css_rstat_cpu * css_rstat_cpu </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Returns the per-CPU rstat data for a given css and CPU. It retrieves the rstat_cpu pointer from the css and returns the data for the specified CPU. This is a helper function used throughout the rstat implementation. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00035">35</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   37</span>{</div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">return</span> per_cpu_ptr(css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a43f60757307d45b477ffbd7774f9680b">rstat_cpu</a>, cpu);</div>
+<div class="line"><span class="lineno">   39</span>}</div>
+<div class="ttc" id="astructcgroup__subsys__state_html_a43f60757307d45b477ffbd7774f9680b"><div class="ttname"><a href="structcgroup__subsys__state.html#a43f60757307d45b477ffbd7774f9680b">cgroup_subsys_state::rstat_cpu</a></div><div class="ttdeci">struct css_rstat_cpu __percpu * rstat_cpu</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00231">cgroup-defs.h:231</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a5cfd09042964bac6d1f65ac9072d59d4_icgraph.svg" width="2155" height="923"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -320,20 +1219,54 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void css_rstat_exit </td>
           <td>(</td>
-          <td class="paramtype">struct cgroup_subsys_state *</td>          <td class="paramname"><span class="paramname"><em>css</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+<p>Function Description: Cleans up rstat data structures for a given css. It first flushes all pending stats, performs sanity checks to ensure the rstat lists are empty, then frees the per-CPU memory allocated during initialization. This is called when a css is being destroyed. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00538">538</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  539</span>{</div>
+<div class="line"><span class="lineno">  540</span>    <span class="keywordtype">int</span> cpu;</div>
+<div class="line"><span class="lineno">  541</span> </div>
+<div class="line"><span class="lineno">  542</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="#ad5c996fe59a423d5b4136ec59fa9b4c2">css_uses_rstat</a>(css))</div>
+<div class="line"><span class="lineno">  543</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  544</span> </div>
+<div class="line"><span class="lineno">  545</span>    <span class="keywordflow">if</span> (!css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a43f60757307d45b477ffbd7774f9680b">rstat_cpu</a>)</div>
+<div class="line"><span class="lineno">  546</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  547</span> </div>
+<div class="line"><span class="lineno">  548</span>    <a class="code hl_function" href="#a8b0be1a8c477dd64fe01d7021959ef0d">css_rstat_flush</a>(css);</div>
+<div class="line"><span class="lineno">  549</span> </div>
+<div class="line"><span class="lineno">  550</span>    <span class="comment">/* sanity check */</span></div>
+<div class="line"><span class="lineno">  551</span>    for_each_possible_cpu(cpu) {</div>
+<div class="line"><span class="lineno">  552</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *rstatc = <a class="code hl_function" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a>(css, cpu);</div>
+<div class="line"><span class="lineno">  553</span> </div>
+<div class="line"><span class="lineno">  554</span>        <span class="keywordflow">if</span> (WARN_ON_ONCE(rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">updated_children</a> != css) ||</div>
+<div class="line"><span class="lineno">  555</span>            WARN_ON_ONCE(rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a>))</div>
+<div class="line"><span class="lineno">  556</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  557</span>    }</div>
+<div class="line"><span class="lineno">  558</span> </div>
+<div class="line"><span class="lineno">  559</span>    <span class="keywordflow">if</span> (css_is_self(css)) {</div>
+<div class="line"><span class="lineno">  560</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup.html">cgroup</a> *cgrp = css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a8287eea9c1dd6e9063050313f6b1e63c">cgroup</a>;</div>
+<div class="line"><span class="lineno">  561</span> </div>
+<div class="line"><span class="lineno">  562</span>        <a class="code hl_function" href="percpu_8c.html#af832b6277c0e78c53c58ec127407abd1">free_percpu</a>(cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a545fd8294dbab3f92a47b709baf82bee">rstat_base_cpu</a>);</div>
+<div class="line"><span class="lineno">  563</span>        cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a545fd8294dbab3f92a47b709baf82bee">rstat_base_cpu</a> = NULL;</div>
+<div class="line"><span class="lineno">  564</span>    }</div>
+<div class="line"><span class="lineno">  565</span> </div>
+<div class="line"><span class="lineno">  566</span>    <a class="code hl_function" href="percpu_8c.html#af832b6277c0e78c53c58ec127407abd1">free_percpu</a>(css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a43f60757307d45b477ffbd7774f9680b">rstat_cpu</a>);</div>
+<div class="line"><span class="lineno">  567</span>    css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a43f60757307d45b477ffbd7774f9680b">rstat_cpu</a> = NULL;</div>
+<div class="line"><span class="lineno">  568</span>}</div>
+<div class="ttc" id="apercpu_8c_html_af832b6277c0e78c53c58ec127407abd1"><div class="ttname"><a href="percpu_8c.html#af832b6277c0e78c53c58ec127407abd1">free_percpu</a></div><div class="ttdeci">void free_percpu(void __percpu *ptr)</div><div class="ttdef"><b>Definition</b> <a href="percpu_8c_source.html#l02232">percpu.c:2232</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a7f157f74be84475471813e39c07b93c6_cgraph.svg" width="428" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a7f157f74be84475471813e39c07b93c6_cgraph.svg" width="1171" height="1239"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a7f157f74be84475471813e39c07b93c6_icgraph.svg" width="462" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a7f157f74be84475471813e39c07b93c6_icgraph.svg" width="1916" height="358"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -347,7 +1280,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">__bpf_kfunc void css_rstat_flush </td>
           <td>(</td>
-          <td class="paramtype">struct cgroup_subsys_state *</td>          <td class="paramname"><span class="paramname"><em>css</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -355,16 +1288,55 @@ Here is the caller graph for this function:</div>
 <p>css_rstat_flush - flush stats in @css's rstat subtree @css: target cgroup subsystem state</p>
 <p>Collect all per-cpu stats in @css's subtree into the global counters and propagate them upwards. After this function returns, all rstat nodes in the subtree have up-to-date -&gt;stat.</p>
 <p>This also gets all rstat nodes in the subtree including @css off the -&gt;updated_children lists.</p>
-<p>This function may block. </p>
-<div class="dynheader">
+<p>This function may block.</p>
+<p>Function Description: Flushes all pending rstat updates for a given css across all CPUs. It acquires the lock per CPU to avoid disabling interrupts for too long, builds the list of updated nodes, and calls the appropriate flush function for each node. For self css it flushes base stats, and for subsystem css it calls the subsystem's flush callback. This is also callable from BPF programs. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00454">454</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  455</span>{</div>
+<div class="line"><span class="lineno">  456</span>    <span class="keywordtype">int</span> cpu;</div>
+<div class="line"><span class="lineno">  457</span>    <span class="keywordtype">bool</span> is_self = css_is_self(css);</div>
+<div class="line"><span class="lineno">  458</span> </div>
+<div class="line"><span class="lineno">  459</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  460</span><span class="comment">     * Since bpf programs can call this function, prevent access to</span></div>
+<div class="line"><span class="lineno">  461</span><span class="comment">     * uninitialized rstat pointers.</span></div>
+<div class="line"><span class="lineno">  462</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  463</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="#ad5c996fe59a423d5b4136ec59fa9b4c2">css_uses_rstat</a>(css))</div>
+<div class="line"><span class="lineno">  464</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  465</span> </div>
+<div class="line"><span class="lineno">  466</span>    might_sleep();</div>
+<div class="line"><span class="lineno">  467</span>    for_each_possible_cpu(cpu) {</div>
+<div class="line"><span class="lineno">  468</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *pos;</div>
+<div class="line"><span class="lineno">  469</span> </div>
+<div class="line"><span class="lineno">  470</span>        <span class="comment">/* Reacquire for each CPU to avoid disabling IRQs too long */</span></div>
+<div class="line"><span class="lineno">  471</span>        <a class="code hl_function" href="#a67238dd5ed4c71d7b4168d48b6df32b1">__css_rstat_lock</a>(css, cpu);</div>
+<div class="line"><span class="lineno">  472</span>        pos = <a class="code hl_function" href="#a957b8cd1c1b269379cd6fd6c7b1cd0cf">css_rstat_updated_list</a>(css, cpu);</div>
+<div class="line"><span class="lineno">  473</span>        <span class="keywordflow">for</span> (; pos; pos = pos-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aa2f8e5ea417ea96924e2f06c7484d823">rstat_flush_next</a>) {</div>
+<div class="line"><span class="lineno">  474</span>            <span class="keywordflow">if</span> (is_self) {</div>
+<div class="line"><span class="lineno">  475</span>                <a class="code hl_function" href="#ad72111bdd11fb45c02b2971133696e5b">cgroup_base_stat_flush</a>(pos-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a8287eea9c1dd6e9063050313f6b1e63c">cgroup</a>, cpu);</div>
+<div class="line"><span class="lineno">  476</span>                <a class="code hl_function" href="#a97789243431c8c7f986b296efcee43fc">bpf_rstat_flush</a>(pos-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a8287eea9c1dd6e9063050313f6b1e63c">cgroup</a>,</div>
+<div class="line"><span class="lineno">  477</span>                        cgroup_parent(pos-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a8287eea9c1dd6e9063050313f6b1e63c">cgroup</a>), cpu);</div>
+<div class="line"><span class="lineno">  478</span>            } <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  479</span>                pos-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aaf6b93b579d638cfd4c054b324da3253">ss</a>-&gt;<a class="code hl_variable" href="structcgroup__subsys.html#a7c54f9f8bec3ea3ea813ad56bde5cc75">css_rstat_flush</a>(pos, cpu);</div>
+<div class="line"><span class="lineno">  480</span>        }</div>
+<div class="line"><span class="lineno">  481</span>        <a class="code hl_function" href="#af943f60f1c347123f2b1d67ae68dd990">__css_rstat_unlock</a>(css, cpu);</div>
+<div class="line"><span class="lineno">  482</span>        <span class="keywordflow">if</span> (!cond_resched())</div>
+<div class="line"><span class="lineno">  483</span>            cpu_relax();</div>
+<div class="line"><span class="lineno">  484</span>    }</div>
+<div class="line"><span class="lineno">  485</span>}</div>
+<div class="ttc" id="arstat_8c_html_a957b8cd1c1b269379cd6fd6c7b1cd0cf"><div class="ttname"><a href="#a957b8cd1c1b269379cd6fd6c7b1cd0cf">css_rstat_updated_list</a></div><div class="ttdeci">static struct cgroup_subsys_state * css_rstat_updated_list(struct cgroup_subsys_state *root, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00323">rstat.c:323</a></div></div>
+<div class="ttc" id="arstat_8c_html_a97789243431c8c7f986b296efcee43fc"><div class="ttname"><a href="#a97789243431c8c7f986b296efcee43fc">bpf_rstat_flush</a></div><div class="ttdeci">__weak noinline void bpf_rstat_flush(struct cgroup *cgrp, struct cgroup *parent, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00387">rstat.c:387</a></div></div>
+<div class="ttc" id="arstat_8c_html_ad72111bdd11fb45c02b2971133696e5b"><div class="ttname"><a href="#ad72111bdd11fb45c02b2971133696e5b">cgroup_base_stat_flush</a></div><div class="ttdeci">static void cgroup_base_stat_flush(struct cgroup *cgrp, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00635">rstat.c:635</a></div></div>
+<div class="ttc" id="astructcgroup__subsys__state_html_aa2f8e5ea417ea96924e2f06c7484d823"><div class="ttname"><a href="structcgroup__subsys__state.html#aa2f8e5ea417ea96924e2f06c7484d823">cgroup_subsys_state::rstat_flush_next</a></div><div class="ttdeci">struct cgroup_subsys_state * rstat_flush_next</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00289">cgroup-defs.h:289</a></div></div>
+<div class="ttc" id="astructcgroup__subsys_html_a7c54f9f8bec3ea3ea813ad56bde5cc75"><div class="ttname"><a href="structcgroup__subsys.html#a7c54f9f8bec3ea3ea813ad56bde5cc75">cgroup_subsys::css_rstat_flush</a></div><div class="ttdeci">void(* css_rstat_flush)(struct cgroup_subsys_state *css, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00834">cgroup-defs.h:834</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a8b0be1a8c477dd64fe01d7021959ef0d_cgraph.svg" width="276" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a8b0be1a8c477dd64fe01d7021959ef0d_cgraph.svg" width="931" height="419"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a8b0be1a8c477dd64fe01d7021959ef0d_icgraph.svg" width="732" height="114"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a8b0be1a8c477dd64fe01d7021959ef0d_icgraph.svg" width="2075" height="802"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -378,20 +1350,176 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">int css_rstat_init </td>
           <td>(</td>
-          <td class="paramtype">struct cgroup_subsys_state *</td>          <td class="paramname"><span class="paramname"><em>css</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+<p>Function Description: Initializes rstat data structures for a given css. It allocates per-CPU memory for rstat_cpu and, if it's the self css, for rstat_base_cpu as well. It initializes the updated_children lists and lnode for each CPU. Returns 0 on success or -ENOMEM on allocation failure. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00490">490</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  491</span>{</div>
+<div class="line"><span class="lineno">  492</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup.html">cgroup</a> *cgrp = css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a8287eea9c1dd6e9063050313f6b1e63c">cgroup</a>;</div>
+<div class="line"><span class="lineno">  493</span>    <span class="keywordtype">int</span> cpu;</div>
+<div class="line"><span class="lineno">  494</span>    <span class="keywordtype">bool</span> is_self = css_is_self(css);</div>
+<div class="line"><span class="lineno">  495</span> </div>
+<div class="line"><span class="lineno">  496</span>    <span class="keywordflow">if</span> (is_self) {</div>
+<div class="line"><span class="lineno">  497</span>        <span class="comment">/* the root cgrp has rstat_base_cpu preallocated */</span></div>
+<div class="line"><span class="lineno">  498</span>        <span class="keywordflow">if</span> (!cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a545fd8294dbab3f92a47b709baf82bee">rstat_base_cpu</a>) {</div>
+<div class="line"><span class="lineno">  499</span>            cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a545fd8294dbab3f92a47b709baf82bee">rstat_base_cpu</a> = alloc_percpu(<span class="keyword">struct</span> <a class="code hl_struct" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a>);</div>
+<div class="line"><span class="lineno">  500</span>            <span class="keywordflow">if</span> (!cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a545fd8294dbab3f92a47b709baf82bee">rstat_base_cpu</a>)</div>
+<div class="line"><span class="lineno">  501</span>                <span class="keywordflow">return</span> -ENOMEM;</div>
+<div class="line"><span class="lineno">  502</span>        }</div>
+<div class="line"><span class="lineno">  503</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aaf6b93b579d638cfd4c054b324da3253">ss</a>-&gt;<a class="code hl_variable" href="structcgroup__subsys.html#a7c54f9f8bec3ea3ea813ad56bde5cc75">css_rstat_flush</a> == NULL)</div>
+<div class="line"><span class="lineno">  504</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  505</span> </div>
+<div class="line"><span class="lineno">  506</span>    <span class="comment">/* the root cgrp&#39;s self css has rstat_cpu preallocated */</span></div>
+<div class="line"><span class="lineno">  507</span>    <span class="keywordflow">if</span> (!css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a43f60757307d45b477ffbd7774f9680b">rstat_cpu</a>) {</div>
+<div class="line"><span class="lineno">  508</span>        css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a43f60757307d45b477ffbd7774f9680b">rstat_cpu</a> = alloc_percpu(<span class="keyword">struct</span> <a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a>);</div>
+<div class="line"><span class="lineno">  509</span>        <span class="keywordflow">if</span> (!css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a43f60757307d45b477ffbd7774f9680b">rstat_cpu</a>) {</div>
+<div class="line"><span class="lineno">  510</span>            <span class="keywordflow">if</span> (is_self)</div>
+<div class="line"><span class="lineno">  511</span>                <a class="code hl_function" href="percpu_8c.html#af832b6277c0e78c53c58ec127407abd1">free_percpu</a>(cgrp-&gt;<a class="code hl_variable" href="structcgroup.html#a545fd8294dbab3f92a47b709baf82bee">rstat_base_cpu</a>);</div>
+<div class="line"><span class="lineno">  512</span> </div>
+<div class="line"><span class="lineno">  513</span>            <span class="keywordflow">return</span> -ENOMEM;</div>
+<div class="line"><span class="lineno">  514</span>        }</div>
+<div class="line"><span class="lineno">  515</span>    }</div>
+<div class="line"><span class="lineno">  516</span> </div>
+<div class="line"><span class="lineno">  517</span>    <span class="comment">/* -&gt;updated_children list is self terminated */</span></div>
+<div class="line"><span class="lineno">  518</span>    for_each_possible_cpu(cpu) {</div>
+<div class="line"><span class="lineno">  519</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *rstatc = <a class="code hl_function" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a>(css, cpu);</div>
+<div class="line"><span class="lineno">  520</span> </div>
+<div class="line"><span class="lineno">  521</span>        rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#a793b84fb00c02b0d6fa39d1feb05253e">owner</a> = rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">updated_children</a> = css;</div>
+<div class="line"><span class="lineno">  522</span>        init_llist_node(&amp;rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#a4524b5d0f06aa75acbdf073b07fd170c">lnode</a>);</div>
+<div class="line"><span class="lineno">  523</span> </div>
+<div class="line"><span class="lineno">  524</span>        <span class="keywordflow">if</span> (is_self) {</div>
+<div class="line"><span class="lineno">  525</span>            <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a> *rstatbc;</div>
+<div class="line"><span class="lineno">  526</span> </div>
+<div class="line"><span class="lineno">  527</span>            rstatbc = <a class="code hl_function" href="#aa2875263772af7365c21ca6a7d1bf220">cgroup_rstat_base_cpu</a>(cgrp, cpu);</div>
+<div class="line"><span class="lineno">  528</span>            u64_stats_init(&amp;rstatbc-&gt;<a class="code hl_variable" href="structcgroup__rstat__base__cpu.html#aa91a6896689f010fb6ff4ee7cdf8ff5d">bsync</a>);</div>
+<div class="line"><span class="lineno">  529</span>        }</div>
+<div class="line"><span class="lineno">  530</span>    }</div>
+<div class="line"><span class="lineno">  531</span> </div>
+<div class="line"><span class="lineno">  532</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  533</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a70b7d624bdd18e80aaaf97a26ad4d12b_cgraph.svg" width="248" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a70b7d624bdd18e80aaaf97a26ad4d12b_cgraph.svg" width="1988" height="1194"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a70b7d624bdd18e80aaaf97a26ad4d12b_icgraph.svg" width="458" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a70b7d624bdd18e80aaaf97a26ad4d12b_icgraph.svg" width="2120" height="518"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="afb34bcc365dff084fb4ed7992160cf9f" name="afb34bcc365dff084fb4ed7992160cf9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb34bcc365dff084fb4ed7992160cf9f">&#9670;&#160;</a></span>css_rstat_push_children()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> * css_rstat_push_children </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>head</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>child</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>css_rstat_push_children - push children css's into the given list @head: current head of the list (= subtree root) @child: first child of the root @cpu: target cpu Return: A new singly linked list of css's to be flushed</p>
+<p>Iteratively traverse down the <a class="el" href="structcss__rstat__cpu.html">css_rstat_cpu</a> updated tree level by level and push all the parents first before their next level children into a singly linked list via the rstat_flush_next pointer built from the tail backward like "pushing" css's into a stack. The root is pushed by the caller.</p>
+<p>Function Description: Builds a list of css nodes to be flushed by traversing the update tree level by level. It pushes parents onto the list before their children, and handles grandchild nodes by processing them in subsequent levels. This creates an ordered list for efficient flushing. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00237">237</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  240</span>{</div>
+<div class="line"><span class="lineno">  241</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *cnext = child;  <span class="comment">/* Next head of child css level */</span></div>
+<div class="line"><span class="lineno">  242</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *ghead = NULL;   <span class="comment">/* Head of grandchild css level */</span></div>
+<div class="line"><span class="lineno">  243</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *<a class="code hl_variable" href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">parent</a>, *grandchild;</div>
+<div class="line"><span class="lineno">  244</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *crstatc;</div>
+<div class="line"><span class="lineno">  245</span> </div>
+<div class="line"><span class="lineno">  246</span>    child-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aa2f8e5ea417ea96924e2f06c7484d823">rstat_flush_next</a> = NULL;</div>
+<div class="line"><span class="lineno">  247</span> </div>
+<div class="line"><span class="lineno">  248</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  249</span><span class="comment">     * The subsystem rstat lock must be held for the whole duration from</span></div>
+<div class="line"><span class="lineno">  250</span><span class="comment">     * here as the rstat_flush_next list is being constructed to when</span></div>
+<div class="line"><span class="lineno">  251</span><span class="comment">     * it is consumed later in css_rstat_flush().</span></div>
+<div class="line"><span class="lineno">  252</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  253</span>    lockdep_assert_held(<a class="code hl_function" href="#a8a429ab64c98e5f3d3b65d63784bad23">ss_rstat_lock</a>(head-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aaf6b93b579d638cfd4c054b324da3253">ss</a>));</div>
+<div class="line"><span class="lineno">  254</span> </div>
+<div class="line"><span class="lineno">  255</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  256</span><span class="comment">     * Notation: -&gt; updated_next pointer</span></div>
+<div class="line"><span class="lineno">  257</span><span class="comment">     *       =&gt; rstat_flush_next pointer</span></div>
+<div class="line"><span class="lineno">  258</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  259</span><span class="comment">     * Assuming the following sample updated_children lists:</span></div>
+<div class="line"><span class="lineno">  260</span><span class="comment">     *  P: C1 -&gt; C2 -&gt; P</span></div>
+<div class="line"><span class="lineno">  261</span><span class="comment">     *  C1: G11 -&gt; G12 -&gt; C1</span></div>
+<div class="line"><span class="lineno">  262</span><span class="comment">     *  C2: G21 -&gt; G22 -&gt; C2</span></div>
+<div class="line"><span class="lineno">  263</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  264</span><span class="comment">     * After 1st iteration:</span></div>
+<div class="line"><span class="lineno">  265</span><span class="comment">     *  head =&gt; C2 =&gt; C1 =&gt; NULL</span></div>
+<div class="line"><span class="lineno">  266</span><span class="comment">     *  ghead =&gt; G21 =&gt; G11 =&gt; NULL</span></div>
+<div class="line"><span class="lineno">  267</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  268</span><span class="comment">     * After 2nd iteration:</span></div>
+<div class="line"><span class="lineno">  269</span><span class="comment">     *  head =&gt; G12 =&gt; G11 =&gt; G22 =&gt; G21 =&gt; C2 =&gt; C1 =&gt; NULL</span></div>
+<div class="line"><span class="lineno">  270</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  271</span>next_level:</div>
+<div class="line"><span class="lineno">  272</span>    <span class="keywordflow">while</span> (cnext) {</div>
+<div class="line"><span class="lineno">  273</span>        child = cnext;</div>
+<div class="line"><span class="lineno">  274</span>        cnext = child-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aa2f8e5ea417ea96924e2f06c7484d823">rstat_flush_next</a>;</div>
+<div class="line"><span class="lineno">  275</span>        parent = child-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">parent</a>;</div>
+<div class="line"><span class="lineno">  276</span> </div>
+<div class="line"><span class="lineno">  277</span>        <span class="comment">/* updated_next is parent cgroup terminated if !NULL */</span></div>
+<div class="line"><span class="lineno">  278</span>        <span class="keywordflow">while</span> (child != parent) {</div>
+<div class="line"><span class="lineno">  279</span>            child-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aa2f8e5ea417ea96924e2f06c7484d823">rstat_flush_next</a> = head;</div>
+<div class="line"><span class="lineno">  280</span>            head = child;</div>
+<div class="line"><span class="lineno">  281</span>            crstatc = <a class="code hl_function" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a>(child, cpu);</div>
+<div class="line"><span class="lineno">  282</span>            grandchild = crstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">updated_children</a>;</div>
+<div class="line"><span class="lineno">  283</span>            <span class="keywordflow">if</span> (grandchild != child) {</div>
+<div class="line"><span class="lineno">  284</span>                <span class="comment">/* Push the grand child to the next level */</span></div>
+<div class="line"><span class="lineno">  285</span>                crstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">updated_children</a> = child;</div>
+<div class="line"><span class="lineno">  286</span>                grandchild-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aa2f8e5ea417ea96924e2f06c7484d823">rstat_flush_next</a> = ghead;</div>
+<div class="line"><span class="lineno">  287</span>                ghead = grandchild;</div>
+<div class="line"><span class="lineno">  288</span>            }</div>
+<div class="line"><span class="lineno">  289</span>            child = crstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a>;</div>
+<div class="line"><span class="lineno">  290</span>            crstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a> = NULL;</div>
+<div class="line"><span class="lineno">  291</span>        }</div>
+<div class="line"><span class="lineno">  292</span>    }</div>
+<div class="line"><span class="lineno">  293</span> </div>
+<div class="line"><span class="lineno">  294</span>    <span class="keywordflow">if</span> (ghead) {</div>
+<div class="line"><span class="lineno">  295</span>        cnext = ghead;</div>
+<div class="line"><span class="lineno">  296</span>        ghead = NULL;</div>
+<div class="line"><span class="lineno">  297</span>        <span class="keywordflow">goto</span> next_level;</div>
+<div class="line"><span class="lineno">  298</span>    }</div>
+<div class="line"><span class="lineno">  299</span>    <span class="keywordflow">return</span> head;</div>
+<div class="line"><span class="lineno">  300</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_afb34bcc365dff084fb4ed7992160cf9f_cgraph.svg" width="324" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_afb34bcc365dff084fb4ed7992160cf9f_icgraph.svg" width="2855" height="662"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -405,7 +1533,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">__bpf_kfunc void css_rstat_updated </td>
           <td>(</td>
-          <td class="paramtype">struct cgroup_subsys_state *</td>          <td class="paramname"><span class="paramname"><em>css</em></span>, </td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -414,11 +1542,199 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00150">150</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  151</span>{</div>
+<div class="line"><span class="lineno">  152</span>    <span class="keywordflow">if</span> (unlikely(cpu &lt; 0 || cpu &gt;= nr_cpu_ids || !cpu_possible(cpu)))</div>
+<div class="line"><span class="lineno">  153</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  154</span> </div>
+<div class="line"><span class="lineno">  155</span>    <a class="code hl_function" href="#af44bd30b28c91d64aab50b0191dd4845">__css_rstat_updated</a>(css, cpu);</div>
+<div class="line"><span class="lineno">  156</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a0d49aa809528f6cc2d1c5713f8245125_cgraph.svg" width="330" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a0d49aa809528f6cc2d1c5713f8245125_cgraph.svg" width="488" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="a957b8cd1c1b269379cd6fd6c7b1cd0cf" name="a957b8cd1c1b269379cd6fd6c7b1cd0cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a957b8cd1c1b269379cd6fd6c7b1cd0cf">&#9670;&#160;</a></span>css_rstat_updated_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> * css_rstat_updated_list </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>root</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>css_rstat_updated_list - build a list of updated css's to be flushed @root: root of the css subtree to traverse @cpu: target cpu Return: A singly linked list of css's to be flushed</p>
+<p>Walks the updated rstat_cpu tree on @cpu from @root. During traversal, each returned css is unlinked from the updated tree.</p>
+<p>The only ordering guarantee is that, for a parent and a child pair covered by a given traversal, the child is before its parent in the list.</p>
+<p>Note that updated_children is self terminated and points to a list of child css's if not empty. Whereas updated_next is like a sibling link within the children list and terminated by the parent css. An exception here is the css root whose updated_next can be self terminated.</p>
+<p>Function Description: Builds a list of all updated css nodes in a subtree starting from the given root. It calls <a class="el" href="#a64263cc1216e3df2bfe501dcb653de87">css_process_update_tree()</a> to build the update tree, then unlinks the root from its parent and pushes all children onto a list. Returns the head of the list to be flushed. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00323">323</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  325</span>{</div>
+<div class="line"><span class="lineno">  326</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *rstatc = <a class="code hl_function" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a>(root, cpu);</div>
+<div class="line"><span class="lineno">  327</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *head = NULL, *<a class="code hl_variable" href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">parent</a>, *child;</div>
+<div class="line"><span class="lineno">  328</span> </div>
+<div class="line"><span class="lineno">  329</span>    <a class="code hl_function" href="#a64263cc1216e3df2bfe501dcb653de87">css_process_update_tree</a>(root-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aaf6b93b579d638cfd4c054b324da3253">ss</a>, cpu);</div>
+<div class="line"><span class="lineno">  330</span> </div>
+<div class="line"><span class="lineno">  331</span>    <span class="comment">/* Return NULL if this subtree is not on-list */</span></div>
+<div class="line"><span class="lineno">  332</span>    <span class="keywordflow">if</span> (!rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a>)</div>
+<div class="line"><span class="lineno">  333</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  334</span> </div>
+<div class="line"><span class="lineno">  335</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  336</span><span class="comment">     * Unlink @root from its parent. As the updated_children list is</span></div>
+<div class="line"><span class="lineno">  337</span><span class="comment">     * singly linked, we have to walk it to find the removal point.</span></div>
+<div class="line"><span class="lineno">  338</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  339</span>    <a class="code hl_variable" href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">parent</a> = root-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">parent</a>;</div>
+<div class="line"><span class="lineno">  340</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">parent</a>) {</div>
+<div class="line"><span class="lineno">  341</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *prstatc;</div>
+<div class="line"><span class="lineno">  342</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> **nextp;</div>
+<div class="line"><span class="lineno">  343</span> </div>
+<div class="line"><span class="lineno">  344</span>        prstatc = <a class="code hl_function" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a>(<a class="code hl_variable" href="structcgroup__subsys__state.html#a41f172ec664169930bcb375dfe2693f5">parent</a>, cpu);</div>
+<div class="line"><span class="lineno">  345</span>        nextp = &amp;prstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">updated_children</a>;</div>
+<div class="line"><span class="lineno">  346</span>        <span class="keywordflow">while</span> (*nextp != root) {</div>
+<div class="line"><span class="lineno">  347</span>            <span class="keyword">struct </span><a class="code hl_struct" href="structcss__rstat__cpu.html">css_rstat_cpu</a> *nrstatc;</div>
+<div class="line"><span class="lineno">  348</span> </div>
+<div class="line"><span class="lineno">  349</span>            nrstatc = <a class="code hl_function" href="#a5cfd09042964bac6d1f65ac9072d59d4">css_rstat_cpu</a>(*nextp, cpu);</div>
+<div class="line"><span class="lineno">  350</span>            WARN_ON_ONCE(*nextp == parent);</div>
+<div class="line"><span class="lineno">  351</span>            nextp = &amp;nrstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a>;</div>
+<div class="line"><span class="lineno">  352</span>        }</div>
+<div class="line"><span class="lineno">  353</span>        *nextp = rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a>;</div>
+<div class="line"><span class="lineno">  354</span>    }</div>
+<div class="line"><span class="lineno">  355</span> </div>
+<div class="line"><span class="lineno">  356</span>    rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#af40bda6384878b6030464126830de211">updated_next</a> = NULL;</div>
+<div class="line"><span class="lineno">  357</span> </div>
+<div class="line"><span class="lineno">  358</span>    <span class="comment">/* Push @root to the list first before pushing the children */</span></div>
+<div class="line"><span class="lineno">  359</span>    head = root;</div>
+<div class="line"><span class="lineno">  360</span>    root-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aa2f8e5ea417ea96924e2f06c7484d823">rstat_flush_next</a> = NULL;</div>
+<div class="line"><span class="lineno">  361</span>    child = rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">updated_children</a>;</div>
+<div class="line"><span class="lineno">  362</span>    rstatc-&gt;<a class="code hl_variable" href="structcss__rstat__cpu.html#abe2c97d75cf0bf4e5a5af460063cb08e">updated_children</a> = root;</div>
+<div class="line"><span class="lineno">  363</span>    <span class="keywordflow">if</span> (child != root)</div>
+<div class="line"><span class="lineno">  364</span>        head = <a class="code hl_function" href="#afb34bcc365dff084fb4ed7992160cf9f">css_rstat_push_children</a>(head, child, cpu);</div>
+<div class="line"><span class="lineno">  365</span> </div>
+<div class="line"><span class="lineno">  366</span>    <span class="keywordflow">return</span> head;</div>
+<div class="line"><span class="lineno">  367</span>}</div>
+<div class="ttc" id="arstat_8c_html_a64263cc1216e3df2bfe501dcb653de87"><div class="ttname"><a href="#a64263cc1216e3df2bfe501dcb653de87">css_process_update_tree</a></div><div class="ttdeci">static void css_process_update_tree(struct cgroup_subsys *ss, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00193">rstat.c:193</a></div></div>
+<div class="ttc" id="arstat_8c_html_afb34bcc365dff084fb4ed7992160cf9f"><div class="ttname"><a href="#afb34bcc365dff084fb4ed7992160cf9f">css_rstat_push_children</a></div><div class="ttdeci">static struct cgroup_subsys_state * css_rstat_push_children(struct cgroup_subsys_state *head, struct cgroup_subsys_state *child, int cpu)</div><div class="ttdef"><b>Definition</b> <a href="rstat_8c_source.html#l00237">rstat.c:237</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a957b8cd1c1b269379cd6fd6c7b1cd0cf_cgraph.svg" width="766" height="240"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a957b8cd1c1b269379cd6fd6c7b1cd0cf_icgraph.svg" width="2655" height="599"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad5c996fe59a423d5b4136ec59fa9b4c2" name="ad5c996fe59a423d5b4136ec59fa9b4c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5c996fe59a423d5b4136ec59fa9b4c2">&#9670;&#160;</a></span>css_uses_rstat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool css_uses_rstat </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> *</td>          <td class="paramname"><span class="paramname"><em>css</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00027">27</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   28</span>{</div>
+<div class="line"><span class="lineno">   29</span>    <span class="keywordflow">return</span> css_is_self(css) || css-&gt;<a class="code hl_variable" href="structcgroup__subsys__state.html#aaf6b93b579d638cfd4c054b324da3253">ss</a>-&gt;<a class="code hl_variable" href="structcgroup__subsys.html#a7c54f9f8bec3ea3ea813ad56bde5cc75">css_rstat_flush</a> != NULL;</div>
+<div class="line"><span class="lineno">   30</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_ad5c996fe59a423d5b4136ec59fa9b4c2_icgraph.svg" width="2012" height="1206"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad6e1fabb6d4f273cf56c73334b3f176d" name="ad6e1fabb6d4f273cf56c73334b3f176d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6e1fabb6d4f273cf56c73334b3f176d">&#9670;&#160;</a></span>DEFINE_PER_CPU()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_PER_CPU </td>
+          <td>(</td>
+          <td class="paramtype">struct llist_head</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">rstat_backlog_list</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad1868ae4f8fc33b8ad66e1446cb8af11" name="ad1868ae4f8fc33b8ad66e1446cb8af11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1868ae4f8fc33b8ad66e1446cb8af11">&#9670;&#160;</a></span>DEFINE_SPINLOCK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_SPINLOCK </td>
+          <td>(</td>
+          <td class="paramtype">rstat_base_lock</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -431,11 +1747,122 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">late_initcall </td>
           <td>(</td>
-          <td class="paramtype">bpf_rstat_kfunc_init</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#af532b95896c8fb40eb106f697eef113e">bpf_rstat_kfunc_init</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a362c6c59e756f08f6474902174ab30cd_cgraph.svg" width="280" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7dc5136d6a692c1fe9c6a8f2ef766d81" name="a7dc5136d6a692c1fe9c6a8f2ef766d81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dc5136d6a692c1fe9c6a8f2ef766d81">&#9670;&#160;</a></span>root_cgroup_cputime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void root_cgroup_cputime </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a> *</td>          <td class="paramname"><span class="paramname"><em>bstat</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00756">756</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  757</span>{</div>
+<div class="line"><span class="lineno">  758</span>    <span class="keyword">struct </span>task_cputime *cputime = &amp;bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a5a0c345d5c846771b9d76d619ed8a25f">cputime</a>;</div>
+<div class="line"><span class="lineno">  759</span>    <span class="keywordtype">int</span> i;</div>
+<div class="line"><span class="lineno">  760</span> </div>
+<div class="line"><span class="lineno">  761</span>    memset(bstat, 0, <span class="keyword">sizeof</span>(*bstat));</div>
+<div class="line"><span class="lineno">  762</span>    for_each_possible_cpu(i) {</div>
+<div class="line"><span class="lineno">  763</span>        <span class="keyword">struct </span>kernel_cpustat kcpustat;</div>
+<div class="line"><span class="lineno">  764</span>        u64 *cpustat = kcpustat.cpustat;</div>
+<div class="line"><span class="lineno">  765</span>        u64 user = 0;</div>
+<div class="line"><span class="lineno">  766</span>        u64 sys = 0;</div>
+<div class="line"><span class="lineno">  767</span> </div>
+<div class="line"><span class="lineno">  768</span>        kcpustat_cpu_fetch(&amp;kcpustat, i);</div>
+<div class="line"><span class="lineno">  769</span> </div>
+<div class="line"><span class="lineno">  770</span>        user += cpustat[CPUTIME_USER];</div>
+<div class="line"><span class="lineno">  771</span>        user += cpustat[CPUTIME_NICE];</div>
+<div class="line"><span class="lineno">  772</span>        cputime-&gt;utime += user;</div>
+<div class="line"><span class="lineno">  773</span> </div>
+<div class="line"><span class="lineno">  774</span>        sys += cpustat[CPUTIME_SYSTEM];</div>
+<div class="line"><span class="lineno">  775</span>        sys += cpustat[CPUTIME_IRQ];</div>
+<div class="line"><span class="lineno">  776</span>        sys += cpustat[CPUTIME_SOFTIRQ];</div>
+<div class="line"><span class="lineno">  777</span>        cputime-&gt;stime += sys;</div>
+<div class="line"><span class="lineno">  778</span> </div>
+<div class="line"><span class="lineno">  779</span>        cputime-&gt;sum_exec_runtime += user;</div>
+<div class="line"><span class="lineno">  780</span>        cputime-&gt;sum_exec_runtime += sys;</div>
+<div class="line"><span class="lineno">  781</span> </div>
+<div class="line"><span class="lineno">  782</span><span class="preprocessor">#ifdef CONFIG_SCHED_CORE</span></div>
+<div class="line"><span class="lineno">  783</span>        bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a416917f7ab2955cc42823b11d46493df">forceidle_sum</a> += cpustat[CPUTIME_FORCEIDLE];</div>
+<div class="line"><span class="lineno">  784</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  785</span>        bstat-&gt;<a class="code hl_variable" href="structcgroup__base__stat.html#a7c803163102e2e73bda0eeae13c860e8">ntime</a> += cpustat[CPUTIME_NICE];</div>
+<div class="line"><span class="lineno">  786</span>    }</div>
+<div class="line"><span class="lineno">  787</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a7dc5136d6a692c1fe9c6a8f2ef766d81_icgraph.svg" width="574" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6fc3c5c18b9bd75214eb604e6f4d8c55" name="a6fc3c5c18b9bd75214eb604e6f4d8c55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc3c5c18b9bd75214eb604e6f4d8c55">&#9670;&#160;</a></span>ss_lhead_cpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct llist_head * ss_lhead_cpu </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys.html">cgroup_subsys</a> *</td>          <td class="paramname"><span class="paramname"><em>ss</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Returns the per-CPU lockless list head for rstat updates. If a subsystem is provided, it returns the subsystem-specific list head; otherwise, it returns the global backlog list head. This is used for tracking updated rstat nodes. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00064">64</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   65</span>{</div>
+<div class="line"><span class="lineno">   66</span>    <span class="keywordflow">if</span> (ss)</div>
+<div class="line"><span class="lineno">   67</span>        <span class="keywordflow">return</span> per_cpu_ptr(ss-&gt;<a class="code hl_variable" href="structcgroup__subsys.html#a79f9e06224c72036fec374558d513594">lhead</a>, cpu);</div>
+<div class="line"><span class="lineno">   68</span>    <span class="keywordflow">return</span> per_cpu_ptr(&amp;rstat_backlog_list, cpu);</div>
+<div class="line"><span class="lineno">   69</span>}</div>
+<div class="ttc" id="astructcgroup__subsys_html_a79f9e06224c72036fec374558d513594"><div class="ttname"><a href="structcgroup__subsys.html#a79f9e06224c72036fec374558d513594">cgroup_subsys::lhead</a></div><div class="ttdeci">struct llist_head __percpu * lhead</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00914">cgroup-defs.h:914</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a6fc3c5c18b9bd75214eb604e6f4d8c55_icgraph.svg" width="1994" height="970"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -448,19 +1875,116 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">int __init ss_rstat_init </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="cgroup-internal_8h.html#a5456eafc4eac34d6cda02119c6e83259">cgroup_subsys</a> *</td>          <td class="paramname"><span class="paramname"><em>ss</em></span></td><td>)</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys.html">cgroup_subsys</a> *</td>          <td class="paramname"><span class="paramname"><em>ss</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>ss_rstat_init - subsystem-specific rstat initialization @ss: target subsystem</p>
-<p>If @ss is NULL, the static locks associated with the base stats are initialized. If @ss is non-NULL, the subsystem-specific locks are initialized. </p>
+<p>If @ss is NULL, the static locks associated with the base stats are initialized. If @ss is non-NULL, the subsystem-specific locks are initialized.</p>
+<p>Function Description: Initializes subsystem-specific rstat structures. It allocates a per-CPU llist head and initializes the subsystem's rstat spinlock. If ss is NULL, it initializes the global base stats lock. This is called during subsystem registration. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00581">581</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  582</span>{</div>
+<div class="line"><span class="lineno">  583</span>    <span class="keywordtype">int</span> cpu;</div>
+<div class="line"><span class="lineno">  584</span> </div>
+<div class="line"><span class="lineno">  585</span>    <span class="keywordflow">if</span> (ss) {</div>
+<div class="line"><span class="lineno">  586</span>        ss-&gt;<a class="code hl_variable" href="structcgroup__subsys.html#a79f9e06224c72036fec374558d513594">lhead</a> = alloc_percpu(<span class="keyword">struct</span> llist_head);</div>
+<div class="line"><span class="lineno">  587</span>        <span class="keywordflow">if</span> (!ss-&gt;<a class="code hl_variable" href="structcgroup__subsys.html#a79f9e06224c72036fec374558d513594">lhead</a>)</div>
+<div class="line"><span class="lineno">  588</span>            <span class="keywordflow">return</span> -ENOMEM;</div>
+<div class="line"><span class="lineno">  589</span>    }</div>
+<div class="line"><span class="lineno">  590</span> </div>
+<div class="line"><span class="lineno">  591</span>    spin_lock_init(<a class="code hl_function" href="#a8a429ab64c98e5f3d3b65d63784bad23">ss_rstat_lock</a>(ss));</div>
+<div class="line"><span class="lineno">  592</span>    for_each_possible_cpu(cpu)</div>
+<div class="line"><span class="lineno">  593</span>        init_llist_head(<a class="code hl_function" href="#a6fc3c5c18b9bd75214eb604e6f4d8c55">ss_lhead_cpu</a>(ss, cpu));</div>
+<div class="line"><span class="lineno">  594</span> </div>
+<div class="line"><span class="lineno">  595</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  596</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a321b7954535f612da01b000d2e0bc5de_cgraph.svg" width="252" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a321b7954535f612da01b000d2e0bc5de_icgraph.svg" width="236" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a321b7954535f612da01b000d2e0bc5de_icgraph.svg" width="452" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
+</div>
+</div>
+<a id="a8a429ab64c98e5f3d3b65d63784bad23" name="a8a429ab64c98e5f3d3b65d63784bad23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a429ab64c98e5f3d3b65d63784bad23">&#9670;&#160;</a></span>ss_rstat_lock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">spinlock_t * ss_rstat_lock </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcgroup__subsys.html">cgroup_subsys</a> *</td>          <td class="paramname"><span class="paramname"><em>ss</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Returns the appropriate spinlock for rstat operations. If a subsystem is provided, it returns the subsystem-specific lock; otherwise, it returns the global base lock. This allows different subsystems to have their own locking for rstat operations. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00053">53</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   54</span>{</div>
+<div class="line"><span class="lineno">   55</span>    <span class="keywordflow">if</span> (ss)</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">return</span> &amp;ss-&gt;<a class="code hl_variable" href="structcgroup__subsys.html#a64d0c5b8f0ad413c8c6670da9144c6c6">rstat_ss_lock</a>;</div>
+<div class="line"><span class="lineno">   57</span> </div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">return</span> &amp;rstat_base_lock;</div>
+<div class="line"><span class="lineno">   59</span>}</div>
+<div class="ttc" id="astructcgroup__subsys_html_a64d0c5b8f0ad413c8c6670da9144c6c6"><div class="ttname"><a href="structcgroup__subsys.html#a64d0c5b8f0ad413c8c6670da9144c6c6">cgroup_subsys::rstat_ss_lock</a></div><div class="ttdeci">spinlock_t rstat_ss_lock</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00913">cgroup-defs.h:913</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="rstat_8c_a8a429ab64c98e5f3d3b65d63784bad23_icgraph.svg" width="3007" height="615"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="aa1940a9eb1bc0ec9c451bf5b03e30806" name="aa1940a9eb1bc0ec9c451bf5b03e30806"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1940a9eb1bc0ec9c451bf5b03e30806">&#9670;&#160;</a></span>bpf_rstat_kfunc_set</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const struct btf_kfunc_id_set bpf_rstat_kfunc_set</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                   = {</div>
+<div class="line">    .owner          = THIS_MODULE,</div>
+<div class="line">    .set            = &amp;bpf_rstat_kfunc_ids,</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>struct Description: This structure is used to register BPF kfuncs (kernel functions callable from BPF programs) with the kernel's BTF (BPF Type Format) system. It contains the owner module and a set of BTF function IDs. It is used to make the rstat functions available for BPF programs. </p>
+
+<p class="definition">Definition at line <a class="el" href="rstat_8c_source.html#l00847">847</a> of file <a class="el" href="rstat_8c_source.html">rstat.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  847</span>                                                         {</div>
+<div class="line"><span class="lineno">  848</span>    .owner          = THIS_MODULE,</div>
+<div class="line"><span class="lineno">  849</span>    .set            = &amp;bpf_rstat_kfunc_ids,</div>
+<div class="line"><span class="lineno">  850</span>};</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

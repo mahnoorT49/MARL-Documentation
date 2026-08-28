@@ -119,7 +119,13 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('the.html','','
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>page_cgroup_ino - return inode number of the memcg a page is charged to  </p>
-<p>Look up the closest online ancestor of the memory cgroup </p>
+<p>Look up the closest online ancestor of the memory cgroup</p>
+<p>__move_freepages_block_isolate - move free pages in block for page isolation @zone: the zone  </p>
+<p>@isolate: to isolate the given pageblock or unisolate it</p>
+<p>This is similar to <a class="el" href="page__alloc_8c.html#a88eabedcb4a205e2de9f482da9b5b7d6">move_freepages_block()</a>, but handles the special case encountered in page isolation, where the block of interest might be part of a larger buddy spanning multiple pageblocks.</p>
+<p>Unlike the regular page allocator path, which moves pages while stealing buddies off the freelist, page isolation is interested in arbitrary pfn ranges that may have overlapping buddies on both ends.</p>
+<p>This function handles that. Straddling buddies are split into individual pageblocks. Only the block of interest is moved.</p>
+<p>Returns true if pages could be moved, false otherwise. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -148,7 +148,9 @@ Include dependency graph for swap.c:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c__incl.svg" width="4070" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-</div><table class="memberdecls">
+</div>
+<p><a href="swap_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:cpu_5Ffbatches" id="r_cpu_5Ffbatches"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcpu__fbatches.html">cpu_fbatches</a></td></tr>
@@ -164,23 +166,43 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a763cd84b07ccec007d089f6518ac3749" id="r_a763cd84b07ccec007d089f6518ac3749"><td class="memItemLeft">static&#160;</td><td class="memItemRight"><a class="el" href="#a763cd84b07ccec007d089f6518ac3749">DEFINE_PER_CPU</a> (struct <a class="el" href="structcpu__fbatches.html">cpu_fbatches</a>, <a class="el" href="structcpu__fbatches.html">cpu_fbatches</a>)</td></tr>
+<tr class="memitem:a3d1ff772b18ad43501cf113add80abc7" id="r_a3d1ff772b18ad43501cf113add80abc7"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a3d1ff772b18ad43501cf113add80abc7">__page_cache_release</a> (struct folio *folio, struct <a class="el" href="structlruvec.html">lruvec</a> **lruvecp, unsigned long *flagsp)</td></tr>
+<tr class="memitem:ab8fff8504f19922ad21f1890429b2925" id="r_ab8fff8504f19922ad21f1890429b2925"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ab8fff8504f19922ad21f1890429b2925">page_cache_release</a> (struct folio *folio)</td></tr>
 <tr class="memitem:a46d07cc2c81c98f89760f34341099924" id="r_a46d07cc2c81c98f89760f34341099924"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a46d07cc2c81c98f89760f34341099924">__folio_put</a> (struct folio *folio)</td></tr>
 <tr class="memitem:a80016696eef8126cfdc0655e398bf345" id="r_a80016696eef8126cfdc0655e398bf345"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a80016696eef8126cfdc0655e398bf345">EXPORT_SYMBOL</a> (<a class="el" href="#a46d07cc2c81c98f89760f34341099924">__folio_put</a>)</td></tr>
+<tr class="memitem:ab0b3b543583b6d9406b5a1568715ec72" id="r_ab0b3b543583b6d9406b5a1568715ec72"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ab0b3b543583b6d9406b5a1568715ec72">lru_add</a> (struct lruvec *lruvec, struct folio *folio)</td></tr>
+<tr class="memitem:ad1ba07a9053342547c7dd9290fcabce0" id="r_ad1ba07a9053342547c7dd9290fcabce0"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ad1ba07a9053342547c7dd9290fcabce0">folio_batch_move_lru</a> (struct folio_batch *fbatch, <a class="el" href="#a55bf7162009ab53e5f6980982feff7a7">move_fn_t</a> move_fn)</td></tr>
+<tr class="memitem:a9771cb919eeb9b116a95ada43aa7eaff" id="r_a9771cb919eeb9b116a95ada43aa7eaff"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a9771cb919eeb9b116a95ada43aa7eaff">__folio_batch_add_and_move</a> (struct folio_batch __percpu *fbatch, struct folio *folio, <a class="el" href="#a55bf7162009ab53e5f6980982feff7a7">move_fn_t</a> move_fn, bool disable_irq)</td></tr>
+<tr class="memitem:a726a92c46bc89d3fd80d8313e514d851" id="r_a726a92c46bc89d3fd80d8313e514d851"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a726a92c46bc89d3fd80d8313e514d851">lru_move_tail</a> (struct lruvec *lruvec, struct folio *folio)</td></tr>
 <tr class="memitem:ac7d49ec61e56c72c8a3ff7af8bbb2559" id="r_ac7d49ec61e56c72c8a3ff7af8bbb2559"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac7d49ec61e56c72c8a3ff7af8bbb2559">folio_rotate_reclaimable</a> (struct folio *folio)</td></tr>
 <tr class="memitem:a19ccb634a8ab578df2e4aae0ebf0ead5" id="r_a19ccb634a8ab578df2e4aae0ebf0ead5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a19ccb634a8ab578df2e4aae0ebf0ead5">lru_note_cost_unlock_irq</a> (struct lruvec *lruvec, bool file, unsigned int nr_io, unsigned int nr_rotated) __releases(lruvec -&gt; lru_lock)</td></tr>
 <tr class="memitem:a9dc179f0c90d8478ba76a547896cdb3d" id="r_a9dc179f0c90d8478ba76a547896cdb3d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9dc179f0c90d8478ba76a547896cdb3d">lru_note_cost_refault</a> (struct folio *folio)</td></tr>
+<tr class="memitem:a7369aece80e793901d5caf51da13728e" id="r_a7369aece80e793901d5caf51da13728e"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a7369aece80e793901d5caf51da13728e">lru_activate</a> (struct lruvec *lruvec, struct folio *folio)</td></tr>
+<tr class="memitem:af35150de9a4beb63787e476dc012ab16" id="r_af35150de9a4beb63787e476dc012ab16"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#af35150de9a4beb63787e476dc012ab16">folio_activate_drain</a> (int cpu)</td></tr>
 <tr class="memitem:a2ade93c7e27c2623c0dd9f0849a1e7d6" id="r_a2ade93c7e27c2623c0dd9f0849a1e7d6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2ade93c7e27c2623c0dd9f0849a1e7d6">folio_activate</a> (struct folio *folio)</td></tr>
+<tr class="memitem:a4a8f7f0ebbe48eccc3eb556913b2d732" id="r_a4a8f7f0ebbe48eccc3eb556913b2d732"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a4a8f7f0ebbe48eccc3eb556913b2d732">__lru_cache_activate_folio</a> (struct folio *folio)</td></tr>
+<tr class="memitem:a27c5ead57da1493a72cc91446819fe46" id="r_a27c5ead57da1493a72cc91446819fe46"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a27c5ead57da1493a72cc91446819fe46">lru_gen_inc_refs</a> (struct folio *folio)</td></tr>
+<tr class="memitem:ab3e2158101d9963bf9641bf4224e39de" id="r_ab3e2158101d9963bf9641bf4224e39de"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ab3e2158101d9963bf9641bf4224e39de">lru_gen_clear_refs</a> (struct folio *folio)</td></tr>
 <tr class="memitem:a64ea14cffb102246a5569d2f5c9f2a3d" id="r_a64ea14cffb102246a5569d2f5c9f2a3d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a64ea14cffb102246a5569d2f5c9f2a3d">folio_mark_accessed</a> (struct folio *folio)</td></tr>
 <tr class="memitem:a5df2f96684931eb0f2c26cbd66ddd80a" id="r_a5df2f96684931eb0f2c26cbd66ddd80a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5df2f96684931eb0f2c26cbd66ddd80a">EXPORT_SYMBOL</a> (<a class="el" href="#a64ea14cffb102246a5569d2f5c9f2a3d">folio_mark_accessed</a>)</td></tr>
 <tr class="memitem:a748e20c79b2f3f9a7861641784e180ba" id="r_a748e20c79b2f3f9a7861641784e180ba"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a748e20c79b2f3f9a7861641784e180ba">folio_add_lru</a> (struct folio *folio)</td></tr>
 <tr class="memitem:a16696b4c1dd91e8ea890203c41399f06" id="r_a16696b4c1dd91e8ea890203c41399f06"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a16696b4c1dd91e8ea890203c41399f06">EXPORT_SYMBOL</a> (<a class="el" href="#a748e20c79b2f3f9a7861641784e180ba">folio_add_lru</a>)</td></tr>
 <tr class="memitem:aa2df6e948a26f4d288787917fb948208" id="r_aa2df6e948a26f4d288787917fb948208"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa2df6e948a26f4d288787917fb948208">folio_add_lru_vma</a> (struct folio *folio, struct vm_area_struct *vma)</td></tr>
+<tr class="memitem:a39f8aeef59a546188e37aee6e1faa9a2" id="r_a39f8aeef59a546188e37aee6e1faa9a2"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a39f8aeef59a546188e37aee6e1faa9a2">lru_deactivate_file</a> (struct lruvec *lruvec, struct folio *folio)</td></tr>
+<tr class="memitem:a0c4804e592f8b9c2091ebe70425ea94a" id="r_a0c4804e592f8b9c2091ebe70425ea94a"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a0c4804e592f8b9c2091ebe70425ea94a">lru_deactivate</a> (struct lruvec *lruvec, struct folio *folio)</td></tr>
+<tr class="memitem:a669e21ea6f543836bb26517e3b2721c3" id="r_a669e21ea6f543836bb26517e3b2721c3"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a669e21ea6f543836bb26517e3b2721c3">lru_lazyfree</a> (struct lruvec *lruvec, struct folio *folio)</td></tr>
 <tr class="memitem:af45ab7c311a3a462f207ff31cf7d4a69" id="r_af45ab7c311a3a462f207ff31cf7d4a69"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af45ab7c311a3a462f207ff31cf7d4a69">lru_add_drain_cpu</a> (int cpu)</td></tr>
 <tr class="memitem:aa8909f510437417e49093e9e10a823f7" id="r_aa8909f510437417e49093e9e10a823f7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa8909f510437417e49093e9e10a823f7">deactivate_file_folio</a> (struct folio *folio)</td></tr>
 <tr class="memitem:abeeef6f333b42e5b34eea1faa9dcbe0a" id="r_abeeef6f333b42e5b34eea1faa9dcbe0a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abeeef6f333b42e5b34eea1faa9dcbe0a">folio_deactivate</a> (struct folio *folio)</td></tr>
 <tr class="memitem:a9d8f2f07ba5a50346adb5931c168e9f0" id="r_a9d8f2f07ba5a50346adb5931c168e9f0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9d8f2f07ba5a50346adb5931c168e9f0">folio_mark_lazyfree</a> (struct folio *folio)</td></tr>
 <tr class="memitem:ab1c0247474c324ec2b4a26d5c3e57955" id="r_ab1c0247474c324ec2b4a26d5c3e57955"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab1c0247474c324ec2b4a26d5c3e57955">lru_add_drain</a> (void)</td></tr>
+<tr class="memitem:a53ca0a3d9e61a4d61d14a8e5529a0aa1" id="r_a53ca0a3d9e61a4d61d14a8e5529a0aa1"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a53ca0a3d9e61a4d61d14a8e5529a0aa1">lru_add_and_bh_lrus_drain</a> (void)</td></tr>
 <tr class="memitem:aefb7d8f57322a5dbcf5cdee7b134545b" id="r_aefb7d8f57322a5dbcf5cdee7b134545b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aefb7d8f57322a5dbcf5cdee7b134545b">lru_add_drain_cpu_zone</a> (struct zone *zone)</td></tr>
+<tr class="memitem:ae7c7b151fbaf6d56de397e094ef9b40c" id="r_ae7c7b151fbaf6d56de397e094ef9b40c"><td class="memItemLeft">static&#160;</td><td class="memItemRight"><a class="el" href="#ae7c7b151fbaf6d56de397e094ef9b40c">DEFINE_PER_CPU</a> (struct work_struct, lru_add_drain_work)</td></tr>
+<tr class="memitem:a55fbabea5e943fec625503fad58176ea" id="r_a55fbabea5e943fec625503fad58176ea"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a55fbabea5e943fec625503fad58176ea">lru_add_drain_per_cpu</a> (struct work_struct *dummy)</td></tr>
+<tr class="memitem:a54a8c8016d971d932585637b7b6fbe88" id="r_a54a8c8016d971d932585637b7b6fbe88"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a54a8c8016d971d932585637b7b6fbe88">cpu_needs_drain</a> (unsigned int cpu)</td></tr>
+<tr class="memitem:a4b44dac2994765d7ed3bf070ac7711e2" id="r_a4b44dac2994765d7ed3bf070ac7711e2"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a4b44dac2994765d7ed3bf070ac7711e2">__lru_add_drain_all</a> (bool force_all_cpus)</td></tr>
 <tr class="memitem:af4054643fd1470f90028830be6b299bc" id="r_af4054643fd1470f90028830be6b299bc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af4054643fd1470f90028830be6b299bc">lru_add_drain_all</a> (void)</td></tr>
 <tr class="memitem:a6315185be80ff7daf73823c9bb9db403" id="r_a6315185be80ff7daf73823c9bb9db403"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6315185be80ff7daf73823c9bb9db403">lru_cache_disable</a> (void)</td></tr>
 <tr class="memitem:a65d7ad226963eb57392114c5157c116b" id="r_a65d7ad226963eb57392114c5157c116b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a65d7ad226963eb57392114c5157c116b">folios_put_refs</a> (struct folio_batch *folios, unsigned int *refs)</td></tr>
@@ -195,7 +217,9 @@ Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:afe6446ed43e97033afbee53032a572dc" id="r_afe6446ed43e97033afbee53032a572dc"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#afe6446ed43e97033afbee53032a572dc">page_cluster</a></td></tr>
+<tr class="memitem:a99ace166ebddb574ad51089c272d57b8" id="r_a99ace166ebddb574ad51089c272d57b8"><td class="memItemLeft">static const int&#160;</td><td class="memItemRight"><a class="el" href="#a99ace166ebddb574ad51089c272d57b8">page_cluster_max</a> = 31</td></tr>
 <tr class="memitem:ad22b5157c3afe2ce09460112075cafe6" id="r_ad22b5157c3afe2ce09460112075cafe6"><td class="memItemLeft">atomic_t&#160;</td><td class="memItemRight"><a class="el" href="#ad22b5157c3afe2ce09460112075cafe6">lru_disable_count</a> = ATOMIC_INIT(0)</td></tr>
+<tr class="memitem:a008a394e8426d6bd461b778d6246b8e5" id="r_a008a394e8426d6bd461b778d6246b8e5"><td class="memItemLeft">static const struct ctl_table&#160;</td><td class="memItemRight"><a class="el" href="#a008a394e8426d6bd461b778d6246b8e5">swap_sysctl_table</a> []</td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a40473b47b4871fa538a0fa131f94e774" name="a40473b47b4871fa538a0fa131f94e774"></a>
@@ -209,6 +233,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00043">43</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
 
 </div>
 </div>
@@ -230,14 +256,25 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">__folio_batch_add_and_move(         \</div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="#a9771cb919eeb9b116a95ada43aa7eaff">__folio_batch_add_and_move</a>(         \</div>
 <div class="line">    &amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.op,           \</div>
 <div class="line">    folio,                  \</div>
 <div class="line">    op,                 \</div>
 <div class="line">    offsetof(<span class="keyword">struct</span> <a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>, op) &gt;=    \</div>
 <div class="line">    offsetof(<span class="keyword">struct</span> <a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>, lock_irq) \</div>
 <div class="line">)</div>
-<div class="ttc" id="astructcpu__fbatches_html"><div class="ttname"><a href="structcpu__fbatches.html">cpu_fbatches</a></div><div class="ttdef"><b>Definition</b> swap.c:50</div></div>
+<div class="ttc" id="astructcpu__fbatches_html"><div class="ttname"><a href="structcpu__fbatches.html">cpu_fbatches</a></div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00050">swap.c:50</a></div></div>
+<div class="ttc" id="aswap_8c_html_a9771cb919eeb9b116a95ada43aa7eaff"><div class="ttname"><a href="#a9771cb919eeb9b116a95ada43aa7eaff">__folio_batch_add_and_move</a></div><div class="ttdeci">static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch, struct folio *folio, move_fn_t move_fn, bool disable_irq)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00182">swap.c:182</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00204">204</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  204</span><span class="preprocessor">#define folio_batch_add_and_move(folio, op)     \</span></div>
+<div class="line"><span class="lineno">  205</span><span class="preprocessor">    __folio_batch_add_and_move(         \</span></div>
+<div class="line"><span class="lineno">  206</span><span class="preprocessor">        &amp;cpu_fbatches.op,           \</span></div>
+<div class="line"><span class="lineno">  207</span><span class="preprocessor">        folio,                  \</span></div>
+<div class="line"><span class="lineno">  208</span><span class="preprocessor">        op,                 \</span></div>
+<div class="line"><span class="lineno">  209</span><span class="preprocessor">        offsetof(struct cpu_fbatches, op) &gt;=    \</span></div>
+<div class="line"><span class="lineno">  210</span><span class="preprocessor">        offsetof(struct cpu_fbatches, lock_irq) \</span></div>
+<div class="line"><span class="lineno">  211</span><span class="preprocessor">    )</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -254,9 +291,80 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00116">116</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a9771cb919eeb9b116a95ada43aa7eaff" name="a9771cb919eeb9b116a95ada43aa7eaff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9771cb919eeb9b116a95ada43aa7eaff">&#9670;&#160;</a></span>__folio_batch_add_and_move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __folio_batch_add_and_move </td>
+          <td>(</td>
+          <td class="paramtype">struct folio_batch __percpu *</td>          <td class="paramname"><span class="paramname"><em>fbatch</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a55bf7162009ab53e5f6980982feff7a7">move_fn_t</a></td>          <td class="paramname"><span class="paramname"><em>move_fn</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>disable_irq</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00182">182</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  184</span>{</div>
+<div class="line"><span class="lineno">  185</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>;</div>
+<div class="line"><span class="lineno">  186</span> </div>
+<div class="line"><span class="lineno">  187</span>    folio_get(folio);</div>
+<div class="line"><span class="lineno">  188</span> </div>
+<div class="line"><span class="lineno">  189</span>    <span class="keywordflow">if</span> (disable_irq)</div>
+<div class="line"><span class="lineno">  190</span>        local_lock_irqsave(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#a3cd8b0897b2619eff87a9cde667c3b8d">lock_irq</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  191</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  192</span>        local_lock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  193</span> </div>
+<div class="line"><span class="lineno">  194</span>    <span class="keywordflow">if</span> (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||</div>
+<div class="line"><span class="lineno">  195</span>            !folio_may_be_lru_cached(folio) || lru_cache_disabled())</div>
+<div class="line"><span class="lineno">  196</span>        <a class="code hl_function" href="#ad1ba07a9053342547c7dd9290fcabce0">folio_batch_move_lru</a>(this_cpu_ptr(fbatch), move_fn);</div>
+<div class="line"><span class="lineno">  197</span> </div>
+<div class="line"><span class="lineno">  198</span>    <span class="keywordflow">if</span> (disable_irq)</div>
+<div class="line"><span class="lineno">  199</span>        local_unlock_irqrestore(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#a3cd8b0897b2619eff87a9cde667c3b8d">lock_irq</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  200</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  201</span>        local_unlock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  202</span>}</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a87339f115a0975a129ebf95946fe26d6"><div class="ttname"><a href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a></div><div class="ttdeci">static __always_inline gfp_t flags</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01021">slab.h:1022</a></div></div>
+<div class="ttc" id="astructcpu__fbatches_html_a3cd8b0897b2619eff87a9cde667c3b8d"><div class="ttname"><a href="structcpu__fbatches.html#a3cd8b0897b2619eff87a9cde667c3b8d">cpu_fbatches::lock_irq</a></div><div class="ttdeci">local_lock_t lock_irq</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00064">swap.c:64</a></div></div>
+<div class="ttc" id="astructcpu__fbatches_html_ac67887db06057091ced2072366d5eedf"><div class="ttname"><a href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">cpu_fbatches::lock</a></div><div class="ttdeci">local_lock_t lock</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00055">swap.c:55</a></div></div>
+<div class="ttc" id="aswap_8c_html_ad1ba07a9053342547c7dd9290fcabce0"><div class="ttname"><a href="#ad1ba07a9053342547c7dd9290fcabce0">folio_batch_move_lru</a></div><div class="ttdeci">static void folio_batch_move_lru(struct folio_batch *fbatch, move_fn_t move_fn)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00158">swap.c:158</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a9771cb919eeb9b116a95ada43aa7eaff_cgraph.svg" width="1371" height="299"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a000d7845bef1019d83d77856dd5861ae" name="a000d7845bef1019d83d77856dd5861ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a000d7845bef1019d83d77856dd5861ae">&#9670;&#160;</a></span>__folio_batch_release()</h2>
 
@@ -271,10 +379,20 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l01056">1056</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1057</span>{</div>
+<div class="line"><span class="lineno"> 1058</span>    <span class="keywordflow">if</span> (!fbatch-&gt;percpu_pvec_drained) {</div>
+<div class="line"><span class="lineno"> 1059</span>        <a class="code hl_function" href="#ab1c0247474c324ec2b4a26d5c3e57955">lru_add_drain</a>();</div>
+<div class="line"><span class="lineno"> 1060</span>        fbatch-&gt;percpu_pvec_drained = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 1061</span>    }</div>
+<div class="line"><span class="lineno"> 1062</span>    folios_put(fbatch);</div>
+<div class="line"><span class="lineno"> 1063</span>}</div>
+<div class="ttc" id="aswap_8c_html_ab1c0247474c324ec2b4a26d5c3e57955"><div class="ttname"><a href="#ab1c0247474c324ec2b4a26d5c3e57955">lru_add_drain</a></div><div class="ttdeci">void lru_add_drain(void)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00734">swap.c:734</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a000d7845bef1019d83d77856dd5861ae_cgraph.svg" width="479" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a000d7845bef1019d83d77856dd5861ae_cgraph.svg" width="2008" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -298,15 +416,334 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00097">97</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   98</span>{</div>
+<div class="line"><span class="lineno">   99</span>    <span class="keywordflow">if</span> (unlikely(<a class="code hl_function" href="mmzone_8h.html#addd17dbc39ee6c88ccc23df720e1cd50">folio_is_zone_device</a>(folio))) {</div>
+<div class="line"><span class="lineno">  100</span>        free_zone_device_folio(folio);</div>
+<div class="line"><span class="lineno">  101</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  102</span>    }</div>
+<div class="line"><span class="lineno">  103</span> </div>
+<div class="line"><span class="lineno">  104</span>    <span class="keywordflow">if</span> (folio_test_hugetlb(folio)) {</div>
+<div class="line"><span class="lineno">  105</span>        free_huge_folio(folio);</div>
+<div class="line"><span class="lineno">  106</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  107</span>    }</div>
+<div class="line"><span class="lineno">  108</span> </div>
+<div class="line"><span class="lineno">  109</span>    <a class="code hl_function" href="#ab8fff8504f19922ad21f1890429b2925">page_cache_release</a>(folio);</div>
+<div class="line"><span class="lineno">  110</span>    folio_unqueue_deferred_split(folio);</div>
+<div class="line"><span class="lineno">  111</span>    <a class="code hl_function" href="memcontrol_8h.html#a308c95533263f7ed0c93601803444317">mem_cgroup_uncharge</a>(folio);</div>
+<div class="line"><span class="lineno">  112</span>    <a class="code hl_function" href="page__alloc_8c.html#afcaf6e63811188badf0f7b9802c8963a">free_frozen_pages</a>(&amp;folio-&gt;page, folio_order(folio));</div>
+<div class="line"><span class="lineno">  113</span>}</div>
+<div class="ttc" id="amemcontrol_8h_html_a308c95533263f7ed0c93601803444317"><div class="ttname"><a href="memcontrol_8h.html#a308c95533263f7ed0c93601803444317">mem_cgroup_uncharge</a></div><div class="ttdeci">static void mem_cgroup_uncharge(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8h_source.html#l00782">memcontrol.h:782</a></div></div>
+<div class="ttc" id="ammzone_8h_html_addd17dbc39ee6c88ccc23df720e1cd50"><div class="ttname"><a href="mmzone_8h.html#addd17dbc39ee6c88ccc23df720e1cd50">folio_is_zone_device</a></div><div class="ttdeci">static bool folio_is_zone_device(const struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l01252">mmzone.h:1252</a></div></div>
+<div class="ttc" id="apage__alloc_8c_html_afcaf6e63811188badf0f7b9802c8963a"><div class="ttname"><a href="page__alloc_8c.html#afcaf6e63811188badf0f7b9802c8963a">free_frozen_pages</a></div><div class="ttdeci">void free_frozen_pages(struct page *page, unsigned int order)</div><div class="ttdef"><b>Definition</b> <a href="page__alloc_8c_source.html#l03022">page_alloc.c:3022</a></div></div>
+<div class="ttc" id="aswap_8c_html_ab8fff8504f19922ad21f1890429b2925"><div class="ttname"><a href="#ab8fff8504f19922ad21f1890429b2925">page_cache_release</a></div><div class="ttdeci">static void page_cache_release(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00087">swap.c:87</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a46d07cc2c81c98f89760f34341099924_cgraph.svg" width="272" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a46d07cc2c81c98f89760f34341099924_cgraph.svg" width="1664" height="1248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a46d07cc2c81c98f89760f34341099924_icgraph.svg" width="280" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a4b44dac2994765d7ed3bf070ac7711e2" name="a4b44dac2994765d7ed3bf070ac7711e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b44dac2994765d7ed3bf070ac7711e2">&#9670;&#160;</a></span>__lru_add_drain_all()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __lru_add_drain_all </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>force_all_cpus</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00797">797</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  798</span>{</div>
+<div class="line"><span class="lineno">  799</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  800</span><span class="comment">     * lru_drain_gen - Global pages generation number</span></div>
+<div class="line"><span class="lineno">  801</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  802</span><span class="comment">     * (A) Definition: global lru_drain_gen = x implies that all generations</span></div>
+<div class="line"><span class="lineno">  803</span><span class="comment">     *     0 &lt; n &lt;= x are already *scheduled* for draining.</span></div>
+<div class="line"><span class="lineno">  804</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  805</span><span class="comment">     * This is an optimization for the highly-contended use case where a</span></div>
+<div class="line"><span class="lineno">  806</span><span class="comment">     * user space workload keeps constantly generating a flow of pages for</span></div>
+<div class="line"><span class="lineno">  807</span><span class="comment">     * each CPU.</span></div>
+<div class="line"><span class="lineno">  808</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  809</span>    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lru_drain_gen;</div>
+<div class="line"><span class="lineno">  810</span>    <span class="keyword">static</span> <span class="keyword">struct </span>cpumask has_work;</div>
+<div class="line"><span class="lineno">  811</span>    <span class="keyword">static</span> <a class="code hl_function" href="cgroup_8c.html#a1004cbf06c35dfacfabf2158bb09eae6">DEFINE_MUTEX</a>(lock);</div>
+<div class="line"><span class="lineno">  812</span>    <span class="keywordtype">unsigned</span> cpu, this_gen;</div>
+<div class="line"><span class="lineno">  813</span> </div>
+<div class="line"><span class="lineno">  814</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  815</span><span class="comment">     * Make sure nobody triggers this path before mm_percpu_wq is fully</span></div>
+<div class="line"><span class="lineno">  816</span><span class="comment">     * initialized.</span></div>
+<div class="line"><span class="lineno">  817</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  818</span>    <span class="keywordflow">if</span> (WARN_ON(!mm_percpu_wq))</div>
+<div class="line"><span class="lineno">  819</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  820</span> </div>
+<div class="line"><span class="lineno">  821</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  822</span><span class="comment">     * Guarantee folio_batch counter stores visible by this CPU</span></div>
+<div class="line"><span class="lineno">  823</span><span class="comment">     * are visible to other CPUs before loading the current drain</span></div>
+<div class="line"><span class="lineno">  824</span><span class="comment">     * generation.</span></div>
+<div class="line"><span class="lineno">  825</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  826</span>    smp_mb();</div>
+<div class="line"><span class="lineno">  827</span> </div>
+<div class="line"><span class="lineno">  828</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  829</span><span class="comment">     * (B) Locally cache global LRU draining generation number</span></div>
+<div class="line"><span class="lineno">  830</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  831</span><span class="comment">     * The read barrier ensures that the counter is loaded before the mutex</span></div>
+<div class="line"><span class="lineno">  832</span><span class="comment">     * is taken. It pairs with smp_mb() inside the mutex critical section</span></div>
+<div class="line"><span class="lineno">  833</span><span class="comment">     * at (D).</span></div>
+<div class="line"><span class="lineno">  834</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  835</span>    this_gen = smp_load_acquire(&amp;lru_drain_gen);</div>
+<div class="line"><span class="lineno">  836</span> </div>
+<div class="line"><span class="lineno">  837</span>    <span class="comment">/* It helps everyone if we do our own local drain immediately. */</span></div>
+<div class="line"><span class="lineno">  838</span>    <a class="code hl_function" href="#ab1c0247474c324ec2b4a26d5c3e57955">lru_add_drain</a>();</div>
+<div class="line"><span class="lineno">  839</span> </div>
+<div class="line"><span class="lineno">  840</span>    mutex_lock(&amp;lock);</div>
+<div class="line"><span class="lineno">  841</span> </div>
+<div class="line"><span class="lineno">  842</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  843</span><span class="comment">     * (C) Exit the draining operation if a newer generation, from another</span></div>
+<div class="line"><span class="lineno">  844</span><span class="comment">     * lru_add_drain_all(), was already scheduled for draining. Check (A).</span></div>
+<div class="line"><span class="lineno">  845</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  846</span>    <span class="keywordflow">if</span> (unlikely(this_gen != lru_drain_gen &amp;&amp; !force_all_cpus))</div>
+<div class="line"><span class="lineno">  847</span>        <span class="keywordflow">goto</span> done;</div>
+<div class="line"><span class="lineno">  848</span> </div>
+<div class="line"><span class="lineno">  849</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  850</span><span class="comment">     * (D) Increment global generation number</span></div>
+<div class="line"><span class="lineno">  851</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  852</span><span class="comment">     * Pairs with smp_load_acquire() at (B), outside of the critical</span></div>
+<div class="line"><span class="lineno">  853</span><span class="comment">     * section. Use a full memory barrier to guarantee that the</span></div>
+<div class="line"><span class="lineno">  854</span><span class="comment">     * new global drain generation number is stored before loading</span></div>
+<div class="line"><span class="lineno">  855</span><span class="comment">     * folio_batch counters.</span></div>
+<div class="line"><span class="lineno">  856</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  857</span><span class="comment">     * This pairing must be done here, before the for_each_online_cpu loop</span></div>
+<div class="line"><span class="lineno">  858</span><span class="comment">     * below which drains the page vectors.</span></div>
+<div class="line"><span class="lineno">  859</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  860</span><span class="comment">     * Let x, y, and z represent some system CPU numbers, where x &lt; y &lt; z.</span></div>
+<div class="line"><span class="lineno">  861</span><span class="comment">     * Assume CPU #z is in the middle of the for_each_online_cpu loop</span></div>
+<div class="line"><span class="lineno">  862</span><span class="comment">     * below and has already reached CPU #y&#39;s per-cpu data. CPU #x comes</span></div>
+<div class="line"><span class="lineno">  863</span><span class="comment">     * along, adds some pages to its per-cpu vectors, then calls</span></div>
+<div class="line"><span class="lineno">  864</span><span class="comment">     * lru_add_drain_all().</span></div>
+<div class="line"><span class="lineno">  865</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  866</span><span class="comment">     * If the paired barrier is done at any later step, e.g. after the</span></div>
+<div class="line"><span class="lineno">  867</span><span class="comment">     * loop, CPU #x will just exit at (C) and miss flushing out all of its</span></div>
+<div class="line"><span class="lineno">  868</span><span class="comment">     * added pages.</span></div>
+<div class="line"><span class="lineno">  869</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  870</span>    WRITE_ONCE(lru_drain_gen, lru_drain_gen + 1);</div>
+<div class="line"><span class="lineno">  871</span>    smp_mb();</div>
+<div class="line"><span class="lineno">  872</span> </div>
+<div class="line"><span class="lineno">  873</span>    cpumask_clear(&amp;has_work);</div>
+<div class="line"><span class="lineno">  874</span>    for_each_online_cpu(cpu) {</div>
+<div class="line"><span class="lineno">  875</span>        <span class="keyword">struct </span>work_struct *work = &amp;per_cpu(lru_add_drain_work, cpu);</div>
+<div class="line"><span class="lineno">  876</span> </div>
+<div class="line"><span class="lineno">  877</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="#a54a8c8016d971d932585637b7b6fbe88">cpu_needs_drain</a>(cpu)) {</div>
+<div class="line"><span class="lineno">  878</span>            INIT_WORK(work, <a class="code hl_function" href="#a55fbabea5e943fec625503fad58176ea">lru_add_drain_per_cpu</a>);</div>
+<div class="line"><span class="lineno">  879</span>            queue_work_on(cpu, mm_percpu_wq, work);</div>
+<div class="line"><span class="lineno">  880</span>            __cpumask_set_cpu(cpu, &amp;has_work);</div>
+<div class="line"><span class="lineno">  881</span>        }</div>
+<div class="line"><span class="lineno">  882</span>    }</div>
+<div class="line"><span class="lineno">  883</span> </div>
+<div class="line"><span class="lineno">  884</span>    for_each_cpu(cpu, &amp;has_work)</div>
+<div class="line"><span class="lineno">  885</span>        flush_work(&amp;per_cpu(lru_add_drain_work, cpu));</div>
+<div class="line"><span class="lineno">  886</span> </div>
+<div class="line"><span class="lineno">  887</span>done:</div>
+<div class="line"><span class="lineno">  888</span>    mutex_unlock(&amp;lock);</div>
+<div class="line"><span class="lineno">  889</span>}</div>
+<div class="ttc" id="acgroup_8c_html_a1004cbf06c35dfacfabf2158bb09eae6"><div class="ttname"><a href="cgroup_8c.html#a1004cbf06c35dfacfabf2158bb09eae6">DEFINE_MUTEX</a></div><div class="ttdeci">DEFINE_MUTEX(cgroup_mutex)</div></div>
+<div class="ttc" id="aswap_8c_html_a54a8c8016d971d932585637b7b6fbe88"><div class="ttname"><a href="#a54a8c8016d971d932585637b7b6fbe88">cpu_needs_drain</a></div><div class="ttdeci">static bool cpu_needs_drain(unsigned int cpu)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00775">swap.c:775</a></div></div>
+<div class="ttc" id="aswap_8c_html_a55fbabea5e943fec625503fad58176ea"><div class="ttname"><a href="#a55fbabea5e943fec625503fad58176ea">lru_add_drain_per_cpu</a></div><div class="ttdeci">static void lru_add_drain_per_cpu(struct work_struct *dummy)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00770">swap.c:770</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a4b44dac2994765d7ed3bf070ac7711e2_cgraph.svg" width="2234" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a4b44dac2994765d7ed3bf070ac7711e2_icgraph.svg" width="1258" height="222"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a4a8f7f0ebbe48eccc3eb556913b2d732" name="a4a8f7f0ebbe48eccc3eb556913b2d732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a8f7f0ebbe48eccc3eb556913b2d732">&#9670;&#160;</a></span>__lru_cache_activate_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __lru_cache_activate_folio </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00357">357</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  358</span>{</div>
+<div class="line"><span class="lineno">  359</span>    <span class="keyword">struct </span>folio_batch *fbatch;</div>
+<div class="line"><span class="lineno">  360</span>    <span class="keywordtype">int</span> i;</div>
+<div class="line"><span class="lineno">  361</span> </div>
+<div class="line"><span class="lineno">  362</span>    local_lock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  363</span>    fbatch = this_cpu_ptr(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#a778b4ea66ae52660ea5d7ec950d9c9ee">lru_add</a>);</div>
+<div class="line"><span class="lineno">  364</span> </div>
+<div class="line"><span class="lineno">  365</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  366</span><span class="comment">     * Search backwards on the optimistic assumption that the folio being</span></div>
+<div class="line"><span class="lineno">  367</span><span class="comment">     * activated has just been added to this batch. Note that only</span></div>
+<div class="line"><span class="lineno">  368</span><span class="comment">     * the local batch is examined as a !LRU folio could be in the</span></div>
+<div class="line"><span class="lineno">  369</span><span class="comment">     * process of being released, reclaimed, migrated or on a remote</span></div>
+<div class="line"><span class="lineno">  370</span><span class="comment">     * batch that is currently being drained. Furthermore, marking</span></div>
+<div class="line"><span class="lineno">  371</span><span class="comment">     * a remote batch&#39;s folio active potentially hits a race where</span></div>
+<div class="line"><span class="lineno">  372</span><span class="comment">     * a folio is marked active just after it is added to the inactive</span></div>
+<div class="line"><span class="lineno">  373</span><span class="comment">     * list causing accounting errors and BUG_ON checks to trigger.</span></div>
+<div class="line"><span class="lineno">  374</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  375</span>    <span class="keywordflow">for</span> (i = folio_batch_count(fbatch) - 1; i &gt;= 0; i--) {</div>
+<div class="line"><span class="lineno">  376</span>        <span class="keyword">struct </span>folio *batch_folio = fbatch-&gt;folios[i];</div>
+<div class="line"><span class="lineno">  377</span> </div>
+<div class="line"><span class="lineno">  378</span>        <span class="keywordflow">if</span> (batch_folio == folio) {</div>
+<div class="line"><span class="lineno">  379</span>            folio_set_active(folio);</div>
+<div class="line"><span class="lineno">  380</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  381</span>        }</div>
+<div class="line"><span class="lineno">  382</span>    }</div>
+<div class="line"><span class="lineno">  383</span> </div>
+<div class="line"><span class="lineno">  384</span>    local_unlock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  385</span>}</div>
+<div class="ttc" id="astructcpu__fbatches_html_a778b4ea66ae52660ea5d7ec950d9c9ee"><div class="ttname"><a href="structcpu__fbatches.html#a778b4ea66ae52660ea5d7ec950d9c9ee">cpu_fbatches::lru_add</a></div><div class="ttdeci">struct folio_batch lru_add</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00056">swap.c:56</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a4a8f7f0ebbe48eccc3eb556913b2d732_icgraph.svg" width="534" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3d1ff772b18ad43501cf113add80abc7" name="a3d1ff772b18ad43501cf113add80abc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d1ff772b18ad43501cf113add80abc7">&#9670;&#160;</a></span>__page_cache_release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __page_cache_release </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structlruvec.html">lruvec</a> **</td>          <td class="paramname"><span class="paramname"><em>lruvecp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long *</td>          <td class="paramname"><span class="paramname"><em>flagsp</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00073">73</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   75</span>{</div>
+<div class="line"><span class="lineno">   76</span>    <span class="keywordflow">if</span> (folio_test_lru(folio)) {</div>
+<div class="line"><span class="lineno">   77</span>        <a class="code hl_function" href="memcontrol_8h.html#a6ee9c74fea31835e7bc33a2efef54cba">folio_lruvec_relock_irqsave</a>(folio, lruvecp, flagsp);</div>
+<div class="line"><span class="lineno">   78</span>        lruvec_del_folio(*lruvecp, folio);</div>
+<div class="line"><span class="lineno">   79</span>        __folio_clear_lru_flags(folio);</div>
+<div class="line"><span class="lineno">   80</span>    }</div>
+<div class="line"><span class="lineno">   81</span>}</div>
+<div class="ttc" id="amemcontrol_8h_html_a6ee9c74fea31835e7bc33a2efef54cba"><div class="ttname"><a href="memcontrol_8h.html#a6ee9c74fea31835e7bc33a2efef54cba">folio_lruvec_relock_irqsave</a></div><div class="ttdeci">static void folio_lruvec_relock_irqsave(struct folio *folio, struct lruvec **lruvecp, unsigned long *flags)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8h_source.html#l01703">memcontrol.h:1703</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a3d1ff772b18ad43501cf113add80abc7_cgraph.svg" width="1140" height="278"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a3d1ff772b18ad43501cf113add80abc7_icgraph.svg" width="724" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a54a8c8016d971d932585637b7b6fbe88" name="a54a8c8016d971d932585637b7b6fbe88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54a8c8016d971d932585637b7b6fbe88">&#9670;&#160;</a></span>cpu_needs_drain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cpu_needs_drain </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00775">775</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  776</span>{</div>
+<div class="line"><span class="lineno">  777</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a> *fbatches = &amp;per_cpu(<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>, cpu);</div>
+<div class="line"><span class="lineno">  778</span> </div>
+<div class="line"><span class="lineno">  779</span>    <span class="comment">/* Check these in order of likelihood that they&#39;re not zero */</span></div>
+<div class="line"><span class="lineno">  780</span>    <span class="keywordflow">return</span> folio_batch_count(&amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#a778b4ea66ae52660ea5d7ec950d9c9ee">lru_add</a>) ||</div>
+<div class="line"><span class="lineno">  781</span>        folio_batch_count(&amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#ac63a7ae5600713a30da620bb3f8aed74">lru_move_tail</a>) ||</div>
+<div class="line"><span class="lineno">  782</span>        folio_batch_count(&amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#ad5a6ebb0d4d2ff51aaa4eef31e368dcc">lru_deactivate_file</a>) ||</div>
+<div class="line"><span class="lineno">  783</span>        folio_batch_count(&amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#a45e8babf70fce405028791970cbdb9e8">lru_deactivate</a>) ||</div>
+<div class="line"><span class="lineno">  784</span>        folio_batch_count(&amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#a50fff309390e120f661f76fe62532311">lru_lazyfree</a>) ||</div>
+<div class="line"><span class="lineno">  785</span>        folio_batch_count(&amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#a44d7d13f53775c84d61bac8b7641dfd1">lru_activate</a>) ||</div>
+<div class="line"><span class="lineno">  786</span>        need_mlock_drain(cpu) ||</div>
+<div class="line"><span class="lineno">  787</span>        has_bh_in_lru(cpu, NULL);</div>
+<div class="line"><span class="lineno">  788</span>}</div>
+<div class="ttc" id="astructcpu__fbatches_html_a44d7d13f53775c84d61bac8b7641dfd1"><div class="ttname"><a href="structcpu__fbatches.html#a44d7d13f53775c84d61bac8b7641dfd1">cpu_fbatches::lru_activate</a></div><div class="ttdeci">struct folio_batch lru_activate</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00061">swap.c:61</a></div></div>
+<div class="ttc" id="astructcpu__fbatches_html_a45e8babf70fce405028791970cbdb9e8"><div class="ttname"><a href="structcpu__fbatches.html#a45e8babf70fce405028791970cbdb9e8">cpu_fbatches::lru_deactivate</a></div><div class="ttdeci">struct folio_batch lru_deactivate</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00058">swap.c:58</a></div></div>
+<div class="ttc" id="astructcpu__fbatches_html_a50fff309390e120f661f76fe62532311"><div class="ttname"><a href="structcpu__fbatches.html#a50fff309390e120f661f76fe62532311">cpu_fbatches::lru_lazyfree</a></div><div class="ttdeci">struct folio_batch lru_lazyfree</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00059">swap.c:59</a></div></div>
+<div class="ttc" id="astructcpu__fbatches_html_ac63a7ae5600713a30da620bb3f8aed74"><div class="ttname"><a href="structcpu__fbatches.html#ac63a7ae5600713a30da620bb3f8aed74">cpu_fbatches::lru_move_tail</a></div><div class="ttdeci">struct folio_batch lru_move_tail</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00065">swap.c:65</a></div></div>
+<div class="ttc" id="astructcpu__fbatches_html_ad5a6ebb0d4d2ff51aaa4eef31e368dcc"><div class="ttname"><a href="structcpu__fbatches.html#ad5a6ebb0d4d2ff51aaa4eef31e368dcc">cpu_fbatches::lru_deactivate_file</a></div><div class="ttdeci">struct folio_batch lru_deactivate_file</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00057">swap.c:57</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a54a8c8016d971d932585637b7b6fbe88_icgraph.svg" width="1424" height="222"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -329,6 +766,84 @@ Here is the caller graph for this function:</div>
 <p>This function hints to the VM that @folio is a good reclaim candidate, for example if its invalidation fails due to the folio being dirty or under writeback.</p>
 <p>Context: Caller holds a reference on the folio. </p>
 
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00686">686</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  687</span>{</div>
+<div class="line"><span class="lineno">  688</span>    <span class="comment">/* Deactivating an unevictable folio will not accelerate reclaim */</span></div>
+<div class="line"><span class="lineno">  689</span>    <span class="keywordflow">if</span> (folio_test_unevictable(folio) || !folio_test_lru(folio))</div>
+<div class="line"><span class="lineno">  690</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  691</span> </div>
+<div class="line"><span class="lineno">  692</span>    <span class="keywordflow">if</span> (lru_gen_enabled() &amp;&amp; <a class="code hl_function" href="#ab3e2158101d9963bf9641bf4224e39de">lru_gen_clear_refs</a>(folio))</div>
+<div class="line"><span class="lineno">  693</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  694</span> </div>
+<div class="line"><span class="lineno">  695</span>    <a class="code hl_define" href="#a45230958a9c9323d98f855166b25d5fd">folio_batch_add_and_move</a>(folio, <a class="code hl_function" href="#a39f8aeef59a546188e37aee6e1faa9a2">lru_deactivate_file</a>);</div>
+<div class="line"><span class="lineno">  696</span>}</div>
+<div class="ttc" id="aswap_8c_html_a39f8aeef59a546188e37aee6e1faa9a2"><div class="ttname"><a href="#a39f8aeef59a546188e37aee6e1faa9a2">lru_deactivate_file</a></div><div class="ttdeci">static void lru_deactivate_file(struct lruvec *lruvec, struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00554">swap.c:554</a></div></div>
+<div class="ttc" id="aswap_8c_html_a45230958a9c9323d98f855166b25d5fd"><div class="ttname"><a href="#a45230958a9c9323d98f855166b25d5fd">folio_batch_add_and_move</a></div><div class="ttdeci">#define folio_batch_add_and_move(folio, op)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00204">swap.c:204</a></div></div>
+<div class="ttc" id="aswap_8c_html_ab3e2158101d9963bf9641bf4224e39de"><div class="ttname"><a href="#ab3e2158101d9963bf9641bf4224e39de">lru_gen_clear_refs</a></div><div class="ttdeci">static bool lru_gen_clear_refs(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00435">swap.c:435</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_aa8909f510437417e49093e9e10a823f7_cgraph.svg" width="1086" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a763cd84b07ccec007d089f6518ac3749" name="a763cd84b07ccec007d089f6518ac3749"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a763cd84b07ccec007d089f6518ac3749">&#9670;&#160;</a></span>DEFINE_PER_CPU() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_PER_CPU </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcpu__fbatches.html">cpu_fbatches</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcpu__fbatches.html">cpu_fbatches</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7c7b151fbaf6d56de397e094ef9b40c" name="ae7c7b151fbaf6d56de397e094ef9b40c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7c7b151fbaf6d56de397e094ef9b40c">&#9670;&#160;</a></span>DEFINE_PER_CPU() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_PER_CPU </td>
+          <td>(</td>
+          <td class="paramtype">struct work_struct</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">lru_add_drain_work</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <a id="a0aba7c0a16c23834781c25dd7d19a1ab" name="a0aba7c0a16c23834781c25dd7d19a1ab"></a>
@@ -348,7 +863,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a0aba7c0a16c23834781c25dd7d19a1ab_cgraph.svg" width="664" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a0aba7c0a16c23834781c25dd7d19a1ab_cgraph.svg" width="2194" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -370,7 +885,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a80016696eef8126cfdc0655e398bf345_cgraph.svg" width="458" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a80016696eef8126cfdc0655e398bf345_cgraph.svg" width="1850" height="1451"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -392,7 +907,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a16696b4c1dd91e8ea890203c41399f06_cgraph.svg" width="291" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a16696b4c1dd91e8ea890203c41399f06_cgraph.svg" width="402" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -414,7 +929,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a5df2f96684931eb0f2c26cbd66ddd80a_cgraph.svg" width="487" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a5df2f96684931eb0f2c26cbd66ddd80a_cgraph.svg" width="1432" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -436,7 +951,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a65c2fdd64dfa873deda51d1175e38d39_cgraph.svg" width="687" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a65c2fdd64dfa873deda51d1175e38d39_cgraph.svg" width="1444" height="1507"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -458,7 +973,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_aebe0dd35d72738ce1858dfee336a1ce3_cgraph.svg" width="840" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_aebe0dd35d72738ce1858dfee336a1ce3_cgraph.svg" width="1598" height="1507"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -477,10 +992,68 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00329">329</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  330</span>{</div>
+<div class="line"><span class="lineno">  331</span>    <span class="keywordflow">if</span> (folio_test_active(folio) || folio_test_unevictable(folio) ||</div>
+<div class="line"><span class="lineno">  332</span>        !folio_test_lru(folio))</div>
+<div class="line"><span class="lineno">  333</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  334</span> </div>
+<div class="line"><span class="lineno">  335</span>    <a class="code hl_define" href="#a45230958a9c9323d98f855166b25d5fd">folio_batch_add_and_move</a>(folio, <a class="code hl_function" href="#a7369aece80e793901d5caf51da13728e">lru_activate</a>);</div>
+<div class="line"><span class="lineno">  336</span>}</div>
+<div class="ttc" id="aswap_8c_html_a7369aece80e793901d5caf51da13728e"><div class="ttname"><a href="#a7369aece80e793901d5caf51da13728e">lru_activate</a></div><div class="ttdeci">static void lru_activate(struct lruvec *lruvec, struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00303">swap.c:303</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a2ade93c7e27c2623c0dd9f0849a1e7d6_cgraph.svg" width="1010" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a2ade93c7e27c2623c0dd9f0849a1e7d6_icgraph.svg" width="487" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af35150de9a4beb63787e476dc012ab16" name="af35150de9a4beb63787e476dc012ab16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af35150de9a4beb63787e476dc012ab16">&#9670;&#160;</a></span>folio_activate_drain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void folio_activate_drain </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cpu</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00321">321</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  322</span>{</div>
+<div class="line"><span class="lineno">  323</span>    <span class="keyword">struct </span>folio_batch *fbatch = &amp;per_cpu(<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#a44d7d13f53775c84d61bac8b7641dfd1">lru_activate</a>, cpu);</div>
+<div class="line"><span class="lineno">  324</span> </div>
+<div class="line"><span class="lineno">  325</span>    <span class="keywordflow">if</span> (folio_batch_count(fbatch))</div>
+<div class="line"><span class="lineno">  326</span>        <a class="code hl_function" href="#ad1ba07a9053342547c7dd9290fcabce0">folio_batch_move_lru</a>(fbatch, <a class="code hl_function" href="#a7369aece80e793901d5caf51da13728e">lru_activate</a>);</div>
+<div class="line"><span class="lineno">  327</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_af35150de9a4beb63787e476dc012ab16_cgraph.svg" width="1690" height="479"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_af35150de9a4beb63787e476dc012ab16_icgraph.svg" width="2592" height="612"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -501,10 +1074,30 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>folio_add_lru - Add a folio to an LRU list. @folio: The folio to be added to the LRU.</p>
 <p>Queue the folio for addition to the LRU. The decision on whether to add the page to the [in]active [file|anon] list is deferred until the folio_batch is drained. This gives a chance for the caller of <a class="el" href="#a748e20c79b2f3f9a7861641784e180ba">folio_add_lru()</a> have the folio added to the active list using <a class="el" href="#a64ea14cffb102246a5569d2f5c9f2a3d">folio_mark_accessed()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00500">500</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  501</span>{</div>
+<div class="line"><span class="lineno">  502</span>    VM_BUG_ON_FOLIO(folio_test_active(folio) &amp;&amp;</div>
+<div class="line"><span class="lineno">  503</span>            folio_test_unevictable(folio), folio);</div>
+<div class="line"><span class="lineno">  504</span>    VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);</div>
+<div class="line"><span class="lineno">  505</span> </div>
+<div class="line"><span class="lineno">  506</span>    <span class="comment">/* see the comment in lru_gen_folio_seq() */</span></div>
+<div class="line"><span class="lineno">  507</span>    <span class="keywordflow">if</span> (lru_gen_enabled() &amp;&amp; !folio_test_unevictable(folio) &amp;&amp;</div>
+<div class="line"><span class="lineno">  508</span>        lru_gen_in_fault() &amp;&amp; !(current-&gt;flags &amp; PF_MEMALLOC))</div>
+<div class="line"><span class="lineno">  509</span>        folio_set_active(folio);</div>
+<div class="line"><span class="lineno">  510</span> </div>
+<div class="line"><span class="lineno">  511</span>    <a class="code hl_define" href="#a45230958a9c9323d98f855166b25d5fd">folio_batch_add_and_move</a>(folio, <a class="code hl_function" href="#ab0b3b543583b6d9406b5a1568715ec72">lru_add</a>);</div>
+<div class="line"><span class="lineno">  512</span>}</div>
+<div class="ttc" id="aswap_8c_html_ab0b3b543583b6d9406b5a1568715ec72"><div class="ttname"><a href="#ab0b3b543583b6d9406b5a1568715ec72">lru_add</a></div><div class="ttdeci">static void lru_add(struct lruvec *lruvec, struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00118">swap.c:118</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a748e20c79b2f3f9a7861641784e180ba_cgraph.svg" width="216" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a748e20c79b2f3f9a7861641784e180ba_icgraph.svg" width="291" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a748e20c79b2f3f9a7861641784e180ba_icgraph.svg" width="2788" height="678"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -529,10 +1122,91 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p><a class="el" href="#aa2df6e948a26f4d288787917fb948208">folio_add_lru_vma()</a> - Add a folio to the appropriate LRU list for this VMA. @folio: The folio to be added to the LRU. @vma: VMA in which the folio is mapped.</p>
 <p>If the VMA is mlocked, @folio is added to the unevictable list. Otherwise, it is treated the same way as <a class="el" href="#a748e20c79b2f3f9a7861641784e180ba">folio_add_lru()</a>. </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00523">523</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  524</span>{</div>
+<div class="line"><span class="lineno">  525</span>    VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);</div>
+<div class="line"><span class="lineno">  526</span> </div>
+<div class="line"><span class="lineno">  527</span>    <span class="keywordflow">if</span> (unlikely((vma-&gt;vm_flags &amp; (VM_LOCKED | VM_SPECIAL)) == VM_LOCKED))</div>
+<div class="line"><span class="lineno">  528</span>        mlock_new_folio(folio);</div>
+<div class="line"><span class="lineno">  529</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  530</span>        <a class="code hl_function" href="#a748e20c79b2f3f9a7861641784e180ba">folio_add_lru</a>(folio);</div>
+<div class="line"><span class="lineno">  531</span>}</div>
+<div class="ttc" id="aswap_8c_html_a748e20c79b2f3f9a7861641784e180ba"><div class="ttname"><a href="#a748e20c79b2f3f9a7861641784e180ba">folio_add_lru</a></div><div class="ttdeci">void folio_add_lru(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00500">swap.c:500</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_aa2df6e948a26f4d288787917fb948208_cgraph.svg" width="280" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_aa2df6e948a26f4d288787917fb948208_cgraph.svg" width="391" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_aa2df6e948a26f4d288787917fb948208_icgraph.svg" width="1560" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad1ba07a9053342547c7dd9290fcabce0" name="ad1ba07a9053342547c7dd9290fcabce0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1ba07a9053342547c7dd9290fcabce0">&#9670;&#160;</a></span>folio_batch_move_lru()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void folio_batch_move_lru </td>
+          <td>(</td>
+          <td class="paramtype">struct folio_batch *</td>          <td class="paramname"><span class="paramname"><em>fbatch</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a55bf7162009ab53e5f6980982feff7a7">move_fn_t</a></td>          <td class="paramname"><span class="paramname"><em>move_fn</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00158">158</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  159</span>{</div>
+<div class="line"><span class="lineno">  160</span>    <span class="keywordtype">int</span> i;</div>
+<div class="line"><span class="lineno">  161</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structlruvec.html">lruvec</a> *<a class="code hl_struct" href="structlruvec.html">lruvec</a> = NULL;</div>
+<div class="line"><span class="lineno">  162</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a> = 0;</div>
+<div class="line"><span class="lineno">  163</span> </div>
+<div class="line"><span class="lineno">  164</span>    <span class="keywordflow">for</span> (i = 0; i &lt; folio_batch_count(fbatch); i++) {</div>
+<div class="line"><span class="lineno">  165</span>        <span class="keyword">struct </span>folio *folio = fbatch-&gt;folios[i];</div>
+<div class="line"><span class="lineno">  166</span> </div>
+<div class="line"><span class="lineno">  167</span>        <span class="comment">/* block memcg migration while the folio moves between lru */</span></div>
+<div class="line"><span class="lineno">  168</span>        <span class="keywordflow">if</span> (move_fn != <a class="code hl_function" href="#ab0b3b543583b6d9406b5a1568715ec72">lru_add</a> &amp;&amp; !folio_test_clear_lru(folio))</div>
+<div class="line"><span class="lineno">  169</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  170</span> </div>
+<div class="line"><span class="lineno">  171</span>        <a class="code hl_function" href="memcontrol_8h.html#a6ee9c74fea31835e7bc33a2efef54cba">folio_lruvec_relock_irqsave</a>(folio, &amp;<a class="code hl_struct" href="structlruvec.html">lruvec</a>, &amp;<a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  172</span>        move_fn(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  173</span> </div>
+<div class="line"><span class="lineno">  174</span>        folio_set_lru(folio);</div>
+<div class="line"><span class="lineno">  175</span>    }</div>
+<div class="line"><span class="lineno">  176</span> </div>
+<div class="line"><span class="lineno">  177</span>    <span class="keywordflow">if</span> (<a class="code hl_struct" href="structlruvec.html">lruvec</a>)</div>
+<div class="line"><span class="lineno">  178</span>        <a class="code hl_function" href="memcontrol_8h.html#abe13a2546d8a94a5c7a5c208153c4d31">unlock_page_lruvec_irqrestore</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  179</span>    folios_put(fbatch);</div>
+<div class="line"><span class="lineno">  180</span>}</div>
+<div class="ttc" id="amemcontrol_8h_html_abe13a2546d8a94a5c7a5c208153c4d31"><div class="ttname"><a href="memcontrol_8h.html#abe13a2546d8a94a5c7a5c208153c4d31">unlock_page_lruvec_irqrestore</a></div><div class="ttdeci">static void unlock_page_lruvec_irqrestore(struct lruvec *lruvec, unsigned long flags)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8h_source.html#l01674">memcontrol.h:1674</a></div></div>
+<div class="ttc" id="astructlruvec_html"><div class="ttname"><a href="structlruvec.html">lruvec</a></div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l00669">mmzone.h:669</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ad1ba07a9053342547c7dd9290fcabce0_cgraph.svg" width="1130" height="299"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ad1ba07a9053342547c7dd9290fcabce0_icgraph.svg" width="2844" height="542"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -554,6 +1228,18 @@ Here is the call graph for this function:</div>
 <p><a class="el" href="#a023928eab59882763a081966f8f2e4e8">folio_batch_remove_exceptionals()</a> - Prune non-folios from a batch. @fbatch: The batch to prune</p>
 <p>find_get_entries() fills a batch with both folios and shadow/swap/DAX entries. This function prunes all the non-folio entries from @fbatch without leaving holes, so that it can be passed on to folio-only batch operations. </p>
 
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l01075">1075</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1076</span>{</div>
+<div class="line"><span class="lineno"> 1077</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, j;</div>
+<div class="line"><span class="lineno"> 1078</span> </div>
+<div class="line"><span class="lineno"> 1079</span>    <span class="keywordflow">for</span> (i = 0, j = 0; i &lt; folio_batch_count(fbatch); i++) {</div>
+<div class="line"><span class="lineno"> 1080</span>        <span class="keyword">struct </span>folio *folio = fbatch-&gt;folios[i];</div>
+<div class="line"><span class="lineno"> 1081</span>        <span class="keywordflow">if</span> (!xa_is_value(folio))</div>
+<div class="line"><span class="lineno"> 1082</span>            fbatch-&gt;folios[j++] = folio;</div>
+<div class="line"><span class="lineno"> 1083</span>    }</div>
+<div class="line"><span class="lineno"> 1084</span>    fbatch-&gt;nr = j;</div>
+<div class="line"><span class="lineno"> 1085</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="abeeef6f333b42e5b34eea1faa9dcbe0a" name="abeeef6f333b42e5b34eea1faa9dcbe0a"></a>
@@ -570,6 +1256,23 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00706">706</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  707</span>{</div>
+<div class="line"><span class="lineno">  708</span>    <span class="keywordflow">if</span> (folio_test_unevictable(folio) || !folio_test_lru(folio))</div>
+<div class="line"><span class="lineno">  709</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  710</span> </div>
+<div class="line"><span class="lineno">  711</span>    <span class="keywordflow">if</span> (lru_gen_enabled() ? <a class="code hl_function" href="#ab3e2158101d9963bf9641bf4224e39de">lru_gen_clear_refs</a>(folio) : !folio_test_active(folio))</div>
+<div class="line"><span class="lineno">  712</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  713</span> </div>
+<div class="line"><span class="lineno">  714</span>    <a class="code hl_define" href="#a45230958a9c9323d98f855166b25d5fd">folio_batch_add_and_move</a>(folio, <a class="code hl_function" href="#a0c4804e592f8b9c2091ebe70425ea94a">lru_deactivate</a>);</div>
+<div class="line"><span class="lineno">  715</span>}</div>
+<div class="ttc" id="aswap_8c_html_a0c4804e592f8b9c2091ebe70425ea94a"><div class="ttname"><a href="#a0c4804e592f8b9c2091ebe70425ea94a">lru_deactivate</a></div><div class="ttdeci">static void lru_deactivate(struct lruvec *lruvec, struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00595">swap.c:595</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_abeeef6f333b42e5b34eea1faa9dcbe0a_cgraph.svg" width="1062" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -595,10 +1298,48 @@ Here is the call graph for this function:</div>
 <li>active,unreferenced -&gt; active,referenced</li>
 </ul>
 <p>When a newly allocated folio is not yet visible, so safe for non-atomic ops, __folio_set_referenced() may be substituted for <a class="el" href="#a64ea14cffb102246a5569d2f5c9f2a3d">folio_mark_accessed()</a>. </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00455">455</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  456</span>{</div>
+<div class="line"><span class="lineno">  457</span>    <span class="keywordflow">if</span> (folio_test_dropbehind(folio))</div>
+<div class="line"><span class="lineno">  458</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  459</span>    <span class="keywordflow">if</span> (lru_gen_enabled()) {</div>
+<div class="line"><span class="lineno">  460</span>        <a class="code hl_function" href="#a27c5ead57da1493a72cc91446819fe46">lru_gen_inc_refs</a>(folio);</div>
+<div class="line"><span class="lineno">  461</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  462</span>    }</div>
+<div class="line"><span class="lineno">  463</span> </div>
+<div class="line"><span class="lineno">  464</span>    <span class="keywordflow">if</span> (!folio_test_referenced(folio)) {</div>
+<div class="line"><span class="lineno">  465</span>        folio_set_referenced(folio);</div>
+<div class="line"><span class="lineno">  466</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (folio_test_unevictable(folio)) {</div>
+<div class="line"><span class="lineno">  467</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  468</span><span class="comment">         * Unevictable pages are on the &quot;LRU_UNEVICTABLE&quot; list. But,</span></div>
+<div class="line"><span class="lineno">  469</span><span class="comment">         * this list is never rotated or maintained, so marking an</span></div>
+<div class="line"><span class="lineno">  470</span><span class="comment">         * unevictable page accessed has no effect.</span></div>
+<div class="line"><span class="lineno">  471</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  472</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!folio_test_active(folio)) {</div>
+<div class="line"><span class="lineno">  473</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  474</span><span class="comment">         * If the folio is on the LRU, queue it for activation via</span></div>
+<div class="line"><span class="lineno">  475</span><span class="comment">         * cpu_fbatches.lru_activate. Otherwise, assume the folio is in a</span></div>
+<div class="line"><span class="lineno">  476</span><span class="comment">         * folio_batch, mark it active and it&#39;ll be moved to the active</span></div>
+<div class="line"><span class="lineno">  477</span><span class="comment">         * LRU on the next drain.</span></div>
+<div class="line"><span class="lineno">  478</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  479</span>        <span class="keywordflow">if</span> (folio_test_lru(folio))</div>
+<div class="line"><span class="lineno">  480</span>            <a class="code hl_function" href="#a2ade93c7e27c2623c0dd9f0849a1e7d6">folio_activate</a>(folio);</div>
+<div class="line"><span class="lineno">  481</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  482</span>            <a class="code hl_function" href="#a4a8f7f0ebbe48eccc3eb556913b2d732">__lru_cache_activate_folio</a>(folio);</div>
+<div class="line"><span class="lineno">  483</span>        folio_clear_referenced(folio);</div>
+<div class="line"><span class="lineno">  484</span>        workingset_activation(folio);</div>
+<div class="line"><span class="lineno">  485</span>    }</div>
+<div class="line"><span class="lineno">  486</span>    <span class="keywordflow">if</span> (folio_test_idle(folio))</div>
+<div class="line"><span class="lineno">  487</span>        folio_clear_idle(folio);</div>
+<div class="line"><span class="lineno">  488</span>}</div>
+<div class="ttc" id="aswap_8c_html_a27c5ead57da1493a72cc91446819fe46"><div class="ttname"><a href="#a27c5ead57da1493a72cc91446819fe46">lru_gen_inc_refs</a></div><div class="ttdeci">static void lru_gen_inc_refs(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00431">swap.c:431</a></div></div>
+<div class="ttc" id="aswap_8c_html_a2ade93c7e27c2623c0dd9f0849a1e7d6"><div class="ttname"><a href="#a2ade93c7e27c2623c0dd9f0849a1e7d6">folio_activate</a></div><div class="ttdeci">void folio_activate(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00329">swap.c:329</a></div></div>
+<div class="ttc" id="aswap_8c_html_a4a8f7f0ebbe48eccc3eb556913b2d732"><div class="ttname"><a href="#a4a8f7f0ebbe48eccc3eb556913b2d732">__lru_cache_activate_folio</a></div><div class="ttdeci">static void __lru_cache_activate_folio(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00357">swap.c:357</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d_cgraph.svg" width="302" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d_cgraph.svg" width="1247" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -625,6 +1366,22 @@ Here is the caller graph for this function:</div>
 <p>folio_mark_lazyfree - make an anon folio lazyfree @folio: folio to deactivate</p>
 <p><a class="el" href="#a9d8f2f07ba5a50346adb5931c168e9f0">folio_mark_lazyfree()</a> moves @folio to the inactive file list. This is done to accelerate the reclaim of @folio. </p>
 
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00724">724</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  725</span>{</div>
+<div class="line"><span class="lineno">  726</span>    <span class="keywordflow">if</span> (!folio_test_anon(folio) || !folio_test_swapbacked(folio) ||</div>
+<div class="line"><span class="lineno">  727</span>        !folio_test_lru(folio) ||</div>
+<div class="line"><span class="lineno">  728</span>        folio_test_swapcache(folio) || folio_test_unevictable(folio))</div>
+<div class="line"><span class="lineno">  729</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  730</span> </div>
+<div class="line"><span class="lineno">  731</span>    <a class="code hl_define" href="#a45230958a9c9323d98f855166b25d5fd">folio_batch_add_and_move</a>(folio, <a class="code hl_function" href="#a669e21ea6f543836bb26517e3b2721c3">lru_lazyfree</a>);</div>
+<div class="line"><span class="lineno">  732</span>}</div>
+<div class="ttc" id="aswap_8c_html_a669e21ea6f543836bb26517e3b2721c3"><div class="ttname"><a href="#a669e21ea6f543836bb26517e3b2721c3">lru_lazyfree</a></div><div class="ttdeci">static void lru_lazyfree(struct lruvec *lruvec, struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00611">swap.c:611</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a9d8f2f07ba5a50346adb5931c168e9f0_cgraph.svg" width="1046" height="194"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="ac7d49ec61e56c72c8a3ff7af8bbb2559" name="ac7d49ec61e56c72c8a3ff7af8bbb2559"></a>
@@ -641,6 +1398,21 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00231">231</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  232</span>{</div>
+<div class="line"><span class="lineno">  233</span>    <span class="keywordflow">if</span> (folio_test_locked(folio) || folio_test_dirty(folio) ||</div>
+<div class="line"><span class="lineno">  234</span>        folio_test_unevictable(folio) || !folio_test_lru(folio))</div>
+<div class="line"><span class="lineno">  235</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  236</span> </div>
+<div class="line"><span class="lineno">  237</span>    <a class="code hl_define" href="#a45230958a9c9323d98f855166b25d5fd">folio_batch_add_and_move</a>(folio, <a class="code hl_function" href="#a726a92c46bc89d3fd80d8313e514d851">lru_move_tail</a>);</div>
+<div class="line"><span class="lineno">  238</span>}</div>
+<div class="ttc" id="aswap_8c_html_a726a92c46bc89d3fd80d8313e514d851"><div class="ttname"><a href="#a726a92c46bc89d3fd80d8313e514d851">lru_move_tail</a></div><div class="ttdeci">static void lru_move_tail(struct lruvec *lruvec, struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00213">swap.c:213</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ac7d49ec61e56c72c8a3ff7af8bbb2559_cgraph.svg" width="316" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -665,15 +1437,249 @@ Here is the caller graph for this function:</div>
 <p>folios_put_refs - Reduce the reference count on a batch of folios. @folios: The folios. @refs: The number of refs to subtract from each folio.</p>
 <p>Like folio_put(), but for a batch of folios. This is more efficient than writing the loop yourself as it will optimise the locks which need to be taken if the folios are freed. The folios batch is returned empty and ready to be reused for another batch; there is no need to reinitialise it. If @refs is NULL, we subtract one from each folio refcount.</p>
 <p>Context: May be called in process or interrupt context, but not in NMI context. May be called while holding a spinlock. </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00951">951</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  952</span>{</div>
+<div class="line"><span class="lineno">  953</span>    <span class="keywordtype">int</span> i, j;</div>
+<div class="line"><span class="lineno">  954</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structlruvec.html">lruvec</a> *<a class="code hl_struct" href="structlruvec.html">lruvec</a> = NULL;</div>
+<div class="line"><span class="lineno">  955</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a> = 0;</div>
+<div class="line"><span class="lineno">  956</span> </div>
+<div class="line"><span class="lineno">  957</span>    <span class="keywordflow">for</span> (i = 0, j = 0; i &lt; folios-&gt;nr; i++) {</div>
+<div class="line"><span class="lineno">  958</span>        <span class="keyword">struct </span>folio *folio = folios-&gt;folios[i];</div>
+<div class="line"><span class="lineno">  959</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nr_refs = refs ? refs[i] : 1;</div>
+<div class="line"><span class="lineno">  960</span> </div>
+<div class="line"><span class="lineno">  961</span>        <span class="keywordflow">if</span> (is_huge_zero_folio(folio))</div>
+<div class="line"><span class="lineno">  962</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  963</span> </div>
+<div class="line"><span class="lineno">  964</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="mmzone_8h.html#addd17dbc39ee6c88ccc23df720e1cd50">folio_is_zone_device</a>(folio)) {</div>
+<div class="line"><span class="lineno">  965</span>            <span class="keywordflow">if</span> (<a class="code hl_struct" href="structlruvec.html">lruvec</a>) {</div>
+<div class="line"><span class="lineno">  966</span>                <a class="code hl_function" href="memcontrol_8h.html#abe13a2546d8a94a5c7a5c208153c4d31">unlock_page_lruvec_irqrestore</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  967</span>                <a class="code hl_struct" href="structlruvec.html">lruvec</a> = NULL;</div>
+<div class="line"><span class="lineno">  968</span>            }</div>
+<div class="line"><span class="lineno">  969</span>            <span class="keywordflow">if</span> (folio_ref_sub_and_test(folio, nr_refs))</div>
+<div class="line"><span class="lineno">  970</span>                free_zone_device_folio(folio);</div>
+<div class="line"><span class="lineno">  971</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  972</span>        }</div>
+<div class="line"><span class="lineno">  973</span> </div>
+<div class="line"><span class="lineno">  974</span>        <span class="keywordflow">if</span> (!folio_ref_sub_and_test(folio, nr_refs))</div>
+<div class="line"><span class="lineno">  975</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  976</span> </div>
+<div class="line"><span class="lineno">  977</span>        <span class="comment">/* hugetlb has its own memcg */</span></div>
+<div class="line"><span class="lineno">  978</span>        <span class="keywordflow">if</span> (folio_test_hugetlb(folio)) {</div>
+<div class="line"><span class="lineno">  979</span>            <span class="keywordflow">if</span> (<a class="code hl_struct" href="structlruvec.html">lruvec</a>) {</div>
+<div class="line"><span class="lineno">  980</span>                <a class="code hl_function" href="memcontrol_8h.html#abe13a2546d8a94a5c7a5c208153c4d31">unlock_page_lruvec_irqrestore</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  981</span>                <a class="code hl_struct" href="structlruvec.html">lruvec</a> = NULL;</div>
+<div class="line"><span class="lineno">  982</span>            }</div>
+<div class="line"><span class="lineno">  983</span>            free_huge_folio(folio);</div>
+<div class="line"><span class="lineno">  984</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  985</span>        }</div>
+<div class="line"><span class="lineno">  986</span>        folio_unqueue_deferred_split(folio);</div>
+<div class="line"><span class="lineno">  987</span>        <a class="code hl_function" href="#a3d1ff772b18ad43501cf113add80abc7">__page_cache_release</a>(folio, &amp;<a class="code hl_struct" href="structlruvec.html">lruvec</a>, &amp;<a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  988</span> </div>
+<div class="line"><span class="lineno">  989</span>        <span class="keywordflow">if</span> (j != i)</div>
+<div class="line"><span class="lineno">  990</span>            folios-&gt;folios[j] = folio;</div>
+<div class="line"><span class="lineno">  991</span>        j++;</div>
+<div class="line"><span class="lineno">  992</span>    }</div>
+<div class="line"><span class="lineno">  993</span>    <span class="keywordflow">if</span> (<a class="code hl_struct" href="structlruvec.html">lruvec</a>)</div>
+<div class="line"><span class="lineno">  994</span>        <a class="code hl_function" href="memcontrol_8h.html#abe13a2546d8a94a5c7a5c208153c4d31">unlock_page_lruvec_irqrestore</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  995</span>    <span class="keywordflow">if</span> (!j) {</div>
+<div class="line"><span class="lineno">  996</span>        folio_batch_reinit(folios);</div>
+<div class="line"><span class="lineno">  997</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  998</span>    }</div>
+<div class="line"><span class="lineno">  999</span> </div>
+<div class="line"><span class="lineno"> 1000</span>    folios-&gt;nr = j;</div>
+<div class="line"><span class="lineno"> 1001</span>    <a class="code hl_function" href="memcontrol_8h.html#ae8caa9e7536786624db0dd2411571f41">mem_cgroup_uncharge_folios</a>(folios);</div>
+<div class="line"><span class="lineno"> 1002</span>    <a class="code hl_function" href="page__alloc_8c.html#ac5e35526aeea87923990814980e60782">free_unref_folios</a>(folios);</div>
+<div class="line"><span class="lineno"> 1003</span>}</div>
+<div class="ttc" id="amemcontrol_8h_html_ae8caa9e7536786624db0dd2411571f41"><div class="ttname"><a href="memcontrol_8h.html#ae8caa9e7536786624db0dd2411571f41">mem_cgroup_uncharge_folios</a></div><div class="ttdeci">static void mem_cgroup_uncharge_folios(struct folio_batch *folios)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8h_source.html#l00794">memcontrol.h:794</a></div></div>
+<div class="ttc" id="apage__alloc_8c_html_ac5e35526aeea87923990814980e60782"><div class="ttname"><a href="page__alloc_8c.html#ac5e35526aeea87923990814980e60782">free_unref_folios</a></div><div class="ttdeci">void free_unref_folios(struct folio_batch *folios)</div><div class="ttdef"><b>Definition</b> <a href="page__alloc_8c_source.html#l03035">page_alloc.c:3035</a></div></div>
+<div class="ttc" id="aswap_8c_html_a3d1ff772b18ad43501cf113add80abc7"><div class="ttname"><a href="#a3d1ff772b18ad43501cf113add80abc7">__page_cache_release</a></div><div class="ttdeci">static void __page_cache_release(struct folio *folio, struct lruvec **lruvecp, unsigned long *flagsp)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00073">swap.c:73</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a65d7ad226963eb57392114c5157c116b_cgraph.svg" width="502" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a65d7ad226963eb57392114c5157c116b_cgraph.svg" width="1259" height="1507"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a65d7ad226963eb57392114c5157c116b_icgraph.svg" width="488" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7369aece80e793901d5caf51da13728e" name="a7369aece80e793901d5caf51da13728e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7369aece80e793901d5caf51da13728e">&#9670;&#160;</a></span>lru_activate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lru_activate </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlruvec.html">lruvec</a> *</td>          <td class="paramname"><span class="paramname"><em>lruvec</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00303">303</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  304</span>{</div>
+<div class="line"><span class="lineno">  305</span>    <span class="keywordtype">long</span> nr_pages = folio_nr_pages(folio);</div>
+<div class="line"><span class="lineno">  306</span> </div>
+<div class="line"><span class="lineno">  307</span>    <span class="keywordflow">if</span> (folio_test_active(folio) || folio_test_unevictable(folio))</div>
+<div class="line"><span class="lineno">  308</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  309</span> </div>
+<div class="line"><span class="lineno">  310</span> </div>
+<div class="line"><span class="lineno">  311</span>    lruvec_del_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  312</span>    folio_set_active(folio);</div>
+<div class="line"><span class="lineno">  313</span>    lruvec_add_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  314</span>    trace_mm_lru_activate(folio);</div>
+<div class="line"><span class="lineno">  315</span> </div>
+<div class="line"><span class="lineno">  316</span>    __count_vm_events(PGACTIVATE, nr_pages);</div>
+<div class="line"><span class="lineno">  317</span>    <a class="code hl_function" href="memcontrol_8h.html#aef3cd4917378d2e713e787562c6e546b">count_memcg_events</a>(<a class="code hl_function" href="memcontrol_8h.html#a663d5383303493f1fdcef387c84cf349">lruvec_memcg</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>), PGACTIVATE, nr_pages);</div>
+<div class="line"><span class="lineno">  318</span>}</div>
+<div class="ttc" id="amemcontrol_8h_html_a663d5383303493f1fdcef387c84cf349"><div class="ttname"><a href="memcontrol_8h.html#a663d5383303493f1fdcef387c84cf349">lruvec_memcg</a></div><div class="ttdeci">static struct mem_cgroup * lruvec_memcg(struct lruvec *lruvec)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8h_source.html#l00989">memcontrol.h:989</a></div></div>
+<div class="ttc" id="amemcontrol_8h_html_aef3cd4917378d2e713e787562c6e546b"><div class="ttname"><a href="memcontrol_8h.html#aef3cd4917378d2e713e787562c6e546b">count_memcg_events</a></div><div class="ttdeci">void count_memcg_events(struct mem_cgroup *memcg, enum vm_event_item idx, unsigned long count)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8c_source.html#l00842">memcontrol.c:842</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a7369aece80e793901d5caf51da13728e_cgraph.svg" width="863" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a7369aece80e793901d5caf51da13728e_icgraph.svg" width="2746" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab0b3b543583b6d9406b5a1568715ec72" name="ab0b3b543583b6d9406b5a1568715ec72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0b3b543583b6d9406b5a1568715ec72">&#9670;&#160;</a></span>lru_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lru_add </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlruvec.html">lruvec</a> *</td>          <td class="paramname"><span class="paramname"><em>lruvec</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00118">118</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  119</span>{</div>
+<div class="line"><span class="lineno">  120</span>    <span class="keywordtype">int</span> was_unevictable = folio_test_clear_unevictable(folio);</div>
+<div class="line"><span class="lineno">  121</span>    <span class="keywordtype">long</span> nr_pages = folio_nr_pages(folio);</div>
+<div class="line"><span class="lineno">  122</span> </div>
+<div class="line"><span class="lineno">  123</span>    VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);</div>
+<div class="line"><span class="lineno">  124</span> </div>
+<div class="line"><span class="lineno">  125</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  126</span><span class="comment">     * Is an smp_mb__after_atomic() still required here, before</span></div>
+<div class="line"><span class="lineno">  127</span><span class="comment">     * folio_evictable() tests the mlocked flag, to rule out the possibility</span></div>
+<div class="line"><span class="lineno">  128</span><span class="comment">     * of stranding an evictable folio on an unevictable LRU?  I think</span></div>
+<div class="line"><span class="lineno">  129</span><span class="comment">     * not, because __munlock_folio() only clears the mlocked flag</span></div>
+<div class="line"><span class="lineno">  130</span><span class="comment">     * while the LRU lock is held.</span></div>
+<div class="line"><span class="lineno">  131</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  132</span><span class="comment">     * (That is not true of __page_cache_release(), and not necessarily</span></div>
+<div class="line"><span class="lineno">  133</span><span class="comment">     * true of folios_put(): but those only clear the mlocked flag after</span></div>
+<div class="line"><span class="lineno">  134</span><span class="comment">     * folio_put_testzero() has excluded any other users of the folio.)</span></div>
+<div class="line"><span class="lineno">  135</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  136</span>    <span class="keywordflow">if</span> (folio_evictable(folio)) {</div>
+<div class="line"><span class="lineno">  137</span>        <span class="keywordflow">if</span> (was_unevictable)</div>
+<div class="line"><span class="lineno">  138</span>            __count_vm_events(UNEVICTABLE_PGRESCUED, nr_pages);</div>
+<div class="line"><span class="lineno">  139</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  140</span>        folio_clear_active(folio);</div>
+<div class="line"><span class="lineno">  141</span>        folio_set_unevictable(folio);</div>
+<div class="line"><span class="lineno">  142</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  143</span><span class="comment">         * folio-&gt;mlock_count = !!folio_test_mlocked(folio)?</span></div>
+<div class="line"><span class="lineno">  144</span><span class="comment">         * But that leaves __mlock_folio() in doubt whether another</span></div>
+<div class="line"><span class="lineno">  145</span><span class="comment">         * actor has already counted the mlock or not.  Err on the</span></div>
+<div class="line"><span class="lineno">  146</span><span class="comment">         * safe side, underestimate, let page reclaim fix it, rather</span></div>
+<div class="line"><span class="lineno">  147</span><span class="comment">         * than leaving a page on the unevictable LRU indefinitely.</span></div>
+<div class="line"><span class="lineno">  148</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  149</span>        folio-&gt;mlock_count = 0;</div>
+<div class="line"><span class="lineno">  150</span>        <span class="keywordflow">if</span> (!was_unevictable)</div>
+<div class="line"><span class="lineno">  151</span>            __count_vm_events(UNEVICTABLE_PGCULLED, nr_pages);</div>
+<div class="line"><span class="lineno">  152</span>    }</div>
+<div class="line"><span class="lineno">  153</span> </div>
+<div class="line"><span class="lineno">  154</span>    lruvec_add_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  155</span>    trace_mm_lru_insertion(folio);</div>
+<div class="line"><span class="lineno">  156</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ab0b3b543583b6d9406b5a1568715ec72_icgraph.svg" width="2570" height="443"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a53ca0a3d9e61a4d61d14a8e5529a0aa1" name="a53ca0a3d9e61a4d61d14a8e5529a0aa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53ca0a3d9e61a4d61d14a8e5529a0aa1">&#9670;&#160;</a></span>lru_add_and_bh_lrus_drain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lru_add_and_bh_lrus_drain </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00748">748</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  749</span>{</div>
+<div class="line"><span class="lineno">  750</span>    local_lock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  751</span>    <a class="code hl_function" href="#af45ab7c311a3a462f207ff31cf7d4a69">lru_add_drain_cpu</a>(smp_processor_id());</div>
+<div class="line"><span class="lineno">  752</span>    local_unlock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  753</span>    invalidate_bh_lrus_cpu();</div>
+<div class="line"><span class="lineno">  754</span>    mlock_drain_local();</div>
+<div class="line"><span class="lineno">  755</span>}</div>
+<div class="ttc" id="aswap_8c_html_af45ab7c311a3a462f207ff31cf7d4a69"><div class="ttname"><a href="#af45ab7c311a3a462f207ff31cf7d4a69">lru_add_drain_cpu</a></div><div class="ttdeci">void lru_add_drain_cpu(int cpu)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00642">swap.c:642</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a53ca0a3d9e61a4d61d14a8e5529a0aa1_cgraph.svg" width="1855" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a53ca0a3d9e61a4d61d14a8e5529a0aa1_icgraph.svg" width="1646" height="222"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -692,15 +1698,23 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00734">734</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  735</span>{</div>
+<div class="line"><span class="lineno">  736</span>    local_lock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  737</span>    <a class="code hl_function" href="#af45ab7c311a3a462f207ff31cf7d4a69">lru_add_drain_cpu</a>(smp_processor_id());</div>
+<div class="line"><span class="lineno">  738</span>    local_unlock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  739</span>    mlock_drain_local();</div>
+<div class="line"><span class="lineno">  740</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ab1c0247474c324ec2b4a26d5c3e57955_cgraph.svg" width="284" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ab1c0247474c324ec2b4a26d5c3e57955_cgraph.svg" width="1812" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ab1c0247474c324ec2b4a26d5c3e57955_icgraph.svg" width="508" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ab1c0247474c324ec2b4a26d5c3e57955_icgraph.svg" width="2524" height="678"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -719,15 +1733,21 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00891">891</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  892</span>{</div>
+<div class="line"><span class="lineno">  893</span>    <a class="code hl_function" href="#a4b44dac2994765d7ed3bf070ac7711e2">__lru_add_drain_all</a>(<span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  894</span>}</div>
+<div class="ttc" id="aswap_8c_html_a4b44dac2994765d7ed3bf070ac7711e2"><div class="ttname"><a href="#a4b44dac2994765d7ed3bf070ac7711e2">__lru_add_drain_all</a></div><div class="ttdeci">static void __lru_add_drain_all(bool force_all_cpus)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00797">swap.c:797</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_af4054643fd1470f90028830be6b299bc_cgraph.svg" width="450" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_af4054643fd1470f90028830be6b299bc_cgraph.svg" width="2400" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_af4054643fd1470f90028830be6b299bc_icgraph.svg" width="332" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_af4054643fd1470f90028830be6b299bc_icgraph.svg" width="498" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -746,10 +1766,50 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00642">642</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  643</span>{</div>
+<div class="line"><span class="lineno">  644</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a> *fbatches = &amp;per_cpu(<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>, cpu);</div>
+<div class="line"><span class="lineno">  645</span>    <span class="keyword">struct </span>folio_batch *fbatch = &amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#a778b4ea66ae52660ea5d7ec950d9c9ee">lru_add</a>;</div>
+<div class="line"><span class="lineno">  646</span> </div>
+<div class="line"><span class="lineno">  647</span>    <span class="keywordflow">if</span> (folio_batch_count(fbatch))</div>
+<div class="line"><span class="lineno">  648</span>        <a class="code hl_function" href="#ad1ba07a9053342547c7dd9290fcabce0">folio_batch_move_lru</a>(fbatch, <a class="code hl_function" href="#ab0b3b543583b6d9406b5a1568715ec72">lru_add</a>);</div>
+<div class="line"><span class="lineno">  649</span> </div>
+<div class="line"><span class="lineno">  650</span>    fbatch = &amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#ac63a7ae5600713a30da620bb3f8aed74">lru_move_tail</a>;</div>
+<div class="line"><span class="lineno">  651</span>    <span class="comment">/* Disabling interrupts below acts as a compiler barrier. */</span></div>
+<div class="line"><span class="lineno">  652</span>    <span class="keywordflow">if</span> (data_race(folio_batch_count(fbatch))) {</div>
+<div class="line"><span class="lineno">  653</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>;</div>
+<div class="line"><span class="lineno">  654</span> </div>
+<div class="line"><span class="lineno">  655</span>        <span class="comment">/* No harm done if a racing interrupt already did this */</span></div>
+<div class="line"><span class="lineno">  656</span>        local_lock_irqsave(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#a3cd8b0897b2619eff87a9cde667c3b8d">lock_irq</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  657</span>        <a class="code hl_function" href="#ad1ba07a9053342547c7dd9290fcabce0">folio_batch_move_lru</a>(fbatch, <a class="code hl_function" href="#a726a92c46bc89d3fd80d8313e514d851">lru_move_tail</a>);</div>
+<div class="line"><span class="lineno">  658</span>        local_unlock_irqrestore(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#a3cd8b0897b2619eff87a9cde667c3b8d">lock_irq</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  659</span>    }</div>
+<div class="line"><span class="lineno">  660</span> </div>
+<div class="line"><span class="lineno">  661</span>    fbatch = &amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#ad5a6ebb0d4d2ff51aaa4eef31e368dcc">lru_deactivate_file</a>;</div>
+<div class="line"><span class="lineno">  662</span>    <span class="keywordflow">if</span> (folio_batch_count(fbatch))</div>
+<div class="line"><span class="lineno">  663</span>        <a class="code hl_function" href="#ad1ba07a9053342547c7dd9290fcabce0">folio_batch_move_lru</a>(fbatch, <a class="code hl_function" href="#a39f8aeef59a546188e37aee6e1faa9a2">lru_deactivate_file</a>);</div>
+<div class="line"><span class="lineno">  664</span> </div>
+<div class="line"><span class="lineno">  665</span>    fbatch = &amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#a45e8babf70fce405028791970cbdb9e8">lru_deactivate</a>;</div>
+<div class="line"><span class="lineno">  666</span>    <span class="keywordflow">if</span> (folio_batch_count(fbatch))</div>
+<div class="line"><span class="lineno">  667</span>        <a class="code hl_function" href="#ad1ba07a9053342547c7dd9290fcabce0">folio_batch_move_lru</a>(fbatch, <a class="code hl_function" href="#a0c4804e592f8b9c2091ebe70425ea94a">lru_deactivate</a>);</div>
+<div class="line"><span class="lineno">  668</span> </div>
+<div class="line"><span class="lineno">  669</span>    fbatch = &amp;fbatches-&gt;<a class="code hl_variable" href="structcpu__fbatches.html#a50fff309390e120f661f76fe62532311">lru_lazyfree</a>;</div>
+<div class="line"><span class="lineno">  670</span>    <span class="keywordflow">if</span> (folio_batch_count(fbatch))</div>
+<div class="line"><span class="lineno">  671</span>        <a class="code hl_function" href="#ad1ba07a9053342547c7dd9290fcabce0">folio_batch_move_lru</a>(fbatch, <a class="code hl_function" href="#a669e21ea6f543836bb26517e3b2721c3">lru_lazyfree</a>);</div>
+<div class="line"><span class="lineno">  672</span> </div>
+<div class="line"><span class="lineno">  673</span>    <a class="code hl_function" href="#af35150de9a4beb63787e476dc012ab16">folio_activate_drain</a>(cpu);</div>
+<div class="line"><span class="lineno">  674</span>}</div>
+<div class="ttc" id="aswap_8c_html_af35150de9a4beb63787e476dc012ab16"><div class="ttname"><a href="#af35150de9a4beb63787e476dc012ab16">folio_activate_drain</a></div><div class="ttdeci">static void folio_activate_drain(int cpu)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00321">swap.c:321</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_af45ab7c311a3a462f207ff31cf7d4a69_cgraph.svg" width="1666" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_af45ab7c311a3a462f207ff31cf7d4a69_icgraph.svg" width="746" height="114"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_af45ab7c311a3a462f207ff31cf7d4a69_icgraph.svg" width="2411" height="658"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -768,10 +1828,62 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00757">757</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  758</span>{</div>
+<div class="line"><span class="lineno">  759</span>    local_lock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  760</span>    <a class="code hl_function" href="#af45ab7c311a3a462f207ff31cf7d4a69">lru_add_drain_cpu</a>(smp_processor_id());</div>
+<div class="line"><span class="lineno">  761</span>    <a class="code hl_function" href="page__alloc_8c.html#a21fb337e42adb123b4035e1f51799851">drain_local_pages</a>(<a class="code hl_struct" href="structzone.html">zone</a>);</div>
+<div class="line"><span class="lineno">  762</span>    local_unlock(&amp;<a class="code hl_struct" href="structcpu__fbatches.html">cpu_fbatches</a>.<a class="code hl_variable" href="structcpu__fbatches.html#ac67887db06057091ced2072366d5eedf">lock</a>);</div>
+<div class="line"><span class="lineno">  763</span>    mlock_drain_local();</div>
+<div class="line"><span class="lineno">  764</span>}</div>
+<div class="ttc" id="apage__alloc_8c_html_a21fb337e42adb123b4035e1f51799851"><div class="ttname"><a href="page__alloc_8c.html#a21fb337e42adb123b4035e1f51799851">drain_local_pages</a></div><div class="ttdeci">void drain_local_pages(struct zone *zone)</div><div class="ttdef"><b>Definition</b> <a href="page__alloc_8c_source.html#l02689">page_alloc.c:2689</a></div></div>
+<div class="ttc" id="astructzone_html"><div class="ttname"><a href="structzone.html">zone</a></div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l00879">mmzone.h:879</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_aefb7d8f57322a5dbcf5cdee7b134545b_cgraph.svg" width="347" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_aefb7d8f57322a5dbcf5cdee7b134545b_cgraph.svg" width="1782" height="1016"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a55fbabea5e943fec625503fad58176ea" name="a55fbabea5e943fec625503fad58176ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55fbabea5e943fec625503fad58176ea">&#9670;&#160;</a></span>lru_add_drain_per_cpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lru_add_drain_per_cpu </td>
+          <td>(</td>
+          <td class="paramtype">struct work_struct *</td>          <td class="paramname"><span class="paramname"><em>dummy</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00770">770</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  771</span>{</div>
+<div class="line"><span class="lineno">  772</span>    <a class="code hl_function" href="#a53ca0a3d9e61a4d61d14a8e5529a0aa1">lru_add_and_bh_lrus_drain</a>();</div>
+<div class="line"><span class="lineno">  773</span>}</div>
+<div class="ttc" id="aswap_8c_html_a53ca0a3d9e61a4d61d14a8e5529a0aa1"><div class="ttname"><a href="#a53ca0a3d9e61a4d61d14a8e5529a0aa1">lru_add_and_bh_lrus_drain</a></div><div class="ttdeci">static void lru_add_and_bh_lrus_drain(void)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00748">swap.c:748</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a55fbabea5e943fec625503fad58176ea_cgraph.svg" width="2054" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a55fbabea5e943fec625503fad58176ea_icgraph.svg" width="1456" height="222"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -791,6 +1903,355 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00912">912</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  913</span>{</div>
+<div class="line"><span class="lineno">  914</span>    atomic_inc(&amp;<a class="code hl_variable" href="#ad22b5157c3afe2ce09460112075cafe6">lru_disable_count</a>);</div>
+<div class="line"><span class="lineno">  915</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  916</span><span class="comment">     * Readers of lru_disable_count are protected by either disabling</span></div>
+<div class="line"><span class="lineno">  917</span><span class="comment">     * preemption or rcu_read_lock:</span></div>
+<div class="line"><span class="lineno">  918</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  919</span><span class="comment">     * preempt_disable, local_irq_disable  [bh_lru_lock()]</span></div>
+<div class="line"><span class="lineno">  920</span><span class="comment">     * rcu_read_lock               [rt_spin_lock CONFIG_PREEMPT_RT]</span></div>
+<div class="line"><span class="lineno">  921</span><span class="comment">     * preempt_disable             [local_lock !CONFIG_PREEMPT_RT]</span></div>
+<div class="line"><span class="lineno">  922</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  923</span><span class="comment">     * Since v5.1 kernel, synchronize_rcu() is guaranteed to wait on</span></div>
+<div class="line"><span class="lineno">  924</span><span class="comment">     * preempt_disable() regions of code. So any CPU which sees</span></div>
+<div class="line"><span class="lineno">  925</span><span class="comment">     * lru_disable_count = 0 will have exited the critical</span></div>
+<div class="line"><span class="lineno">  926</span><span class="comment">     * section when synchronize_rcu() returns.</span></div>
+<div class="line"><span class="lineno">  927</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  928</span>    synchronize_rcu_expedited();</div>
+<div class="line"><span class="lineno">  929</span><span class="preprocessor">#ifdef CONFIG_SMP</span></div>
+<div class="line"><span class="lineno">  930</span>    <a class="code hl_function" href="#a4b44dac2994765d7ed3bf070ac7711e2">__lru_add_drain_all</a>(<span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  931</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  932</span>    <a class="code hl_function" href="#a53ca0a3d9e61a4d61d14a8e5529a0aa1">lru_add_and_bh_lrus_drain</a>();</div>
+<div class="line"><span class="lineno">  933</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  934</span>}</div>
+<div class="ttc" id="aswap_8c_html_ad22b5157c3afe2ce09460112075cafe6"><div class="ttname"><a href="#ad22b5157c3afe2ce09460112075cafe6">lru_disable_count</a></div><div class="ttdeci">atomic_t lru_disable_count</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00902">swap.c:902</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a6315185be80ff7daf73823c9bb9db403_cgraph.svg" width="2407" height="534"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a6315185be80ff7daf73823c9bb9db403_icgraph.svg" width="1076" height="222"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0c4804e592f8b9c2091ebe70425ea94a" name="a0c4804e592f8b9c2091ebe70425ea94a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c4804e592f8b9c2091ebe70425ea94a">&#9670;&#160;</a></span>lru_deactivate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lru_deactivate </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlruvec.html">lruvec</a> *</td>          <td class="paramname"><span class="paramname"><em>lruvec</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00595">595</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  596</span>{</div>
+<div class="line"><span class="lineno">  597</span>    <span class="keywordtype">long</span> nr_pages = folio_nr_pages(folio);</div>
+<div class="line"><span class="lineno">  598</span> </div>
+<div class="line"><span class="lineno">  599</span>    <span class="keywordflow">if</span> (folio_test_unevictable(folio) || !(folio_test_active(folio) || lru_gen_enabled()))</div>
+<div class="line"><span class="lineno">  600</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  601</span> </div>
+<div class="line"><span class="lineno">  602</span>    lruvec_del_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  603</span>    folio_clear_active(folio);</div>
+<div class="line"><span class="lineno">  604</span>    folio_clear_referenced(folio);</div>
+<div class="line"><span class="lineno">  605</span>    lruvec_add_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  606</span> </div>
+<div class="line"><span class="lineno">  607</span>    __count_vm_events(PGDEACTIVATE, nr_pages);</div>
+<div class="line"><span class="lineno">  608</span>    <a class="code hl_function" href="memcontrol_8h.html#aef3cd4917378d2e713e787562c6e546b">count_memcg_events</a>(<a class="code hl_function" href="memcontrol_8h.html#a663d5383303493f1fdcef387c84cf349">lruvec_memcg</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>), PGDEACTIVATE, nr_pages);</div>
+<div class="line"><span class="lineno">  609</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a0c4804e592f8b9c2091ebe70425ea94a_cgraph.svg" width="876" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a0c4804e592f8b9c2091ebe70425ea94a_icgraph.svg" width="2560" height="579"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a39f8aeef59a546188e37aee6e1faa9a2" name="a39f8aeef59a546188e37aee6e1faa9a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39f8aeef59a546188e37aee6e1faa9a2">&#9670;&#160;</a></span>lru_deactivate_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lru_deactivate_file </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlruvec.html">lruvec</a> *</td>          <td class="paramname"><span class="paramname"><em>lruvec</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00554">554</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  555</span>{</div>
+<div class="line"><span class="lineno">  556</span>    <span class="keywordtype">bool</span> active = folio_test_active(folio) || lru_gen_enabled();</div>
+<div class="line"><span class="lineno">  557</span>    <span class="keywordtype">long</span> nr_pages = folio_nr_pages(folio);</div>
+<div class="line"><span class="lineno">  558</span> </div>
+<div class="line"><span class="lineno">  559</span>    <span class="keywordflow">if</span> (folio_test_unevictable(folio))</div>
+<div class="line"><span class="lineno">  560</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  561</span> </div>
+<div class="line"><span class="lineno">  562</span>    <span class="comment">/* Some processes are using the folio */</span></div>
+<div class="line"><span class="lineno">  563</span>    <span class="keywordflow">if</span> (folio_mapped(folio))</div>
+<div class="line"><span class="lineno">  564</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  565</span> </div>
+<div class="line"><span class="lineno">  566</span>    lruvec_del_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  567</span>    folio_clear_active(folio);</div>
+<div class="line"><span class="lineno">  568</span>    folio_clear_referenced(folio);</div>
+<div class="line"><span class="lineno">  569</span> </div>
+<div class="line"><span class="lineno">  570</span>    <span class="keywordflow">if</span> (folio_test_writeback(folio) || folio_test_dirty(folio)) {</div>
+<div class="line"><span class="lineno">  571</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  572</span><span class="comment">         * Setting the reclaim flag could race with</span></div>
+<div class="line"><span class="lineno">  573</span><span class="comment">         * folio_end_writeback() and confuse readahead.  But the</span></div>
+<div class="line"><span class="lineno">  574</span><span class="comment">         * race window is _really_ small and  it&#39;s not a critical</span></div>
+<div class="line"><span class="lineno">  575</span><span class="comment">         * problem.</span></div>
+<div class="line"><span class="lineno">  576</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  577</span>        lruvec_add_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  578</span>        folio_set_reclaim(folio);</div>
+<div class="line"><span class="lineno">  579</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  580</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  581</span><span class="comment">         * The folio&#39;s writeback ended while it was in the batch.</span></div>
+<div class="line"><span class="lineno">  582</span><span class="comment">         * We move that folio to the tail of the inactive list.</span></div>
+<div class="line"><span class="lineno">  583</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  584</span>        lruvec_add_folio_tail(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  585</span>        __count_vm_events(PGROTATED, nr_pages);</div>
+<div class="line"><span class="lineno">  586</span>    }</div>
+<div class="line"><span class="lineno">  587</span> </div>
+<div class="line"><span class="lineno">  588</span>    <span class="keywordflow">if</span> (active) {</div>
+<div class="line"><span class="lineno">  589</span>        __count_vm_events(PGDEACTIVATE, nr_pages);</div>
+<div class="line"><span class="lineno">  590</span>        <a class="code hl_function" href="memcontrol_8h.html#aef3cd4917378d2e713e787562c6e546b">count_memcg_events</a>(<a class="code hl_function" href="memcontrol_8h.html#a663d5383303493f1fdcef387c84cf349">lruvec_memcg</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>), PGDEACTIVATE,</div>
+<div class="line"><span class="lineno">  591</span>                     nr_pages);</div>
+<div class="line"><span class="lineno">  592</span>    }</div>
+<div class="line"><span class="lineno">  593</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a39f8aeef59a546188e37aee6e1faa9a2_cgraph.svg" width="900" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a39f8aeef59a546188e37aee6e1faa9a2_icgraph.svg" width="2595" height="579"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab3e2158101d9963bf9641bf4224e39de" name="ab3e2158101d9963bf9641bf4224e39de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3e2158101d9963bf9641bf4224e39de">&#9670;&#160;</a></span>lru_gen_clear_refs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool lru_gen_clear_refs </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00435">435</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  436</span>{</div>
+<div class="line"><span class="lineno">  437</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  438</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ab3e2158101d9963bf9641bf4224e39de_icgraph.svg" width="2778" height="512"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a27c5ead57da1493a72cc91446819fe46" name="a27c5ead57da1493a72cc91446819fe46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27c5ead57da1493a72cc91446819fe46">&#9670;&#160;</a></span>lru_gen_inc_refs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lru_gen_inc_refs </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00431">431</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  432</span>{</div>
+<div class="line"><span class="lineno">  433</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a27c5ead57da1493a72cc91446819fe46_icgraph.svg" width="506" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a669e21ea6f543836bb26517e3b2721c3" name="a669e21ea6f543836bb26517e3b2721c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a669e21ea6f543836bb26517e3b2721c3">&#9670;&#160;</a></span>lru_lazyfree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lru_lazyfree </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlruvec.html">lruvec</a> *</td>          <td class="paramname"><span class="paramname"><em>lruvec</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00611">611</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  612</span>{</div>
+<div class="line"><span class="lineno">  613</span>    <span class="keywordtype">long</span> nr_pages = folio_nr_pages(folio);</div>
+<div class="line"><span class="lineno">  614</span> </div>
+<div class="line"><span class="lineno">  615</span>    <span class="keywordflow">if</span> (!folio_test_anon(folio) || !folio_test_swapbacked(folio) ||</div>
+<div class="line"><span class="lineno">  616</span>        folio_test_swapcache(folio) || folio_test_unevictable(folio))</div>
+<div class="line"><span class="lineno">  617</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  618</span> </div>
+<div class="line"><span class="lineno">  619</span>    lruvec_del_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  620</span>    folio_clear_active(folio);</div>
+<div class="line"><span class="lineno">  621</span>    <span class="keywordflow">if</span> (lru_gen_enabled())</div>
+<div class="line"><span class="lineno">  622</span>        <a class="code hl_function" href="#ab3e2158101d9963bf9641bf4224e39de">lru_gen_clear_refs</a>(folio);</div>
+<div class="line"><span class="lineno">  623</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  624</span>        folio_clear_referenced(folio);</div>
+<div class="line"><span class="lineno">  625</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  626</span><span class="comment">     * Lazyfree folios are clean anonymous folios.  They have</span></div>
+<div class="line"><span class="lineno">  627</span><span class="comment">     * the swapbacked flag cleared, to distinguish them from normal</span></div>
+<div class="line"><span class="lineno">  628</span><span class="comment">     * anonymous folios</span></div>
+<div class="line"><span class="lineno">  629</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  630</span>    folio_clear_swapbacked(folio);</div>
+<div class="line"><span class="lineno">  631</span>    lruvec_add_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  632</span> </div>
+<div class="line"><span class="lineno">  633</span>    __count_vm_events(PGLAZYFREE, nr_pages);</div>
+<div class="line"><span class="lineno">  634</span>    <a class="code hl_function" href="memcontrol_8h.html#aef3cd4917378d2e713e787562c6e546b">count_memcg_events</a>(<a class="code hl_function" href="memcontrol_8h.html#a663d5383303493f1fdcef387c84cf349">lruvec_memcg</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>), PGLAZYFREE, nr_pages);</div>
+<div class="line"><span class="lineno">  635</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a669e21ea6f543836bb26517e3b2721c3_cgraph.svg" width="863" height="194"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a669e21ea6f543836bb26517e3b2721c3_icgraph.svg" width="2555" height="579"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a726a92c46bc89d3fd80d8313e514d851" name="a726a92c46bc89d3fd80d8313e514d851"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a726a92c46bc89d3fd80d8313e514d851">&#9670;&#160;</a></span>lru_move_tail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lru_move_tail </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structlruvec.html">lruvec</a> *</td>          <td class="paramname"><span class="paramname"><em>lruvec</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00213">213</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  214</span>{</div>
+<div class="line"><span class="lineno">  215</span>    <span class="keywordflow">if</span> (folio_test_unevictable(folio))</div>
+<div class="line"><span class="lineno">  216</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  217</span> </div>
+<div class="line"><span class="lineno">  218</span>    lruvec_del_folio(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  219</span>    folio_clear_active(folio);</div>
+<div class="line"><span class="lineno">  220</span>    lruvec_add_folio_tail(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio);</div>
+<div class="line"><span class="lineno">  221</span>    __count_vm_events(PGROTATED, folio_nr_pages(folio));</div>
+<div class="line"><span class="lineno">  222</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a726a92c46bc89d3fd80d8313e514d851_icgraph.svg" width="2588" height="579"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a9dc179f0c90d8478ba76a547896cdb3d" name="a9dc179f0c90d8478ba76a547896cdb3d"></a>
@@ -807,10 +2268,21 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00294">294</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  295</span>{</div>
+<div class="line"><span class="lineno">  296</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structlruvec.html">lruvec</a> *<a class="code hl_struct" href="structlruvec.html">lruvec</a>;</div>
+<div class="line"><span class="lineno">  297</span> </div>
+<div class="line"><span class="lineno">  298</span>    <a class="code hl_struct" href="structlruvec.html">lruvec</a> = <a class="code hl_function" href="memcontrol_8h.html#ab98eda6393d88d00f03d8d17e6bfcb64">folio_lruvec_lock_irq</a>(folio);</div>
+<div class="line"><span class="lineno">  299</span>    <a class="code hl_function" href="#a19ccb634a8ab578df2e4aae0ebf0ead5">lru_note_cost_unlock_irq</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, folio_is_file_lru(folio),</div>
+<div class="line"><span class="lineno">  300</span>                folio_nr_pages(folio), 0);</div>
+<div class="line"><span class="lineno">  301</span>}</div>
+<div class="ttc" id="amemcontrol_8h_html_ab98eda6393d88d00f03d8d17e6bfcb64"><div class="ttname"><a href="memcontrol_8h.html#ab98eda6393d88d00f03d8d17e6bfcb64">folio_lruvec_lock_irq</a></div><div class="ttdeci">struct lruvec * folio_lruvec_lock_irq(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8c_source.html#l01246">memcontrol.c:1246</a></div></div>
+<div class="ttc" id="aswap_8c_html_a19ccb634a8ab578df2e4aae0ebf0ead5"><div class="ttname"><a href="#a19ccb634a8ab578df2e4aae0ebf0ead5">lru_note_cost_unlock_irq</a></div><div class="ttdeci">void lru_note_cost_unlock_irq(struct lruvec *lruvec, bool file, unsigned int nr_io, unsigned int nr_rotated) __releases(lruvec -&gt; lru_lock)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00240">swap.c:240</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a9dc179f0c90d8478ba76a547896cdb3d_cgraph.svg" width="367" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a9dc179f0c90d8478ba76a547896cdb3d_cgraph.svg" width="956" height="480"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -843,10 +2315,121 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00240">240</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  243</span>{</div>
+<div class="line"><span class="lineno">  244</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> cost;</div>
+<div class="line"><span class="lineno">  245</span> </div>
+<div class="line"><span class="lineno">  246</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  247</span><span class="comment">     * Reflect the relative cost of incurring IO and spending CPU</span></div>
+<div class="line"><span class="lineno">  248</span><span class="comment">     * time on rotations. This doesn&#39;t attempt to make a precise</span></div>
+<div class="line"><span class="lineno">  249</span><span class="comment">     * comparison, it just says: if reloads are about comparable</span></div>
+<div class="line"><span class="lineno">  250</span><span class="comment">     * between the LRU lists, or rotations are overwhelmingly</span></div>
+<div class="line"><span class="lineno">  251</span><span class="comment">     * different between them, adjust scan balance for CPU work.</span></div>
+<div class="line"><span class="lineno">  252</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  253</span>    cost = nr_io * SWAP_CLUSTER_MAX + nr_rotated;</div>
+<div class="line"><span class="lineno">  254</span>    <span class="keywordflow">if</span> (!cost) {</div>
+<div class="line"><span class="lineno">  255</span>        spin_unlock_irq(&amp;<a class="code hl_struct" href="structlruvec.html">lruvec</a>-&gt;<a class="code hl_variable" href="structlruvec.html#a7d5c790766072bae353e08bd58c22447">lru_lock</a>);</div>
+<div class="line"><span class="lineno">  256</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  257</span>    }</div>
+<div class="line"><span class="lineno">  258</span> </div>
+<div class="line"><span class="lineno">  259</span>    <span class="keywordflow">for</span> (;;) {</div>
+<div class="line"><span class="lineno">  260</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> lrusize;</div>
+<div class="line"><span class="lineno">  261</span> </div>
+<div class="line"><span class="lineno">  262</span>        <span class="comment">/* Record cost event */</span></div>
+<div class="line"><span class="lineno">  263</span>        <span class="keywordflow">if</span> (file)</div>
+<div class="line"><span class="lineno">  264</span>            <a class="code hl_struct" href="structlruvec.html">lruvec</a>-&gt;<a class="code hl_variable" href="structlruvec.html#a32fac3e332313df8b7c37ee91611b97c">file_cost</a> += cost;</div>
+<div class="line"><span class="lineno">  265</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  266</span>            <a class="code hl_struct" href="structlruvec.html">lruvec</a>-&gt;<a class="code hl_variable" href="structlruvec.html#a9bffe84ea852f0e64e7f3882d89abc05">anon_cost</a> += cost;</div>
+<div class="line"><span class="lineno">  267</span> </div>
+<div class="line"><span class="lineno">  268</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  269</span><span class="comment">         * Decay previous events</span></div>
+<div class="line"><span class="lineno">  270</span><span class="comment">         *</span></div>
+<div class="line"><span class="lineno">  271</span><span class="comment">         * Because workloads change over time (and to avoid</span></div>
+<div class="line"><span class="lineno">  272</span><span class="comment">         * overflow) we keep these statistics as a floating</span></div>
+<div class="line"><span class="lineno">  273</span><span class="comment">         * average, which ends up weighing recent refaults</span></div>
+<div class="line"><span class="lineno">  274</span><span class="comment">         * more than old ones.</span></div>
+<div class="line"><span class="lineno">  275</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  276</span>        lrusize = <a class="code hl_function" href="memcontrol_8h.html#a4f337aec4b7b4755ac749befe77cf451">lruvec_page_state</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, <a class="code hl_enumvalue" href="mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409ab79fc62393421f71f8538e0cf3c45498">NR_INACTIVE_ANON</a>) +</div>
+<div class="line"><span class="lineno">  277</span>              <a class="code hl_function" href="memcontrol_8h.html#a4f337aec4b7b4755ac749befe77cf451">lruvec_page_state</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, <a class="code hl_enumvalue" href="mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409aa9bd80733ebc515cfbf9fdaada0a460a">NR_ACTIVE_ANON</a>) +</div>
+<div class="line"><span class="lineno">  278</span>              <a class="code hl_function" href="memcontrol_8h.html#a4f337aec4b7b4755ac749befe77cf451">lruvec_page_state</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, <a class="code hl_enumvalue" href="mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409a20893001f69958fcfc30ad6ed22ba1e0">NR_INACTIVE_FILE</a>) +</div>
+<div class="line"><span class="lineno">  279</span>              <a class="code hl_function" href="memcontrol_8h.html#a4f337aec4b7b4755ac749befe77cf451">lruvec_page_state</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, <a class="code hl_enumvalue" href="mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409a040889f089ab3d31ac432fa932484104">NR_ACTIVE_FILE</a>);</div>
+<div class="line"><span class="lineno">  280</span> </div>
+<div class="line"><span class="lineno">  281</span>        <span class="keywordflow">if</span> (<a class="code hl_struct" href="structlruvec.html">lruvec</a>-&gt;<a class="code hl_variable" href="structlruvec.html#a32fac3e332313df8b7c37ee91611b97c">file_cost</a> + <a class="code hl_struct" href="structlruvec.html">lruvec</a>-&gt;<a class="code hl_variable" href="structlruvec.html#a9bffe84ea852f0e64e7f3882d89abc05">anon_cost</a> &gt; lrusize / 4) {</div>
+<div class="line"><span class="lineno">  282</span>            <a class="code hl_struct" href="structlruvec.html">lruvec</a>-&gt;<a class="code hl_variable" href="structlruvec.html#a32fac3e332313df8b7c37ee91611b97c">file_cost</a> /= 2;</div>
+<div class="line"><span class="lineno">  283</span>            <a class="code hl_struct" href="structlruvec.html">lruvec</a>-&gt;<a class="code hl_variable" href="structlruvec.html#a9bffe84ea852f0e64e7f3882d89abc05">anon_cost</a> /= 2;</div>
+<div class="line"><span class="lineno">  284</span>        }</div>
+<div class="line"><span class="lineno">  285</span> </div>
+<div class="line"><span class="lineno">  286</span>        spin_unlock_irq(&amp;<a class="code hl_struct" href="structlruvec.html">lruvec</a>-&gt;<a class="code hl_variable" href="structlruvec.html#a7d5c790766072bae353e08bd58c22447">lru_lock</a>);</div>
+<div class="line"><span class="lineno">  287</span>        <a class="code hl_struct" href="structlruvec.html">lruvec</a> = <a class="code hl_function" href="memcontrol_8h.html#a1978677c5c94b3ea64e9223dd4c6e1bd">parent_lruvec</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>);</div>
+<div class="line"><span class="lineno">  288</span>        <span class="keywordflow">if</span> (!<a class="code hl_struct" href="structlruvec.html">lruvec</a>)</div>
+<div class="line"><span class="lineno">  289</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  290</span>        spin_lock_irq(&amp;<a class="code hl_struct" href="structlruvec.html">lruvec</a>-&gt;<a class="code hl_variable" href="structlruvec.html#a7d5c790766072bae353e08bd58c22447">lru_lock</a>);</div>
+<div class="line"><span class="lineno">  291</span>    }</div>
+<div class="line"><span class="lineno">  292</span>}</div>
+<div class="ttc" id="amemcontrol_8h_html_a1978677c5c94b3ea64e9223dd4c6e1bd"><div class="ttname"><a href="memcontrol_8h.html#a1978677c5c94b3ea64e9223dd4c6e1bd">parent_lruvec</a></div><div class="ttdeci">static struct lruvec * parent_lruvec(struct lruvec *lruvec)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8h_source.html#l01651">memcontrol.h:1651</a></div></div>
+<div class="ttc" id="amemcontrol_8h_html_a4f337aec4b7b4755ac749befe77cf451"><div class="ttname"><a href="memcontrol_8h.html#a4f337aec4b7b4755ac749befe77cf451">lruvec_page_state</a></div><div class="ttdeci">unsigned long lruvec_page_state(struct lruvec *lruvec, enum node_stat_item idx)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8c_source.html#l00393">memcontrol.c:393</a></div></div>
+<div class="ttc" id="ammzone_8h_html_a09749c0356969cc3f134a9ed6d2b8409a040889f089ab3d31ac432fa932484104"><div class="ttname"><a href="mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409a040889f089ab3d31ac432fa932484104">NR_ACTIVE_FILE</a></div><div class="ttdeci">@ NR_ACTIVE_FILE</div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l00186">mmzone.h:186</a></div></div>
+<div class="ttc" id="ammzone_8h_html_a09749c0356969cc3f134a9ed6d2b8409a20893001f69958fcfc30ad6ed22ba1e0"><div class="ttname"><a href="mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409a20893001f69958fcfc30ad6ed22ba1e0">NR_INACTIVE_FILE</a></div><div class="ttdeci">@ NR_INACTIVE_FILE</div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l00185">mmzone.h:185</a></div></div>
+<div class="ttc" id="ammzone_8h_html_a09749c0356969cc3f134a9ed6d2b8409aa9bd80733ebc515cfbf9fdaada0a460a"><div class="ttname"><a href="mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409aa9bd80733ebc515cfbf9fdaada0a460a">NR_ACTIVE_ANON</a></div><div class="ttdeci">@ NR_ACTIVE_ANON</div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l00184">mmzone.h:184</a></div></div>
+<div class="ttc" id="ammzone_8h_html_a09749c0356969cc3f134a9ed6d2b8409ab79fc62393421f71f8538e0cf3c45498"><div class="ttname"><a href="mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409ab79fc62393421f71f8538e0cf3c45498">NR_INACTIVE_ANON</a></div><div class="ttdeci">@ NR_INACTIVE_ANON</div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l00183">mmzone.h:183</a></div></div>
+<div class="ttc" id="astructlruvec_html_a32fac3e332313df8b7c37ee91611b97c"><div class="ttname"><a href="structlruvec.html#a32fac3e332313df8b7c37ee91611b97c">lruvec::file_cost</a></div><div class="ttdeci">unsigned long file_cost</div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l00679">mmzone.h:679</a></div></div>
+<div class="ttc" id="astructlruvec_html_a7d5c790766072bae353e08bd58c22447"><div class="ttname"><a href="structlruvec.html#a7d5c790766072bae353e08bd58c22447">lruvec::lru_lock</a></div><div class="ttdeci">spinlock_t lru_lock</div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l00672">mmzone.h:672</a></div></div>
+<div class="ttc" id="astructlruvec_html_a9bffe84ea852f0e64e7f3882d89abc05"><div class="ttname"><a href="structlruvec.html#a9bffe84ea852f0e64e7f3882d89abc05">lruvec::anon_cost</a></div><div class="ttdeci">unsigned long anon_cost</div><div class="ttdef"><b>Definition</b> <a href="mmzone_8h_source.html#l00678">mmzone.h:678</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a19ccb634a8ab578df2e4aae0ebf0ead5_cgraph.svg" width="744" height="267"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a19ccb634a8ab578df2e4aae0ebf0ead5_icgraph.svg" width="367" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a19ccb634a8ab578df2e4aae0ebf0ead5_icgraph.svg" width="2895" height="795"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab8fff8504f19922ad21f1890429b2925" name="ab8fff8504f19922ad21f1890429b2925"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8fff8504f19922ad21f1890429b2925">&#9670;&#160;</a></span>page_cache_release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void page_cache_release </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00087">87</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   88</span>{</div>
+<div class="line"><span class="lineno">   89</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structlruvec.html">lruvec</a> *<a class="code hl_struct" href="structlruvec.html">lruvec</a> = NULL;</div>
+<div class="line"><span class="lineno">   90</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>;</div>
+<div class="line"><span class="lineno">   91</span> </div>
+<div class="line"><span class="lineno">   92</span>    <a class="code hl_function" href="#a3d1ff772b18ad43501cf113add80abc7">__page_cache_release</a>(folio, &amp;<a class="code hl_struct" href="structlruvec.html">lruvec</a>, &amp;<a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">   93</span>    <span class="keywordflow">if</span> (<a class="code hl_struct" href="structlruvec.html">lruvec</a>)</div>
+<div class="line"><span class="lineno">   94</span>        <a class="code hl_function" href="memcontrol_8h.html#abe13a2546d8a94a5c7a5c208153c4d31">unlock_page_lruvec_irqrestore</a>(<a class="code hl_struct" href="structlruvec.html">lruvec</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">   95</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ab8fff8504f19922ad21f1890429b2925_cgraph.svg" width="1328" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_ab8fff8504f19922ad21f1890429b2925_icgraph.svg" width="470" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -876,10 +2459,38 @@ Here is the caller graph for this function:</div>
 <li>. If it fell to zero, remove the page from the LRU and free it.</li>
 </ul>
 <p>Note that the argument can be an array of pages, encoded pages, or folio pointers. We ignore any encoded bits, and turn any of them into just a folio that gets free'd. </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l01018">1018</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1019</span>{</div>
+<div class="line"><span class="lineno"> 1020</span>    <span class="keyword">struct </span>folio_batch fbatch;</div>
+<div class="line"><span class="lineno"> 1021</span>    <span class="keywordtype">int</span> refs[PAGEVEC_SIZE];</div>
+<div class="line"><span class="lineno"> 1022</span>    <span class="keyword">struct </span>encoded_page **encoded = arg.encoded_pages;</div>
+<div class="line"><span class="lineno"> 1023</span>    <span class="keywordtype">int</span> i;</div>
+<div class="line"><span class="lineno"> 1024</span> </div>
+<div class="line"><span class="lineno"> 1025</span>    folio_batch_init(&amp;fbatch);</div>
+<div class="line"><span class="lineno"> 1026</span>    <span class="keywordflow">for</span> (i = 0; i &lt; nr; i++) {</div>
+<div class="line"><span class="lineno"> 1027</span>        <span class="comment">/* Turn any of the argument types into a folio */</span></div>
+<div class="line"><span class="lineno"> 1028</span>        <span class="keyword">struct </span>folio *folio = page_folio(encoded_page_ptr(encoded[i]));</div>
+<div class="line"><span class="lineno"> 1029</span> </div>
+<div class="line"><span class="lineno"> 1030</span>        <span class="comment">/* Is our next entry actually &quot;nr_pages&quot; -&gt; &quot;nr_refs&quot; ? */</span></div>
+<div class="line"><span class="lineno"> 1031</span>        refs[fbatch.nr] = 1;</div>
+<div class="line"><span class="lineno"> 1032</span>        <span class="keywordflow">if</span> (unlikely(encoded_page_flags(encoded[i]) &amp;</div>
+<div class="line"><span class="lineno"> 1033</span>                 ENCODED_PAGE_BIT_NR_PAGES_NEXT))</div>
+<div class="line"><span class="lineno"> 1034</span>            refs[fbatch.nr] = encoded_nr_pages(encoded[++i]);</div>
+<div class="line"><span class="lineno"> 1035</span> </div>
+<div class="line"><span class="lineno"> 1036</span>        <span class="keywordflow">if</span> (folio_batch_add(&amp;fbatch, folio) &gt; 0)</div>
+<div class="line"><span class="lineno"> 1037</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno"> 1038</span>        <a class="code hl_function" href="#a65d7ad226963eb57392114c5157c116b">folios_put_refs</a>(&amp;fbatch, refs);</div>
+<div class="line"><span class="lineno"> 1039</span>    }</div>
+<div class="line"><span class="lineno"> 1040</span> </div>
+<div class="line"><span class="lineno"> 1041</span>    <span class="keywordflow">if</span> (fbatch.nr)</div>
+<div class="line"><span class="lineno"> 1042</span>        <a class="code hl_function" href="#a65d7ad226963eb57392114c5157c116b">folios_put_refs</a>(&amp;fbatch, refs);</div>
+<div class="line"><span class="lineno"> 1043</span>}</div>
+<div class="ttc" id="aswap_8c_html_a65d7ad226963eb57392114c5157c116b"><div class="ttname"><a href="#a65d7ad226963eb57392114c5157c116b">folios_put_refs</a></div><div class="ttdeci">void folios_put_refs(struct folio_batch *folios, unsigned int *refs)</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00951">swap.c:951</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a99964c8a9495f06274fb49f336f03a12_cgraph.svg" width="655" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a99964c8a9495f06274fb49f336f03a12_cgraph.svg" width="1412" height="1507"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -904,6 +2515,30 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l01102">1102</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1103</span>{</div>
+<div class="line"><span class="lineno"> 1104</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> megs = PAGES_TO_MB(totalram_pages());</div>
+<div class="line"><span class="lineno"> 1105</span> </div>
+<div class="line"><span class="lineno"> 1106</span>    <span class="comment">/* Use a smaller cluster for small-memory machines */</span></div>
+<div class="line"><span class="lineno"> 1107</span>    <span class="keywordflow">if</span> (megs &lt; 16)</div>
+<div class="line"><span class="lineno"> 1108</span>        <a class="code hl_variable" href="swap_8h.html#afe6446ed43e97033afbee53032a572dc">page_cluster</a> = 2;</div>
+<div class="line"><span class="lineno"> 1109</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1110</span>        <a class="code hl_variable" href="swap_8h.html#afe6446ed43e97033afbee53032a572dc">page_cluster</a> = 3;</div>
+<div class="line"><span class="lineno"> 1111</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 1112</span><span class="comment">     * Right now other parts of the system means that we</span></div>
+<div class="line"><span class="lineno"> 1113</span><span class="comment">     * _really_ don&#39;t want to cluster much more</span></div>
+<div class="line"><span class="lineno"> 1114</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno"> 1115</span> </div>
+<div class="line"><span class="lineno"> 1116</span>    register_sysctl_init(<span class="stringliteral">&quot;vm&quot;</span>, <a class="code hl_variable" href="#a008a394e8426d6bd461b778d6246b8e5">swap_sysctl_table</a>);</div>
+<div class="line"><span class="lineno"> 1117</span>}</div>
+<div class="ttc" id="aswap_8c_html_a008a394e8426d6bd461b778d6246b8e5"><div class="ttname"><a href="#a008a394e8426d6bd461b778d6246b8e5">swap_sysctl_table</a></div><div class="ttdeci">static const struct ctl_table swap_sysctl_table[]</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l01087">swap.c:1087</a></div></div>
+<div class="ttc" id="aswap_8h_html_afe6446ed43e97033afbee53032a572dc"><div class="ttname"><a href="swap_8h.html#afe6446ed43e97033afbee53032a572dc">page_cluster</a></div><div class="ttdeci">int page_cluster</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00047">swap.c:47</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8c_a803b70796f5bdcabd940539a1c85df8a_icgraph.svg" width="376" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
@@ -919,6 +2554,8 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00902">902</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+
 </div>
 </div>
 <a id="afe6446ed43e97033afbee53032a572dc" name="afe6446ed43e97033afbee53032a572dc"></a>
@@ -933,6 +2570,79 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00047">47</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+
+</div>
+</div>
+<a id="a99ace166ebddb574ad51089c272d57b8" name="a99ace166ebddb574ad51089c272d57b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99ace166ebddb574ad51089c272d57b8">&#9670;&#160;</a></span>page_cluster_max</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int page_cluster_max = 31</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00048">48</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+
+</div>
+</div>
+<a id="a008a394e8426d6bd461b778d6246b8e5" name="a008a394e8426d6bd461b778d6246b8e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a008a394e8426d6bd461b778d6246b8e5">&#9670;&#160;</a></span>swap_sysctl_table</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const struct ctl_table swap_sysctl_table[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                             = {</div>
+<div class="line">    {</div>
+<div class="line">        .procname   = <span class="stringliteral">&quot;page-cluster&quot;</span>,</div>
+<div class="line">        .data       = &amp;<a class="code hl_variable" href="swap_8h.html#afe6446ed43e97033afbee53032a572dc">page_cluster</a>,</div>
+<div class="line">        .maxlen     = <span class="keyword">sizeof</span>(int),</div>
+<div class="line">        .mode       = 0644,</div>
+<div class="line">        .proc_handler   = proc_dointvec_minmax,</div>
+<div class="line">        .extra1     = SYSCTL_ZERO,</div>
+<div class="line">        .extra2     = (<span class="keywordtype">void</span> *)&amp;<a class="code hl_variable" href="#a99ace166ebddb574ad51089c272d57b8">page_cluster_max</a>,</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="ttc" id="aswap_8c_html_a99ace166ebddb574ad51089c272d57b8"><div class="ttname"><a href="#a99ace166ebddb574ad51089c272d57b8">page_cluster_max</a></div><div class="ttdeci">static const int page_cluster_max</div><div class="ttdef"><b>Definition</b> <a href="swap_8c_source.html#l00048">swap.c:48</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l01087">1087</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1087</span>                                                  {</div>
+<div class="line"><span class="lineno"> 1088</span>    {</div>
+<div class="line"><span class="lineno"> 1089</span>        .procname   = <span class="stringliteral">&quot;page-cluster&quot;</span>,</div>
+<div class="line"><span class="lineno"> 1090</span>        .data       = &amp;<a class="code hl_variable" href="swap_8h.html#afe6446ed43e97033afbee53032a572dc">page_cluster</a>,</div>
+<div class="line"><span class="lineno"> 1091</span>        .maxlen     = <span class="keyword">sizeof</span>(int),</div>
+<div class="line"><span class="lineno"> 1092</span>        .mode       = 0644,</div>
+<div class="line"><span class="lineno"> 1093</span>        .proc_handler   = proc_dointvec_minmax,</div>
+<div class="line"><span class="lineno"> 1094</span>        .extra1     = SYSCTL_ZERO,</div>
+<div class="line"><span class="lineno"> 1095</span>        .extra2     = (<span class="keywordtype">void</span> *)&amp;<a class="code hl_variable" href="#a99ace166ebddb574ad51089c272d57b8">page_cluster_max</a>,</div>
+<div class="line"><span class="lineno"> 1096</span>    }</div>
+<div class="line"><span class="lineno"> 1097</span>};</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

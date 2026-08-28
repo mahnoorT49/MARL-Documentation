@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kmem_5fbuckets_0',['kmem_buckets',['../include_2linux_2slab_8h.html#a7a9f1b6f32b0c51c6b6094a309a0928f',1,'slab.h']]]
+  ['kmem_5fbuckets_0',['kmem_buckets',['../include_2linux_2slab_8h.html#a9b4309b6cacadad8f0dc943ead258976',1,'slab.h']]]
 ];

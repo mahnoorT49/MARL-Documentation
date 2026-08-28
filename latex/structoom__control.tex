@@ -1,0 +1,144 @@
+\doxysection{oom\+\_\+control Struct Reference}
+\hypertarget{structoom__control}{}\label{structoom__control}\index{oom\_control@{oom\_control}}
+
+
+{\ttfamily \+\#include $<$oom.\+h$>$}
+
+
+
+Collaboration diagram for oom\+\_\+control:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structoom__control__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structzonelist}{zonelist}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structoom__control_a1f0871350d03e641d73585714204c08c}{zonelist}}
+\item 
+nodemask\+\_\+t \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structoom__control_a453b14030607f612ad6a08a46725f5c7}{nodemask}}
+\item 
+struct \doxymbox{\hyperlink{structmem__cgroup}{mem\+\_\+cgroup}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structoom__control_a076b95f1c96859684dfd9676ff93e606}{memcg}}
+\item 
+const gfp\+\_\+t \doxymbox{\hyperlink{structoom__control_ac0fa696227f3f57c02ee123ae6daa3a8}{gfp\+\_\+mask}}
+\item 
+const int \doxymbox{\hyperlink{structoom__control_ac6dcee17ba7e32fbe6fa77aefaa7717f}{order}}
+\item 
+unsigned long \doxymbox{\hyperlink{structoom__control_a9240dcf9b407a777c974ca4433d110ee}{totalpages}}
+\item 
+struct task\+\_\+struct \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structoom__control_a9daccb5f19503408ff6d384c5628361b}{chosen}}
+\item 
+long \doxymbox{\hyperlink{structoom__control_aa014ede205b5a999090ea99fbfde2b72}{chosen\+\_\+points}}
+\item 
+enum \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65}{oom\+\_\+constraint}} \doxymbox{\hyperlink{structoom__control_a62dbc511b3d2829e824eff2fc510d05b}{constraint}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+
+
+\label{structoom__control_doc-variable-members}
+\Hypertarget{structoom__control_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structoom__control_a9daccb5f19503408ff6d384c5628361b}\index{oom\_control@{oom\_control}!chosen@{chosen}}
+\index{chosen@{chosen}!oom\_control@{oom\_control}}
+\doxysubsubsection{\texorpdfstring{chosen}{chosen}}
+{\footnotesize\ttfamily \label{structoom__control_a9daccb5f19503408ff6d384c5628361b} 
+struct task\+\_\+struct\texorpdfstring{$\ast$}{*} oom\+\_\+control::\+chosen}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00049}{49}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+\Hypertarget{structoom__control_aa014ede205b5a999090ea99fbfde2b72}\index{oom\_control@{oom\_control}!chosen\_points@{chosen\_points}}
+\index{chosen\_points@{chosen\_points}!oom\_control@{oom\_control}}
+\doxysubsubsection{\texorpdfstring{chosen\_points}{chosen\_points}}
+{\footnotesize\ttfamily \label{structoom__control_aa014ede205b5a999090ea99fbfde2b72} 
+long oom\+\_\+control::\+chosen\+\_\+points}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00050}{50}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+\Hypertarget{structoom__control_a62dbc511b3d2829e824eff2fc510d05b}\index{oom\_control@{oom\_control}!constraint@{constraint}}
+\index{constraint@{constraint}!oom\_control@{oom\_control}}
+\doxysubsubsection{\texorpdfstring{constraint}{constraint}}
+{\footnotesize\ttfamily \label{structoom__control_a62dbc511b3d2829e824eff2fc510d05b} 
+enum \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65}{oom\+\_\+constraint}} oom\+\_\+control::\+constraint}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00053}{53}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+\Hypertarget{structoom__control_ac0fa696227f3f57c02ee123ae6daa3a8}\index{oom\_control@{oom\_control}!gfp\_mask@{gfp\_mask}}
+\index{gfp\_mask@{gfp\_mask}!oom\_control@{oom\_control}}
+\doxysubsubsection{\texorpdfstring{gfp\_mask}{gfp\_mask}}
+{\footnotesize\ttfamily \label{structoom__control_ac0fa696227f3f57c02ee123ae6daa3a8} 
+const gfp\+\_\+t oom\+\_\+control::\+gfp\+\_\+mask}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+\Hypertarget{structoom__control_a076b95f1c96859684dfd9676ff93e606}\index{oom\_control@{oom\_control}!memcg@{memcg}}
+\index{memcg@{memcg}!oom\_control@{oom\_control}}
+\doxysubsubsection{\texorpdfstring{memcg}{memcg}}
+{\footnotesize\ttfamily \label{structoom__control_a076b95f1c96859684dfd9676ff93e606} 
+struct \doxymbox{\hyperlink{structmem__cgroup}{mem\+\_\+cgroup}}\texorpdfstring{$\ast$}{*} oom\+\_\+control::\+memcg}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+\Hypertarget{structoom__control_a453b14030607f612ad6a08a46725f5c7}\index{oom\_control@{oom\_control}!nodemask@{nodemask}}
+\index{nodemask@{nodemask}!oom\_control@{oom\_control}}
+\doxysubsubsection{\texorpdfstring{nodemask}{nodemask}}
+{\footnotesize\ttfamily \label{structoom__control_a453b14030607f612ad6a08a46725f5c7} 
+nodemask\+\_\+t\texorpdfstring{$\ast$}{*} oom\+\_\+control::\+nodemask}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00033}{33}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+\Hypertarget{structoom__control_ac6dcee17ba7e32fbe6fa77aefaa7717f}\index{oom\_control@{oom\_control}!order@{order}}
+\index{order@{order}!oom\_control@{oom\_control}}
+\doxysubsubsection{\texorpdfstring{order}{order}}
+{\footnotesize\ttfamily \label{structoom__control_ac6dcee17ba7e32fbe6fa77aefaa7717f} 
+const int oom\+\_\+control::\+order}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+\Hypertarget{structoom__control_a9240dcf9b407a777c974ca4433d110ee}\index{oom\_control@{oom\_control}!totalpages@{totalpages}}
+\index{totalpages@{totalpages}!oom\_control@{oom\_control}}
+\doxysubsubsection{\texorpdfstring{totalpages}{totalpages}}
+{\footnotesize\ttfamily \label{structoom__control_a9240dcf9b407a777c974ca4433d110ee} 
+unsigned long oom\+\_\+control::\+totalpages}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00048}{48}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+\Hypertarget{structoom__control_a1f0871350d03e641d73585714204c08c}\index{oom\_control@{oom\_control}!zonelist@{zonelist}}
+\index{zonelist@{zonelist}!oom\_control@{oom\_control}}
+\doxysubsubsection{\texorpdfstring{zonelist}{zonelist}}
+{\footnotesize\ttfamily \label{structoom__control_a1f0871350d03e641d73585714204c08c} 
+struct \doxymbox{\hyperlink{structzonelist}{zonelist}}\texorpdfstring{$\ast$}{*} oom\+\_\+control::\+zonelist}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{oom_8h}{oom.\+h}}\end{DoxyCompactItemize}

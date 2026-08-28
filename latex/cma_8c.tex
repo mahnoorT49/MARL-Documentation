@@ -1,0 +1,1925 @@
+\doxysection{mm/\+cma.c File Reference}
+\hypertarget{cma_8c}{}\label{cma_8c}\index{mm/cma.c@{mm/cma.c}}
+{\ttfamily \+\#include $<$linux/\+memblock.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+err.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+list.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+mm.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+sizes.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+slab.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+string.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+string\+\_\+choices.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+log2.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+cma.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+highmem.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+io.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+kmemleak.\+h$>$}\newline
+{\ttfamily \+\#include $<$trace/\+events/\+cma.\+h$>$}\newline
+{\ttfamily \+\#include "{}internal.\+h"{}}\newline
+Include dependency graph for cma.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{cma_8c_a1f8c165bf4196327bc3abff648276d92}{pr\+\_\+fmt}}(fmt)
+\item 
+\+\#define \doxymbox{\hyperlink{cma_8c_a40473b47b4871fa538a0fa131f94e774}{CREATE\+\_\+\+TRACE\+\_\+\+POINTS}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+phys\+\_\+addr\+\_\+t \doxymbox{\hyperlink{cma_8c_a97879508444bf1cf0c647505085ba504}{cma\+\_\+get\+\_\+base}} (const struct cma \texorpdfstring{$\ast$}{*}cma)
+\item 
+unsigned long \doxymbox{\hyperlink{cma_8c_a9f7d52d2cfaa4e1a6dcf0526ae9270bc}{cma\+\_\+get\+\_\+size}} (const struct cma \texorpdfstring{$\ast$}{*}cma)
+\item 
+const char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{cma_8c_a6f4f77adf3f68c2bbac1b733ae827684}{cma\+\_\+get\+\_\+name}} (const struct cma \texorpdfstring{$\ast$}{*}cma)
+\item 
+static unsigned long \doxymbox{\hyperlink{cma_8c_acacbaf2002d23b129e8873ba1d32effe}{cma\+\_\+bitmap\+\_\+aligned\+\_\+mask}} (const struct cma \texorpdfstring{$\ast$}{*}cma, unsigned int align\+\_\+order)
+\item 
+static unsigned long \doxymbox{\hyperlink{cma_8c_a9913d09d1e20830d944af8a4702814cb}{cma\+\_\+bitmap\+\_\+aligned\+\_\+offset}} (const struct cma \texorpdfstring{$\ast$}{*}cma, const struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}cmr, unsigned int align\+\_\+order)
+\item 
+static unsigned long \doxymbox{\hyperlink{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}{cma\+\_\+bitmap\+\_\+pages\+\_\+to\+\_\+bits}} (const struct cma \texorpdfstring{$\ast$}{*}cma, unsigned long pages)
+\item 
+static void \doxymbox{\hyperlink{cma_8c_a141cce706c8966d5cdd4a99461e40e23}{cma\+\_\+clear\+\_\+bitmap}} (struct cma \texorpdfstring{$\ast$}{*}cma, const struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}cmr, unsigned long pfn, unsigned long count)
+\item 
+bool \doxymbox{\hyperlink{cma_8c_af1391b7a3d38b6146c38f7ab0b7b5f26}{cma\+\_\+validate\+\_\+zones}} (struct cma \texorpdfstring{$\ast$}{*}cma)
+\item 
+static void \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a9abdaa35f837a24171549ea38ea28e70}{cma\+\_\+activate\+\_\+area}} (struct cma \texorpdfstring{$\ast$}{*}cma)
+\item 
+static int \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_aeb536241b21a6a891eb7e647eb5d5597}{cma\+\_\+init\+\_\+reserved\+\_\+areas}} (void)
+\item 
+\doxymbox{\hyperlink{cma_8c_a8afff3562f7a5c0db63909d8b3b82d82}{core\+\_\+initcall}} (\doxymbox{\hyperlink{cma_8c_aeb536241b21a6a891eb7e647eb5d5597}{cma\+\_\+init\+\_\+reserved\+\_\+areas}})
+\item 
+void \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a4cfd6bb06859c6a59bfa1ed0906cebf8}{cma\+\_\+reserve\+\_\+pages\+\_\+on\+\_\+error}} (struct cma \texorpdfstring{$\ast$}{*}cma)
+\item 
+static int \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a}{cma\+\_\+new\+\_\+area}} (const char \texorpdfstring{$\ast$}{*}name, phys\+\_\+addr\+\_\+t size, unsigned int order\+\_\+per\+\_\+bit, struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}res\+\_\+cma)
+\item 
+static void \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71}{cma\+\_\+drop\+\_\+area}} (struct cma \texorpdfstring{$\ast$}{*}cma)
+\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ :\+ The name of the area. See function cma\+\_\+init\+\_\+reserved\+\_\+mem()}\par
+{\em \doxylink{cma_8c_a67300d38c8a1a69d9f4c8866dc44840a}{cma\+\_\+declare\+\_\+contiguous\+\_\+nid()} -\/ reserve custom contiguous area @base:\+ Base address of the reserved area optional, use 0 for any @size:\+ Size of the reserved area (in bytes), @limit:\+ End address of the reserved memory (optional, 0 for any). @alignment:\+ Alignment for the CMA area, should be power of 2 or zero @order\+\_\+per\+\_\+bit:\+ Order of pages represented by one bit on bitmap. @fixed:\+ hint about where to place the reserved area
+
+@res\+\_\+cma:\+ Pointer to store the created cma region. @nid:\+ nid of the free area to find, NUMA\+\_\+\+NO\+\_\+\+NODE for any node
+
+This function reserves memory from early allocator. It should be called by arch specific code once the early allocator (memblock or bootmem) has been activated and all other subsystems have already allocated/\+reserved memory. This function allows to create custom reserved areas.
+
+If @fixed is true, reserve contiguous area at exactly @base. If false, reserve in range from @base to @limit. }\begin{DoxyCompactItemize}
+\item 
+int \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a67300d38c8a1a69d9f4c8866dc44840a}{cma\+\_\+declare\+\_\+contiguous\+\_\+nid}} (phys\+\_\+addr\+\_\+t base, phys\+\_\+addr\+\_\+t size, phys\+\_\+addr\+\_\+t limit, phys\+\_\+addr\+\_\+t alignment, unsigned int order\+\_\+per\+\_\+bit, bool fixed, const char \texorpdfstring{$\ast$}{*}name, struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}res\+\_\+cma, int nid)
+\item 
+static void \doxymbox{\hyperlink{cma_8c_aaf9a433b1f1cdd2306aa512d19b270fd}{cma\+\_\+debug\+\_\+show\+\_\+areas}} (struct cma \texorpdfstring{$\ast$}{*}cma)
+\item 
+static int \doxymbox{\hyperlink{cma_8c_a7840979b3be80e78d118980122d1043c}{cma\+\_\+range\+\_\+alloc}} (struct cma \texorpdfstring{$\ast$}{*}cma, struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}cmr, unsigned long count, unsigned int align, struct page \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pagep, gfp\+\_\+t gfp)
+\item 
+static struct page \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{cma_8c_acad5b6d18973f77425aed7ade3176735}{\+\_\+\+\_\+cma\+\_\+alloc\+\_\+frozen}} (struct cma \texorpdfstring{$\ast$}{*}cma, unsigned long count, unsigned int align, gfp\+\_\+t gfp)
+\item 
+struct page \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{cma_8c_ac35a4b2b31cca6119a7093e816a998eb}{cma\+\_\+alloc\+\_\+frozen}} (struct cma \texorpdfstring{$\ast$}{*}cma, unsigned long count, unsigned int align, bool no\+\_\+warn)
+\item 
+struct page \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{cma_8c_a22b347d50955579a42ff3089c98060cf}{cma\+\_\+alloc\+\_\+frozen\+\_\+compound}} (struct cma \texorpdfstring{$\ast$}{*}cma, unsigned int order)
+\item 
+struct page \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{cma_8c_af7a793465730821d26e8c45648016639}{cma\+\_\+alloc}} (struct cma \texorpdfstring{$\ast$}{*}cma, unsigned long count, unsigned int align, bool no\+\_\+warn)
+\item 
+static struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c}{find\+\_\+cma\+\_\+memrange}} (struct cma \texorpdfstring{$\ast$}{*}cma, const struct page \texorpdfstring{$\ast$}{*}pages, unsigned long count)
+\item 
+static void \doxymbox{\hyperlink{cma_8c_a37b28404c9374af96696a48aeef48f04}{\+\_\+\+\_\+cma\+\_\+release\+\_\+frozen}} (struct cma \texorpdfstring{$\ast$}{*}cma, struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}cmr, const struct page \texorpdfstring{$\ast$}{*}pages, unsigned long count)
+\item 
+bool \doxymbox{\hyperlink{cma_8c_a4b281ce37a51283e854d78f8fe173842}{cma\+\_\+release}} (struct cma \texorpdfstring{$\ast$}{*}cma, const struct page \texorpdfstring{$\ast$}{*}pages, unsigned long count)
+\item 
+bool \doxymbox{\hyperlink{cma_8c_a3d62bdf586b754ec4478956ad546bae9}{cma\+\_\+release\+\_\+frozen}} (struct cma \texorpdfstring{$\ast$}{*}cma, const struct page \texorpdfstring{$\ast$}{*}pages, unsigned long count)
+\item 
+int \doxymbox{\hyperlink{cma_8c_a2a33f2c3a50c713637f3c762b8670df9}{cma\+\_\+for\+\_\+each\+\_\+area}} (int(\texorpdfstring{$\ast$}{*}it)(struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{structcma}{cma}}, void \texorpdfstring{$\ast$}{*}data), void \texorpdfstring{$\ast$}{*}data)
+\item 
+bool \doxymbox{\hyperlink{cma_8c_a937e5521fb9113af3b37fda02820a1bb}{cma\+\_\+intersects}} (struct cma \texorpdfstring{$\ast$}{*}cma, unsigned long start, unsigned long end)
+\item 
+void \+\_\+\+\_\+init \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{cma_8c_a550ca763d3df127f16bbac0f6a99be91}{cma\+\_\+reserve\+\_\+early}} (struct cma \texorpdfstring{$\ast$}{*}cma, unsigned long size)
+\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structcma}{cma}} \doxymbox{\hyperlink{cma_8c_a084edff8321843b394f345da9e200edc}{cma\+\_\+areas}} \+[MAX\+\_\+\+CMA\+\_\+\+AREAS]\+
+\item 
+unsigned int \doxymbox{\hyperlink{cma_8c_a890d3a98f067086f7789ad66f2ccd5c2}{cma\+\_\+area\+\_\+count}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{:\+ The name of the area. If this parameter is NULL, the name of}
+\doxylink{cma_8c_a5ccbf330662756d587dfe604278dd9c7}{cma\+\_\+init\+\_\+reserved\+\_\+mem()} -\/ create custom contiguous area from reserved memory @base:\+ Base address of the reserved area @size:\+ Size of the reserved area (in bytes), @order\+\_\+per\+\_\+bit:\+ Order of pages represented by one bit on bitmap.
+
+the area will be set to "{}cma\+N"{}, where N is a running counter of used areas. @res\+\_\+cma:\+ Pointer to store the created cma region.
+
+This function creates custom contiguous area from already reserved memory. \begin{DoxyCompactItemize}
+\item 
+static struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} memranges\+[8]\+ \doxymbox{\hyperlink{cma_8c_a20e93f76e8f82dfcadbc6e03ce032027}{\+\_\+\+\_\+initdata}}
+\item 
+int \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a5ccbf330662756d587dfe604278dd9c7}{cma\+\_\+init\+\_\+reserved\+\_\+mem}} (phys\+\_\+addr\+\_\+t base, phys\+\_\+addr\+\_\+t size, unsigned int order\+\_\+per\+\_\+bit, const char \texorpdfstring{$\ast$}{*}name, struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}res\+\_\+cma)
+\item 
+static bool \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a3c4a3cf48eabdcf3bf54d2cc130d79e5}{revsizecmp}} (struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}mlp, struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}mrp)
+\item 
+static bool \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a797c9c78aabab2ab2bfac5292d40d9af}{basecmp}} (struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}mlp, struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}mrp)
+\item 
+static void \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329}{list\+\_\+insert\+\_\+sorted}} (struct list\+\_\+head \texorpdfstring{$\ast$}{*}ranges, struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}mrp, bool(\texorpdfstring{$\ast$}{*}cmp)(struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}lh, struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}rh))
+\item 
+static int \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a3a8851f9dbcf016f6afb59a60caa871a}{cma\+\_\+fixed\+\_\+reserve}} (phys\+\_\+addr\+\_\+t base, phys\+\_\+addr\+\_\+t size)
+\item 
+static phys\+\_\+addr\+\_\+t \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a25b9dae3587cc341d557617d987dd2cf}{cma\+\_\+alloc\+\_\+mem}} (phys\+\_\+addr\+\_\+t base, phys\+\_\+addr\+\_\+t size, phys\+\_\+addr\+\_\+t align, phys\+\_\+addr\+\_\+t limit, int nid)
+\item 
+static int \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_ab3476249344bde0d4202f00d066aac24}{\+\_\+\+\_\+cma\+\_\+declare\+\_\+contiguous\+\_\+nid}} (phys\+\_\+addr\+\_\+t \texorpdfstring{$\ast$}{*}basep, phys\+\_\+addr\+\_\+t size, phys\+\_\+addr\+\_\+t limit, phys\+\_\+addr\+\_\+t alignment, unsigned int order\+\_\+per\+\_\+bit, bool fixed, const char \texorpdfstring{$\ast$}{*}name, struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}res\+\_\+cma, int nid)
+\item 
+int \+\_\+\+\_\+init \doxymbox{\hyperlink{cma_8c_a8069ccd7aae99dd4d6e5a139f23a5345}{cma\+\_\+declare\+\_\+contiguous\+\_\+multi}} (phys\+\_\+addr\+\_\+t total\+\_\+size, phys\+\_\+addr\+\_\+t align, unsigned int order\+\_\+per\+\_\+bit, const char \texorpdfstring{$\ast$}{*}name, struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}res\+\_\+cma, int nid)
+\end{DoxyCompactItemize}
+
+
+\label{cma_8c_doc-define-members}
+\Hypertarget{cma_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{cma_8c_a40473b47b4871fa538a0fa131f94e774}\index{cma.c@{cma.c}!CREATE\_TRACE\_POINTS@{CREATE\_TRACE\_POINTS}}
+\index{CREATE\_TRACE\_POINTS@{CREATE\_TRACE\_POINTS}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{CREATE\_TRACE\_POINTS}{CREATE\_TRACE\_POINTS}}
+{\footnotesize\ttfamily \label{cma_8c_a40473b47b4871fa538a0fa131f94e774} 
+\+\#define CREATE\+\_\+\+TRACE\+\_\+\+POINTS}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00017}{17}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+\Hypertarget{cma_8c_a1f8c165bf4196327bc3abff648276d92}\index{cma.c@{cma.c}!pr\_fmt@{pr\_fmt}}
+\index{pr\_fmt@{pr\_fmt}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{pr\_fmt}{pr\_fmt}}
+{\footnotesize\ttfamily \label{cma_8c_a1f8c165bf4196327bc3abff648276d92} 
+\+\#define pr\+\_\+fmt(\begin{DoxyParamCaption}\item[{}]{fmt}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}cma:\ "{}}\ fmt}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00015}{15}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+
+\label{cma_8c_doc-func-members}
+\Hypertarget{cma_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{cma_8c_acad5b6d18973f77425aed7ade3176735}\index{cma.c@{cma.c}!\_\_cma\_alloc\_frozen@{\_\_cma\_alloc\_frozen}}
+\index{\_\_cma\_alloc\_frozen@{\_\_cma\_alloc\_frozen}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{\_\_cma\_alloc\_frozen()}{\_\_cma\_alloc\_frozen()}}
+{\footnotesize\ttfamily \label{cma_8c_acad5b6d18973f77425aed7ade3176735} 
+struct page \texorpdfstring{$\ast$}{*} \+\_\+\+\_\+cma\+\_\+alloc\+\_\+frozen (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned long}]{count}{, }\item[{unsigned int}]{align}{, }\item[{gfp\+\_\+t}]{gfp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00939}{939}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00941\ \{}
+\DoxyCodeLine{00942\ \ \ \ \ \textcolor{keyword}{struct\ }page\ *page\ =\ NULL;}
+\DoxyCodeLine{00943\ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ -\/ENOMEM,\ r;}
+\DoxyCodeLine{00944\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ i;}
+\DoxyCodeLine{00945\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name\ =\ \doxymbox{\hyperlink{structcma}{cma}}\ ?\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}}\ :\ NULL;}
+\DoxyCodeLine{00946\ }
+\DoxyCodeLine{00947\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structcma}{cma}}\ ||\ !\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}})}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ page;}
+\DoxyCodeLine{00949\ }
+\DoxyCodeLine{00950\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(cma\ \%p,\ name:\ \%s,\ count\ \%lu,\ align\ \%d)\(\backslash\)n"{}},\ \_\_func\_\_,}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{void}\ *)\doxymbox{\hyperlink{structcma}{cma}},\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ count,\ align);}
+\DoxyCodeLine{00952\ }
+\DoxyCodeLine{00953\ \ \ \ \ \textcolor{keywordflow}{if}\ (!count)}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ page;}
+\DoxyCodeLine{00955\ }
+\DoxyCodeLine{00956\ \ \ \ \ trace\_cma\_alloc\_start(name,\ count,\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}},\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}},\ align);}
+\DoxyCodeLine{00957\ }
+\DoxyCodeLine{00958\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ page\ =\ NULL;}
+\DoxyCodeLine{00960\ }
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_a7840979b3be80e78d118980122d1043c}{cma\_range\_alloc}}(\doxymbox{\hyperlink{structcma}{cma}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r],\ count,\ align,}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&page,\ gfp);}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ -\/EBUSY\ ||\ page)}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00965\ \ \ \ \ \}}
+\DoxyCodeLine{00966\ }
+\DoxyCodeLine{00967\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00968\ \textcolor{comment}{\ \ \ \ \ *\ CMA\ can\ allocate\ multiple\ page\ blocks,\ which\ results\ in\ different}}
+\DoxyCodeLine{00969\ \textcolor{comment}{\ \ \ \ \ *\ blocks\ being\ marked\ with\ different\ tags.\ Reset\ the\ tags\ to\ ignore}}
+\DoxyCodeLine{00970\ \textcolor{comment}{\ \ \ \ \ *\ those\ page\ blocks.}}
+\DoxyCodeLine{00971\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00972\ \ \ \ \ \textcolor{keywordflow}{if}\ (page)\ \{}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ count;\ i++)}
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ \ \ \ \ page\_kasan\_tag\_reset(page\ +\ i);}
+\DoxyCodeLine{00975\ \ \ \ \ \}}
+\DoxyCodeLine{00976\ }
+\DoxyCodeLine{00977\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ \&\&\ !(gfp\ \&\ \doxymbox{\hyperlink{gfp__types_8h_ad16e4916f64bf12d9016393d48ff9aa1}{\_\_GFP\_NOWARN}}))\ \{}
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ pr\_err\_ratelimited(\textcolor{stringliteral}{"{}\%s:\ \%s:\ alloc\ failed,\ req-\/size:\ \%lu\ pages,\ ret:\ \%d\(\backslash\)n"{}},}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_func\_\_,\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ count,\ ret);}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_aaf9a433b1f1cdd2306aa512d19b270fd}{cma\_debug\_show\_areas}}(\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{00981\ \ \ \ \ \}}
+\DoxyCodeLine{00982\ }
+\DoxyCodeLine{00983\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s():\ returned\ \%p\(\backslash\)n"{}},\ \_\_func\_\_,\ page);}
+\DoxyCodeLine{00984\ \ \ \ \ trace\_cma\_alloc\_finish(name,\ page\ ?\ page\_to\_pfn(page)\ :\ 0,}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ page,\ count,\ align,\ ret);}
+\DoxyCodeLine{00986\ \ \ \ \ \textcolor{keywordflow}{if}\ (page)\ \{}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ count\_vm\_event(CMA\_ALLOC\_SUCCESS);}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a5bd1a912899835c495450780285f8054}{cma\_sysfs\_account\_success\_pages}}(\doxymbox{\hyperlink{structcma}{cma}},\ count);}
+\DoxyCodeLine{00989\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ count\_vm\_event(CMA\_ALLOC\_FAIL);}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a0dbbda209b563970c27befc340713721}{cma\_sysfs\_account\_fail\_pages}}(\doxymbox{\hyperlink{structcma}{cma}},\ count);}
+\DoxyCodeLine{00992\ \ \ \ \ \}}
+\DoxyCodeLine{00993\ }
+\DoxyCodeLine{00994\ \ \ \ \ \textcolor{keywordflow}{return}\ page;}
+\DoxyCodeLine{00995\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_acad5b6d18973f77425aed7ade3176735_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_acad5b6d18973f77425aed7ade3176735_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_ab3476249344bde0d4202f00d066aac24}\index{cma.c@{cma.c}!\_\_cma\_declare\_contiguous\_nid@{\_\_cma\_declare\_contiguous\_nid}}
+\index{\_\_cma\_declare\_contiguous\_nid@{\_\_cma\_declare\_contiguous\_nid}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{\_\_cma\_declare\_contiguous\_nid()}{\_\_cma\_declare\_contiguous\_nid()}}
+{\footnotesize\ttfamily \label{cma_8c_ab3476249344bde0d4202f00d066aac24} 
+int \+\_\+\+\_\+init \+\_\+\+\_\+cma\+\_\+declare\+\_\+contiguous\+\_\+nid (\begin{DoxyParamCaption}\item[{phys\+\_\+addr\+\_\+t \texorpdfstring{$\ast$}{*}}]{basep}{, }\item[{phys\+\_\+addr\+\_\+t}]{size}{, }\item[{phys\+\_\+addr\+\_\+t}]{limit}{, }\item[{phys\+\_\+addr\+\_\+t}]{alignment}{, }\item[{unsigned int}]{order\+\_\+per\+\_\+bit}{, }\item[{bool}]{fixed}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{res\+\_\+cma}{, }\item[{int}]{nid}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00486}{486}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00491\ \{}
+\DoxyCodeLine{00492\ \ \ \ \ phys\_addr\_t\ memblock\_end\ =\ \doxymbox{\hyperlink{memblock_8c_a82de9099ce8a9d612bfce8cb5da9eb23}{memblock\_end\_of\_DRAM}}();}
+\DoxyCodeLine{00493\ \ \ \ \ phys\_addr\_t\ base\ =\ *basep;}
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(size\ \%pa,\ base\ \%pa,\ limit\ \%pa\ alignment\ \%pa)\(\backslash\)n"{}},}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \_\_func\_\_,\ \&\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \&base,\ \&limit,\ \&alignment);}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}\ ==\ ARRAY\_SIZE(\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}))\ \{}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Not\ enough\ slots\ for\ CMA\ reserved\ regions!\(\backslash\)n"{}});}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/ENOSPC;}
+\DoxyCodeLine{00502\ \ \ \ \ \}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keywordflow}{if}\ (alignment\ \&\&\ !is\_power\_of\_2(alignment))}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{00509\ }
+\DoxyCodeLine{00510\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ENABLED(CONFIG\_NUMA))}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ nid\ =\ NUMA\_NO\_NODE;}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \ \ \ \ \textcolor{comment}{/*\ Sanitise\ input\ arguments.\ */}}
+\DoxyCodeLine{00514\ \ \ \ \ alignment\ =\ max\_t(phys\_addr\_t,\ alignment,\ CMA\_MIN\_ALIGNMENT\_BYTES);}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keywordflow}{if}\ (fixed\ \&\&\ base\ \&\ (alignment\ -\/\ 1))\ \{}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Region\ at\ \%pa\ must\ be\ aligned\ to\ \%pa\ bytes\(\backslash\)n"{}},}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \&base,\ \&alignment);}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{00519\ \ \ \ \ \}}
+\DoxyCodeLine{00520\ \ \ \ \ base\ =\ ALIGN(base,\ alignment);}
+\DoxyCodeLine{00521\ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ =\ ALIGN(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ alignment);}
+\DoxyCodeLine{00522\ \ \ \ \ limit\ \&=\ \string~(alignment\ -\/\ 1);}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ \textcolor{keywordflow}{if}\ (!base)}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ fixed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \ \ \textcolor{comment}{/*\ size\ should\ be\ aligned\ with\ order\_per\_bit\ */}}
+\DoxyCodeLine{00528\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ALIGNED(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >>\ PAGE\_SHIFT,\ 1\ <<\ order\_per\_bit))}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00533\ \textcolor{comment}{\ \ \ \ \ *\ If\ the\ limit\ is\ unspecified\ or\ above\ the\ memblock\ end,\ its\ effective}}
+\DoxyCodeLine{00534\ \textcolor{comment}{\ \ \ \ \ *\ value\ will\ be\ the\ memblock\ end.\ Set\ it\ explicitly\ to\ simplify\ further}}
+\DoxyCodeLine{00535\ \textcolor{comment}{\ \ \ \ \ *\ checks.}}
+\DoxyCodeLine{00536\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00537\ \ \ \ \ \textcolor{keywordflow}{if}\ (limit\ ==\ 0\ ||\ limit\ >\ memblock\_end)}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ limit\ =\ memblock\_end;}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keywordflow}{if}\ (base\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >\ limit)\ \{}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Size\ (\%pa)\ of\ region\ at\ \%pa\ exceeds\ limit\ (\%pa)\(\backslash\)n"{}},}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ \&\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \&base,\ \&limit);}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{00544\ \ \ \ \ \}}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \ \ \ \ \textcolor{comment}{/*\ Reserve\ memory\ */}}
+\DoxyCodeLine{00547\ \ \ \ \ \textcolor{keywordflow}{if}\ (fixed)\ \{}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_a3a8851f9dbcf016f6afb59a60caa871a}{cma\_fixed\_reserve}}(base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00551\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ base\ =\ \doxymbox{\hyperlink{cma_8c_a25b9dae3587cc341d557617d987dd2cf}{cma\_alloc\_mem}}(base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ alignment,\ limit,\ nid);}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!base)}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/ENOMEM;}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00557\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ kmemleak\ scans/reads\ tracked\ objects\ for\ pointers\ to\ other}}
+\DoxyCodeLine{00558\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ objects\ but\ this\ address\ isn't\ mapped\ and\ accessible}}
+\DoxyCodeLine{00559\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ kmemleak\_ignore\_phys(base);}
+\DoxyCodeLine{00561\ \ \ \ \ \}}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_a5ccbf330662756d587dfe604278dd9c7}{cma\_init\_reserved\_mem}}(base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ order\_per\_bit,\ name,\ res\_cma);}
+\DoxyCodeLine{00564\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)\ \{}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memblock_8c_a58374695cac69fae902f94caf76b45d3}{memblock\_phys\_free}}(base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00567\ \ \ \ \ \}}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00569\ \ \ \ \ (*res\_cma)-\/>nid\ =\ nid;}
+\DoxyCodeLine{00570\ \ \ \ \ *basep\ =\ base;}
+\DoxyCodeLine{00571\ }
+\DoxyCodeLine{00572\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00573\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_ab3476249344bde0d4202f00d066aac24_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_ab3476249344bde0d4202f00d066aac24_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a37b28404c9374af96696a48aeef48f04}\index{cma.c@{cma.c}!\_\_cma\_release\_frozen@{\_\_cma\_release\_frozen}}
+\index{\_\_cma\_release\_frozen@{\_\_cma\_release\_frozen}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{\_\_cma\_release\_frozen()}{\_\_cma\_release\_frozen()}}
+{\footnotesize\ttfamily \label{cma_8c_a37b28404c9374af96696a48aeef48f04} 
+void \+\_\+\+\_\+cma\+\_\+release\+\_\+frozen (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{cmr}{, }\item[{const struct page \texorpdfstring{$\ast$}{*}}]{pages}{, }\item[{unsigned long}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l01084}{1084}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01086\ \{}
+\DoxyCodeLine{01087\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pfn\ =\ page\_to\_pfn(pages);}
+\DoxyCodeLine{01088\ }
+\DoxyCodeLine{01089\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(page\ \%p,\ count\ \%lu)\(\backslash\)n"{}},\ \_\_func\_\_,\ (\textcolor{keywordtype}{void}\ *)pages,\ count);}
+\DoxyCodeLine{01090\ }
+\DoxyCodeLine{01091\ \ \ \ \ \doxymbox{\hyperlink{page__alloc_8c_aa834ac7e91351ceacefdedd543fe0147}{free\_contig\_frozen\_range}}(pfn,\ count);}
+\DoxyCodeLine{01092\ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a141cce706c8966d5cdd4a99461e40e23}{cma\_clear\_bitmap}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ pfn,\ count);}
+\DoxyCodeLine{01093\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a8c8ee8acd3a3481b8502c735706979d5}{cma\_sysfs\_account\_release\_pages}}(\doxymbox{\hyperlink{structcma}{cma}},\ count);}
+\DoxyCodeLine{01094\ \ \ \ \ trace\_cma\_release(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ pfn,\ pages,\ count);}
+\DoxyCodeLine{01095\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a37b28404c9374af96696a48aeef48f04_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{cma_8c_a37b28404c9374af96696a48aeef48f04_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a797c9c78aabab2ab2bfac5292d40d9af}\index{cma.c@{cma.c}!basecmp@{basecmp}}
+\index{basecmp@{basecmp}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{basecmp()}{basecmp()}}
+{\footnotesize\ttfamily \label{cma_8c_a797c9c78aabab2ab2bfac5292d40d9af} 
+bool \+\_\+\+\_\+init basecmp (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{mlp}{, }\item[{struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{mrp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00363}{363}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00365\ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{return}\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ <\ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}};}
+\DoxyCodeLine{00367\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{cma_8c_a797c9c78aabab2ab2bfac5292d40d9af_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a9abdaa35f837a24171549ea38ea28e70}\index{cma.c@{cma.c}!cma\_activate\_area@{cma\_activate\_area}}
+\index{cma\_activate\_area@{cma\_activate\_area}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_activate\_area()}{cma\_activate\_area()}}
+{\footnotesize\ttfamily \label{cma_8c_a9abdaa35f837a24171549ea38ea28e70} 
+void \+\_\+\+\_\+init cma\+\_\+activate\+\_\+area (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00148}{148}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00149\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pfn,\ end\_pfn,\ early\_pfn[\doxymbox{\hyperlink{cma_8h_a16659937567831cca6bbe6a65f443165}{CMA\_MAX\_RANGES}}];}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{int}\ allocrange,\ r;}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ bitmap\_count,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{for}\ (allocrange\ =\ 0;\ allocrange\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ allocrange++)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[allocrange];}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[allocrange]\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}};}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}}\ =\ bitmap\_zalloc(\doxymbox{\hyperlink{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707}{cma\_bitmap\_maxno}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr),}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{gfp__types_8h_a44b9e863fd60efc9018a5524b77532ee}{GFP\_KERNEL}});}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}})}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ cleanup;}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{cma_8c_af1391b7a3d38b6146c38f7ab0b7b5f26}{cma\_validate\_zones}}(\doxymbox{\hyperlink{structcma}{cma}}))}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ cleanup;}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[r]\ !=\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}})\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ =\ \doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[r]\ -\/\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}};}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ bitmap\_count\ =\ \doxymbox{\hyperlink{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}{cma\_bitmap\_pages\_to\_bits}}(\doxymbox{\hyperlink{structcma}{cma}},\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ bitmap\_set(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},\ 0,\ bitmap\_count);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (pfn\ =\ \doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[r];\ pfn\ <\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ pfn\ +=\ pageblock\_nr\_pages)}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ init\_cma\_reserved\_pageblock(pfn\_to\_page(pfn));}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ spin\_lock\_init(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ mutex\_init(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a26192936b7b1c2340ab1ca0d5f756a5c}{alloc\_mutex}});}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_CMA\_DEBUGFS}}
+\DoxyCodeLine{00185\ \ \ \ \ INIT\_HLIST\_HEAD(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a6d8fd598770d929efe255c8988ace416}{mem\_head}});}
+\DoxyCodeLine{00186\ \ \ \ \ spin\_lock\_init(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a302f8220180c0ae36a39cdda40854bdc}{mem\_head\_lock}});}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00188\ \ \ \ \ set\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9}{CMA\_ACTIVATED}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ cleanup:}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ allocrange;\ r++)}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ bitmap\_free(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r].\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}});}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{comment}{/*\ Expose\ all\ pages\ to\ the\ buddy,\ they\ are\ useless\ for\ CMA.\ */}}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{if}\ (!test\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51}{CMA\_RESERVE\_PAGES\_ON\_ERROR}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}}))\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ allocrange;\ r++)\ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ end\_pfn\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (pfn\ =\ \doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[r];\ pfn\ <\ end\_pfn;\ pfn++)}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{page__alloc_8c_af199d7b6e6ff719cf80aad0213ac4baf}{free\_reserved\_page}}(pfn\_to\_page(pfn));}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ totalcma\_pages\ -\/=\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}};}
+\DoxyCodeLine{00206\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ =\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}}\ =\ 0;}
+\DoxyCodeLine{00207\ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}CMA\ area\ \%s\ could\ not\ be\ activated\(\backslash\)n"{}},\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}});}
+\DoxyCodeLine{00208\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a9abdaa35f837a24171549ea38ea28e70_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a9abdaa35f837a24171549ea38ea28e70_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_af7a793465730821d26e8c45648016639}\index{cma.c@{cma.c}!cma\_alloc@{cma\_alloc}}
+\index{cma\_alloc@{cma\_alloc}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_alloc()}{cma\_alloc()}}
+{\footnotesize\ttfamily \label{cma_8c_af7a793465730821d26e8c45648016639} 
+struct page \texorpdfstring{$\ast$}{*} cma\+\_\+alloc (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned long}]{count}{, }\item[{unsigned int}]{align}{, }\item[{bool}]{no\+\_\+warn}{}\end{DoxyParamCaption})}
+
+\doxylink{cma_8c_af7a793465730821d26e8c45648016639}{cma\+\_\+alloc()} -\/ allocate pages from contiguous area @cma:\+ Contiguous memory region for which the allocation is performed. @count:\+ Requested number of pages. @align:\+ Requested alignment of pages (in PAGE\+\_\+\+SIZE order). @no\+\_\+warn:\+ Avoid printing message about failed allocation
+
+This function allocates part of contiguous memory on specific contiguous memory area. 
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l01022}{1022}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01024\ \{}
+\DoxyCodeLine{01025\ \ \ \ \ \textcolor{keyword}{struct\ }page\ *page;}
+\DoxyCodeLine{01026\ }
+\DoxyCodeLine{01027\ \ \ \ \ page\ =\ \doxymbox{\hyperlink{cma_8c_ac35a4b2b31cca6119a7093e816a998eb}{cma\_alloc\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ count,\ align,\ no\_warn);}
+\DoxyCodeLine{01028\ \ \ \ \ \textcolor{keywordflow}{if}\ (page)}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ set\_pages\_refcounted(page,\ count);}
+\DoxyCodeLine{01030\ }
+\DoxyCodeLine{01031\ \ \ \ \ \textcolor{keywordflow}{return}\ page;}
+\DoxyCodeLine{01032\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_af7a793465730821d26e8c45648016639_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_ac35a4b2b31cca6119a7093e816a998eb}\index{cma.c@{cma.c}!cma\_alloc\_frozen@{cma\_alloc\_frozen}}
+\index{cma\_alloc\_frozen@{cma\_alloc\_frozen}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_alloc\_frozen()}{cma\_alloc\_frozen()}}
+{\footnotesize\ttfamily \label{cma_8c_ac35a4b2b31cca6119a7093e816a998eb} 
+struct page \texorpdfstring{$\ast$}{*} cma\+\_\+alloc\+\_\+frozen (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned long}]{count}{, }\item[{unsigned int}]{align}{, }\item[{bool}]{no\+\_\+warn}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00997}{997}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00999\ \{}
+\DoxyCodeLine{01000\ \ \ \ \ gfp\_t\ gfp\ =\ \doxymbox{\hyperlink{gfp__types_8h_a44b9e863fd60efc9018a5524b77532ee}{GFP\_KERNEL}}\ |\ (no\_warn\ ?\ \doxymbox{\hyperlink{gfp__types_8h_ad16e4916f64bf12d9016393d48ff9aa1}{\_\_GFP\_NOWARN}}\ :\ 0);}
+\DoxyCodeLine{01001\ }
+\DoxyCodeLine{01002\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{cma_8c_acad5b6d18973f77425aed7ade3176735}{\_\_cma\_alloc\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ count,\ align,\ gfp);}
+\DoxyCodeLine{01003\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_ac35a4b2b31cca6119a7093e816a998eb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=269pt]{cma_8c_ac35a4b2b31cca6119a7093e816a998eb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a22b347d50955579a42ff3089c98060cf}\index{cma.c@{cma.c}!cma\_alloc\_frozen\_compound@{cma\_alloc\_frozen\_compound}}
+\index{cma\_alloc\_frozen\_compound@{cma\_alloc\_frozen\_compound}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_alloc\_frozen\_compound()}{cma\_alloc\_frozen\_compound()}}
+{\footnotesize\ttfamily \label{cma_8c_a22b347d50955579a42ff3089c98060cf} 
+struct page \texorpdfstring{$\ast$}{*} cma\+\_\+alloc\+\_\+frozen\+\_\+compound (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned int}]{order}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l01005}{1005}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01006\ \{}
+\DoxyCodeLine{01007\ \ \ \ \ gfp\_t\ gfp\ =\ \doxymbox{\hyperlink{gfp__types_8h_a44b9e863fd60efc9018a5524b77532ee}{GFP\_KERNEL}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_a10446867559250a00669340c5e112677}{\_\_GFP\_COMP}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_ad16e4916f64bf12d9016393d48ff9aa1}{\_\_GFP\_NOWARN}};}
+\DoxyCodeLine{01008\ }
+\DoxyCodeLine{01009\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{cma_8c_acad5b6d18973f77425aed7ade3176735}{\_\_cma\_alloc\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ 1\ <<\ order,\ order,\ gfp);}
+\DoxyCodeLine{01010\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a22b347d50955579a42ff3089c98060cf_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a25b9dae3587cc341d557617d987dd2cf}\index{cma.c@{cma.c}!cma\_alloc\_mem@{cma\_alloc\_mem}}
+\index{cma\_alloc\_mem@{cma\_alloc\_mem}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_alloc\_mem()}{cma\_alloc\_mem()}}
+{\footnotesize\ttfamily \label{cma_8c_a25b9dae3587cc341d557617d987dd2cf} 
+phys\+\_\+addr\+\_\+t \+\_\+\+\_\+init cma\+\_\+alloc\+\_\+mem (\begin{DoxyParamCaption}\item[{phys\+\_\+addr\+\_\+t}]{base}{, }\item[{phys\+\_\+addr\+\_\+t}]{size}{, }\item[{phys\+\_\+addr\+\_\+t}]{align}{, }\item[{phys\+\_\+addr\+\_\+t}]{limit}{, }\item[{int}]{nid}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00429}{429}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00431\ \{}
+\DoxyCodeLine{00432\ \ \ \ \ phys\_addr\_t\ addr\ =\ 0;}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00435\ \textcolor{comment}{\ \ \ \ \ *\ If\ there\ is\ enough\ memory,\ try\ a\ bottom-\/up\ allocation\ first.}}
+\DoxyCodeLine{00436\ \textcolor{comment}{\ \ \ \ \ *\ It\ will\ place\ the\ new\ cma\ area\ close\ to\ the\ start\ of\ the\ node}}
+\DoxyCodeLine{00437\ \textcolor{comment}{\ \ \ \ \ *\ and\ guarantee\ that\ the\ compaction\ is\ moving\ pages\ out\ of\ the}}
+\DoxyCodeLine{00438\ \textcolor{comment}{\ \ \ \ \ *\ cma\ area\ and\ not\ into\ it.}}
+\DoxyCodeLine{00439\ \textcolor{comment}{\ \ \ \ \ *\ Avoid\ using\ first\ 4GB\ to\ not\ interfere\ with\ constrained\ zones}}
+\DoxyCodeLine{00440\ \textcolor{comment}{\ \ \ \ \ *\ like\ DMA/DMA32.}}
+\DoxyCodeLine{00441\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_PHYS\_ADDR\_T\_64BIT}}
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{keywordflow}{if}\ (!memblock\_bottom\_up()\ \&\&\ limit\ >=\ SZ\_4G\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ \{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ memblock\_set\_bottom\_up(\textcolor{keyword}{true});}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ addr\ =\ \doxymbox{\hyperlink{memblock_8c_a23875c89e572709cf1ad3fe305b8dc52}{memblock\_alloc\_range\_nid}}(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ align,\ SZ\_4G,\ limit,}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nid,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ memblock\_set\_bottom\_up(\textcolor{keyword}{false});}
+\DoxyCodeLine{00448\ \ \ \ \ \}}
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00452\ \textcolor{comment}{\ \ \ \ \ *\ On\ systems\ with\ HIGHMEM\ try\ allocating\ from\ there\ before\ consuming}}
+\DoxyCodeLine{00453\ \textcolor{comment}{\ \ \ \ \ *\ memory\ in\ lower\ zones.}}
+\DoxyCodeLine{00454\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{keywordflow}{if}\ (!addr\ \&\&\ IS\_ENABLED(CONFIG\_HIGHMEM))\ \{}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ phys\_addr\_t\ highmem\ =\ \_\_pa(high\_memory\ -\/\ 1)\ +\ 1;}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00459\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ All\ pages\ in\ the\ reserved\ area\ must\ come\ from\ the\ same\ zone.}}
+\DoxyCodeLine{00460\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ the\ requested\ region\ crosses\ the\ low/high\ memory\ boundary,}}
+\DoxyCodeLine{00461\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ try\ allocating\ from\ high\ memory\ first\ and\ fall\ back\ to\ low}}
+\DoxyCodeLine{00462\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ memory\ in\ case\ of\ failure.}}
+\DoxyCodeLine{00463\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (base\ <\ highmem\ \&\&\ limit\ >\ highmem)\ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ addr\ =\ \doxymbox{\hyperlink{memblock_8c_a23875c89e572709cf1ad3fe305b8dc52}{memblock\_alloc\_range\_nid}}(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ align,\ highmem,}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ limit,\ nid,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ limit\ =\ highmem;}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00469\ \ \ \ \ \}}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ \ \ \ \ \textcolor{keywordflow}{if}\ (!addr)}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ addr\ =\ \doxymbox{\hyperlink{memblock_8c_a23875c89e572709cf1ad3fe305b8dc52}{memblock\_alloc\_range\_nid}}(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ align,\ base,\ limit,\ nid,}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{keywordflow}{return}\ addr;}
+\DoxyCodeLine{00476\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a25b9dae3587cc341d557617d987dd2cf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a25b9dae3587cc341d557617d987dd2cf_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_acacbaf2002d23b129e8873ba1d32effe}\index{cma.c@{cma.c}!cma\_bitmap\_aligned\_mask@{cma\_bitmap\_aligned\_mask}}
+\index{cma\_bitmap\_aligned\_mask@{cma\_bitmap\_aligned\_mask}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_bitmap\_aligned\_mask()}{cma\_bitmap\_aligned\_mask()}}
+{\footnotesize\ttfamily \label{cma_8c_acacbaf2002d23b129e8873ba1d32effe} 
+unsigned long cma\+\_\+bitmap\+\_\+aligned\+\_\+mask (\begin{DoxyParamCaption}\item[{const struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned int}]{align\+\_\+order}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{if}\ (align\_order\ <=\ cma-\/>order\_per\_bit)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ (1UL\ <<\ (align\_order\ -\/\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}}))\ -\/\ 1;}
+\DoxyCodeLine{00062\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_acacbaf2002d23b129e8873ba1d32effe_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a9913d09d1e20830d944af8a4702814cb}\index{cma.c@{cma.c}!cma\_bitmap\_aligned\_offset@{cma\_bitmap\_aligned\_offset}}
+\index{cma\_bitmap\_aligned\_offset@{cma\_bitmap\_aligned\_offset}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_bitmap\_aligned\_offset()}{cma\_bitmap\_aligned\_offset()}}
+{\footnotesize\ttfamily \label{cma_8c_a9913d09d1e20830d944af8a4702814cb} 
+unsigned long cma\+\_\+bitmap\+\_\+aligned\+\_\+offset (\begin{DoxyParamCaption}\item[{const struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{const struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{cmr}{, }\item[{unsigned int}]{align\+\_\+order}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00068}{68}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00071\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{return}\ (cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ \&\ ((1UL\ <<\ align\_order)\ -\/\ 1))}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ >>\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{00074\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a9913d09d1e20830d944af8a4702814cb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}\index{cma.c@{cma.c}!cma\_bitmap\_pages\_to\_bits@{cma\_bitmap\_pages\_to\_bits}}
+\index{cma\_bitmap\_pages\_to\_bits@{cma\_bitmap\_pages\_to\_bits}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_bitmap\_pages\_to\_bits()}{cma\_bitmap\_pages\_to\_bits()}}
+{\footnotesize\ttfamily \label{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee} 
+unsigned long cma\+\_\+bitmap\+\_\+pages\+\_\+to\+\_\+bits (\begin{DoxyParamCaption}\item[{const struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned long}]{pages}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00076}{76}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00078\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ ALIGN(pages,\ 1UL\ <<\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}})\ >>\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{00080\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a141cce706c8966d5cdd4a99461e40e23}\index{cma.c@{cma.c}!cma\_clear\_bitmap@{cma\_clear\_bitmap}}
+\index{cma\_clear\_bitmap@{cma\_clear\_bitmap}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_clear\_bitmap()}{cma\_clear\_bitmap()}}
+{\footnotesize\ttfamily \label{cma_8c_a141cce706c8966d5cdd4a99461e40e23} 
+void cma\+\_\+clear\+\_\+bitmap (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{const struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{cmr}{, }\item[{unsigned long}]{pfn}{, }\item[{unsigned long}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00082}{82}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00084\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ bitmap\_no,\ bitmap\_count;}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ bitmap\_no\ =\ (pfn\ -\/\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}})\ >>\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{00089\ \ \ \ \ bitmap\_count\ =\ \doxymbox{\hyperlink{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}{cma\_bitmap\_pages\_to\_bits}}(\doxymbox{\hyperlink{structcma}{cma}},\ count);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ spin\_lock\_irqsave(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00092\ \ \ \ \ bitmap\_clear(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},\ bitmap\_no,\ bitmap\_count);}
+\DoxyCodeLine{00093\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ +=\ count;}
+\DoxyCodeLine{00094\ \ \ \ \ spin\_unlock\_irqrestore(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00095\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{cma_8c_a141cce706c8966d5cdd4a99461e40e23_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a141cce706c8966d5cdd4a99461e40e23_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_aaf9a433b1f1cdd2306aa512d19b270fd}\index{cma.c@{cma.c}!cma\_debug\_show\_areas@{cma\_debug\_show\_areas}}
+\index{cma\_debug\_show\_areas@{cma\_debug\_show\_areas}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_debug\_show\_areas()}{cma\_debug\_show\_areas()}}
+{\footnotesize\ttfamily \label{cma_8c_aaf9a433b1f1cdd2306aa512d19b270fd} 
+void cma\+\_\+debug\+\_\+show\+\_\+areas (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00816}{816}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00817\ \{}
+\DoxyCodeLine{00818\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,\ end;}
+\DoxyCodeLine{00819\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_part;}
+\DoxyCodeLine{00820\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nbits;}
+\DoxyCodeLine{00821\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{00822\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{00823\ }
+\DoxyCodeLine{00824\ \ \ \ \ spin\_lock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{00825\ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}number\ of\ available\ pages:\ "{}});}
+\DoxyCodeLine{00826\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{00828\ }
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ nbits\ =\ \doxymbox{\hyperlink{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707}{cma\_bitmap\_maxno}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr);}
+\DoxyCodeLine{00830\ }
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}range\ \%d:\ "{}},\ r);}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ for\_each\_clear\_bitrange(start,\ end,\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},\ nbits)\ \{}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ nr\_part\ =\ (end\ -\/\ start)\ <<\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \ \ \ \ pr\_cont(\textcolor{stringliteral}{"{}\%s\%lu@\%lu"{}},\ start\ ?\ \textcolor{stringliteral}{"{}+"{}}\ :\ \textcolor{stringliteral}{"{}"{}},\ nr\_part,\ start);}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{00837\ \ \ \ \ \}}
+\DoxyCodeLine{00838\ \ \ \ \ pr\_cont(\textcolor{stringliteral}{"{}=>\ \%lu\ free\ of\ \%lu\ total\ pages\(\backslash\)n"{}},\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}},}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}});}
+\DoxyCodeLine{00840\ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{00841\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{cma_8c_aaf9a433b1f1cdd2306aa512d19b270fd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_aaf9a433b1f1cdd2306aa512d19b270fd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a8069ccd7aae99dd4d6e5a139f23a5345}\index{cma.c@{cma.c}!cma\_declare\_contiguous\_multi@{cma\_declare\_contiguous\_multi}}
+\index{cma\_declare\_contiguous\_multi@{cma\_declare\_contiguous\_multi}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_declare\_contiguous\_multi()}{cma\_declare\_contiguous\_multi()}}
+{\footnotesize\ttfamily \label{cma_8c_a8069ccd7aae99dd4d6e5a139f23a5345} 
+int \+\_\+\+\_\+init cma\+\_\+declare\+\_\+contiguous\+\_\+multi (\begin{DoxyParamCaption}\item[{phys\+\_\+addr\+\_\+t}]{total\+\_\+size}{, }\item[{phys\+\_\+addr\+\_\+t}]{align}{, }\item[{unsigned int}]{order\+\_\+per\+\_\+bit}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{res\+\_\+cma}{, }\item[{int}]{nid}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00584}{584}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00587\ \{}
+\DoxyCodeLine{00588\ \ \ \ \ phys\_addr\_t\ start\ =\ 0,\ end;}
+\DoxyCodeLine{00589\ \ \ \ \ phys\_addr\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ sizesum,\ sizeleft;}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *mrp,\ *mlp,\ *failed;}
+\DoxyCodeLine{00591\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmrp;}
+\DoxyCodeLine{00592\ \ \ \ \ \doxymbox{\hyperlink{cgroup_8c_a1c97100246d4db525e74b605e678d713}{LIST\_HEAD}}(ranges);}
+\DoxyCodeLine{00593\ \ \ \ \ \doxymbox{\hyperlink{cgroup_8c_a1c97100246d4db525e74b605e678d713}{LIST\_HEAD}}(final\_ranges);}
+\DoxyCodeLine{00594\ \ \ \ \ \textcolor{keyword}{struct\ }list\_head\ *mp,\ *next;}
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{keywordtype}{int}\ ret,\ nr\ =\ 1;}
+\DoxyCodeLine{00596\ \ \ \ \ u64\ i;}
+\DoxyCodeLine{00597\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00600\ \textcolor{comment}{\ \ \ \ \ *\ First,\ try\ it\ the\ normal\ way,\ producing\ just\ one\ range.}}
+\DoxyCodeLine{00601\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00602\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_ab3476249344bde0d4202f00d066aac24}{\_\_cma\_declare\_contiguous\_nid}}(\&start,\ total\_size,\ 0,\ align,}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}},\ \textcolor{keyword}{false},\ \doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ res\_cma,\ \doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}});}
+\DoxyCodeLine{00604\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ -\/ENOMEM)}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00608\ \textcolor{comment}{\ \ \ \ \ *\ Couldn't\ find\ one\ range\ that\ fits\ our\ needs,\ so\ try\ multiple}}
+\DoxyCodeLine{00609\ \textcolor{comment}{\ \ \ \ \ *\ ranges.}}
+\DoxyCodeLine{00610\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00611\ \textcolor{comment}{\ \ \ \ \ *\ No\ need\ to\ do\ the\ alignment\ checks\ here,\ the\ call\ to}}
+\DoxyCodeLine{00612\ \textcolor{comment}{\ \ \ \ \ *\ cma\_declare\_contiguous\_nid\ above\ would\ have\ caught}}
+\DoxyCodeLine{00613\ \textcolor{comment}{\ \ \ \ \ *\ any\ issues.\ With\ the\ checks,\ we\ know\ that:}}
+\DoxyCodeLine{00614\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00615\ \textcolor{comment}{\ \ \ \ \ *\ -\/\ @align\ is\ a\ power\ of\ 2}}
+\DoxyCodeLine{00616\ \textcolor{comment}{\ \ \ \ \ *\ -\/\ @align\ is\ >=\ pageblock\ alignment}}
+\DoxyCodeLine{00617\ \textcolor{comment}{\ \ \ \ \ *\ -\/\ @size\ is\ aligned\ to\ @align\ and\ to\ @order\_per\_bit}}
+\DoxyCodeLine{00618\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00619\ \textcolor{comment}{\ \ \ \ \ *\ So,\ as\ long\ as\ we\ create\ ranges\ that\ have\ a\ base}}
+\DoxyCodeLine{00620\ \textcolor{comment}{\ \ \ \ \ *\ aligned\ to\ @align,\ and\ a\ size\ that\ is\ aligned\ to}}
+\DoxyCodeLine{00621\ \textcolor{comment}{\ \ \ \ \ *\ both\ @align\ and\ @order\_to\_bit,\ things\ will\ work\ out.}}
+\DoxyCodeLine{00622\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00623\ \ \ \ \ nr\ =\ 0;}
+\DoxyCodeLine{00624\ \ \ \ \ sizesum\ =\ 0;}
+\DoxyCodeLine{00625\ \ \ \ \ failed\ =\ NULL;}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a}{cma\_new\_area}}(\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ total\_size,\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}},\ \&\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{00628\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ 0)}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00631\ \ \ \ \ align\ =\ max\_t(phys\_addr\_t,\ align,\ CMA\_MIN\_ALIGNMENT\_BYTES);}
+\DoxyCodeLine{00632\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00633\ \textcolor{comment}{\ \ \ \ \ *\ Create\ a\ list\ of\ ranges\ above\ 4G,\ largest\ range\ first.}}
+\DoxyCodeLine{00634\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00635\ \ \ \ \ for\_each\_free\_mem\_range(i,\ \doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}},\ MEMBLOCK\_NONE,\ \&start,\ \&end,\ NULL)\ \{}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (upper\_32\_bits(start)\ ==\ 0)}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00638\ }
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ start\ =\ ALIGN(start,\ align);}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ >=\ end)}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00642\ }
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ end\ =\ ALIGN\_DOWN(end,\ align);}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (end\ <=\ start)}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ =\ end\ -\/\ start;}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ =\ ALIGN\_DOWN(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ (PAGE\_SIZE\ <<\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}}));}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ sizesum\ +=\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}consider\ \%016llx\ -\/\ \%016llx\(\backslash\)n"{}},\ (u64)start,\ (u64)end);}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00656\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ we\ don't\ yet\ have\ used\ the\ maximum\ number\ of}}
+\DoxyCodeLine{00657\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ areas,\ grab\ a\ new\ one.}}
+\DoxyCodeLine{00658\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00659\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ we\ can't\ use\ anymore,\ see\ if\ this\ range\ is\ not}}
+\DoxyCodeLine{00660\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ smaller\ than\ the\ smallest\ one\ already\ recorded.\ If}}
+\DoxyCodeLine{00661\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ not,\ re-\/use\ the\ smallest\ element.}}
+\DoxyCodeLine{00662\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nr\ <\ \doxymbox{\hyperlink{cma_8h_a16659937567831cca6bbe6a65f443165}{CMA\_MAX\_RANGES}})}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \ \ \ \ mrp\ =\ \&memranges[nr++];}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \ \ \ \ mrp\ =\ list\_last\_entry(\&\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}},}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ list);}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size\ <\ mrp-\/>}}\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \ \ \ \ list\_del(\&mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}});}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \ \ \ \ sizesum\ -\/=\ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}};}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}deleted\ \%016llx\ -\/\ \%016llx\ from\ the\ list\(\backslash\)n"{}},}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (u64)mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ (u64)mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ =\ start;}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}}\ =\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{00677\ }
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00679\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Now\ do\ a\ sorted\ insert.}}
+\DoxyCodeLine{00680\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329}{list\_insert\_sorted}}(\&\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}},\ mrp,\ \doxymbox{\hyperlink{cma_8c_a3c4a3cf48eabdcf3bf54d2cc130d79e5}{revsizecmp}});}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}added\ \%016llx\ -\/\ \%016llx\ to\ the\ list\(\backslash\)n"{}},}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ (u64)mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ (u64)mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}total\ size\ now\ \%llu\(\backslash\)n"{}},\ (u64)sizesum);}
+\DoxyCodeLine{00685\ \ \ \ \ \}}
+\DoxyCodeLine{00686\ }
+\DoxyCodeLine{00687\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00688\ \textcolor{comment}{\ \ \ \ \ *\ There\ is\ not\ enough\ room\ in\ the\ CMA\_MAX\_RANGES\ largest}}
+\DoxyCodeLine{00689\ \textcolor{comment}{\ \ \ \ \ *\ ranges,\ so\ bail\ out.}}
+\DoxyCodeLine{00690\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00691\ \ \ \ \ \textcolor{keywordflow}{if}\ (sizesum\ <\ total\_size)\ \{}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71}{cma\_drop\_area}}(\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ ret\ =\ -\/ENOMEM;}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{00695\ \ \ \ \ \}}
+\DoxyCodeLine{00696\ }
+\DoxyCodeLine{00697\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00698\ \textcolor{comment}{\ \ \ \ \ *\ Found\ ranges\ that\ provide\ enough\ combined\ space.}}
+\DoxyCodeLine{00699\ \textcolor{comment}{\ \ \ \ \ *\ Now,\ sorted\ them\ by\ address,\ smallest\ first,\ because\ we}}
+\DoxyCodeLine{00700\ \textcolor{comment}{\ \ \ \ \ *\ want\ to\ mimic\ a\ bottom-\/up\ memblock\ allocation.}}
+\DoxyCodeLine{00701\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00702\ \ \ \ \ sizesum\ =\ 0;}
+\DoxyCodeLine{00703\ \ \ \ \ list\_for\_each\_safe(mp,\ next,\ \&\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}})\ \{}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ mlp\ =\ list\_entry(mp,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ list);}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ list\_del(mp);}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329}{list\_insert\_sorted}}(\&final\_ranges,\ mlp,\ \doxymbox{\hyperlink{cma_8c_a797c9c78aabab2ab2bfac5292d40d9af}{basecmp}});}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ sizesum\ +=\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}};}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sizesum\ >=\ total\_size)}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00710\ \ \ \ \ \}}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00713\ \textcolor{comment}{\ \ \ \ \ *\ Walk\ the\ final\ list,\ and\ add\ a\ CMA\ range\ for}}
+\DoxyCodeLine{00714\ \textcolor{comment}{\ \ \ \ \ *\ each\ range,\ possibly\ not\ using\ the\ last\ one\ fully.}}
+\DoxyCodeLine{00715\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00716\ \ \ \ \ nr\ =\ 0;}
+\DoxyCodeLine{00717\ \ \ \ \ sizeleft\ =\ total\_size;}
+\DoxyCodeLine{00718\ \ \ \ \ list\_for\_each(mp,\ \&final\_ranges)\ \{}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ mlp\ =\ list\_entry(mp,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ list);}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ =\ min(sizeleft,\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}});}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (memblock\_reserve(mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}))\ \{}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00723\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ Unexpected\ error.\ Could\ go\ on\ to}}
+\DoxyCodeLine{00724\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ the\ next\ one,\ but\ just\ abort\ to}}
+\DoxyCodeLine{00725\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ be\ safe.}}
+\DoxyCodeLine{00726\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \ \ \ \ failed\ =\ mlp;}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}created\ region\ \%d:\ \%016llx\ -\/\ \%016llx\(\backslash\)n"{}},}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ nr,\ (u64)mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ (u64)mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ cmrp\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[nr++];}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ cmrp-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ =\ PHYS\_PFN(mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}});}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ cmrp-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}\ =\ cmrp-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}};}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ cmrp-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ =\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >>\ PAGE\_SHIFT;}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ sizeleft\ -\/=\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sizeleft\ ==\ 0)}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00741\ \ \ \ \ \}}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00743\ \ \ \ \ \textcolor{keywordflow}{if}\ (failed)\ \{}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ list\_for\_each(mp,\ \&final\_ranges)\ \{}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \ \ \ \ mlp\ =\ list\_entry(mp,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ list);}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mlp\ ==\ failed)}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memblock_8c_a58374695cac69fae902f94caf76b45d3}{memblock\_phys\_free}}(mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}});}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71}{cma\_drop\_area}}(\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ ret\ =\ -\/ENOMEM;}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{00753\ \ \ \ \ \}}
+\DoxyCodeLine{00754\ }
+\DoxyCodeLine{00755\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}}\ =\ nr;}
+\DoxyCodeLine{00756\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}}\ =\ \doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}};}
+\DoxyCodeLine{00757\ \ \ \ \ *res\_cma\ =\ \doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ out:}
+\DoxyCodeLine{00760\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ 0)}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Failed\ to\ reserve\ \%lu\ MiB\(\backslash\)n"{}},}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})total\_size\ /\ SZ\_1M);}
+\DoxyCodeLine{00763\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}Reserved\ \%lu\ MiB\ in\ \%d\ range\%s\(\backslash\)n"{}},}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})total\_size\ /\ SZ\_1M,\ nr,\ str\_plural(nr));}
+\DoxyCodeLine{00766\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00767\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a8069ccd7aae99dd4d6e5a139f23a5345_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a67300d38c8a1a69d9f4c8866dc44840a}\index{cma.c@{cma.c}!cma\_declare\_contiguous\_nid@{cma\_declare\_contiguous\_nid}}
+\index{cma\_declare\_contiguous\_nid@{cma\_declare\_contiguous\_nid}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_declare\_contiguous\_nid()}{cma\_declare\_contiguous\_nid()}}
+{\footnotesize\ttfamily \label{cma_8c_a67300d38c8a1a69d9f4c8866dc44840a} 
+int \+\_\+\+\_\+init cma\+\_\+declare\+\_\+contiguous\+\_\+nid (\begin{DoxyParamCaption}\item[{phys\+\_\+addr\+\_\+t}]{base}{, }\item[{phys\+\_\+addr\+\_\+t}]{size}{, }\item[{phys\+\_\+addr\+\_\+t}]{limit}{, }\item[{phys\+\_\+addr\+\_\+t}]{alignment}{, }\item[{unsigned int}]{order\+\_\+per\+\_\+bit}{, }\item[{bool}]{fixed}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{res\+\_\+cma}{, }\item[{int}]{nid}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00789}{789}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00794\ \{}
+\DoxyCodeLine{00795\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{00796\ }
+\DoxyCodeLine{00797\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_ab3476249344bde0d4202f00d066aac24}{\_\_cma\_declare\_contiguous\_nid}}(\&base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ limit,\ alignment,}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ order\_per\_bit,\ fixed,\ name,\ res\_cma,\ nid);}
+\DoxyCodeLine{00799\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ 0)}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Failed\ to\ reserve\ \%ld\ MiB\(\backslash\)n"{}},}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ /\ SZ\_1M);}
+\DoxyCodeLine{00802\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}Reserved\ \%ld\ MiB\ at\ \%pa\(\backslash\)n"{}},}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ /\ SZ\_1M,\ \&base);}
+\DoxyCodeLine{00805\ }
+\DoxyCodeLine{00806\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00807\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a67300d38c8a1a69d9f4c8866dc44840a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71}\index{cma.c@{cma.c}!cma\_drop\_area@{cma\_drop\_area}}
+\index{cma\_drop\_area@{cma\_drop\_area}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_drop\_area()}{cma\_drop\_area()}}
+{\footnotesize\ttfamily \label{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71} 
+void \+\_\+\+\_\+init cma\+\_\+drop\+\_\+area (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00284}{284}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00285\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ totalcma\_pages\ -\/=\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}};}
+\DoxyCodeLine{00287\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}-\/-\/;}
+\DoxyCodeLine{00288\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a3a8851f9dbcf016f6afb59a60caa871a}\index{cma.c@{cma.c}!cma\_fixed\_reserve@{cma\_fixed\_reserve}}
+\index{cma\_fixed\_reserve@{cma\_fixed\_reserve}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_fixed\_reserve()}{cma\_fixed\_reserve()}}
+{\footnotesize\ttfamily \label{cma_8c_a3a8851f9dbcf016f6afb59a60caa871a} 
+int \+\_\+\+\_\+init cma\+\_\+fixed\+\_\+reserve (\begin{DoxyParamCaption}\item[{phys\+\_\+addr\+\_\+t}]{base}{, }\item[{phys\+\_\+addr\+\_\+t}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00398}{398}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00399\ \{}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{keywordflow}{if}\ (IS\_ENABLED(CONFIG\_HIGHMEM))\ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ phys\_addr\_t\ highmem\_start\ =\ \_\_pa(high\_memory\ -\/\ 1)\ +\ 1;}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00404\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ allocating\ at\ a\ fixed\ base\ the\ request\ region\ must\ not}}
+\DoxyCodeLine{00405\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ cross\ the\ low/high\ memory\ boundary.}}
+\DoxyCodeLine{00406\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (base\ <\ highmem\_start\ \&\&\ base\ +\ size\ >\ highmem\_start)\ \{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Region\ at\ \%pa\ defined\ on\ low/high\ memory\ boundary\ (\%pa)\(\backslash\)n"{}},}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&base,\ \&highmem\_start);}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00412\ \ \ \ \ \}}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{memblock_8c_abaf8834e7aa241bd066ffa78f1b3c170}{memblock\_is\_region\_reserved}}(base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ ||}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ memblock\_reserve(base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ <\ 0)\ \{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EBUSY;}
+\DoxyCodeLine{00417\ \ \ \ \ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00420\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a3a8851f9dbcf016f6afb59a60caa871a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a3a8851f9dbcf016f6afb59a60caa871a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a2a33f2c3a50c713637f3c762b8670df9}\index{cma.c@{cma.c}!cma\_for\_each\_area@{cma\_for\_each\_area}}
+\index{cma\_for\_each\_area@{cma\_for\_each\_area}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_for\_each\_area()}{cma\_for\_each\_area()}}
+{\footnotesize\ttfamily \label{cma_8c_a2a33f2c3a50c713637f3c762b8670df9} 
+int cma\+\_\+for\+\_\+each\+\_\+area (\begin{DoxyParamCaption}\item[{int(\texorpdfstring{$\ast$}{*}}]{it~}{)(struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{structcma}{cma}}, void \texorpdfstring{$\ast$}{*}data), }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l01156}{1156}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01157\ \{}
+\DoxyCodeLine{01158\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{01159\ }
+\DoxyCodeLine{01160\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}};\ i++)\ \{}
+\DoxyCodeLine{01161\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ it(\&\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}[i],\ data);}
+\DoxyCodeLine{01162\ }
+\DoxyCodeLine{01163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)}
+\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{01165\ \ \ \ \ \}}
+\DoxyCodeLine{01166\ }
+\DoxyCodeLine{01167\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{01168\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cma_8c_a97879508444bf1cf0c647505085ba504}\index{cma.c@{cma.c}!cma\_get\_base@{cma\_get\_base}}
+\index{cma\_get\_base@{cma\_get\_base}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_get\_base()}{cma\_get\_base()}}
+{\footnotesize\ttfamily \label{cma_8c_a97879508444bf1cf0c647505085ba504} 
+phys\+\_\+addr\+\_\+t cma\+\_\+get\+\_\+base (\begin{DoxyParamCaption}\item[{const struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00040}{40}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ WARN\_ON\_ONCE(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}}\ !=\ 1);}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{return}\ PFN\_PHYS(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[0].\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}});}
+\DoxyCodeLine{00044\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cma_8c_a6f4f77adf3f68c2bbac1b733ae827684}\index{cma.c@{cma.c}!cma\_get\_name@{cma\_get\_name}}
+\index{cma\_get\_name@{cma\_get\_name}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_get\_name()}{cma\_get\_name()}}
+{\footnotesize\ttfamily \label{cma_8c_a6f4f77adf3f68c2bbac1b733ae827684} 
+const char \texorpdfstring{$\ast$}{*} cma\+\_\+get\+\_\+name (\begin{DoxyParamCaption}\item[{const struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00051}{51}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}};}
+\DoxyCodeLine{00054\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cma_8c_a9f7d52d2cfaa4e1a6dcf0526ae9270bc}\index{cma.c@{cma.c}!cma\_get\_size@{cma\_get\_size}}
+\index{cma\_get\_size@{cma\_get\_size}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_get\_size()}{cma\_get\_size()}}
+{\footnotesize\ttfamily \label{cma_8c_a9f7d52d2cfaa4e1a6dcf0526ae9270bc} 
+unsigned long cma\+\_\+get\+\_\+size (\begin{DoxyParamCaption}\item[{const struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00046}{46}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}}\ <<\ PAGE\_SHIFT;}
+\DoxyCodeLine{00049\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cma_8c_aeb536241b21a6a891eb7e647eb5d5597}\index{cma.c@{cma.c}!cma\_init\_reserved\_areas@{cma\_init\_reserved\_areas}}
+\index{cma\_init\_reserved\_areas@{cma\_init\_reserved\_areas}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_init\_reserved\_areas()}{cma\_init\_reserved\_areas()}}
+{\footnotesize\ttfamily \label{cma_8c_aeb536241b21a6a891eb7e647eb5d5597} 
+int \+\_\+\+\_\+init cma\+\_\+init\+\_\+reserved\+\_\+areas (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00216}{216}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00217\ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}};\ i++)}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a9abdaa35f837a24171549ea38ea28e70}{cma\_activate\_area}}(\&\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}[i]);}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00224\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_aeb536241b21a6a891eb7e647eb5d5597_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{cma_8c_aeb536241b21a6a891eb7e647eb5d5597_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a5ccbf330662756d587dfe604278dd9c7}\index{cma.c@{cma.c}!cma\_init\_reserved\_mem@{cma\_init\_reserved\_mem}}
+\index{cma\_init\_reserved\_mem@{cma\_init\_reserved\_mem}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_init\_reserved\_mem()}{cma\_init\_reserved\_mem()}}
+{\footnotesize\ttfamily \label{cma_8c_a5ccbf330662756d587dfe604278dd9c7} 
+int \+\_\+\+\_\+init cma\+\_\+init\+\_\+reserved\+\_\+mem (\begin{DoxyParamCaption}\item[{phys\+\_\+addr\+\_\+t}]{base}{, }\item[{phys\+\_\+addr\+\_\+t}]{size}{, }\item[{unsigned int}]{order\+\_\+per\+\_\+bit}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{res\+\_\+cma}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00302}{302}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00306\ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{comment}{/*\ Sanity\ checks\ */}}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ ||\ !\doxymbox{\hyperlink{memblock_8c_abaf8834e7aa241bd066ffa78f1b3c170}{memblock\_is\_region\_reserved}}(base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}))}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ \ \ \ \ *\ CMA\ uses\ CMA\_MIN\_ALIGNMENT\_BYTES\ as\ alignment\ requirement\ which}}
+\DoxyCodeLine{00316\ \textcolor{comment}{\ \ \ \ \ *\ needs\ pageblock\_order\ to\ be\ initialized.\ Let's\ enforce\ it.}}
+\DoxyCodeLine{00317\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordflow}{if}\ (!pageblock\_order)\ \{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}pageblock\_order\ not\ yet\ initialized.\ Called\ during\ early\ boot?\(\backslash\)n"{}});}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{00321\ \ \ \ \ \}}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{comment}{/*\ ensure\ minimal\ alignment\ required\ by\ mm\ core\ */}}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ALIGNED(base\ |\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ CMA\_MIN\_ALIGNMENT\_BYTES))}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a}{cma\_new\_area}}(\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}},\ \&\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ 0)}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[0].\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ =\ PFN\_DOWN(base);}
+\DoxyCodeLine{00332\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[0].\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}\ =\ PFN\_DOWN(base);}
+\DoxyCodeLine{00333\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[0].\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ =\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}};}
+\DoxyCodeLine{00334\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}}\ =\ 1;}
+\DoxyCodeLine{00335\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}}\ =\ NUMA\_NO\_NODE;}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ *res\_cma\ =\ \doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00340\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a5ccbf330662756d587dfe604278dd9c7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a5ccbf330662756d587dfe604278dd9c7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a937e5521fb9113af3b37fda02820a1bb}\index{cma.c@{cma.c}!cma\_intersects@{cma\_intersects}}
+\index{cma\_intersects@{cma\_intersects}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_intersects()}{cma\_intersects()}}
+{\footnotesize\ttfamily \label{cma_8c_a937e5521fb9113af3b37fda02820a1bb} 
+bool cma\+\_\+intersects (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned long}]{start}{, }\item[{unsigned long}]{end}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l01177}{1177}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01178\ \{}
+\DoxyCodeLine{01179\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{01180\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{01181\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ rstart,\ rend;}
+\DoxyCodeLine{01182\ }
+\DoxyCodeLine{01183\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{01185\ }
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ rstart\ =\ PFN\_PHYS(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}});}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ rend\ =\ PFN\_PHYS(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (end\ <\ rstart)}
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ >=\ rend)}
+\DoxyCodeLine{01191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01193\ \ \ \ \ \}}
+\DoxyCodeLine{01194\ }
+\DoxyCodeLine{01195\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01196\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a}\index{cma.c@{cma.c}!cma\_new\_area@{cma\_new\_area}}
+\index{cma\_new\_area@{cma\_new\_area}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_new\_area()}{cma\_new\_area()}}
+{\footnotesize\ttfamily \label{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a} 
+int \+\_\+\+\_\+init cma\+\_\+new\+\_\+area (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{phys\+\_\+addr\+\_\+t}]{size}{, }\item[{unsigned int}]{order\+\_\+per\+\_\+bit}{, }\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{res\+\_\+cma}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00246}{246}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00249\ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}\ ==\ ARRAY\_SIZE(\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}))\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Not\ enough\ slots\ for\ CMA\ reserved\ regions!\(\backslash\)n"{}});}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/ENOSPC;}
+\DoxyCodeLine{00255\ \ \ \ \ \}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ \ \ \ \ *\ Each\ reserved\ area\ must\ be\ initialised\ later,\ when\ more\ kernel}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ \ \ \ \ *\ subsystems\ (like\ slab\ allocator)\ are\ available.}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00261\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}\ =\ \&\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}[\doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}];}
+\DoxyCodeLine{00262\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}++;}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}})}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ strscpy(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ \doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}});}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ snprintf(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ CMA\_MAX\_NAME,\ \ \textcolor{stringliteral}{"{}cma\%d\(\backslash\)n"{}},\ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}});}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ =\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}}\ =\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >>\ PAGE\_SHIFT;}
+\DoxyCodeLine{00270\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}}\ =\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{00271\ \ \ \ \ *res\_cma\ =\ \doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{00272\ \ \ \ \ totalcma\_pages\ +=\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00275\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a7840979b3be80e78d118980122d1043c}\index{cma.c@{cma.c}!cma\_range\_alloc@{cma\_range\_alloc}}
+\index{cma\_range\_alloc@{cma\_range\_alloc}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_range\_alloc()}{cma\_range\_alloc()}}
+{\footnotesize\ttfamily \label{cma_8c_a7840979b3be80e78d118980122d1043c} 
+int cma\+\_\+range\+\_\+alloc (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{cmr}{, }\item[{unsigned long}]{count}{, }\item[{unsigned int}]{align}{, }\item[{struct page \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{pagep}{, }\item[{gfp\+\_\+t}]{gfp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00851}{851}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00854\ \{}
+\DoxyCodeLine{00855\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ bitmap\_maxno,\ bitmap\_no,\ bitmap\_count;}
+\DoxyCodeLine{00856\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,\ pfn,\ mask,\ offset;}
+\DoxyCodeLine{00857\ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ -\/EBUSY;}
+\DoxyCodeLine{00858\ \ \ \ \ \textcolor{keyword}{struct\ }page\ *page\ =\ NULL;}
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \ \ \ \ mask\ =\ \doxymbox{\hyperlink{cma_8c_acacbaf2002d23b129e8873ba1d32effe}{cma\_bitmap\_aligned\_mask}}(\doxymbox{\hyperlink{structcma}{cma}},\ align);}
+\DoxyCodeLine{00861\ \ \ \ \ offset\ =\ \doxymbox{\hyperlink{cma_8c_a9913d09d1e20830d944af8a4702814cb}{cma\_bitmap\_aligned\_offset}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ align);}
+\DoxyCodeLine{00862\ \ \ \ \ bitmap\_maxno\ =\ \doxymbox{\hyperlink{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707}{cma\_bitmap\_maxno}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr);}
+\DoxyCodeLine{00863\ \ \ \ \ bitmap\_count\ =\ \doxymbox{\hyperlink{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}{cma\_bitmap\_pages\_to\_bits}}(\doxymbox{\hyperlink{structcma}{cma}},\ count);}
+\DoxyCodeLine{00864\ }
+\DoxyCodeLine{00865\ \ \ \ \ \textcolor{keywordflow}{if}\ (bitmap\_count\ >\ bitmap\_maxno)}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{00867\ }
+\DoxyCodeLine{00868\ \ \ \ \ \textcolor{keywordflow}{for}\ (start\ =\ 0;\ ;\ start\ =\ bitmap\_no\ +\ mask\ +\ 1)\ \{}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ spin\_lock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00871\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ the\ request\ is\ larger\ than\ the\ available\ number}}
+\DoxyCodeLine{00872\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ of\ pages,\ stop\ right\ away.}}
+\DoxyCodeLine{00873\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ >\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}})\ \{}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ bitmap\_no\ =\ bitmap\_find\_next\_zero\_area\_off(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bitmap\_maxno,\ start,\ bitmap\_count,\ mask,}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset);}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bitmap\_no\ >=\ bitmap\_maxno)\ \{}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00885\ }
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ pfn\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ (bitmap\_no\ <<\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}});}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ page\ =\ pfn\_to\_page(pfn);}
+\DoxyCodeLine{00888\ }
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00890\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Do\ not\ hand\ out\ page\ ranges\ that\ are\ not\ contiguous,\ so}}
+\DoxyCodeLine{00891\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ callers\ can\ just\ iterate\ the\ pages\ without\ having\ to\ worry}}
+\DoxyCodeLine{00892\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ about\ these\ corner\ cases.}}
+\DoxyCodeLine{00893\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!page\_range\_contiguous(page,\ count))\ \{}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \ \ \ \ pr\_warn\_ratelimited(\textcolor{stringliteral}{"{}\%s:\ \%s:\ skipping\ incompatible\ area\ [0x\%lx-\/0x\%lx]"{}},}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_func\_\_,\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ pfn,\ pfn\ +\ count\ -\/\ 1);}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00900\ }
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ bitmap\_set(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},\ bitmap\_no,\ bitmap\_count);}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ -\/=\ count;}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00904\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ It's\ safe\ to\ drop\ the\ lock\ here.\ We've\ marked\ this\ region\ for}}
+\DoxyCodeLine{00905\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ our\ exclusive\ use.\ If\ the\ migration\ fails\ we\ will\ take\ the}}
+\DoxyCodeLine{00906\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ lock\ again\ and\ unmark\ it.}}
+\DoxyCodeLine{00907\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ mutex\_lock(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a26192936b7b1c2340ab1ca0d5f756a5c}{alloc\_mutex}});}
+\DoxyCodeLine{00911\ \ \ \ \ \ \ \ \ ret\ =\ alloc\_contig\_frozen\_range(pfn,\ pfn\ +\ count,\ ACR\_FLAGS\_CMA,\ gfp);}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ mutex\_unlock(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a26192936b7b1c2340ab1ca0d5f756a5c}{alloc\_mutex}});}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ret)}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00915\ }
+\DoxyCodeLine{00916\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a141cce706c8966d5cdd4a99461e40e23}{cma\_clear\_bitmap}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ pfn,\ count);}
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ -\/EBUSY)}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s():\ memory\ range\ at\ pfn\ 0x\%lx\ \%p\ is\ busy,\ retrying\(\backslash\)n"{}},}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_func\_\_,\ pfn,\ page);}
+\DoxyCodeLine{00922\ }
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ trace\_cma\_alloc\_busy\_retry(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ pfn,\ page,\ count,\ align);}
+\DoxyCodeLine{00924\ \ \ \ \ \}}
+\DoxyCodeLine{00925\ out:}
+\DoxyCodeLine{00926\ \ \ \ \ \textcolor{keywordflow}{if}\ (!ret)}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ *pagep\ =\ page;}
+\DoxyCodeLine{00928\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00929\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a7840979b3be80e78d118980122d1043c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a7840979b3be80e78d118980122d1043c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a4b281ce37a51283e854d78f8fe173842}\index{cma.c@{cma.c}!cma\_release@{cma\_release}}
+\index{cma\_release@{cma\_release}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_release()}{cma\_release()}}
+{\footnotesize\ttfamily \label{cma_8c_a4b281ce37a51283e854d78f8fe173842} 
+bool cma\+\_\+release (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{const struct page \texorpdfstring{$\ast$}{*}}]{pages}{, }\item[{unsigned long}]{count}{}\end{DoxyParamCaption})}
+
+\doxylink{cma_8c_a4b281ce37a51283e854d78f8fe173842}{cma\+\_\+release()} -\/ release allocated pages @cma:\+ Contiguous memory region for which the allocation is performed. @pages:\+ Allocated pages. @count:\+ Number of allocated pages.
+
+This function releases memory allocated by \doxylink{cma_8c_af7a793465730821d26e8c45648016639}{cma\+\_\+alloc()}. It returns false when provided pages do not belong to contiguous area and true otherwise. 
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l01107}{1107}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01109\ \{}
+\DoxyCodeLine{01110\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{01111\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ ret\ =\ 0;}
+\DoxyCodeLine{01112\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ i,\ pfn;}
+\DoxyCodeLine{01113\ }
+\DoxyCodeLine{01114\ \ \ \ \ cmr\ =\ \doxymbox{\hyperlink{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c}{find\_cma\_memrange}}(\doxymbox{\hyperlink{structcma}{cma}},\ pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{01115\ \ \ \ \ \textcolor{keywordflow}{if}\ (!cmr)}
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01117\ }
+\DoxyCodeLine{01118\ \ \ \ \ pfn\ =\ page\_to\_pfn(pages);}
+\DoxyCodeLine{01119\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};\ i++,\ pfn++)}
+\DoxyCodeLine{01120\ \ \ \ \ \ \ \ \ ret\ +=\ !put\_page\_testzero(pfn\_to\_page(pfn));}
+\DoxyCodeLine{01121\ }
+\DoxyCodeLine{01122\ \ \ \ \ WARN(ret,\ \textcolor{stringliteral}{"{}\%lu\ pages\ are\ still\ in\ use!\(\backslash\)n"{}},\ ret);}
+\DoxyCodeLine{01123\ }
+\DoxyCodeLine{01124\ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a37b28404c9374af96696a48aeef48f04}{\_\_cma\_release\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{01125\ }
+\DoxyCodeLine{01126\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01127\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a4b281ce37a51283e854d78f8fe173842_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a3d62bdf586b754ec4478956ad546bae9}\index{cma.c@{cma.c}!cma\_release\_frozen@{cma\_release\_frozen}}
+\index{cma\_release\_frozen@{cma\_release\_frozen}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_release\_frozen()}{cma\_release\_frozen()}}
+{\footnotesize\ttfamily \label{cma_8c_a3d62bdf586b754ec4478956ad546bae9} 
+bool cma\+\_\+release\+\_\+frozen (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{const struct page \texorpdfstring{$\ast$}{*}}]{pages}{, }\item[{unsigned long}]{count}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l01135}{1135}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01137\ \{}
+\DoxyCodeLine{01138\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{01139\ }
+\DoxyCodeLine{01140\ \ \ \ \ cmr\ =\ \doxymbox{\hyperlink{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c}{find\_cma\_memrange}}(\doxymbox{\hyperlink{structcma}{cma}},\ pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{01141\ \ \ \ \ \textcolor{keywordflow}{if}\ (!cmr)}
+\DoxyCodeLine{01142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01143\ }
+\DoxyCodeLine{01144\ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a37b28404c9374af96696a48aeef48f04}{\_\_cma\_release\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{01145\ }
+\DoxyCodeLine{01146\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01147\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a3d62bdf586b754ec4478956ad546bae9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a550ca763d3df127f16bbac0f6a99be91}\index{cma.c@{cma.c}!cma\_reserve\_early@{cma\_reserve\_early}}
+\index{cma\_reserve\_early@{cma\_reserve\_early}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_reserve\_early()}{cma\_reserve\_early()}}
+{\footnotesize\ttfamily \label{cma_8c_a550ca763d3df127f16bbac0f6a99be91} 
+void \+\_\+\+\_\+init \texorpdfstring{$\ast$}{*} cma\+\_\+reserve\+\_\+early (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned long}]{size}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l01220}{1220}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01221\ \{}
+\DoxyCodeLine{01222\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{01223\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{01224\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ available;}
+\DoxyCodeLine{01225\ \ \ \ \ \textcolor{keywordtype}{void}\ *ret\ =\ NULL;}
+\DoxyCodeLine{01226\ }
+\DoxyCodeLine{01227\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structcma}{cma}}\ ||\ !\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}})}
+\DoxyCodeLine{01228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01229\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01230\ \textcolor{comment}{\ \ \ \ \ *\ Can\ only\ be\ called\ early\ in\ init.}}
+\DoxyCodeLine{01231\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01232\ \ \ \ \ \textcolor{keywordflow}{if}\ (test\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9}{CMA\_ACTIVATED}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}}))}
+\DoxyCodeLine{01233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01234\ }
+\DoxyCodeLine{01235\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ALIGNED(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ CMA\_MIN\_ALIGNMENT\_BYTES))}
+\DoxyCodeLine{01236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01237\ }
+\DoxyCodeLine{01238\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ALIGNED(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ (PAGE\_SIZE\ <<\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}})))}
+\DoxyCodeLine{01239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01240\ }
+\DoxyCodeLine{01241\ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >>=\ PAGE\_SHIFT;}
+\DoxyCodeLine{01242\ }
+\DoxyCodeLine{01243\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}})}
+\DoxyCodeLine{01244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01245\ }
+\DoxyCodeLine{01246\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{01247\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{01248\ \ \ \ \ \ \ \ \ available\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ -\/\ (cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}\ -\/\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}});}
+\DoxyCodeLine{01249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ <=\ available)\ \{}
+\DoxyCodeLine{01250\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ phys\_to\_virt(PFN\_PHYS(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}));}
+\DoxyCodeLine{01251\ \ \ \ \ \ \ \ \ \ \ \ \ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}\ +=\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{01252\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ -\/=\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{01253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{01254\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01255\ \ \ \ \ \}}
+\DoxyCodeLine{01256\ }
+\DoxyCodeLine{01257\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{01258\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cma_8c_a4cfd6bb06859c6a59bfa1ed0906cebf8}\index{cma.c@{cma.c}!cma\_reserve\_pages\_on\_error@{cma\_reserve\_pages\_on\_error}}
+\index{cma\_reserve\_pages\_on\_error@{cma\_reserve\_pages\_on\_error}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_reserve\_pages\_on\_error()}{cma\_reserve\_pages\_on\_error()}}
+{\footnotesize\ttfamily \label{cma_8c_a4cfd6bb06859c6a59bfa1ed0906cebf8} 
+void \+\_\+\+\_\+init cma\+\_\+reserve\+\_\+pages\+\_\+on\+\_\+error (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00234}{234}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00235\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ set\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51}{CMA\_RESERVE\_PAGES\_ON\_ERROR}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{00237\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cma_8c_af1391b7a3d38b6146c38f7ab0b7b5f26}\index{cma.c@{cma.c}!cma\_validate\_zones@{cma\_validate\_zones}}
+\index{cma\_validate\_zones@{cma\_validate\_zones}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_validate\_zones()}{cma\_validate\_zones()}}
+{\footnotesize\ttfamily \label{cma_8c_af1391b7a3d38b6146c38f7ab0b7b5f26} 
+bool cma\+\_\+validate\+\_\+zones (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00102}{102}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00103\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ base\_pfn;}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{bool}\ valid\_bit\_set;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ \ \ *\ If\ already\ validated,\ return\ result\ of\ previous\ check.}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ \ \ *\ Either\ the\ valid\ or\ invalid\ bit\ will\ be\ set\ if\ this}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ \ *\ check\ has\ already\ been\ done.\ If\ neither\ is\ set,\ the}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ \ \ *\ check\ has\ not\ been\ performed\ yet.}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00115\ \ \ \ \ valid\_bit\_set\ =\ test\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab}{CMA\_ZONES\_VALID}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{if}\ (valid\_bit\_set\ ||\ test\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25}{CMA\_ZONES\_INVALID}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}}))}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ valid\_bit\_set;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ alloc\_contig\_range()\ requires\ the\ pfn\ range\ specified}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ to\ be\ in\ the\ same\ zone.\ Simplify\ by\ forcing\ the\ entire}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ CMA\ resv\ range\ to\ be\ in\ the\ same\ zone.}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ WARN\_ON\_ONCE(!pfn\_valid(\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}));}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pfn\_range\_intersects\_zones(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}},\ \doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}},\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}))\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ set\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25}{CMA\_ZONES\_INVALID}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ set\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab}{CMA\_ZONES\_VALID}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00138\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_af1391b7a3d38b6146c38f7ab0b7b5f26_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a8afff3562f7a5c0db63909d8b3b82d82}\index{cma.c@{cma.c}!core\_initcall@{core\_initcall}}
+\index{core\_initcall@{core\_initcall}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{core\_initcall()}{core\_initcall()}}
+{\footnotesize\ttfamily \label{cma_8c_a8afff3562f7a5c0db63909d8b3b82d82} 
+core\+\_\+initcall (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{cma_8c_aeb536241b21a6a891eb7e647eb5d5597}{cma\+\_\+init\+\_\+reserved\+\_\+areas}}}]{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8c_a8afff3562f7a5c0db63909d8b3b82d82_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c}\index{cma.c@{cma.c}!find\_cma\_memrange@{find\_cma\_memrange}}
+\index{find\_cma\_memrange@{find\_cma\_memrange}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{find\_cma\_memrange()}{find\_cma\_memrange()}}
+{\footnotesize\ttfamily \label{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c} 
+struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*} find\+\_\+cma\+\_\+memrange (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{const struct page \texorpdfstring{$\ast$}{*}}]{pages}{, }\item[{unsigned long}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l01042}{1042}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01044\ \{}
+\DoxyCodeLine{01045\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr\ =\ NULL;}
+\DoxyCodeLine{01046\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pfn,\ end\_pfn;}
+\DoxyCodeLine{01047\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{01048\ }
+\DoxyCodeLine{01049\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(page\ \%p,\ count\ \%lu)\(\backslash\)n"{}},\ \_\_func\_\_,\ (\textcolor{keywordtype}{void}\ *)pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{01050\ }
+\DoxyCodeLine{01051\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structcma}{cma}}\ ||\ !pages\ ||\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ >\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}})}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01053\ }
+\DoxyCodeLine{01054\ \ \ \ \ pfn\ =\ page\_to\_pfn(pages);}
+\DoxyCodeLine{01055\ }
+\DoxyCodeLine{01056\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{01057\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{01058\ \ \ \ \ \ \ \ \ end\_pfn\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};}
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pfn\ >=\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ \&\&\ pfn\ <\ end\_pfn)\ \{}
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pfn\ +\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ <=\ end\_pfn)}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01062\ }
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ VM\_WARN\_ON\_ONCE(1);}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01065\ \ \ \ \ \}}
+\DoxyCodeLine{01066\ }
+\DoxyCodeLine{01067\ \ \ \ \ \textcolor{keywordflow}{if}\ (r\ ==\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}})\ \{}
+\DoxyCodeLine{01068\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(page\ \%p,\ count\ \%lu,\ no\ cma\ range\ matches\ the\ page\ range)\(\backslash\)n"{}},}
+\DoxyCodeLine{01069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_func\_\_,\ (\textcolor{keywordtype}{void}\ *)pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01071\ \ \ \ \ \}}
+\DoxyCodeLine{01072\ }
+\DoxyCodeLine{01073\ \ \ \ \ \textcolor{keywordflow}{return}\ cmr;}
+\DoxyCodeLine{01074\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329}\index{cma.c@{cma.c}!list\_insert\_sorted@{list\_insert\_sorted}}
+\index{list\_insert\_sorted@{list\_insert\_sorted}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{list\_insert\_sorted()}{list\_insert\_sorted()}}
+{\footnotesize\ttfamily \label{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329} 
+void \+\_\+\+\_\+init list\+\_\+insert\+\_\+sorted (\begin{DoxyParamCaption}\item[{struct list\+\_\+head \texorpdfstring{$\ast$}{*}}]{ranges}{, }\item[{struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{mrp}{, }\item[{bool(\texorpdfstring{$\ast$}{*}}]{cmp~}{)(struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}lh, struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}rh)}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00372}{372}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00376\ \{}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keyword}{struct\ }list\_head\ *mp;}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *mlp;}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keywordflow}{if}\ (list\_empty(ranges))}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ list\_add(\&mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}},\ ranges);}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ list\_for\_each(mp,\ ranges)\ \{}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ mlp\ =\ list\_entry(mp,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ \doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}});}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cmp(mlp,\ mrp))}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \_\_list\_add(\&mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}},\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}}.prev,\ \&mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}});}
+\DoxyCodeLine{00389\ \ \ \ \ \}}
+\DoxyCodeLine{00390\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8c_a3c4a3cf48eabdcf3bf54d2cc130d79e5}\index{cma.c@{cma.c}!revsizecmp@{revsizecmp}}
+\index{revsizecmp@{revsizecmp}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{revsizecmp()}{revsizecmp()}}
+{\footnotesize\ttfamily \label{cma_8c_a3c4a3cf48eabdcf3bf54d2cc130d79e5} 
+bool \+\_\+\+\_\+init revsizecmp (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{mlp}{, }\item[{struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{mrp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00357}{357}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00359\ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordflow}{return}\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}}\ >\ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}};}
+\DoxyCodeLine{00361\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{cma_8c_a3c4a3cf48eabdcf3bf54d2cc130d79e5_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{cma_8c_doc-var-members}
+\Hypertarget{cma_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{cma_8c_a20e93f76e8f82dfcadbc6e03ce032027}\index{cma.c@{cma.c}!\_\_initdata@{\_\_initdata}}
+\index{\_\_initdata@{\_\_initdata}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{\_\_initdata}{\_\_initdata}}
+{\footnotesize\ttfamily \label{cma_8c_a20e93f76e8f82dfcadbc6e03ce032027} 
+struct \doxymbox{\hyperlink{structcma__init__memrange}{cma\+\_\+init\+\_\+memrange}} memranges \+[ 8 ]\+ \+\_\+\+\_\+initdata\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00355}{355}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+\Hypertarget{cma_8c_a890d3a98f067086f7789ad66f2ccd5c2}\index{cma.c@{cma.c}!cma\_area\_count@{cma\_area\_count}}
+\index{cma\_area\_count@{cma\_area\_count}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_area\_count}{cma\_area\_count}}
+{\footnotesize\ttfamily \label{cma_8c_a890d3a98f067086f7789ad66f2ccd5c2} 
+unsigned int cma\+\_\+area\+\_\+count}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+\Hypertarget{cma_8c_a084edff8321843b394f345da9e200edc}\index{cma.c@{cma.c}!cma\_areas@{cma\_areas}}
+\index{cma\_areas@{cma\_areas}!cma.c@{cma.c}}
+\doxysubsubsection{\texorpdfstring{cma\_areas}{cma\_areas}}
+{\footnotesize\ttfamily \label{cma_8c_a084edff8321843b394f345da9e200edc} 
+struct \doxymbox{\hyperlink{structcma}{cma}} cma\+\_\+areas\+[MAX\+\_\+\+CMA\+\_\+\+AREAS]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00037}{37}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+

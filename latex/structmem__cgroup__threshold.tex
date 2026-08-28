@@ -1,0 +1,50 @@
+\doxysection{mem\+\_\+cgroup\+\_\+threshold Struct Reference}
+\hypertarget{structmem__cgroup__threshold}{}\label{structmem__cgroup__threshold}\index{mem\_cgroup\_threshold@{mem\_cgroup\_threshold}}
+
+
+{\ttfamily \+\#include $<$memcontrol.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct eventfd\+\_\+ctx \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structmem__cgroup__threshold_ae0099aa8d8059086af53c153a6e21e14}{eventfd}}
+\item 
+unsigned long \doxymbox{\hyperlink{structmem__cgroup__threshold_a24b6432953c5e6980b36d486ed7ed710}{threshold}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct Description:\+ This structure represents a single threshold for memory events. It contains an eventfd context and the threshold value. Userspace can set thresholds and receive notifications when memory usage crosses them. 
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l00148}{148}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+
+
+\label{structmem__cgroup__threshold_doc-variable-members}
+\Hypertarget{structmem__cgroup__threshold_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structmem__cgroup__threshold_ae0099aa8d8059086af53c153a6e21e14}\index{mem\_cgroup\_threshold@{mem\_cgroup\_threshold}!eventfd@{eventfd}}
+\index{eventfd@{eventfd}!mem\_cgroup\_threshold@{mem\_cgroup\_threshold}}
+\doxysubsubsection{\texorpdfstring{eventfd}{eventfd}}
+{\footnotesize\ttfamily \label{structmem__cgroup__threshold_ae0099aa8d8059086af53c153a6e21e14} 
+struct eventfd\+\_\+ctx\texorpdfstring{$\ast$}{*} mem\+\_\+cgroup\+\_\+threshold::\+eventfd}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l00149}{149}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+\Hypertarget{structmem__cgroup__threshold_a24b6432953c5e6980b36d486ed7ed710}\index{mem\_cgroup\_threshold@{mem\_cgroup\_threshold}!threshold@{threshold}}
+\index{threshold@{threshold}!mem\_cgroup\_threshold@{mem\_cgroup\_threshold}}
+\doxysubsubsection{\texorpdfstring{threshold}{threshold}}
+{\footnotesize\ttfamily \label{structmem__cgroup__threshold_a24b6432953c5e6980b36d486ed7ed710} 
+unsigned long mem\+\_\+cgroup\+\_\+threshold::\+threshold}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l00150}{150}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{memcontrol_8h}{memcontrol.\+h}}\end{DoxyCompactItemize}

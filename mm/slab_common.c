@@ -37,12 +37,27 @@
 #define CREATE_TRACE_POINTS
 #include <trace/events/kmem.h>
 
+/**
+ * Variable Description: The current state of the slab allocator. Values are DOWN (not available), PARTIAL (kmem_cache_node available), UP (caches usable), and FULL (everything working). Used to track boot progress.
+ */
 enum slab_state slab_state;
+
+/**
+ * Variable Description: The list of all slab caches on the system. Protected by slab_mutex. Used for iterating over all caches. 
+ */
 LIST_HEAD(slab_caches);
+
+/**
+ * Variable Description: The mutex that protects slab cache management structures. Used during cache creation, destruction, and merging.
+ */
 DEFINE_MUTEX(slab_mutex);
+
+/**
+ * Variable Description: The slab cache that manages slab cache information itself. Used to allocate kmem_cache structures. 
+ */
 struct kmem_cache *kmem_cache;
 
-/*
+/**
  * Set of flags that will prevent slab merging.
  * Any flag that adds per-object metadata should be included,
  * since slab merging can update s->inuse that affects the metadata layout.
@@ -54,17 +69,23 @@ struct kmem_cache *kmem_cache;
 #define SLAB_MERGE_SAME (SLAB_RECLAIM_ACCOUNT | SLAB_CACHE_DMA | \
 			 SLAB_CACHE_DMA32 | SLAB_ACCOUNT)
 
-/*
+/**
  * Merge control. If this is set then no merging of slab caches will occur.
  */
 static bool slab_nomerge = !IS_ENABLED(CONFIG_SLAB_MERGE_DEFAULT);
 
+/**
+ * Function Description: Boot parameter handler for slab_nomerge. It sets slab_nomerge to true, disabling slab cache merging. Called during early boot.
+ */
 static int __init setup_slab_nomerge(char *str)
 {
 	slab_nomerge = true;
 	return 1;
 }
 
+/**
+ * Function Description: Boot parameter handler for slab_merge. It sets slab_nomerge to false, enabling slab cache merging. Called during early boot.
+ */
 static int __init setup_slab_merge(char *str)
 {
 	slab_nomerge = false;
@@ -77,8 +98,11 @@ __setup_param("slub_merge", slub_merge, setup_slab_merge, 0);
 __setup("slab_nomerge", setup_slab_nomerge);
 __setup("slab_merge", setup_slab_merge);
 
-/*
+/**
  * Determine the size of a slab object
+ * 
+ * 
+ * Function Description: Returns the object size of a kmem_cache. This is the size of each object in the cache, excluding metadata. Used to determine how much memory an object occupies.
  */
 unsigned int kmem_cache_size(struct kmem_cache *s)
 {
@@ -88,6 +112,9 @@ EXPORT_SYMBOL(kmem_cache_size);
 
 #ifdef CONFIG_DEBUG_VM
 
+/**
+ * Function Description: Checks if a slab cache name already exists in the system. It iterates through the slab_caches list and compares names. Used for sanity checking during cache creation.
+ */
 static bool kmem_cache_is_duplicate_name(const char *name)
 {
 	struct kmem_cache *s;
@@ -100,6 +127,9 @@ static bool kmem_cache_is_duplicate_name(const char *name)
 	return false;
 }
 
+/**
+ * Function Description: Performs sanity checks on kmem_cache creation parameters. It validates the name, checks if called in interrupt context, verifies size limits, and warns about duplicate names. Returns 0 on success or a negative error code.
+ */
 static int kmem_cache_sanity_check(const char *name, unsigned int size)
 {
 	if (!name || in_interrupt() || size > KMALLOC_MAX_SIZE) {
@@ -121,9 +151,12 @@ static inline int kmem_cache_sanity_check(const char *name, unsigned int size)
 }
 #endif
 
-/*
+/**
  * Figure out what the alignment of the objects will be given a set of
  * flags, a user specified alignment and the size of the objects.
+ * 
+ * 
+ * Function Description: Calculates the alignment for slab objects based on flags, user-specified alignment, and object size. It handles hardware cache alignment and architecture-specific minimum alignment. Returns the final alignment value.
  */
 static unsigned int calculate_alignment(slab_flags_t flags,
 		unsigned int align, unsigned int size)
@@ -149,8 +182,11 @@ static unsigned int calculate_alignment(slab_flags_t flags,
 	return ALIGN(align, sizeof(void *));
 }
 
-/*
+/**
  * Find a mergeable slab cache
+ * 
+ * 
+ * Function Description: Checks if a slab cache can be merged with another cache. Returns true if slab merging is disabled, the cache has non-mergeable flags, a constructor, or usercopy settings. Used to determine if a cache should participate in merging.
  */
 int slab_unmergeable(struct kmem_cache *s)
 {
@@ -174,6 +210,9 @@ int slab_unmergeable(struct kmem_cache *s)
 	return 0;
 }
 
+/**
+ * Function Description: Checks if kmem_cache_args and flags prevent cache merging. It checks slab_nomerge, constructor presence, usercopy settings, and non-mergeable flags. Returns true if the cache cannot be merged.
+ */
 bool slab_args_unmergeable(struct kmem_cache_args *args, slab_flags_t flags)
 {
 	if (slab_nomerge)
@@ -191,6 +230,9 @@ bool slab_args_unmergeable(struct kmem_cache_args *args, slab_flags_t flags)
 	return false;
 }
 
+/**
+ * Function Description: Finds a mergeable slab cache that matches the given size, flags, and arguments. It searches the slab_caches list for a compatible cache. Returns the matching cache or NULL.
+ */
 static struct kmem_cache *find_mergeable(unsigned int size, slab_flags_t flags,
 		const char *name, struct kmem_cache_args *args)
 {
@@ -229,6 +271,9 @@ static struct kmem_cache *find_mergeable(unsigned int size, slab_flags_t flags,
 	return NULL;
 }
 
+/**
+ * Function Description: Creates a new kmem_cache. It validates arguments, allocates the cache structure, and calls do_kmem_cache_create() to initialize it. Returns the new cache or an error pointer.
+ */
 static struct kmem_cache *create_cache(const char *name,
 				       unsigned int object_size,
 				       struct kmem_cache_args *args,
@@ -263,6 +308,9 @@ out:
 	return ERR_PTR(err);
 }
 
+/**
+ * Function Description: Finds an existing mergeable cache and creates an alias. It increments the cache's refcount and adjusts object sizes. Returns the aliased cache or NULL.
+ */
 static struct kmem_cache *
 __kmem_cache_alias(const char *name, unsigned int size, slab_flags_t flags,
 		   struct kmem_cache_args *args)
@@ -314,6 +362,9 @@ __kmem_cache_alias(const char *name, unsigned int size, slab_flags_t flags,
  * Context: Cannot be called within a interrupt, but can be interrupted.
  *
  * Return: a pointer to the cache on success, NULL on failure.
+ * 
+ * 
+ * Function Description: Creates a kmem_cache with advanced arguments. This is the main cache creation function called by kmem_cache_create(). It handles debugging flags, merging, and cache creation. Returns the cache or NULL on failure.
  */
 struct kmem_cache *__kmem_cache_create_args(const char *name,
 					    unsigned int object_size,
@@ -421,6 +472,9 @@ static struct kmem_cache *kmem_buckets_cache __ro_after_init;
  * CONFIG_SLAB_BUCKETS is not enabled, ZERO_SIZE_PTR is returned, and
  * subsequent calls to kmem_buckets_alloc() will fall back to kmalloc().
  * (i.e. callers only need to check for NULL on failure.)
+ * 
+ * 
+ * Function Description: Creates a set of kmalloc buckets for custom allocators. It creates a kmem_buckets array with caches for each size, using the provided name prefix. Returns the buckets array or NULL on failure.
  */
 kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
 				  unsigned int useroffset,
@@ -502,11 +556,14 @@ fail:
 }
 EXPORT_SYMBOL(kmem_buckets_create);
 
-/*
+/**
  * For a given kmem_cache, kmem_cache_destroy() should only be called
  * once or there will be a use-after-free problem. The actual deletion
  * and release of the kobject does not need slab_mutex or cpu_hotplug_lock
  * protection. So they are now done without holding those locks.
+ * 
+ * 
+ * Function Description: Releases a kmem_cache after all references are dropped. It calls kfence_shutdown_cache() and either sysfs_slab_release() or slab_kmem_cache_release() depending on slab state.
  */
 static void kmem_cache_release(struct kmem_cache *s)
 {
@@ -517,6 +574,9 @@ static void kmem_cache_release(struct kmem_cache *s)
 		slab_kmem_cache_release(s);
 }
 
+/**
+ * Function Description: Releases the kmem_cache structure. It calls __kmem_cache_release(), frees the cache name, and frees the cache structure itself.
+ */
 void slab_kmem_cache_release(struct kmem_cache *s)
 {
 	__kmem_cache_release(s);
@@ -524,6 +584,9 @@ void slab_kmem_cache_release(struct kmem_cache *s)
 	kmem_cache_free(kmem_cache, s);
 }
 
+/**
+ * Function Description: Destroys a kmem_cache. It waits for pending RCU frees, decrements the refcount, shuts down the cache, removes it from the list, and releases resources. Returns when the cache is fully destroyed.
+ */
 void kmem_cache_destroy(struct kmem_cache *s)
 {
 	int err;
@@ -598,6 +661,9 @@ EXPORT_SYMBOL(kmem_cache_destroy);
  * To help debugging, a zero exit status indicates all slabs were released.
  *
  * Return: %0 if all slabs were released, non-zero otherwise
+ * 
+ * 
+ * Function Description: Shrinks a kmem_cache by freeing unused slabs. It calls kasan_cache_shrink() and __kmem_cache_shrink(). Returns 0 if all slabs were released, non-zero otherwise.
  */
 int kmem_cache_shrink(struct kmem_cache *cachep)
 {
@@ -607,12 +673,18 @@ int kmem_cache_shrink(struct kmem_cache *cachep)
 }
 EXPORT_SYMBOL(kmem_cache_shrink);
 
+/**
+ * Function Description: Checks if the slab allocator is available for use. Returns true when slab_state >= UP, indicating that slab caches are usable.
+ */
 bool slab_is_available(void)
 {
 	return slab_state >= UP;
 }
 
 #ifdef CONFIG_PRINTK
+/**
+ * Function Description: Fills a kmem_obj_info structure with object information. It checks for KFENCE objects and calls __kmem_obj_info() for normal objects. Used for debugging.
+ */
 static void kmem_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *slab)
 {
 	if (__kfence_obj_info(kpp, object, slab))
@@ -634,6 +706,9 @@ static void kmem_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *
  * Return: %true if the pointer is to a not-yet-freed object from
  * kmalloc() or kmem_cache_alloc(), either %true or %false if the pointer
  * is to an already-freed object, and %false otherwise.
+ * 
+ * 
+ * Function Description: Dumps slab object provenance information for debugging. It prints the slab cache name, object address, allocation and free stack traces. Returns true if the object was found.
  */
 bool kmem_dump_obj(void *object)
 {
@@ -691,7 +766,11 @@ bool kmem_dump_obj(void *object)
 EXPORT_SYMBOL_GPL(kmem_dump_obj);
 #endif
 
-/* Create a cache during boot when no slab services are available yet */
+/** Create a cache during boot when no slab services are available yet
+ * 
+ * 
+ * Function Description: Creates a boot-time kmem_cache before slab services are fully available. Used to create early caches for kmalloc. Called during early kernel initialization.
+ */
 void __init create_boot_cache(struct kmem_cache *s, const char *name,
 		unsigned int size, slab_flags_t flags,
 		unsigned int useroffset, unsigned int usersize)
@@ -723,6 +802,9 @@ void __init create_boot_cache(struct kmem_cache *s, const char *name,
 	s->refcount = -1;	/* Exempt from merging for now */
 }
 
+/**
+ * Function Description: Creates a kmalloc cache for a specific size. It allocates the cache structure and calls create_boot_cache() to initialize it. Used during kmalloc cache setup.
+ */
 static struct kmem_cache *__init create_kmalloc_cache(const char *name,
 						      unsigned int size,
 						      slab_flags_t flags)
@@ -747,11 +829,14 @@ unsigned long random_kmalloc_seed __ro_after_init;
 EXPORT_SYMBOL(random_kmalloc_seed);
 #endif
 
-/*
+/**
  * Conversion table for small slabs sizes / 8 to the index in the
  * kmalloc array. This is necessary for slabs < 192 since we have non power
  * of two cache sizes there. The size of larger slabs can be determined using
  * fls.
+ * 
+ * 
+ * Variable Description: A lookup table for small kmalloc sizes. Maps size/8 to cache index. Used for fast size-to-cache lookup for sizes up to 192 bytes.
  */
 u8 kmalloc_size_index[24] __ro_after_init = {
 	3,	/* 8 */
@@ -780,6 +865,9 @@ u8 kmalloc_size_index[24] __ro_after_init = {
 	2	/* 192 */
 };
 
+/**
+ * Function Description: Returns the actual allocation size for a given request. It rounds up to the next kmalloc bucket size or page size for large allocations. Used to determine how much memory will actually be allocated.
+ */
 size_t kmalloc_size_roundup(size_t size)
 {
 	if (size && size <= KMALLOC_MAX_CACHE_SIZE) {
@@ -853,10 +941,13 @@ EXPORT_SYMBOL(kmalloc_size_roundup);
 	.size = __size,						\
 }
 
-/*
+/**
  * kmalloc_info[] is to make slab_debug=,kmalloc-xx option work at boot time.
  * kmalloc_index() supports up to 2^21=2MB, so the final entry of the table is
  * kmalloc-2M.
+ * 
+ * 
+ * Variable Description: A table of kmalloc cache names and sizes. Used during boot to create kmalloc caches. Contains information for all kmalloc sizes.
  */
 const struct kmalloc_info_struct kmalloc_info[] __initconst = {
 	INIT_KMALLOC_INFO(0, 0),
@@ -883,7 +974,7 @@ const struct kmalloc_info_struct kmalloc_info[] __initconst = {
 	INIT_KMALLOC_INFO(2097152, 2M)
 };
 
-/*
+/**
  * Patch up the size_index table if we have strange large alignment
  * requirements for the kmalloc array. This is only the case for
  * MIPS it seems. The standard arches will not generate any code here.
@@ -893,6 +984,9 @@ const struct kmalloc_info_struct kmalloc_info[] __initconst = {
  *
  * Make sure that nothing crazy happens if someone starts tinkering
  * around with ARCH_KMALLOC_MINALIGN
+ * 
+ * 
+ * Function Description: Sets up the kmalloc size index table for small allocations. It adjusts the index table based on architecture-specific minimum alignment. Called during boot.
  */
 void __init setup_kmalloc_cache_index_table(void)
 {
@@ -930,6 +1024,9 @@ void __init setup_kmalloc_cache_index_table(void)
 	}
 }
 
+/**
+ * Function Description: Returns the minimum alignment for kmalloc allocations. It considers DMA cache alignment and architecture-specific minimum alignment. Used to determine cache alignment requirements.
+ */
 static unsigned int __kmalloc_minalign(void)
 {
 	unsigned int minalign = dma_get_cache_alignment();
@@ -941,6 +1038,9 @@ static unsigned int __kmalloc_minalign(void)
 	return max(minalign, arch_slab_minalign());
 }
 
+/**
+ * Function Description: Creates a new kmalloc cache for a specific size and type. It handles different cache types (normal, reclaim, cgroup, DMA) and alignment requirements. Called during kmalloc cache initialization.
+ */
 static void __init
 new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
 {
@@ -986,10 +1086,13 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
 		kmalloc_caches[type][idx] = kmalloc_caches[type][aligned_idx];
 }
 
-/*
+/**
  * Create the kmalloc array. Some of the regular kmalloc arrays
  * may already have been created because they were needed to
  * enable allocations for slab creation.
+ * 
+ * 
+ * Function Description: Creates all kmalloc caches for all sizes and types. It iterates through size classes and types, creating caches as needed. Called during boot to set up the kmalloc subsystem.
  */
 void __init create_kmalloc_caches(void)
 {
@@ -1023,6 +1126,9 @@ void __init create_kmalloc_caches(void)
 						       0, SLAB_NO_MERGE, NULL);
 }
 
+/**
+ * Function Description: Fixes invalid GFP flags passed to kmalloc. It removes invalid flags, prints a warning, and returns the corrected flags. Used to catch and fix buggy callers.
+ */
 gfp_t kmalloc_fix_flags(gfp_t flags)
 {
 	gfp_t invalid_mask = flags & GFP_SLAB_BUG_MASK;
@@ -1036,7 +1142,11 @@ gfp_t kmalloc_fix_flags(gfp_t flags)
 }
 
 #ifdef CONFIG_SLAB_FREELIST_RANDOM
-/* Randomize a generic freelist */
+/** Randomize a generic freelist
+ * 
+ * 
+ * Function Description: Randomizes a freelist using the Fisher-Yates shuffle. It creates a random permutation of object indices. Used for freelist randomization security feature.
+ */
 static void freelist_randomize(unsigned int *list,
 			       unsigned int count)
 {
@@ -1053,7 +1163,11 @@ static void freelist_randomize(unsigned int *list,
 	}
 }
 
-/* Create a random sequence per cache */
+/** Create a random sequence per cache
+ * 
+ * 
+ * Function Description: Creates a random sequence for a slab cache's freelist. It allocates and initializes a random permutation of object indices. Returns 0 on success or a negative error code.
+ */
 int cache_random_seq_create(struct kmem_cache *cachep, unsigned int count,
 				    gfp_t gfp)
 {
@@ -1069,7 +1183,11 @@ int cache_random_seq_create(struct kmem_cache *cachep, unsigned int count,
 	return 0;
 }
 
-/* Destroy the per-cache random freelist sequence */
+/** Destroy the per-cache random freelist sequence
+ * 
+ * 
+ * Function Description: Destroys the random sequence for a slab cache. It frees the random_seq array. Called during cache destruction.
+ */
 void cache_random_seq_destroy(struct kmem_cache *cachep)
 {
 	kfree(cachep->random_seq);
@@ -1080,6 +1198,9 @@ void cache_random_seq_destroy(struct kmem_cache *cachep)
 #ifdef CONFIG_SLUB_DEBUG
 #define SLABINFO_RIGHTS (0400)
 
+/**
+ * Function Description: Prints the header for /proc/slabinfo output. It displays the column names and format version. Used by the slabinfo proc file.
+ */
 static void print_slabinfo_header(struct seq_file *m)
 {
 	/*
@@ -1093,22 +1214,34 @@ static void print_slabinfo_header(struct seq_file *m)
 	seq_putc(m, '\n');
 }
 
+/**
+ * Function Description: Start function for /proc/slabinfo iteration. It acquires slab_mutex and returns the first cache in the list. Used by the seq_file iterator.
+ */
 static void *slab_start(struct seq_file *m, loff_t *pos)
 {
 	mutex_lock(&slab_mutex);
 	return seq_list_start(&slab_caches, *pos);
 }
 
+/**
+ * Function Description: Next function for /proc/slabinfo iteration. It returns the next cache in the list. Used by the seq_file iterator.
+ */
 static void *slab_next(struct seq_file *m, void *p, loff_t *pos)
 {
 	return seq_list_next(p, &slab_caches, pos);
 }
 
+/**
+ * Function Description: Stop function for /proc/slabinfo iteration. It releases slab_mutex. Used by the seq_file iterator.
+ */
 static void slab_stop(struct seq_file *m, void *p)
 {
 	mutex_unlock(&slab_mutex);
 }
 
+/**
+ * Function Description: Shows information for a single slab cache in /proc/slabinfo. It prints active objects, total objects, object size, slabs, and tunables. Used by the slab_show function.
+ */
 static void cache_show(struct kmem_cache *s, struct seq_file *m)
 {
 	struct slabinfo sinfo;
@@ -1127,6 +1260,9 @@ static void cache_show(struct kmem_cache *s, struct seq_file *m)
 	seq_putc(m, '\n');
 }
 
+/**
+ * Function Description: Show function for /proc/slabinfo. It prints the header and then calls cache_show() for each cache. Used by the seq_file iterator.
+ */
 static int slab_show(struct seq_file *m, void *p)
 {
 	struct kmem_cache *s = list_entry(p, struct kmem_cache, list);
@@ -1137,6 +1273,9 @@ static int slab_show(struct seq_file *m, void *p)
 	return 0;
 }
 
+/**
+ * Function Description: Dumps information about unreclaimable slabs. It prints the name, used memory, and total memory for each unreclaimable cache. Used for debugging memory leaks.
+ */
 void dump_unreclaimable_slab(void)
 {
 	struct kmem_cache *s;
@@ -1171,7 +1310,7 @@ void dump_unreclaimable_slab(void)
 	mutex_unlock(&slab_mutex);
 }
 
-/*
+/**
  * slabinfo_op - iterator that generates /proc/slabinfo
  *
  * Output layout:
@@ -1191,11 +1330,17 @@ static const struct seq_operations slabinfo_op = {
 	.show = slab_show,
 };
 
+/**
+ * Function Description: Open handler for /proc/slabinfo. It calls seq_open() with the slabinfo_op. Used to open the proc file.
+ */
 static int slabinfo_open(struct inode *inode, struct file *file)
 {
 	return seq_open(file, &slabinfo_op);
 }
 
+/**
+ * Variable Description: This structure defines the file operations for the /proc/slabinfo proc file. It specifies that the entry is permanent (PROC_ENTRY_PERMANENT), and provides handlers for opening (slabinfo_open), reading (seq_read), seeking (seq_lseek), and releasing (seq_release) the file. These operations allow users to read slab cache statistics from /proc/slabinfo, which displays information about active objects, total objects, object sizes, and slab counts for each cache in the system.
+ */
 static const struct proc_ops slabinfo_proc_ops = {
 	.proc_flags	= PROC_ENTRY_PERMANENT,
 	.proc_open	= slabinfo_open,
@@ -1204,6 +1349,9 @@ static const struct proc_ops slabinfo_proc_ops = {
 	.proc_release	= seq_release,
 };
 
+/**
+ * Function Description: Initializes the /proc/slabinfo file. It creates the proc entry with the slabinfo_proc_ops. Called during module initialization.
+ */
 static int __init slab_proc_init(void)
 {
 	proc_create("slabinfo", SLABINFO_RIGHTS, NULL, &slabinfo_proc_ops);
@@ -1223,6 +1371,9 @@ module_init(slab_proc_init);
  * Note: this function zeroes the whole allocated buffer which can be a good
  * deal bigger than the requested buffer size passed to kmalloc(). So be
  * careful when using this function in performance sensitive code.
+ * 
+ * 
+ * Function Description: Frees memory containing sensitive data. It zeroes the allocated memory before freeing to prevent data leaks. Used for cryptographic or security-sensitive data.
  */
 void kfree_sensitive(const void *p)
 {
@@ -1243,6 +1394,9 @@ EXPORT_SYMBOL(kfree_sensitive);
 
 __bpf_kfunc_start_defs();
 
+/**
+ * Function Description: BPF kfunc that returns the kmem_cache associated with a virtual address. It validates the address and returns the slab cache pointer. Used by BPF programs to inspect memory allocations.
+ */
 __bpf_kfunc struct kmem_cache *bpf_get_kmem_cache(u64 addr)
 {
 	struct slab *slab;
@@ -1265,6 +1419,9 @@ EXPORT_TRACEPOINT_SYMBOL(kmem_cache_free);
 
 #ifndef CONFIG_KVFREE_RCU_BATCHED
 
+/**
+ * Function Description: Queues a memory pointer for freeing after an RCU grace period. It batches multiple requests together and uses bulk freeing when possible. This is the main function for kvfree_rcu().
+ */
 void kvfree_call_rcu(struct rcu_head *head, void *ptr)
 {
 	if (head) {
@@ -1286,7 +1443,7 @@ void __init kvfree_rcu_init(void)
 
 #else /* CONFIG_KVFREE_RCU_BATCHED */
 
-/*
+/**
  * This rcu parameter is runtime-read-only. It reflects
  * a minimum allowed number of objects which can be cached
  * per-CPU. Object size is equal to one page. This value
@@ -1295,14 +1452,15 @@ void __init kvfree_rcu_init(void)
 static int rcu_min_cached_objs = 5;
 module_param(rcu_min_cached_objs, int, 0444);
 
-// A page shrinker can ask for pages to be freed to make them
-// available for other parts of the system. This usually happens
-// under low memory conditions, and in that case we should also
-// defer page-cache filling for a short time period.
-//
-// The default value is 5 seconds, which is long enough to reduce
-// interference with the shrinker while it asks other systems to
-// drain their caches.
+/* A page shrinker can ask for pages to be freed to make them
+ * available for other parts of the system. This usually happens
+ * under low memory conditions, and in that case we should also
+ * defer page-cache filling for a short time period.
+ *
+ * The default value is 5 seconds, which is long enough to reduce
+ * interference with the shrinker while it asks other systems to
+ * drain their caches.
+ */
 static int rcu_delay_page_cache_fill_msec = 5000;
 module_param(rcu_delay_page_cache_fill_msec, int, 0444);
 
@@ -1318,7 +1476,10 @@ static struct workqueue_struct *rcu_reclaim_wq;
  * @list: List node. All blocks are linked between each other
  * @gp_snap: Snapshot of RCU state for objects placed to this bulk
  * @nr_records: Number of active pointers in the array
- * @records: Array of the kvfree_rcu() pointers
+ * @records: Array of the kvfree_rcu() pointers+
+ * 
+ * 
+ * struct Description: This structure represents a single block for storing kvfree_rcu() pointers in bulk. It contains a list node, an RCU grace period snapshot, a record count, and a flexible array of pointers. It is used to batch multiple kvfree_rcu() requests together to reduce grace period overhead.
  */
 struct kvfree_rcu_bulk_data {
 	struct list_head list;
@@ -1327,7 +1488,7 @@ struct kvfree_rcu_bulk_data {
 	void *records[] __counted_by(nr_records);
 };
 
-/*
+/**
  * This macro defines how many entries the "records" array
  * will contain. It is based on the fact that the size of
  * kvfree_rcu_bulk_data structure becomes exactly one page.
@@ -1342,8 +1503,10 @@ struct kvfree_rcu_bulk_data {
  * @head_free_gp_snap: Grace-period snapshot to check for attempted premature frees.
  * @bulk_head_free: Bulk-List of kvfree_rcu() objects waiting for a grace period
  * @krcp: Pointer to @kfree_rcu_cpu structure
+ * 
+ * 
+ * struct Description: This structure represents a single batch of kfree_rcu() requests waiting for a grace period. It contains an RCU work item, a linked list of rcu_head objects, a grace period snapshot, bulk list heads for kvfree_rcu() objects, and a pointer back to the per-CPU kfree_rcu_cpu structure. It is used to process deferred frees after a grace period.
  */
-
 struct kfree_rcu_cpu_work {
 	struct rcu_work rcu_work;
 	struct rcu_head *head_free;
@@ -1378,6 +1541,9 @@ struct kfree_rcu_cpu_work {
  * the rcu_data structure is to permit this code to be extracted from
  * the RCU files.  Such extraction could allow further optimization of
  * the interactions with the slab allocators.
+ * 
+ * 
+ * struct Description: This is the per-CPU structure for batching kfree_rcu() requests. It contains lists for rcu_head objects and bulk pointers, counters, an array of batch works, a lock, monitor work for draining, page cache for reusable bulk structures, and a shrinker interface. It is used to efficiently batch and process RCU-protected frees.
  */
 struct kfree_rcu_cpu {
 	// Objects queued on a linked list
@@ -1408,6 +1574,9 @@ static DEFINE_PER_CPU(struct kfree_rcu_cpu, krc) = {
 	.lock = __RAW_SPIN_LOCK_UNLOCKED(krc.lock),
 };
 
+/**
+ * Function Description: Debug function that unqueues RCU heads from a bulk data structure. It iterates through all records in the bulk data and calls debug_rcu_head_unqueue() on each one. This is used when CONFIG_DEBUG_OBJECTS_RCU_HEAD is enabled to track RCU head object states.
+ */
 static __always_inline void
 debug_rcu_bhead_unqueue(struct kvfree_rcu_bulk_data *bhead)
 {
@@ -1419,6 +1588,9 @@ debug_rcu_bhead_unqueue(struct kvfree_rcu_bulk_data *bhead)
 #endif
 }
 
+/**
+ * Function Description: Acquires the lock for the current CPU's kfree_rcu_cpu structure. It saves the interrupt state, gets the per-CPU krc pointer, and acquires the raw spinlock. Returns the locked krcp pointer. Called before modifying per-CPU kfree_rcu data.
+ */
 static inline struct kfree_rcu_cpu *
 krc_this_cpu_lock(unsigned long *flags)
 {
@@ -1431,12 +1603,18 @@ krc_this_cpu_lock(unsigned long *flags)
 	return krcp;
 }
 
+/**
+ * Function Description: Releases the lock for a kfree_rcu_cpu structure. It calls raw_spin_unlock_irqrestore() with the saved interrupt flags. Must be called after krc_this_cpu_lock() to unlock the per-CPU kfree_rcu data.
+ */
 static inline void
 krc_this_cpu_unlock(struct kfree_rcu_cpu *krcp, unsigned long flags)
 {
 	raw_spin_unlock_irqrestore(&krcp->lock, flags);
 }
 
+/**
+ * Function Description: Retrieves a cached bulk node from the per-CPU page cache. It checks if there are cached objects available, decrements the count, and removes the first node from the lockless list. Returns the bulk node or NULL if the cache is empty.
+ */
 static inline struct kvfree_rcu_bulk_data *
 get_cached_bnode(struct kfree_rcu_cpu *krcp)
 {
@@ -1448,6 +1626,9 @@ get_cached_bnode(struct kfree_rcu_cpu *krcp)
 		llist_del_first(&krcp->bkvcache);
 }
 
+/**
+ * Function Description: Adds a bulk node to the per-CPU page cache for reuse. It checks if the cache has reached its limit (rcu_min_cached_objs); if not, it adds the node to the lockless list and increments the count. Returns true if the node was cached, false if it should be freed.
+ */
 static inline bool
 put_cached_bnode(struct kfree_rcu_cpu *krcp,
 	struct kvfree_rcu_bulk_data *bnode)
@@ -1461,6 +1642,9 @@ put_cached_bnode(struct kfree_rcu_cpu *krcp,
 	return true;
 }
 
+/**
+ * Function Description: Drains the per-CPU page cache and frees all cached pages. It removes all nodes from the cache, resets the count, and frees each page. Returns the number of pages freed. Used by the shrinker to reclaim memory.
+ */
 static int
 drain_page_cache(struct kfree_rcu_cpu *krcp)
 {
@@ -1484,6 +1668,9 @@ drain_page_cache(struct kfree_rcu_cpu *krcp)
 	return freed;
 }
 
+/**
+ * Function Description: Frees a batch of objects that have passed their RCU grace period. It checks if the grace period has passed, unqueues RCU heads, and frees objects using either kfree_bulk() (for slab objects) or vfree() (for vmalloc objects). The bulk node is then either cached or freed. Used to process bulk kvfree_rcu() requests.
+ */
 static void
 kvfree_rcu_bulk(struct kfree_rcu_cpu *krcp,
 	struct kvfree_rcu_bulk_data *bnode, int idx)
@@ -1522,6 +1709,9 @@ kvfree_rcu_bulk(struct kfree_rcu_cpu *krcp,
 	cond_resched_tasks_rcu_qs();
 }
 
+/**
+ * Function Description: Frees a linked list of objects that have passed their RCU grace period. It iterates through the list, unqueues RCU heads, and calls kvfree() on each object. Used as a fallback path when bulk freeing is not possible.
+ */
 static void
 kvfree_rcu_list(struct rcu_head *head)
 {
@@ -1543,9 +1733,12 @@ kvfree_rcu_list(struct rcu_head *head)
 	}
 }
 
-/*
+/**
  * This function is invoked in workqueue context after a grace period.
  * It frees all the objects queued on ->bulk_head_free or ->head_free.
+ * 
+ * 
+ * Function Description: Work function that processes a batch of kfree_rcu() requests after a grace period. It frees all objects queued in bulk_head_free and head_free lists. Called from workqueue context.
  */
 static void kfree_rcu_work(struct work_struct *work)
 {
@@ -1591,6 +1784,9 @@ static void kfree_rcu_work(struct work_struct *work)
 		kvfree_rcu_list(head);
 }
 
+/**
+ * Function Description: Tries to free an object using the sheaf mechanism for SLUB caches. It checks if the object belongs to a slab cache and if it can be added to the sheaf. Returns true if successful, false otherwise.
+ */
 static bool kfree_rcu_sheaf(void *obj)
 {
 	struct kmem_cache *s;
@@ -1610,6 +1806,9 @@ static bool kfree_rcu_sheaf(void *obj)
 	return false;
 }
 
+/**
+ * Function Description: Checks if a kfree_rcu_cpu has objects that need to be offloaded. Returns true if any bulk_head or head list is non-empty. Used to determine if work needs to be scheduled.
+ */
 static bool
 need_offload_krc(struct kfree_rcu_cpu *krcp)
 {
@@ -1622,6 +1821,9 @@ need_offload_krc(struct kfree_rcu_cpu *krcp)
 	return !!READ_ONCE(krcp->head);
 }
 
+/**
+ * Function Description: Checks if a kfree_rcu_cpu_work has pending objects. Returns true if any bulk_head_free or head_free list is non-empty. Used to determine if work is in progress.
+ */
 static bool
 need_wait_for_krwp_work(struct kfree_rcu_cpu_work *krwp)
 {
@@ -1634,6 +1836,9 @@ need_wait_for_krwp_work(struct kfree_rcu_cpu_work *krwp)
 	return !!krwp->head_free;
 }
 
+/**
+ * Function Description: Returns the total number of objects queued in a kfree_rcu_cpu. It sums the head_count and bulk_count for all channels. Used for shrinker accounting.
+ */
 static int krc_count(struct kfree_rcu_cpu *krcp)
 {
 	int sum = atomic_read(&krcp->head_count);
@@ -1645,6 +1850,9 @@ static int krc_count(struct kfree_rcu_cpu *krcp)
 	return sum;
 }
 
+/**
+ * Function Description: Schedules the monitor work for a kfree_rcu_cpu. It calculates the delay based on the number of queued objects and queues the work. Called with the krcp lock held.
+ */
 static void
 __schedule_delayed_monitor_work(struct kfree_rcu_cpu *krcp)
 {
@@ -1660,6 +1868,9 @@ __schedule_delayed_monitor_work(struct kfree_rcu_cpu *krcp)
 	queue_delayed_work(rcu_reclaim_wq, &krcp->monitor_work, delay);
 }
 
+/**
+ * Function Description: Wrapper that schedules the monitor work with locking. It acquires the krcp lock and calls __schedule_delayed_monitor_work(). Used to schedule draining of objects.
+ */
 static void
 schedule_delayed_monitor_work(struct kfree_rcu_cpu *krcp)
 {
@@ -1670,6 +1881,9 @@ schedule_delayed_monitor_work(struct kfree_rcu_cpu *krcp)
 	raw_spin_unlock_irqrestore(&krcp->lock, flags);
 }
 
+/**
+ * Function Description: Drains objects that have passed their grace period. It scans bulk_head and head lists, moving ready objects to local lists and freeing them. Called by the monitor work.
+ */
 static void
 kvfree_rcu_drain_ready(struct kfree_rcu_cpu *krcp)
 {
@@ -1708,8 +1922,11 @@ kvfree_rcu_drain_ready(struct kfree_rcu_cpu *krcp)
 		kvfree_rcu_list(head_ready);
 }
 
-/*
+/**
  * Return: %true if a work is queued, %false otherwise.
+ * 
+ * 
+ * Function Description: Queues a batch of kfree_rcu() objects for freeing. It detaches objects from krcp and attaches them to a work structure. Returns true if a work was queued.
  */
 static bool
 kvfree_rcu_queue_batch(struct kfree_rcu_cpu *krcp)
@@ -1765,8 +1982,11 @@ kvfree_rcu_queue_batch(struct kfree_rcu_cpu *krcp)
 	return queued;
 }
 
-/*
+/**
  * This function is invoked after the KFREE_DRAIN_JIFFIES timeout.
+ * 
+ * 
+ * Function Description: Monitor work function that drains ready objects and queues new batches. It calls kvfree_rcu_drain_ready() and kvfree_rcu_queue_batch(). Reschedules itself if there are still objects pending.
  */
 static void kfree_rcu_monitor(struct work_struct *work)
 {
@@ -1788,6 +2008,9 @@ static void kfree_rcu_monitor(struct work_struct *work)
 		schedule_delayed_monitor_work(krcp);
 }
 
+/**
+ * Function Description: Work function that refills the per-CPU page cache for bulk structures. It allocates pages and adds them to the bkvcache. Called when the cache is empty.
+ */
 static void fill_page_cache_func(struct work_struct *work)
 {
 	struct kvfree_rcu_bulk_data *bnode;
@@ -1823,12 +2046,17 @@ static void fill_page_cache_func(struct work_struct *work)
 	atomic_set(&krcp->backoff_page_cache_fill, 0);
 }
 
-// Record ptr in a page managed by krcp, with the pre-krc_this_cpu_lock()
-// state specified by flags.  If can_alloc is true, the caller must
-// be schedulable and not be holding any locks or mutexes that might be
-// acquired by the memory allocator or anything that it might invoke.
-// Returns true if ptr was successfully recorded, else the caller must
-// use a fallback.
+/** 
+ * Record ptr in a page managed by krcp, with the pre-krc_this_cpu_lock()
+ * state specified by flags.  If can_alloc is true, the caller must
+ * be schedulable and not be holding any locks or mutexes that might be
+ * acquired by the memory allocator or anything that it might invoke.
+ * Returns true if ptr was successfully recorded, else the caller must
+ * use a fallback.
+ * 
+ * 
+ * Function Description: Adds a pointer to a bulk list in a kfree_rcu_cpu. It acquires the lock, finds or creates a bulk block, and inserts the pointer. Returns true on success, false if it needs to use the fallback path.
+ */
 static inline bool
 add_ptr_to_bulk_krc_lock(struct kfree_rcu_cpu **krcp,
 	unsigned long *flags, void *ptr, bool can_alloc)
@@ -1883,6 +2111,9 @@ add_ptr_to_bulk_krc_lock(struct kfree_rcu_cpu **krcp,
 	return true;
 }
 
+/**
+ * Function Description: HRTIMER callback that schedules the page cache work. It queues fill_page_cache_func() to run. Used to refill the bulk structure cache.
+ */
 static enum hrtimer_restart
 schedule_page_work_fn(struct hrtimer *t)
 {
@@ -1893,6 +2124,9 @@ schedule_page_work_fn(struct hrtimer *t)
 	return HRTIMER_NORESTART;
 }
 
+/**
+ * Function Description: Starts the page cache worker to refill the bulk structure cache. It checks if the cache is disabled and schedules the work with a delay if needed. Used when the bulk cache is empty.
+ */
 static void
 run_page_cache_worker(struct kfree_rcu_cpu *krcp)
 {
@@ -1914,6 +2148,9 @@ run_page_cache_worker(struct kfree_rcu_cpu *krcp)
 	}
 }
 
+/**
+ * Function Description: Initializes monitor work for all CPUs when the scheduler starts running. It schedules monitor work for any CPU with queued objects. Called during scheduler initialization.
+ */
 void __init kfree_rcu_scheduler_running(void)
 {
 	int cpu;
@@ -1926,7 +2163,7 @@ void __init kfree_rcu_scheduler_running(void)
 	}
 }
 
-/*
+/**
  * Queue a request for lazy invocation of the appropriate free routine
  * after a grace period.  Please note that three paths are maintained,
  * two for the common case using arrays of pointers and a third one that
@@ -1937,6 +2174,9 @@ void __init kfree_rcu_scheduler_running(void)
  * every KFREE_DRAIN_JIFFIES number of jiffies. All the objects in the batch will
  * be free'd in workqueue context. This allows us to: batch requests together to
  * reduce the number of grace periods during heavy kfree_rcu()/kvfree_rcu() load.
+ * 
+ * 
+ * Function Description: Queues a memory pointer for deferred freeing after an RCU grace period. It attempts to batch the request into a bulk list for efficient processing. If bulk insertion fails (e.g., due to memory pressure), it falls back to a linked list of rcu_head structures. For head-less (single-argument) calls, it may synchronize immediately if batching is not possible. The function first checks if the object can be freed via the sheaf mechanism (for SLUB caches), then tries to add the pointer to a bulk list using add_ptr_to_bulk_krc_lock(). On success, it marks the object as ignored by kmemleak (since freeing is deferred) and schedules a monitor work to drain the batch after KFREE_DRAIN_JIFFIES. If bulk insertion fails and no rcu_head is provided, it falls back to inline synchronize_rcu() followed by kvfree(). This function is the core of the kvfree_rcu() API, enabling efficient batching of RCU-protected frees.
  */
 void kvfree_call_rcu(struct rcu_head *head, void *ptr)
 {
@@ -2014,6 +2254,9 @@ unlock_return:
 }
 EXPORT_SYMBOL_GPL(kvfree_call_rcu);
 
+/**
+ * Function Description: Waits for all in-flight kvfree_rcu() batches to complete. It queues new batches for all CPUs and flushes all work. Called by kvfree_rcu_barrier().
+ */
 static inline void __kvfree_rcu_barrier(void)
 {
 	struct kfree_rcu_cpu_work *krwp;
@@ -2092,6 +2335,9 @@ static inline void __kvfree_rcu_barrier(void)
  * call that will result in a kfree() to a cache that is to be destroyed
  * during module exit, it is developer's responsibility to ensure that all
  * such calls have returned before the call to kmem_cache_destroy().
+ * 
+ * 
+ * Function Description: Waits for all in-flight kvfree_rcu() calls to complete. It flushes sheaves and calls __kvfree_rcu_barrier(). Used during module unload and cache destruction.
  */
 void kvfree_rcu_barrier(void)
 {
@@ -2106,6 +2352,9 @@ EXPORT_SYMBOL_GPL(kvfree_rcu_barrier);
  * @s: slab cache to wait for
  *
  * See the description of kvfree_rcu_barrier() for details.
+ * 
+ * 
+ * Function Description: Waits for in-flight kvfree_rcu() calls on a specific slab cache. It flushes sheaves for the cache and calls __kvfree_rcu_barrier(). Used during cache destruction.
  */
 void kvfree_rcu_barrier_on_cache(struct kmem_cache *s)
 {
@@ -2124,6 +2373,9 @@ void kvfree_rcu_barrier_on_cache(struct kmem_cache *s)
 }
 EXPORT_SYMBOL_GPL(kvfree_rcu_barrier_on_cache);
 
+/**
+ * Function Description: Shrinker count callback for kfree_rcu. It counts queued objects across all CPUs. Used by the memory management subsystem to determine reclaim pressure.
+ */
 static unsigned long
 kfree_rcu_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
 {
@@ -2142,6 +2394,9 @@ kfree_rcu_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
 	return count == 0 ? SHRINK_EMPTY : count;
 }
 
+/**
+ * Function Description: Shrinker scan callback for kfree_rcu. It drains queued objects and frees memory. Used by the memory management subsystem to reclaim memory.
+ */
 static unsigned long
 kfree_rcu_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
 {
@@ -2165,6 +2420,9 @@ kfree_rcu_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
 	return freed == 0 ? SHRINK_STOP : freed;
 }
 
+/**
+ * Function Description: Initializes the kvfree_rcu subsystem. It allocates the reclaim workqueue, initializes per-CPU structures, and registers a shrinker. Called during kernel initialization.
+ */
 void __init kvfree_rcu_init(void)
 {
 	int cpu;

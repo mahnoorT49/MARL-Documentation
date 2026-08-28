@@ -1,0 +1,481 @@
+\doxysection{scan\+\_\+control Struct Reference}
+\hypertarget{structscan__control}{}\label{structscan__control}\index{scan\_control@{scan\_control}}
+
+
+Collaboration diagram for scan\+\_\+control:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structscan__control__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned long \doxymbox{\hyperlink{structscan__control_a5984c5b5a0c09217276d19e3be42a51c}{nr\+\_\+to\+\_\+reclaim}}
+\item 
+nodemask\+\_\+t \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structscan__control_a644fe3e28d7fef0c3d4a11b393dbe2fc}{nodemask}}
+\item 
+struct \doxymbox{\hyperlink{structmem__cgroup}{mem\+\_\+cgroup}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structscan__control_a0d8d06846bbce1de8faab510fba3da27}{target\+\_\+mem\+\_\+cgroup}}
+\item 
+unsigned long \doxymbox{\hyperlink{structscan__control_a055f58e28632e35f05a649f8f3215208}{anon\+\_\+cost}}
+\item 
+unsigned long \doxymbox{\hyperlink{structscan__control_a1cddb1949c30bf5fcd00ccdcd8d6404d}{file\+\_\+cost}}
+\item 
+int \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structscan__control_aafb55eb8d40e6e5a76db1d91072d63ef}{proactive\+\_\+swappiness}}
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a97326dad66313715c454e14ce3428532}{may\+\_\+deactivate}}:\+2
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_afaeb85e80d4518721388059c8357cead}{force\+\_\+deactivate}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_ae0783320761aa089f9571af0fc80d222}{skipped\+\_\+deactivate}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a019962f6ab782a647a4b8f91e157298e}{may\+\_\+writepage}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_ab05235c22c000ea7066a026015117c3c}{may\+\_\+unmap}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a4dcdd33a9e4662b3046e6dbaf340217c}{may\+\_\+swap}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a034cd5931aca4aacaa3e8a3f263cfe56}{no\+\_\+cache\+\_\+trim\+\_\+mode}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a6edaf70d285064f86a1ef50f3fd16704}{cache\+\_\+trim\+\_\+mode\+\_\+failed}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_ad64fedd771e675cc7f778cdfbea0d562}{proactive}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a2ef1178731ffe8a94d195e635be01c28}{memcg\+\_\+low\+\_\+reclaim}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a113874640aae6038cf080afe1a4ed251}{memcg\+\_\+low\+\_\+skipped}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a5fc6358bd08f30085ea2c30aaeb59bfc}{memcg\+\_\+full\+\_\+walk}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a0025eb218a891f08adea42bfb5ba397d}{hibernation\+\_\+mode}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a004cbba23109b3a9d251a861788984ca}{compaction\+\_\+ready}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a05a2d9f50e5dee0a612ced5492ece816}{cache\+\_\+trim\+\_\+mode}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a870d2a7178cb604ed21f87229963430d}{file\+\_\+is\+\_\+tiny}}:\+1
+\item 
+unsigned int \doxymbox{\hyperlink{structscan__control_a65977457cf96ae06846c40e3551a4c5a}{no\+\_\+demotion}}:\+1
+\item 
+s8 \doxymbox{\hyperlink{structscan__control_ab814bea1f40a6b91cf8f224fa7892e10}{order}}
+\item 
+s8 \doxymbox{\hyperlink{structscan__control_a4564b1dac8919c19534ec37f802860b5}{priority}}
+\item 
+s8 \doxymbox{\hyperlink{structscan__control_a1b09069243b6fa11ce9ba95e4a18fe0c}{reclaim\+\_\+idx}}
+\item 
+gfp\+\_\+t \doxymbox{\hyperlink{structscan__control_ad1d4eb4d4232536a431bd7fd1b3cb9d2}{gfp\+\_\+mask}}
+\item 
+unsigned long \doxymbox{\hyperlink{structscan__control_ad9daeaa2a22ac3bfeaa621faea000e5f}{nr\+\_\+scanned}}
+\item 
+unsigned long \doxymbox{\hyperlink{structscan__control_a754906ab34bc23da56578697bab04e73}{nr\+\_\+reclaimed}}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>unsigned int \doxymbox{\hyperlink{structscan__control_a86a1d67e4d8f9e3627b9151a5e8fe414}{dirty}}\\
+\>unsigned int \doxymbox{\hyperlink{structscan__control_aa2beab2059f5f513465b35eabbd79583}{unqueued\_dirty}}\\
+\>unsigned int \doxymbox{\hyperlink{structscan__control_a98690b674270b51d1555b3af902be885}{congested}}\\
+\>unsigned int \doxymbox{\hyperlink{structscan__control_abe160d0640791299b6f6441b373cc428}{writeback}}\\
+\>unsigned int \doxymbox{\hyperlink{structscan__control_a1c568a34288414503df66639d033ac3e}{immediate}}\\
+\>unsigned int \doxymbox{\hyperlink{structscan__control_a03f061d554fc4642fb13e54fed9cf321}{file\_taken}}\\
+\>unsigned int \doxymbox{\hyperlink{structscan__control_a70d25f7fa387a0c69c5efa04a2cc75ac}{taken}}\\
+\} \doxymbox{\hyperlink{structscan__control_a03cd154e6fb2ae0a02d494084273fb4d}{nr}}\\
+
+\end{tabbing}\item 
+struct reclaim\+\_\+state \doxymbox{\hyperlink{structscan__control_aac675657cdd7fb2ef7e21c8dbf2af1bb}{reclaim\+\_\+state}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00074}{74}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+
+
+\label{structscan__control_doc-variable-members}
+\Hypertarget{structscan__control_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structscan__control_a055f58e28632e35f05a649f8f3215208}\index{scan\_control@{scan\_control}!anon\_cost@{anon\_cost}}
+\index{anon\_cost@{anon\_cost}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{anon\_cost}{anon\_cost}}
+{\footnotesize\ttfamily \label{structscan__control_a055f58e28632e35f05a649f8f3215208} 
+unsigned long scan\+\_\+control::\+anon\+\_\+cost}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00093}{93}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a05a2d9f50e5dee0a612ced5492ece816}\index{scan\_control@{scan\_control}!cache\_trim\_mode@{cache\_trim\_mode}}
+\index{cache\_trim\_mode@{cache\_trim\_mode}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{cache\_trim\_mode}{cache\_trim\_mode}}
+{\footnotesize\ttfamily \label{structscan__control_a05a2d9f50e5dee0a612ced5492ece816} 
+unsigned int scan\+\_\+control::\+cache\+\_\+trim\+\_\+mode}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00144}{144}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a6edaf70d285064f86a1ef50f3fd16704}\index{scan\_control@{scan\_control}!cache\_trim\_mode\_failed@{cache\_trim\_mode\_failed}}
+\index{cache\_trim\_mode\_failed@{cache\_trim\_mode\_failed}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{cache\_trim\_mode\_failed}{cache\_trim\_mode\_failed}}
+{\footnotesize\ttfamily \label{structscan__control_a6edaf70d285064f86a1ef50f3fd16704} 
+unsigned int scan\+\_\+control::\+cache\+\_\+trim\+\_\+mode\+\_\+failed}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00119}{119}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a004cbba23109b3a9d251a861788984ca}\index{scan\_control@{scan\_control}!compaction\_ready@{compaction\_ready}}
+\index{compaction\_ready@{compaction\_ready}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{compaction\_ready}{compaction\_ready}}
+{\footnotesize\ttfamily \label{structscan__control_a004cbba23109b3a9d251a861788984ca} 
+unsigned int scan\+\_\+control::\+compaction\+\_\+ready}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00141}{141}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a98690b674270b51d1555b3af902be885}\index{scan\_control@{scan\_control}!congested@{congested}}
+\index{congested@{congested}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{congested}{congested}}
+{\footnotesize\ttfamily \label{structscan__control_a98690b674270b51d1555b3af902be885} 
+unsigned int scan\+\_\+control::\+congested}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00173}{173}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a86a1d67e4d8f9e3627b9151a5e8fe414}\index{scan\_control@{scan\_control}!dirty@{dirty}}
+\index{dirty@{dirty}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{dirty}{dirty}}
+{\footnotesize\ttfamily \label{structscan__control_a86a1d67e4d8f9e3627b9151a5e8fe414} 
+unsigned int scan\+\_\+control::\+dirty}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00171}{171}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a1cddb1949c30bf5fcd00ccdcd8d6404d}\index{scan\_control@{scan\_control}!file\_cost@{file\_cost}}
+\index{file\_cost@{file\_cost}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{file\_cost}{file\_cost}}
+{\footnotesize\ttfamily \label{structscan__control_a1cddb1949c30bf5fcd00ccdcd8d6404d} 
+unsigned long scan\+\_\+control::\+file\+\_\+cost}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00094}{94}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a870d2a7178cb604ed21f87229963430d}\index{scan\_control@{scan\_control}!file\_is\_tiny@{file\_is\_tiny}}
+\index{file\_is\_tiny@{file\_is\_tiny}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{file\_is\_tiny}{file\_is\_tiny}}
+{\footnotesize\ttfamily \label{structscan__control_a870d2a7178cb604ed21f87229963430d} 
+unsigned int scan\+\_\+control::\+file\+\_\+is\+\_\+tiny}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00147}{147}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a03f061d554fc4642fb13e54fed9cf321}\index{scan\_control@{scan\_control}!file\_taken@{file\_taken}}
+\index{file\_taken@{file\_taken}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{file\_taken}{file\_taken}}
+{\footnotesize\ttfamily \label{structscan__control_a03f061d554fc4642fb13e54fed9cf321} 
+unsigned int scan\+\_\+control::\+file\+\_\+taken}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00176}{176}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_afaeb85e80d4518721388059c8357cead}\index{scan\_control@{scan\_control}!force\_deactivate@{force\_deactivate}}
+\index{force\_deactivate@{force\_deactivate}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{force\_deactivate}{force\_deactivate}}
+{\footnotesize\ttfamily \label{structscan__control_afaeb85e80d4518721388059c8357cead} 
+unsigned int scan\+\_\+control::\+force\+\_\+deactivate}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00103}{103}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_ad1d4eb4d4232536a431bd7fd1b3cb9d2}\index{scan\_control@{scan\_control}!gfp\_mask@{gfp\_mask}}
+\index{gfp\_mask@{gfp\_mask}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{gfp\_mask}{gfp\_mask}}
+{\footnotesize\ttfamily \label{structscan__control_ad1d4eb4d4232536a431bd7fd1b3cb9d2} 
+gfp\+\_\+t scan\+\_\+control::\+gfp\+\_\+mask}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00162}{162}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a0025eb218a891f08adea42bfb5ba397d}\index{scan\_control@{scan\_control}!hibernation\_mode@{hibernation\_mode}}
+\index{hibernation\_mode@{hibernation\_mode}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{hibernation\_mode}{hibernation\_mode}}
+{\footnotesize\ttfamily \label{structscan__control_a0025eb218a891f08adea42bfb5ba397d} 
+unsigned int scan\+\_\+control::\+hibernation\+\_\+mode}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00138}{138}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a1c568a34288414503df66639d033ac3e}\index{scan\_control@{scan\_control}!immediate@{immediate}}
+\index{immediate@{immediate}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{immediate}{immediate}}
+{\footnotesize\ttfamily \label{structscan__control_a1c568a34288414503df66639d033ac3e} 
+unsigned int scan\+\_\+control::\+immediate}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00175}{175}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a97326dad66313715c454e14ce3428532}\index{scan\_control@{scan\_control}!may\_deactivate@{may\_deactivate}}
+\index{may\_deactivate@{may\_deactivate}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{may\_deactivate}{may\_deactivate}}
+{\footnotesize\ttfamily \label{structscan__control_a97326dad66313715c454e14ce3428532} 
+unsigned int scan\+\_\+control::\+may\+\_\+deactivate}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00102}{102}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a4dcdd33a9e4662b3046e6dbaf340217c}\index{scan\_control@{scan\_control}!may\_swap@{may\_swap}}
+\index{may\_swap@{may\_swap}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{may\_swap}{may\_swap}}
+{\footnotesize\ttfamily \label{structscan__control_a4dcdd33a9e4662b3046e6dbaf340217c} 
+unsigned int scan\+\_\+control::\+may\+\_\+swap}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00113}{113}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_ab05235c22c000ea7066a026015117c3c}\index{scan\_control@{scan\_control}!may\_unmap@{may\_unmap}}
+\index{may\_unmap@{may\_unmap}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{may\_unmap}{may\_unmap}}
+{\footnotesize\ttfamily \label{structscan__control_ab05235c22c000ea7066a026015117c3c} 
+unsigned int scan\+\_\+control::\+may\+\_\+unmap}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00110}{110}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a019962f6ab782a647a4b8f91e157298e}\index{scan\_control@{scan\_control}!may\_writepage@{may\_writepage}}
+\index{may\_writepage@{may\_writepage}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{may\_writepage}{may\_writepage}}
+{\footnotesize\ttfamily \label{structscan__control_a019962f6ab782a647a4b8f91e157298e} 
+unsigned int scan\+\_\+control::\+may\+\_\+writepage}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00107}{107}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a5fc6358bd08f30085ea2c30aaeb59bfc}\index{scan\_control@{scan\_control}!memcg\_full\_walk@{memcg\_full\_walk}}
+\index{memcg\_full\_walk@{memcg\_full\_walk}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{memcg\_full\_walk}{memcg\_full\_walk}}
+{\footnotesize\ttfamily \label{structscan__control_a5fc6358bd08f30085ea2c30aaeb59bfc} 
+unsigned int scan\+\_\+control::\+memcg\+\_\+full\+\_\+walk}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00136}{136}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a2ef1178731ffe8a94d195e635be01c28}\index{scan\_control@{scan\_control}!memcg\_low\_reclaim@{memcg\_low\_reclaim}}
+\index{memcg\_low\_reclaim@{memcg\_low\_reclaim}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{memcg\_low\_reclaim}{memcg\_low\_reclaim}}
+{\footnotesize\ttfamily \label{structscan__control_a2ef1178731ffe8a94d195e635be01c28} 
+unsigned int scan\+\_\+control::\+memcg\+\_\+low\+\_\+reclaim}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00132}{132}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a113874640aae6038cf080afe1a4ed251}\index{scan\_control@{scan\_control}!memcg\_low\_skipped@{memcg\_low\_skipped}}
+\index{memcg\_low\_skipped@{memcg\_low\_skipped}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{memcg\_low\_skipped}{memcg\_low\_skipped}}
+{\footnotesize\ttfamily \label{structscan__control_a113874640aae6038cf080afe1a4ed251} 
+unsigned int scan\+\_\+control::\+memcg\+\_\+low\+\_\+skipped}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00133}{133}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a034cd5931aca4aacaa3e8a3f263cfe56}\index{scan\_control@{scan\_control}!no\_cache\_trim\_mode@{no\_cache\_trim\_mode}}
+\index{no\_cache\_trim\_mode@{no\_cache\_trim\_mode}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{no\_cache\_trim\_mode}{no\_cache\_trim\_mode}}
+{\footnotesize\ttfamily \label{structscan__control_a034cd5931aca4aacaa3e8a3f263cfe56} 
+unsigned int scan\+\_\+control::\+no\+\_\+cache\+\_\+trim\+\_\+mode}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00116}{116}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a65977457cf96ae06846c40e3551a4c5a}\index{scan\_control@{scan\_control}!no\_demotion@{no\_demotion}}
+\index{no\_demotion@{no\_demotion}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{no\_demotion}{no\_demotion}}
+{\footnotesize\ttfamily \label{structscan__control_a65977457cf96ae06846c40e3551a4c5a} 
+unsigned int scan\+\_\+control::\+no\+\_\+demotion}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00150}{150}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a644fe3e28d7fef0c3d4a11b393dbe2fc}\index{scan\_control@{scan\_control}!nodemask@{nodemask}}
+\index{nodemask@{nodemask}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{nodemask}{nodemask}}
+{\footnotesize\ttfamily \label{structscan__control_a644fe3e28d7fef0c3d4a11b393dbe2fc} 
+nodemask\+\_\+t\texorpdfstring{$\ast$}{*} scan\+\_\+control::\+nodemask}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00082}{82}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a03cd154e6fb2ae0a02d494084273fb4d}\index{scan\_control@{scan\_control}!nr@{nr}}
+\index{nr@{nr}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily \label{structscan__control_a03cd154e6fb2ae0a02d494084273fb4d} 
+struct  \{ ... \}  scan\+\_\+control::\+nr}
+
+\Hypertarget{structscan__control_a754906ab34bc23da56578697bab04e73}\index{scan\_control@{scan\_control}!nr\_reclaimed@{nr\_reclaimed}}
+\index{nr\_reclaimed@{nr\_reclaimed}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{nr\_reclaimed}{nr\_reclaimed}}
+{\footnotesize\ttfamily \label{structscan__control_a754906ab34bc23da56578697bab04e73} 
+unsigned long scan\+\_\+control::\+nr\+\_\+reclaimed}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00168}{168}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_ad9daeaa2a22ac3bfeaa621faea000e5f}\index{scan\_control@{scan\_control}!nr\_scanned@{nr\_scanned}}
+\index{nr\_scanned@{nr\_scanned}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{nr\_scanned}{nr\_scanned}}
+{\footnotesize\ttfamily \label{structscan__control_ad9daeaa2a22ac3bfeaa621faea000e5f} 
+unsigned long scan\+\_\+control::\+nr\+\_\+scanned}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00165}{165}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a5984c5b5a0c09217276d19e3be42a51c}\index{scan\_control@{scan\_control}!nr\_to\_reclaim@{nr\_to\_reclaim}}
+\index{nr\_to\_reclaim@{nr\_to\_reclaim}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{nr\_to\_reclaim}{nr\_to\_reclaim}}
+{\footnotesize\ttfamily \label{structscan__control_a5984c5b5a0c09217276d19e3be42a51c} 
+unsigned long scan\+\_\+control::\+nr\+\_\+to\+\_\+reclaim}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00076}{76}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_ab814bea1f40a6b91cf8f224fa7892e10}\index{scan\_control@{scan\_control}!order@{order}}
+\index{order@{order}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{order}{order}}
+{\footnotesize\ttfamily \label{structscan__control_ab814bea1f40a6b91cf8f224fa7892e10} 
+s8 scan\+\_\+control::\+order}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00153}{153}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a4564b1dac8919c19534ec37f802860b5}\index{scan\_control@{scan\_control}!priority@{priority}}
+\index{priority@{priority}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{priority}{priority}}
+{\footnotesize\ttfamily \label{structscan__control_a4564b1dac8919c19534ec37f802860b5} 
+s8 scan\+\_\+control::\+priority}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00156}{156}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_ad64fedd771e675cc7f778cdfbea0d562}\index{scan\_control@{scan\_control}!proactive@{proactive}}
+\index{proactive@{proactive}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{proactive}{proactive}}
+{\footnotesize\ttfamily \label{structscan__control_ad64fedd771e675cc7f778cdfbea0d562} 
+unsigned int scan\+\_\+control::\+proactive}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00122}{122}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_aafb55eb8d40e6e5a76db1d91072d63ef}\index{scan\_control@{scan\_control}!proactive\_swappiness@{proactive\_swappiness}}
+\index{proactive\_swappiness@{proactive\_swappiness}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{proactive\_swappiness}{proactive\_swappiness}}
+{\footnotesize\ttfamily \label{structscan__control_aafb55eb8d40e6e5a76db1d91072d63ef} 
+int\texorpdfstring{$\ast$}{*} scan\+\_\+control::\+proactive\+\_\+swappiness}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00097}{97}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a1b09069243b6fa11ce9ba95e4a18fe0c}\index{scan\_control@{scan\_control}!reclaim\_idx@{reclaim\_idx}}
+\index{reclaim\_idx@{reclaim\_idx}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{reclaim\_idx}{reclaim\_idx}}
+{\footnotesize\ttfamily \label{structscan__control_a1b09069243b6fa11ce9ba95e4a18fe0c} 
+s8 scan\+\_\+control::\+reclaim\+\_\+idx}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00159}{159}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_aac675657cdd7fb2ef7e21c8dbf2af1bb}\index{scan\_control@{scan\_control}!reclaim\_state@{reclaim\_state}}
+\index{reclaim\_state@{reclaim\_state}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{reclaim\_state}{reclaim\_state}}
+{\footnotesize\ttfamily \label{structscan__control_aac675657cdd7fb2ef7e21c8dbf2af1bb} 
+struct reclaim\+\_\+state scan\+\_\+control::\+reclaim\+\_\+state}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00181}{181}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_ae0783320761aa089f9571af0fc80d222}\index{scan\_control@{scan\_control}!skipped\_deactivate@{skipped\_deactivate}}
+\index{skipped\_deactivate@{skipped\_deactivate}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{skipped\_deactivate}{skipped\_deactivate}}
+{\footnotesize\ttfamily \label{structscan__control_ae0783320761aa089f9571af0fc80d222} 
+unsigned int scan\+\_\+control::\+skipped\+\_\+deactivate}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00104}{104}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a70d25f7fa387a0c69c5efa04a2cc75ac}\index{scan\_control@{scan\_control}!taken@{taken}}
+\index{taken@{taken}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{taken}{taken}}
+{\footnotesize\ttfamily \label{structscan__control_a70d25f7fa387a0c69c5efa04a2cc75ac} 
+unsigned int scan\+\_\+control::\+taken}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00177}{177}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_a0d8d06846bbce1de8faab510fba3da27}\index{scan\_control@{scan\_control}!target\_mem\_cgroup@{target\_mem\_cgroup}}
+\index{target\_mem\_cgroup@{target\_mem\_cgroup}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{target\_mem\_cgroup}{target\_mem\_cgroup}}
+{\footnotesize\ttfamily \label{structscan__control_a0d8d06846bbce1de8faab510fba3da27} 
+struct \doxymbox{\hyperlink{structmem__cgroup}{mem\+\_\+cgroup}}\texorpdfstring{$\ast$}{*} scan\+\_\+control::\+target\+\_\+mem\+\_\+cgroup}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00088}{88}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_aa2beab2059f5f513465b35eabbd79583}\index{scan\_control@{scan\_control}!unqueued\_dirty@{unqueued\_dirty}}
+\index{unqueued\_dirty@{unqueued\_dirty}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{unqueued\_dirty}{unqueued\_dirty}}
+{\footnotesize\ttfamily \label{structscan__control_aa2beab2059f5f513465b35eabbd79583} 
+unsigned int scan\+\_\+control::\+unqueued\+\_\+dirty}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00172}{172}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+\Hypertarget{structscan__control_abe160d0640791299b6f6441b373cc428}\index{scan\_control@{scan\_control}!writeback@{writeback}}
+\index{writeback@{writeback}!scan\_control@{scan\_control}}
+\doxysubsubsection{\texorpdfstring{writeback}{writeback}}
+{\footnotesize\ttfamily \label{structscan__control_abe160d0640791299b6f6441b373cc428} 
+unsigned int scan\+\_\+control::\+writeback}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmscan_8c_source_l00174}{174}} of file \doxymbox{\hyperlink{vmscan_8c_source}{vmscan.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{vmscan_8c}{vmscan.\+c}}\end{DoxyCompactItemize}

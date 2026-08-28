@@ -136,32 +136,32 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a975ccf160f8e752c8162e389690b0961" id="r_a975ccf160f8e752c8162e389690b0961"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a975ccf160f8e752c8162e389690b0961">TRACE_SYSTEM</a>&#160;&#160;&#160;cgroup</td></tr>
+<tr class="memitem:a975ccf160f8e752c8162e389690b0961" id="r_a975ccf160f8e752c8162e389690b0961"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a975ccf160f8e752c8162e389690b0961">TRACE_SYSTEM</a>&#160;&#160;&#160;<a class="el" href="structcgroup.html">cgroup</a></td></tr>
 <tr class="memitem:aacc60673fbe161599e0929ed9fc0611f" id="r_aacc60673fbe161599e0929ed9fc0611f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aacc60673fbe161599e0929ed9fc0611f">_TRACE_CGROUP_H</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8ae78cd5b0eb1025224fe44b0bb458ca" id="r_a8ae78cd5b0eb1025224fe44b0bb458ca"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8ae78cd5b0eb1025224fe44b0bb458ca">DECLARE_EVENT_CLASS</a> (cgroup_root, TP_PROTO(struct cgroup_root *root), TP_ARGS(root), TP_STRUCT__entry(__field(int, root) __field(u32, ss_mask) __string(name, root-&gt;name)), TP_fast_assign(__entry-&gt;root=root-&gt;hierarchy_id;__entry-&gt;ss_mask=root-&gt;subsys_mask;__assign_str(name);), TP_printk(&quot;root=%d ss_mask=%#x name=%s&quot;, __entry-&gt;root, __entry-&gt;ss_mask, __get_str(name)))</td></tr>
-<tr class="memitem:ac9db9447caa266a64d7f4b7b565fcdcd" id="r_ac9db9447caa266a64d7f4b7b565fcdcd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac9db9447caa266a64d7f4b7b565fcdcd">DEFINE_EVENT</a> (cgroup_root, <a class="el" href="cgroup-internal_8h.html#a219d70d5ab51e3a7c31e95fc88cf771d">cgroup_setup_root</a>, TP_PROTO(struct cgroup_root *root),)</td></tr>
-<tr class="memitem:acb4955ce3fd23bacc5c7c74c3cb5ba1c" id="r_acb4955ce3fd23bacc5c7c74c3cb5ba1c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acb4955ce3fd23bacc5c7c74c3cb5ba1c">DEFINE_EVENT</a> (cgroup_root, cgroup_destroy_root, TP_PROTO(struct cgroup_root *root),)</td></tr>
-<tr class="memitem:aa8642a3f89cadb64ecca4e486d7742db" id="r_aa8642a3f89cadb64ecca4e486d7742db"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa8642a3f89cadb64ecca4e486d7742db">DEFINE_EVENT</a> (cgroup_root, cgroup_remount, TP_PROTO(struct cgroup_root *root),)</td></tr>
-<tr class="memitem:a34339c7910d3ba7d697382920f4053eb" id="r_a34339c7910d3ba7d697382920f4053eb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a34339c7910d3ba7d697382920f4053eb">DECLARE_EVENT_CLASS</a> (cgroup, TP_PROTO(struct cgroup *cgrp, const char *path), TP_ARGS(cgrp, path), TP_STRUCT__entry(__field(int, root) __field(int, level) __field(u64, id) __string(path, path)), TP_fast_assign(__entry-&gt;root=cgrp-&gt;root-&gt;hierarchy_id;__entry-&gt;id=cgroup_id(cgrp);__entry-&gt;level=cgrp-&gt;level;__assign_str(path);), TP_printk(&quot;root=%d id=%llu level=%d path=%s&quot;, __entry-&gt;root, __entry-&gt;id, __entry-&gt;level, __get_str(path)))</td></tr>
-<tr class="memitem:a9dd0b89f1eaabbcea6de843219df7ee5" id="r_a9dd0b89f1eaabbcea6de843219df7ee5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9dd0b89f1eaabbcea6de843219df7ee5">DEFINE_EVENT</a> (cgroup, <a class="el" href="cgroup-internal_8h.html#af47095eeb83b5ed1e88a23e0dedf9bc1">cgroup_mkdir</a>, TP_PROTO(struct cgroup *cgrp, const char *path),)</td></tr>
-<tr class="memitem:a7f98b0abd7607c654659132905861dec" id="r_a7f98b0abd7607c654659132905861dec"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7f98b0abd7607c654659132905861dec">DEFINE_EVENT</a> (cgroup, <a class="el" href="cgroup-internal_8h.html#abed96bdb67eb267dff3c4e0535215a3c">cgroup_rmdir</a>, TP_PROTO(struct cgroup *cgrp, const char *path),)</td></tr>
-<tr class="memitem:a535728b6f87598e0e6acd104093ec631" id="r_a535728b6f87598e0e6acd104093ec631"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a535728b6f87598e0e6acd104093ec631">DEFINE_EVENT</a> (cgroup, cgroup_release, TP_PROTO(struct cgroup *cgrp, const char *path),)</td></tr>
-<tr class="memitem:a068d9a1074800d0ec7eb9e602a51cbf3" id="r_a068d9a1074800d0ec7eb9e602a51cbf3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a068d9a1074800d0ec7eb9e602a51cbf3">DEFINE_EVENT</a> (cgroup, cgroup_rename, TP_PROTO(struct cgroup *cgrp, const char *path),)</td></tr>
-<tr class="memitem:a3832917c359d05b5f97b94ea6531850d" id="r_a3832917c359d05b5f97b94ea6531850d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3832917c359d05b5f97b94ea6531850d">DEFINE_EVENT</a> (cgroup, cgroup_freeze, TP_PROTO(struct cgroup *cgrp, const char *path),)</td></tr>
-<tr class="memitem:abb81cda1f8697fe7e1bae88026e69f9e" id="r_abb81cda1f8697fe7e1bae88026e69f9e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abb81cda1f8697fe7e1bae88026e69f9e">DEFINE_EVENT</a> (cgroup, cgroup_unfreeze, TP_PROTO(struct cgroup *cgrp, const char *path),)</td></tr>
-<tr class="memitem:afb539ae3508719744ab348d8a6e1f4e6" id="r_afb539ae3508719744ab348d8a6e1f4e6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afb539ae3508719744ab348d8a6e1f4e6">DECLARE_EVENT_CLASS</a> (<a class="el" href="cgroup-internal_8h.html#a91d7710c20f468bb8371512b15737bc2">cgroup_migrate</a>, TP_PROTO(struct cgroup *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup), TP_ARGS(dst_cgrp, path, task, threadgroup), TP_STRUCT__entry(__field(int, dst_root) __field(int, dst_level) __field(u64, dst_id) __field(int, pid) __string(dst_path, path) __string(comm, task-&gt;comm)), TP_fast_assign(__entry-&gt;dst_root=dst_cgrp-&gt;root-&gt;hierarchy_id;__entry-&gt;dst_id=cgroup_id(dst_cgrp);__entry-&gt;dst_level=dst_cgrp-&gt;level;__assign_str(dst_path);__entry-&gt;pid=task-&gt;pid;__assign_str(comm);), TP_printk(&quot;dst_root=%d dst_id=%llu dst_level=%d dst_path=%s pid=%d comm=%s&quot;, __entry-&gt;dst_root, __entry-&gt;dst_id, __entry-&gt;dst_level, __get_str(dst_path), __entry-&gt;pid, __get_str(comm)))</td></tr>
-<tr class="memitem:a97999ea005a1e6f525da9956e9e22bd8" id="r_a97999ea005a1e6f525da9956e9e22bd8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a97999ea005a1e6f525da9956e9e22bd8">DEFINE_EVENT</a> (<a class="el" href="cgroup-internal_8h.html#a91d7710c20f468bb8371512b15737bc2">cgroup_migrate</a>, <a class="el" href="cgroup-internal_8h.html#acdcee710167815f30e8a48d607e160fb">cgroup_attach_task</a>, TP_PROTO(struct cgroup *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup),)</td></tr>
-<tr class="memitem:aea3bac480bc26d5f39526e6b7c07b23f" id="r_aea3bac480bc26d5f39526e6b7c07b23f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aea3bac480bc26d5f39526e6b7c07b23f">DEFINE_EVENT</a> (<a class="el" href="cgroup-internal_8h.html#a91d7710c20f468bb8371512b15737bc2">cgroup_migrate</a>, <a class="el" href="cgroup-v1_8c.html#ad259388a55bea76edd9f16a93693f9de">cgroup_transfer_tasks</a>, TP_PROTO(struct cgroup *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup),)</td></tr>
-<tr class="memitem:ae24b0776d5efc0398b2385e1946e8f48" id="r_ae24b0776d5efc0398b2385e1946e8f48"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae24b0776d5efc0398b2385e1946e8f48">DECLARE_EVENT_CLASS</a> (cgroup_event, TP_PROTO(struct cgroup *cgrp, const char *path, int val), TP_ARGS(cgrp, path, val), TP_STRUCT__entry(__field(int, root) __field(int, level) __field(u64, id) __string(path, path) __field(int, val)), TP_fast_assign(__entry-&gt;root=cgrp-&gt;root-&gt;hierarchy_id;__entry-&gt;id=cgroup_id(cgrp);__entry-&gt;level=cgrp-&gt;level;__assign_str(path);__entry-&gt;val=val;), TP_printk(&quot;root=%d id=%llu level=%d path=%s val=%d&quot;, __entry-&gt;root, __entry-&gt;id, __entry-&gt;level, __get_str(path), __entry-&gt;val))</td></tr>
-<tr class="memitem:aa71d49f27e88cbe3c0d23f921b4d23ef" id="r_aa71d49f27e88cbe3c0d23f921b4d23ef"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa71d49f27e88cbe3c0d23f921b4d23ef">DEFINE_EVENT</a> (cgroup_event, cgroup_notify_populated, TP_PROTO(struct cgroup *cgrp, const char *path, int val),)</td></tr>
-<tr class="memitem:aab380afe96ee20cac1fa27047dd7fda7" id="r_aab380afe96ee20cac1fa27047dd7fda7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aab380afe96ee20cac1fa27047dd7fda7">DEFINE_EVENT</a> (cgroup_event, cgroup_notify_frozen, TP_PROTO(struct cgroup *cgrp, const char *path, int val),)</td></tr>
-<tr class="memitem:a896c0a188b9d8f4654a39b2a4f34bddc" id="r_a896c0a188b9d8f4654a39b2a4f34bddc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a896c0a188b9d8f4654a39b2a4f34bddc">DECLARE_EVENT_CLASS</a> (cgroup_rstat, TP_PROTO(struct cgroup *cgrp, int cpu, bool contended), TP_ARGS(cgrp, cpu, contended), TP_STRUCT__entry(__field(int, root) __field(int, level) __field(u64, id) __field(int, cpu) __field(bool, contended)), TP_fast_assign(__entry-&gt;root=cgrp-&gt;root-&gt;hierarchy_id;__entry-&gt;id=cgroup_id(cgrp);__entry-&gt;level=cgrp-&gt;level;__entry-&gt;cpu=cpu;__entry-&gt;contended=contended;), TP_printk(&quot;root=%d id=%llu level=%d cpu=%d lock contended:%d&quot;, __entry-&gt;root, __entry-&gt;id, __entry-&gt;level, __entry-&gt;cpu, __entry-&gt;contended))</td></tr>
-<tr class="memitem:af2074cd93013f03f5b6f55afd0c5e8fd" id="r_af2074cd93013f03f5b6f55afd0c5e8fd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af2074cd93013f03f5b6f55afd0c5e8fd">DEFINE_EVENT</a> (cgroup_rstat, cgroup_rstat_lock_contended, TP_PROTO(struct cgroup *cgrp, int cpu, bool contended),)</td></tr>
-<tr class="memitem:a7b7ff50781ce7393dda3aed452bacd72" id="r_a7b7ff50781ce7393dda3aed452bacd72"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7b7ff50781ce7393dda3aed452bacd72">DEFINE_EVENT</a> (cgroup_rstat, cgroup_rstat_locked, TP_PROTO(struct cgroup *cgrp, int cpu, bool contended),)</td></tr>
-<tr class="memitem:a37320775294e2cfeef6ab6d51f31ec45" id="r_a37320775294e2cfeef6ab6d51f31ec45"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a37320775294e2cfeef6ab6d51f31ec45">DEFINE_EVENT</a> (cgroup_rstat, cgroup_rstat_unlock, TP_PROTO(struct cgroup *cgrp, int cpu, bool contended),)</td></tr>
+<tr class="memitem:a8ae78cd5b0eb1025224fe44b0bb458ca" id="r_a8ae78cd5b0eb1025224fe44b0bb458ca"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8ae78cd5b0eb1025224fe44b0bb458ca">DECLARE_EVENT_CLASS</a> (<a class="el" href="structcgroup__root.html">cgroup_root</a>, TP_PROTO(struct <a class="el" href="structcgroup__root.html">cgroup_root</a> *root), TP_ARGS(root), TP_STRUCT__entry(__field(int, root) __field(u32, ss_mask) __string(name, root-&gt;name)), TP_fast_assign(__entry-&gt;root=root-&gt;hierarchy_id;__entry-&gt;ss_mask=root-&gt;subsys_mask;__assign_str(name);), TP_printk(&quot;root=%d ss_mask=%#x name=%s&quot;, __entry-&gt;root, __entry-&gt;ss_mask, __get_str(name)))</td></tr>
+<tr class="memitem:ac9db9447caa266a64d7f4b7b565fcdcd" id="r_ac9db9447caa266a64d7f4b7b565fcdcd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac9db9447caa266a64d7f4b7b565fcdcd">DEFINE_EVENT</a> (<a class="el" href="structcgroup__root.html">cgroup_root</a>, <a class="el" href="cgroup-internal_8h.html#a219d70d5ab51e3a7c31e95fc88cf771d">cgroup_setup_root</a>, TP_PROTO(struct <a class="el" href="structcgroup__root.html">cgroup_root</a> *root),)</td></tr>
+<tr class="memitem:acb4955ce3fd23bacc5c7c74c3cb5ba1c" id="r_acb4955ce3fd23bacc5c7c74c3cb5ba1c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acb4955ce3fd23bacc5c7c74c3cb5ba1c">DEFINE_EVENT</a> (<a class="el" href="structcgroup__root.html">cgroup_root</a>, <a class="el" href="cgroup_8c.html#ac8694a01fd73d2fd636abde8a103d09d">cgroup_destroy_root</a>, TP_PROTO(struct <a class="el" href="structcgroup__root.html">cgroup_root</a> *root),)</td></tr>
+<tr class="memitem:aa8642a3f89cadb64ecca4e486d7742db" id="r_aa8642a3f89cadb64ecca4e486d7742db"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa8642a3f89cadb64ecca4e486d7742db">DEFINE_EVENT</a> (<a class="el" href="structcgroup__root.html">cgroup_root</a>, cgroup_remount, TP_PROTO(struct <a class="el" href="structcgroup__root.html">cgroup_root</a> *root),)</td></tr>
+<tr class="memitem:a34339c7910d3ba7d697382920f4053eb" id="r_a34339c7910d3ba7d697382920f4053eb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a34339c7910d3ba7d697382920f4053eb">DECLARE_EVENT_CLASS</a> (<a class="el" href="structcgroup.html">cgroup</a>, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path), TP_ARGS(cgrp, path), TP_STRUCT__entry(__field(int, root) __field(int, level) __field(u64, id) __string(path, path)), TP_fast_assign(__entry-&gt;root=cgrp-&gt;root-&gt;hierarchy_id;__entry-&gt;id=cgroup_id(cgrp);__entry-&gt;level=cgrp-&gt;level;__assign_str(path);), TP_printk(&quot;root=%d id=%llu level=%d path=%s&quot;, __entry-&gt;root, __entry-&gt;id, __entry-&gt;level, __get_str(path)))</td></tr>
+<tr class="memitem:a9dd0b89f1eaabbcea6de843219df7ee5" id="r_a9dd0b89f1eaabbcea6de843219df7ee5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9dd0b89f1eaabbcea6de843219df7ee5">DEFINE_EVENT</a> (<a class="el" href="structcgroup.html">cgroup</a>, <a class="el" href="cgroup-internal_8h.html#af47095eeb83b5ed1e88a23e0dedf9bc1">cgroup_mkdir</a>, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path),)</td></tr>
+<tr class="memitem:a7f98b0abd7607c654659132905861dec" id="r_a7f98b0abd7607c654659132905861dec"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7f98b0abd7607c654659132905861dec">DEFINE_EVENT</a> (<a class="el" href="structcgroup.html">cgroup</a>, <a class="el" href="cgroup-internal_8h.html#abed96bdb67eb267dff3c4e0535215a3c">cgroup_rmdir</a>, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path),)</td></tr>
+<tr class="memitem:a535728b6f87598e0e6acd104093ec631" id="r_a535728b6f87598e0e6acd104093ec631"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a535728b6f87598e0e6acd104093ec631">DEFINE_EVENT</a> (<a class="el" href="structcgroup.html">cgroup</a>, cgroup_release, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path),)</td></tr>
+<tr class="memitem:a068d9a1074800d0ec7eb9e602a51cbf3" id="r_a068d9a1074800d0ec7eb9e602a51cbf3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a068d9a1074800d0ec7eb9e602a51cbf3">DEFINE_EVENT</a> (<a class="el" href="structcgroup.html">cgroup</a>, cgroup_rename, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path),)</td></tr>
+<tr class="memitem:a3832917c359d05b5f97b94ea6531850d" id="r_a3832917c359d05b5f97b94ea6531850d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3832917c359d05b5f97b94ea6531850d">DEFINE_EVENT</a> (<a class="el" href="structcgroup.html">cgroup</a>, cgroup_freeze, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path),)</td></tr>
+<tr class="memitem:abb81cda1f8697fe7e1bae88026e69f9e" id="r_abb81cda1f8697fe7e1bae88026e69f9e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abb81cda1f8697fe7e1bae88026e69f9e">DEFINE_EVENT</a> (<a class="el" href="structcgroup.html">cgroup</a>, cgroup_unfreeze, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path),)</td></tr>
+<tr class="memitem:afb539ae3508719744ab348d8a6e1f4e6" id="r_afb539ae3508719744ab348d8a6e1f4e6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afb539ae3508719744ab348d8a6e1f4e6">DECLARE_EVENT_CLASS</a> (<a class="el" href="cgroup-internal_8h.html#a91d7710c20f468bb8371512b15737bc2">cgroup_migrate</a>, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup), TP_ARGS(dst_cgrp, path, task, threadgroup), TP_STRUCT__entry(__field(int, dst_root) __field(int, dst_level) __field(u64, dst_id) __field(int, pid) __string(dst_path, path) __string(comm, task-&gt;comm)), TP_fast_assign(__entry-&gt;dst_root=dst_cgrp-&gt;root-&gt;hierarchy_id;__entry-&gt;dst_id=cgroup_id(dst_cgrp);__entry-&gt;dst_level=dst_cgrp-&gt;level;__assign_str(dst_path);__entry-&gt;pid=task-&gt;pid;__assign_str(comm);), TP_printk(&quot;dst_root=%d dst_id=%llu dst_level=%d dst_path=%s pid=%d comm=%s&quot;, __entry-&gt;dst_root, __entry-&gt;dst_id, __entry-&gt;dst_level, __get_str(dst_path), __entry-&gt;pid, __get_str(comm)))</td></tr>
+<tr class="memitem:a97999ea005a1e6f525da9956e9e22bd8" id="r_a97999ea005a1e6f525da9956e9e22bd8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a97999ea005a1e6f525da9956e9e22bd8">DEFINE_EVENT</a> (<a class="el" href="cgroup-internal_8h.html#a91d7710c20f468bb8371512b15737bc2">cgroup_migrate</a>, <a class="el" href="cgroup-internal_8h.html#acdcee710167815f30e8a48d607e160fb">cgroup_attach_task</a>, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup),)</td></tr>
+<tr class="memitem:aea3bac480bc26d5f39526e6b7c07b23f" id="r_aea3bac480bc26d5f39526e6b7c07b23f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aea3bac480bc26d5f39526e6b7c07b23f">DEFINE_EVENT</a> (<a class="el" href="cgroup-internal_8h.html#a91d7710c20f468bb8371512b15737bc2">cgroup_migrate</a>, <a class="el" href="cgroup-v1_8c.html#ad259388a55bea76edd9f16a93693f9de">cgroup_transfer_tasks</a>, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup),)</td></tr>
+<tr class="memitem:ae24b0776d5efc0398b2385e1946e8f48" id="r_ae24b0776d5efc0398b2385e1946e8f48"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae24b0776d5efc0398b2385e1946e8f48">DECLARE_EVENT_CLASS</a> (cgroup_event, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path, int val), TP_ARGS(cgrp, path, val), TP_STRUCT__entry(__field(int, root) __field(int, level) __field(u64, id) __string(path, path) __field(int, val)), TP_fast_assign(__entry-&gt;root=cgrp-&gt;root-&gt;hierarchy_id;__entry-&gt;id=cgroup_id(cgrp);__entry-&gt;level=cgrp-&gt;level;__assign_str(path);__entry-&gt;val=val;), TP_printk(&quot;root=%d id=%llu level=%d path=%s val=%d&quot;, __entry-&gt;root, __entry-&gt;id, __entry-&gt;level, __get_str(path), __entry-&gt;val))</td></tr>
+<tr class="memitem:aa71d49f27e88cbe3c0d23f921b4d23ef" id="r_aa71d49f27e88cbe3c0d23f921b4d23ef"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa71d49f27e88cbe3c0d23f921b4d23ef">DEFINE_EVENT</a> (cgroup_event, cgroup_notify_populated, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path, int val),)</td></tr>
+<tr class="memitem:aab380afe96ee20cac1fa27047dd7fda7" id="r_aab380afe96ee20cac1fa27047dd7fda7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aab380afe96ee20cac1fa27047dd7fda7">DEFINE_EVENT</a> (cgroup_event, cgroup_notify_frozen, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path, int val),)</td></tr>
+<tr class="memitem:a896c0a188b9d8f4654a39b2a4f34bddc" id="r_a896c0a188b9d8f4654a39b2a4f34bddc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a896c0a188b9d8f4654a39b2a4f34bddc">DECLARE_EVENT_CLASS</a> (cgroup_rstat, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu, bool contended), TP_ARGS(cgrp, cpu, contended), TP_STRUCT__entry(__field(int, root) __field(int, level) __field(u64, id) __field(int, cpu) __field(bool, contended)), TP_fast_assign(__entry-&gt;root=cgrp-&gt;root-&gt;hierarchy_id;__entry-&gt;id=cgroup_id(cgrp);__entry-&gt;level=cgrp-&gt;level;__entry-&gt;cpu=cpu;__entry-&gt;contended=contended;), TP_printk(&quot;root=%d id=%llu level=%d cpu=%d lock contended:%d&quot;, __entry-&gt;root, __entry-&gt;id, __entry-&gt;level, __entry-&gt;cpu, __entry-&gt;contended))</td></tr>
+<tr class="memitem:af2074cd93013f03f5b6f55afd0c5e8fd" id="r_af2074cd93013f03f5b6f55afd0c5e8fd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af2074cd93013f03f5b6f55afd0c5e8fd">DEFINE_EVENT</a> (cgroup_rstat, cgroup_rstat_lock_contended, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu, bool contended),)</td></tr>
+<tr class="memitem:a7b7ff50781ce7393dda3aed452bacd72" id="r_a7b7ff50781ce7393dda3aed452bacd72"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7b7ff50781ce7393dda3aed452bacd72">DEFINE_EVENT</a> (cgroup_rstat, cgroup_rstat_locked, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu, bool contended),)</td></tr>
+<tr class="memitem:a37320775294e2cfeef6ab6d51f31ec45" id="r_a37320775294e2cfeef6ab6d51f31ec45"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a37320775294e2cfeef6ab6d51f31ec45">DEFINE_EVENT</a> (cgroup_rstat, cgroup_rstat_unlock, TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu, bool contended),)</td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="aacc60673fbe161599e0929ed9fc0611f" name="aacc60673fbe161599e0929ed9fc0611f"></a>
@@ -176,6 +176,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cgroup_8h_source.html#l00006">6</a> of file <a class="el" href="cgroup_8h_source.html">cgroup.h</a>.</p>
+
 </div>
 </div>
 <a id="a975ccf160f8e752c8162e389690b0961" name="a975ccf160f8e752c8162e389690b0961"></a>
@@ -185,10 +187,12 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define TRACE_SYSTEM&#160;&#160;&#160;cgroup</td>
+          <td class="memname">#define TRACE_SYSTEM&#160;&#160;&#160;<a class="el" href="structcgroup.html">cgroup</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cgroup_8h_source.html#l00003">3</a> of file <a class="el" href="cgroup_8h_source.html">cgroup.h</a>.</p>
 
 </div>
 </div>
@@ -202,12 +206,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">DECLARE_EVENT_CLASS </td>
           <td>(</td>
-          <td class="paramtype">cgroup</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup.html">cgroup</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -248,7 +252,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path, int val)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path, int val)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -289,7 +293,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -316,7 +320,7 @@ Functions</h2></td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_afb539ae3508719744ab348d8a6e1f4e6_cgraph.svg" width="358" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_afb539ae3508719744ab348d8a6e1f4e6_cgraph.svg" width="1866" height="1194"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -330,12 +334,12 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DECLARE_EVENT_CLASS </td>
           <td>(</td>
-          <td class="paramtype">cgroup_root</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup__root.html">cgroup_root</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup_root *root)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup__root.html">cgroup_root</a> *root)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -376,7 +380,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, int cpu, bool contended)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu, bool contended)</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -412,7 +416,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_EVENT </td>
           <td>(</td>
-          <td class="paramtype">cgroup</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup.html">cgroup</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -422,10 +426,11 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a cgroup is frozen. It logs the root ID, cgroup ID, level, and path. This helps track when cgroups are paused or frozen. </p>
 
 </div>
 </div>
@@ -438,7 +443,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_EVENT </td>
           <td>(</td>
-          <td class="paramtype">cgroup</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup.html">cgroup</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -448,14 +453,15 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a new cgroup directory is created. It logs the root ID, cgroup ID, level, and path. This helps track cgroup creation events. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_a9dd0b89f1eaabbcea6de843219df7ee5_cgraph.svg" width="671" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_a9dd0b89f1eaabbcea6de843219df7ee5_cgraph.svg" width="1807" height="1864"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -469,7 +475,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_EVENT </td>
           <td>(</td>
-          <td class="paramtype">cgroup</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup.html">cgroup</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -479,10 +485,11 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a cgroup is released. It logs the root ID, cgroup ID, level, and path. This helps track when cgroups are freed and no longer in use. </p>
 
 </div>
 </div>
@@ -495,7 +502,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_EVENT </td>
           <td>(</td>
-          <td class="paramtype">cgroup</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup.html">cgroup</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -505,10 +512,11 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a cgroup is renamed. It logs the root ID, cgroup ID, level, and new path. This helps track cgroup name changes. </p>
 
 </div>
 </div>
@@ -521,7 +529,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_EVENT </td>
           <td>(</td>
-          <td class="paramtype">cgroup</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup.html">cgroup</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -531,14 +539,15 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a cgroup directory is removed. It logs the root ID, cgroup ID, level, and path. This helps track cgroup deletion events. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_a7f98b0abd7607c654659132905861dec_cgraph.svg" width="668" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_a7f98b0abd7607c654659132905861dec_cgraph.svg" width="2018" height="695"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -552,7 +561,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_EVENT </td>
           <td>(</td>
-          <td class="paramtype">cgroup</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup.html">cgroup</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -562,10 +571,11 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a cgroup is unfrozen. It logs the root ID, cgroup ID, level, and path. This helps track when cgroups are resumed from a frozen state. </p>
 
 </div>
 </div>
@@ -588,10 +598,11 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path, int val)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path, int val)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a cgroup's frozen state changes. It logs the root ID, cgroup ID, level, path, and the new frozen value. This helps track cgroup freeze state transitions. </p>
 
 </div>
 </div>
@@ -614,10 +625,11 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, const char *path, int val)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, const char *path, int val)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a cgroup's populated state changes. It logs the root ID, cgroup ID, level, path, and the new populated value. This helps track when cgroups become empty or non-empty. </p>
 
 </div>
 </div>
@@ -640,14 +652,15 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a task is attached to a cgroup. It logs the destination root, cgroup ID, level, path, process ID, and command name. This helps track process migration between cgroups. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_a97999ea005a1e6f525da9956e9e22bd8_cgraph.svg" width="852" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_a97999ea005a1e6f525da9956e9e22bd8_cgraph.svg" width="1935" height="747"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -671,14 +684,15 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *dst_cgrp, const char *path, struct task_struct *task, bool threadgroup)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when tasks are transferred to a new cgroup. It logs the destination root, cgroup ID, level, path, process ID, and command name. This helps track bulk task migrations. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_aea3bac480bc26d5f39526e6b7c07b23f_cgraph.svg" width="867" height="544"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_aea3bac480bc26d5f39526e6b7c07b23f_cgraph.svg" width="1630" height="1151"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -692,20 +706,26 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_EVENT </td>
           <td>(</td>
-          <td class="paramtype">cgroup_root</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup__root.html">cgroup_root</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">cgroup_destroy_root</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="cgroup_8c.html#ac8694a01fd73d2fd636abde8a103d09d">cgroup_destroy_root</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup_root *root)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup__root.html">cgroup_root</a> *root)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a cgroup root is destroyed. It logs the root ID, subsystem mask, and root name. This helps track when cgroup hierarchies are removed. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_acb4955ce3fd23bacc5c7c74c3cb5ba1c_cgraph.svg" width="1380" height="1480"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -718,7 +738,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_EVENT </td>
           <td>(</td>
-          <td class="paramtype">cgroup_root</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup__root.html">cgroup_root</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -728,10 +748,11 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup_root *root)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup__root.html">cgroup_root</a> *root)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a cgroup root is remounted. It logs the root ID, subsystem mask, and root name. This helps track changes to cgroup mount options. </p>
 
 </div>
 </div>
@@ -744,7 +765,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">DEFINE_EVENT </td>
           <td>(</td>
-          <td class="paramtype">cgroup_root</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcgroup__root.html">cgroup_root</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -754,14 +775,15 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup_root *root)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup__root.html">cgroup_root</a> *root)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when a new cgroup root is set up. It logs the root ID, subsystem mask, and root name. This helps in debugging and monitoring cgroup hierarchy creation. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd_cgraph.svg" width="807" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd_cgraph.svg" width="1702" height="980"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -785,10 +807,12 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, int cpu, bool contended)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu, bool contended)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Related to locks: global rstat_base_lock for base stats <a class="el" href="structcgroup__subsys.html#a64d0c5b8f0ad413c8c6670da9144c6c6">cgroup_subsys::rstat_ss_lock</a> for subsystem stats</p>
+<p>Event Description: This is a tracepoint that records when the cgroup rstat lock is contended. It logs the root ID, cgroup ID, level, CPU number, and whether the lock was contended. This helps debug performance issues with cgroup statistics. </p>
 
 </div>
 </div>
@@ -811,10 +835,11 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, int cpu, bool contended)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu, bool contended)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when the cgroup rstat lock is acquired. It logs the root ID, cgroup ID, level, CPU number, and contention status. This helps track lock acquisition for cgroup statistics. </p>
 
 </div>
 </div>
@@ -837,10 +862,11 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TP_PROTO(struct cgroup *cgrp, int cpu, bool contended)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">TP_PROTO(struct <a class="el" href="structcgroup.html">cgroup</a> *cgrp, int cpu, bool contended)</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event Description: This is a tracepoint that records when the cgroup rstat lock is released. It logs the root ID, cgroup ID, level, CPU number, and contention status. This helps track lock release for cgroup statistics. </p>
 
 </div>
 </div>

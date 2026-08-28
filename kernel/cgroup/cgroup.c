@@ -65,10 +65,10 @@
 
 #define CGROUP_FILE_NAME_MAX		(MAX_CGROUP_TYPE_NAMELEN +	\
 					 MAX_CFTYPE_NAME + 2)
-/* let's not notify more than 100 times per second */
+/** let's not notify more than 100 times per second */
 #define CGROUP_FILE_NOTIFY_MIN_INTV	DIV_ROUND_UP(HZ, 100)
 
-/*
+/**
  * To avoid confusing the compiler (and generating warnings) with code
  * that attempts to access what would be a 0-element array (i.e. sized
  * to a potentially empty array when CGROUP_SUBSYS_COUNT == 0), this
@@ -76,7 +76,7 @@
  */
 #define CGROUP_HAS_SUBSYS_CONFIG	(CGROUP_SUBSYS_COUNT > 0)
 
-/*
+/**
  * cgroup_mutex is the master lock.  Any modification to cgroup or its
  * hierarchy must be performed while holding it.
  *
@@ -85,8 +85,15 @@
  *
  * These locks are exported if CONFIG_PROVE_RCU so that accessors in
  * cgroup.h can use them for lockdep annotations.
+ * 
+ * 
+ * Variable Description: The master lock for cgroup operations. Any modification to cgroups or their hierarchy must be performed while holding this lock.
  */
 DEFINE_MUTEX(cgroup_mutex);
+
+/**
+ * Variable Description: Protects task->cgroups pointer, the list of css_set objects, and the chain of tasks off each css_set. 
+ */
 DEFINE_SPINLOCK(css_set_lock);
 
 #if (defined CONFIG_PROVE_RCU || defined CONFIG_LOCKDEP)
@@ -101,18 +108,21 @@ DEFINE_SPINLOCK(trace_cgroup_path_lock);
 char trace_cgroup_path[TRACE_CGROUP_PATH_LEN];
 static bool cgroup_debug __read_mostly;
 
-/*
+/**
  * Protects cgroup_idr and css_idr so that IDs can be released without
  * grabbing cgroup_mutex.
  */
 static DEFINE_SPINLOCK(cgroup_idr_lock);
 
-/*
+/**
  * Protects cgroup_file->kn for !self csses.  It synchronizes notifications
  * against file removal/re-creation across css hiding.
  */
 static DEFINE_SPINLOCK(cgroup_file_kn_lock);
 
+/**
+ * Variable Description: A percpu rw semaphore used to synchronize cgroup operations with threadgroup changes (forks and exits).
+ */
 DEFINE_PERCPU_RWSEM(cgroup_threadgroup_rwsem);
 
 #define cgroup_assert_mutex_or_rcu_locked()				\
@@ -120,7 +130,7 @@ DEFINE_PERCPU_RWSEM(cgroup_threadgroup_rwsem);
 			   !lockdep_is_held(&cgroup_mutex),		\
 			   "cgroup_mutex or RCU read lock required");
 
-/*
+/**
  * cgroup destruction makes heavy use of work items and there can be a lot
  * of concurrent destructions.  Use a separate workqueue so that cgroup
  * destruction work items don't end up filling up max_active of system_percpu_wq
@@ -151,21 +161,21 @@ static struct workqueue_struct *cgroup_offline_wq;
 static struct workqueue_struct *cgroup_release_wq;
 static struct workqueue_struct *cgroup_free_wq;
 
-/* generate an array of cgroup subsystem pointers */
+/** generate an array of cgroup subsystem pointers */
 #define SUBSYS(_x) [_x ## _cgrp_id] = &_x ## _cgrp_subsys,
 struct cgroup_subsys *cgroup_subsys[] = {
 #include <linux/cgroup_subsys.h>
 };
 #undef SUBSYS
 
-/* array of cgroup subsystem names */
+/** array of cgroup subsystem names */
 #define SUBSYS(_x) [_x ## _cgrp_id] = #_x,
 static const char *cgroup_subsys_name[] = {
 #include <linux/cgroup_subsys.h>
 };
 #undef SUBSYS
 
-/* array of static_keys for cgroup_subsys_enabled() and cgroup_subsys_on_dfl() */
+/** array of static_keys for cgroup_subsys_enabled() and cgroup_subsys_on_dfl() */
 #define SUBSYS(_x)								\
 	DEFINE_STATIC_KEY_TRUE(_x ## _cgrp_subsys_enabled_key);			\
 	DEFINE_STATIC_KEY_TRUE(_x ## _cgrp_subsys_on_dfl_key);			\
@@ -189,36 +199,44 @@ static struct static_key_true *cgroup_subsys_on_dfl_key[] = {
 static DEFINE_PER_CPU(struct css_rstat_cpu, root_rstat_cpu);
 static DEFINE_PER_CPU(struct cgroup_rstat_base_cpu, root_rstat_base_cpu);
 
-/* the default hierarchy */
+/** the default hierarchy 
+ * 
+ * 
+ * Variable Description: This is the default (v2) cgroup hierarchy root. It is always present and serves as the main hierarchy for cgroup v2 operations. It contains the root cgroup with preallocated per-CPU rstat (recursive statistics) data structures for CPU and base statistics. This root is created during boot and is used when the cgroup2 filesystem is mounted.
+*/
 struct cgroup_root cgrp_dfl_root = {
 	.cgrp.self.rstat_cpu = &root_rstat_cpu,
 	.cgrp.rstat_base_cpu = &root_rstat_base_cpu,
 };
 EXPORT_SYMBOL_GPL(cgrp_dfl_root);
 
-/*
+/**
  * The default hierarchy always exists but is hidden until mounted for the
  * first time.  This is for backward compatibility.
  */
 bool cgrp_dfl_visible;
 
-/* some controllers are not supported in the default hierarchy */
+/** some controllers are not supported in the default hierarchy */
 static u32 cgrp_dfl_inhibit_ss_mask;
 
-/* some controllers are implicitly enabled on the default hierarchy */
+/** some controllers are implicitly enabled on the default hierarchy */
 static u32 cgrp_dfl_implicit_ss_mask;
 
-/* some controllers can be threaded on the default hierarchy */
+/** some controllers can be threaded on the default hierarchy */
 static u32 cgrp_dfl_threaded_ss_mask;
 
-/* The list of hierarchy roots */
+/** The list of hierarchy roots 
+ * 
+ * 
+ * Variable Description: The list of all cgroup hierarchy roots. Protected by cgroup_mutex.
+*/
 LIST_HEAD(cgroup_roots);
 static int cgroup_root_count;
 
-/* hierarchy ID allocation and mapping, protected by cgroup_mutex */
+/** hierarchy ID allocation and mapping, protected by cgroup_mutex */
 static DEFINE_IDR(cgroup_hierarchy_idr);
 
-/*
+/**
  * Assign a monotonically increasing serial number to csses.  It guarantees
  * cgroups with bigger numbers are newer than those with smaller numbers.
  * Also, as csses are always appended to the parent's ->children list, it
@@ -227,7 +245,7 @@ static DEFINE_IDR(cgroup_hierarchy_idr);
  */
 static u64 css_serial_nr_next = 1;
 
-/*
+/**
  * These bitmasks identify subsystems with specific features to avoid
  * having to do iterative checks repeatedly.
  */
@@ -238,7 +256,7 @@ static u32 have_canfork_callback __read_mostly;
 
 static bool have_favordynmods __ro_after_init = IS_ENABLED(CONFIG_CGROUP_FAVOR_DYNMODS);
 
-/*
+/**
  * Write protected by cgroup_mutex and write-lock of cgroup_threadgroup_rwsem,
  * read protected by either.
  *
@@ -246,7 +264,11 @@ static bool have_favordynmods __ro_after_init = IS_ENABLED(CONFIG_CGROUP_FAVOR_D
  */
 bool cgroup_enable_per_threadgroup_rwsem __read_mostly;
 
-/* cgroup namespace for init task */
+/** cgroup namespace for init task 
+ * 
+ * 
+ * Variable Description: This is the initial cgroup namespace used by the init task (PID 1) and all tasks before any cgroup namespace is created. It contains the standard namespace information, the initial user namespace, and points to init_css_set as its root cgroup set. All processes start in this namespace, and new cgroup namespaces are created by cloning this namespace with modifications.
+ */
 struct cgroup_namespace init_cgroup_ns = {
 	.ns		= NS_COMMON_INIT(init_cgroup_ns),
 	.user_ns	= &init_user_ns,
@@ -257,7 +279,7 @@ static struct file_system_type cgroup2_fs_type;
 static struct cftype cgroup_base_files[];
 static struct cftype cgroup_psi_files[];
 
-/* cgroup optional features */
+/** cgroup optional features */
 enum cgroup_opt_features {
 #ifdef CONFIG_PSI
 	OPT_FEATURE_PRESSURE,
@@ -302,6 +324,9 @@ static void cgroup_rt_init(void);
  * cgroup_subsys_enabled() can only be used with literal subsys names which
  * is fine for individual subsystems but unsuitable for cgroup core.  This
  * is slower static_key_enabled() based test indexed by @ssid.
+ * 
+ * 
+ * Function Description: Checks if a cgroup subsystem with the given ID is enabled. It uses the static key associated with the subsystem to determine if it's available. This is slower than the static key API but works with subsystem IDs.
  */
 bool cgroup_ssid_enabled(int ssid)
 {
@@ -353,13 +378,20 @@ bool cgroup_ssid_enabled(int ssid)
  *   masks of ancestors.
  *
  * - blkcg: blk-throttle becomes properly hierarchical.
+ * 
+ * 
+ * Function Description: Tests whether a cgroup is on the default (v2) hierarchy. Returns true if the cgroup's root is the default root. This is used to determine which behavior and features apply to the cgroup.
  */
 bool cgroup_on_dfl(const struct cgroup *cgrp)
 {
 	return cgrp->root == &cgrp_dfl_root;
 }
 
-/* IDR wrappers which synchronize using cgroup_idr_lock */
+/** IDR wrappers which synchronize using cgroup_idr_lock 
+ * 
+ * 
+ * Function Description: Allocates an ID from the cgroup IDR (ID allocator) with proper locking. It uses cgroup_idr_lock to protect the allocation. Used for assigning IDs to cgroups and csses.
+ */
 static int cgroup_idr_alloc(struct idr *idr, void *ptr, int start, int end,
 			    gfp_t gfp_mask)
 {
@@ -373,6 +405,9 @@ static int cgroup_idr_alloc(struct idr *idr, void *ptr, int start, int end,
 	return ret;
 }
 
+/**
+ * Function Description: Replaces an entry in the cgroup IDR with proper locking. It uses cgroup_idr_lock to protect the replacement. Used when updating cgroup or css ID mappings.
+ */
 static void *cgroup_idr_replace(struct idr *idr, void *ptr, int id)
 {
 	void *ret;
@@ -383,6 +418,9 @@ static void *cgroup_idr_replace(struct idr *idr, void *ptr, int id)
 	return ret;
 }
 
+/**
+ * Function Description: Removes an entry from the cgroup IDR with proper locking. It uses cgroup_idr_lock to protect the removal. Used when freeing cgroups or csses.
+ */
 static void cgroup_idr_remove(struct idr *idr, int id)
 {
 	spin_lock_bh(&cgroup_idr_lock);
@@ -390,17 +428,27 @@ static void cgroup_idr_remove(struct idr *idr, int id)
 	spin_unlock_bh(&cgroup_idr_lock);
 }
 
+/**
+ * Function Description: Checks if a cgroup has any tasks associated with it. Returns true if the cgroup's populated csets count is non-zero. Used to determine if a cgroup is empty.
+ */
 static bool cgroup_has_tasks(struct cgroup *cgrp)
 {
 	return cgrp->nr_populated_csets;
 }
 
+/**
+ * Function Description: Checks if a cgroup is part of a threaded subtree. Returns true if the cgroup's domain cgroup is not itself. Threaded cgroups allow thread-level granularity.
+ */
 static bool cgroup_is_threaded(struct cgroup *cgrp)
 {
 	return cgrp->dom_cgrp != cgrp;
 }
 
-/* can @cgrp host both domain and threaded children? */
+/** can @cgrp host both domain and threaded children? 
+ * 
+ * 
+ * Function Description: Checks if a cgroup can host both domain and threaded children. Only the root cgroup is mixable, as it's exempt from the no-internal-process constraint. This allows the root to serve as both a thread root and parent of resource domains.
+ */
 static bool cgroup_is_mixable(struct cgroup *cgrp)
 {
 	/*
@@ -411,7 +459,11 @@ static bool cgroup_is_mixable(struct cgroup *cgrp)
 	return !cgroup_parent(cgrp);
 }
 
-/* can @cgrp become a thread root? Should always be true for a thread root */
+/** can @cgrp become a thread root? Should always be true for a thread root 
+ * 
+ * 
+ * Function Description: Checks if a cgroup can become a thread root. It verifies that the cgroup is mixable, not threaded, has no domain children, and has no domain controllers enabled. This determines if a cgroup can serve as the root of a threaded subtree.
+ */
 static bool cgroup_can_be_thread_root(struct cgroup *cgrp)
 {
 	/* mixables don't care */
@@ -433,7 +485,11 @@ static bool cgroup_can_be_thread_root(struct cgroup *cgrp)
 	return true;
 }
 
-/* is @cgrp root of a threaded subtree? */
+/** is @cgrp root of a threaded subtree? 
+ * 
+ * 
+ * Function Description: Checks if a cgroup is currently a thread root. Returns true if the cgroup has threaded children or has tasks and threaded controllers enabled. A thread root is the root of a threaded subtree.
+ */
 static bool cgroup_is_thread_root(struct cgroup *cgrp)
 {
 	/* thread root should be a domain */
@@ -455,7 +511,11 @@ static bool cgroup_is_thread_root(struct cgroup *cgrp)
 	return false;
 }
 
-/* a domain which isn't connected to the root w/o brekage can't be used */
+/** a domain which isn't connected to the root w/o brekage can't be used 
+ * 
+ * 
+ * Function Description: Checks if a cgroup is a valid domain (non-threaded) cgroup. It ensures the cgroup itself is not threaded and that all ancestors are either mixable or not thread roots. Used to validate domain cgroup placement.
+ */
 static bool cgroup_is_valid_domain(struct cgroup *cgrp)
 {
 	/* the cgroup itself can be a thread root */
@@ -473,7 +533,11 @@ static bool cgroup_is_valid_domain(struct cgroup *cgrp)
 	return true;
 }
 
-/* subsystems visibly enabled on a cgroup */
+/** subsystems visibly enabled on a cgroup 
+ * 
+ * 
+ * Function Description: Returns the bitmask of subsystems that are visibly enabled for a cgroup. For the root, this is the root's subsystem mask minus inhibited and implicit controllers. For children, it's the parent's subtree_control.
+ */
 static u32 cgroup_control(struct cgroup *cgrp)
 {
 	struct cgroup *parent = cgroup_parent(cgrp);
@@ -494,7 +558,11 @@ static u32 cgroup_control(struct cgroup *cgrp)
 	return root_ss_mask;
 }
 
-/* subsystems enabled on a cgroup */
+/** subsystems enabled on a cgroup 
+ * 
+ * 
+ * Function Description: Returns the bitmask of subsystems that are effectively enabled for a cgroup. This includes both visible and implicit controllers. Used to determine which csses exist for a cgroup.
+ */
 static u32 cgroup_ss_mask(struct cgroup *cgrp)
 {
 	struct cgroup *parent = cgroup_parent(cgrp);
@@ -521,6 +589,9 @@ static u32 cgroup_ss_mask(struct cgroup *cgrp)
  * the caller is responsible for pinning the returned css if it wants to
  * keep accessing it outside the said locks.  This function may return
  * %NULL if @cgrp doesn't have @subsys_id enabled.
+ * 
+ * 
+ * Function Description: Returns a cgroup's css (cgroup_subsys_state) for the specified subsystem. Must be called under cgroup_mutex or RCU read lock. Returns NULL if the subsystem is not enabled for the cgroup.
  */
 static struct cgroup_subsys_state *cgroup_css(struct cgroup *cgrp,
 					      struct cgroup_subsys *ss)
@@ -541,6 +612,9 @@ static struct cgroup_subsys_state *cgroup_css(struct cgroup *cgrp,
  * as the matching css of the nearest ancestor including self which has @ss
  * enabled.  If @ss is associated with the hierarchy @cgrp is on, this
  * function is guaranteed to return non-NULL css.
+ * 
+ * 
+ * Function Description: Returns the effective css for a cgroup and subsystem. The effective css is the matching css of the nearest ancestor that has the subsystem enabled. Used when updating css associations.
  */
 static struct cgroup_subsys_state *cgroup_e_css_by_mask(struct cgroup *cgrp,
 							struct cgroup_subsys *ss)
@@ -575,6 +649,9 @@ static struct cgroup_subsys_state *cgroup_e_css_by_mask(struct cgroup *cgrp,
  *
  * The returned css is not guaranteed to be online, and therefore it is the
  * callers responsibility to try get a reference for it.
+ * 
+ * 
+ * Function Description: Returns the effective css for a cgroup and subsystem, always returning a valid css. If the subsystem is not enabled on the cgroup's hierarchy, it returns the root css. The returned css is not guaranteed to be online.
  */
 struct cgroup_subsys_state *cgroup_e_css(struct cgroup *cgrp,
 					 struct cgroup_subsys *ss)
@@ -605,6 +682,9 @@ struct cgroup_subsys_state *cgroup_e_css(struct cgroup *cgrp,
  * has @ss enabled.  If @ss is not mounted on the hierarchy @cgrp is on,
  * the root css is returned, so this function always returns a valid css.
  * The returned css must be put using css_put().
+ * 
+ * 
+ * Function Description: Gets a reference to the effective css for a cgroup and subsystem. It finds the nearest ancestor with the subsystem enabled and tries to get an online reference. Returns the css with a reference taken, or NULL.
  */
 struct cgroup_subsys_state *cgroup_get_e_css(struct cgroup *cgrp,
 					     struct cgroup_subsys *ss)
@@ -632,6 +712,7 @@ out_unlock:
 }
 EXPORT_SYMBOL_GPL(cgroup_get_e_css);
 
+
 static void cgroup_get_live(struct cgroup *cgrp)
 {
 	WARN_ON_ONCE(cgroup_is_dead(cgrp));
@@ -642,6 +723,9 @@ static void cgroup_get_live(struct cgroup *cgrp)
  * __cgroup_task_count - count the number of tasks in a cgroup. The caller
  * is responsible for taking the css_set_lock.
  * @cgrp: the cgroup in question
+ * 
+ * 
+ * Function Description: Counts the number of tasks in a cgroup while holding css_set_lock. It iterates through all cset links and sums their task counts. Used internally by cgroup_task_count().
  */
 int __cgroup_task_count(const struct cgroup *cgrp)
 {
@@ -659,6 +743,9 @@ int __cgroup_task_count(const struct cgroup *cgrp)
 /**
  * cgroup_task_count - count the number of tasks in a cgroup.
  * @cgrp: the cgroup in question
+ * 
+ * 
+ * Function Description: Counts the number of tasks in a cgroup. It acquires css_set_lock and calls __cgroup_task_count(). Returns the total number of tasks associated with the cgroup.
  */
 int cgroup_task_count(const struct cgroup *cgrp)
 {
@@ -671,6 +758,9 @@ int cgroup_task_count(const struct cgroup *cgrp)
 	return count;
 }
 
+/**
+ * Function Description: Returns the private data (cgroup pointer) from a kernfs node. It accesses the parent's priv pointer, which is safe due to KERNFS_ROOT_INVARIANT_PARENT. Used to get the cgroup from a kernfs file.
+ */
 static struct cgroup *kn_priv(struct kernfs_node *kn)
 {
 	struct kernfs_node *parent;
@@ -684,6 +774,9 @@ static struct cgroup *kn_priv(struct kernfs_node *kn)
 	return parent->priv;
 }
 
+/**
+ * Function Description: Returns the css associated with a kernfs open file. This is used in file operations to get the cgroup subsystem state. The css is guaranteed to be valid during the file operation.
+ */
 struct cgroup_subsys_state *of_css(struct kernfs_open_file *of)
 {
 	struct cgroup *cgrp = kn_priv(of->kn);
@@ -743,7 +836,7 @@ EXPORT_SYMBOL_GPL(of_css);
 	}								\
 } while (false)
 
-/* iterate over child cgrps, lock should be held throughout iteration */
+/** iterate over child cgrps, lock should be held throughout iteration */
 #define cgroup_for_each_live_child(child, cgrp)				\
 	list_for_each_entry((child), &(cgrp)->self.children, self.sibling) \
 		if (({ lockdep_assert_held(&cgroup_mutex);		\
@@ -751,7 +844,7 @@ EXPORT_SYMBOL_GPL(of_css);
 			;						\
 		else
 
-/* walk live descendants in pre order */
+/** walk live descendants in pre order */
 #define cgroup_for_each_live_descendant_pre(dsct, d_css, cgrp)		\
 	css_for_each_descendant_pre((d_css), cgroup_css((cgrp), NULL))	\
 		if (({ lockdep_assert_held(&cgroup_mutex);		\
@@ -760,7 +853,7 @@ EXPORT_SYMBOL_GPL(of_css);
 			;						\
 		else
 
-/* walk live descendants in postorder */
+/** walk live descendants in postorder */
 #define cgroup_for_each_live_descendant_post(dsct, d_css, cgrp)		\
 	css_for_each_descendant_post((d_css), cgroup_css((cgrp), NULL))	\
 		if (({ lockdep_assert_held(&cgroup_mutex);		\
@@ -769,12 +862,15 @@ EXPORT_SYMBOL_GPL(of_css);
 			;						\
 		else
 
-/*
+/**
  * The default css_set - used by init and its children prior to any
  * hierarchies being mounted. It contains a pointer to the root state
  * for each subsystem. Also used to anchor the list of css_sets. Not
  * reference-counted, to improve performance when child cgroups
  * haven't been created.
+ * 
+ * 
+ * Variable Description: The default css_set used by the init task and all tasks before any hierarchies are mounted. It contains the root state for each subsystem.
  */
 struct css_set init_css_set = {
 	.refcount		= REFCOUNT_INIT(1),
@@ -813,6 +909,9 @@ static bool css_set_threaded(struct css_set *cset)
  * state. However, css_set_populated() can be called while a task is being
  * added to or removed from the linked list before the nr_tasks is
  * properly updated. Hence, we can't just look at ->nr_tasks here.
+ * 
+ * 
+ * Function Description: Checks if a css_set contains any tasks. Returns true if either the tasks or mg_tasks list is non-empty. This is used to track whether a css_set is populated.
  */
 static bool css_set_populated(struct css_set *cset)
 {
@@ -837,6 +936,9 @@ static bool css_set_populated(struct css_set *cset)
  * 1 otherwise.  When the sum changes from or to zero, userland is notified
  * that the content of the interface file has changed.  This can be used to
  * detect when @cgrp and its descendants become populated or empty.
+ * 
+ * 
+ * Function Description: Updates the populated counters of a cgroup and its ancestors. It increments or decrements the populated cset count and propagates the change up the hierarchy. When the populated state changes, it notifies userland via the cgroup.events file.
  */
 static void cgroup_update_populated(struct cgroup *cgrp, bool populated)
 {
@@ -887,6 +989,9 @@ static void cgroup_update_populated(struct cgroup *cgrp, bool populated)
  *
  * @cset is either getting the first task or losing the last.  Update the
  * populated counters of all associated cgroups accordingly.
+ * 
+ * 
+ * Function Description: Updates the populated state of all cgroups associated with a css_set. It iterates through the css_set's cgroup links and calls cgroup_update_populated() on each. Used when a task joins or leaves a css_set.
  */
 static void css_set_update_populated(struct css_set *cset, bool populated)
 {
@@ -898,11 +1003,14 @@ static void css_set_update_populated(struct css_set *cset, bool populated)
 		cgroup_update_populated(link->cgrp, populated);
 }
 
-/*
+/**
  * @task is leaving, advance task iterators which are pointing to it so
  * that they can resume at the next position.  Advancing an iterator might
  * remove it from the list, use safe walk.  See css_task_iter_skip() for
  * details.
+ * 
+ * 
+ * Function Description: Advances all task iterators that are currently pointing to a task that is being moved. This ensures that iterators don't get stuck on tasks that are leaving. Called during task migration.
  */
 static void css_set_skip_task_iters(struct css_set *cset,
 				    struct task_struct *task)
@@ -927,6 +1035,9 @@ static void css_set_skip_task_iters(struct css_set *cset,
  * This function automatically handles populated counter updates and
  * css_task_iter adjustments but the caller is responsible for managing
  * @from_cset and @to_cset's reference counts.
+ * 
+ * 
+ * Function Description: Moves a task from one css_set to another. It handles populated counter updates, task iterator adjustments, and list management. This is the core function for changing a task's cgroup association.
  */
 static void css_set_move_task(struct task_struct *task,
 			      struct css_set *from_cset, struct css_set *to_cset,
@@ -963,7 +1074,7 @@ static void css_set_move_task(struct task_struct *task,
 	}
 }
 
-/*
+/**
  * hash table for cgroup groups. This improves the performance to find
  * an existing css_set. This hash doesn't (currently) take into
  * account cgroups in empty hierarchies.
@@ -971,6 +1082,9 @@ static void css_set_move_task(struct task_struct *task,
 #define CSS_SET_HASH_BITS	7
 static DEFINE_HASHTABLE(css_set_table, CSS_SET_HASH_BITS);
 
+/**
+ * Function Description: Computes the hash key for a css_set based on its array of css pointers. The hash is used to look up existing css_sets in the hash table. Used for efficient css_set lookup.
+ */
 static unsigned long css_set_hash(struct cgroup_subsys_state **css)
 {
 	unsigned long key = 0UL;
@@ -984,6 +1098,9 @@ static unsigned long css_set_hash(struct cgroup_subsys_state **css)
 	return key;
 }
 
+/**
+ * Function Description: Puts a reference to a css_set while holding css_set_lock. It decrements the refcount and, if it reaches zero, removes the css_set from all lists and frees it. This is the internal version of put_css_set().
+ */
 void put_css_set_locked(struct css_set *cset)
 {
 	struct cgrp_cset_link *link, *tmp_link;
@@ -1030,6 +1147,9 @@ void put_css_set_locked(struct css_set *cset)
  *
  * Returns true if "cset" matches "old_cset" except for the hierarchy
  * which "new_cgrp" belongs to, for which it should match "new_cgrp".
+ * 
+ * 
+ * Function Description: Compares two css_sets to see if they match except for the hierarchy containing the new cgroup. It checks css pointers, domain cgroups, and cgroup links. Used to find existing css_sets during migration.
  */
 static bool compare_css_sets(struct css_set *cset,
 			     struct css_set *old_cset,
@@ -1109,6 +1229,9 @@ static bool compare_css_sets(struct css_set *cset,
  * @old_cset: the css_set that we're using before the cgroup transition
  * @cgrp: the cgroup that we're moving into
  * @template: out param for the new set of csses, should be clear on entry
+ * 
+ * 
+ * Function Description: Finds an existing css_set that matches the desired configuration. It builds a template of css pointers and searches the hash table. Returns the matching css_set or NULL if none exists.
  */
 static struct css_set *find_existing_css_set(struct css_set *old_cset,
 					struct cgroup *cgrp,
@@ -1154,6 +1277,9 @@ static struct css_set *find_existing_css_set(struct css_set *old_cset,
 	return NULL;
 }
 
+/**
+ * Function Description: Frees a list of cgrp_cset_link structures. It iterates through the list, removes each link from its lists, and frees the memory. Used during error cleanup.
+ */
 static void free_cgrp_cset_links(struct list_head *links_to_free)
 {
 	struct cgrp_cset_link *link, *tmp_link;
@@ -1171,6 +1297,9 @@ static void free_cgrp_cset_links(struct list_head *links_to_free)
  *
  * Allocate @count cgrp_cset_link structures and chain them on @tmp_links
  * through ->cset_link.  Returns 0 on success or -errno.
+ * 
+ * 
+ * Function Description: Allocates a specified number of cgrp_cset_link structures. These links represent the association between cgroups and css_sets. Returns 0 on success or -ENOMEM.
  */
 static int allocate_cgrp_cset_links(int count, struct list_head *tmp_links)
 {
@@ -1195,6 +1324,9 @@ static int allocate_cgrp_cset_links(int count, struct list_head *tmp_links)
  * @tmp_links: cgrp_cset_link objects allocated by allocate_cgrp_cset_links()
  * @cset: the css_set to be linked
  * @cgrp: the destination cgroup
+ * 
+ * 
+ * Function Description: Links a css_set to a cgroup by creating a cgrp_cset_link. It adds the link to both the cgroup's cset_links and the css_set's cgrp_links. Called when establishing a new association.
  */
 static void link_css_set(struct list_head *tmp_links, struct css_set *cset,
 			 struct cgroup *cgrp)
@@ -1228,6 +1360,9 @@ static void link_css_set(struct list_head *tmp_links, struct css_set *cset,
  *
  * Return a new css_set that's equivalent to @old_cset, but with @cgrp
  * substituted into the appropriate hierarchy.
+ * 
+ * 
+ * Function Description: Finds or creates a css_set for a task moving to a new cgroup. It searches for an existing css_set with the desired configuration, or creates a new one if none exists. This is the main function for css_set lookup and creation.
  */
 static struct css_set *find_css_set(struct css_set *old_cset,
 				    struct cgroup *cgrp)
@@ -1333,6 +1468,9 @@ static struct css_set *find_css_set(struct css_set *old_cset,
 	return cset;
 }
 
+/**
+ * Function Description: Returns the cgroup_root from a kernfs_root. It gets the root cgroup from the kernfs root and returns its root pointer. Used to convert between filesystem and cgroup structures.
+ */
 struct cgroup_root *cgroup_root_from_kf(struct kernfs_root *kf_root)
 {
 	struct cgroup *root_cgrp = kernfs_root_to_node(kf_root)->priv;
@@ -1340,6 +1478,9 @@ struct cgroup_root *cgroup_root_from_kf(struct kernfs_root *kf_root)
 	return root_cgrp->root;
 }
 
+/**
+ * Function Description: Enables or disables the favor dynamic modifications flag on a cgroup root. This controls whether the root uses per-threadgroup locking for better performance. Once enabled, it cannot be disabled.
+ */
 void cgroup_favor_dynmods(struct cgroup_root *root, bool favor)
 {
 	bool favoring = root->flags & CGRP_ROOT_FAVOR_DYNMODS;
@@ -1370,6 +1511,9 @@ void cgroup_favor_dynmods(struct cgroup_root *root, bool favor)
 	percpu_up_write(&cgroup_threadgroup_rwsem);
 }
 
+/**
+ * Function Description: Assigns a unique hierarchy ID to a cgroup root. It allocates an ID from the hierarchy IDR with cgroup_mutex held. Returns the ID on success or a negative error code.
+ */
 static int cgroup_init_root_id(struct cgroup_root *root)
 {
 	int id;
@@ -1384,6 +1528,9 @@ static int cgroup_init_root_id(struct cgroup_root *root)
 	return 0;
 }
 
+/**
+ * Function Description: Removes a cgroup root's hierarchy ID from the IDR. It frees the ID for reuse. Called when a cgroup root is destroyed.
+ */
 static void cgroup_exit_root_id(struct cgroup_root *root)
 {
 	lockdep_assert_held(&cgroup_mutex);
@@ -1391,11 +1538,17 @@ static void cgroup_exit_root_id(struct cgroup_root *root)
 	idr_remove(&cgroup_hierarchy_idr, root->hierarchy_id);
 }
 
+/**
+ * Function Description: Frees a cgroup_root structure. It uses kfree_rcu() for safe RCU-protected freeing. Called during root destruction.
+ */
 void cgroup_free_root(struct cgroup_root *root)
 {
 	kfree_rcu(root, rcu);
 }
 
+/**
+ * Function Description: Destroys a cgroup root and its associated hierarchy. It unbinds all subsystems, releases cset links, and removes the root from the root list. Called when the last reference to a root is dropped.
+ */
 static void cgroup_destroy_root(struct cgroup_root *root)
 {
 	struct cgroup *cgrp = &root->cgrp;
@@ -1445,8 +1598,11 @@ static void cgroup_destroy_root(struct cgroup_root *root)
 	cgroup_free_root(root);
 }
 
-/*
+/**
  * Returned cgroup is without refcount but it's valid as long as cset pins it.
+ * 
+ * 
+ * Function Description: Internal function that returns the cgroup associated with a css_set on a given root. It handles init_css_set, default hierarchy, and legacy hierarchy lookups. Returns NULL if the association doesn't exist.
  */
 static inline struct cgroup *__cset_cgroup_from_root(struct css_set *cset,
 					    struct cgroup_root *root)
@@ -1483,9 +1639,12 @@ static inline struct cgroup *__cset_cgroup_from_root(struct css_set *cset,
 	return res_cgroup;
 }
 
-/*
+/**
  * look up cgroup associated with current task's cgroup namespace on the
  * specified hierarchy
+ * 
+ * 
+ * Function Description: Returns the cgroup associated with the current task's cgroup namespace on the specified hierarchy. It uses the namespace's root_cset to find the cgroup. Used for namespace-aware cgroup lookups.
  */
 static struct cgroup *
 current_cgns_cgroup_from_root(struct cgroup_root *root)
@@ -1510,7 +1669,7 @@ current_cgns_cgroup_from_root(struct cgroup_root *root)
 	return res;
 }
 
-/*
+/**
  * Look up cgroup associated with current task's cgroup namespace on the default
  * hierarchy.
  *
@@ -1520,6 +1679,9 @@ current_cgns_cgroup_from_root(struct cgroup_root *root)
  * - css_set_lock is not needed because we just read cset->dfl_cgrp.
  * - As a bonus returned cgrp is pinned with the current because it cannot
  *   switch cgroup_ns asynchronously.
+ * 
+ * 
+ * Function Description: Returns the cgroup associated with the current task's cgroup namespace on the default hierarchy. Unlike current_cgns_cgroup_from_root(), this doesn't require locks and returns the cgroup from the current nsproxy.
  */
 static struct cgroup *current_cgns_cgroup_dfl(void)
 {
@@ -1539,7 +1701,12 @@ static struct cgroup *current_cgns_cgroup_dfl(void)
 	}
 }
 
-/* look up cgroup associated with given css_set on the specified hierarchy */
+/** 
+ * look up cgroup associated with given css_set on the specified hierarchy 
+ * 
+ * 
+ * Function Description: Returns the cgroup associated with a css_set on a specific root. Must be called with css_set_lock held. This is the main function for getting a cgroup from a css_set.
+ */
 static struct cgroup *cset_cgroup_from_root(struct css_set *cset,
 					    struct cgroup_root *root)
 {
@@ -1548,11 +1715,14 @@ static struct cgroup *cset_cgroup_from_root(struct css_set *cset,
 	return __cset_cgroup_from_root(cset, root);
 }
 
-/*
+/**
  * Return the cgroup for "task" from the given hierarchy. Must be
  * called with css_set_lock held to prevent task's groups from being modified.
  * Must be called with either cgroup_mutex or rcu read lock to prevent the
  * cgroup root from being destroyed.
+ * 
+ * 
+ * Function Description: Returns the cgroup of a task on a specific hierarchy. Must be called with css_set_lock held and either cgroup_mutex or RCU read lock. This is used to find which cgroup a task belongs to.
  */
 struct cgroup *task_cgroup_from_root(struct task_struct *task,
 				     struct cgroup_root *root)
@@ -1564,7 +1734,7 @@ struct cgroup *task_cgroup_from_root(struct task_struct *task,
 	return cset_cgroup_from_root(task_css_set(task), root);
 }
 
-/*
+/**
  * A task must hold cgroup_mutex to modify cgroups.
  *
  * Any task can increment and decrement the count field without lock.
@@ -1592,6 +1762,9 @@ struct cgroup *task_cgroup_from_root(struct task_struct *task,
 
 static struct kernfs_syscall_ops cgroup_kf_syscall_ops;
 
+/**
+ * Function Description: Generates the full name of a cgroup control file. It prepends the subsystem name if needed and handles debug prefixes. Returns a pointer to the buffer with the file name.
+ */
 static char *cgroup_file_name(struct cgroup *cgrp, const struct cftype *cft,
 			      char *buf)
 {
@@ -1615,6 +1788,9 @@ static char *cgroup_file_name(struct cgroup *cgrp, const struct cftype *cft,
  * @cft: the control file in question
  *
  * S_IRUGO for read, S_IWUSR for write.
+ * 
+ * 
+ * Function Description: Determines the file mode (permissions) for a cgroup control file. It sets read and write permissions based on the cftype's callbacks and flags. Returns the mode as a umode_t.
  */
 static umode_t cgroup_file_mode(const struct cftype *cft)
 {
@@ -1644,6 +1820,9 @@ static umode_t cgroup_file_mode(const struct cftype *cft)
  *
  * This function calculates which subsystems need to be enabled if
  * @subtree_control is to be applied while restricted to @this_ss_mask.
+ * 
+ * 
+ * Function Description: Calculates the effective subsystem mask for a cgroup's subtree. It adds implicit controllers and resolves dependencies using ss->depends_on. Returns the final mask of subsystems that should be enabled.
  */
 static u32 cgroup_calc_subtree_ss_mask(u32 subtree_control, u32 this_ss_mask)
 {
@@ -1686,6 +1865,9 @@ static u32 cgroup_calc_subtree_ss_mask(u32 subtree_control, u32 this_ss_mask)
  * returns the cgroup returned by cgroup_kn_lock_live() may become
  * inaccessible any time.  If the caller intends to continue to access the
  * cgroup, it should pin it before invoking this function.
+ * 
+ * 
+ * Function Description: Unlocks a cgroup kernfs node and releases the associated cgroup. It undoes cgroup_kn_lock_live() and should be called after the kernfs method completes. Once called, the cgroup may become inaccessible.
  */
 void cgroup_kn_unlock(struct kernfs_node *kn)
 {
@@ -1718,6 +1900,9 @@ void cgroup_kn_unlock(struct kernfs_node *kn)
  * associated cgroup should use this helper.  It avoids nesting cgroup
  * locking under kernfs active protection and allows all kernfs operations
  * including self-removal.
+ * 
+ * 
+ * Function Description: Locks a cgroup's kernfs node and returns the cgroup if it's live (online). It breaks active protection, acquires cgroup_mutex, and verifies the cgroup is not dead. Returns the cgroup or NULL.
  */
 struct cgroup *cgroup_kn_lock_live(struct kernfs_node *kn, bool drain_offline)
 {
@@ -1750,6 +1935,9 @@ struct cgroup *cgroup_kn_lock_live(struct kernfs_node *kn, bool drain_offline)
 	return NULL;
 }
 
+/**
+ * Function Description: Removes a control file from a cgroup directory. It handles file_offset cleanup and timer deletion. Called when a cgroup file is being removed.
+ */
 static void cgroup_rm_file(struct cgroup *cgrp, const struct cftype *cft)
 {
 	char name[CGROUP_FILE_NAME_MAX];
@@ -1773,6 +1961,9 @@ static void cgroup_rm_file(struct cgroup *cgrp, const struct cftype *cft)
 /**
  * css_clear_dir - remove subsys files in a cgroup directory
  * @css: target css
+ * 
+ * 
+ * Function Description: Removes subsystem files from a cgroup directory. It clears the CSS_VISIBLE flag and removes all files associated with the css. Called when a css is being hidden or destroyed.
  */
 static void css_clear_dir(struct cgroup_subsys_state *css)
 {
@@ -1806,6 +1997,9 @@ static void css_clear_dir(struct cgroup_subsys_state *css)
  * @css: target css
  *
  * On failure, no file is added.
+ * 
+ * 
+ * Function Description: Creates subsystem files in a cgroup directory. It adds all files defined for the css's subsystem. Returns 0 on success or a negative error code.
  */
 static int css_populate_dir(struct cgroup_subsys_state *css)
 {
@@ -1860,6 +2054,9 @@ err:
 	return ret;
 }
 
+/**
+ * Function Description: Rebinds cgroup subsystems from one root to another. It moves subsystem states between hierarchies, updating all associated css_sets. Returns 0 on success or a negative error code.
+ */
 int rebind_subsystems(struct cgroup_root *dst_root, u32 ss_mask)
 {
 	struct cgroup *dcgrp = &dst_root->cgrp;
@@ -1967,6 +2164,9 @@ int rebind_subsystems(struct cgroup_root *dst_root, u32 ss_mask)
 	return 0;
 }
 
+/**
+ * Function Description: Shows the cgroup path for kernfs show_path operations. It gets the cgroup from the current namespace and writes the path. Used for /proc/mounts and similar.
+ */
 int cgroup_show_path(struct seq_file *sf, struct kernfs_node *kf_node,
 		     struct kernfs_root *kf_root)
 {
@@ -1994,6 +2194,9 @@ int cgroup_show_path(struct seq_file *sf, struct kernfs_node *kf_node,
 	return len;
 }
 
+/**
+ * Enumeration Description: This enumeration defines the mount options available for cgroup2 (the default hierarchy). Each value represents a specific mount parameter that can be passed during cgroup2 mount operations. Options include Opt_nsdelegate (use namespaces as delegation boundaries), Opt_favordynmods (enable per-threadgroup locking for better performance), Opt_memory_localevents (enable legacy local memory events), Opt_memory_recursiveprot (enable recursive subtree protection), Opt_memory_hugetlb_accounting (enable hugetlb accounting for the memory controller), and Opt_pids_localevents (enable legacy local pids events). The nr__cgroup2_params value at the end indicates the total count of options.
+ */
 enum cgroup2_param {
 	Opt_nsdelegate,
 	Opt_favordynmods,
@@ -2004,6 +2207,9 @@ enum cgroup2_param {
 	nr__cgroup2_params
 };
 
+/**
+ * Variable Description: This is an array of filesystem parameter specifications for cgroup2 mount options. Each entry defines a valid mount flag and its corresponding enum value from cgroup2_param. It is used by the fs_parse() function to validate and parse mount parameters. The array is terminated by an empty entry {}. This allows the cgroup2 filesystem to support various feature flags that control behavior like namespace delegation, performance optimizations, and memory controller features. 
+ */
 static const struct fs_parameter_spec cgroup2_fs_parameters[] = {
 	fsparam_flag("nsdelegate",		Opt_nsdelegate),
 	fsparam_flag("favordynmods",		Opt_favordynmods),
@@ -2014,6 +2220,9 @@ static const struct fs_parameter_spec cgroup2_fs_parameters[] = {
 	{}
 };
 
+/**
+ * Function Description: Parses mount parameters for cgroup2 filesystems. It handles nsdelegate, favordynmods, memory_localevents, memory_recursiveprot, memory_hugetlb_accounting, and pids_localevents. Returns 0 on success or a negative error code.
+ */
 static int cgroup2_parse_param(struct fs_context *fc, struct fs_parameter *param)
 {
 	struct cgroup_fs_context *ctx = cgroup_fc2context(fc);
@@ -2047,6 +2256,9 @@ static int cgroup2_parse_param(struct fs_context *fc, struct fs_parameter *param
 	return -EINVAL;
 }
 
+/**
+ * Function Description: Returns the peak tracking structure for a kernfs open file. This is used for tracking peak values in cgroup files. Returns a pointer to the peak structure.
+ */
 struct cgroup_of_peak *of_peak(struct kernfs_open_file *of)
 {
 	struct cgroup_file_ctx *ctx = of->priv;
@@ -2054,6 +2266,9 @@ struct cgroup_of_peak *of_peak(struct kernfs_open_file *of)
 	return &ctx->peak;
 }
 
+/**
+ * Function Description: Applies root flags to the default hierarchy. It updates the flags based on the filesystem context. Used during mount and remount operations.
+ */
 static void apply_cgroup_root_flags(unsigned int root_flags)
 {
 	if (current->nsproxy->cgroup_ns == &init_cgroup_ns) {
@@ -2087,6 +2302,9 @@ static void apply_cgroup_root_flags(unsigned int root_flags)
 	}
 }
 
+/**
+ * Function Description: Shows mount options for the default hierarchy. It displays nsdelegate, favordynmods, and memory flags. Used for /proc/mounts.
+ */
 static int cgroup_show_options(struct seq_file *seq, struct kernfs_root *kf_root)
 {
 	if (cgrp_dfl_root.flags & CGRP_ROOT_NS_DELEGATE)
@@ -2104,6 +2322,9 @@ static int cgroup_show_options(struct seq_file *seq, struct kernfs_root *kf_root
 	return 0;
 }
 
+/**
+ * Function Description: Reconfigures a cgroup2 mount (remount). It applies the root flags from the filesystem context. Returns 0 on success.
+ */
 static int cgroup_reconfigure(struct fs_context *fc)
 {
 	struct cgroup_fs_context *ctx = cgroup_fc2context(fc);
@@ -2112,6 +2333,9 @@ static int cgroup_reconfigure(struct fs_context *fc)
 	return 0;
 }
 
+/**
+ * Function Description: Work function for finishing cgroup destruction. It calls cgroup_finish_destroy() and releases the cgroup reference. Scheduled when a cgroup subtree becomes empty.
+ */
 static void cgroup_finish_destroy_work_fn(struct work_struct *work)
 {
 	struct cgroup *cgrp = container_of(work, struct cgroup, finish_destroy_work);
@@ -2122,6 +2346,9 @@ static void cgroup_finish_destroy_work_fn(struct work_struct *work)
 	cgroup_put(cgrp);
 }
 
+/**
+ * Function Description: Initializes the housekeeping fields of a cgroup. It sets up lists, mutexes, workqueues, and initial values. Called when a cgroup is created.
+ */
 static void init_cgroup_housekeeping(struct cgroup *cgrp)
 {
 	struct cgroup_subsys *ss;
@@ -2152,6 +2379,9 @@ static void init_cgroup_housekeeping(struct cgroup *cgrp)
 	INIT_WORK(&cgrp->release_agent_work, cgroup1_release_agent);
 }
 
+/**
+ * Function Description: Initializes a cgroup_root from a filesystem context. It sets up the root cgroup and copies options from the context. Called during root creation.
+ */
 void init_cgroup_root(struct cgroup_fs_context *ctx)
 {
 	struct cgroup_root *root = ctx->root;
@@ -2172,6 +2402,9 @@ void init_cgroup_root(struct cgroup_fs_context *ctx)
 		set_bit(CGRP_CPUSET_CLONE_CHILDREN, &root->cgrp.flags);
 }
 
+/**
+ * Function Description: Sets up a cgroup_root with the given subsystem mask. It creates the kernfs root, populates files, and links the root into the global lists. Returns 0 on success or a negative error code.
+ */
 int cgroup_setup_root(struct cgroup_root *root, u32 ss_mask)
 {
 	LIST_HEAD(tmp_links);
@@ -2277,6 +2510,9 @@ out:
 	return ret;
 }
 
+/**
+ * Function Description: Performs the actual filesystem tree creation for cgroup mounts. It calls kernfs_get_tree() and handles namespace-specific root dentries. Returns 0 on success or a negative error code.
+ */
 int cgroup_do_get_tree(struct fs_context *fc)
 {
 	struct cgroup_fs_context *ctx = cgroup_fc2context(fc);
@@ -2322,8 +2558,11 @@ int cgroup_do_get_tree(struct fs_context *fc)
 	return ret;
 }
 
-/*
+/**
  * Destroy a cgroup filesystem context.
+ * 
+ * 
+ * Function Description: Frees a cgroup filesystem context. It releases allocated strings, cgroup namespace, and the kernfs context. Called when the context is being freed.
  */
 static void cgroup_fs_context_free(struct fs_context *fc)
 {
@@ -2336,6 +2575,9 @@ static void cgroup_fs_context_free(struct fs_context *fc)
 	kfree(ctx);
 }
 
+/**
+ * Function Description: Gets the cgroup2 filesystem tree during mount. It sets up the default hierarchy root and calls cgroup_do_get_tree(). Returns 0 on success or a negative error code.
+ */
 static int cgroup_get_tree(struct fs_context *fc)
 {
 	struct cgroup_fs_context *ctx = cgroup_fc2context(fc);
@@ -2351,6 +2593,9 @@ static int cgroup_get_tree(struct fs_context *fc)
 	return ret;
 }
 
+/**
+ * Variable Description: This structure defines the filesystem context operations for cgroup2 (default hierarchy) mounts. It contains function pointers for freeing the context (cgroup_fs_context_free), parsing mount parameters (cgroup2_parse_param), getting the filesystem tree (cgroup_get_tree), and reconfiguring the mount (cgroup_reconfigure). These operations are used during cgroup2 filesystem mounting and remounting.
+ */
 static const struct fs_context_operations cgroup_fs_context_ops = {
 	.free		= cgroup_fs_context_free,
 	.parse_param	= cgroup2_parse_param,
@@ -2358,6 +2603,9 @@ static const struct fs_context_operations cgroup_fs_context_ops = {
 	.reconfigure	= cgroup_reconfigure,
 };
 
+/**
+ * Variable Description: This structure defines the filesystem context operations for cgroup1 (legacy hierarchy) mounts. It contains function pointers for freeing the context (cgroup_fs_context_free), parsing mount parameters (cgroup1_parse_param), getting the filesystem tree (cgroup1_get_tree), and reconfiguring the mount (cgroup1_reconfigure). These operations handle the older cgroup1 mount behavior with subsystem selection, named hierarchies, and release agent support. 
+ */
 static const struct fs_context_operations cgroup1_fs_context_ops = {
 	.free		= cgroup_fs_context_free,
 	.parse_param	= cgroup1_parse_param,
@@ -2365,9 +2613,12 @@ static const struct fs_context_operations cgroup1_fs_context_ops = {
 	.reconfigure	= cgroup1_reconfigure,
 };
 
-/*
+/**
  * Initialise the cgroup filesystem creation/reconfiguration context.  Notably,
  * we select the namespace we're going to use.
+ * 
+ * 
+ * Function Description: Initializes a cgroup filesystem context. It allocates the context, sets the namespace, and configures the operations. Returns 0 on success or -ENOMEM.
  */
 static int cgroup_init_fs_context(struct fs_context *fc)
 {
@@ -2394,6 +2645,9 @@ static int cgroup_init_fs_context(struct fs_context *fc)
 	return 0;
 }
 
+/**
+ * Function Description: Kills a cgroup superblock during unmount. It starts killing the root if it has no children and is not the default root. Called during filesystem unmount.
+ */
 static void cgroup_kill_sb(struct super_block *sb)
 {
 	struct kernfs_root *kf_root = kernfs_root_from_sb(sb);
@@ -2412,6 +2666,9 @@ static void cgroup_kill_sb(struct super_block *sb)
 	kernfs_kill_sb(sb);
 }
 
+/**
+ * Variable Description: This structure represents the cgroup v1 filesystem type. It defines the filesystem name ("cgroup"), the context initialization function (cgroup_init_fs_context), the mount parameters (cgroup1_fs_parameters), the superblock kill handler (cgroup_kill_sb), and the flag FS_USERNS_MOUNT allowing mounting in user namespaces. This is registered during kernel initialization to support legacy cgroup1 mounts.
+ */
 struct file_system_type cgroup_fs_type = {
 	.name			= "cgroup",
 	.init_fs_context	= cgroup_init_fs_context,
@@ -2419,6 +2676,10 @@ struct file_system_type cgroup_fs_type = {
 	.kill_sb		= cgroup_kill_sb,
 	.fs_flags		= FS_USERNS_MOUNT,
 };
+
+/**
+ * Variable Description: This structure represents the cgroup v2 filesystem type. It defines the filesystem name ("cgroup2"), the context initialization function (cgroup_init_fs_context), the mount parameters (cgroup2_fs_parameters), the superblock kill handler (cgroup_kill_sb), and the flag FS_USERNS_MOUNT allowing mounting in user namespaces. This is registered during kernel initialization to support the default cgroup2 hierarchy.
+ */
 
 static struct file_system_type cgroup2_fs_type = {
 	.name			= "cgroup2",
@@ -2429,9 +2690,18 @@ static struct file_system_type cgroup2_fs_type = {
 };
 
 #ifdef CONFIG_CPUSETS_V1
+
+/**
+ * Enumeration Description: This enumeration defines the mount option for the cpuset filesystem compatibility layer. It contains Opt_cpuset_v2_mode, which enables cpuset controller in v1 cgroup to use v2 behavior. This is used when mounting the "cpuset" filesystem (which is actually a wrapper that mounts cgroup v1 with the cpuset subsystem).
+ */
+
 enum cpuset_param {
 	Opt_cpuset_v2_mode,
 };
+
+/**
+ * Variable Description: This is an array of filesystem parameter specifications for the cpuset compatibility filesystem. It defines the cpuset_v2_mode mount flag and its corresponding enum value Opt_cpuset_v2_mode. This allows the cpuset filesystem mount to pass through the cpuset_v2_mode option to the underlying cgroup v1 mount.
+ */
 
 static const struct fs_parameter_spec cpuset_fs_parameters[] = {
 	fsparam_flag  ("cpuset_v2_mode", Opt_cpuset_v2_mode),
@@ -2462,7 +2732,7 @@ static const struct fs_context_operations cpuset_fs_context_ops = {
 	.parse_param	= cpuset_parse_param,
 };
 
-/*
+/**
  * This is ugly, but preserves the userspace API for existing cpuset
  * users. If someone tries to mount the "cpuset" filesystem, we
  * silently switch it to mount "cgroup" instead
@@ -2501,6 +2771,9 @@ static struct file_system_type cpuset_fs_type = {
 };
 #endif
 
+/**
+ * Function Description: Returns the path of a cgroup in a namespace while holding locks. It writes the path from the cgroup's kernfs node to the root's node. Used internally for cgroup_path_ns().
+ */
 int cgroup_path_ns_locked(struct cgroup *cgrp, char *buf, size_t buflen,
 			  struct cgroup_namespace *ns)
 {
@@ -2509,6 +2782,9 @@ int cgroup_path_ns_locked(struct cgroup *cgrp, char *buf, size_t buflen,
 	return kernfs_path_from_node(cgrp->kn, root->kn, buf, buflen);
 }
 
+/**
+ * Function Description: Returns the path of a cgroup in a namespace. It acquires cgroup_mutex and css_set_lock and calls cgroup_path_ns_locked(). This is the exported version for getting cgroup paths.
+ */
 int cgroup_path_ns(struct cgroup *cgrp, char *buf, size_t buflen,
 		   struct cgroup_namespace *ns)
 {
@@ -2555,6 +2831,9 @@ EXPORT_SYMBOL_GPL(cgroup_path_ns);
  * CGRP_ROOT_FAVOR_DYNMODS definition.
  *
  * tsk is not NULL only when writing to cgroup.procs.
+ * 
+ * 
+ * Function Description: Acquires locks for cgroup attach operations. It takes cpus_read_lock() and optionally write-locks cgroup_threadgroup_rwsem or per-threadgroup rwsem. This prevents CPU hotplug and threadgroup changes during migration.
  */
 void cgroup_attach_lock(enum cgroup_attach_lock_mode lock_mode,
 			struct task_struct *tsk)
@@ -2580,6 +2859,9 @@ void cgroup_attach_lock(enum cgroup_attach_lock_mode lock_mode,
  * cgroup_attach_unlock - Undo cgroup_attach_lock()
  * @lock_mode: whether release and release which rwsem
  * @tsk: thread group to lock
+ * 
+ * 
+ * Function Description: Releases locks acquired by cgroup_attach_lock(). It releases the threadgroup rwsem and cpus_read_lock(). Called after cgroup attach operations complete.
  */
 void cgroup_attach_unlock(enum cgroup_attach_lock_mode lock_mode,
 			  struct task_struct *tsk)
@@ -2610,6 +2892,9 @@ void cgroup_attach_unlock(enum cgroup_attach_lock_mode lock_mode,
  * becomes noop if @task doesn't need to be migrated.  @task's css_set
  * should have been added as a migration source and @task->cg_list will be
  * moved from the css_set's tasks list to mg_tasks one.
+ * 
+ * 
+ * Function Description: Adds a task to a migration context. It checks if the task is exiting and moves it to the mg_tasks list. Called during migration preparation.
  */
 static void cgroup_migrate_add_task(struct task_struct *task,
 				    struct cgroup_mgctx *mgctx)
@@ -2647,6 +2932,9 @@ static void cgroup_migrate_add_task(struct task_struct *task,
  * @dst_cssp: output variable for the destination css
  *
  * @tset iteration is initialized and the first task is returned.
+ * 
+ * 
+ * Function Description: Initializes a taskset iteration and returns the first task. It sets the current cset and task to the first position. Used to iterate over tasks in a migration.
  */
 struct task_struct *cgroup_taskset_first(struct cgroup_taskset *tset,
 					 struct cgroup_subsys_state **dst_cssp)
@@ -2664,6 +2952,9 @@ struct task_struct *cgroup_taskset_first(struct cgroup_taskset *tset,
  *
  * Return the next task in @tset.  Iteration must have been initialized
  * with cgroup_taskset_first().
+ * 
+ * 
+ * Function Description: Returns the next task in a taskset iteration. It advances through mg_tasks lists and csets. Used to iterate over tasks during migration callbacks.
  */
 struct task_struct *cgroup_taskset_next(struct cgroup_taskset *tset,
 					struct cgroup_subsys_state **dst_cssp)
@@ -2711,6 +3002,9 @@ struct task_struct *cgroup_taskset_next(struct cgroup_taskset *tset,
  * This function fails iff one of the ->can_attach callbacks fails and
  * guarantees that either all or none of the tasks in @mgctx are migrated.
  * @mgctx is consumed regardless of success.
+ * 
+ * 
+ * Function Description: Executes a cgroup migration. It calls ->can_attach() for all subsystems, then moves all tasks, and finally calls ->attach(). Returns 0 on success or a negative error code.
  */
 static int cgroup_migrate_execute(struct cgroup_mgctx *mgctx)
 {
@@ -2818,6 +3112,9 @@ out_release_tset:
  * and threaded cgroups, subtree_control must be zero for migration
  * destination cgroups with tasks so that child cgroups don't compete
  * against tasks.
+ * 
+ * 
+ * Function Description: Verifies that a cgroup can be a migration destination. On the default hierarchy, it checks the no-internal-process constraint. Returns 0 if valid or a negative error code.
  */
 int cgroup_migrate_vet_dst(struct cgroup *dst_cgrp)
 {
@@ -2849,6 +3146,9 @@ int cgroup_migrate_vet_dst(struct cgroup *dst_cgrp)
  *
  * Undo cgroup_migrate_add_src() and cgroup_migrate_prepare_dst().  See
  * those functions for details.
+ * 
+ * 
+ * Function Description: Cleans up after migration. It releases preloaded source and destination css_sets. Called after migration is complete or aborted.
  */
 void cgroup_migrate_finish(struct cgroup_mgctx *mgctx)
 {
@@ -2894,6 +3194,9 @@ void cgroup_migrate_finish(struct cgroup_mgctx *mgctx)
  * but as long as cgroup_mutex is not dropped, no new css_set can be put
  * into play and the preloaded css_sets are guaranteed to cover all
  * migrations.
+ * 
+ * 
+ * Function Description: Adds a source css_set to a migration context. It pins the css_set and links it to the destination cgroup. Called for each source css_set in the migration.
  */
 void cgroup_migrate_add_src(struct css_set *src_cset,
 			    struct cgroup *dst_cgrp,
@@ -2941,6 +3244,9 @@ void cgroup_migrate_add_src(struct css_set *src_cset,
  * called on each migration source css_set.  After migration is performed
  * using cgroup_migrate(), cgroup_migrate_finish() must be called on
  * @mgctx.
+ * 
+ * 
+ * Function Description: Prepares destination css_sets for migration. It looks up or creates destination css_sets for each source. Returns 0 on success or a negative error code.
  */
 int cgroup_migrate_prepare_dst(struct cgroup_mgctx *mgctx)
 {
@@ -3008,6 +3314,9 @@ int cgroup_migrate_prepare_dst(struct cgroup_mgctx *mgctx)
  * failure, when migrating multiple targets, the success or failure can be
  * decided for all targets by invoking group_migrate_prepare_dst() before
  * actually starting migrating.
+ * 
+ * 
+ * Function Description: Migrates a process or task to a cgroup. It collects tasks from the thread group and executes the migration. Returns 0 on success or a negative error code.
  */
 int cgroup_migrate(struct task_struct *leader, bool threadgroup,
 		   struct cgroup_mgctx *mgctx)
@@ -3038,6 +3347,9 @@ int cgroup_migrate(struct task_struct *leader, bool threadgroup,
  * @threadgroup: attach the whole threadgroup?
  *
  * Call holding cgroup_mutex and cgroup_threadgroup_rwsem.
+ * 
+ * 
+ * Description: Attaches a task or thread group to a cgroup. It creates a migration context and executes the migration. Returns 0 on success or a negative error code.
  */
 int cgroup_attach_task(struct cgroup *dst_cgrp, struct task_struct *leader,
 		       bool threadgroup)
@@ -3069,6 +3381,9 @@ int cgroup_attach_task(struct cgroup *dst_cgrp, struct task_struct *leader,
 	return ret;
 }
 
+/**
+ * Function Description: Starts a write operation to cgroup.procs or cgroup.threads. It parses the PID, finds the task, and acquires the appropriate locks. Returns the task pointer or an error.
+ */
 struct task_struct *cgroup_procs_write_start(char *buf, bool threadgroup,
 					     enum cgroup_attach_lock_mode *lock_mode)
 {
@@ -3146,6 +3461,9 @@ out_unlock_rcu:
 	return tsk;
 }
 
+/**
+ * Function Description: Finishes a write operation to cgroup.procs or cgroup.threads. It releases locks and drops the task reference. Called after the migration is complete.
+ */
 void cgroup_procs_write_finish(struct task_struct *task,
 			       enum cgroup_attach_lock_mode lock_mode)
 {
@@ -3171,7 +3489,12 @@ static void cgroup_print_ss_mask(struct seq_file *seq, u32 ss_mask)
 		seq_putc(seq, '\n');
 }
 
-/* show controllers which are enabled from the parent */
+/** 
+ * show controllers which are enabled from the parent 
+ * 
+ * 
+ * Function Description: Shows the controllers enabled for a cgroup. It displays the subsystems that are available for the cgroup. Used for the cgroup.controllers file.
+ */
 static int cgroup_controllers_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -3180,7 +3503,12 @@ static int cgroup_controllers_show(struct seq_file *seq, void *v)
 	return 0;
 }
 
-/* show controllers which are enabled for a given cgroup's children */
+/** 
+ * show controllers which are enabled for a given cgroup's children 
+ * 
+ * 
+ * Function Description: Shows the controllers enabled for a cgroup's children. It displays the subtree_control mask. Used for the cgroup.subtree_control file.
+ */
 static int cgroup_subtree_control_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -3197,6 +3525,9 @@ static int cgroup_subtree_control_show(struct seq_file *seq, void *v)
  * need to be updated accordingly.  This function looks up all css_sets
  * which are attached to the subtree, creates the matching updated css_sets
  * and migrates the tasks to the new ones.
+ * 
+ * 
+ * Function Description: Updates css associations in a subtree on the default hierarchy. It migrates tasks to new css_sets when control masks change. Returns 0 on success or a negative error code.
  */
 static int cgroup_update_dfl_csses(struct cgroup *cgrp)
 {
@@ -3274,6 +3605,9 @@ out_finish:
  * Because css offlining is asynchronous, userland may try to re-enable a
  * controller while the previous css is still around.  This function grabs
  * cgroup_mutex and drains the previous css instances of @cgrp's subtree.
+ * 
+ * 
+ * Function Description: Locks cgroup_mutex and drains offline csses. It waits for any dying csses to complete before returning. Used when making changes that require stable css states.
  */
 void cgroup_lock_and_drain_offline(struct cgroup *cgrp)
 	__acquires(&cgroup_mutex)
@@ -3315,6 +3649,9 @@ restart:
  * Save ->subtree_control, ->subtree_ss_mask and ->dom_cgrp to the
  * respective old_ prefixed fields for @cgrp's subtree including @cgrp
  * itself.
+ * 
+ * 
+ * Function Description: Saves the current control state of a cgroup subtree. It stores subtree_control, subtree_ss_mask, and dom_cgrp in old_* fields. Used before applying changes.
  */
 static void cgroup_save_control(struct cgroup *cgrp)
 {
@@ -3335,6 +3672,9 @@ static void cgroup_save_control(struct cgroup *cgrp)
  * For @cgrp and its subtree, ensure ->subtree_ss_mask matches
  * ->subtree_control and propagate controller availability through the
  * subtree so that descendants don't have unavailable controllers enabled.
+ * 
+ * 
+ * Function Description: Propagates control masks through a cgroup subtree. It ensures subtree_ss_mask matches subtree_control and controllers are available. Called after control changes.
  */
 static void cgroup_propagate_control(struct cgroup *cgrp)
 {
@@ -3356,6 +3696,9 @@ static void cgroup_propagate_control(struct cgroup *cgrp)
  * Restore ->subtree_control, ->subtree_ss_mask and ->dom_cgrp from the
  * respective old_ prefixed fields for @cgrp's subtree including @cgrp
  * itself.
+ * 
+ * 
+ * Function Description: Restores the control state of a cgroup subtree. It restores subtree_control, subtree_ss_mask, and dom_cgrp from old_* fields. Used to revert changes on error.
  */
 static void cgroup_restore_control(struct cgroup *cgrp)
 {
@@ -3369,6 +3712,9 @@ static void cgroup_restore_control(struct cgroup *cgrp)
 	}
 }
 
+/**
+ * Function Description: Checks if a css should be visible to userland. Returns true if the subsystem is in cgroup_control or is an implicit controller. Used to determine if files should be created.
+ */
 static bool css_visible(struct cgroup_subsys_state *css)
 {
 	struct cgroup_subsys *ss = css->ss;
@@ -3393,6 +3739,9 @@ static bool css_visible(struct cgroup_subsys_state *css)
  * Returns 0 on success, -errno on failure.  On failure, csses which have
  * been processed already aren't cleaned up.  The caller is responsible for
  * cleaning up with cgroup_apply_control_disable().
+ * 
+ * 
+ * Function Description: Enables or shows csses according to control masks. It creates new csses and populates directories for enabled subsystems. Returns 0 on success or a negative error code.
  */
 static int cgroup_apply_control_enable(struct cgroup *cgrp)
 {
@@ -3439,6 +3788,9 @@ static int cgroup_apply_control_enable(struct cgroup *cgrp)
  * resources and be in the vanilla state if it's made visible again later.
  * Controllers which may be depended upon should provide ->css_reset() for
  * this purpose.
+ * 
+ * 
+ * Function Description: Disables or hides csses according to control masks. It kills csses that are no longer needed and hides directories. Called after control changes.
  */
 static void cgroup_apply_control_disable(struct cgroup *cgrp)
 {
@@ -3485,6 +3837,9 @@ static void cgroup_apply_control_disable(struct cgroup *cgrp)
  * This function implements step 3 and propagates the mask changes
  * throughout @cgrp's subtree, updates csses accordingly and perform
  * process migrations.
+ * 
+ * 
+ * Function Description: Applies control mask updates to a cgroup subtree. It propagates control masks, enables csses, and updates css associations. Returns 0 on success or a negative error code.
  */
 static int cgroup_apply_control(struct cgroup *cgrp)
 {
@@ -3510,6 +3865,9 @@ static int cgroup_apply_control(struct cgroup *cgrp)
  * @ret: the result of the update
  *
  * Finalize control mask update.  See cgroup_apply_control() for more info.
+ * 
+ * 
+ * Function Description: Finalizes control mask updates. It either restores state on error or disables unused csses. Called after cgroup_apply_control().
  */
 static void cgroup_finalize_control(struct cgroup *cgrp, int ret)
 {
@@ -3521,6 +3879,9 @@ static void cgroup_finalize_control(struct cgroup *cgrp, int ret)
 	cgroup_apply_control_disable(cgrp);
 }
 
+/**
+ * Function Description: Validates enabling subtree control on a cgroup. It checks if the cgroup can host resources, is not threaded, and has no tasks. Returns 0 if valid or a negative error code.
+ */
 static int cgroup_vet_subtree_control_enable(struct cgroup *cgrp, u32 enable)
 {
 	u32 domain_enable = enable & ~cgrp_dfl_threaded_ss_mask;
@@ -3561,7 +3922,12 @@ static int cgroup_vet_subtree_control_enable(struct cgroup *cgrp, u32 enable)
 	return 0;
 }
 
-/* change the enabled child controllers for a cgroup in the default hierarchy */
+/** 
+ * change the enabled child controllers for a cgroup in the default hierarchy 
+ * 
+ * 
+ * Function Description: Write handler for cgroup.subtree_control file. It parses +/- subsystem names, validates the changes, and applies them. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_subtree_control_write(struct kernfs_open_file *of,
 					    char *buf, size_t nbytes,
 					    loff_t off)
@@ -3665,6 +4031,9 @@ out_unlock:
  * tries to make @cgrp threaded and join the parent's resource domain.
  * This function is never called on the root cgroup as cgroup.type doesn't
  * exist on it.
+ * 
+ * 
+ * Function Description: Makes a cgroup threaded. It joins the parent's domain and enables threaded mode. Returns 0 on success or a negative error code.
  */
 static int cgroup_enable_threaded(struct cgroup *cgrp)
 {
@@ -3713,6 +4082,9 @@ static int cgroup_enable_threaded(struct cgroup *cgrp)
 	return ret;
 }
 
+/**
+ * Function Description: Shows the type of a cgroup (domain, domain threaded, domain invalid, or threaded). Used for the cgroup.type file.
+ */
 static int cgroup_type_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -3729,6 +4101,9 @@ static int cgroup_type_show(struct seq_file *seq, void *v)
 	return 0;
 }
 
+/**
+ * Function Description: Write handler for cgroup.type file. It supports switching a cgroup to threaded mode. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_type_write(struct kernfs_open_file *of, char *buf,
 				 size_t nbytes, loff_t off)
 {
@@ -3751,6 +4126,9 @@ static ssize_t cgroup_type_write(struct kernfs_open_file *of, char *buf,
 	return ret ?: nbytes;
 }
 
+/**
+ * Function Description: Shows the maximum number of descendants allowed for a cgroup. Displays "max" if unlimited. Used for the cgroup.max.descendants file.
+ */
 static int cgroup_max_descendants_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -3764,6 +4142,9 @@ static int cgroup_max_descendants_show(struct seq_file *seq, void *v)
 	return 0;
 }
 
+/**
+ * Function Description: Write handler for cgroup.max.descendants file. It sets the maximum number of descendants allowed. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_max_descendants_write(struct kernfs_open_file *of,
 					   char *buf, size_t nbytes, loff_t off)
 {
@@ -3794,6 +4175,9 @@ static ssize_t cgroup_max_descendants_write(struct kernfs_open_file *of,
 	return nbytes;
 }
 
+/**
+ * Function Description: Shows the maximum depth allowed for a cgroup. Displays "max" if unlimited. Used for the cgroup.max.depth file.
+ */
 static int cgroup_max_depth_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -3807,6 +4191,9 @@ static int cgroup_max_depth_show(struct seq_file *seq, void *v)
 	return 0;
 }
 
+/**
+ * Function Description: Write handler for cgroup.max.depth file. It sets the maximum depth allowed. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_max_depth_write(struct kernfs_open_file *of,
 				      char *buf, size_t nbytes, loff_t off)
 {
@@ -3837,6 +4224,9 @@ static ssize_t cgroup_max_depth_write(struct kernfs_open_file *of,
 	return nbytes;
 }
 
+/**
+ * Function Description: Shows event information for a cgroup. Displays populated and frozen status. Used for the cgroup.events file.
+ */
 static int cgroup_events_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -3847,6 +4237,9 @@ static int cgroup_events_show(struct seq_file *seq, void *v)
 	return 0;
 }
 
+/**
+ * Function Description: Shows cgroup statistics. Displays the number of descendants, subsys counts, and dying counts. Used for the cgroup.stat file.
+ */
 static int cgroup_stat_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgroup = seq_css(seq)->cgroup;
@@ -3887,6 +4280,9 @@ static int cgroup_stat_show(struct seq_file *seq, void *v)
 	return 0;
 }
 
+/**
+ * Function Description: Shows local statistics for a cgroup. Displays the frozen time in microseconds. Used for the cgroup.stat.local file.
+ */
 static int cgroup_core_local_stat_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -3916,6 +4312,9 @@ static int cgroup_core_local_stat_show(struct seq_file *seq, void *v)
  *
  * Find and get @cgrp's css associated with @ss.  If the css doesn't exist
  * or is offline, %NULL is returned.
+ * 
+ * 
+ * Function Description: Tries to get a reference to a cgroup's css for a subsystem. It finds the css and attempts to get an online reference. Returns the css or NULL.
  */
 static struct cgroup_subsys_state *cgroup_tryget_css(struct cgroup *cgrp,
 						     struct cgroup_subsys *ss)
@@ -3931,6 +4330,9 @@ static struct cgroup_subsys_state *cgroup_tryget_css(struct cgroup *cgrp,
 	return css;
 }
 
+/**
+ * Function Description: Shows extra statistics for a cgroup subsystem. It calls the subsystem's css_extra_stat_show callback. Used for subsystem-specific statistics.
+ */
 static int cgroup_extra_stat_show(struct seq_file *seq, int ssid)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -3950,6 +4352,9 @@ static int cgroup_extra_stat_show(struct seq_file *seq, int ssid)
 	return ret;
 }
 
+/**
+ * Function Description: Shows local statistics for a cgroup subsystem. It calls the subsystem's css_local_stat_show callback. Used for subsystem-specific local statistics.
+ */
 static int cgroup_local_stat_show(struct seq_file *seq,
 				  struct cgroup *cgrp, int ssid)
 {
@@ -3970,6 +4375,9 @@ static int cgroup_local_stat_show(struct seq_file *seq,
 }
 #endif
 
+/**
+ * Function Description: Shows CPU statistics for a cgroup. It displays base cputime and subsystem-specific CPU statistics. Used for the cpu.stat file.
+ */
 static int cpu_stat_show(struct seq_file *seq, void *v)
 {
 	int ret = 0;
@@ -3981,6 +4389,9 @@ static int cpu_stat_show(struct seq_file *seq, void *v)
 	return ret;
 }
 
+/**
+ * Function Description: Shows local CPU statistics for a cgroup. It displays subsystem-specific CPU local statistics. Used for the cpu.stat.local file.
+ */
 static int cpu_local_stat_show(struct seq_file *seq, void *v)
 {
 	struct cgroup __maybe_unused *cgrp = seq_css(seq)->cgroup;
@@ -3993,6 +4404,10 @@ static int cpu_local_stat_show(struct seq_file *seq, void *v)
 }
 
 #ifdef CONFIG_PSI
+
+/**
+ * Function Description: Shows I/O pressure statistics for a cgroup. It calls psi_show() with PSI_IO. Used for the io.pressure file.
+ */
 static int cgroup_io_pressure_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -4000,6 +4415,10 @@ static int cgroup_io_pressure_show(struct seq_file *seq, void *v)
 
 	return psi_show(seq, psi, PSI_IO);
 }
+
+/**
+ * Function Description: Shows memory pressure statistics for a cgroup. It calls psi_show() with PSI_MEM. Used for the memory.pressure file.
+ */
 static int cgroup_memory_pressure_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -4007,6 +4426,10 @@ static int cgroup_memory_pressure_show(struct seq_file *seq, void *v)
 
 	return psi_show(seq, psi, PSI_MEM);
 }
+
+/**
+ * Function Description: Shows CPU pressure statistics for a cgroup. It calls psi_show() with PSI_CPU. Used for the cpu.pressure file.
+ */
 static int cgroup_cpu_pressure_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -4015,6 +4438,9 @@ static int cgroup_cpu_pressure_show(struct seq_file *seq, void *v)
 	return psi_show(seq, psi, PSI_CPU);
 }
 
+/**
+ * Function Description: Write handler for PSI pressure files. It creates a PSI trigger for the cgroup. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t pressure_write(struct kernfs_open_file *of, char *buf,
 			      size_t nbytes, enum psi_res res)
 {
@@ -4057,6 +4483,9 @@ out_unlock:
 	return nbytes;
 }
 
+/**
+ * Function Description: Write handler for io.pressure file. It calls pressure_write() with PSI_IO. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_io_pressure_write(struct kernfs_open_file *of,
 					  char *buf, size_t nbytes,
 					  loff_t off)
@@ -4064,6 +4493,9 @@ static ssize_t cgroup_io_pressure_write(struct kernfs_open_file *of,
 	return pressure_write(of, buf, nbytes, PSI_IO);
 }
 
+/**
+ * Function Description: Write handler for memory.pressure file. It calls pressure_write() with PSI_MEM. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_memory_pressure_write(struct kernfs_open_file *of,
 					  char *buf, size_t nbytes,
 					  loff_t off)
@@ -4071,6 +4503,9 @@ static ssize_t cgroup_memory_pressure_write(struct kernfs_open_file *of,
 	return pressure_write(of, buf, nbytes, PSI_MEM);
 }
 
+/**
+ * Function Description: Write handler for cpu.pressure file. It calls pressure_write() with PSI_CPU. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_cpu_pressure_write(struct kernfs_open_file *of,
 					  char *buf, size_t nbytes,
 					  loff_t off)
@@ -4079,6 +4514,10 @@ static ssize_t cgroup_cpu_pressure_write(struct kernfs_open_file *of,
 }
 
 #ifdef CONFIG_IRQ_TIME_ACCOUNTING
+
+/**
+ * Function Description: Shows IRQ pressure statistics for a cgroup. It calls psi_show() with PSI_IRQ. Used for the irq.pressure file.
+ */
 static int cgroup_irq_pressure_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -4087,6 +4526,9 @@ static int cgroup_irq_pressure_show(struct seq_file *seq, void *v)
 	return psi_show(seq, psi, PSI_IRQ);
 }
 
+/**
+ * Function Description: Write handler for irq.pressure file. It calls pressure_write() with PSI_IRQ. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_irq_pressure_write(struct kernfs_open_file *of,
 					 char *buf, size_t nbytes,
 					 loff_t off)
@@ -4095,6 +4537,9 @@ static ssize_t cgroup_irq_pressure_write(struct kernfs_open_file *of,
 }
 #endif
 
+/**
+ * Function Description: Shows the pressure status for a cgroup. It displays whether PSI is enabled. Used for the cgroup.pressure file.
+ */
 static int cgroup_pressure_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -4105,6 +4550,9 @@ static int cgroup_pressure_show(struct seq_file *seq, void *v)
 	return 0;
 }
 
+/**
+ * Function Description: Write handler for cgroup.pressure file. It enables or disables PSI for the cgroup. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_pressure_write(struct kernfs_open_file *of,
 				     char *buf, size_t nbytes,
 				     loff_t off)
@@ -4143,6 +4591,9 @@ static ssize_t cgroup_pressure_write(struct kernfs_open_file *of,
 	return nbytes;
 }
 
+/**
+ * Function Description: Poll handler for PSI pressure files. It polls the PSI trigger for events. Used for monitoring pressure changes.
+ */
 static __poll_t cgroup_pressure_poll(struct kernfs_open_file *of,
 					  poll_table *pt)
 {
@@ -4151,6 +4602,9 @@ static __poll_t cgroup_pressure_poll(struct kernfs_open_file *of,
 	return psi_trigger_poll(&ctx->psi.trigger, of->file, pt);
 }
 
+/**
+ * Function Description: Release handler for PSI pressure files. It destroys the PSI trigger. Called when the file is closed.
+ */
 static void cgroup_pressure_release(struct kernfs_open_file *of)
 {
 	struct cgroup_file_ctx *ctx = of->priv;
@@ -4158,6 +4612,9 @@ static void cgroup_pressure_release(struct kernfs_open_file *of)
 	psi_trigger_destroy(ctx->psi.trigger);
 }
 
+/**
+ * Function Description: Checks if PSI (Pressure Stall Information) is enabled for cgroups. Returns true if PSI is not disabled and the feature is enabled. Used to conditionally create PSI files.
+ */
 bool cgroup_psi_enabled(void)
 {
 	if (static_branch_likely(&psi_disabled))
@@ -4174,6 +4631,9 @@ bool cgroup_psi_enabled(void)
 
 #endif /* CONFIG_PSI */
 
+/**
+ * Function Description: Shows the freeze state of a cgroup. Displays 1 if the cgroup is frozen, 0 otherwise. Used for the cgroup.freeze file.
+ */
 static int cgroup_freeze_show(struct seq_file *seq, void *v)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -4183,6 +4643,9 @@ static int cgroup_freeze_show(struct seq_file *seq, void *v)
 	return 0;
 }
 
+/**
+ * Function Description: Write handler for cgroup.freeze file. It freezes or unfreezes a cgroup. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_freeze_write(struct kernfs_open_file *of,
 				   char *buf, size_t nbytes, loff_t off)
 {
@@ -4208,6 +4671,9 @@ static ssize_t cgroup_freeze_write(struct kernfs_open_file *of,
 	return nbytes;
 }
 
+/**
+ * Function Description: Internal function that sends SIGKILL to all processes in a cgroup. It iterates through tasks and sends the signal to non-kernel threads. Used by cgroup_kill().
+ */
 static void __cgroup_kill(struct cgroup *cgrp)
 {
 	struct css_task_iter it;
@@ -4234,6 +4700,9 @@ static void __cgroup_kill(struct cgroup *cgrp)
 	css_task_iter_end(&it);
 }
 
+/**
+ * Function Description: Kills all processes in a cgroup and its descendants. It sends SIGKILL to all tasks in the subtree. Used for the cgroup.kill file.
+ */
 static void cgroup_kill(struct cgroup *cgrp)
 {
 	struct cgroup_subsys_state *css;
@@ -4245,6 +4714,9 @@ static void cgroup_kill(struct cgroup *cgrp)
 		__cgroup_kill(dsct);
 }
 
+/**
+ * Function Description: Write handler for cgroup.kill file. It triggers killing of all processes in the cgroup. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_kill_write(struct kernfs_open_file *of, char *buf,
 				 size_t nbytes, loff_t off)
 {
@@ -4278,6 +4750,9 @@ static ssize_t cgroup_kill_write(struct kernfs_open_file *of, char *buf,
 	return ret ?: nbytes;
 }
 
+/**
+ * Function Description: Open handler for cgroup files. It allocates a file context and calls the cftype's open callback. Returns 0 on success or a negative error code.
+ */
 static int cgroup_file_open(struct kernfs_open_file *of)
 {
 	struct cftype *cft = of_cft(of);
@@ -4303,6 +4778,9 @@ static int cgroup_file_open(struct kernfs_open_file *of)
 	return ret;
 }
 
+/**
+ * Function Description: Release handler for cgroup files. It calls the cftype's release callback and frees the file context. Called when the file is closed.
+ */
 static void cgroup_file_release(struct kernfs_open_file *of)
 {
 	struct cftype *cft = of_cft(of);
@@ -4315,6 +4793,9 @@ static void cgroup_file_release(struct kernfs_open_file *of)
 	of->priv = NULL;
 }
 
+/**
+ * Function Description: Write handler for cgroup files. It handles namespace delegation checks and calls the appropriate write callback. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_file_write(struct kernfs_open_file *of, char *buf,
 				 size_t nbytes, loff_t off)
 {
@@ -4368,6 +4849,9 @@ static ssize_t cgroup_file_write(struct kernfs_open_file *of, char *buf,
 	return ret ?: nbytes;
 }
 
+/**
+ * Function Description: Poll handler for cgroup files. It calls the cftype's poll callback or uses generic kernfs poll. Returns the poll events.
+ */
 static __poll_t cgroup_file_poll(struct kernfs_open_file *of, poll_table *pt)
 {
 	struct cftype *cft = of_cft(of);
@@ -4378,22 +4862,34 @@ static __poll_t cgroup_file_poll(struct kernfs_open_file *of, poll_table *pt)
 	return kernfs_generic_poll(of, pt);
 }
 
+/**
+ * Function Description: Start handler for seq_file iteration. It calls the cftype's seq_start callback. Returns the starting position.
+ */
 static void *cgroup_seqfile_start(struct seq_file *seq, loff_t *ppos)
 {
 	return seq_cft(seq)->seq_start(seq, ppos);
 }
 
+/**
+ * Function Description: Next handler for seq_file iteration. It calls the cftype's seq_next callback. Returns the next position.
+ */
 static void *cgroup_seqfile_next(struct seq_file *seq, void *v, loff_t *ppos)
 {
 	return seq_cft(seq)->seq_next(seq, v, ppos);
 }
 
+/**
+ * Function Description: Stop handler for seq_file iteration. It calls the cftype's seq_stop callback. Called when iteration is complete.
+ */
 static void cgroup_seqfile_stop(struct seq_file *seq, void *v)
 {
 	if (seq_cft(seq)->seq_stop)
 		seq_cft(seq)->seq_stop(seq, v);
 }
 
+/**
+ * Function Description: Show handler for seq_file iteration. It calls the cftype's seq_show, read_u64, or read_s64 callback. Returns 0 on success or a negative error code.
+ */
 static int cgroup_seqfile_show(struct seq_file *m, void *arg)
 {
 	struct cftype *cft = seq_cft(m);
@@ -4411,6 +4907,9 @@ static int cgroup_seqfile_show(struct seq_file *m, void *arg)
 	return 0;
 }
 
+/**
+ * Variable Description: This structure defines the kernfs operations for simple cgroup files that do not require seq_file iteration. It sets the atomic write length to PAGE_SIZE, and provides handlers for opening (cgroup_file_open), releasing (cgroup_file_release), writing (cgroup_file_write), polling (cgroup_file_poll), and seq_file show (cgroup_seqfile_show). This is used for files that read or write a single value (like notify_on_release or cgroup.clone_children).
+ */
 static struct kernfs_ops cgroup_kf_single_ops = {
 	.atomic_write_len	= PAGE_SIZE,
 	.open			= cgroup_file_open,
@@ -4420,6 +4919,9 @@ static struct kernfs_ops cgroup_kf_single_ops = {
 	.seq_show		= cgroup_seqfile_show,
 };
 
+/**
+ * Variable Description: This structure defines the kernfs operations for cgroup files that require seq_file iteration (like cgroup.procs and tasks). It sets the atomic write length to PAGE_SIZE, and provides handlers for opening (cgroup_file_open), releasing (cgroup_file_release), writing (cgroup_file_write), polling (cgroup_file_poll), and seq_file operations for iteration (seq_start, seq_next, seq_stop, and seq_show). This is used for files that need to display lists of data (like process IDs) in a streaming fashion.
+ */
 static struct kernfs_ops cgroup_kf_ops = {
 	.atomic_write_len	= PAGE_SIZE,
 	.open			= cgroup_file_open,
@@ -4432,12 +4934,18 @@ static struct kernfs_ops cgroup_kf_ops = {
 	.seq_show		= cgroup_seqfile_show,
 };
 
+/**
+ * Function Description: Timer callback for cgroup file notifications. It calls cgroup_file_notify() when the timer fires. Used for rate-limited notifications.
+ */
 static void cgroup_file_notify_timer(struct timer_list *timer)
 {
 	cgroup_file_notify(container_of(timer, struct cgroup_file,
 					notify_timer));
 }
 
+/**
+ * Function Description: Adds a single file to a cgroup directory. It creates the kernfs node and sets up the file handle. Returns 0 on success or a negative error code.
+ */
 static int cgroup_add_file(struct cgroup_subsys_state *css, struct cgroup *cgrp,
 			   struct cftype *cft)
 {
@@ -4478,6 +4986,9 @@ static int cgroup_add_file(struct cgroup_subsys_state *css, struct cgroup *cgrp,
  *
  * Depending on @is_add, add or remove files defined by @cfts on @cgrp.
  * For removals, this function never fails.
+ * 
+ * 
+ * Function Description: Adds or removes files from a cgroup directory. It iterates through cftypes and adds or removes each file. Returns 0 on success or a negative error code.
  */
 static int cgroup_addrm_files(struct cgroup_subsys_state *css,
 			      struct cgroup *cgrp, struct cftype cfts[],
@@ -4517,6 +5028,9 @@ restart:
 	return ret;
 }
 
+/**
+ * Function Description: Applies cftypes to all existing cgroups of a subsystem. It adds or removes files for all csses. Returns 0 on success or a negative error code.
+ */
 static int cgroup_apply_cftypes(struct cftype *cfts, bool is_add)
 {
 	struct cgroup_subsys *ss = cfts[0].ss;
@@ -4543,6 +5057,9 @@ static int cgroup_apply_cftypes(struct cftype *cfts, bool is_add)
 	return ret;
 }
 
+/**
+ * Function Description: Cleans up cftypes after removal. It frees custom kf_ops and clears flags. Called when cftypes are unregistered.
+ */
 static void cgroup_exit_cftypes(struct cftype *cfts)
 {
 	struct cftype *cft;
@@ -4560,6 +5077,9 @@ static void cgroup_exit_cftypes(struct cftype *cfts)
 	}
 }
 
+/**
+ * Function Description: Initializes cftypes for a subsystem. It sets up kernfs_ops and flags for each cftype. Returns 0 on success or a negative error code.
+ */
 static int cgroup_init_cftypes(struct cgroup_subsys *ss, struct cftype *cfts)
 {
 	struct cftype *cft;
@@ -4603,6 +5123,9 @@ static int cgroup_init_cftypes(struct cgroup_subsys *ss, struct cftype *cfts)
 	return ret;
 }
 
+/**
+ * Function Description: Removes cftypes from a subsystem while holding cgroup_mutex. It removes files and cleans up. Called by cgroup_rm_cftypes().
+ */
 static void cgroup_rm_cftypes_locked(struct cftype *cfts)
 {
 	lockdep_assert_held(&cgroup_mutex);
@@ -4622,6 +5145,9 @@ static void cgroup_rm_cftypes_locked(struct cftype *cfts)
  *
  * Returns 0 on successful unregistration, -ENOENT if @cfts is not
  * registered.
+ * 
+ * 
+ * Function Description: Removes an array of cftypes from a subsystem. It removes all files described by the cftypes. Returns 0 on success or -ENOENT if not registered.
  */
 int cgroup_rm_cftypes(struct cftype *cfts)
 {
@@ -4650,6 +5176,9 @@ int cgroup_rm_cftypes(struct cftype *cfts)
  * Returns 0 on successful registration, -errno on failure.  Note that this
  * function currently returns 0 as long as @cfts registration is successful
  * even if some file creation attempts on existing cgroups fail.
+ * 
+ * 
+ * Function Description: Adds an array of cftypes to a subsystem. It creates files for all existing cgroups. Returns 0 on success or a negative error code.
  */
 int cgroup_add_cftypes(struct cgroup_subsys *ss, struct cftype *cfts)
 {
@@ -4683,6 +5212,9 @@ int cgroup_add_cftypes(struct cgroup_subsys *ss, struct cftype *cfts)
  *
  * Similar to cgroup_add_cftypes() but the added files are only used for
  * the default hierarchy.
+ * 
+ * 
+ * Function Description: Adds cftypes that are only used on the default hierarchy. It sets __CFTYPE_ONLY_ON_DFL flag and calls cgroup_add_cftypes(). Returns 0 on success or a negative error code.
  */
 int cgroup_add_dfl_cftypes(struct cgroup_subsys *ss, struct cftype *cfts)
 {
@@ -4700,6 +5232,9 @@ int cgroup_add_dfl_cftypes(struct cgroup_subsys *ss, struct cftype *cfts)
  *
  * Similar to cgroup_add_cftypes() but the added files are only used for
  * the legacy hierarchies.
+ * 
+ * 
+ * Function Description: Adds cftypes that are only used on legacy hierarchies. It sets __CFTYPE_NOT_ON_DFL flag and calls cgroup_add_cftypes(). Returns 0 on success or a negative error code.
  */
 int cgroup_add_legacy_cftypes(struct cgroup_subsys *ss, struct cftype *cfts)
 {
@@ -4715,6 +5250,9 @@ int cgroup_add_legacy_cftypes(struct cgroup_subsys *ss, struct cftype *cfts)
  * @cfile: target cgroup_file
  *
  * @cfile must have been obtained by setting cftype->file_offset.
+ * 
+ * 
+ * Function Description: Generates a file modified event for a cgroup file. It uses rate limiting to avoid excessive notifications. Used to notify userland of cgroup state changes.
  */
 void cgroup_file_notify(struct cgroup_file *cfile)
 {
@@ -4740,6 +5278,9 @@ EXPORT_SYMBOL_GPL(cgroup_file_notify);
  * cgroup_file_show - show or hide a hidden cgroup file
  * @cfile: target cgroup_file obtained by setting cftype->file_offset
  * @show: whether to show or hide
+ * 
+ * 
+ * Function Description: Shows or hides a cgroup file. It calls kernfs_show() on the file's kernfs node. Used to control file visibility.
  */
 void cgroup_file_show(struct cgroup_file *cfile, bool show)
 {
@@ -4772,6 +5313,9 @@ void cgroup_file_show(struct cgroup_file *cfile, bool show)
  * A css which hasn't finished ->css_online() or already finished
  * ->css_offline() may show up during traversal.  It's each subsystem's
  * responsibility to synchronize against on/offlining.
+ * 
+ * 
+ * Function Description: Returns the next child css of a parent. This is the RCU-safe version of walking css children. Used for iteration over css children.
  */
 struct cgroup_subsys_state *css_next_child(struct cgroup_subsys_state *pos,
 					   struct cgroup_subsys_state *parent)
@@ -4841,6 +5385,9 @@ struct cgroup_subsys_state *css_next_child(struct cgroup_subsys_state *pos,
  * A css which hasn't finished ->css_online() or already finished
  * ->css_offline() may show up during traversal.  It's each subsystem's
  * responsibility to synchronize against on/offlining.
+ * 
+ * 
+ * Function Description: Returns the next descendant for pre-order traversal. It visits the root first, then children recursively. Used for pre-order iteration over css descendants.
  */
 struct cgroup_subsys_state *
 css_next_descendant_pre(struct cgroup_subsys_state *pos,
@@ -4884,6 +5431,9 @@ EXPORT_SYMBOL_GPL(css_next_descendant_pre);
  * section. Additionally, it isn't necessary to hold onto a reference to @pos.
  * This function will return the correct rightmost descendant as long as @pos
  * is accessible.
+ * 
+ * 
+ * Function Description: Returns the rightmost descendant of a css. It walks down the children list to find the last descendant. Used for post-order traversal optimization.
  */
 struct cgroup_subsys_state *
 css_rightmost_descendant(struct cgroup_subsys_state *pos)
@@ -4903,6 +5453,9 @@ css_rightmost_descendant(struct cgroup_subsys_state *pos)
 	return last;
 }
 
+/**
+ * Function Description: Returns the leftmost descendant of a css. It walks down the first child repeatedly. Used for post-order traversal.
+ */
 static struct cgroup_subsys_state *
 css_leftmost_descendant(struct cgroup_subsys_state *pos)
 {
@@ -4937,6 +5490,9 @@ css_leftmost_descendant(struct cgroup_subsys_state *pos)
  * A css which hasn't finished ->css_online() or already finished
  * ->css_offline() may show up during traversal.  It's each subsystem's
  * responsibility to synchronize against on/offlining.
+ * 
+ * 
+ * Function Description: Returns the next descendant for post-order traversal. It visits children before parents. Used for post-order iteration over css descendants.
  */
 struct cgroup_subsys_state *
 css_next_descendant_post(struct cgroup_subsys_state *pos,
@@ -4970,6 +5526,9 @@ css_next_descendant_post(struct cgroup_subsys_state *pos,
  * Returns %true if @css has any online children; otherwise, %false.  This
  * function can be called from any context but the caller is responsible
  * for synchronizing against on/offlining as necessary.
+ * 
+ * 
+ * Function Description: Checks if a css has any online children. It walks the children list and checks the CSS_ONLINE flag. Returns true if any online child exists.
  */
 bool css_has_online_children(struct cgroup_subsys_state *css)
 {
@@ -4987,6 +5546,9 @@ bool css_has_online_children(struct cgroup_subsys_state *css)
 	return ret;
 }
 
+/**
+ * Function Description: Internal function for css_task_iter that advances to the next css_set. It handles threaded csets and walks the e_cset_node or cset_links list. Returns the next css_set or NULL.
+ */
 static struct css_set *css_task_iter_next_css_set(struct css_task_iter *it)
 {
 	struct list_head *l;
@@ -5044,6 +5606,9 @@ static struct css_set *css_task_iter_next_css_set(struct css_task_iter *it)
  * @it: the iterator to advance
  *
  * Advance @it to the next css_set to walk.
+ * 
+ * 
+ * Function Description: Advances a css_task_iter to the next non-empty css_set. It finds the next css_set and positions at the first task list. Called when the current css_set is exhausted.
  */
 static void css_task_iter_advance_css_set(struct css_task_iter *it)
 {
@@ -5094,6 +5659,9 @@ static void css_task_iter_advance_css_set(struct css_task_iter *it)
 	list_add(&it->iters_node, &cset->task_iters);
 }
 
+/**
+ * Function Description: Skips a task in a css_task_iter. It advances the iterator past the specified task. Called when a task is being moved or exited.
+ */
 static void css_task_iter_skip(struct css_task_iter *it,
 			       struct task_struct *task)
 {
@@ -5105,6 +5673,9 @@ static void css_task_iter_skip(struct css_task_iter *it,
 	}
 }
 
+/**
+ * Function Description: Advances a css_task_iter to the next task. It handles tasks, mg_tasks, and dying_tasks lists. Called repeatedly to iterate through tasks.
+ */
 static void css_task_iter_advance(struct css_task_iter *it)
 {
 	struct task_struct *task;
@@ -5174,6 +5745,9 @@ repeat:
  * css_task_iter_next() to walk through the tasks until the function
  * returns NULL.  On completion of iteration, css_task_iter_end() must be
  * called.
+ * 
+ * 
+ * Function Description: Starts a task iteration for a css. It initializes the iterator and positions it at the first task. Must be paired with css_task_iter_end().
  */
 void css_task_iter_start(struct cgroup_subsys_state *css, unsigned int flags,
 			 struct css_task_iter *it)
@@ -5206,6 +5780,9 @@ void css_task_iter_start(struct cgroup_subsys_state *css, unsigned int flags,
  * The "next" function for task iteration.  @it should have been
  * initialized via css_task_iter_start().  Returns NULL when the iteration
  * reaches the end.
+ * 
+ * 
+ * Function Description: Returns the next task in a css_task_iter. It advances the iterator and returns the current task with a reference taken. Returns NULL when iteration is complete.
  */
 struct task_struct *css_task_iter_next(struct css_task_iter *it)
 {
@@ -5239,6 +5816,9 @@ struct task_struct *css_task_iter_next(struct css_task_iter *it)
  * @it: the task iterator to finish
  *
  * Finish task iteration started by css_task_iter_start().
+ * 
+ * 
+ * Function Description: Ends a task iteration and cleans up resources. It releases references to the current css_set and task. Must be called after iteration is complete.
  */
 void css_task_iter_end(struct css_task_iter *it)
 {
@@ -5258,6 +5838,9 @@ void css_task_iter_end(struct css_task_iter *it)
 		put_task_struct(it->cur_task);
 }
 
+/**
+ * Function Description: Release handler for cgroup.procs file. It ends the task iteration if it was started. Called when the file is closed.
+ */
 static void cgroup_procs_release(struct kernfs_open_file *of)
 {
 	struct cgroup_file_ctx *ctx = of->priv;
@@ -5266,6 +5849,9 @@ static void cgroup_procs_release(struct kernfs_open_file *of)
 		css_task_iter_end(&ctx->procs.iter);
 }
 
+/**
+ * Function Description: Next handler for cgroup.procs seq_file iteration. It advances to the next task and updates the position. Returns the next task or NULL.
+ */
 static void *cgroup_procs_next(struct seq_file *s, void *v, loff_t *pos)
 {
 	struct kernfs_open_file *of = s->private;
@@ -5277,6 +5863,9 @@ static void *cgroup_procs_next(struct seq_file *s, void *v, loff_t *pos)
 	return css_task_iter_next(&ctx->procs.iter);
 }
 
+/**
+ * Function Description: Internal start handler for cgroup.procs and cgroup.threads. It starts or restarts task iteration based on the position. Returns the first task or an error.
+ */
 static void *__cgroup_procs_start(struct seq_file *s, loff_t *pos,
 				  unsigned int iter_flags)
 {
@@ -5303,6 +5892,9 @@ static void *__cgroup_procs_start(struct seq_file *s, loff_t *pos,
 	return cgroup_procs_next(s, NULL, NULL);
 }
 
+/**
+ * Function Description: Start handler for cgroup.procs file. It checks that the cgroup is not threaded and calls __cgroup_procs_start(). Returns the first task or an error.
+ */
 static void *cgroup_procs_start(struct seq_file *s, loff_t *pos)
 {
 	struct cgroup *cgrp = seq_css(s)->cgroup;
@@ -5320,12 +5912,18 @@ static void *cgroup_procs_start(struct seq_file *s, loff_t *pos)
 					    CSS_TASK_ITER_THREADED);
 }
 
+/**
+ * Function Description: Show handler for cgroup.procs and cgroup.threads. It prints the PID of the current task. Called for each task in the iteration.
+ */
 static int cgroup_procs_show(struct seq_file *s, void *v)
 {
 	seq_printf(s, "%d\n", task_pid_vnr(v));
 	return 0;
 }
 
+/**
+ * Function Description: Checks if a cgroup file is writable by the current user. It gets the inode and calls inode_permission(). Used for permission checks.
+ */
 static int cgroup_may_write(const struct cgroup *cgrp, struct super_block *sb)
 {
 	int ret;
@@ -5342,6 +5940,9 @@ static int cgroup_may_write(const struct cgroup *cgrp, struct super_block *sb)
 	return ret;
 }
 
+/**
+ * Function Description: Checks permissions for writing to cgroup.procs. It finds the common ancestor and verifies write permission. Used for process migration permissions.
+ */
 static int cgroup_procs_write_permission(struct cgroup *src_cgrp,
 					 struct cgroup *dst_cgrp,
 					 struct super_block *sb,
@@ -5373,6 +5974,9 @@ static int cgroup_procs_write_permission(struct cgroup *src_cgrp,
 	return 0;
 }
 
+/**
+ * Function Description: Checks all permissions for attaching a task to a cgroup. It verifies write permission, migration vetting, and domain compatibility. Returns 0 if permitted or a negative error code.
+ */
 static int cgroup_attach_permissions(struct cgroup *src_cgrp,
 				     struct cgroup *dst_cgrp,
 				     struct super_block *sb, bool threadgroup,
@@ -5394,6 +5998,9 @@ static int cgroup_attach_permissions(struct cgroup *src_cgrp,
 	return ret;
 }
 
+/**
+ * Function Description: Internal write handler for cgroup.procs and cgroup.threads. It parses the input, checks permissions, and performs the migration. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t __cgroup_procs_write(struct kernfs_open_file *of, char *buf,
 				    bool threadgroup)
 {
@@ -5439,24 +6046,37 @@ out_unlock:
 	return ret;
 }
 
+/**
+ * Function Description: Write handler for cgroup.procs file. It calls __cgroup_procs_write() with threadgroup=true to move whole thread groups. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_procs_write(struct kernfs_open_file *of,
 				  char *buf, size_t nbytes, loff_t off)
 {
 	return __cgroup_procs_write(of, buf, true) ?: nbytes;
 }
 
+/**
+ * Function Description: Start handler for cgroup.threads file. It calls __cgroup_procs_start() without process filtering. Returns the first task or an error.
+ */
 static void *cgroup_threads_start(struct seq_file *s, loff_t *pos)
 {
 	return __cgroup_procs_start(s, pos, 0);
 }
 
+/**
+ * Function Description: Write handler for cgroup.threads file. It calls __cgroup_procs_write() with threadgroup=false to move individual threads. Returns the number of bytes written or a negative error code.
+ */
 static ssize_t cgroup_threads_write(struct kernfs_open_file *of,
 				    char *buf, size_t nbytes, loff_t off)
 {
 	return __cgroup_procs_write(of, buf, false) ?: nbytes;
 }
 
-/* cgroup core interface files for the default hierarchy */
+/** cgroup core interface files for the default hierarchy 
+ * 
+ * 
+ * Variable Description: This is an array of cftype structures defining the core interface files for the cgroup v2 (default) hierarchy. Each entry represents a file that appears in cgroup directories, with handlers for reading and writing. The files include cgroup.type (control threaded mode), cgroup.procs (list and move processes), cgroup.threads (list and move threads), cgroup.controllers (show available controllers), cgroup.subtree_control (enable/disable controllers for children), cgroup.events (populated and frozen status), cgroup.max.descendants (limit descendant count), cgroup.max.depth (limit hierarchy depth), cgroup.stat (statistics), cgroup.stat.local (local statistics), cgroup.freeze (freeze/unfreeze cgroup), cgroup.kill (kill all processes in cgroup), cpu.stat (CPU statistics), and cpu.stat.local (local CPU statistics). The array is terminated by an empty entry.
+*/
 static struct cftype cgroup_base_files[] = {
 	{
 		.name = "cgroup.type",
@@ -5540,6 +6160,9 @@ static struct cftype cgroup_base_files[] = {
 	{ }	/* terminate */
 };
 
+/**
+ * Variable Description: This is an array of cftype structures defining the PSI (Pressure Stall Information) files for cgroups. These files are conditionally present when CONFIG_PSI is enabled. The files include io.pressure (I/O pressure), memory.pressure (memory pressure), cpu.pressure (CPU pressure), irq.pressure (IRQ pressure, when CONFIG_IRQ_TIME_ACCOUNTING is enabled), and cgroup.pressure (control PSI enable/disable). Each pressure file supports reading pressure statistics, writing to create triggers, polling for events, and release cleanup. The cgroup.pressure file controls whether PSI is enabled for the cgroup. The array is terminated by an empty entry.
+ */
 static struct cftype cgroup_psi_files[] = {
 #ifdef CONFIG_PSI
 	{
@@ -5585,7 +6208,7 @@ static struct cftype cgroup_psi_files[] = {
 	{ }	/* terminate */
 };
 
-/*
+/**
  * css destruction is four-stage process.
  *
  * 1. Destruction starts.  Killing of the percpu_ref is initiated.
@@ -5606,6 +6229,9 @@ static struct cftype cgroup_psi_files[] = {
  * It is actually hairier because both step 2 and 4 require process context
  * and thus involve punting to css->destroy_work adding two additional
  * steps to the already complex sequence.
+ * 
+ * 
+ * Function Description: RCU work function for freeing a css. It frees the css and its associated resources. Called after the RCU grace period.
  */
 static void css_free_rwork_fn(struct work_struct *work)
 {
@@ -5658,6 +6284,9 @@ static void css_free_rwork_fn(struct work_struct *work)
 	}
 }
 
+/**
+ * Function Description: Work function for css release. It marks the css as released, removes it from lists, and schedules the RCU work. Called when the percpu_ref reaches zero.
+ */
 static void css_release_work_fn(struct work_struct *work)
 {
 	struct cgroup_subsys_state *css =
@@ -5725,6 +6354,9 @@ static void css_release_work_fn(struct work_struct *work)
 	queue_rcu_work(cgroup_free_wq, &css->destroy_rwork);
 }
 
+/**
+ * Function Description: Callback when a css's percpu_ref reaches zero. It schedules the release work. Called by percpu_ref when the last reference is dropped.
+ */
 static void css_release(struct percpu_ref *ref)
 {
 	struct cgroup_subsys_state *css =
@@ -5734,6 +6366,9 @@ static void css_release(struct percpu_ref *ref)
 	queue_work(cgroup_release_wq, &css->destroy_work);
 }
 
+/**
+ * Function Description: Initializes a new css and links it to its parent. It sets up all fields and takes references. Called during css creation.
+ */
 static void init_and_link_css(struct cgroup_subsys_state *css,
 			      struct cgroup_subsys *ss, struct cgroup *cgrp)
 {
@@ -5758,7 +6393,12 @@ static void init_and_link_css(struct cgroup_subsys_state *css,
 	BUG_ON(cgroup_css(cgrp, ss));
 }
 
-/* invoke ->css_online() on a new CSS and mark it online if successful */
+/**
+ * invoke ->css_online() on a new CSS and mark it online if successful 
+ * 
+ * 
+ * Function Description: Brings a css online. It calls the subsystem's css_online callback and sets CSS_ONLINE flag. Returns 0 on success or a negative error code.
+ */
 static int online_css(struct cgroup_subsys_state *css)
 {
 	struct cgroup_subsys *ss = css->ss;
@@ -5782,7 +6422,12 @@ static int online_css(struct cgroup_subsys_state *css)
 	return ret;
 }
 
-/* if the CSS is online, invoke ->css_offline() on it and mark it offline */
+/** 
+ * if the CSS is online, invoke ->css_offline() on it and mark it offline 
+ * 
+ * 
+ * Function Description: Brings a css offline. It calls the subsystem's css_offline callback and clears CSS_ONLINE flag. Called during css destruction.
+ */
 static void offline_css(struct cgroup_subsys_state *css)
 {
 	struct cgroup_subsys *ss = css->ss;
@@ -5809,6 +6454,9 @@ static void offline_css(struct cgroup_subsys_state *css)
  * Create a new css associated with @cgrp - @ss pair.  On success, the new
  * css is online and installed in @cgrp.  This function doesn't create the
  * interface files.  Returns 0 on success, -errno on failure.
+ * 
+ * 
+ * Function Description: Creates a new css for a cgroup and subsystem. It allocates the css, initializes it, and brings it online. Returns the css or an error pointer.
  */
 static struct cgroup_subsys_state *css_create(struct cgroup *cgrp,
 					      struct cgroup_subsys *ss)
@@ -5859,9 +6507,12 @@ err_free_css:
 	return ERR_PTR(err);
 }
 
-/*
+/**
  * The returned cgroup is fully initialized including its control mask, but
  * it doesn't have the control mask applied.
+ * 
+ * 
+ * Function Description: Creates a new cgroup. It allocates the cgroup, creates the directory, and initializes all fields. Returns the cgroup or an error pointer.
  */
 static struct cgroup *cgroup_create(struct cgroup *parent, const char *name,
 				    umode_t mode)
@@ -5989,6 +6640,9 @@ out_free_cgrp:
 	return ERR_PTR(ret);
 }
 
+/**
+ * Function Description: Checks if a cgroup creation would exceed hierarchy limits. It verifies max_descendants and max_depth constraints. Returns true if limits are satisfied.
+ */
 static bool cgroup_check_hierarchy_limits(struct cgroup *parent)
 {
 	struct cgroup *cgroup;
@@ -6012,6 +6666,9 @@ fail:
 	return ret;
 }
 
+/**
+ * Function Description: Handler for cgroup directory creation. It creates a new cgroup and populates its files. Returns 0 on success or a negative error code.
+ */
 int cgroup_mkdir(struct kernfs_node *parent_kn, const char *name, umode_t mode)
 {
 	struct cgroup *parent, *cgrp;
@@ -6065,10 +6722,13 @@ out_unlock:
 	return ret;
 }
 
-/*
+/**
  * This is called when the refcnt of a css is confirmed to be killed.
  * css_tryget_online() is now guaranteed to fail.  Tell the subsystem to
  * initiate destruction and put the css ref from kill_css_finish().
+ * 
+ * 
+ * Function Description: Work function for css kill confirmation. It offlines the css and puts the reference. Called after percpu_ref is confirmed killed.
  */
 static void css_killed_work_fn(struct work_struct *work)
 {
@@ -6087,7 +6747,11 @@ static void css_killed_work_fn(struct work_struct *work)
 	cgroup_unlock();
 }
 
-/* css kill confirmation processing requires process context, bounce */
+/** css kill confirmation processing requires process context, bounce 
+ * 
+ * 
+ * Function Description: Callback when a css's percpu_ref is killed. It decrements online_cnt and schedules the killed work. Called by percpu_ref when kill is confirmed.
+*/
 static void css_killed_ref_fn(struct percpu_ref *ref)
 {
 	struct cgroup_subsys_state *css =
@@ -6104,6 +6768,9 @@ static void css_killed_ref_fn(struct percpu_ref *ref)
  * @css: css being killed
  *
  * See cgroup_destroy_locked().
+ * 
+ * 
+ * Function Description: Synchronous part of css teardown. It clears the directory and marks CSS_DYING. Called during cgroup destruction.
  */
 static void kill_css_sync(struct cgroup_subsys_state *css)
 {
@@ -6144,6 +6811,9 @@ static void kill_css_sync(struct cgroup_subsys_state *css)
  * @css: css being killed
  *
  * See cgroup_destroy_locked().
+ * 
+ * 
+ * Function Description: Asynchronous part of css teardown. It starts the percpu_ref kill process. Called when the cgroup subtree is empty.
  */
 static void kill_css_finish(struct cgroup_subsys_state *css)
 {
@@ -6206,6 +6876,9 @@ static void kill_css_finish(struct cgroup_subsys_state *css)
  *
  * Return 0 on success, -EBUSY if a userspace-visible task or an online child
  * remains.
+ * 
+ * 
+ * Function Description: Destroys a cgroup while holding cgroup_mutex. It verifies the cgroup is empty, marks it dead, and starts css destruction. Returns 0 on success or -EBUSY.
  */
 static int cgroup_destroy_locked(struct cgroup *cgrp)
 {
@@ -6288,6 +6961,9 @@ static int cgroup_destroy_locked(struct cgroup *cgrp)
  * @cgrp: cgroup whose subtree just became empty
  *
  * See cgroup_destroy_locked() for the rationale.
+ * 
+ * 
+ * Function Description: Finishes cgroup destruction. It starts killing all csses. Called when the cgroup subtree becomes empty.
  */
 static void cgroup_finish_destroy(struct cgroup *cgrp)
 {
@@ -6300,6 +6976,9 @@ static void cgroup_finish_destroy(struct cgroup *cgrp)
 		kill_css_finish(css);
 }
 
+/**
+ * Function Description: Handler for cgroup directory removal. It destroys the cgroup and removes the directory. Returns 0 on success.
+ */
 int cgroup_rmdir(struct kernfs_node *kn)
 {
 	struct cgroup *cgrp;
@@ -6317,6 +6996,9 @@ int cgroup_rmdir(struct kernfs_node *kn)
 	return ret;
 }
 
+/**
+ * Variable Description: This structure defines the kernfs syscall operations for the cgroup v2 (default) hierarchy. It contains function pointers for showing mount options (cgroup_show_options), creating directories (cgroup_mkdir), removing directories (cgroup_rmdir), and showing the filesystem path (cgroup_show_path). These operations are used by the VFS layer when interacting with cgroup2 filesystem directories, handling operations like directory creation (mkdir), deletion (rmdir), and path resolution. 
+ */
 static struct kernfs_syscall_ops cgroup_kf_syscall_ops = {
 	.show_options		= cgroup_show_options,
 	.mkdir			= cgroup_mkdir,
@@ -6324,6 +7006,9 @@ static struct kernfs_syscall_ops cgroup_kf_syscall_ops = {
 	.show_path		= cgroup_show_path,
 };
 
+/**
+ * Function Description: Initializes a cgroup subsystem. It creates the root css and sets up the subsystem's data structures. Called during subsystem registration.
+ */
 static void __init cgroup_init_subsys(struct cgroup_subsys *ss, bool early)
 {
 	struct cgroup_subsys_state *css;
@@ -6385,6 +7070,9 @@ static void __init cgroup_init_subsys(struct cgroup_subsys *ss, bool early)
  *
  * Initialize cgroups at system boot, and initialize any
  * subsystems that request early init.
+ * 
+ * 
+ * Function Description: Early cgroup initialization at system boot. It initializes the default hierarchy and early subsystems. Called before workqueues are available.
  */
 int __init cgroup_init_early(void)
 {
@@ -6424,6 +7112,9 @@ int __init cgroup_init_early(void)
  *
  * Register cgroup filesystem and /proc file, and initialize
  * any subsystems that didn't request early init.
+ * 
+ * 
+ * Function Description: Main cgroup initialization. It registers filesystems, initializes subsystems, and sets up /proc files. Called during kernel initialization.
  */
 int __init cgroup_init(void)
 {
@@ -6527,6 +7218,9 @@ int __init cgroup_init(void)
 	return 0;
 }
 
+/**
+ * Function Description: Initializes cgroup workqueues. It creates separate workqueues for offline, release, and free operations. Called during core init.
+ */
 static int __init cgroup_wq_init(void)
 {
 	/*
@@ -6549,6 +7243,9 @@ static int __init cgroup_wq_init(void)
 }
 core_initcall(cgroup_wq_init);
 
+/**
+ * Function Description: Returns the cgroup path from a kernfs ID. It finds the kernfs node and prints its path. Used for debugging and tracing.
+ */
 void cgroup_path_from_kernfs_id(u64 id, char *buf, size_t buflen)
 {
 	struct kernfs_node *kn;
@@ -6560,11 +7257,14 @@ void cgroup_path_from_kernfs_id(u64 id, char *buf, size_t buflen)
 	kernfs_put(kn);
 }
 
-/*
+/**
  * __cgroup_get_from_id : get the cgroup associated with cgroup id
  * @id: cgroup id
  * On success return the cgrp or ERR_PTR on failure
  * There are no cgroup NS restrictions.
+ * 
+ * 
+ * Function Description: Gets a cgroup from its ID without namespace restrictions. It finds the kernfs node and returns the cgroup. Used internally.
  */
 struct cgroup *__cgroup_get_from_id(u64 id)
 {
@@ -6594,11 +7294,14 @@ struct cgroup *__cgroup_get_from_id(u64 id)
 	return cgrp;
 }
 
-/*
+/**
  * cgroup_get_from_id : get the cgroup associated with cgroup id
  * @id: cgroup id
  * On success return the cgrp or ERR_PTR on failure
  * Only cgroups within current task's cgroup NS are valid.
+ * 
+ * 
+ * Function Description: Gets a cgroup from its ID within the current namespace. It checks that the cgroup is visible in the current cgroup namespace. Returns the cgroup or an error.
  */
 struct cgroup *cgroup_get_from_id(u64 id)
 {
@@ -6618,10 +7321,13 @@ struct cgroup *cgroup_get_from_id(u64 id)
 }
 EXPORT_SYMBOL_GPL(cgroup_get_from_id);
 
-/*
+/**
  * proc_cgroup_show()
  *  - Print task's cgroup paths into seq_file, one line for each hierarchy
  *  - Used for /proc/<pid>/cgroup.
+ * 
+ * 
+ * Function Description: Shows cgroup information for /proc/<pid>/cgroup. It prints the cgroup path for each hierarchy. Used to display a task's cgroup membership.
  */
 int proc_cgroup_show(struct seq_file *m, struct pid_namespace *ns,
 		     struct pid *pid, struct task_struct *tsk)
@@ -6704,6 +7410,9 @@ out:
  *
  * A task is associated with the init_css_set until cgroup_post_fork()
  * attaches it to the target css_set.
+ * 
+ * 
+ * Function Description: Initializes cgroup fields during copy_process(). It sets the task's cgroups pointer to init_css_set. Called at the beginning of fork.
  */
 void cgroup_fork(struct task_struct *child)
 {
@@ -6718,6 +7427,9 @@ void cgroup_fork(struct task_struct *child)
  * Find the cgroup from a file pointer associated with a cgroup directory.
  * Returns a pointer to the cgroup on success. ERR_PTR is returned if the
  * cgroup cannot be found.
+ * 
+ * 
+ * Function Description: Gets a cgroup from a file pointer. It uses css_tryget_online_from_dir() to get the css. Returns the cgroup or an error.
  */
 static struct cgroup *cgroup_v1v2_get_from_file(struct file *f)
 {
@@ -6734,6 +7446,9 @@ static struct cgroup *cgroup_v1v2_get_from_file(struct file *f)
  * cgroup_get_from_file - same as cgroup_v1v2_get_from_file, but only supports
  * cgroup2.
  * @f: file corresponding to cgroup2_dir
+ * 
+ * 
+ * Function Description: Gets a cgroup from a file pointer, only supporting cgroup2. It calls cgroup_v1v2_get_from_file() and verifies the cgroup is on the default hierarchy. Returns the cgroup or an error.
  */
 static struct cgroup *cgroup_get_from_file(struct file *f)
 {
@@ -6765,6 +7480,9 @@ static struct cgroup *cgroup_get_from_file(struct file *f)
  * CLONE_INTO_CGROUP is requested this function will grab cgroup mutex
  * before grabbing cgroup_threadgroup_rwsem and will hold a reference
  * to the target cgroup.
+ * 
+ * 
+ * Function Description: Finds or creates a css_set for a child process. It handles CLONE_INTO_CGROUP by finding the css_set for the target cgroup. Returns 0 on success or a negative error code.
  */
 static int cgroup_css_set_fork(struct kernel_clone_args *kargs)
 	__acquires(&cgroup_mutex) __acquires(&cgroup_threadgroup_rwsem)
@@ -6868,6 +7586,9 @@ err:
  *
  * Drop references to the prepared css_set and target cgroup if
  * CLONE_INTO_CGROUP was requested.
+ * 
+ * 
+ * Function Description: Drops references taken during fork. It releases the css_set and target cgroup. Called on fork failure or after post_fork.
  */
 static void cgroup_css_set_put_fork(struct kernel_clone_args *kargs)
 	__releases(&cgroup_threadgroup_rwsem) __releases(&cgroup_mutex)
@@ -6901,6 +7622,9 @@ static void cgroup_css_set_put_fork(struct kernel_clone_args *kargs)
  * This calls the subsystem can_fork() callbacks. If the cgroup_can_fork()
  * callback returns an error, the fork aborts with that error code. This
  * allows for a cgroup subsystem to conditionally allow or deny new forks.
+ * 
+ * 
+ * Function Description: Called before a new process is exposed. It prepares the css_set and calls subsystem can_fork callbacks. Returns 0 on success or a negative error code.
  */
 int cgroup_can_fork(struct task_struct *child, struct kernel_clone_args *kargs)
 {
@@ -6940,6 +7664,9 @@ out_revert:
  * This calls the cancel_fork() callbacks if a fork failed *after*
  * cgroup_can_fork() succeeded and cleans up references we took to
  * prepare a new css_set for the child process in cgroup_can_fork().
+ * 
+ * 
+ * Function Description: Called if a fork fails after cgroup_can_fork(). It calls subsystem cancel_fork callbacks and cleans up. Called on fork failure.
  */
 void cgroup_cancel_fork(struct task_struct *child,
 			struct kernel_clone_args *kargs)
@@ -6961,6 +7688,9 @@ void cgroup_cancel_fork(struct task_struct *child,
  *
  * Attach the child process to its css_set calling the subsystem fork()
  * callbacks.
+ * 
+ * 
+ * Function Description: Finalizes cgroup setup after fork. It attaches the child to its css_set and calls subsystem fork callbacks. Called after the task is created.
  */
 void cgroup_post_fork(struct task_struct *child,
 		      struct kernel_clone_args *kargs)
@@ -7056,6 +7786,9 @@ void cgroup_post_fork(struct task_struct *child,
  * @tsk: pointer to task_struct of exiting process
  *
  * Description: Detach cgroup from @tsk.
+ * 
+ * 
+ * Function Description: Called when a task exits. It calls subsystem exit callbacks. Called during task cleanup.
  *
  */
 void cgroup_task_exit(struct task_struct *tsk)
@@ -7069,6 +7802,9 @@ void cgroup_task_exit(struct task_struct *tsk)
 	} while_each_subsys_mask();
 }
 
+/**
+ * Function Description: Internal function for cgroup_task_dead(). It removes the task from its css_set and updates counters. Called when a task is dead.
+ */
 static void do_cgroup_task_dead(struct task_struct *tsk)
 {
 	struct css_set *cset;
@@ -7096,7 +7832,7 @@ static void do_cgroup_task_dead(struct task_struct *tsk)
 }
 
 #ifdef CONFIG_PREEMPT_RT
-/*
+/**
  * cgroup_task_dead() is called from finish_task_switch() which doesn't allow
  * scheduling even in RT. As the task_dead path requires grabbing css_set_lock,
  * this lead to sleeping in the invalid context warning bug. css_set_lock is too
@@ -7140,12 +7876,18 @@ void cgroup_task_dead(struct task_struct *task)
 #else	/* CONFIG_PREEMPT_RT */
 static void __init cgroup_rt_init(void) {}
 
+/**
+ * Function Description: Called when a task is dead. It either does the work synchronously or bounces through irq_work on RT. Called from finish_task_switch().
+ */
 void cgroup_task_dead(struct task_struct *task)
 {
 	do_cgroup_task_dead(task);
 }
 #endif	/* CONFIG_PREEMPT_RT */
 
+/**
+ * Function Description: Called when a task is released. It calls subsystem release callbacks. Called during task cleanup.
+ */
 void cgroup_task_release(struct task_struct *task)
 {
 	struct cgroup_subsys *ss;
@@ -7156,6 +7898,9 @@ void cgroup_task_release(struct task_struct *task)
 	} while_each_subsys_mask();
 }
 
+/**
+ * Function Description: Frees cgroup-related data when a task is freed. It removes the task from lists and puts the css_set reference. Called during task free.
+ */
 void cgroup_task_free(struct task_struct *task)
 {
 	struct css_set *cset = task_css_set(task);
@@ -7170,6 +7915,9 @@ void cgroup_task_free(struct task_struct *task)
 	put_css_set(cset);
 }
 
+/**
+ * Function Description: Boot parameter handler for cgroup_disable=. It disables specified subsystems or features. Called during early boot.
+ */
 static int __init cgroup_disable(char *str)
 {
 	struct cgroup_subsys *ss;
@@ -7205,6 +7953,9 @@ __setup("cgroup_disable=", cgroup_disable);
 
 void __init __weak enable_debug_cgroup(void) { }
 
+/**
+ * Function Description: Boot parameter handler for cgroup_debug. It enables cgroup debugging. Called during early boot.
+ */
 static int __init enable_cgroup_debug(char *str)
 {
 	cgroup_debug = true;
@@ -7213,6 +7964,9 @@ static int __init enable_cgroup_debug(char *str)
 }
 __setup("cgroup_debug", enable_cgroup_debug);
 
+/**
+ * Function Description: Boot parameter handler for cgroup_favordynmods=. It sets the default favordynmods state. Called during early boot.
+ */
 static int __init cgroup_favordynmods_setup(char *str)
 {
 	return (kstrtobool(str, &have_favordynmods) == 0);
@@ -7227,6 +7981,9 @@ __setup("cgroup_favordynmods=", cgroup_favordynmods_setup);
  * If @dentry is a directory for a cgroup which has @ss enabled on it, try
  * to get the corresponding css and return it.  If such css doesn't exist
  * or can't be pinned, an ERR_PTR value is returned.
+ * 
+ * 
+ * Function Description: Gets an online css from a cgroup directory dentry. It finds the cgroup and subsystem css and tries to get a reference. Returns the css or an error.
  */
 struct cgroup_subsys_state *css_tryget_online_from_dir(struct dentry *dentry,
 						       struct cgroup_subsys *ss)
@@ -7266,6 +8023,9 @@ struct cgroup_subsys_state *css_tryget_online_from_dir(struct dentry *dentry,
  *
  * Returns the css if there's valid one with @id, otherwise returns NULL.
  * Should be called under rcu_read_lock().
+ * 
+ * 
+ * Function Description: Looks up a css by ID. It searches the subsystem's IDR for the ID. Must be called under rcu_read_lock().
  */
 struct cgroup_subsys_state *css_from_id(int id, struct cgroup_subsys *ss)
 {
@@ -7281,6 +8041,10 @@ struct cgroup_subsys_state *css_from_id(int id, struct cgroup_subsys *ss)
  * reference count and return it.  Returns pointer to the found cgroup on
  * success, ERR_PTR(-ENOENT) if @path doesn't exist or if the cgroup has already
  * been released and ERR_PTR(-ENOTDIR) if @path points to a non-directory.
+ * 
+ * 
+ * 
+ * Function Description: Gets a cgroup from a path on the default hierarchy. It walks the path from the current namespace's root. Returns the cgroup or an error.
  */
 struct cgroup *cgroup_get_from_path(const char *path)
 {
@@ -7321,6 +8085,9 @@ EXPORT_SYMBOL_GPL(cgroup_get_from_path);
  * by opening a cgroup directory.  Returns a pointer to the
  * cgroup on success. ERR_PTR is returned if the cgroup
  * cannot be found.
+ * 
+ * 
+ * Function Description: Gets a cgroup from a file descriptor. It uses cgroup_v1v2_get_from_file() on the fd's file. Returns the cgroup or an error.
  */
 struct cgroup *cgroup_v1v2_get_from_fd(int fd)
 {
@@ -7335,6 +8102,9 @@ struct cgroup *cgroup_v1v2_get_from_fd(int fd)
  * cgroup_get_from_fd - same as cgroup_v1v2_get_from_fd, but only supports
  * cgroup2.
  * @fd: fd obtained by open(cgroup2_dir)
+ * 
+ * 
+ * Function Description: Gets a cgroup from a file descriptor, only supporting cgroup2. It calls cgroup_v1v2_get_from_fd() and verifies the cgroup is on the default hierarchy. Returns the cgroup or an error.
  */
 struct cgroup *cgroup_get_from_fd(int fd)
 {
@@ -7372,6 +8142,9 @@ static u64 power_of_ten(int power)
  *
  * There's nothing cgroup specific about this function except that it's
  * currently the only user.
+ * 
+ * 
+ * Function Description: Parses a floating point number with decimal shift. It separates whole and fractional parts and shifts the decimal point. Used for parsing memory and IO values.
  */
 int cgroup_parse_float(const char *input, unsigned dec_shift, s64 *v)
 {
@@ -7399,6 +8172,9 @@ int cgroup_parse_float(const char *input, unsigned dec_shift, s64 *v)
  */
 #ifdef CONFIG_SOCK_CGROUP_DATA
 
+/**
+ * Function Description: Allocates cgroup data for a socket. It associates the socket with the current task's cgroup. Called when a socket is created.
+ */
 void cgroup_sk_alloc(struct sock_cgroup_data *skcd)
 {
 	struct cgroup *cgroup;
@@ -7427,6 +8203,9 @@ out:
 	rcu_read_unlock();
 }
 
+/**
+ * Function Description: Clones cgroup data for a socket. It gets a reference to the existing cgroup. Called when a socket is cloned.
+ */
 void cgroup_sk_clone(struct sock_cgroup_data *skcd)
 {
 	struct cgroup *cgrp = sock_cgroup_ptr(skcd);
@@ -7440,6 +8219,9 @@ void cgroup_sk_clone(struct sock_cgroup_data *skcd)
 	cgroup_bpf_get(cgrp);
 }
 
+/**
+ * Function Description: Frees cgroup data for a socket. It releases the cgroup reference. Called when a socket is destroyed.
+ */
 void cgroup_sk_free(struct sock_cgroup_data *skcd)
 {
 	struct cgroup *cgrp = sock_cgroup_ptr(skcd);
@@ -7451,6 +8233,9 @@ void cgroup_sk_free(struct sock_cgroup_data *skcd)
 #endif	/* CONFIG_SOCK_CGROUP_DATA */
 
 #ifdef CONFIG_SYSFS
+/**
+ * Function Description: Shows delegatable files for a cftype array. It lists files with CFTYPE_NS_DELEGATABLE flag. Used for the delegate sysfs file.
+ */
 static ssize_t show_delegatable_files(struct cftype *files, char *buf,
 				      ssize_t size, const char *prefix)
 {
@@ -7473,6 +8258,9 @@ static ssize_t show_delegatable_files(struct cftype *files, char *buf,
 	return ret;
 }
 
+/**
+ * Function Description: Show handler for cgroup delegate sysfs file. It lists all delegatable files from base files, psi files, and subsystems. Used for documentation.
+ */
 static ssize_t delegate_show(struct kobject *kobj, struct kobj_attribute *attr,
 			      char *buf)
 {
@@ -7495,6 +8283,9 @@ static ssize_t delegate_show(struct kobject *kobj, struct kobj_attribute *attr,
 }
 static struct kobj_attribute cgroup_delegate_attr = __ATTR_RO(delegate);
 
+/**
+ * Function Description: Show handler for cgroup features sysfs file. It lists supported cgroup features. Used for feature discovery.
+ */
 static ssize_t features_show(struct kobject *kobj, struct kobj_attribute *attr,
 			     char *buf)
 {
@@ -7508,17 +8299,26 @@ static ssize_t features_show(struct kobject *kobj, struct kobj_attribute *attr,
 }
 static struct kobj_attribute cgroup_features_attr = __ATTR_RO(features);
 
+/**
+ * Variable Description: This is an array of struct attribute pointers defining the sysfs attributes exported under /sys/kernel/cgroup/. It includes cgroup_delegate_attr (shows delegatable files) and cgroup_features_attr (shows supported features). The array is terminated by a NULL entry, marking the end of the list.
+ */
 static struct attribute *cgroup_sysfs_attrs[] = {
 	&cgroup_delegate_attr.attr,
 	&cgroup_features_attr.attr,
 	NULL,
 };
 
+/**
+ * Variable Description: This structure defines a sysfs attribute group named "cgroup" that groups the sysfs attributes together. It contains the attrs pointer to the array of attributes and the group name. This group is created during cgroup_sysfs_init() and appears as /sys/kernel/cgroup/ in sysfs, providing user-space with information about cgroup features and delegatable files.
+ */
 static const struct attribute_group cgroup_sysfs_attr_group = {
 	.attrs = cgroup_sysfs_attrs,
 	.name = "cgroup",
 };
 
+/**
+ * Function Description: Initializes cgroup sysfs files. It creates the cgroup attribute group in /sys/kernel. Called during subsystem init.
+ */
 static int __init cgroup_sysfs_init(void)
 {
 	return sysfs_create_group(kernel_kobj, &cgroup_sysfs_attr_group);

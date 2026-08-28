@@ -1,0 +1,224 @@
+\doxysection{include/\+linux/\+cma.h File Reference}
+\hypertarget{cma_8h}{}\label{cma_8h}\index{include/linux/cma.h@{include/linux/cma.h}}
+{\ttfamily \+\#include $<$linux/\+debugfs.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+kobject.\+h$>$}\newline
+Include dependency graph for cma.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=260pt]{cma_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{cma_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structcma__kobject}{cma\+\_\+kobject}}
+\item 
+struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}}
+\item 
+struct \doxymbox{\hyperlink{structcma}{cma}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{cma_8h_a16659937567831cca6bbe6a65f443165}{CMA\+\_\+\+MAX\+\_\+\+RANGES}}~8
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1ae}{cma\+\_\+flags}} \{ \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51}{CMA\+\_\+\+RESERVE\+\_\+\+PAGES\+\_\+\+ON\+\_\+\+ERROR}}
+, \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab}{CMA\+\_\+\+ZONES\+\_\+\+VALID}}
+, \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25}{CMA\+\_\+\+ZONES\+\_\+\+INVALID}}
+, \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9}{CMA\+\_\+\+ACTIVATED}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned long \doxymbox{\hyperlink{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707}{cma\+\_\+bitmap\+\_\+maxno}} (struct cma \texorpdfstring{$\ast$}{*}cma, struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}cmr)
+\item 
+void \doxymbox{\hyperlink{cma_8h_a5bd1a912899835c495450780285f8054}{cma\+\_\+sysfs\+\_\+account\+\_\+success\+\_\+pages}} (struct cma \texorpdfstring{$\ast$}{*}cma, unsigned long nr\+\_\+pages)
+\item 
+void \doxymbox{\hyperlink{cma_8h_a0dbbda209b563970c27befc340713721}{cma\+\_\+sysfs\+\_\+account\+\_\+fail\+\_\+pages}} (struct cma \texorpdfstring{$\ast$}{*}cma, unsigned long nr\+\_\+pages)
+\item 
+void \doxymbox{\hyperlink{cma_8h_a8c8ee8acd3a3481b8502c735706979d5}{cma\+\_\+sysfs\+\_\+account\+\_\+release\+\_\+pages}} (struct cma \texorpdfstring{$\ast$}{*}cma, unsigned long nr\+\_\+pages)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structcma}{cma}} \doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\+\_\+areas}} \+[MAX\+\_\+\+CMA\+\_\+\+AREAS]\+
+\item 
+unsigned int \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\+\_\+area\+\_\+count}}
+\end{DoxyCompactItemize}
+
+
+\label{cma_8h_doc-define-members}
+\Hypertarget{cma_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{cma_8h_a16659937567831cca6bbe6a65f443165}\index{cma.h@{cma.h}!CMA\_MAX\_RANGES@{CMA\_MAX\_RANGES}}
+\index{CMA\_MAX\_RANGES@{CMA\_MAX\_RANGES}!cma.h@{cma.h}}
+\doxysubsubsection{\texorpdfstring{CMA\_MAX\_RANGES}{CMA\_MAX\_RANGES}}
+{\footnotesize\ttfamily \label{cma_8h_a16659937567831cca6bbe6a65f443165} 
+\+\#define CMA\+\_\+\+MAX\+\_\+\+RANGES~8}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{cma_8h_source}{cma.\+h}}.
+
+
+
+\label{cma_8h_doc-enum-members}
+\Hypertarget{cma_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{cma_8h_a1f3b504773d322aa130399110c60b1ae}\index{cma.h@{cma.h}!cma\_flags@{cma\_flags}}
+\index{cma\_flags@{cma\_flags}!cma.h@{cma.h}}
+\doxysubsubsection{\texorpdfstring{cma\_flags}{cma\_flags}}
+{\footnotesize\ttfamily \label{cma_8h_a1f3b504773d322aa130399110c60b1ae} 
+enum \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1ae}{cma\+\_\+flags}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMA\_RESERVE\_PAGES\_ON\_ERROR@{CMA\_RESERVE\_PAGES\_ON\_ERROR}!cma.h@{cma.h}}
+\index{cma.h@{cma.h}!CMA\_RESERVE\_PAGES\_ON\_ERROR@{CMA\_RESERVE\_PAGES\_ON\_ERROR}}
+}\Hypertarget{cma_8h_a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51}\label{cma_8h_a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51} 
+CMA\+\_\+\+RESERVE\+\_\+\+PAGES\+\_\+\+ON\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMA\_ZONES\_VALID@{CMA\_ZONES\_VALID}!cma.h@{cma.h}}
+\index{cma.h@{cma.h}!CMA\_ZONES\_VALID@{CMA\_ZONES\_VALID}}
+}\Hypertarget{cma_8h_a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab}\label{cma_8h_a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab} 
+CMA\+\_\+\+ZONES\+\_\+\+VALID&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMA\_ZONES\_INVALID@{CMA\_ZONES\_INVALID}!cma.h@{cma.h}}
+\index{cma.h@{cma.h}!CMA\_ZONES\_INVALID@{CMA\_ZONES\_INVALID}}
+}\Hypertarget{cma_8h_a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25}\label{cma_8h_a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25} 
+CMA\+\_\+\+ZONES\+\_\+\+INVALID&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CMA\_ACTIVATED@{CMA\_ACTIVATED}!cma.h@{cma.h}}
+\index{cma.h@{cma.h}!CMA\_ACTIVATED@{CMA\_ACTIVATED}}
+}\Hypertarget{cma_8h_a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9}\label{cma_8h_a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9} 
+CMA\+\_\+\+ACTIVATED&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{cma_8h_source_l00067}{67}} of file \doxymbox{\hyperlink{cma_8h_source}{cma.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51}{CMA\_RESERVE\_PAGES\_ON\_ERROR}},}
+\DoxyCodeLine{00069\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab}{CMA\_ZONES\_VALID}},}
+\DoxyCodeLine{00070\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25}{CMA\_ZONES\_INVALID}},}
+\DoxyCodeLine{00071\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9}{CMA\_ACTIVATED}},}
+\DoxyCodeLine{00072\ \};}
+
+\end{DoxyCode}
+
+
+\label{cma_8h_doc-func-members}
+\Hypertarget{cma_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707}\index{cma.h@{cma.h}!cma\_bitmap\_maxno@{cma\_bitmap\_maxno}}
+\index{cma\_bitmap\_maxno@{cma\_bitmap\_maxno}!cma.h@{cma.h}}
+\doxysubsubsection{\texorpdfstring{cma\_bitmap\_maxno()}{cma\_bitmap\_maxno()}}
+{\footnotesize\ttfamily \label{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707} 
+unsigned long cma\+\_\+bitmap\+\_\+maxno (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{struct \doxymbox{\hyperlink{structcma__memrange}{cma\+\_\+memrange}} \texorpdfstring{$\ast$}{*}}]{cmr}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8h_source_l00077}{77}} of file \doxymbox{\hyperlink{cma_8h_source}{cma.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00079\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ >>\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{00081\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8h_a0dbbda209b563970c27befc340713721}\index{cma.h@{cma.h}!cma\_sysfs\_account\_fail\_pages@{cma\_sysfs\_account\_fail\_pages}}
+\index{cma\_sysfs\_account\_fail\_pages@{cma\_sysfs\_account\_fail\_pages}!cma.h@{cma.h}}
+\doxysubsubsection{\texorpdfstring{cma\_sysfs\_account\_fail\_pages()}{cma\_sysfs\_account\_fail\_pages()}}
+{\footnotesize\ttfamily \label{cma_8h_a0dbbda209b563970c27befc340713721} 
+void cma\+\_\+sysfs\+\_\+account\+\_\+fail\+\_\+pages (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned long}]{nr\+\_\+pages}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8h_a0dbbda209b563970c27befc340713721_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8h_a8c8ee8acd3a3481b8502c735706979d5}\index{cma.h@{cma.h}!cma\_sysfs\_account\_release\_pages@{cma\_sysfs\_account\_release\_pages}}
+\index{cma\_sysfs\_account\_release\_pages@{cma\_sysfs\_account\_release\_pages}!cma.h@{cma.h}}
+\doxysubsubsection{\texorpdfstring{cma\_sysfs\_account\_release\_pages()}{cma\_sysfs\_account\_release\_pages()}}
+{\footnotesize\ttfamily \label{cma_8h_a8c8ee8acd3a3481b8502c735706979d5} 
+void cma\+\_\+sysfs\+\_\+account\+\_\+release\+\_\+pages (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned long}]{nr\+\_\+pages}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8h_a8c8ee8acd3a3481b8502c735706979d5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cma_8h_a5bd1a912899835c495450780285f8054}\index{cma.h@{cma.h}!cma\_sysfs\_account\_success\_pages@{cma\_sysfs\_account\_success\_pages}}
+\index{cma\_sysfs\_account\_success\_pages@{cma\_sysfs\_account\_success\_pages}!cma.h@{cma.h}}
+\doxysubsubsection{\texorpdfstring{cma\_sysfs\_account\_success\_pages()}{cma\_sysfs\_account\_success\_pages()}}
+{\footnotesize\ttfamily \label{cma_8h_a5bd1a912899835c495450780285f8054} 
+void cma\+\_\+sysfs\+\_\+account\+\_\+success\+\_\+pages (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcma}{cma}} \texorpdfstring{$\ast$}{*}}]{cma}{, }\item[{unsigned long}]{nr\+\_\+pages}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cma_8h_a5bd1a912899835c495450780285f8054_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{cma_8h_doc-var-members}
+\Hypertarget{cma_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}\index{cma.h@{cma.h}!cma\_area\_count@{cma\_area\_count}}
+\index{cma\_area\_count@{cma\_area\_count}!cma.h@{cma.h}}
+\doxysubsubsection{\texorpdfstring{cma\_area\_count}{cma\_area\_count}}
+{\footnotesize\ttfamily \label{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2} 
+unsigned int cma\+\_\+area\+\_\+count\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00038}{38}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+
+\Hypertarget{cma_8h_a084edff8321843b394f345da9e200edc}\index{cma.h@{cma.h}!cma\_areas@{cma\_areas}}
+\index{cma\_areas@{cma\_areas}!cma.h@{cma.h}}
+\doxysubsubsection{\texorpdfstring{cma\_areas}{cma\_areas}}
+{\footnotesize\ttfamily \label{cma_8h_a084edff8321843b394f345da9e200edc} 
+struct \doxymbox{\hyperlink{structcma}{cma}} cma\+\_\+areas\+[MAX\+\_\+\+CMA\+\_\+\+AREAS]\+\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{cma_8c_source_l00037}{37}} of file \doxymbox{\hyperlink{cma_8c_source}{cma.\+c}}.
+

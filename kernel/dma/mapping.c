@@ -4,8 +4,8 @@
  *
  * Copyright (c) 2006  SUSE Linux Products GmbH
  * Copyright (c) 2006  Tejun Heo <teheo@suse.de>
- */
-#include <linux/memblock.h> /* for max_pfn */
+*/
+#include <linux/memblock.h> /** for max_pfn */
 #include <linux/acpi.h>
 #include <linux/dma-map-ops.h>
 #include <linux/export.h>
@@ -27,8 +27,8 @@
 bool dma_default_coherent = IS_ENABLED(CONFIG_ARCH_DMA_DEFAULT_COHERENT);
 #endif
 
-/*
- * Managed DMA API
+/**
+ * struct Description: This structure stores information about a managed DMA allocation. It holds the size, virtual address, DMA handle, and attributes of the allocation. It is used by the device management code to track and automatically free DMA memory when a device is removed.
  */
 struct dma_devres {
 	size_t		size;
@@ -37,6 +37,9 @@ struct dma_devres {
 	unsigned long	attrs;
 };
 
+/**
+ * Function Description: This is a release function used by the device management code. It is called automatically when a device is removed and frees the DMA memory that was allocated using the managed API. It calls dma_free_attrs() to release the memory.
+ */
 static void dmam_release(struct device *dev, void *res)
 {
 	struct dma_devres *this = res;
@@ -45,6 +48,9 @@ static void dmam_release(struct device *dev, void *res)
 			this->attrs);
 }
 
+/**
+ * Function Description: This is a match function used to find a specific DMA allocation during device management operations. It compares the virtual address of the allocation with the provided match data and returns 1 if they match, indicating the correct resource has been found.
+ */
 static int dmam_match(struct device *dev, void *res, void *match_data)
 {
 	struct dma_devres *this = res, *match = match_data;
@@ -65,6 +71,9 @@ static int dmam_match(struct device *dev, void *res, void *match_data)
  * @dma_handle: DMA handle of the memory to free
  *
  * Managed dma_free_coherent().
+ * 
+ * 
+ * Function Description: Frees coherent memory that was allocated using the managed DMA API. It removes the resource from the device's managed list and then calls dma_free_coherent() to actually free the memory. This ensures proper cleanup when a driver is removed.
  */
 void dmam_free_coherent(struct device *dev, size_t size, void *vaddr,
 			dma_addr_t dma_handle)
@@ -89,6 +98,9 @@ EXPORT_SYMBOL(dmam_free_coherent);
  *
  * RETURNS:
  * Pointer to allocated memory on success, NULL on failure.
+ * 
+ * 
+ * Function Description: Allocates DMA memory that is automatically managed by the device. It allocates memory using dma_alloc_attrs() and stores the allocation details in the device's resource list. The memory will be automatically freed when the driver is removed, preventing memory leaks.
  */
 void *dmam_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
 		gfp_t gfp, unsigned long attrs)
@@ -117,6 +129,9 @@ void *dmam_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
 }
 EXPORT_SYMBOL(dmam_alloc_attrs);
 
+/**
+ * Function Description: Checks whether a device should use direct DMA mapping instead of going through an IOMMU. It returns true if the device can use direct mapping based on the DMA mask, bus limit, and whether IOMMU is being used. This helps decide which DMA path to take.
+ */
 static bool dma_go_direct(struct device *dev, dma_addr_t mask,
 		const struct dma_map_ops *ops)
 {
@@ -135,10 +150,13 @@ static bool dma_go_direct(struct device *dev, dma_addr_t mask,
 }
 
 
-/*
+/**
  * Check if the devices uses a direct mapping for streaming DMA operations.
  * This allows IOMMU drivers to set a bypass mode if the DMA mask is large
  * enough.
+ * 
+ * 
+ * Function Description: Checks if memory allocations for a device should use direct mapping. It calls dma_go_direct() using the device's coherent DMA mask to determine if direct allocation is appropriate for this device.
  */
 static inline bool dma_alloc_direct(struct device *dev,
 		const struct dma_map_ops *ops)
@@ -146,12 +164,18 @@ static inline bool dma_alloc_direct(struct device *dev,
 	return dma_go_direct(dev, dev->coherent_dma_mask, ops);
 }
 
+/**
+ * Function Description: Checks if streaming DMA mappings for a device should use direct mapping. It calls dma_go_direct() using the device's DMA mask to determine if direct mapping should be used for streaming operations.
+ */
 static inline bool dma_map_direct(struct device *dev,
 		const struct dma_map_ops *ops)
 {
 	return dma_go_direct(dev, *dev->dma_mask, ops);
 }
 
+/**
+ * Function Description: Maps a physical memory address for DMA operations. It checks if direct mapping or IOMMU should be used, then calls the appropriate function to create the DMA mapping. It also handles debug tracing and memory sanitization. Returns the DMA address or an error.
+ */
 dma_addr_t dma_map_phys(struct device *dev, phys_addr_t phys, size_t size,
 		enum dma_data_direction dir, unsigned long attrs)
 {
@@ -184,6 +208,9 @@ dma_addr_t dma_map_phys(struct device *dev, phys_addr_t phys, size_t size,
 }
 EXPORT_SYMBOL_GPL(dma_map_phys);
 
+/**
+ * Function Description: Maps a memory page for DMA operations. It converts the page and offset to a physical address, checks for MMIO attribute which is not allowed, and then calls dma_map_phys() to perform the actual mapping. It returns the DMA address or an error.
+ */
 dma_addr_t dma_map_page_attrs(struct device *dev, struct page *page,
 		size_t offset, size_t size, enum dma_data_direction dir,
 		unsigned long attrs)
@@ -201,6 +228,9 @@ dma_addr_t dma_map_page_attrs(struct device *dev, struct page *page,
 }
 EXPORT_SYMBOL(dma_map_page_attrs);
 
+/**
+ * Function Description: Unmaps a physical memory region that was previously mapped for DMA. It determines whether direct mapping or IOMMU was used and calls the appropriate function to remove the mapping. It also handles debug tracing for unmap operations.
+ */
 void dma_unmap_phys(struct device *dev, dma_addr_t addr, size_t size,
 		enum dma_data_direction dir, unsigned long attrs)
 {
@@ -220,6 +250,9 @@ void dma_unmap_phys(struct device *dev, dma_addr_t addr, size_t size,
 }
 EXPORT_SYMBOL_GPL(dma_unmap_phys);
 
+/**
+ * Function Description: Unmaps a memory page that was previously mapped for DMA. It checks for MMIO attribute which is ignored, then calls dma_unmap_phys() to perform the actual unmapping. This is the counterpart to dma_map_page_attrs().
+ */
 void dma_unmap_page_attrs(struct device *dev, dma_addr_t addr, size_t size,
 		 enum dma_data_direction dir, unsigned long attrs)
 {
@@ -230,6 +263,9 @@ void dma_unmap_page_attrs(struct device *dev, dma_addr_t addr, size_t size,
 }
 EXPORT_SYMBOL(dma_unmap_page_attrs);
 
+/**
+ * Function Description: This is the internal function that maps a scatterlist for DMA operations. It checks if direct mapping or IOMMU should be used, calls the appropriate mapping function, and handles error cases. It returns the number of successfully mapped entries or a negative error code.
+ */
 static int __dma_map_sg_attrs(struct device *dev, struct scatterlist *sg,
 	 int nents, enum dma_data_direction dir, unsigned long attrs)
 {
@@ -281,6 +317,9 @@ static int __dma_map_sg_attrs(struct device *dev, struct scatterlist *sg,
  *
  * dma_unmap_sg_attrs() should be used to unmap the buffer with the
  * original sg and original nents (not the value returned by this funciton).
+ * 
+ * 
+ * Function Description: Maps a scatterlist for DMA operations. This is the public API that calls the internal __dma_map_sg_attrs() function. It returns the number of mapped entries on success or 0 on error. This is used for mapping multiple memory buffers for DMA.
  */
 unsigned int dma_map_sg_attrs(struct device *dev, struct scatterlist *sg,
 		    int nents, enum dma_data_direction dir, unsigned long attrs)
@@ -320,6 +359,9 @@ EXPORT_SYMBOL(dma_map_sg_attrs);
  *			DMA_MAPPING_ERROR.
  *   -EREMOTEIO		The DMA device cannot access P2PDMA memory specified
  *			in the sg_table. This will not succeed if retried.
+ *
+ *
+ * Function Description: Maps a scatterlist table for DMA operations. It calls __dma_map_sg_attrs() to perform the mapping and stores the number of mapped entries in the sg_table structure. Returns 0 on success or a negative error code on failure.
  */
 int dma_map_sgtable(struct device *dev, struct sg_table *sgt,
 		    enum dma_data_direction dir, unsigned long attrs)
@@ -334,6 +376,9 @@ int dma_map_sgtable(struct device *dev, struct sg_table *sgt,
 }
 EXPORT_SYMBOL_GPL(dma_map_sgtable);
 
+/**
+ * Function Description: Unmaps a scatterlist that was previously mapped for DMA. It determines whether direct mapping or IOMMU was used and calls the appropriate function to remove the mappings. This is the counterpart to dma_map_sg_attrs().
+ */
 void dma_unmap_sg_attrs(struct device *dev, struct scatterlist *sg,
 				      int nents, enum dma_data_direction dir,
 				      unsigned long attrs)
@@ -353,6 +398,9 @@ void dma_unmap_sg_attrs(struct device *dev, struct scatterlist *sg,
 }
 EXPORT_SYMBOL(dma_unmap_sg_attrs);
 
+/**
+ * Function Description: Maps a physical resource (like MMIO region) for DMA operations. It adds the MMIO attribute and calls dma_map_phys() to perform the mapping. This is used for mapping device memory regions.
+ */
 dma_addr_t dma_map_resource(struct device *dev, phys_addr_t phys_addr,
 		size_t size, enum dma_data_direction dir, unsigned long attrs)
 {
@@ -360,6 +408,9 @@ dma_addr_t dma_map_resource(struct device *dev, phys_addr_t phys_addr,
 }
 EXPORT_SYMBOL(dma_map_resource);
 
+/**
+ * Function Description: Unmaps a physical resource that was previously mapped for DMA. It adds the MMIO attribute and calls dma_unmap_phys() to remove the mapping. This is the counterpart to dma_map_resource().
+ */
 void dma_unmap_resource(struct device *dev, dma_addr_t addr, size_t size,
 		enum dma_data_direction dir, unsigned long attrs)
 {
@@ -368,6 +419,10 @@ void dma_unmap_resource(struct device *dev, dma_addr_t addr, size_t size,
 EXPORT_SYMBOL(dma_unmap_resource);
 
 #ifdef CONFIG_DMA_NEED_SYNC
+
+/**
+ * Function Description: Synchronizes a single DMA buffer from the device to the CPU. This ensures that the CPU sees any changes made by the device. It calls the appropriate sync function based on whether direct mapping or IOMMU is being used.
+ */
 void __dma_sync_single_for_cpu(struct device *dev, dma_addr_t addr, size_t size,
 		enum dma_data_direction dir)
 {
@@ -385,6 +440,9 @@ void __dma_sync_single_for_cpu(struct device *dev, dma_addr_t addr, size_t size,
 }
 EXPORT_SYMBOL(__dma_sync_single_for_cpu);
 
+/**
+ * Function Description: Synchronizes a single DMA buffer from the CPU to the device. This ensures that the device sees any changes made by the CPU. It calls the appropriate sync function based on the mapping type.
+ */
 void __dma_sync_single_for_device(struct device *dev, dma_addr_t addr,
 		size_t size, enum dma_data_direction dir)
 {
@@ -402,6 +460,9 @@ void __dma_sync_single_for_device(struct device *dev, dma_addr_t addr,
 }
 EXPORT_SYMBOL(__dma_sync_single_for_device);
 
+/**
+ * Function Description: Synchronizes a scatterlist from the device to the CPU. It ensures the CPU sees any changes made by the device on all the buffers in the scatterlist. It calls the appropriate sync function based on the mapping type.
+ */
 void __dma_sync_sg_for_cpu(struct device *dev, struct scatterlist *sg,
 		    int nelems, enum dma_data_direction dir)
 {
@@ -419,6 +480,9 @@ void __dma_sync_sg_for_cpu(struct device *dev, struct scatterlist *sg,
 }
 EXPORT_SYMBOL(__dma_sync_sg_for_cpu);
 
+/**
+ * Function Description: Synchronizes a scatterlist from the CPU to the device. It ensures the device sees any changes made by the CPU on all the buffers in the scatterlist. It calls the appropriate sync function based on the mapping type.
+ */
 void __dma_sync_sg_for_device(struct device *dev, struct scatterlist *sg,
 		       int nelems, enum dma_data_direction dir)
 {
@@ -436,6 +500,9 @@ void __dma_sync_sg_for_device(struct device *dev, struct scatterlist *sg,
 }
 EXPORT_SYMBOL(__dma_sync_sg_for_device);
 
+/**
+ * Function Description: Checks whether a DMA buffer needs synchronization operations. It determines if the buffer is in the direct mapping path and if sync is actually needed. Returns true if sync is needed, false otherwise.
+ */
 bool __dma_need_sync(struct device *dev, dma_addr_t dma_addr)
 {
 	const struct dma_map_ops *ops = get_dma_ops(dev);
@@ -445,7 +512,7 @@ bool __dma_need_sync(struct device *dev, dma_addr_t dma_addr)
 		 * dma_skip_sync could've been reset on first SWIOTLB buffer
 		 * mapping, but @dma_addr is not necessary an SWIOTLB buffer.
 		 * In this case, fall back to more granular check.
-		 */
+		*/
 		return dma_direct_need_sync(dev, dma_addr);
 	return true;
 }
@@ -458,6 +525,9 @@ EXPORT_SYMBOL_GPL(__dma_need_sync);
  * If this function returns %false, drivers can skip calling dma_unmap_* after
  * finishing an I/O.  This function must be called after all mappings that might
  * need to be unmapped have been performed.
+ * 
+ * 
+ * Function Description: Checks if a device needs to call dma_unmap functions. It returns true if unmapping is required, false if it can be skipped. This optimization helps drivers skip unnecessary operations.
  */
 bool dma_need_unmap(struct device *dev)
 {
@@ -469,6 +539,9 @@ bool dma_need_unmap(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(dma_need_unmap);
 
+/**
+ * Function Description: Sets up the sync requirements for a device. It determines whether the device needs synchronization operations based on whether it's coherent, uses IOMMU, or has sync operations available. This is called during device initialization.
+ */
 static void dma_setup_need_sync(struct device *dev)
 {
 	const struct dma_map_ops *ops = get_dma_ops(dev);
@@ -478,23 +551,23 @@ static void dma_setup_need_sync(struct device *dev)
 		 * dma_skip_sync will be reset to %false on first SWIOTLB buffer
 		 * mapping, if any. During the device initialization, it's
 		 * enough to check only for the DMA coherence.
-		 */
+		*/
 		dev->dma_skip_sync = dev_is_dma_coherent(dev);
 	else if (!ops->sync_single_for_device && !ops->sync_single_for_cpu &&
 		 !ops->sync_sg_for_device && !ops->sync_sg_for_cpu)
 		/*
 		 * Synchronization is not possible when none of DMA sync ops
 		 * is set.
-		 */
+		*/
 		dev->dma_skip_sync = true;
 	else
 		dev->dma_skip_sync = false;
 }
-#else /* !CONFIG_DMA_NEED_SYNC */
+#else /** !CONFIG_DMA_NEED_SYNC */
 static inline void dma_setup_need_sync(struct device *dev) { }
-#endif /* !CONFIG_DMA_NEED_SYNC */
+#endif /** !CONFIG_DMA_NEED_SYNC */
 
-/*
+/**
  * The whole dma_get_sgtable() idea is fundamentally unsafe - it seems
  * that the intention is to allow exporting memory allocated via the
  * coherent DMA APIs through the dma_buf API, which only accepts a
@@ -504,6 +577,9 @@ static inline void dma_setup_need_sync(struct device *dev) { }
  * 2. Passing coherent DMA memory into the streaming APIs is not allowed
  *    as we will try to flush the memory through a different alias to that
  *    actually being used (and the flushes are redundant.)
+ * 
+ * 
+ * Function Description: Creates a scatterlist table from a DMA allocation. It converts a coherent DMA allocation into a scatterlist that can be used with the DMA API. This is useful for exporting memory through the dma_buf interface.
  */
 int dma_get_sgtable_attrs(struct device *dev, struct sg_table *sgt,
 		void *cpu_addr, dma_addr_t dma_addr, size_t size,
@@ -524,9 +600,12 @@ int dma_get_sgtable_attrs(struct device *dev, struct sg_table *sgt,
 EXPORT_SYMBOL(dma_get_sgtable_attrs);
 
 #ifdef CONFIG_MMU
-/*
+/**
  * Return the page attributes used for mapping dma_alloc_* memory, either in
  * kernel space if remapping is needed, or to userspace through dma_mmap_*.
+ * 
+ * 
+ * Function Description: Returns the page protection flags to use for mapping DMA memory. It checks if the device is coherent and handles special flags like write-combine. This is used when mapping DMA memory to user space or kernel space.
  */
 pgprot_t dma_pgprot(struct device *dev, pgprot_t prot, unsigned long attrs)
 {
@@ -538,7 +617,7 @@ pgprot_t dma_pgprot(struct device *dev, pgprot_t prot, unsigned long attrs)
 #endif
 	return pgprot_dmacoherent(prot);
 }
-#endif /* CONFIG_MMU */
+#endif /** CONFIG_MMU */
 
 /**
  * dma_can_mmap - check if a given device supports dma_mmap_*
@@ -546,6 +625,9 @@ pgprot_t dma_pgprot(struct device *dev, pgprot_t prot, unsigned long attrs)
  *
  * Returns %true if @dev supports dma_mmap_coherent() and dma_mmap_attrs() to
  * map DMA allocations to userspace.
+ * 
+ * 
+ * Function Description: Checks if a device supports mapping DMA allocations to user space. It returns true if the device supports mmap operations for DMA memory, false otherwise. This helps drivers determine if they can use mmap.
  */
 bool dma_can_mmap(struct device *dev)
 {
@@ -571,6 +653,9 @@ EXPORT_SYMBOL_GPL(dma_can_mmap);
  * Map a coherent DMA buffer previously allocated by dma_alloc_attrs into user
  * space.  The coherent DMA buffer must not be freed by the driver until the
  * user space mapping has been released.
+ * 
+ * 
+ * Function Description: Maps a DMA allocation into user space. It creates a virtual memory mapping that allows a user-space process to access the DMA memory. It calls the appropriate mmap function based on the mapping type.
  */
 int dma_mmap_attrs(struct device *dev, struct vm_area_struct *vma,
 		void *cpu_addr, dma_addr_t dma_addr, size_t size,
@@ -590,6 +675,9 @@ int dma_mmap_attrs(struct device *dev, struct vm_area_struct *vma,
 }
 EXPORT_SYMBOL(dma_mmap_attrs);
 
+/**
+ * Function Description: Returns the DMA mask that is required to address all memory in the system. This is used to determine the minimum DMA mask needed for the device to access all system memory. It returns a 32-bit mask by default for IOMMU users.
+ */
 u64 dma_get_required_mask(struct device *dev)
 {
 	const struct dma_map_ops *ops = get_dma_ops(dev);
@@ -603,7 +691,7 @@ u64 dma_get_required_mask(struct device *dev)
 	if (ops->get_required_mask)
 		return ops->get_required_mask(dev);
 
-	/*
+	/**
 	 * We require every DMA ops implementation to at least support a 32-bit
 	 * DMA mask (and use bounce buffering if that isn't supported in
 	 * hardware).  As the direct mapping code has its own routine to
@@ -615,6 +703,9 @@ u64 dma_get_required_mask(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(dma_get_required_mask);
 
+/**
+ * Function Description: Allocates memory for DMA operations with attributes. It handles allocations from coherent memory pools, direct mapping, or IOMMU. It returns the CPU address and sets the DMA handle. This is the main allocation function for DMA memory.
+ */
 void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
 		gfp_t flag, unsigned long attrs)
 {
@@ -623,7 +714,7 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
 
 	WARN_ON_ONCE(!dev->coherent_dma_mask);
 
-	/*
+	/**
 	 * DMA allocations can never be turned back into a page pointer, so
 	 * requesting compound pages doesn't make sense (and can't even be
 	 * supported at all by various backends).
@@ -637,7 +728,7 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
 		return cpu_addr;
 	}
 
-	/* let the implementation decide on the zone to allocate from: */
+	/** let the implementation decide on the zone to allocate from: */
 	flag &= ~(__GFP_DMA | __GFP_DMA32 | __GFP_HIGHMEM);
 
 	if (dma_alloc_direct(dev, ops) || arch_dma_alloc_direct(dev)) {
@@ -659,6 +750,9 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
 }
 EXPORT_SYMBOL(dma_alloc_attrs);
 
+/**
+ * Function Description: Frees DMA memory that was allocated with dma_alloc_attrs(). It handles releases from coherent memory pools, direct mapping, or IOMMU. It also checks for the correct context and prevents freeing in interrupt context.
+ */
 void dma_free_attrs(struct device *dev, size_t size, void *cpu_addr,
 		dma_addr_t dma_handle, unsigned long attrs)
 {
@@ -666,7 +760,7 @@ void dma_free_attrs(struct device *dev, size_t size, void *cpu_addr,
 
 	if (dma_release_from_dev_coherent(dev, get_order(size), cpu_addr))
 		return;
-	/*
+	/**
 	 * On non-coherent platforms which implement DMA-coherent buffers via
 	 * non-cacheable remaps, ops->free() may call vunmap(). Thus getting
 	 * this far in IRQ context is a) at risk of a BUG_ON() or trying to
@@ -690,6 +784,9 @@ void dma_free_attrs(struct device *dev, size_t size, void *cpu_addr,
 }
 EXPORT_SYMBOL(dma_free_attrs);
 
+/**
+ * Function Description: Allocates physical pages for DMA operations. This is an internal function that allocates pages using direct mapping, IOMMU, or the ops alloc_pages function. It returns a page structure pointer or NULL on failure.
+ */
 static struct page *__dma_alloc_pages(struct device *dev, size_t size,
 		dma_addr_t *dma_handle, enum dma_data_direction dir, gfp_t gfp)
 {
@@ -712,6 +809,9 @@ static struct page *__dma_alloc_pages(struct device *dev, size_t size,
 	return ops->alloc_pages_op(dev, size, dma_handle, dir, gfp);
 }
 
+/**
+ * Function Description: Allocates pages for DMA operations. This is the public API that calls __dma_alloc_pages() and adds tracing and debugging. It returns the allocated page structure or NULL on failure.
+ */
 struct page *dma_alloc_pages(struct device *dev, size_t size,
 		dma_addr_t *dma_handle, enum dma_data_direction dir, gfp_t gfp)
 {
@@ -728,6 +828,9 @@ struct page *dma_alloc_pages(struct device *dev, size_t size,
 }
 EXPORT_SYMBOL_GPL(dma_alloc_pages);
 
+/**
+ * Function Description: Frees pages that were allocated for DMA operations. This is an internal function that frees pages using direct mapping, IOMMU, or the ops free_pages function. It handles the actual deallocation of the pages.
+ */
 static void __dma_free_pages(struct device *dev, size_t size, struct page *page,
 		dma_addr_t dma_handle, enum dma_data_direction dir)
 {
@@ -742,6 +845,9 @@ static void __dma_free_pages(struct device *dev, size_t size, struct page *page,
 		ops->free_pages(dev, size, page, dma_handle, dir);
 }
 
+/**
+ * Function Description: Frees pages that were allocated for DMA operations. This is the public API that calls __dma_free_pages() and adds tracing and debugging. It properly releases the pages back to the system.
+ */
 void dma_free_pages(struct device *dev, size_t size, struct page *page,
 		dma_addr_t dma_handle, enum dma_data_direction dir)
 {
@@ -751,6 +857,9 @@ void dma_free_pages(struct device *dev, size_t size, struct page *page,
 }
 EXPORT_SYMBOL_GPL(dma_free_pages);
 
+/**
+ * Function Description: Maps DMA pages into user space. It uses remap_pfn_range() to create a user-space mapping for the allocated pages. This is a helper function used when mapping pages to user space.
+ */
 int dma_mmap_pages(struct device *dev, struct vm_area_struct *vma,
 		size_t size, struct page *page)
 {
@@ -764,6 +873,9 @@ int dma_mmap_pages(struct device *dev, struct vm_area_struct *vma,
 }
 EXPORT_SYMBOL_GPL(dma_mmap_pages);
 
+/**
+ * Function Description: Allocates a single-entry scatterlist table for DMA operations. It allocates pages and creates a scatterlist with one entry. This is used when non-contiguous memory is needed but only one contiguous block is allocated.
+ */
 static struct sg_table *alloc_single_sgt(struct device *dev, size_t size,
 		enum dma_data_direction dir, gfp_t gfp)
 {
@@ -788,6 +900,9 @@ out_free_sgt:
 	return NULL;
 }
 
+/**
+ * Function Description: Allocates non-contiguous DMA memory. It returns a scatterlist table where each entry represents a page of memory that may not be contiguous physically. This is useful for large allocations that don't need to be physically contiguous.
+ */
 struct sg_table *dma_alloc_noncontiguous(struct device *dev, size_t size,
 		enum dma_data_direction dir, gfp_t gfp, unsigned long attrs)
 {
@@ -814,6 +929,9 @@ struct sg_table *dma_alloc_noncontiguous(struct device *dev, size_t size,
 }
 EXPORT_SYMBOL_GPL(dma_alloc_noncontiguous);
 
+/**
+ * Function Description: Frees a single-entry scatterlist table. It frees the pages, the scatterlist table, and the scatterlist structure itself. This is the cleanup function for single-entry scatterlists.
+ */
 static void free_single_sgt(struct device *dev, size_t size,
 		struct sg_table *sgt, enum dma_data_direction dir)
 {
@@ -823,6 +941,9 @@ static void free_single_sgt(struct device *dev, size_t size,
 	kfree(sgt);
 }
 
+/**
+ * Function Description: Frees non-contiguous DMA memory that was allocated with dma_alloc_noncontiguous(). It frees all the pages in the scatterlist and releases the scatterlist table. This is the cleanup function for non-contiguous allocations.
+ */
 void dma_free_noncontiguous(struct device *dev, size_t size,
 		struct sg_table *sgt, enum dma_data_direction dir)
 {
@@ -836,6 +957,9 @@ void dma_free_noncontiguous(struct device *dev, size_t size,
 }
 EXPORT_SYMBOL_GPL(dma_free_noncontiguous);
 
+/**
+ * Function Description: Maps non-contiguous DMA memory into kernel virtual address space. For IOMMU allocations, it creates a contiguous virtual mapping. For direct allocations, it returns the page address. This allows accessing non-contiguous memory as a contiguous region.
+ */
 void *dma_vmap_noncontiguous(struct device *dev, size_t size,
 		struct sg_table *sgt)
 {
@@ -847,6 +971,9 @@ void *dma_vmap_noncontiguous(struct device *dev, size_t size,
 }
 EXPORT_SYMBOL_GPL(dma_vmap_noncontiguous);
 
+/**
+ * Function Description: Unmaps non-contiguous DMA memory from kernel virtual address space. For IOMMU allocations, it removes the virtual mapping. For direct allocations, it does nothing. This is the cleanup for dma_vmap_noncontiguous().
+ */
 void dma_vunmap_noncontiguous(struct device *dev, void *vaddr)
 {
 	if (use_dma_iommu(dev))
@@ -854,6 +981,9 @@ void dma_vunmap_noncontiguous(struct device *dev, void *vaddr)
 }
 EXPORT_SYMBOL_GPL(dma_vunmap_noncontiguous);
 
+/**
+ * Function Description: Maps non-contiguous DMA memory into user space. For IOMMU allocations, it uses the IOMMU mmap function. For direct allocations, it maps pages directly. This allows user-space to access non-contiguous DMA memory.
+ */
 int dma_mmap_noncontiguous(struct device *dev, struct vm_area_struct *vma,
 		size_t size, struct sg_table *sgt)
 {
@@ -863,6 +993,9 @@ int dma_mmap_noncontiguous(struct device *dev, struct vm_area_struct *vma,
 }
 EXPORT_SYMBOL_GPL(dma_mmap_noncontiguous);
 
+/**
+ * Function Description: Checks if a device supports a given DMA mask. It checks direct mapping, IOMMU, and the ops dma_supported function if present. Returns true if the mask is supported, false otherwise.
+ */
 static int dma_supported(struct device *dev, u64 mask)
 {
 	const struct dma_map_ops *ops = get_dma_ops(dev);
@@ -876,7 +1009,7 @@ static int dma_supported(struct device *dev, u64 mask)
 	/*
 	 * ->dma_supported sets and clears the bypass flag, so ignore it here
 	 * and always call into the method if there is one.
-	 */
+	*/
 	if (ops) {
 		if (!ops->dma_supported)
 			return true;
@@ -886,6 +1019,9 @@ static int dma_supported(struct device *dev, u64 mask)
 	return dma_direct_supported(dev, mask);
 }
 
+/**
+ * Function Description: Checks if a device supports PCI peer-to-peer DMA. It returns true if the device can do P2PDMA, false otherwise. This is used for P2PDMA operations where devices communicate directly without going through system memory.
+ */
 bool dma_pci_p2pdma_supported(struct device *dev)
 {
 	const struct dma_map_ops *ops = get_dma_ops(dev);
@@ -894,19 +1030,22 @@ bool dma_pci_p2pdma_supported(struct device *dev)
 	 * Note: dma_ops_bypass is not checked here because P2PDMA should
 	 * not be used with dma mapping ops that do not have support even
 	 * if the specific device is bypassing them.
-	 */
+	*/
 
 	/* if ops is not set, dma direct and default IOMMU support P2PDMA */
 	return !ops;
 }
 EXPORT_SYMBOL_GPL(dma_pci_p2pdma_supported);
 
+/**
+ * Function Description: Sets the DMA mask for a device. It checks if the mask is supported, calls architecture-specific setup, updates the device's DMA mask, and sets up sync requirements. Returns 0 on success or an error code on failure.
+ */
 int dma_set_mask(struct device *dev, u64 mask)
 {
 	/*
 	 * Truncate the mask to the actually supported dma_addr_t width to
 	 * avoid generating unsupportable addresses.
-	 */
+	*/
 	mask = (dma_addr_t)mask;
 
 	if (!dev->dma_mask || !dma_supported(dev, mask))
@@ -920,12 +1059,15 @@ int dma_set_mask(struct device *dev, u64 mask)
 }
 EXPORT_SYMBOL(dma_set_mask);
 
+/**
+ * Function Description: Sets the coherent DMA mask for a device. It checks if the mask is supported and updates the device's coherent DMA mask. This determines the addressing capabilities for coherent allocations.
+ */
 int dma_set_coherent_mask(struct device *dev, u64 mask)
 {
 	/*
 	 * Truncate the mask to the actually supported dma_addr_t width to
 	 * avoid generating unsupportable addresses.
-	 */
+	*/
 	mask = (dma_addr_t)mask;
 
 	if (!dma_supported(dev, mask))
@@ -936,6 +1078,9 @@ int dma_set_coherent_mask(struct device *dev, u64 mask)
 }
 EXPORT_SYMBOL(dma_set_coherent_mask);
 
+/**
+ * Function Description: Internal function that checks if a device has limited addressing capabilities. It compares the DMA mask and bus limit against the required mask to determine if the device cannot address all system memory. Returns true if addressing is limited.
+ */
 static bool __dma_addressing_limited(struct device *dev)
 {
 	const struct dma_map_ops *ops = get_dma_ops(dev);
@@ -956,6 +1101,9 @@ static bool __dma_addressing_limited(struct device *dev)
  * Return %true if the devices DMA mask is too small to address all memory in
  * the system, else %false.  Lack of addressing bits is the prime reason for
  * bounce buffering, but might not be the only one.
+ * 
+ * 
+ * Function Description: Public API that checks if a device has limited addressing. It calls the internal function and logs a debug message if addressing is limited. This is used to determine if bounce buffering might be needed.
  */
 bool dma_addressing_limited(struct device *dev)
 {
@@ -967,6 +1115,9 @@ bool dma_addressing_limited(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(dma_addressing_limited);
 
+/**
+ * Function Description: Returns the maximum size of a single DMA mapping for a device. It checks direct mapping, IOMMU, or ops max_mapping_size. This helps drivers know the maximum buffer size they can map at once.
+ */
 size_t dma_max_mapping_size(struct device *dev)
 {
 	const struct dma_map_ops *ops = get_dma_ops(dev);
@@ -983,6 +1134,9 @@ size_t dma_max_mapping_size(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(dma_max_mapping_size);
 
+/**
+ * Function Description: Returns the optimal mapping size for a device. It considers both the maximum mapping size and any optimal size from IOMMU or ops. This helps drivers choose the best buffer size for performance.
+ */
 size_t dma_opt_mapping_size(struct device *dev)
 {
 	const struct dma_map_ops *ops = get_dma_ops(dev);
@@ -997,6 +1151,9 @@ size_t dma_opt_mapping_size(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(dma_opt_mapping_size);
 
+/**
+ * Function Description: Returns the merge boundary for DMA mappings. This is used to determine if scatterlist entries can be merged into a single mapping. Returns 0 if merging is not possible or the boundary value if it is.
+ */
 unsigned long dma_get_merge_boundary(struct device *dev)
 {
 	const struct dma_map_ops *ops = get_dma_ops(dev);

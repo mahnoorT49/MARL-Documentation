@@ -1,6 +1,6 @@
 var structlruvec__stats =
 [
-    [ "state", "structlruvec__stats.html#aa65f824f084657470811a2c05e181565", null ],
-    [ "state_local", "structlruvec__stats.html#a0a71b6d59c7b97fa491b5e7661b1878b", null ],
-    [ "state_pending", "structlruvec__stats.html#ae5eebfc342f1cc068d722e5f670cd28e", null ]
+    [ "state", "structlruvec__stats.html#aefa2d53591b0201a5b4402524443c739", null ],
+    [ "state_local", "structlruvec__stats.html#a870a369fe3feb4dbe110587f26df04c5", null ],
+    [ "state_pending", "structlruvec__stats.html#a33f819a62b0ee90e865753547799d8f1", null ]
 ];

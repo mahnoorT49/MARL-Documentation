@@ -10,6 +10,10 @@ var cma_8h =
       [ "CMA_ZONES_INVALID", "cma_8h.html#a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25", null ],
       [ "CMA_ACTIVATED", "cma_8h.html#a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9", null ]
     ] ],
+    [ "cma_bitmap_maxno", "cma_8h.html#a3f2c8d80bf9e9de5e271f8c49c1ed707", null ],
+    [ "cma_sysfs_account_fail_pages", "cma_8h.html#a0dbbda209b563970c27befc340713721", null ],
+    [ "cma_sysfs_account_release_pages", "cma_8h.html#a8c8ee8acd3a3481b8502c735706979d5", null ],
+    [ "cma_sysfs_account_success_pages", "cma_8h.html#a5bd1a912899835c495450780285f8054", null ],
     [ "cma_area_count", "cma_8h.html#a890d3a98f067086f7789ad66f2ccd5c2", null ],
     [ "cma_areas", "cma_8h.html#a084edff8321843b394f345da9e200edc", null ]
 ];

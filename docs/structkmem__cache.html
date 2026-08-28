@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structkmem__ca
 <div class="dynheader">
 Collaboration diagram for kmem_cache:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structkmem__cache__coll__graph.svg" width="355" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structkmem__cache__coll__graph.svg" width="514" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -146,9 +146,22 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a03a3372359ea34511dc96149a20e7625" id="r_a03a3372359ea34511dc96149a20e7625"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a03a3372359ea34511dc96149a20e7625">red_left_pad</a></td></tr>
 <tr class="memitem:aa2b5b730da758af68bd8f7cad723ddd7" id="r_aa2b5b730da758af68bd8f7cad723ddd7"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#aa2b5b730da758af68bd8f7cad723ddd7">name</a></td></tr>
 <tr class="memitem:abe14a9a6989e3c7f529a09d8c28d19b7" id="r_abe14a9a6989e3c7f529a09d8c28d19b7"><td class="memItemLeft">struct list_head&#160;</td><td class="memItemRight"><a class="el" href="#abe14a9a6989e3c7f529a09d8c28d19b7">list</a></td></tr>
+<tr class="memitem:afee3367eb2b65dd116524d8c49d269d0" id="r_afee3367eb2b65dd116524d8c49d269d0"><td class="memItemLeft">struct kobject&#160;</td><td class="memItemRight"><a class="el" href="#afee3367eb2b65dd116524d8c49d269d0">kobj</a></td></tr>
+<tr class="memitem:a69bb6b1c3f1ab5db49cd9b0728777724" id="r_a69bb6b1c3f1ab5db49cd9b0728777724"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a69bb6b1c3f1ab5db49cd9b0728777724">random</a></td></tr>
+<tr class="memitem:a97ad69de4df8dd9b6c602d8720779416" id="r_a97ad69de4df8dd9b6c602d8720779416"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a97ad69de4df8dd9b6c602d8720779416">remote_node_defrag_ratio</a></td></tr>
+<tr class="memitem:a2a6debe0b6fb2fdd2bc5e46dd2b2d901" id="r_a2a6debe0b6fb2fdd2bc5e46dd2b2d901"><td class="memItemLeft">unsigned int *&#160;</td><td class="memItemRight"><a class="el" href="#a2a6debe0b6fb2fdd2bc5e46dd2b2d901">random_seq</a></td></tr>
+<tr class="memitem:a915969a7a77d8160527a4531ff388000" id="r_a915969a7a77d8160527a4531ff388000"><td class="memItemLeft">struct kasan_cache&#160;</td><td class="memItemRight"><a class="el" href="#a915969a7a77d8160527a4531ff388000">kasan_info</a></td></tr>
+<tr class="memitem:adb5601740b6d0359fddb146eff9b753d" id="r_adb5601740b6d0359fddb146eff9b753d"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#adb5601740b6d0359fddb146eff9b753d">useroffset</a></td></tr>
+<tr class="memitem:a20f77ca7c96d9bb7d19da84274a842d4" id="r_a20f77ca7c96d9bb7d19da84274a842d4"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a20f77ca7c96d9bb7d19da84274a842d4">usersize</a></td></tr>
+<tr class="memitem:a79affe8c9f634a883c755da65bc83822" id="r_a79affe8c9f634a883c755da65bc83822"><td class="memItemLeft">struct <a class="el" href="structkmem__cache__stats.html">kmem_cache_stats</a> __percpu *&#160;</td><td class="memItemRight"><a class="el" href="#a79affe8c9f634a883c755da65bc83822">cpu_stats</a></td></tr>
 <tr class="memitem:a7ee9e559febe5c2f00796fafd21ad49e" id="r_a7ee9e559febe5c2f00796fafd21ad49e"><td class="memItemLeft">struct <a class="el" href="structkmem__cache__node.html">kmem_cache_node</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7ee9e559febe5c2f00796fafd21ad49e">node</a> [MAX_NUMNODES]</td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Slab cache management.</p>
+<p>struct Description: This is the main structure representing a slab cache in the SLUB allocator. It contains per-CPU sheaves, flags, min_partial count, object sizes, free pointer offset, sheaf capacity, order and min objects, allocation flags, refcount, constructor, alignment, redzone padding, name, and per-node data. Each cache manages a set of slabs of the same object size. </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00231">231</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a770d4702e0b609eef63d90a8e682d7ae" name="a770d4702e0b609eef63d90a8e682d7ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a770d4702e0b609eef63d90a8e682d7ae">&#9670;&#160;</a></span>align</h2>
 
@@ -160,6 +173,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Offset to metadata </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00249">249</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -175,6 +191,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00245">245</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="ab29ce6f2b07929339c8505d1e95b5d70" name="ab29ce6f2b07929339c8505d1e95b5d70"></a>
@@ -189,6 +207,25 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00232">232</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="a79affe8c9f634a883c755da65bc83822" name="a79affe8c9f634a883c755da65bc83822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79affe8c9f634a883c755da65bc83822">&#9670;&#160;</a></span>cpu_stats</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structkmem__cache__stats.html">kmem_cache_stats</a> __percpu* kmem_cache::cpu_stats</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Usercopy region size </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00281">281</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="a313ed5a8786accb070ebfe0dfb34351f" name="a313ed5a8786accb070ebfe0dfb34351f"></a>
@@ -202,6 +239,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Refcount for slab cache destroy </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00247">247</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -216,6 +256,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Used for retrieving partial slabs, etc. </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00234">234</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -230,6 +273,42 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Object constructor </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00248">248</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="a915969a7a77d8160527a4531ff388000" name="a915969a7a77d8160527a4531ff388000"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a915969a7a77d8160527a4531ff388000">&#9670;&#160;</a></span>kasan_info</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct kasan_cache kmem_cache::kasan_info</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00272">272</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="afee3367eb2b65dd116524d8c49d269d0" name="afee3367eb2b65dd116524d8c49d269d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afee3367eb2b65dd116524d8c49d269d0">&#9670;&#160;</a></span>kobj</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct kobject kmem_cache::kobj</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>List of slab caches </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00254">254</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -244,6 +323,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Name (only for display!) </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00252">252</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -258,6 +340,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Allocation and freeing of slabs </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00244">244</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -273,6 +358,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00235">235</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="aa2b5b730da758af68bd8f7cad723ddd7" name="aa2b5b730da758af68bd8f7cad723ddd7"></a>
@@ -286,6 +373,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Left redzone padding size </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00251">251</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -301,6 +391,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00284">284</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="ab07319d983cb6152b3793d5685147cb3" name="ab07319d983cb6152b3793d5685147cb3"></a>
@@ -314,6 +406,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Object size including metadata </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00237">237</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -329,6 +424,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00239">239</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="ae0a4ad62d2a40ca09cbf10790bdaf53e" name="ae0a4ad62d2a40ca09cbf10790bdaf53e"></a>
@@ -343,6 +440,41 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00241">241</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="a69bb6b1c3f1ab5db49cd9b0728777724" name="a69bb6b1c3f1ab5db49cd9b0728777724"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69bb6b1c3f1ab5db49cd9b0728777724">&#9670;&#160;</a></span>random</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long kmem_cache::random</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>For sysfs </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00257">257</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="a2a6debe0b6fb2fdd2bc5e46dd2b2d901" name="a2a6debe0b6fb2fdd2bc5e46dd2b2d901"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a6debe0b6fb2fdd2bc5e46dd2b2d901">&#9670;&#160;</a></span>random_seq</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int* kmem_cache::random_seq</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00268">268</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="a0c55bbf9466495138f58e2898772b8ba" name="a0c55bbf9466495138f58e2898772b8ba"></a>
@@ -356,6 +488,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Object size without metadata </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00238">238</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -370,6 +505,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Alignment </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00250">250</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -384,6 +522,26 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>gfp flags to use on each alloc </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00246">246</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="a97ad69de4df8dd9b6c602d8720779416" name="a97ad69de4df8dd9b6c602d8720779416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97ad69de4df8dd9b6c602d8720779416">&#9670;&#160;</a></span>remote_node_defrag_ratio</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int kmem_cache::remote_node_defrag_ratio</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Defragmentation by allocating from a remote node. </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00264">264</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -398,6 +556,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Free pointer offset </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00240">240</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -412,6 +573,41 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00236">236</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="adb5601740b6d0359fddb146eff9b753d" name="adb5601740b6d0359fddb146eff9b753d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb5601740b6d0359fddb146eff9b753d">&#9670;&#160;</a></span>useroffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int kmem_cache::useroffset</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00276">276</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="a20f77ca7c96d9bb7d19da84274a842d4" name="a20f77ca7c96d9bb7d19da84274a842d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20f77ca7c96d9bb7d19da84274a842d4">&#9670;&#160;</a></span>usersize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int kmem_cache::usersize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Usercopy region offset </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00277">277</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>

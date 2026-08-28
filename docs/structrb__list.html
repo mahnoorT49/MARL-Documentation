@@ -125,7 +125,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a394312e8cd068e59ffbbbf79d678356f" id="r_a394312e8cd068e59ffbbbf79d678356f"><td class="memItemLeft">struct list_head&#160;</td><td class="memItemRight"><a class="el" href="#a394312e8cd068e59ffbbbf79d678356f">head</a></td></tr>
 <tr class="memitem:a41182431bc05143b9b079006c02069d1" id="r_a41182431bc05143b9b079006c02069d1"><td class="memItemLeft">spinlock_t&#160;</td><td class="memItemRight"><a class="el" href="#a41182431bc05143b9b079006c02069d1">lock</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This structure defines a single, solid model where a list and rb-tree are part of one entity protected by the lock. Nodes are sorted in ascending order, thus for O(1) access to left/right neighbors a list is used as well as for sequential traversal.</p>
+<p>Function Description: This structure combines a red-black tree, a linked list, and a spinlock into a single entity. It contains a rb_root for efficient search operations, a list_head for O(1) access to left/right neighbors and sequential traversal, and a spinlock for protecting both data structures. Nodes are sorted in ascending order by address in both the tree and the list. This design is used in the vmap subsystem to manage busy and lazy vmap areas, enabling both fast lookups (via the tree) and fast neighbor access (via the list). </p>
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8c_source.html#l01020">1020</a> of file <a class="el" href="vmalloc_8c_source.html">vmalloc.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a394312e8cd068e59ffbbbf79d678356f" name="a394312e8cd068e59ffbbbf79d678356f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a394312e8cd068e59ffbbbf79d678356f">&#9670;&#160;</a></span>head</h2>
 
@@ -137,6 +142,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8c_source.html#l01022">1022</a> of file <a class="el" href="vmalloc_8c_source.html">vmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -152,6 +159,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8c_source.html#l01023">1023</a> of file <a class="el" href="vmalloc_8c_source.html">vmalloc.c</a>.</p>
+
 </div>
 </div>
 <a id="a14bce6e7efadf2b004445432af3f3077" name="a14bce6e7efadf2b004445432af3f3077"></a>
@@ -166,10 +175,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8c_source.html#l01021">1021</a> of file <a class="el" href="vmalloc_8c_source.html">vmalloc.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="vmalloc_8c.html">vmalloc.c</a></li>
+<li>mm/<a class="el" href="vmalloc_8c_source.html">vmalloc.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

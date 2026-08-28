@@ -1,0 +1,1212 @@
+\doxysection{cma.\+c}
+\hypertarget{cma_8c_source}{}\label{cma_8c_source}\index{mm/cma.c@{mm/cma.c}}
+\doxymbox{\hyperlink{cma_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00001}00001\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ GPL-\/2.0-\/or-\/later}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00002}00002\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00003}00003\ \textcolor{comment}{\ *\ Contiguous\ Memory\ Allocator}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00004}00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00005}00005\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2010-\/2011\ by\ Samsung\ Electronics.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00006}00006\ \textcolor{comment}{\ *\ Copyright\ IBM\ Corporation,\ 2013}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00007}00007\ \textcolor{comment}{\ *\ Copyright\ LG\ Electronics\ Inc.,\ 2014}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00008}00008\ \textcolor{comment}{\ *\ Written\ by:}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00009}00009\ \textcolor{comment}{\ *\ \ Marek\ Szyprowski\ <m.szyprowski@samsung.com>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00010}00010\ \textcolor{comment}{\ *\ \ Michal\ Nazarewicz\ <mina86@mina86.com>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00011}00011\ \textcolor{comment}{\ *\ \ Aneesh\ Kumar\ K.V\ <aneesh.kumar@linux.vnet.ibm.com>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00012}00012\ \textcolor{comment}{\ *\ \ Joonsoo\ Kim\ <iamjoonsoo.kim@lge.com>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00013}00013\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00015}\doxymbox{\hyperlink{cma_8c_a1f8c165bf4196327bc3abff648276d92}{00015}}\ \textcolor{preprocessor}{\#define\ pr\_fmt(fmt)\ "{}cma:\ "{}\ fmt}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00017}\doxymbox{\hyperlink{cma_8c_a40473b47b4871fa538a0fa131f94e774}{00017}}\ \textcolor{preprocessor}{\#define\ CREATE\_TRACE\_POINTS}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <linux/memblock.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ <linux/err.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00021}00021\ \textcolor{preprocessor}{\#include\ <linux/list.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <linux/mm.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00023}00023\ \textcolor{preprocessor}{\#include\ <linux/sizes.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00024}00024\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{include_2linux_2slab_8h}{linux/slab.h}}>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00025}00025\ \textcolor{preprocessor}{\#include\ <linux/string.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00026}00026\ \textcolor{preprocessor}{\#include\ <linux/string\_choices.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00027}00027\ \textcolor{preprocessor}{\#include\ <linux/log2.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00028}00028\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{cma_8h}{linux/cma.h}}>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00029}00029\ \textcolor{preprocessor}{\#include\ <linux/highmem.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00030}00030\ \textcolor{preprocessor}{\#include\ <linux/io.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00031}00031\ \textcolor{preprocessor}{\#include\ <linux/kmemleak.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00032}00032\ \textcolor{preprocessor}{\#include\ <trace/events/cma.h>}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00034}00034\ \textcolor{preprocessor}{\#include\ "{}internal.h"{}}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{cma_8h}{cma.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00037}\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{00037}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma}{cma}}\ \doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}[MAX\_CMA\_AREAS];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00038}\doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{00038}}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00040}\doxymbox{\hyperlink{cma_8c_a97879508444bf1cf0c647505085ba504}{00040}}\ phys\_addr\_t\ \doxymbox{\hyperlink{cma_8c_a97879508444bf1cf0c647505085ba504}{cma\_get\_base}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00041}00041\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00042}00042\ \ \ \ \ WARN\_ON\_ONCE(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}}\ !=\ 1);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{return}\ PFN\_PHYS(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[0].\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00044}00044\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00046}\doxymbox{\hyperlink{cma_8c_a9f7d52d2cfaa4e1a6dcf0526ae9270bc}{00046}}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{cma_8c_a9f7d52d2cfaa4e1a6dcf0526ae9270bc}{cma\_get\_size}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00047}00047\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}}\ <<\ PAGE\_SHIFT;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00049}00049\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00051}\doxymbox{\hyperlink{cma_8c_a6f4f77adf3f68c2bbac1b733ae827684}{00051}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{cma_8c_a6f4f77adf3f68c2bbac1b733ae827684}{cma\_get\_name}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00052}00052\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00054}00054\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00056}\doxymbox{\hyperlink{cma_8c_acacbaf2002d23b129e8873ba1d32effe}{00056}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{cma_8c_acacbaf2002d23b129e8873ba1d32effe}{cma\_bitmap\_aligned\_mask}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ align\_order)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00058}00058\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{if}\ (align\_order\ <=\ cma-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{return}\ (1UL\ <<\ (align\_order\ -\/\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}}))\ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00064}00064\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00065}00065\ \textcolor{comment}{\ *\ Find\ the\ offset\ of\ the\ base\ PFN\ from\ the\ specified\ align\_order.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00066}00066\ \textcolor{comment}{\ *\ The\ value\ returned\ is\ represented\ in\ order\_per\_bits.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00067}00067\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00068}\doxymbox{\hyperlink{cma_8c_a9913d09d1e20830d944af8a4702814cb}{00068}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{cma_8c_a9913d09d1e20830d944af8a4702814cb}{cma\_bitmap\_aligned\_offset}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ align\_order)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00071}00071\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00072}00072\ \ \ \ \ \textcolor{keywordflow}{return}\ (cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ \&\ ((1UL\ <<\ align\_order)\ -\/\ 1))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ >>\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00074}00074\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00076}\doxymbox{\hyperlink{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}{00076}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}{cma\_bitmap\_pages\_to\_bits}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pages)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00078}00078\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{return}\ ALIGN(pages,\ 1UL\ <<\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}})\ >>\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00080}00080\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00082}\doxymbox{\hyperlink{cma_8c_a141cce706c8966d5cdd4a99461e40e23}{00082}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{cma_8c_a141cce706c8966d5cdd4a99461e40e23}{cma\_clear\_bitmap}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pfn,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00084}00084\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00085}00085\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ bitmap\_no,\ bitmap\_count;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00086}00086\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00088}00088\ \ \ \ \ bitmap\_no\ =\ (pfn\ -\/\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}})\ >>\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00089}00089\ \ \ \ \ bitmap\_count\ =\ \doxymbox{\hyperlink{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}{cma\_bitmap\_pages\_to\_bits}}(\doxymbox{\hyperlink{structcma}{cma}},\ \doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00091}00091\ \ \ \ \ spin\_lock\_irqsave(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00092}00092\ \ \ \ \ bitmap\_clear(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},\ bitmap\_no,\ bitmap\_count);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00093}00093\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ +=\ \doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00094}00094\ \ \ \ \ spin\_unlock\_irqrestore(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00097}00097\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00098}00098\ \textcolor{comment}{\ *\ Check\ if\ a\ CMA\ area\ contains\ no\ ranges\ that\ intersect\ with}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00099}00099\ \textcolor{comment}{\ *\ multiple\ zones.\ Store\ the\ result\ in\ the\ flags\ in\ case}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00100}00100\ \textcolor{comment}{\ *\ this\ gets\ called\ more\ than\ once.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00101}00101\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00102}\doxymbox{\hyperlink{cma_8c_af1391b7a3d38b6146c38f7ab0b7b5f26}{00102}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{cma_8c_af1391b7a3d38b6146c38f7ab0b7b5f26}{cma\_validate\_zones}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00103}00103\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00104}00104\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00105}00105\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ base\_pfn;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00106}00106\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00107}00107\ \ \ \ \ \textcolor{keywordtype}{bool}\ valid\_bit\_set;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00109}00109\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00110}00110\ \textcolor{comment}{\ \ \ \ \ *\ If\ already\ validated,\ return\ result\ of\ previous\ check.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00111}00111\ \textcolor{comment}{\ \ \ \ \ *\ Either\ the\ valid\ or\ invalid\ bit\ will\ be\ set\ if\ this}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00112}00112\ \textcolor{comment}{\ \ \ \ \ *\ check\ has\ already\ been\ done.\ If\ neither\ is\ set,\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00113}00113\ \textcolor{comment}{\ \ \ \ \ *\ check\ has\ not\ been\ performed\ yet.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00114}00114\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00115}00115\ \ \ \ \ valid\_bit\_set\ =\ test\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab}{CMA\_ZONES\_VALID}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{if}\ (valid\_bit\_set\ ||\ test\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25}{CMA\_ZONES\_INVALID}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}}))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ valid\_bit\_set;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00119}00119\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00120}00120\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00121}00121\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00124}00124\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ alloc\_contig\_range()\ requires\ the\ pfn\ range\ specified}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00125}00125\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ to\ be\ in\ the\ same\ zone.\ Simplify\ by\ forcing\ the\ entire}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00126}00126\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ CMA\ resv\ range\ to\ be\ in\ the\ same\ zone.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00127}00127\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ WARN\_ON\_ONCE(!pfn\_valid(\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}));}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pfn\_range\_intersects\_zones(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}},\ \doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}},\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ set\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25}{CMA\_ZONES\_INVALID}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00133}00133\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00135}00135\ \ \ \ \ set\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab}{CMA\_ZONES\_VALID}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00137}00137\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00138}00138\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00141}00141\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00142}00142\ \textcolor{comment}{\ *\ cma\_activate\_area\ -\/\ Activates\ a\ reserved\ CMA\ region\ during\ early\ boot.\ It}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00143}00143\ \textcolor{comment}{\ *\ allocates\ bitmap\ tracking\ structures,\ initializes\ synchronization\ locks,}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00144}00144\ \textcolor{comment}{\ *\ marks\ pageblocks\ as\ MIGRATE\_CMA,\ and\ sets\ the\ CMA\_ACTIVATED\ flag.\ If}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00145}00145\ \textcolor{comment}{\ *\ activation\ fails,\ it\ rolls\ back\ bitmap\ allocations\ and\ safely\ releases\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00146}00146\ \textcolor{comment}{\ *\ pages\ back\ to\ the\ main\ buddy\ allocator.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00147}00147\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00148}\doxymbox{\hyperlink{cma_8c_a9abdaa35f837a24171549ea38ea28e70}{00148}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a9abdaa35f837a24171549ea38ea28e70}{cma\_activate\_area}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00149}00149\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00150}00150\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pfn,\ end\_pfn,\ \doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[\doxymbox{\hyperlink{cma_8h_a16659937567831cca6bbe6a65f443165}{CMA\_MAX\_RANGES}}];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00151}00151\ \ \ \ \ \textcolor{keywordtype}{int}\ allocrange,\ r;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00152}00152\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00153}00153\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ bitmap\_count,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00155}00155\ \ \ \ \ \textcolor{keywordflow}{for}\ (allocrange\ =\ 0;\ allocrange\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ allocrange++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[allocrange];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[allocrange]\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}}\ =\ bitmap\_zalloc(\doxymbox{\hyperlink{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707}{cma\_bitmap\_maxno}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr),}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{gfp__types_8h_a44b9e863fd60efc9018a5524b77532ee}{GFP\_KERNEL}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ cleanup;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00162}00162\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00164}00164\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{cma_8c_af1391b7a3d38b6146c38f7ab0b7b5f26}{cma\_validate\_zones}}(\doxymbox{\hyperlink{structcma}{cma}}))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00165}00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ cleanup;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00167}00167\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[r]\ !=\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}})\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ =\ \doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[r]\ -\/\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ bitmap\_count\ =\ \doxymbox{\hyperlink{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}{cma\_bitmap\_pages\_to\_bits}}(\doxymbox{\hyperlink{structcma}{cma}},\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ bitmap\_set(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},\ 0,\ bitmap\_count);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00173}00173\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (pfn\ =\ \doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[r];\ pfn\ <\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ pfn\ +=\ pageblock\_nr\_pages)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ init\_cma\_reserved\_pageblock(pfn\_to\_page(pfn));}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00178}00178\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00180}00180\ \ \ \ \ spin\_lock\_init(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00182}00182\ \ \ \ \ mutex\_init(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a26192936b7b1c2340ab1ca0d5f756a5c}{alloc\_mutex}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00184}00184\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_CMA\_DEBUGFS}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00185}00185\ \ \ \ \ INIT\_HLIST\_HEAD(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a6d8fd598770d929efe255c8988ace416}{mem\_head}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00186}00186\ \ \ \ \ spin\_lock\_init(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a302f8220180c0ae36a39cdda40854bdc}{mem\_head\_lock}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00187}00187\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00188}00188\ \ \ \ \ set\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9}{CMA\_ACTIVATED}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00190}00190\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00192}00192\ cleanup:}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ allocrange;\ r++)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00194}00194\ \ \ \ \ \ \ \ \ bitmap\_free(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r].\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00196}00196\ \ \ \ \ \textcolor{comment}{/*\ Expose\ all\ pages\ to\ the\ buddy,\ they\ are\ useless\ for\ CMA.\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00197}00197\ \ \ \ \ \textcolor{keywordflow}{if}\ (!test\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51}{CMA\_RESERVE\_PAGES\_ON\_ERROR}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}}))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ allocrange;\ r++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ end\_pfn\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (pfn\ =\ \doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}[r];\ pfn\ <\ end\_pfn;\ pfn++)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{page__alloc_8c_af199d7b6e6ff719cf80aad0213ac4baf}{free\_reserved\_page}}(pfn\_to\_page(pfn));}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00203}00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00204}00204\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00205}00205\ \ \ \ \ totalcma\_pages\ -\/=\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00206}00206\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ =\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00207}00207\ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}CMA\ area\ \%s\ could\ not\ be\ activated\(\backslash\)n"{}},\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00208}00208\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00211}00211\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00212}00212\ \textcolor{comment}{\ *\ cma\_init\_reserved\_areas\ -\/\ A\ boot\ routine\ that\ iterates\ through\ all\ registered}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00213}00213\ \textcolor{comment}{\ *\ CMA\ regions\ stored\ in\ cma\_areas[]\ and\ calls\ cma\_activate\_area()\ on\ each\ one}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00214}00214\ \textcolor{comment}{\ *\ to\ bring\ them\ fully\ online\ once\ kernel\ memory\ infrastructure\ is\ available.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00215}00215\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00216}\doxymbox{\hyperlink{cma_8c_aeb536241b21a6a891eb7e647eb5d5597}{00216}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_aeb536241b21a6a891eb7e647eb5d5597}{cma\_init\_reserved\_areas}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00217}00217\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00218}00218\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00220}00220\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}};\ i++)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a9abdaa35f837a24171549ea38ea28e70}{cma\_activate\_area}}(\&\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}[i]);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00223}00223\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00224}00224\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00225}\doxymbox{\hyperlink{cma_8c_a8afff3562f7a5c0db63909d8b3b82d82}{00225}}\ \doxymbox{\hyperlink{cma_8c_a8afff3562f7a5c0db63909d8b3b82d82}{core\_initcall}}(\doxymbox{\hyperlink{cma_8c_aeb536241b21a6a891eb7e647eb5d5597}{cma\_init\_reserved\_areas}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00228}00228\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00229}00229\ \textcolor{comment}{\ *\ cma\_reserve\_pages\_on\_error\ -\/\ Sets\ the\ CMA\_RESERVE\_PAGES\_ON\_ERROR\ flag\ on\ a}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00230}00230\ \textcolor{comment}{\ *\ target\ CMA\ descriptor.\ This\ instructs\ cma\_activate\_area()\ to\ keep\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00231}00231\ \textcolor{comment}{\ *\ underlying\ memory\ isolated\ and\ reserved\ rather\ than\ returning\ it\ to\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00232}00232\ \textcolor{comment}{\ *\ general\ buddy\ allocator\ if\ activation\ fails.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00233}00233\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00234}\doxymbox{\hyperlink{cma_8c_a4cfd6bb06859c6a59bfa1ed0906cebf8}{00234}}\ \textcolor{keywordtype}{void}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a4cfd6bb06859c6a59bfa1ed0906cebf8}{cma\_reserve\_pages\_on\_error}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00235}00235\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00236}00236\ \ \ \ \ set\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51}{CMA\_RESERVE\_PAGES\_ON\_ERROR}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00237}00237\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00240}00240\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00241}00241\ \textcolor{comment}{\ *\ cma\_new\_area\ -\/\ Registers\ a\ new\ CMA\ region\ entry\ in\ the\ global\ cma\_areas[]}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00242}00242\ \textcolor{comment}{\ *\ array\ early\ in\ the\ boot\ sequence.\ It\ assigns\ the\ region\ a\ unique\ name,}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00243}00243\ \textcolor{comment}{\ *\ converts\ the\ requested\ byte\ size\ into\ page\ counts,\ records\ the\ bitmap\ bit}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00244}00244\ \textcolor{comment}{\ *\ granularity\ (order\_per\_bit),\ and\ increments\ global\ totalcma\_pages.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00245}00245\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00246}\doxymbox{\hyperlink{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a}{00246}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a}{cma\_new\_area}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ phys\_addr\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order\_per\_bit,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ **res\_cma)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00249}00249\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00250}00250\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00252}00252\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}\ ==\ ARRAY\_SIZE(\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00253}00253\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Not\ enough\ slots\ for\ CMA\ reserved\ regions!\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00254}00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/ENOSPC;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00255}00255\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00257}00257\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00258}00258\ \textcolor{comment}{\ \ \ \ \ *\ Each\ reserved\ area\ must\ be\ initialised\ later,\ when\ more\ kernel}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00259}00259\ \textcolor{comment}{\ \ \ \ \ *\ subsystems\ (like\ slab\ allocator)\ are\ available.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00260}00260\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00261}00261\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}\ =\ \&\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}[\doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00262}00262\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}++;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00264}00264\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00265}00265\ \ \ \ \ \ \ \ \ strscpy(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ \doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00266}00266\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00267}00267\ \ \ \ \ \ \ \ \ snprintf(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ CMA\_MAX\_NAME,\ \ \textcolor{stringliteral}{"{}cma\%d\(\backslash\)n"{}},\ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00269}00269\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ =\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}}\ =\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >>\ PAGE\_SHIFT;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00270}00270\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}}\ =\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00271}00271\ \ \ \ \ *res\_cma\ =\ \doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00272}00272\ \ \ \ \ totalcma\_pages\ +=\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00274}00274\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00275}00275\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00276}00276\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00278}00278\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00279}00279\ \textcolor{comment}{\ *\ cma\_drop\_area\ -\/\ Reverts\ the\ creation\ of\ the\ most\ recently\ registered\ region}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00280}00280\ \textcolor{comment}{\ *\ of\ the\ CMA.\ It\ subtracts\ the\ area's\ page\ count\ from\ the\ global\ totalcma\_pages}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00281}00281\ \textcolor{comment}{\ *\ metric\ and\ decrements\ cma\_area\_count\ to\ safely\ discard\ an\ unneeded\ or}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00282}00282\ \textcolor{comment}{\ *\ invalid\ reservation.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00283}00283\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00284}\doxymbox{\hyperlink{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71}{00284}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71}{cma\_drop\_area}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00285}00285\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00286}00286\ \ \ \ \ totalcma\_pages\ -\/=\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00287}00287\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}-\/-\/;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00288}00288\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00302}\doxymbox{\hyperlink{cma_8c_a5ccbf330662756d587dfe604278dd9c7}{00302}}\ \textcolor{keywordtype}{int}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a5ccbf330662756d587dfe604278dd9c7}{cma\_init\_reserved\_mem}}(phys\_addr\_t\ base,\ phys\_addr\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ **res\_cma)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00306}00306\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00307}00307\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00308}00308\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00309}00309\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00310}00310\ \ \ \ \ \textcolor{comment}{/*\ Sanity\ checks\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00311}00311\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ ||\ !\doxymbox{\hyperlink{memblock_8c_abaf8834e7aa241bd066ffa78f1b3c170}{memblock\_is\_region\_reserved}}(base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00312}00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00314}00314\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00315}00315\ \textcolor{comment}{\ \ \ \ \ *\ CMA\ uses\ CMA\_MIN\_ALIGNMENT\_BYTES\ as\ alignment\ requirement\ which}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00316}00316\ \textcolor{comment}{\ \ \ \ \ *\ needs\ pageblock\_order\ to\ be\ initialized.\ Let's\ enforce\ it.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00317}00317\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00318}00318\ \ \ \ \ \textcolor{keywordflow}{if}\ (!pageblock\_order)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00319}00319\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}pageblock\_order\ not\ yet\ initialized.\ Called\ during\ early\ boot?\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00320}00320\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00321}00321\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00322}00322\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00323}00323\ \ \ \ \ \textcolor{comment}{/*\ ensure\ minimal\ alignment\ required\ by\ mm\ core\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00324}00324\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ALIGNED(base\ |\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ CMA\_MIN\_ALIGNMENT\_BYTES))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00325}00325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00326}00326\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00327}00327\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a}{cma\_new\_area}}(\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}},\ \&\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00328}00328\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ 0)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00329}00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00330}00330\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00331}00331\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[0].\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ =\ PFN\_DOWN(base);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00332}00332\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[0].\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}\ =\ PFN\_DOWN(base);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00333}00333\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[0].\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ =\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00334}00334\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00335}00335\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}}\ =\ NUMA\_NO\_NODE;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00337}00337\ \ \ \ \ *res\_cma\ =\ \doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00338}00338\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00339}00339\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00340}00340\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00342}00342\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00343}00343\ \textcolor{comment}{\ *\ Structure\ used\ while\ walking\ physical\ memory\ ranges\ and\ finding\ out}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00344}00344\ \textcolor{comment}{\ *\ which\ one(s)\ to\ use\ for\ a\ CMA\ area.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00345}00345\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00346}\doxymbox{\hyperlink{structcma__init__memrange}{00346}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00347}\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{00347}}\ \ \ \ \ phys\_addr\_t\ \doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00348}\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{00348}}\ \ \ \ \ phys\_addr\_t\ \doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00349}\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{00349}}\ \ \ \ \ \textcolor{keyword}{struct\ }list\_head\ \doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00350}00350\ \};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00351}00351\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00352}00352\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00353}00353\ \textcolor{comment}{\ *\ Work\ array\ used\ during\ CMA\ initialization.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00354}00354\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00355}\doxymbox{\hyperlink{cma_8c_a20e93f76e8f82dfcadbc6e03ce032027}{00355}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ memranges[\doxymbox{\hyperlink{cma_8h_a16659937567831cca6bbe6a65f443165}{CMA\_MAX\_RANGES}}]\ \doxymbox{\hyperlink{cma_8c_a20e93f76e8f82dfcadbc6e03ce032027}{\_\_initdata}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00357}\doxymbox{\hyperlink{cma_8c_a3c4a3cf48eabdcf3bf54d2cc130d79e5}{00357}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a3c4a3cf48eabdcf3bf54d2cc130d79e5}{revsizecmp}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *mlp,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *mrp)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00359}00359\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00360}00360\ \ \ \ \ \textcolor{keywordflow}{return}\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}}\ >\ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00361}00361\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00362}00362\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00363}\doxymbox{\hyperlink{cma_8c_a797c9c78aabab2ab2bfac5292d40d9af}{00363}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a797c9c78aabab2ab2bfac5292d40d9af}{basecmp}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *mlp,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *mrp)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00365}00365\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00366}00366\ \ \ \ \ \textcolor{keywordflow}{return}\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ <\ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00367}00367\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00369}00369\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00370}00370\ \textcolor{comment}{\ *\ Helper\ function\ to\ create\ sorted\ lists.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00371}00371\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00372}\doxymbox{\hyperlink{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329}{00372}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329}{list\_insert\_sorted}}(}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00373}00373\ \ \ \ \ \textcolor{keyword}{struct}\ list\_head\ *ranges,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00374}00374\ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *mrp,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00375}00375\ \ \ \ \ \textcolor{keywordtype}{bool}\ (*cmp)(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *lh,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *rh))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00376}00376\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00377}00377\ \ \ \ \ \textcolor{keyword}{struct\ }list\_head\ *mp;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00378}00378\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *mlp;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00379}00379\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00380}00380\ \ \ \ \ \textcolor{keywordflow}{if}\ (list\_empty(ranges))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00381}00381\ \ \ \ \ \ \ \ \ list\_add(\&mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}},\ ranges);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00382}00382\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00383}00383\ \ \ \ \ \ \ \ \ list\_for\_each(mp,\ ranges)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ mlp\ =\ list\_entry(mp,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ \doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cmp(mlp,\ mrp))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00387}00387\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00388}00388\ \ \ \ \ \ \ \ \ \_\_list\_add(\&mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}},\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}}.prev,\ \&mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00389}00389\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00390}00390\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00391}00391\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00392}00392\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00393}00393\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00394}00394\ \textcolor{comment}{\ *\ cma\_fixed\_reserve\ -\/\ Checks\ whether\ a\ fixed\ physical\ address\ range\ crosses\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00395}00395\ \textcolor{comment}{\ *\ highmem/lowmem\ boundary\ under\ CONFIG\_HIGHMEM.\ If\ valid,\ it\ verifies\ the\ range}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00396}00396\ \textcolor{comment}{\ *\ is\ unreserved\ and\ calls\ memblock\_reserve()\ to\ mark\ the\ physical\ memory\ as\ reserved.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00397}00397\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00398}\doxymbox{\hyperlink{cma_8c_a3a8851f9dbcf016f6afb59a60caa871a}{00398}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a3a8851f9dbcf016f6afb59a60caa871a}{cma\_fixed\_reserve}}(phys\_addr\_t\ \doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ phys\_addr\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00399}00399\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00400}00400\ \ \ \ \ \textcolor{keywordflow}{if}\ (IS\_ENABLED(CONFIG\_HIGHMEM))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00401}00401\ \ \ \ \ \ \ \ \ phys\_addr\_t\ highmem\_start\ =\ \_\_pa(high\_memory\ -\/\ 1)\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00403}00403\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00404}00404\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ allocating\ at\ a\ fixed\ base\ the\ request\ region\ must\ not}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00405}00405\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ cross\ the\ low/high\ memory\ boundary.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00406}00406\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00407}00407\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base\ <\ highmem\_start\ \&\&\ base\ +\ size\ >}}\ highmem\_start)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Region\ at\ \%pa\ defined\ on\ low/high\ memory\ boundary\ (\%pa)\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00409}00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \&highmem\_start);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00411}00411\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00412}00412\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00414}00414\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{memblock_8c_abaf8834e7aa241bd066ffa78f1b3c170}{memblock\_is\_region\_reserved}}(\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ ||}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00415}00415\ \ \ \ \ \ \ \ \ memblock\_reserve(\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00416}00416\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EBUSY;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00417}00417\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00418}00418\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00419}00419\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00420}00420\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00421}00421\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00422}00422\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00423}00423\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00424}00424\ \textcolor{comment}{\ *\ cma\_alloc\_mem\ -\/\ Allocates\ physical\ memory\ for\ CMA\ using\ memblock.\ On\ 64-\/bit}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00425}00425\ \textcolor{comment}{\ *\ systems,\ it\ attempts\ bottom-\/up\ allocation\ above\ 4GB;\ under\ CONFIG\_HIGHMEM,}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00426}00426\ \textcolor{comment}{\ *\ it\ attempts\ allocation\ in\ high\ memory\ first;\ otherwise,\ it\ calls}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00427}00427\ \textcolor{comment}{\ *\ memblock\_alloc\_range\_nid()\ within\ the\ specified\ base\ and\ limit.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00428}00428\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00429}\doxymbox{\hyperlink{cma_8c_a25b9dae3587cc341d557617d987dd2cf}{00429}}\ \textcolor{keyword}{static}\ phys\_addr\_t\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a25b9dae3587cc341d557617d987dd2cf}{cma\_alloc\_mem}}(phys\_addr\_t\ \doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ phys\_addr\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ phys\_addr\_t\ align,\ phys\_addr\_t\ limit,\ \textcolor{keywordtype}{int}\ nid)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00431}00431\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00432}00432\ \ \ \ \ phys\_addr\_t\ addr\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00433}00433\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00434}00434\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00435}00435\ \textcolor{comment}{\ \ \ \ \ *\ If\ there\ is\ enough\ memory,\ try\ a\ bottom-\/up\ allocation\ first.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00436}00436\ \textcolor{comment}{\ \ \ \ \ *\ It\ will\ place\ the\ new\ cma\ area\ close\ to\ the\ start\ of\ the\ node}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00437}00437\ \textcolor{comment}{\ \ \ \ \ *\ and\ guarantee\ that\ the\ compaction\ is\ moving\ pages\ out\ of\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00438}00438\ \textcolor{comment}{\ \ \ \ \ *\ cma\ area\ and\ not\ into\ it.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00439}00439\ \textcolor{comment}{\ \ \ \ \ *\ Avoid\ using\ first\ 4GB\ to\ not\ interfere\ with\ constrained\ zones}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00440}00440\ \textcolor{comment}{\ \ \ \ \ *\ like\ DMA/DMA32.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00441}00441\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00442}00442\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_PHYS\_ADDR\_T\_64BIT}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00443}00443\ \ \ \ \ \textcolor{keywordflow}{if}\ (!memblock\_bottom\_up()\ \&\&\ limit\ >=\ SZ\_4G\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00444}00444\ \ \ \ \ \ \ \ \ memblock\_set\_bottom\_up(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00445}00445\ \ \ \ \ \ \ \ \ addr\ =\ \doxymbox{\hyperlink{memblock_8c_a23875c89e572709cf1ad3fe305b8dc52}{memblock\_alloc\_range\_nid}}(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ align,\ SZ\_4G,\ limit,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00446}00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nid,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00447}00447\ \ \ \ \ \ \ \ \ memblock\_set\_bottom\_up(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00448}00448\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00449}00449\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00450}00450\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00451}00451\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00452}00452\ \textcolor{comment}{\ \ \ \ \ *\ On\ systems\ with\ HIGHMEM\ try\ allocating\ from\ there\ before\ consuming}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00453}00453\ \textcolor{comment}{\ \ \ \ \ *\ memory\ in\ lower\ zones.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00454}00454\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00455}00455\ \ \ \ \ \textcolor{keywordflow}{if}\ (!addr\ \&\&\ IS\_ENABLED(CONFIG\_HIGHMEM))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00456}00456\ \ \ \ \ \ \ \ \ phys\_addr\_t\ highmem\ =\ \_\_pa(high\_memory\ -\/\ 1)\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00457}00457\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00458}00458\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00459}00459\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ All\ pages\ in\ the\ reserved\ area\ must\ come\ from\ the\ same\ zone.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00460}00460\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ the\ requested\ region\ crosses\ the\ low/high\ memory\ boundary,}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00461}00461\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ try\ allocating\ from\ high\ memory\ first\ and\ fall\ back\ to\ low}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00462}00462\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ memory\ in\ case\ of\ failure.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00463}00463\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00464}00464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base\ <\ highmem\ \&\&\ limit\ >}}\ highmem)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ \ addr\ =\ \doxymbox{\hyperlink{memblock_8c_a23875c89e572709cf1ad3fe305b8dc52}{memblock\_alloc\_range\_nid}}(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ align,\ highmem,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ limit,\ nid,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \ \ limit\ =\ highmem;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00468}00468\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00469}00469\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00471}00471\ \ \ \ \ \textcolor{keywordflow}{if}\ (!addr)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00472}00472\ \ \ \ \ \ \ \ \ addr\ =\ \doxymbox{\hyperlink{memblock_8c_a23875c89e572709cf1ad3fe305b8dc52}{memblock\_alloc\_range\_nid}}(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ align,\ \doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ limit,\ nid,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00473}00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00474}00474\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00475}00475\ \ \ \ \ \textcolor{keywordflow}{return}\ addr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00476}00476\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00477}00477\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00479}00479\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00480}00480\ \textcolor{comment}{\ *\ \_\_cma\_declare\_contiguous\_nid\ -\/\ Validates\ CMA\ configuration\ parameters}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00481}00481\ \textcolor{comment}{\ *\ including\ alignment,\ size,\ slot\ availability,\ and\ DRAM\ limits.\ It\ reserves}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00482}00482\ \textcolor{comment}{\ *\ physical\ memory\ using\ either\ cma\_fixed\_reserve()\ or\ cma\_alloc\_mem(),\ excludes}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00483}00483\ \textcolor{comment}{\ *\ the\ address\ range\ from\ kmemleak\ scanning,\ and\ registers\ the\ region\ via}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00484}00484\ \textcolor{comment}{\ *\ cma\_init\_reserved\_mem()\ with\ its\ assigned\ NUMA\ node\ ID.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00485}00485\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00486}\doxymbox{\hyperlink{cma_8c_ab3476249344bde0d4202f00d066aac24}{00486}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_ab3476249344bde0d4202f00d066aac24}{\_\_cma\_declare\_contiguous\_nid}}(phys\_addr\_t\ *basep,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \ \ phys\_addr\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ phys\_addr\_t\ limit,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ \ \ phys\_addr\_t\ alignment,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order\_per\_bit,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ fixed,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ **res\_cma,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nid)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00491}00491\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00492}00492\ \ \ \ \ phys\_addr\_t\ memblock\_end\ =\ \doxymbox{\hyperlink{memblock_8c_a82de9099ce8a9d612bfce8cb5da9eb23}{memblock\_end\_of\_DRAM}}();}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00493}00493\ \ \ \ \ phys\_addr\_t\ \doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ =\ *basep;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00494}00494\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00495}00495\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00496}00496\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(size\ \%pa,\ base\ \%pa,\ limit\ \%pa\ alignment\ \%pa)\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00497}00497\ \ \ \ \ \ \ \ \ \_\_func\_\_,\ \&\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \&\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \&limit,\ \&alignment);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00498}00498\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00499}00499\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}}\ ==\ ARRAY\_SIZE(\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00500}00500\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Not\ enough\ slots\ for\ CMA\ reserved\ regions!\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00501}00501\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/ENOSPC;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00502}00502\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00503}00503\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00504}00504\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00505}00505\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00506}00506\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00507}00507\ \ \ \ \ \textcolor{keywordflow}{if}\ (alignment\ \&\&\ !is\_power\_of\_2(alignment))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00508}00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00509}00509\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00510}00510\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ENABLED(CONFIG\_NUMA))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00511}00511\ \ \ \ \ \ \ \ \ nid\ =\ NUMA\_NO\_NODE;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00512}00512\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00513}00513\ \ \ \ \ \textcolor{comment}{/*\ Sanitise\ input\ arguments.\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00514}00514\ \ \ \ \ alignment\ =\ max\_t(phys\_addr\_t,\ alignment,\ CMA\_MIN\_ALIGNMENT\_BYTES);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00515}00515\ \ \ \ \ \textcolor{keywordflow}{if}\ (fixed\ \&\&\ \doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ \&\ (alignment\ -\/\ 1))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00516}00516\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Region\ at\ \%pa\ must\ be\ aligned\ to\ \%pa\ bytes\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00517}00517\ \ \ \ \ \ \ \ \ \ \ \ \ \&\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \&alignment);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00518}00518\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00519}00519\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00520}00520\ \ \ \ \ \doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ =\ ALIGN(\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ alignment);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00521}00521\ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ =\ ALIGN(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ alignment);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00522}00522\ \ \ \ \ limit\ \&=\ \string~(alignment\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00523}00523\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00524}00524\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00525}00525\ \ \ \ \ \ \ \ \ fixed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00526}00526\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00527}00527\ \ \ \ \ \textcolor{comment}{/*\ size\ should\ be\ aligned\ with\ order\_per\_bit\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00528}00528\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ALIGNED(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >>\ PAGE\_SHIFT,\ 1\ <<\ order\_per\_bit))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00529}00529\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00530}00530\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00531}00531\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00532}00532\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00533}00533\ \textcolor{comment}{\ \ \ \ \ *\ If\ the\ limit\ is\ unspecified\ or\ above\ the\ memblock\ end,\ its\ effective}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00534}00534\ \textcolor{comment}{\ \ \ \ \ *\ value\ will\ be\ the\ memblock\ end.\ Set\ it\ explicitly\ to\ simplify\ further}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00535}00535\ \textcolor{comment}{\ \ \ \ \ *\ checks.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00536}00536\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00537}00537\ \ \ \ \ \textcolor{keywordflow}{if}\ (limit\ ==\ 0\ ||\ limit\ >\ memblock\_end)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00538}00538\ \ \ \ \ \ \ \ \ limit\ =\ memblock\_end;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00539}00539\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00540}00540\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >\ limit)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00541}00541\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Size\ (\%pa)\ of\ region\ at\ \%pa\ exceeds\ limit\ (\%pa)\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00542}00542\ \ \ \ \ \ \ \ \ \ \ \ \ \&\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \&\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \&limit);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00543}00543\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00544}00544\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00545}00545\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00546}00546\ \ \ \ \ \textcolor{comment}{/*\ Reserve\ memory\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00547}00547\ \ \ \ \ \textcolor{keywordflow}{if}\ (fixed)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00548}00548\ \ \ \ \ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_a3a8851f9dbcf016f6afb59a60caa871a}{cma\_fixed\_reserve}}(\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00549}00549\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00550}00550\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00551}00551\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00552}00552\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ =\ \doxymbox{\hyperlink{cma_8c_a25b9dae3587cc341d557617d987dd2cf}{cma\_alloc\_mem}}(\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ alignment,\ limit,\ nid);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00553}00553\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00554}00554\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/ENOMEM;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00555}00555\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00556}00556\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00557}00557\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ kmemleak\ scans/reads\ tracked\ objects\ for\ pointers\ to\ other}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00558}00558\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ objects\ but\ this\ address\ isn't\ mapped\ and\ accessible}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00559}00559\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00560}00560\ \ \ \ \ \ \ \ \ kmemleak\_ignore\_phys(\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00561}00561\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00562}00562\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00563}00563\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_a5ccbf330662756d587dfe604278dd9c7}{cma\_init\_reserved\_mem}}(\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ order\_per\_bit,\ name,\ res\_cma);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00564}00564\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00565}00565\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memblock_8c_a58374695cac69fae902f94caf76b45d3}{memblock\_phys\_free}}(\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00566}00566\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00567}00567\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00569}00569\ \ \ \ \ (*res\_cma)-\/>nid\ =\ nid;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00570}00570\ \ \ \ \ *basep\ =\ \doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00571}00571\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00572}00572\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00573}00573\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00574}00574\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00575}00575\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00576}00576\ \textcolor{comment}{\ *\ Create\ CMA\ areas\ with\ a\ total\ size\ of\ @total\_size.\ A\ normal\ allocation}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00577}00577\ \textcolor{comment}{\ *\ for\ one\ area\ is\ tried\ first.\ If\ that\ fails,\ the\ biggest\ memblock}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00578}00578\ \textcolor{comment}{\ *\ ranges\ above\ 4G\ are\ selected,\ and\ allocated\ bottom\ up.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00579}00579\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00580}00580\ \textcolor{comment}{\ *\ The\ complexity\ here\ is\ not\ great,\ but\ this\ function\ will\ only\ be}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00581}00581\ \textcolor{comment}{\ *\ called\ during\ boot,\ and\ the\ lists\ operated\ on\ have\ fewer\ than}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00582}00582\ \textcolor{comment}{\ *\ CMA\_MAX\_RANGES\ elements\ (default\ value:\ 8).}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00583}00583\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00584}\doxymbox{\hyperlink{cma_8c_a8069ccd7aae99dd4d6e5a139f23a5345}{00584}}\ \textcolor{keywordtype}{int}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a8069ccd7aae99dd4d6e5a139f23a5345}{cma\_declare\_contiguous\_multi}}(phys\_addr\_t\ total\_size,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ \ \ phys\_addr\_t\ align,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order\_per\_bit,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ **res\_cma,\ \textcolor{keywordtype}{int}\ nid)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00587}00587\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00588}00588\ \ \ \ \ phys\_addr\_t\ start\ =\ 0,\ end;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00589}00589\ \ \ \ \ phys\_addr\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ sizesum,\ sizeleft;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00590}00590\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}}\ *mrp,\ *mlp,\ *failed;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00591}00591\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmrp;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00592}00592\ \ \ \ \ \doxymbox{\hyperlink{cgroup_8c_a1c97100246d4db525e74b605e678d713}{LIST\_HEAD}}(ranges);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00593}00593\ \ \ \ \ \doxymbox{\hyperlink{cgroup_8c_a1c97100246d4db525e74b605e678d713}{LIST\_HEAD}}(final\_ranges);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00594}00594\ \ \ \ \ \textcolor{keyword}{struct\ }list\_head\ *mp,\ *next;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00595}00595\ \ \ \ \ \textcolor{keywordtype}{int}\ ret,\ nr\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00596}00596\ \ \ \ \ u64\ i;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00597}00597\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00598}00598\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00599}00599\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00600}00600\ \textcolor{comment}{\ \ \ \ \ *\ First,\ try\ it\ the\ normal\ way,\ producing\ just\ one\ range.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00601}00601\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00602}00602\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_ab3476249344bde0d4202f00d066aac24}{\_\_cma\_declare\_contiguous\_nid}}(\&start,\ total\_size,\ 0,\ align,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00603}00603\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}},\ \textcolor{keyword}{false},\ \doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ res\_cma,\ \doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00604}00604\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ -\/ENOMEM)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00605}00605\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00606}00606\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00607}00607\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00608}00608\ \textcolor{comment}{\ \ \ \ \ *\ Couldn't\ find\ one\ range\ that\ fits\ our\ needs,\ so\ try\ multiple}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00609}00609\ \textcolor{comment}{\ \ \ \ \ *\ ranges.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00610}00610\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00611}00611\ \textcolor{comment}{\ \ \ \ \ *\ No\ need\ to\ do\ the\ alignment\ checks\ here,\ the\ call\ to}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00612}00612\ \textcolor{comment}{\ \ \ \ \ *\ cma\_declare\_contiguous\_nid\ above\ would\ have\ caught}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00613}00613\ \textcolor{comment}{\ \ \ \ \ *\ any\ issues.\ With\ the\ checks,\ we\ know\ that:}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00614}00614\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00615}00615\ \textcolor{comment}{\ \ \ \ \ *\ -\/\ @align\ is\ a\ power\ of\ 2}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00616}00616\ \textcolor{comment}{\ \ \ \ \ *\ -\/\ @align\ is\ >=\ pageblock\ alignment}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00617}00617\ \textcolor{comment}{\ \ \ \ \ *\ -\/\ @size\ is\ aligned\ to\ @align\ and\ to\ @order\_per\_bit}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00618}00618\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00619}00619\ \textcolor{comment}{\ \ \ \ \ *\ So,\ as\ long\ as\ we\ create\ ranges\ that\ have\ a\ base}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00620}00620\ \textcolor{comment}{\ \ \ \ \ *\ aligned\ to\ @align,\ and\ a\ size\ that\ is\ aligned\ to}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00621}00621\ \textcolor{comment}{\ \ \ \ \ *\ both\ @align\ and\ @order\_to\_bit,\ things\ will\ work\ out.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00622}00622\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00623}00623\ \ \ \ \ nr\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00624}00624\ \ \ \ \ sizesum\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00625}00625\ \ \ \ \ failed\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00626}00626\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00627}00627\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_ac1fbccfeec10a083a0f82ee3ec17850a}{cma\_new\_area}}(\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ total\_size,\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}},\ \&\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00628}00628\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ 0)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00629}00629\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00630}00630\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00631}00631\ \ \ \ \ align\ =\ max\_t(phys\_addr\_t,\ align,\ CMA\_MIN\_ALIGNMENT\_BYTES);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00632}00632\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00633}00633\ \textcolor{comment}{\ \ \ \ \ *\ Create\ a\ list\ of\ ranges\ above\ 4G,\ largest\ range\ first.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00634}00634\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00635}00635\ \ \ \ \ for\_each\_free\_mem\_range(i,\ \doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}},\ MEMBLOCK\_NONE,\ \&start,\ \&end,\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00636}00636\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (upper\_32\_bits(start)\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00637}00637\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00638}00638\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00639}00639\ \ \ \ \ \ \ \ \ start\ =\ ALIGN(start,\ align);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00640}00640\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ >=\ end)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00641}00641\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00642}00642\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00643}00643\ \ \ \ \ \ \ \ \ end\ =\ ALIGN\_DOWN(end,\ align);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00644}00644\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (end\ <=\ start)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00645}00645\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00646}00646\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00647}00647\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ =\ end\ -\/\ start;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00648}00648\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ =\ ALIGN\_DOWN(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ (PAGE\_SIZE\ <<\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}}));}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00649}00649\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00650}00650\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00651}00651\ \ \ \ \ \ \ \ \ sizesum\ +=\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00652}00652\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00653}00653\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}consider\ \%016llx\ -\/\ \%016llx\(\backslash\)n"{}},\ (u64)start,\ (u64)end);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00654}00654\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00655}00655\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00656}00656\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ we\ don't\ yet\ have\ used\ the\ maximum\ number\ of}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00657}00657\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ areas,\ grab\ a\ new\ one.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00658}00658\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00659}00659\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ we\ can't\ use\ anymore,\ see\ if\ this\ range\ is\ not}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00660}00660\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ smaller\ than\ the\ smallest\ one\ already\ recorded.\ If}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00661}00661\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ not,\ re-\/use\ the\ smallest\ element.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00662}00662\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00663}00663\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nr\ <\ \doxymbox{\hyperlink{cma_8h_a16659937567831cca6bbe6a65f443165}{CMA\_MAX\_RANGES}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00664}00664\ \ \ \ \ \ \ \ \ \ \ \ \ mrp\ =\ \&memranges[nr++];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00665}00665\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00666}00666\ \ \ \ \ \ \ \ \ \ \ \ \ mrp\ =\ list\_last\_entry(\&\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00667}00667\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ list);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00668}00668\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size\ <\ mrp-\/>}}\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00669}00669\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00670}00670\ \ \ \ \ \ \ \ \ \ \ \ \ list\_del(\&mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_a83da10ec9f026da4b5dedc3e3dd66adb}{list}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00671}00671\ \ \ \ \ \ \ \ \ \ \ \ \ sizesum\ -\/=\ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00672}00672\ \ \ \ \ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}deleted\ \%016llx\ -\/\ \%016llx\ from\ the\ list\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00673}00673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (u64)mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ (u64)mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00674}00674\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00675}00675\ \ \ \ \ \ \ \ \ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ =\ start;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00676}00676\ \ \ \ \ \ \ \ \ mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}}\ =\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00677}00677\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00678}00678\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00679}00679\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Now\ do\ a\ sorted\ insert.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00680}00680\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00681}00681\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329}{list\_insert\_sorted}}(\&\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}},\ mrp,\ \doxymbox{\hyperlink{cma_8c_a3c4a3cf48eabdcf3bf54d2cc130d79e5}{revsizecmp}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00682}00682\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}added\ \%016llx\ -\/\ \%016llx\ to\ the\ list\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00683}00683\ \ \ \ \ \ \ \ \ \ \ \ \ (u64)mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ (u64)mrp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00684}00684\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}total\ size\ now\ \%llu\(\backslash\)n"{}},\ (u64)sizesum);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00685}00685\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00686}00686\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00687}00687\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00688}00688\ \textcolor{comment}{\ \ \ \ \ *\ There\ is\ not\ enough\ room\ in\ the\ CMA\_MAX\_RANGES\ largest}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00689}00689\ \textcolor{comment}{\ \ \ \ \ *\ ranges,\ so\ bail\ out.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00690}00690\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00691}00691\ \ \ \ \ \textcolor{keywordflow}{if}\ (sizesum\ <\ total\_size)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00692}00692\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71}{cma\_drop\_area}}(\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00693}00693\ \ \ \ \ \ \ \ \ ret\ =\ -\/ENOMEM;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00694}00694\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00695}00695\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00696}00696\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00697}00697\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00698}00698\ \textcolor{comment}{\ \ \ \ \ *\ Found\ ranges\ that\ provide\ enough\ combined\ space.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00699}00699\ \textcolor{comment}{\ \ \ \ \ *\ Now,\ sorted\ them\ by\ address,\ smallest\ first,\ because\ we}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00700}00700\ \textcolor{comment}{\ \ \ \ \ *\ want\ to\ mimic\ a\ bottom-\/up\ memblock\ allocation.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00701}00701\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00702}00702\ \ \ \ \ sizesum\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00703}00703\ \ \ \ \ list\_for\_each\_safe(mp,\ next,\ \&\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}})\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00704}00704\ \ \ \ \ \ \ \ \ mlp\ =\ list\_entry(mp,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ list);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00705}00705\ \ \ \ \ \ \ \ \ list\_del(mp);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00706}00706\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a090e27ee36f2ff2ea3e74bb5ef556329}{list\_insert\_sorted}}(\&final\_ranges,\ mlp,\ \doxymbox{\hyperlink{cma_8c_a797c9c78aabab2ab2bfac5292d40d9af}{basecmp}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00707}00707\ \ \ \ \ \ \ \ \ sizesum\ +=\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00708}00708\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sizesum\ >=\ total\_size)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00709}00709\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00710}00710\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00711}00711\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00712}00712\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00713}00713\ \textcolor{comment}{\ \ \ \ \ *\ Walk\ the\ final\ list,\ and\ add\ a\ CMA\ range\ for}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00714}00714\ \textcolor{comment}{\ \ \ \ \ *\ each\ range,\ possibly\ not\ using\ the\ last\ one\ fully.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00715}00715\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00716}00716\ \ \ \ \ nr\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00717}00717\ \ \ \ \ sizeleft\ =\ total\_size;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00718}00718\ \ \ \ \ list\_for\_each(mp,\ \&final\_ranges)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00719}00719\ \ \ \ \ \ \ \ \ mlp\ =\ list\_entry(mp,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ list);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00720}00720\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ =\ min(sizeleft,\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00721}00721\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (memblock\_reserve(mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00722}00722\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00723}00723\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ Unexpected\ error.\ Could\ go\ on\ to}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00724}00724\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ the\ next\ one,\ but\ just\ abort\ to}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00725}00725\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ be\ safe.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00726}00726\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00727}00727\ \ \ \ \ \ \ \ \ \ \ \ \ failed\ =\ mlp;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00728}00728\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00729}00729\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00730}00730\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00731}00731\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}created\ region\ \%d:\ \%016llx\ -\/\ \%016llx\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00732}00732\ \ \ \ \ \ \ \ \ \ \ \ \ nr,\ (u64)mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ (u64)mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}}\ +\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00733}00733\ \ \ \ \ \ \ \ \ cmrp\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[nr++];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00734}00734\ \ \ \ \ \ \ \ \ cmrp-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ =\ PHYS\_PFN(mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00735}00735\ \ \ \ \ \ \ \ \ cmrp-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}\ =\ cmrp-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00736}00736\ \ \ \ \ \ \ \ \ cmrp-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ =\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >>\ PAGE\_SHIFT;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00737}00737\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00738}00738\ \ \ \ \ \ \ \ \ sizeleft\ -\/=\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00739}00739\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sizeleft\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00740}00740\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00741}00741\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00742}00742\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00743}00743\ \ \ \ \ \textcolor{keywordflow}{if}\ (failed)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00744}00744\ \ \ \ \ \ \ \ \ list\_for\_each(mp,\ \&final\_ranges)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00745}00745\ \ \ \ \ \ \ \ \ \ \ \ \ mlp\ =\ list\_entry(mp,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__init__memrange}{cma\_init\_memrange}},\ list);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00746}00746\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mlp\ ==\ failed)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00747}00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00748}00748\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memblock_8c_a58374695cac69fae902f94caf76b45d3}{memblock\_phys\_free}}(mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_abe4fcbf01b749ecf26f4f28cfbc0cefe}{base}},\ mlp-\/>\doxymbox{\hyperlink{structcma__init__memrange_adf285a85d769cffccf2da965858a01a5}{size}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00749}00749\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00750}00750\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_ab3f204b31bc46eac5e64bbb3127b3d71}{cma\_drop\_area}}(\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00751}00751\ \ \ \ \ \ \ \ \ ret\ =\ -\/ENOMEM;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00752}00752\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00753}00753\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00754}00754\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00755}00755\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}}\ =\ nr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00756}00756\ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}}\ =\ \doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00757}00757\ \ \ \ \ *res\_cma\ =\ \doxymbox{\hyperlink{structcma}{cma}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00758}00758\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00759}00759\ out:}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00760}00760\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ 0)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00761}00761\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Failed\ to\ reserve\ \%lu\ MiB\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00762}00762\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})total\_size\ /\ SZ\_1M);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00763}00763\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00764}00764\ \ \ \ \ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}Reserved\ \%lu\ MiB\ in\ \%d\ range\%s\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00765}00765\ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})total\_size\ /\ SZ\_1M,\ nr,\ str\_plural(nr));}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00766}00766\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00767}00767\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00768}00768\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00789}\doxymbox{\hyperlink{cma_8c_a67300d38c8a1a69d9f4c8866dc44840a}{00789}}\ \textcolor{keywordtype}{int}\ \_\_init\ \doxymbox{\hyperlink{cma_8c_a67300d38c8a1a69d9f4c8866dc44840a}{cma\_declare\_contiguous\_nid}}(phys\_addr\_t\ base,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00790}00790\ \ \ \ \ \ \ \ \ \ \ \ \ phys\_addr\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ phys\_addr\_t\ limit,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00791}00791\ \ \ \ \ \ \ \ \ \ \ \ \ phys\_addr\_t\ alignment,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00792}00792\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ fixed,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ **res\_cma,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00793}00793\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00794}00794\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00795}00795\ \ \ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00796}00796\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00797}00797\ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_ab3476249344bde0d4202f00d066aac24}{\_\_cma\_declare\_contiguous\_nid}}(\&base,\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ limit,\ alignment,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00798}00798\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}},\ fixed,\ \doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ res\_cma,\ \doxymbox{\hyperlink{structcma_aa92f147de5857587665ae15097ca4329}{nid}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00799}00799\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ 0)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00800}00800\ \ \ \ \ \ \ \ \ pr\_err(\textcolor{stringliteral}{"{}Failed\ to\ reserve\ \%ld\ MiB\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00801}00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ /\ SZ\_1M);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00802}00802\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00803}00803\ \ \ \ \ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}Reserved\ \%ld\ MiB\ at\ \%pa\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00804}00804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ /\ SZ\_1M,\ \&base);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00805}00805\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00806}00806\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00807}00807\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00808}00808\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00809}00809\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00810}00810\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00811}00811\ \textcolor{comment}{\ *\ cma\_debug\_show\_areas\ -\/\ Acquires\ the\ CMA\ spinlock\ to\ iterate\ through\ clear}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00812}00812\ \textcolor{comment}{\ *\ bitranges\ across\ all\ memory\ range\ bitmaps\ in\ a\ CMA\ area.\ It\ logs\ free\ page}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00813}00813\ \textcolor{comment}{\ *\ offsets,\ block\ lengths,\ and\ total\ available\ versus\ total\ capacity\ to\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00814}00814\ \textcolor{comment}{\ *\ kernel\ print\ buffer.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00815}00815\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00816}\doxymbox{\hyperlink{cma_8c_aaf9a433b1f1cdd2306aa512d19b270fd}{00816}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{cma_8c_aaf9a433b1f1cdd2306aa512d19b270fd}{cma\_debug\_show\_areas}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00817}00817\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00818}00818\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,\ end;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00819}00819\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_part;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00820}00820\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nbits;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00821}00821\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00822}00822\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00823}00823\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00824}00824\ \ \ \ \ spin\_lock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00825}00825\ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}number\ of\ available\ pages:\ "{}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00826}00826\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00827}00827\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00828}00828\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00829}00829\ \ \ \ \ \ \ \ \ nbits\ =\ \doxymbox{\hyperlink{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707}{cma\_bitmap\_maxno}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00830}00830\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00831}00831\ \ \ \ \ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}range\ \%d:\ "{}},\ r);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00832}00832\ \ \ \ \ \ \ \ \ for\_each\_clear\_bitrange(start,\ end,\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},\ nbits)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00833}00833\ \ \ \ \ \ \ \ \ \ \ \ \ nr\_part\ =\ (end\ -\/\ start)\ <<\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00834}00834\ \ \ \ \ \ \ \ \ \ \ \ \ pr\_cont(\textcolor{stringliteral}{"{}\%s\%lu@\%lu"{}},\ start\ ?\ \textcolor{stringliteral}{"{}+"{}}\ :\ \textcolor{stringliteral}{"{}"{}},\ nr\_part,\ start);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00835}00835\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00836}00836\ \ \ \ \ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00837}00837\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00838}00838\ \ \ \ \ pr\_cont(\textcolor{stringliteral}{"{}=>\ \%lu\ free\ of\ \%lu\ total\ pages\(\backslash\)n"{}},\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00839}00839\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00840}00840\ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00841}00841\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00842}00842\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00843}00843\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00844}00844\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00845}00845\ \textcolor{comment}{\ *\ cma\_range\_alloc\ -\/\ Searches\ a\ specific\ memory\ range\ bitmap\ for\ an\ aligned}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00846}00846\ \textcolor{comment}{\ *\ sequence\ of\ zero\ bits\ matching\ the\ requested\ page\ count.\ After\ marking\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00847}00847\ \textcolor{comment}{\ *\ matching\ bits\ as\ allocated\ and\ decrementing\ available\_count,\ it\ releases\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00848}00848\ \textcolor{comment}{\ *\ spinlock\ and\ calls\ alloc\_contig\_frozen\_range()\ to\ migrate\ existing\ pages\ out}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00849}00849\ \textcolor{comment}{\ *\ of\ the\ span,\ clearing\ the\ bitmap\ and\ retrying\ if\ migration\ fails.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00850}00850\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00851}\doxymbox{\hyperlink{cma_8c_a7840979b3be80e78d118980122d1043c}{00851}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{cma_8c_a7840979b3be80e78d118980122d1043c}{cma\_range\_alloc}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00852}00852\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ align,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00853}00853\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ page\ **pagep,\ gfp\_t\ gfp)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00854}00854\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00855}00855\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ bitmap\_maxno,\ bitmap\_no,\ bitmap\_count;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00856}00856\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,\ pfn,\ mask,\ offset;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00857}00857\ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ -\/EBUSY;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00858}00858\ \ \ \ \ \textcolor{keyword}{struct\ }page\ *page\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00859}00859\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00860}00860\ \ \ \ \ mask\ =\ \doxymbox{\hyperlink{cma_8c_acacbaf2002d23b129e8873ba1d32effe}{cma\_bitmap\_aligned\_mask}}(\doxymbox{\hyperlink{structcma}{cma}},\ align);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00861}00861\ \ \ \ \ offset\ =\ \doxymbox{\hyperlink{cma_8c_a9913d09d1e20830d944af8a4702814cb}{cma\_bitmap\_aligned\_offset}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ align);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00862}00862\ \ \ \ \ bitmap\_maxno\ =\ \doxymbox{\hyperlink{cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707}{cma\_bitmap\_maxno}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00863}00863\ \ \ \ \ bitmap\_count\ =\ \doxymbox{\hyperlink{cma_8c_a3e1d256c76bc2ce98bb8e17f28446aee}{cma\_bitmap\_pages\_to\_bits}}(\doxymbox{\hyperlink{structcma}{cma}},\ count);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00864}00864\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00865}00865\ \ \ \ \ \textcolor{keywordflow}{if}\ (bitmap\_count\ >\ bitmap\_maxno)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00866}00866\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ out;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00867}00867\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00868}00868\ \ \ \ \ \textcolor{keywordflow}{for}\ (start\ =\ 0;\ ;\ start\ =\ bitmap\_no\ +\ mask\ +\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00869}00869\ \ \ \ \ \ \ \ \ spin\_lock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00870}00870\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00871}00871\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ the\ request\ is\ larger\ than\ the\ available\ number}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00872}00872\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ of\ pages,\ stop\ right\ away.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00873}00873\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00874}00874\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (count\ >\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}})\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00875}00875\ \ \ \ \ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00876}00876\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00877}00877\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00878}00878\ \ \ \ \ \ \ \ \ bitmap\_no\ =\ bitmap\_find\_next\_zero\_area\_off(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00879}00879\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bitmap\_maxno,\ start,\ bitmap\_count,\ mask,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00880}00880\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00881}00881\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bitmap\_no\ >=\ bitmap\_maxno)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00882}00882\ \ \ \ \ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00883}00883\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00884}00884\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00885}00885\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00886}00886\ \ \ \ \ \ \ \ \ pfn\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ (bitmap\_no\ <<\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00887}00887\ \ \ \ \ \ \ \ \ page\ =\ pfn\_to\_page(pfn);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00888}00888\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00889}00889\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00890}00890\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Do\ not\ hand\ out\ page\ ranges\ that\ are\ not\ contiguous,\ so}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00891}00891\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ callers\ can\ just\ iterate\ the\ pages\ without\ having\ to\ worry}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00892}00892\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ about\ these\ corner\ cases.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00893}00893\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00894}00894\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!page\_range\_contiguous(page,\ count))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00895}00895\ \ \ \ \ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00896}00896\ \ \ \ \ \ \ \ \ \ \ \ \ pr\_warn\_ratelimited(\textcolor{stringliteral}{"{}\%s:\ \%s:\ skipping\ incompatible\ area\ [0x\%lx-\/0x\%lx]"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00897}00897\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_func\_\_,\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ pfn,\ pfn\ +\ count\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00898}00898\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00899}00899\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00900}00900\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00901}00901\ \ \ \ \ \ \ \ \ bitmap\_set(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a835db2ef3a7504a2233a56ad16387470}{bitmap}},\ bitmap\_no,\ bitmap\_count);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00902}00902\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ -\/=\ count;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00903}00903\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00904}00904\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ It's\ safe\ to\ drop\ the\ lock\ here.\ We've\ marked\ this\ region\ for}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00905}00905\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ our\ exclusive\ use.\ If\ the\ migration\ fails\ we\ will\ take\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00906}00906\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ lock\ again\ and\ unmark\ it.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00907}00907\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00908}00908\ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a2691fffb3cbbe130f305bcf9968b9a5b}{lock}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00909}00909\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00910}00910\ \ \ \ \ \ \ \ \ mutex\_lock(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a26192936b7b1c2340ab1ca0d5f756a5c}{alloc\_mutex}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00911}00911\ \ \ \ \ \ \ \ \ ret\ =\ alloc\_contig\_frozen\_range(pfn,\ pfn\ +\ count,\ ACR\_FLAGS\_CMA,\ gfp);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00912}00912\ \ \ \ \ \ \ \ \ mutex\_unlock(\&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a26192936b7b1c2340ab1ca0d5f756a5c}{alloc\_mutex}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00913}00913\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ret)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00914}00914\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00915}00915\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00916}00916\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a141cce706c8966d5cdd4a99461e40e23}{cma\_clear\_bitmap}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ pfn,\ count);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00917}00917\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ -\/EBUSY)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00918}00918\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00919}00919\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00920}00920\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s():\ memory\ range\ at\ pfn\ 0x\%lx\ \%p\ is\ busy,\ retrying\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00921}00921\ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_func\_\_,\ pfn,\ page);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00922}00922\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00923}00923\ \ \ \ \ \ \ \ \ trace\_cma\_alloc\_busy\_retry(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ pfn,\ page,\ count,\ align);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00924}00924\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00925}00925\ out:}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00926}00926\ \ \ \ \ \textcolor{keywordflow}{if}\ (!ret)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00927}00927\ \ \ \ \ \ \ \ \ *pagep\ =\ page;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00928}00928\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00929}00929\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00930}00930\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00931}00931\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00932}00932\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00933}00933\ \textcolor{comment}{\ *\ \_\_cma\_alloc\_frozen\ -\/\ Iterates\ through\ all\ memory\ ranges\ within\ a\ CMA\ area\ to}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00934}00934\ \textcolor{comment}{\ *\ allocate\ contiguous\ pages\ via\ cma\_range\_alloc().\ On\ success,\ it\ resets\ KASAN}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00935}00935\ \textcolor{comment}{\ *\ memory\ tags\ across\ the\ allocated\ page\ range\ and\ increments\ success\ metrics.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00936}00936\ \textcolor{comment}{\ *\ On\ failure,\ it\ records\ failure\ statistics\ and\ invokes\ cma\_debug\_show\_areas()}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00937}00937\ \textcolor{comment}{\ *\ if\ \_\_GFP\_NOWARN\ is\ absent.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00938}00938\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00939}\doxymbox{\hyperlink{cma_8c_acad5b6d18973f77425aed7ade3176735}{00939}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }page\ *\doxymbox{\hyperlink{cma_8c_acad5b6d18973f77425aed7ade3176735}{\_\_cma\_alloc\_frozen}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00940}00940\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ count,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ align,\ gfp\_t\ gfp)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00941}00941\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00942}00942\ \ \ \ \ \textcolor{keyword}{struct\ }page\ *page\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00943}00943\ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ -\/ENOMEM,\ r;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00944}00944\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ i;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00945}00945\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name\ =\ \doxymbox{\hyperlink{structcma}{cma}}\ ?\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}}\ :\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00946}00946\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00947}00947\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structcma}{cma}}\ ||\ !\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00948}00948\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ page;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00949}00949\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00950}00950\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(cma\ \%p,\ name:\ \%s,\ count\ \%lu,\ align\ \%d)\(\backslash\)n"{}},\ \_\_func\_\_,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00951}00951\ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{void}\ *)\doxymbox{\hyperlink{structcma}{cma}},\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ count,\ align);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00952}00952\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00953}00953\ \ \ \ \ \textcolor{keywordflow}{if}\ (!count)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00954}00954\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ page;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00955}00955\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00956}00956\ \ \ \ \ trace\_cma\_alloc\_start(name,\ count,\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}},\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}},\ align);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00957}00957\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00958}00958\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00959}00959\ \ \ \ \ \ \ \ \ page\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00960}00960\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00961}00961\ \ \ \ \ \ \ \ \ ret\ =\ \doxymbox{\hyperlink{cma_8c_a7840979b3be80e78d118980122d1043c}{cma\_range\_alloc}}(\doxymbox{\hyperlink{structcma}{cma}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r],\ count,\ align,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00962}00962\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&page,\ gfp);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00963}00963\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ -\/EBUSY\ ||\ page)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00964}00964\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00965}00965\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00966}00966\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00967}00967\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00968}00968\ \textcolor{comment}{\ \ \ \ \ *\ CMA\ can\ allocate\ multiple\ page\ blocks,\ which\ results\ in\ different}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00969}00969\ \textcolor{comment}{\ \ \ \ \ *\ blocks\ being\ marked\ with\ different\ tags.\ Reset\ the\ tags\ to\ ignore}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00970}00970\ \textcolor{comment}{\ \ \ \ \ *\ those\ page\ blocks.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00971}00971\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00972}00972\ \ \ \ \ \textcolor{keywordflow}{if}\ (page)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00973}00973\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ count;\ i++)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00974}00974\ \ \ \ \ \ \ \ \ \ \ \ \ page\_kasan\_tag\_reset(page\ +\ i);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00975}00975\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00976}00976\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00977}00977\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ \&\&\ !(gfp\ \&\ \doxymbox{\hyperlink{gfp__types_8h_ad16e4916f64bf12d9016393d48ff9aa1}{\_\_GFP\_NOWARN}}))\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00978}00978\ \ \ \ \ \ \ \ \ pr\_err\_ratelimited(\textcolor{stringliteral}{"{}\%s:\ \%s:\ alloc\ failed,\ req-\/size:\ \%lu\ pages,\ ret:\ \%d\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00979}00979\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_func\_\_,\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ count,\ ret);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00980}00980\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8c_aaf9a433b1f1cdd2306aa512d19b270fd}{cma\_debug\_show\_areas}}(\doxymbox{\hyperlink{structcma}{cma}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00981}00981\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00982}00982\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00983}00983\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s():\ returned\ \%p\(\backslash\)n"{}},\ \_\_func\_\_,\ page);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00984}00984\ \ \ \ \ trace\_cma\_alloc\_finish(name,\ page\ ?\ page\_to\_pfn(page)\ :\ 0,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00985}00985\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ page,\ count,\ align,\ ret);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00986}00986\ \ \ \ \ \textcolor{keywordflow}{if}\ (page)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00987}00987\ \ \ \ \ \ \ \ \ count\_vm\_event(CMA\_ALLOC\_SUCCESS);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00988}00988\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a5bd1a912899835c495450780285f8054}{cma\_sysfs\_account\_success\_pages}}(\doxymbox{\hyperlink{structcma}{cma}},\ count);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00989}00989\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00990}00990\ \ \ \ \ \ \ \ \ count\_vm\_event(CMA\_ALLOC\_FAIL);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00991}00991\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a0dbbda209b563970c27befc340713721}{cma\_sysfs\_account\_fail\_pages}}(\doxymbox{\hyperlink{structcma}{cma}},\ count);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00992}00992\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00993}00993\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00994}00994\ \ \ \ \ \textcolor{keywordflow}{return}\ page;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00995}00995\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00996}00996\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00997}\doxymbox{\hyperlink{cma_8c_ac35a4b2b31cca6119a7093e816a998eb}{00997}}\ \textcolor{keyword}{struct\ }page\ *\doxymbox{\hyperlink{cma_8c_ac35a4b2b31cca6119a7093e816a998eb}{cma\_alloc\_frozen}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ count,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00998}00998\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ align,\ \textcolor{keywordtype}{bool}\ no\_warn)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l00999}00999\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01000}01000\ \ \ \ \ gfp\_t\ gfp\ =\ \doxymbox{\hyperlink{gfp__types_8h_a44b9e863fd60efc9018a5524b77532ee}{GFP\_KERNEL}}\ |\ (no\_warn\ ?\ \doxymbox{\hyperlink{gfp__types_8h_ad16e4916f64bf12d9016393d48ff9aa1}{\_\_GFP\_NOWARN}}\ :\ 0);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01001}01001\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01002}01002\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{cma_8c_acad5b6d18973f77425aed7ade3176735}{\_\_cma\_alloc\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ count,\ align,\ gfp);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01003}01003\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01004}01004\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01005}\doxymbox{\hyperlink{cma_8c_a22b347d50955579a42ff3089c98060cf}{01005}}\ \textcolor{keyword}{struct\ }page\ *\doxymbox{\hyperlink{cma_8c_a22b347d50955579a42ff3089c98060cf}{cma\_alloc\_frozen\_compound}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01006}01006\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01007}01007\ \ \ \ \ gfp\_t\ gfp\ =\ \doxymbox{\hyperlink{gfp__types_8h_a44b9e863fd60efc9018a5524b77532ee}{GFP\_KERNEL}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_a10446867559250a00669340c5e112677}{\_\_GFP\_COMP}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_ad16e4916f64bf12d9016393d48ff9aa1}{\_\_GFP\_NOWARN}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01008}01008\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01009}01009\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{cma_8c_acad5b6d18973f77425aed7ade3176735}{\_\_cma\_alloc\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ 1\ <<\ order,\ order,\ gfp);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01010}01010\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01011}01011\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01022}\doxymbox{\hyperlink{cma_8c_af7a793465730821d26e8c45648016639}{01022}}\ \textcolor{keyword}{struct\ }page\ *\doxymbox{\hyperlink{cma_8c_af7a793465730821d26e8c45648016639}{cma\_alloc}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ count,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01023}01023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ align,\ \textcolor{keywordtype}{bool}\ no\_warn)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01024}01024\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01025}01025\ \ \ \ \ \textcolor{keyword}{struct\ }page\ *page;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01026}01026\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01027}01027\ \ \ \ \ page\ =\ \doxymbox{\hyperlink{cma_8c_ac35a4b2b31cca6119a7093e816a998eb}{cma\_alloc\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ count,\ align,\ no\_warn);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01028}01028\ \ \ \ \ \textcolor{keywordflow}{if}\ (page)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01029}01029\ \ \ \ \ \ \ \ \ set\_pages\_refcounted(page,\ count);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01030}01030\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01031}01031\ \ \ \ \ \textcolor{keywordflow}{return}\ page;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01032}01032\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01033}01033\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01034}01034\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01035}01035\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01036}01036\ \textcolor{comment}{\ *\ find\_cma\_memrange\ -\/\ Maps\ a\ physical\ page\ range\ back\ to\ its\ containing}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01037}01037\ \textcolor{comment}{\ *\ cma\_memrange\ structure\ within\ a\ CMA\ area.\ It\ converts\ the\ pages\ pointer\ to\ a}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01038}01038\ \textcolor{comment}{\ *\ PFN,\ verifies\ that\ the\ entire\ span\ (pfn\ through\ pfn\ +\ count)\ falls\ within\ a}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01039}01039\ \textcolor{comment}{\ *\ single\ range\ boundary,\ and\ returns\ the\ corresponding\ cma\_memrange\ pointer\ or}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01040}01040\ \textcolor{comment}{\ *\ NULL\ if\ no\ valid\ match\ exists.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01041}01041\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01042}\doxymbox{\hyperlink{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c}{01042}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *\doxymbox{\hyperlink{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c}{find\_cma\_memrange}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01043}01043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ page\ *pages,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01044}01044\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01045}01045\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01046}01046\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pfn,\ end\_pfn;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01047}01047\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01048}01048\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01049}01049\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(page\ \%p,\ count\ \%lu)\(\backslash\)n"{}},\ \_\_func\_\_,\ (\textcolor{keywordtype}{void}\ *)pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01050}01050\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01051}01051\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structcma}{cma}}\ ||\ !pages\ ||\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ >\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01052}01052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01053}01053\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01054}01054\ \ \ \ \ pfn\ =\ page\_to\_pfn(pages);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01055}01055\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01056}01056\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01057}01057\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01058}01058\ \ \ \ \ \ \ \ \ end\_pfn\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01059}01059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pfn\ >=\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ \&\&\ pfn\ <\ end\_pfn)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01060}01060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pfn\ +\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ <=\ end\_pfn)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01061}01061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01062}01062\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01063}01063\ \ \ \ \ \ \ \ \ \ \ \ \ VM\_WARN\_ON\_ONCE(1);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01064}01064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01065}01065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01066}01066\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01067}01067\ \ \ \ \ \textcolor{keywordflow}{if}\ (r\ ==\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}})\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01068}01068\ \ \ \ \ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(page\ \%p,\ count\ \%lu,\ no\ cma\ range\ matches\ the\ page\ range)\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01069}01069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_func\_\_,\ (\textcolor{keywordtype}{void}\ *)pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01070}01070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01071}01071\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01072}01072\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01073}01073\ \ \ \ \ \textcolor{keywordflow}{return}\ cmr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01074}01074\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01075}01075\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01076}01076\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01077}01077\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01078}01078\ \textcolor{comment}{\ *\ \_\_cma\_release\_frozen\ -\/\ Releases\ an\ allocated\ range\ of\ CMA\ pages\ back\ to\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01079}01079\ \textcolor{comment}{\ *\ system\ and\ updates\ tracking\ metadata.\ It\ converts\ pages\ to\ a\ PFN,\ calls}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01080}01080\ \textcolor{comment}{\ *\ free\_contig\_frozen\_range(),\ clears\ the\ corresponding\ allocation\ bits\ in\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01081}01081\ \textcolor{comment}{\ *\ cma\_memrange\ bitmap,\ updates\ sysfs\ page-\/release\ metrics,\ and\ emits\ a}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01082}01082\ \textcolor{comment}{\ *\ cma\_release\ tracepoint.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01083}01083\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01084}\doxymbox{\hyperlink{cma_8c_a37b28404c9374af96696a48aeef48f04}{01084}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{cma_8c_a37b28404c9374af96696a48aeef48f04}{\_\_cma\_release\_frozen}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01085}01085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ page\ *pages,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01086}01086\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01087}01087\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pfn\ =\ page\_to\_pfn(pages);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01088}01088\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01089}01089\ \ \ \ \ pr\_debug(\textcolor{stringliteral}{"{}\%s(page\ \%p,\ count\ \%lu)\(\backslash\)n"{}},\ \_\_func\_\_,\ (\textcolor{keywordtype}{void}\ *)pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01090}01090\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01091}01091\ \ \ \ \ \doxymbox{\hyperlink{page__alloc_8c_aa834ac7e91351ceacefdedd543fe0147}{free\_contig\_frozen\_range}}(pfn,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01092}01092\ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a141cce706c8966d5cdd4a99461e40e23}{cma\_clear\_bitmap}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ pfn,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01093}01093\ \ \ \ \ \doxymbox{\hyperlink{cma_8h_a8c8ee8acd3a3481b8502c735706979d5}{cma\_sysfs\_account\_release\_pages}}(\doxymbox{\hyperlink{structcma}{cma}},\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01094}01094\ \ \ \ \ trace\_cma\_release(\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a22c2d72b690af2327b8f2b6e304cd75b}{name}},\ pfn,\ pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01095}01095\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01096}01096\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01107}\doxymbox{\hyperlink{cma_8c_a4b281ce37a51283e854d78f8fe173842}{01107}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{cma_8c_a4b281ce37a51283e854d78f8fe173842}{cma\_release}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ page\ *pages,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01108}01108\ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01109}01109\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01110}01110\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01111}01111\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ ret\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01112}01112\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ i,\ pfn;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01113}01113\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01114}01114\ \ \ \ \ cmr\ =\ \doxymbox{\hyperlink{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c}{find\_cma\_memrange}}(\doxymbox{\hyperlink{structcma}{cma}},\ pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01115}01115\ \ \ \ \ \textcolor{keywordflow}{if}\ (!cmr)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01116}01116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01117}01117\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01118}01118\ \ \ \ \ pfn\ =\ page\_to\_pfn(pages);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01119}01119\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}};\ i++,\ pfn++)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01120}01120\ \ \ \ \ \ \ \ \ ret\ +=\ !put\_page\_testzero(pfn\_to\_page(pfn));}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01121}01121\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01122}01122\ \ \ \ \ WARN(ret,\ \textcolor{stringliteral}{"{}\%lu\ pages\ are\ still\ in\ use!\(\backslash\)n"{}},\ ret);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01123}01123\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01124}01124\ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a37b28404c9374af96696a48aeef48f04}{\_\_cma\_release\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01125}01125\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01126}01126\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01127}01127\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01128}01128\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01129}01129\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01130}01130\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01131}01131\ \textcolor{comment}{\ *\ cma\_release\_frozen\ -\/\ Validates\ that\ a\ physical\ page\ range\ belongs\ to\ a\ valid}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01132}01132\ \textcolor{comment}{\ *\ cma\_memrange\ using\ find\_cma\_memrange().\ If\ a\ match\ is\ found,\ it\ calls}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01133}01133\ \textcolor{comment}{\ *\ \_\_cma\_release\_frozen()\ to\ free\ the\ pages\ and\ returns\ true;\ otherwise,\ it\ returns\ false.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01134}01134\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01135}\doxymbox{\hyperlink{cma_8c_a3d62bdf586b754ec4478956ad546bae9}{01135}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{cma_8c_a3d62bdf586b754ec4478956ad546bae9}{cma\_release\_frozen}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ page\ *pages,}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01136}01136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01137}01137\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01138}01138\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01139}01139\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01140}01140\ \ \ \ \ cmr\ =\ \doxymbox{\hyperlink{cma_8c_ac2e083c6a4f5a7b5c4ab6b6a267abd5c}{find\_cma\_memrange}}(\doxymbox{\hyperlink{structcma}{cma}},\ pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01141}01141\ \ \ \ \ \textcolor{keywordflow}{if}\ (!cmr)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01142}01142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01143}01143\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01144}01144\ \ \ \ \ \doxymbox{\hyperlink{cma_8c_a37b28404c9374af96696a48aeef48f04}{\_\_cma\_release\_frozen}}(\doxymbox{\hyperlink{structcma}{cma}},\ cmr,\ pages,\ \doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01145}01145\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01146}01146\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01147}01147\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01148}01148\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01149}01149\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01150}01150\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01151}01151\ \textcolor{comment}{\ *\ cma\_for\_each\_area\ -\/\ Iterates\ through\ all\ registered\ CMA\ areas\ in\ cma\_areas[]}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01152}01152\ \textcolor{comment}{\ *\ and\ executes\ the\ provided\ callback\ function\ it\ on\ each\ entry.\ If\ the\ callback}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01153}01153\ \textcolor{comment}{\ *\ returns\ a\ non-\/zero\ status\ code,\ execution\ halts\ immediately\ and\ returns\ that}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01154}01154\ \textcolor{comment}{\ *\ code.\ Otherwise,\ it\ completes\ and\ returns\ 0.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01155}01155\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01156}\doxymbox{\hyperlink{cma_8c_a2a33f2c3a50c713637f3c762b8670df9}{01156}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{cma_8c_a2a33f2c3a50c713637f3c762b8670df9}{cma\_for\_each\_area}}(\textcolor{keywordtype}{int}\ (*it)(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keywordtype}{void}\ *data),\ \textcolor{keywordtype}{void}\ *data)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01157}01157\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01158}01158\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01159}01159\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01160}01160\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ \doxymbox{\hyperlink{cma_8h_a890d3a98f067086f7789ad66f2ccd5c2}{cma\_area\_count}};\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01161}01161\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ it(\&\doxymbox{\hyperlink{cma_8h_a084edff8321843b394f345da9e200edc}{cma\_areas}}[i],\ data);}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01162}01162\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01163}01163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01164}01164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01165}01165\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01166}01166\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01167}01167\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01168}01168\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01169}01169\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01170}01170\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01171}01171\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01172}01172\ \textcolor{comment}{\ *\ cma\_intersects\ -\/\ Checks\ whether\ a\ physical\ byte\ range\ [start,\ end)\ overlaps}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01173}01173\ \textcolor{comment}{\ *\ with\ any\ memory\ range\ associated\ with\ a\ CMA\ descriptor.\ It\ converts\ the\ page}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01174}01174\ \textcolor{comment}{\ *\ frame\ numbers\ (PFNs)\ of\ each\ range\ into\ physical\ addresses\ and\ returns\ true}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01175}01175\ \textcolor{comment}{\ *\ if\ an\ intersection\ is\ found,\ or\ false\ if\ there\ is\ no\ overlap.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01176}01176\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01177}\doxymbox{\hyperlink{cma_8c_a937e5521fb9113af3b37fda02820a1bb}{01177}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{cma_8c_a937e5521fb9113af3b37fda02820a1bb}{cma\_intersects}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01178}01178\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01179}01179\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01180}01180\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01181}01181\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ rstart,\ rend;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01182}01182\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01183}01183\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01184}01184\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01185}01185\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01186}01186\ \ \ \ \ \ \ \ \ rstart\ =\ PFN\_PHYS(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01187}01187\ \ \ \ \ \ \ \ \ rend\ =\ PFN\_PHYS(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}}\ +\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01188}01188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (end\ <\ rstart)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01189}01189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01190}01190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ >=\ rend)}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01191}01191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01192}01192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01193}01193\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01194}01194\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01195}01195\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01196}01196\ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01197}01197\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01198}01198\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01199}01199\ \textcolor{comment}{\ *\ Very\ basic\ function\ to\ reserve\ memory\ from\ a\ CMA\ area\ that\ has\ not}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01200}01200\ \textcolor{comment}{\ *\ yet\ been\ activated.\ This\ is\ expected\ to\ be\ called\ early,\ when\ the}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01201}01201\ \textcolor{comment}{\ *\ system\ is\ single-\/threaded,\ so\ there\ is\ no\ locking.\ The\ alignment}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01202}01202\ \textcolor{comment}{\ *\ checking\ is\ restrictive\ -\/\ only\ pageblock-\/aligned\ areas}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01203}01203\ \textcolor{comment}{\ *\ (CMA\_MIN\_ALIGNMENT\_BYTES)\ may\ be\ reserved\ through\ this\ function.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01204}01204\ \textcolor{comment}{\ *\ This\ keeps\ things\ simple,\ and\ is\ enough\ for\ the\ current\ use\ case.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01205}01205\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01206}01206\ \textcolor{comment}{\ *\ The\ CMA\ bitmaps\ have\ not\ yet\ been\ allocated,\ so\ just\ start}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01207}01207\ \textcolor{comment}{\ *\ reserving\ from\ the\ bottom\ up,\ using\ a\ PFN\ to\ keep\ track}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01208}01208\ \textcolor{comment}{\ *\ of\ what\ has\ been\ reserved.\ Unreserving\ is\ not\ possible.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01209}01209\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01210}01210\ \textcolor{comment}{\ *\ The\ caller\ is\ responsible\ for\ initializing\ the\ page\ structures}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01211}01211\ \textcolor{comment}{\ *\ in\ the\ area\ properly,\ since\ this\ just\ points\ to\ memblock-\/allocated}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01212}01212\ \textcolor{comment}{\ *\ memory.\ The\ caller\ should\ subsequently\ use\ init\_cma\_pageblock\ to}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01213}01213\ \textcolor{comment}{\ *\ set\ the\ migrate\ type\ and\ CMA\ stats\ \ the\ pageblocks\ that\ were\ reserved.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01214}01214\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01215}01215\ \textcolor{comment}{\ *\ If\ the\ CMA\ area\ fails\ to\ activate\ later,\ memory\ obtained\ through}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01216}01216\ \textcolor{comment}{\ *\ this\ interface\ is\ not\ handed\ to\ the\ page\ allocator,\ this\ is}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01217}01217\ \textcolor{comment}{\ *\ the\ responsibility\ of\ the\ caller\ (e.g.\ like\ normal\ memblock-\/allocated}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01218}01218\ \textcolor{comment}{\ *\ memory).}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01219}01219\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01220}\doxymbox{\hyperlink{cma_8c_a550ca763d3df127f16bbac0f6a99be91}{01220}}\ \textcolor{keywordtype}{void}\ \_\_init\ *\doxymbox{\hyperlink{cma_8c_a550ca763d3df127f16bbac0f6a99be91}{cma\_reserve\_early}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcma}{cma}}\ *\doxymbox{\hyperlink{structcma}{cma}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01221}01221\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01222}01222\ \ \ \ \ \textcolor{keywordtype}{int}\ r;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01223}01223\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcma__memrange}{cma\_memrange}}\ *cmr;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01224}01224\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ available;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01225}01225\ \ \ \ \ \textcolor{keywordtype}{void}\ *ret\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01226}01226\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01227}01227\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structcma}{cma}}\ ||\ !\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a32ea9f99de5370c7a764a09e88f0659a}{count}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01228}01228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01229}01229\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01230}01230\ \textcolor{comment}{\ \ \ \ \ *\ Can\ only\ be\ called\ early\ in\ init.}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01231}01231\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01232}01232\ \ \ \ \ \textcolor{keywordflow}{if}\ (test\_bit(\doxymbox{\hyperlink{cma_8h_a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9}{CMA\_ACTIVATED}},\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ac53840d37f1734d46308dd1b33e4f50e}{flags}}))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01233}01233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01234}01234\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01235}01235\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ALIGNED(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ CMA\_MIN\_ALIGNMENT\_BYTES))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01236}01236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01237}01237\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01238}01238\ \ \ \ \ \textcolor{keywordflow}{if}\ (!IS\_ALIGNED(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ (PAGE\_SIZE\ <<\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_ab10ccb797b113a21646b0c9f54fb8780}{order\_per\_bit}})))}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01239}01239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01240}01240\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01241}01241\ \ \ \ \ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >>=\ PAGE\_SHIFT;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01242}01242\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01243}01243\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ >\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}})}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01244}01244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01245}01245\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01246}01246\ \ \ \ \ \textcolor{keywordflow}{for}\ (r\ =\ 0;\ r\ <\ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a1982fbb56b1d3cb2306be0a45a17f42e}{nranges}};\ r++)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01247}01247\ \ \ \ \ \ \ \ \ cmr\ =\ \&\doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a9f276a818df106cd6df64c8a2bef5726}{ranges}}[r];}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01248}01248\ \ \ \ \ \ \ \ \ available\ =\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a49d36d02f56010132de3c3da00417b98}{count}}\ -\/\ (cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}\ -\/\ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a9c1b54df0805b2df4b2f0a53c0c7a727}{base\_pfn}});}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01249}01249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}}\ <=\ available)\ \{}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01250}01250\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ phys\_to\_virt(PFN\_PHYS(cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}));}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01251}01251\ \ \ \ \ \ \ \ \ \ \ \ \ cmr-\/>\doxymbox{\hyperlink{structcma__memrange_a538e896b807fe5178c358f00d2067985}{early\_pfn}}\ +=\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01252}01252\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structcma}{cma}}-\/>\doxymbox{\hyperlink{structcma_a25968f3f1b5cd037e0fca6958c09651b}{available\_count}}\ -\/=\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}};}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01253}01253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01254}01254\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01255}01255\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01256}01256\ }
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01257}01257\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{\Hypertarget{cma_8c_source_l01258}01258\ \}}
+
+\end{DoxyCode}

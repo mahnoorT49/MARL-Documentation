@@ -1,0 +1,132 @@
+\doxysection{slab Struct Reference}
+\hypertarget{structslab}{}\label{structslab}\index{slab@{slab}}
+
+
+{\ttfamily \+\#include $<$slab.\+h$>$}
+
+
+
+Collaboration diagram for slab:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structslab__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+memdesc\+\_\+flags\+\_\+t \doxymbox{\hyperlink{structslab_adc7797ec3f598c4174c5abc0e1702cf8}{flags}}
+\item 
+struct \doxymbox{\hyperlink{structkmem__cache}{kmem\+\_\+cache}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structslab_a21c0eacd934d266f3d7cf817f32f8a9c}{slab\+\_\+cache}}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \{\\
+\>\>struct list\_head \doxymbox{\hyperlink{structslab_ae39ebf326cf56c0c841970468c6eb5fd}{slab\_list}}\\
+\>\} \\
+\>struct rcu\_head \doxymbox{\hyperlink{structslab_a4bc220325d21916aef80acb158c24004}{rcu\_head}}\\
+\}; \\
+
+\end{tabbing}\item 
+unsigned int \doxymbox{\hyperlink{structslab_a140b317cd57d0c4c1b8d55607c29a132}{\+\_\+\+\_\+page\+\_\+type}}
+\item 
+atomic\+\_\+t \doxymbox{\hyperlink{structslab_a8a86a449424e005b760fe03f863fe191}{\+\_\+\+\_\+page\+\_\+refcount}}
+\item 
+unsigned long \doxymbox{\hyperlink{structslab_a6c1e914ae50a1b6854c1e5b4ed89b850}{obj\+\_\+exts}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Reuses the bits in struct page
+
+struct Description:\+ This structure represents a slab page in the SLUB allocator. It contains flags, pointer to the \doxylink{structkmem__cache}{kmem\+\_\+cache}, list linkage, freelist counters, page type, refcount, and optional object extensions. It overlays with struct page and is used to manage individual slabs (groups of objects) within a \doxylink{structkmem__cache}{kmem\+\_\+cache}. 
+
+Definition at line \doxymbox{\hyperlink{mm_2slab_8h_source_l00081}{81}} of file \doxymbox{\hyperlink{mm_2slab_8h_source}{slab.\+h}}.
+
+
+
+\label{structslab_doc-variable-members}
+\Hypertarget{structslab_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structslab_abbf3076b2e138468e68ef3053182fd55}\doxysubsubsection{\texorpdfstring{[union]}{[union]}}
+{\footnotesize\ttfamily \label{structslab_abbf3076b2e138468e68ef3053182fd55} 
+union  \{ ... \}  \doxymbox{\hyperlink{structslab}{slab}}}
+
+\Hypertarget{structslab_a8a86a449424e005b760fe03f863fe191}\index{slab@{slab}!\_\_page\_refcount@{\_\_page\_refcount}}
+\index{\_\_page\_refcount@{\_\_page\_refcount}!slab@{slab}}
+\doxysubsubsection{\texorpdfstring{\_\_page\_refcount}{\_\_page\_refcount}}
+{\footnotesize\ttfamily \label{structslab_a8a86a449424e005b760fe03f863fe191} 
+atomic\+\_\+t slab::\+\+\_\+\+\_\+page\+\_\+refcount}
+
+
+
+Definition at line \doxymbox{\hyperlink{mm_2slab_8h_source_l00095}{95}} of file \doxymbox{\hyperlink{mm_2slab_8h_source}{slab.\+h}}.
+
+\Hypertarget{structslab_a140b317cd57d0c4c1b8d55607c29a132}\index{slab@{slab}!\_\_page\_type@{\_\_page\_type}}
+\index{\_\_page\_type@{\_\_page\_type}!slab@{slab}}
+\doxysubsubsection{\texorpdfstring{\_\_page\_type}{\_\_page\_type}}
+{\footnotesize\ttfamily \label{structslab_a140b317cd57d0c4c1b8d55607c29a132} 
+unsigned int slab::\+\+\_\+\+\_\+page\+\_\+type}
+
+
+
+Definition at line \doxymbox{\hyperlink{mm_2slab_8h_source_l00094}{94}} of file \doxymbox{\hyperlink{mm_2slab_8h_source}{slab.\+h}}.
+
+\Hypertarget{structslab_adc7797ec3f598c4174c5abc0e1702cf8}\index{slab@{slab}!flags@{flags}}
+\index{flags@{flags}!slab@{slab}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structslab_adc7797ec3f598c4174c5abc0e1702cf8} 
+memdesc\+\_\+flags\+\_\+t slab::\+flags}
+
+
+
+Definition at line \doxymbox{\hyperlink{mm_2slab_8h_source_l00082}{82}} of file \doxymbox{\hyperlink{mm_2slab_8h_source}{slab.\+h}}.
+
+\Hypertarget{structslab_a6c1e914ae50a1b6854c1e5b4ed89b850}\index{slab@{slab}!obj\_exts@{obj\_exts}}
+\index{obj\_exts@{obj\_exts}!slab@{slab}}
+\doxysubsubsection{\texorpdfstring{obj\_exts}{obj\_exts}}
+{\footnotesize\ttfamily \label{structslab_a6c1e914ae50a1b6854c1e5b4ed89b850} 
+unsigned long slab::\+obj\+\_\+exts}
+
+
+
+Definition at line \doxymbox{\hyperlink{mm_2slab_8h_source_l00097}{97}} of file \doxymbox{\hyperlink{mm_2slab_8h_source}{slab.\+h}}.
+
+\Hypertarget{structslab_a4bc220325d21916aef80acb158c24004}\index{slab@{slab}!rcu\_head@{rcu\_head}}
+\index{rcu\_head@{rcu\_head}!slab@{slab}}
+\doxysubsubsection{\texorpdfstring{rcu\_head}{rcu\_head}}
+{\footnotesize\ttfamily \label{structslab_a4bc220325d21916aef80acb158c24004} 
+struct rcu\+\_\+head slab::\+rcu\+\_\+head}
+
+
+
+Definition at line \doxymbox{\hyperlink{mm_2slab_8h_source_l00091}{91}} of file \doxymbox{\hyperlink{mm_2slab_8h_source}{slab.\+h}}.
+
+\Hypertarget{structslab_a21c0eacd934d266f3d7cf817f32f8a9c}\index{slab@{slab}!slab\_cache@{slab\_cache}}
+\index{slab\_cache@{slab\_cache}!slab@{slab}}
+\doxysubsubsection{\texorpdfstring{slab\_cache}{slab\_cache}}
+{\footnotesize\ttfamily \label{structslab_a21c0eacd934d266f3d7cf817f32f8a9c} 
+struct \doxymbox{\hyperlink{structkmem__cache}{kmem\+\_\+cache}}\texorpdfstring{$\ast$}{*} slab::\+slab\+\_\+cache}
+
+
+
+Definition at line \doxymbox{\hyperlink{mm_2slab_8h_source_l00084}{84}} of file \doxymbox{\hyperlink{mm_2slab_8h_source}{slab.\+h}}.
+
+\Hypertarget{structslab_ae39ebf326cf56c0c841970468c6eb5fd}\index{slab@{slab}!slab\_list@{slab\_list}}
+\index{slab\_list@{slab\_list}!slab@{slab}}
+\doxysubsubsection{\texorpdfstring{slab\_list}{slab\_list}}
+{\footnotesize\ttfamily \label{structslab_ae39ebf326cf56c0c841970468c6eb5fd} 
+struct list\+\_\+head slab::\+slab\+\_\+list}
+
+
+
+Definition at line \doxymbox{\hyperlink{mm_2slab_8h_source_l00087}{87}} of file \doxymbox{\hyperlink{mm_2slab_8h_source}{slab.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{mm_2slab_8h}{slab.\+h}}\end{DoxyCompactItemize}

@@ -131,10 +131,14 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a39e96360e94744f1c3d214ba0fd71555" id="r_a39e96360e94744f1c3d214ba0fd71555"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a39e96360e94744f1c3d214ba0fd71555">batch</a></td></tr>
 <tr class="memitem:a67ed071045bbc9f5a452d8698b4a4acd" id="r_a67ed071045bbc9f5a452d8698b4a4acd"><td class="memItemLeft">u8&#160;</td><td class="memItemRight"><a class="el" href="#a67ed071045bbc9f5a452d8698b4a4acd">flags</a></td></tr>
 <tr class="memitem:aff90e3d1b3a9e56259ad93572bd0d7bf" id="r_aff90e3d1b3a9e56259ad93572bd0d7bf"><td class="memItemLeft">u8&#160;</td><td class="memItemRight"><a class="el" href="#aff90e3d1b3a9e56259ad93572bd0d7bf">alloc_factor</a></td></tr>
+<tr class="memitem:aa62fe7145c577451c8bea0e9b4f7cfed" id="r_aa62fe7145c577451c8bea0e9b4f7cfed"><td class="memItemLeft">u8&#160;</td><td class="memItemRight"><a class="el" href="#aa62fe7145c577451c8bea0e9b4f7cfed">expire</a></td></tr>
 <tr class="memitem:a22ca01a295c418c073e57a01698cb978" id="r_a22ca01a295c418c073e57a01698cb978"><td class="memItemLeft">short&#160;</td><td class="memItemRight"><a class="el" href="#a22ca01a295c418c073e57a01698cb978">free_count</a></td></tr>
-<tr class="memitem:ae9b37fbd303f1d963270731bfb19f3d8" id="r_ae9b37fbd303f1d963270731bfb19f3d8"><td class="memItemLeft">struct list_head&#160;</td><td class="memItemRight"><a class="el" href="#ae9b37fbd303f1d963270731bfb19f3d8">lists</a> [<a class="el" href="mmzone_8h.html#a7f4bb5b02a276fd0a4a15984abd07000">NR_PCP_LISTS</a>]</td></tr>
+<tr class="memitem:a8cd8d53e371ebe3a6093af85f9503843" id="r_a8cd8d53e371ebe3a6093af85f9503843"><td class="memItemLeft">struct list_head&#160;</td><td class="memItemRight"><a class="el" href="#a8cd8d53e371ebe3a6093af85f9503843">lists</a> [((<a class="el" href="mmzone_8h.html#ae632273c4909482b279ed0e527a94b5fa5b81964ab81a9818979086c75160117a">MIGRATE_PCPTYPES</a> *(3+1))+2)]</td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00744">744</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="aff90e3d1b3a9e56259ad93572bd0d7bf" name="aff90e3d1b3a9e56259ad93572bd0d7bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff90e3d1b3a9e56259ad93572bd0d7bf">&#9670;&#160;</a></span>alloc_factor</h2>
 
@@ -146,6 +150,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00752">752</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -161,6 +167,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00750">750</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="a97c2e052ad53a4d27cec90627d01d897" name="a97c2e052ad53a4d27cec90627d01d897"></a>
@@ -174,6 +182,24 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00746">746</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="aa62fe7145c577451c8bea0e9b4f7cfed" name="aa62fe7145c577451c8bea0e9b4f7cfed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa62fe7145c577451c8bea0e9b4f7cfed">&#9670;&#160;</a></span>expire</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 per_cpu_pages::expire</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00754">754</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -189,6 +215,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00751">751</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="a22ca01a295c418c073e57a01698cb978" name="a22ca01a295c418c073e57a01698cb978"></a>
@@ -202,6 +230,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00756">756</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -217,6 +247,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00747">747</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="ad6465e4740e84ab5b41c83af9b81a9f2" name="ad6465e4740e84ab5b41c83af9b81a9f2"></a>
@@ -230,6 +262,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00749">749</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -245,19 +279,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00748">748</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
-<a id="ae9b37fbd303f1d963270731bfb19f3d8" name="ae9b37fbd303f1d963270731bfb19f3d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9b37fbd303f1d963270731bfb19f3d8">&#9670;&#160;</a></span>lists</h2>
+<a id="a8cd8d53e371ebe3a6093af85f9503843" name="a8cd8d53e371ebe3a6093af85f9503843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cd8d53e371ebe3a6093af85f9503843">&#9670;&#160;</a></span>lists</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct list_head per_cpu_pages::lists[<a class="el" href="mmzone_8h.html#a7f4bb5b02a276fd0a4a15984abd07000">NR_PCP_LISTS</a>]</td>
+          <td class="memname">struct list_head per_cpu_pages::lists[((<a class="el" href="mmzone_8h.html#ae632273c4909482b279ed0e527a94b5fa5b81964ab81a9818979086c75160117a">MIGRATE_PCPTYPES</a> *(3+1))+2)]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00759">759</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -272,6 +310,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l00745">745</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>

@@ -1,0 +1,58 @@
+\doxysection{vmap\+\_\+block\+\_\+queue Struct Reference}
+\hypertarget{structvmap__block__queue}{}\label{structvmap__block__queue}\index{vmap\_block\_queue@{vmap\_block\_queue}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+spinlock\+\_\+t \doxymbox{\hyperlink{structvmap__block__queue_ae84990983ffb0072a19686c18d025aa8}{lock}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structvmap__block__queue_a768d911f4130c6e128412deee29725de}{free}}
+\item 
+struct xarray \doxymbox{\hyperlink{structvmap__block__queue_ac8277495ba2687fd02262908100f2ebb}{vmap\+\_\+blocks}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct Description:\+ This structure is the per-\/\+CPU queue for vmap blocks. It contains a lock, a list of free blocks, and an xarray of all blocks. It is used to manage vmap blocks for \doxylink{vmalloc_8h_acd02620225f5b290f8935dbc1e45b18e}{vm\+\_\+map\+\_\+ram()} allocations and deallocations. 
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02890}{2890}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+
+
+\label{structvmap__block__queue_doc-variable-members}
+\Hypertarget{structvmap__block__queue_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structvmap__block__queue_a768d911f4130c6e128412deee29725de}\index{vmap\_block\_queue@{vmap\_block\_queue}!free@{free}}
+\index{free@{free}!vmap\_block\_queue@{vmap\_block\_queue}}
+\doxysubsubsection{\texorpdfstring{free}{free}}
+{\footnotesize\ttfamily \label{structvmap__block__queue_a768d911f4130c6e128412deee29725de} 
+struct list\+\_\+head vmap\+\_\+block\+\_\+queue::\+free}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02892}{2892}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block__queue_ae84990983ffb0072a19686c18d025aa8}\index{vmap\_block\_queue@{vmap\_block\_queue}!lock@{lock}}
+\index{lock@{lock}!vmap\_block\_queue@{vmap\_block\_queue}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily \label{structvmap__block__queue_ae84990983ffb0072a19686c18d025aa8} 
+spinlock\+\_\+t vmap\+\_\+block\+\_\+queue::\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02891}{2891}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block__queue_ac8277495ba2687fd02262908100f2ebb}\index{vmap\_block\_queue@{vmap\_block\_queue}!vmap\_blocks@{vmap\_blocks}}
+\index{vmap\_blocks@{vmap\_blocks}!vmap\_block\_queue@{vmap\_block\_queue}}
+\doxysubsubsection{\texorpdfstring{vmap\_blocks}{vmap\_blocks}}
+{\footnotesize\ttfamily \label{structvmap__block__queue_ac8277495ba2687fd02262908100f2ebb} 
+struct xarray vmap\+\_\+block\+\_\+queue::\+vmap\+\_\+blocks}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02899}{2899}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{vmalloc_8c}{vmalloc.\+c}}\end{DoxyCompactItemize}

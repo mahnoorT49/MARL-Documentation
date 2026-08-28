@@ -1,10 +1,10 @@
 var structmemcg__vmstats =
 [
-    [ "events", "structmemcg__vmstats.html#a85609cff523d0777d95a0720dd09f392", null ],
-    [ "events_local", "structmemcg__vmstats.html#add1c578f42a386c6ce716218115d8fbd", null ],
-    [ "events_pending", "structmemcg__vmstats.html#a607e5070a0147650d529df1ac7cf4de6", null ],
-    [ "state", "structmemcg__vmstats.html#aa0a6c3bf1ae1ed6f34df996f2df10a2e", null ],
-    [ "state_local", "structmemcg__vmstats.html#a1c78312e8fb3d86cf8a3328c136b0b80", null ],
-    [ "state_pending", "structmemcg__vmstats.html#aa9a393a8d0520eb35513dc8594784d35", null ],
+    [ "events", "structmemcg__vmstats.html#a44c4065560a91acd460bdfa738c054e6", null ],
+    [ "events_local", "structmemcg__vmstats.html#a4776188ce6dad57200da2c7cd45c3f8e", null ],
+    [ "events_pending", "structmemcg__vmstats.html#aaf41a0b05f9de2c310dc8d748b20da26", null ],
+    [ "state", "structmemcg__vmstats.html#a3ba5f170c1504265204b7b3f2f0ea6b5", null ],
+    [ "state_local", "structmemcg__vmstats.html#a137099fcc87835f9fac4c540e8cc8b3d", null ],
+    [ "state_pending", "structmemcg__vmstats.html#a5fb88addf2263adb2b2d9541dd0d1d1f", null ],
     [ "stats_updates", "structmemcg__vmstats.html#a7ac5af09040f014da1c41531b41f73cb", null ]
 ];

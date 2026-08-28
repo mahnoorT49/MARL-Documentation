@@ -151,6 +151,13 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9">CMA_ACTIVATED</a>
  }</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3f2c8d80bf9e9de5e271f8c49c1ed707" id="r_a3f2c8d80bf9e9de5e271f8c49c1ed707"><td class="memItemLeft">static unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a3f2c8d80bf9e9de5e271f8c49c1ed707">cma_bitmap_maxno</a> (struct cma *cma, struct <a class="el" href="structcma__memrange.html">cma_memrange</a> *cmr)</td></tr>
+<tr class="memitem:a5bd1a912899835c495450780285f8054" id="r_a5bd1a912899835c495450780285f8054"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5bd1a912899835c495450780285f8054">cma_sysfs_account_success_pages</a> (struct cma *cma, unsigned long nr_pages)</td></tr>
+<tr class="memitem:a0dbbda209b563970c27befc340713721" id="r_a0dbbda209b563970c27befc340713721"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0dbbda209b563970c27befc340713721">cma_sysfs_account_fail_pages</a> (struct cma *cma, unsigned long nr_pages)</td></tr>
+<tr class="memitem:a8c8ee8acd3a3481b8502c735706979d5" id="r_a8c8ee8acd3a3481b8502c735706979d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8c8ee8acd3a3481b8502c735706979d5">cma_sysfs_account_release_pages</a> (struct cma *cma, unsigned long nr_pages)</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a084edff8321843b394f345da9e200edc" id="r_a084edff8321843b394f345da9e200edc"><td class="memItemLeft">struct <a class="el" href="structcma.html">cma</a>&#160;</td><td class="memItemRight"><a class="el" href="#a084edff8321843b394f345da9e200edc">cma_areas</a> [MAX_CMA_AREAS]</td></tr>
@@ -168,6 +175,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00037">37</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
 
 </div>
 </div>
@@ -189,6 +198,139 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25" name="a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25"></a>CMA_ZONES_INVALID&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9" name="a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9"></a>CMA_ACTIVATED&#160;</td><td class="fielddoc"></td></tr>
 </table>
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00067">67</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   67</span>               {</div>
+<div class="line"><span class="lineno">   68</span>    <a class="code hl_enumvalue" href="#a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51">CMA_RESERVE_PAGES_ON_ERROR</a>,</div>
+<div class="line"><span class="lineno">   69</span>    <a class="code hl_enumvalue" href="#a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab">CMA_ZONES_VALID</a>,</div>
+<div class="line"><span class="lineno">   70</span>    <a class="code hl_enumvalue" href="#a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25">CMA_ZONES_INVALID</a>,</div>
+<div class="line"><span class="lineno">   71</span>    <a class="code hl_enumvalue" href="#a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9">CMA_ACTIVATED</a>,</div>
+<div class="line"><span class="lineno">   72</span>};</div>
+<div class="ttc" id="acma_8h_html_a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab"><div class="ttname"><a href="#a1f3b504773d322aa130399110c60b1aea6c6dbd7f1875aeba266231f2da1c41ab">CMA_ZONES_VALID</a></div><div class="ttdeci">@ CMA_ZONES_VALID</div><div class="ttdef"><b>Definition</b> <a href="cma_8h_source.html#l00069">cma.h:69</a></div></div>
+<div class="ttc" id="acma_8h_html_a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9"><div class="ttname"><a href="#a1f3b504773d322aa130399110c60b1aea9b409b204d48e8a45829674ebd1cd0c9">CMA_ACTIVATED</a></div><div class="ttdeci">@ CMA_ACTIVATED</div><div class="ttdef"><b>Definition</b> <a href="cma_8h_source.html#l00071">cma.h:71</a></div></div>
+<div class="ttc" id="acma_8h_html_a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51"><div class="ttname"><a href="#a1f3b504773d322aa130399110c60b1aeab8d272a57e97a010112df7ec865eaa51">CMA_RESERVE_PAGES_ON_ERROR</a></div><div class="ttdeci">@ CMA_RESERVE_PAGES_ON_ERROR</div><div class="ttdef"><b>Definition</b> <a href="cma_8h_source.html#l00068">cma.h:68</a></div></div>
+<div class="ttc" id="acma_8h_html_a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25"><div class="ttname"><a href="#a1f3b504773d322aa130399110c60b1aeabc50c39230598caf5b234fe24bcdcb25">CMA_ZONES_INVALID</a></div><div class="ttdeci">@ CMA_ZONES_INVALID</div><div class="ttdef"><b>Definition</b> <a href="cma_8h_source.html#l00070">cma.h:70</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a3f2c8d80bf9e9de5e271f8c49c1ed707" name="a3f2c8d80bf9e9de5e271f8c49c1ed707"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f2c8d80bf9e9de5e271f8c49c1ed707">&#9670;&#160;</a></span>cma_bitmap_maxno()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long cma_bitmap_maxno </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcma.html">cma</a> *</td>          <td class="paramname"><span class="paramname"><em>cma</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structcma__memrange.html">cma_memrange</a> *</td>          <td class="paramname"><span class="paramname"><em>cmr</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00077">77</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   79</span>{</div>
+<div class="line"><span class="lineno">   80</span>    <span class="keywordflow">return</span> cmr-&gt;<a class="code hl_variable" href="structcma__memrange.html#a49d36d02f56010132de3c3da00417b98">count</a> &gt;&gt; <a class="code hl_struct" href="structcma.html">cma</a>-&gt;<a class="code hl_variable" href="structcma.html#ab10ccb797b113a21646b0c9f54fb8780">order_per_bit</a>;</div>
+<div class="line"><span class="lineno">   81</span>}</div>
+<div class="ttc" id="astructcma__memrange_html_a49d36d02f56010132de3c3da00417b98"><div class="ttname"><a href="structcma__memrange.html#a49d36d02f56010132de3c3da00417b98">cma_memrange::count</a></div><div class="ttdeci">unsigned long count</div><div class="ttdef"><b>Definition</b> <a href="cma_8h_source.html#l00028">cma.h:28</a></div></div>
+<div class="ttc" id="astructcma_html"><div class="ttname"><a href="structcma.html">cma</a></div><div class="ttdef"><b>Definition</b> <a href="cma_8h_source.html#l00039">cma.h:39</a></div></div>
+<div class="ttc" id="astructcma_html_ab10ccb797b113a21646b0c9f54fb8780"><div class="ttname"><a href="structcma.html#ab10ccb797b113a21646b0c9f54fb8780">cma::order_per_bit</a></div><div class="ttdeci">unsigned int order_per_bit</div><div class="ttdef"><b>Definition</b> <a href="cma_8h_source.html#l00042">cma.h:42</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cma_8h_a3f2c8d80bf9e9de5e271f8c49c1ed707_icgraph.svg" width="944" height="151"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0dbbda209b563970c27befc340713721" name="a0dbbda209b563970c27befc340713721"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dbbda209b563970c27befc340713721">&#9670;&#160;</a></span>cma_sysfs_account_fail_pages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cma_sysfs_account_fail_pages </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcma.html">cma</a> *</td>          <td class="paramname"><span class="paramname"><em>cma</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>nr_pages</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cma_8h_a0dbbda209b563970c27befc340713721_icgraph.svg" width="726" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8c8ee8acd3a3481b8502c735706979d5" name="a8c8ee8acd3a3481b8502c735706979d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c8ee8acd3a3481b8502c735706979d5">&#9670;&#160;</a></span>cma_sysfs_account_release_pages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cma_sysfs_account_release_pages </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcma.html">cma</a> *</td>          <td class="paramname"><span class="paramname"><em>cma</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>nr_pages</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cma_8h_a8c8ee8acd3a3481b8502c735706979d5_icgraph.svg" width="586" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5bd1a912899835c495450780285f8054" name="a5bd1a912899835c495450780285f8054"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bd1a912899835c495450780285f8054">&#9670;&#160;</a></span>cma_sysfs_account_success_pages()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cma_sysfs_account_success_pages </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structcma.html">cma</a> *</td>          <td class="paramname"><span class="paramname"><em>cma</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>nr_pages</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cma_8h_a5bd1a912899835c495450780285f8054_icgraph.svg" width="758" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -213,6 +355,8 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cma_8c_source.html#l00038">38</a> of file <a class="el" href="cma_8c_source.html">cma.c</a>.</p>
+
 </div>
 </div>
 <a id="a084edff8321843b394f345da9e200edc" name="a084edff8321843b394f345da9e200edc"></a>
@@ -234,6 +378,8 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8c_source.html#l00037">37</a> of file <a class="el" href="cma_8c_source.html">cma.c</a>.</p>
 
 </div>
 </div>

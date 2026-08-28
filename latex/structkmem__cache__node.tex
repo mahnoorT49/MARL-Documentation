@@ -1,0 +1,118 @@
+\doxysection{kmem\+\_\+cache\+\_\+node Struct Reference}
+\hypertarget{structkmem__cache__node}{}\label{structkmem__cache__node}\index{kmem\_cache\_node@{kmem\_cache\_node}}
+
+
+Collaboration diagram for kmem\+\_\+cache\+\_\+node:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{structkmem__cache__node__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+spinlock\+\_\+t \doxymbox{\hyperlink{structkmem__cache__node_a48909995af0334d75c913fb0562c333e}{list\+\_\+lock}}
+\item 
+unsigned long \doxymbox{\hyperlink{structkmem__cache__node_a3efef5fb9a85edb1119ee1e553f57d1f}{nr\+\_\+partial}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structkmem__cache__node_ac9a60f21358ee69f14e0efec2d2d9e84}{partial}}
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structkmem__cache__node_afe085287bc63c6b9095a9a9e7b630b02}{nr\+\_\+slabs}}
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structkmem__cache__node_a439be051ae6f76cad745f7f8b1db2bff}{total\+\_\+objects}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structkmem__cache__node_ae37967f589eb9fe43b144e204f6163d2}{full}}
+\item 
+struct \doxymbox{\hyperlink{structnode__barn}{node\+\_\+barn}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structkmem__cache__node_a36e26349f6c5b5eb6da09839eb0666a3}{barn}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The slab lists for all objects.
+
+struct Description:\+ This structure represents per-\/node data for a slab cache. It contains the list lock, partial slab count and list, full list for debugging, slab counters, and a pointer to the node barn. It is used to manage slabs on a specific NUMA node. 
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00479}{479}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+
+
+\label{structkmem__cache__node_doc-variable-members}
+\Hypertarget{structkmem__cache__node_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structkmem__cache__node_a36e26349f6c5b5eb6da09839eb0666a3}\index{kmem\_cache\_node@{kmem\_cache\_node}!barn@{barn}}
+\index{barn@{barn}!kmem\_cache\_node@{kmem\_cache\_node}}
+\doxysubsubsection{\texorpdfstring{barn}{barn}}
+{\footnotesize\ttfamily \label{structkmem__cache__node_a36e26349f6c5b5eb6da09839eb0666a3} 
+struct \doxymbox{\hyperlink{structnode__barn}{node\+\_\+barn}}\texorpdfstring{$\ast$}{*} kmem\+\_\+cache\+\_\+node::\+barn}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00488}{488}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structkmem__cache__node_ae37967f589eb9fe43b144e204f6163d2}\index{kmem\_cache\_node@{kmem\_cache\_node}!full@{full}}
+\index{full@{full}!kmem\_cache\_node@{kmem\_cache\_node}}
+\doxysubsubsection{\texorpdfstring{full}{full}}
+{\footnotesize\ttfamily \label{structkmem__cache__node_ae37967f589eb9fe43b144e204f6163d2} 
+struct list\+\_\+head kmem\+\_\+cache\+\_\+node::\+full}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00486}{486}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structkmem__cache__node_a48909995af0334d75c913fb0562c333e}\index{kmem\_cache\_node@{kmem\_cache\_node}!list\_lock@{list\_lock}}
+\index{list\_lock@{list\_lock}!kmem\_cache\_node@{kmem\_cache\_node}}
+\doxysubsubsection{\texorpdfstring{list\_lock}{list\_lock}}
+{\footnotesize\ttfamily \label{structkmem__cache__node_a48909995af0334d75c913fb0562c333e} 
+spinlock\+\_\+t kmem\+\_\+cache\+\_\+node::\+list\+\_\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00480}{480}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structkmem__cache__node_a3efef5fb9a85edb1119ee1e553f57d1f}\index{kmem\_cache\_node@{kmem\_cache\_node}!nr\_partial@{nr\_partial}}
+\index{nr\_partial@{nr\_partial}!kmem\_cache\_node@{kmem\_cache\_node}}
+\doxysubsubsection{\texorpdfstring{nr\_partial}{nr\_partial}}
+{\footnotesize\ttfamily \label{structkmem__cache__node_a3efef5fb9a85edb1119ee1e553f57d1f} 
+unsigned long kmem\+\_\+cache\+\_\+node::\+nr\+\_\+partial}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00481}{481}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structkmem__cache__node_afe085287bc63c6b9095a9a9e7b630b02}\index{kmem\_cache\_node@{kmem\_cache\_node}!nr\_slabs@{nr\_slabs}}
+\index{nr\_slabs@{nr\_slabs}!kmem\_cache\_node@{kmem\_cache\_node}}
+\doxysubsubsection{\texorpdfstring{nr\_slabs}{nr\_slabs}}
+{\footnotesize\ttfamily \label{structkmem__cache__node_afe085287bc63c6b9095a9a9e7b630b02} 
+atomic\+\_\+long\+\_\+t kmem\+\_\+cache\+\_\+node::\+nr\+\_\+slabs}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00484}{484}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structkmem__cache__node_ac9a60f21358ee69f14e0efec2d2d9e84}\index{kmem\_cache\_node@{kmem\_cache\_node}!partial@{partial}}
+\index{partial@{partial}!kmem\_cache\_node@{kmem\_cache\_node}}
+\doxysubsubsection{\texorpdfstring{partial}{partial}}
+{\footnotesize\ttfamily \label{structkmem__cache__node_ac9a60f21358ee69f14e0efec2d2d9e84} 
+struct list\+\_\+head kmem\+\_\+cache\+\_\+node::\+partial}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00482}{482}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structkmem__cache__node_a439be051ae6f76cad745f7f8b1db2bff}\index{kmem\_cache\_node@{kmem\_cache\_node}!total\_objects@{total\_objects}}
+\index{total\_objects@{total\_objects}!kmem\_cache\_node@{kmem\_cache\_node}}
+\doxysubsubsection{\texorpdfstring{total\_objects}{total\_objects}}
+{\footnotesize\ttfamily \label{structkmem__cache__node_a439be051ae6f76cad745f7f8b1db2bff} 
+atomic\+\_\+long\+\_\+t kmem\+\_\+cache\+\_\+node::\+total\+\_\+objects}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00485}{485}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{slub_8c}{slub.\+c}}\end{DoxyCompactItemize}

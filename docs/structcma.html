@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structcma.html
 <div class="dynheader">
 Collaboration diagram for cma:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structcma__coll__graph.svg" width="126" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structcma__coll__graph.svg" width="135" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -133,13 +133,22 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab10ccb797b113a21646b0c9f54fb8780" id="r_ab10ccb797b113a21646b0c9f54fb8780"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#ab10ccb797b113a21646b0c9f54fb8780">order_per_bit</a></td></tr>
 <tr class="memitem:a2691fffb3cbbe130f305bcf9968b9a5b" id="r_a2691fffb3cbbe130f305bcf9968b9a5b"><td class="memItemLeft">spinlock_t&#160;</td><td class="memItemRight"><a class="el" href="#a2691fffb3cbbe130f305bcf9968b9a5b">lock</a></td></tr>
 <tr class="memitem:a26192936b7b1c2340ab1ca0d5f756a5c" id="r_a26192936b7b1c2340ab1ca0d5f756a5c"><td class="memItemLeft">struct mutex&#160;</td><td class="memItemRight"><a class="el" href="#a26192936b7b1c2340ab1ca0d5f756a5c">alloc_mutex</a></td></tr>
+<tr class="memitem:a6d8fd598770d929efe255c8988ace416" id="r_a6d8fd598770d929efe255c8988ace416"><td class="memItemLeft">struct hlist_head&#160;</td><td class="memItemRight"><a class="el" href="#a6d8fd598770d929efe255c8988ace416">mem_head</a></td></tr>
+<tr class="memitem:a302f8220180c0ae36a39cdda40854bdc" id="r_a302f8220180c0ae36a39cdda40854bdc"><td class="memItemLeft">spinlock_t&#160;</td><td class="memItemRight"><a class="el" href="#a302f8220180c0ae36a39cdda40854bdc">mem_head_lock</a></td></tr>
 <tr class="memitem:a22c2d72b690af2327b8f2b6e304cd75b" id="r_a22c2d72b690af2327b8f2b6e304cd75b"><td class="memItemLeft">char&#160;</td><td class="memItemRight"><a class="el" href="#a22c2d72b690af2327b8f2b6e304cd75b">name</a> [CMA_MAX_NAME]</td></tr>
 <tr class="memitem:a1982fbb56b1d3cb2306be0a45a17f42e" id="r_a1982fbb56b1d3cb2306be0a45a17f42e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1982fbb56b1d3cb2306be0a45a17f42e">nranges</a></td></tr>
-<tr class="memitem:afb04d2a1c3b7d37e96db6c758ddd50a5" id="r_afb04d2a1c3b7d37e96db6c758ddd50a5"><td class="memItemLeft">struct <a class="el" href="structcma__memrange.html">cma_memrange</a>&#160;</td><td class="memItemRight"><a class="el" href="#afb04d2a1c3b7d37e96db6c758ddd50a5">ranges</a> [<a class="el" href="cma_8h.html#a16659937567831cca6bbe6a65f443165">CMA_MAX_RANGES</a>]</td></tr>
+<tr class="memitem:a9f276a818df106cd6df64c8a2bef5726" id="r_a9f276a818df106cd6df64c8a2bef5726"><td class="memItemLeft">struct <a class="el" href="structcma__memrange.html">cma_memrange</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9f276a818df106cd6df64c8a2bef5726">ranges</a> [8]</td></tr>
+<tr class="memitem:a4dab8bd8649fabb77fd518ae5857b65e" id="r_a4dab8bd8649fabb77fd518ae5857b65e"><td class="memItemLeft">atomic64_t&#160;</td><td class="memItemRight"><a class="el" href="#a4dab8bd8649fabb77fd518ae5857b65e">nr_pages_succeeded</a></td></tr>
+<tr class="memitem:aced7bacb0a1f1af551e167f68b44608e" id="r_aced7bacb0a1f1af551e167f68b44608e"><td class="memItemLeft">atomic64_t&#160;</td><td class="memItemRight"><a class="el" href="#aced7bacb0a1f1af551e167f68b44608e">nr_pages_failed</a></td></tr>
+<tr class="memitem:af5e4a43926e2df7af2fbdbfd19247cd4" id="r_af5e4a43926e2df7af2fbdbfd19247cd4"><td class="memItemLeft">atomic64_t&#160;</td><td class="memItemRight"><a class="el" href="#af5e4a43926e2df7af2fbdbfd19247cd4">nr_pages_released</a></td></tr>
+<tr class="memitem:a15002cbc017d91f0d392fb808d23a0b4" id="r_a15002cbc017d91f0d392fb808d23a0b4"><td class="memItemLeft">struct <a class="el" href="structcma__kobject.html">cma_kobject</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a15002cbc017d91f0d392fb808d23a0b4">cma_kobj</a></td></tr>
 <tr class="memitem:ac53840d37f1734d46308dd1b33e4f50e" id="r_ac53840d37f1734d46308dd1b33e4f50e"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#ac53840d37f1734d46308dd1b33e4f50e">flags</a></td></tr>
 <tr class="memitem:aa92f147de5857587665ae15097ca4329" id="r_aa92f147de5857587665ae15097ca4329"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa92f147de5857587665ae15097ca4329">nid</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00039">39</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a26192936b7b1c2340ab1ca0d5f756a5c" name="a26192936b7b1c2340ab1ca0d5f756a5c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a26192936b7b1c2340ab1ca0d5f756a5c">&#9670;&#160;</a></span>alloc_mutex</h2>
 
@@ -151,6 +160,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00044">44</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
 
 </div>
 </div>
@@ -166,6 +177,24 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00041">41</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
+</div>
+</div>
+<a id="a15002cbc017d91f0d392fb808d23a0b4" name="a15002cbc017d91f0d392fb808d23a0b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15002cbc017d91f0d392fb808d23a0b4">&#9670;&#160;</a></span>cma_kobj</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structcma__kobject.html">cma_kobject</a>* cma::cma_kobj</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00060">60</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
 </div>
 </div>
 <a id="a32ea9f99de5370c7a764a09e88f0659a" name="a32ea9f99de5370c7a764a09e88f0659a"></a>
@@ -179,6 +208,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00040">40</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
 
 </div>
 </div>
@@ -194,6 +225,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00062">62</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
 </div>
 </div>
 <a id="a2691fffb3cbbe130f305bcf9968b9a5b" name="a2691fffb3cbbe130f305bcf9968b9a5b"></a>
@@ -207,6 +240,40 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00043">43</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
+</div>
+</div>
+<a id="a6d8fd598770d929efe255c8988ace416" name="a6d8fd598770d929efe255c8988ace416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d8fd598770d929efe255c8988ace416">&#9670;&#160;</a></span>mem_head</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct hlist_head cma::mem_head</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00046">46</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
+</div>
+</div>
+<a id="a302f8220180c0ae36a39cdda40854bdc" name="a302f8220180c0ae36a39cdda40854bdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a302f8220180c0ae36a39cdda40854bdc">&#9670;&#160;</a></span>mem_head_lock</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spinlock_t cma::mem_head_lock</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00047">47</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
 
 </div>
 </div>
@@ -222,6 +289,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00049">49</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
 </div>
 </div>
 <a id="aa92f147de5857587665ae15097ca4329" name="aa92f147de5857587665ae15097ca4329"></a>
@@ -235,6 +304,56 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00064">64</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
+</div>
+</div>
+<a id="aced7bacb0a1f1af551e167f68b44608e" name="aced7bacb0a1f1af551e167f68b44608e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aced7bacb0a1f1af551e167f68b44608e">&#9670;&#160;</a></span>nr_pages_failed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">atomic64_t cma::nr_pages_failed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00056">56</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
+</div>
+</div>
+<a id="af5e4a43926e2df7af2fbdbfd19247cd4" name="af5e4a43926e2df7af2fbdbfd19247cd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e4a43926e2df7af2fbdbfd19247cd4">&#9670;&#160;</a></span>nr_pages_released</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">atomic64_t cma::nr_pages_released</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00058">58</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
+</div>
+</div>
+<a id="a4dab8bd8649fabb77fd518ae5857b65e" name="a4dab8bd8649fabb77fd518ae5857b65e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dab8bd8649fabb77fd518ae5857b65e">&#9670;&#160;</a></span>nr_pages_succeeded</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">atomic64_t cma::nr_pages_succeeded</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00054">54</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
 
 </div>
 </div>
@@ -250,6 +369,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00050">50</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
 </div>
 </div>
 <a id="ab10ccb797b113a21646b0c9f54fb8780" name="ab10ccb797b113a21646b0c9f54fb8780"></a>
@@ -264,19 +385,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00042">42</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
+
 </div>
 </div>
-<a id="afb04d2a1c3b7d37e96db6c758ddd50a5" name="afb04d2a1c3b7d37e96db6c758ddd50a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb04d2a1c3b7d37e96db6c758ddd50a5">&#9670;&#160;</a></span>ranges</h2>
+<a id="a9f276a818df106cd6df64c8a2bef5726" name="a9f276a818df106cd6df64c8a2bef5726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f276a818df106cd6df64c8a2bef5726">&#9670;&#160;</a></span>ranges</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structcma__memrange.html">cma_memrange</a> cma::ranges[<a class="el" href="cma_8h.html#a16659937567831cca6bbe6a65f443165">CMA_MAX_RANGES</a>]</td>
+          <td class="memname">struct <a class="el" href="structcma__memrange.html">cma_memrange</a> cma::ranges[8]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cma_8h_source.html#l00051">51</a> of file <a class="el" href="cma_8h_source.html">cma.h</a>.</p>
 
 </div>
 </div>

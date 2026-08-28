@@ -150,6 +150,11 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a7df1d6c0735c0afde6522850eb4c6118" id="r_a7df1d6c0735c0afde6522850eb4c6118"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a7df1d6c0735c0afde6522850eb4c6118">set_current_oom_origin</a> (void)</td></tr>
+<tr class="memitem:a045ed2288edfd9aba0a40d3ecae4f1c7" id="r_a045ed2288edfd9aba0a40d3ecae4f1c7"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a045ed2288edfd9aba0a40d3ecae4f1c7">clear_current_oom_origin</a> (void)</td></tr>
+<tr class="memitem:a1a638b5613a7e9c2c40c3a39e2e14bd1" id="r_a1a638b5613a7e9c2c40c3a39e2e14bd1"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a1a638b5613a7e9c2c40c3a39e2e14bd1">oom_task_origin</a> (const struct task_struct *p)</td></tr>
+<tr class="memitem:ae8d0053df81087f748dfe29c704739a6" id="r_ae8d0053df81087f748dfe29c704739a6"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#ae8d0053df81087f748dfe29c704739a6">tsk_is_oom_victim</a> (struct task_struct *tsk)</td></tr>
+<tr class="memitem:af859f490d2bf591f85132ba60dc530c7" id="r_af859f490d2bf591f85132ba60dc530c7"><td class="memItemLeft">static vm_fault_t&#160;</td><td class="memItemRight"><a class="el" href="#af859f490d2bf591f85132ba60dc530c7">check_stable_address_space</a> (struct mm_struct *mm)</td></tr>
 <tr class="memitem:ae4e11cec487474b4125f554a190216be" id="r_ae4e11cec487474b4125f554a190216be"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#ae4e11cec487474b4125f554a190216be">oom_badness</a> (struct task_struct *p, unsigned long totalpages)</td></tr>
 <tr class="memitem:ac9d9325ddb79f52e4f7a6006eb42d9af" id="r_ac9d9325ddb79f52e4f7a6006eb42d9af"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac9d9325ddb79f52e4f7a6006eb42d9af">out_of_memory</a> (struct <a class="el" href="structoom__control.html">oom_control</a> *oc)</td></tr>
 <tr class="memitem:ac9cee488548f07bc19f46df22e914374" id="r_ac9cee488548f07bc19f46df22e914374"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac9cee488548f07bc19f46df22e914374">exit_oom_victim</a> (void)</td></tr>
@@ -183,9 +188,93 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026" name="ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026"></a>CONSTRAINT_MEMCG&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
+<p class="definition">Definition at line <a class="el" href="oom_8h_source.html#l00017">17</a> of file <a class="el" href="oom_8h_source.html">oom.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   17</span>                    {</div>
+<div class="line"><span class="lineno">   18</span>    <a class="code hl_enumvalue" href="#ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e">CONSTRAINT_NONE</a>,</div>
+<div class="line"><span class="lineno">   19</span>    <a class="code hl_enumvalue" href="#ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba">CONSTRAINT_CPUSET</a>,</div>
+<div class="line"><span class="lineno">   20</span>    <a class="code hl_enumvalue" href="#ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9">CONSTRAINT_MEMORY_POLICY</a>,</div>
+<div class="line"><span class="lineno">   21</span>    <a class="code hl_enumvalue" href="#ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026">CONSTRAINT_MEMCG</a>,</div>
+<div class="line"><span class="lineno">   22</span>};</div>
+<div class="ttc" id="aoom_8h_html_ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026"><div class="ttname"><a href="#ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026">CONSTRAINT_MEMCG</a></div><div class="ttdeci">@ CONSTRAINT_MEMCG</div><div class="ttdef"><b>Definition</b> <a href="oom_8h_source.html#l00021">oom.h:21</a></div></div>
+<div class="ttc" id="aoom_8h_html_ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba"><div class="ttname"><a href="#ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba">CONSTRAINT_CPUSET</a></div><div class="ttdeci">@ CONSTRAINT_CPUSET</div><div class="ttdef"><b>Definition</b> <a href="oom_8h_source.html#l00019">oom.h:19</a></div></div>
+<div class="ttc" id="aoom_8h_html_ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9"><div class="ttname"><a href="#ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9">CONSTRAINT_MEMORY_POLICY</a></div><div class="ttdeci">@ CONSTRAINT_MEMORY_POLICY</div><div class="ttdef"><b>Definition</b> <a href="oom_8h_source.html#l00020">oom.h:20</a></div></div>
+<div class="ttc" id="aoom_8h_html_ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e"><div class="ttname"><a href="#ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e">CONSTRAINT_NONE</a></div><div class="ttdeci">@ CONSTRAINT_NONE</div><div class="ttdef"><b>Definition</b> <a href="oom_8h_source.html#l00018">oom.h:18</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="af859f490d2bf591f85132ba60dc530c7" name="af859f490d2bf591f85132ba60dc530c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af859f490d2bf591f85132ba60dc530c7">&#9670;&#160;</a></span>check_stable_address_space()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vm_fault_t check_stable_address_space </td>
+          <td>(</td>
+          <td class="paramtype">struct mm_struct *</td>          <td class="paramname"><span class="paramname"><em>mm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="oom_8h_source.html#l00092">92</a> of file <a class="el" href="oom_8h_source.html">oom.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   93</span>{</div>
+<div class="line"><span class="lineno">   94</span>    <span class="keywordflow">if</span> (unlikely(mm_flags_test(MMF_UNSTABLE, mm)))</div>
+<div class="line"><span class="lineno">   95</span>        <span class="keywordflow">return</span> VM_FAULT_SIGBUS;</div>
+<div class="line"><span class="lineno">   96</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   97</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_af859f490d2bf591f85132ba60dc530c7_icgraph.svg" width="634" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a045ed2288edfd9aba0a40d3ecae4f1c7" name="a045ed2288edfd9aba0a40d3ecae4f1c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a045ed2288edfd9aba0a40d3ecae4f1c7">&#9670;&#160;</a></span>clear_current_oom_origin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clear_current_oom_origin </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="oom_8h_source.html#l00064">64</a> of file <a class="el" href="oom_8h_source.html">oom.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   65</span>{</div>
+<div class="line"><span class="lineno">   66</span>    current-&gt;signal-&gt;oom_flag_origin = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   67</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_a045ed2288edfd9aba0a40d3ecae4f1c7_icgraph.svg" width="371" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="ac9cee488548f07bc19f46df22e914374" name="ac9cee488548f07bc19f46df22e914374"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac9cee488548f07bc19f46df22e914374">&#9670;&#160;</a></span>exit_oom_victim()</h2>
 
@@ -210,6 +299,15 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>exit_oom_victim - note the exit of an OOM victim </p>
 
+<p class="definition">Definition at line <a class="el" href="oom__kill_8c_source.html#l00797">797</a> of file <a class="el" href="oom__kill_8c_source.html">oom_kill.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  798</span>{</div>
+<div class="line"><span class="lineno">  799</span>    clear_thread_flag(TIF_MEMDIE);</div>
+<div class="line"><span class="lineno">  800</span> </div>
+<div class="line"><span class="lineno">  801</span>    <span class="keywordflow">if</span> (!atomic_dec_return(&amp;<a class="code hl_variable" href="oom__kill_8c.html#ae9a0cfe68fed5e7f783a4c5beae4748a">oom_victims</a>))</div>
+<div class="line"><span class="lineno">  802</span>        wake_up_all(&amp;oom_victims_wait);</div>
+<div class="line"><span class="lineno">  803</span>}</div>
+<div class="ttc" id="aoom__kill_8c_html_ae9a0cfe68fed5e7f783a4c5beae4748a"><div class="ttname"><a href="oom__kill_8c.html#ae9a0cfe68fed5e7f783a4c5beae4748a">oom_victims</a></div><div class="ttdeci">static atomic_t oom_victims</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00483">oom_kill.c:483</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a63add4ec9a8055221f83d425aae186b3" name="a63add4ec9a8055221f83d425aae186b3"></a>
@@ -234,10 +332,29 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="oom__kill_8c_source.html#l00134">134</a> of file <a class="el" href="oom__kill_8c_source.html">oom_kill.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  135</span>{</div>
+<div class="line"><span class="lineno">  136</span>    <span class="keyword">struct </span>task_struct *t;</div>
+<div class="line"><span class="lineno">  137</span> </div>
+<div class="line"><span class="lineno">  138</span>    rcu_read_lock();</div>
+<div class="line"><span class="lineno">  139</span> </div>
+<div class="line"><span class="lineno">  140</span>    for_each_thread(p, t) {</div>
+<div class="line"><span class="lineno">  141</span>        task_lock(t);</div>
+<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">if</span> (likely(t-&gt;mm))</div>
+<div class="line"><span class="lineno">  143</span>            <span class="keywordflow">goto</span> found;</div>
+<div class="line"><span class="lineno">  144</span>        task_unlock(t);</div>
+<div class="line"><span class="lineno">  145</span>    }</div>
+<div class="line"><span class="lineno">  146</span>    t = NULL;</div>
+<div class="line"><span class="lineno">  147</span>found:</div>
+<div class="line"><span class="lineno">  148</span>    rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  149</span> </div>
+<div class="line"><span class="lineno">  150</span>    <span class="keywordflow">return</span> t;</div>
+<div class="line"><span class="lineno">  151</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_a63add4ec9a8055221f83d425aae186b3_icgraph.svg" width="339" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_a63add4ec9a8055221f83d425aae186b3_icgraph.svg" width="3323" height="740"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -262,10 +379,57 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>oom_badness - heuristic function to determine which candidate task to kill <code class="param"></code>: task struct of which task we should calculate @totalpages: total present RAM allowed for page allocation</p>
 <p>The heuristic for determining which task to kill is made to be as simple and predictable as possible. The goal is to return the highest value for the task consuming the most memory to avoid subsequent oom failures. </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="oom__kill_8c_source.html#l00202">202</a> of file <a class="el" href="oom__kill_8c_source.html">oom_kill.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  203</span>{</div>
+<div class="line"><span class="lineno">  204</span>    <span class="keywordtype">long</span> points;</div>
+<div class="line"><span class="lineno">  205</span>    <span class="keywordtype">long</span> adj;</div>
+<div class="line"><span class="lineno">  206</span> </div>
+<div class="line"><span class="lineno">  207</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="oom__kill_8c.html#ae72b010768f083d10efa64e7377c87d8">oom_unkillable_task</a>(p))</div>
+<div class="line"><span class="lineno">  208</span>        <span class="keywordflow">return</span> LONG_MIN;</div>
+<div class="line"><span class="lineno">  209</span> </div>
+<div class="line"><span class="lineno">  210</span>    p = <a class="code hl_function" href="oom__kill_8c.html#a63add4ec9a8055221f83d425aae186b3">find_lock_task_mm</a>(p);</div>
+<div class="line"><span class="lineno">  211</span>    <span class="keywordflow">if</span> (!p)</div>
+<div class="line"><span class="lineno">  212</span>        <span class="keywordflow">return</span> LONG_MIN;</div>
+<div class="line"><span class="lineno">  213</span> </div>
+<div class="line"><span class="lineno">  214</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  215</span><span class="comment">     * Do not even consider tasks which are explicitly marked oom</span></div>
+<div class="line"><span class="lineno">  216</span><span class="comment">     * unkillable or have been already oom reaped or the are in</span></div>
+<div class="line"><span class="lineno">  217</span><span class="comment">     * the middle of vfork</span></div>
+<div class="line"><span class="lineno">  218</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  219</span>    adj = (long)p-&gt;signal-&gt;oom_score_adj;</div>
+<div class="line"><span class="lineno">  220</span>    <span class="keywordflow">if</span> (adj == OOM_SCORE_ADJ_MIN ||</div>
+<div class="line"><span class="lineno">  221</span>            mm_flags_test(MMF_OOM_SKIP, p-&gt;mm) ||</div>
+<div class="line"><span class="lineno">  222</span>            in_vfork(p)) {</div>
+<div class="line"><span class="lineno">  223</span>        task_unlock(p);</div>
+<div class="line"><span class="lineno">  224</span>        <span class="keywordflow">return</span> LONG_MIN;</div>
+<div class="line"><span class="lineno">  225</span>    }</div>
+<div class="line"><span class="lineno">  226</span> </div>
+<div class="line"><span class="lineno">  227</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  228</span><span class="comment">     * The baseline for the badness score is the proportion of RAM that each</span></div>
+<div class="line"><span class="lineno">  229</span><span class="comment">     * task&#39;s rss, pagetable and swap space use.</span></div>
+<div class="line"><span class="lineno">  230</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  231</span>    points = get_mm_rss_sum(p-&gt;mm) + get_mm_counter_sum(p-&gt;mm, MM_SWAPENTS) +</div>
+<div class="line"><span class="lineno">  232</span>        mm_pgtables_bytes(p-&gt;mm) / PAGE_SIZE;</div>
+<div class="line"><span class="lineno">  233</span>    task_unlock(p);</div>
+<div class="line"><span class="lineno">  234</span> </div>
+<div class="line"><span class="lineno">  235</span>    <span class="comment">/* Normalize to oom_score_adj units */</span></div>
+<div class="line"><span class="lineno">  236</span>    adj *= totalpages / 1000;</div>
+<div class="line"><span class="lineno">  237</span>    points += adj;</div>
+<div class="line"><span class="lineno">  238</span> </div>
+<div class="line"><span class="lineno">  239</span>    <span class="keywordflow">return</span> points;</div>
+<div class="line"><span class="lineno">  240</span>}</div>
+<div class="ttc" id="aoom__kill_8c_html_a63add4ec9a8055221f83d425aae186b3"><div class="ttname"><a href="oom__kill_8c.html#a63add4ec9a8055221f83d425aae186b3">find_lock_task_mm</a></div><div class="ttdeci">struct task_struct * find_lock_task_mm(struct task_struct *p)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00134">oom_kill.c:134</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_ae72b010768f083d10efa64e7377c87d8"><div class="ttname"><a href="oom__kill_8c.html#ae72b010768f083d10efa64e7377c87d8">oom_unkillable_task</a></div><div class="ttdeci">static bool oom_unkillable_task(struct task_struct *p)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00163">oom_kill.c:163</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_ae4e11cec487474b4125f554a190216be_cgraph.svg" width="296" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_ae4e11cec487474b4125f554a190216be_cgraph.svg" width="300" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_ae4e11cec487474b4125f554a190216be_icgraph.svg" width="3079" height="875"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -296,7 +460,33 @@ Here is the call graph for this function:</div>
 <p>Forces all page allocations to fail rather than trigger OOM killer. Will block and wait until all OOM victims are killed or the given timeout expires.</p>
 <p>The function cannot be called when there are runnable user tasks because the userspace would see unexpected allocation failures as a result. Any new usage of this function should be consulted with MM people.</p>
 <p>Returns true if successful and false if the OOM killer cannot be disabled. </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="oom__kill_8c_source.html#l00829">829</a> of file <a class="el" href="oom__kill_8c_source.html">oom_kill.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  830</span>{</div>
+<div class="line"><span class="lineno">  831</span>    <span class="keywordtype">signed</span> <span class="keywordtype">long</span> ret;</div>
+<div class="line"><span class="lineno">  832</span> </div>
+<div class="line"><span class="lineno">  833</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  834</span><span class="comment">     * Make sure to not race with an ongoing OOM killer. Check that the</span></div>
+<div class="line"><span class="lineno">  835</span><span class="comment">     * current is not killed (possibly due to sharing the victim&#39;s memory).</span></div>
+<div class="line"><span class="lineno">  836</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  837</span>    <span class="keywordflow">if</span> (mutex_lock_killable(&amp;<a class="code hl_variable" href="#ab7d77c517a7ca9042d6355010e06982b">oom_lock</a>))</div>
+<div class="line"><span class="lineno">  838</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  839</span>    oom_killer_disabled = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  840</span>    mutex_unlock(&amp;<a class="code hl_variable" href="#ab7d77c517a7ca9042d6355010e06982b">oom_lock</a>);</div>
+<div class="line"><span class="lineno">  841</span> </div>
+<div class="line"><span class="lineno">  842</span>    ret = wait_event_interruptible_timeout(oom_victims_wait,</div>
+<div class="line"><span class="lineno">  843</span>            !atomic_read(&amp;<a class="code hl_variable" href="oom__kill_8c.html#ae9a0cfe68fed5e7f783a4c5beae4748a">oom_victims</a>), timeout);</div>
+<div class="line"><span class="lineno">  844</span>    <span class="keywordflow">if</span> (ret &lt;= 0) {</div>
+<div class="line"><span class="lineno">  845</span>        <a class="code hl_function" href="oom__kill_8c.html#a4f44936c61a212e79f10ca36de616e69">oom_killer_enable</a>();</div>
+<div class="line"><span class="lineno">  846</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  847</span>    }</div>
+<div class="line"><span class="lineno">  848</span>    pr_info(<span class="stringliteral">&quot;OOM killer disabled.\n&quot;</span>);</div>
+<div class="line"><span class="lineno">  849</span> </div>
+<div class="line"><span class="lineno">  850</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  851</span>}</div>
+<div class="ttc" id="aoom_8h_html_ab7d77c517a7ca9042d6355010e06982b"><div class="ttname"><a href="#ab7d77c517a7ca9042d6355010e06982b">oom_lock</a></div><div class="ttdeci">struct mutex oom_lock</div></div>
+<div class="ttc" id="aoom__kill_8c_html_a4f44936c61a212e79f10ca36de616e69"><div class="ttname"><a href="oom__kill_8c.html#a4f44936c61a212e79f10ca36de616e69">oom_killer_enable</a></div><div class="ttdeci">void oom_killer_enable(void)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00808">oom_kill.c:808</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_ab628c96ff638a785d9fa8e71ad6d190f_cgraph.svg" width="312" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -327,10 +517,51 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>oom_killer_enable - enable OOM killer </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="oom__kill_8c_source.html#l00808">808</a> of file <a class="el" href="oom__kill_8c_source.html">oom_kill.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  809</span>{</div>
+<div class="line"><span class="lineno">  810</span>    oom_killer_disabled = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  811</span>    pr_info(<span class="stringliteral">&quot;OOM killer enabled.\n&quot;</span>);</div>
+<div class="line"><span class="lineno">  812</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_a4f44936c61a212e79f10ca36de616e69_icgraph.svg" width="312" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1a638b5613a7e9c2c40c3a39e2e14bd1" name="a1a638b5613a7e9c2c40c3a39e2e14bd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a638b5613a7e9c2c40c3a39e2e14bd1">&#9670;&#160;</a></span>oom_task_origin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool oom_task_origin </td>
+          <td>(</td>
+          <td class="paramtype">const struct task_struct *</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="oom_8h_source.html#l00069">69</a> of file <a class="el" href="oom_8h_source.html">oom.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   70</span>{</div>
+<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">return</span> p-&gt;signal-&gt;oom_flag_origin;</div>
+<div class="line"><span class="lineno">   72</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_a1a638b5613a7e9c2c40c3a39e2e14bd1_icgraph.svg" width="3094" height="875"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -360,6 +591,103 @@ Here is the caller graph for this function:</div>
 <p>out_of_memory - kill the "best" process when we run out of memory @oc: pointer to struct <a class="el" href="structoom__control.html">oom_control</a></p>
 <p>If we run out of memory, we have the choice between either killing a random task (bad), letting the system crash (worse) OR try to be smart about which process to kill. Note that we don't have to be perfect here, we just have to be good. </p>
 
+<p class="definition">Definition at line <a class="el" href="oom__kill_8c_source.html#l01119">1119</a> of file <a class="el" href="oom__kill_8c_source.html">oom_kill.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1120</span>{</div>
+<div class="line"><span class="lineno"> 1121</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> freed = 0;</div>
+<div class="line"><span class="lineno"> 1122</span> </div>
+<div class="line"><span class="lineno"> 1123</span>    <span class="keywordflow">if</span> (oom_killer_disabled)</div>
+<div class="line"><span class="lineno"> 1124</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno"> 1125</span> </div>
+<div class="line"><span class="lineno"> 1126</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="oom__kill_8c.html#a6e3502acb34f83d33a9524f88c0fef6c">is_memcg_oom</a>(oc)) {</div>
+<div class="line"><span class="lineno"> 1127</span>        blocking_notifier_call_chain(&amp;oom_notify_list, 0, &amp;freed);</div>
+<div class="line"><span class="lineno"> 1128</span>        <span class="keywordflow">if</span> (freed &gt; 0 &amp;&amp; !<a class="code hl_function" href="oom__kill_8c.html#a2f58593fb1fd01768ae7dee4adda9f5e">is_sysrq_oom</a>(oc))</div>
+<div class="line"><span class="lineno"> 1129</span>            <span class="comment">/* Got some memory back in the last second. */</span></div>
+<div class="line"><span class="lineno"> 1130</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 1131</span>    }</div>
+<div class="line"><span class="lineno"> 1132</span> </div>
+<div class="line"><span class="lineno"> 1133</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 1134</span><span class="comment">     * If current has a pending SIGKILL or is exiting, then automatically</span></div>
+<div class="line"><span class="lineno"> 1135</span><span class="comment">     * select it.  The goal is to allow it to allocate so that it may</span></div>
+<div class="line"><span class="lineno"> 1136</span><span class="comment">     * quickly exit and free its memory.</span></div>
+<div class="line"><span class="lineno"> 1137</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno"> 1138</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="oom__kill_8c.html#acc739a6f05963dc316e1923b4549f693">task_will_free_mem</a>(current)) {</div>
+<div class="line"><span class="lineno"> 1139</span>        mark_oom_victim(current);</div>
+<div class="line"><span class="lineno"> 1140</span>        <a class="code hl_function" href="oom__kill_8c.html#a45ef4eccca82c1ba3bc43e8a864f7580">queue_oom_reaper</a>(current);</div>
+<div class="line"><span class="lineno"> 1141</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 1142</span>    }</div>
+<div class="line"><span class="lineno"> 1143</span> </div>
+<div class="line"><span class="lineno"> 1144</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 1145</span><span class="comment">     * The OOM killer does not compensate for IO-less reclaim.</span></div>
+<div class="line"><span class="lineno"> 1146</span><span class="comment">     * But mem_cgroup_oom() has to invoke the OOM killer even</span></div>
+<div class="line"><span class="lineno"> 1147</span><span class="comment">     * if it is a GFP_NOFS allocation.</span></div>
+<div class="line"><span class="lineno"> 1148</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno"> 1149</span>    <span class="keywordflow">if</span> (!(oc-&gt;<a class="code hl_variable" href="structoom__control.html#ac0fa696227f3f57c02ee123ae6daa3a8">gfp_mask</a> &amp; <a class="code hl_define" href="gfp__types_8h.html#acc4c173bc83c94ecbc3d825bc82bd3bf">__GFP_FS</a>) &amp;&amp; !<a class="code hl_function" href="oom__kill_8c.html#a6e3502acb34f83d33a9524f88c0fef6c">is_memcg_oom</a>(oc))</div>
+<div class="line"><span class="lineno"> 1150</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 1151</span> </div>
+<div class="line"><span class="lineno"> 1152</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 1153</span><span class="comment">     * Check if there were limitations on the allocation (only relevant for</span></div>
+<div class="line"><span class="lineno"> 1154</span><span class="comment">     * NUMA and memcg) that may require different handling.</span></div>
+<div class="line"><span class="lineno"> 1155</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno"> 1156</span>    oc-&gt;<a class="code hl_variable" href="structoom__control.html#a62dbc511b3d2829e824eff2fc510d05b">constraint</a> = <a class="code hl_function" href="oom__kill_8c.html#a1e8053daf46eda4e3504f66319b0818f">constrained_alloc</a>(oc);</div>
+<div class="line"><span class="lineno"> 1157</span>    <span class="keywordflow">if</span> (oc-&gt;<a class="code hl_variable" href="structoom__control.html#a62dbc511b3d2829e824eff2fc510d05b">constraint</a> != <a class="code hl_enumvalue" href="#ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9">CONSTRAINT_MEMORY_POLICY</a>)</div>
+<div class="line"><span class="lineno"> 1158</span>        oc-&gt;<a class="code hl_variable" href="structoom__control.html#a453b14030607f612ad6a08a46725f5c7">nodemask</a> = NULL;</div>
+<div class="line"><span class="lineno"> 1159</span>    <a class="code hl_function" href="oom__kill_8c.html#a068ee9e4fea673d126f12b3cfb729f46">check_panic_on_oom</a>(oc);</div>
+<div class="line"><span class="lineno"> 1160</span> </div>
+<div class="line"><span class="lineno"> 1161</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="oom__kill_8c.html#a6e3502acb34f83d33a9524f88c0fef6c">is_memcg_oom</a>(oc) &amp;&amp; <a class="code hl_variable" href="oom__kill_8c.html#a18a0a476b0773bd969d383802bbfa797">sysctl_oom_kill_allocating_task</a> &amp;&amp;</div>
+<div class="line"><span class="lineno"> 1162</span>        current-&gt;mm &amp;&amp; !<a class="code hl_function" href="oom__kill_8c.html#ae72b010768f083d10efa64e7377c87d8">oom_unkillable_task</a>(current) &amp;&amp;</div>
+<div class="line"><span class="lineno"> 1163</span>        <a class="code hl_function" href="oom__kill_8c.html#a7967783b7d5c1ae8b7c1b56178494103">oom_cpuset_eligible</a>(current, oc) &amp;&amp;</div>
+<div class="line"><span class="lineno"> 1164</span>        current-&gt;signal-&gt;oom_score_adj != OOM_SCORE_ADJ_MIN) {</div>
+<div class="line"><span class="lineno"> 1165</span>        get_task_struct(current);</div>
+<div class="line"><span class="lineno"> 1166</span>        oc-&gt;<a class="code hl_variable" href="structoom__control.html#a9daccb5f19503408ff6d384c5628361b">chosen</a> = current;</div>
+<div class="line"><span class="lineno"> 1167</span>        <a class="code hl_function" href="oom__kill_8c.html#a35abeafa870b1071f586e7c2190e3f91">oom_kill_process</a>(oc, <span class="stringliteral">&quot;Out of memory (oom_kill_allocating_task)&quot;</span>);</div>
+<div class="line"><span class="lineno"> 1168</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno"> 1169</span>    }</div>
+<div class="line"><span class="lineno"> 1170</span> </div>
+<div class="line"><span class="lineno"> 1171</span>    <a class="code hl_function" href="oom__kill_8c.html#ab5093b5df0e5bdf2b662a3ac5e09c7bb">select_bad_process</a>(oc);</div>
+<div class="line"><span class="lineno"> 1172</span>    <span class="comment">/* Found nothing?!?! */</span></div>
+<div class="line"><span class="lineno"> 1173</span>    <span class="keywordflow">if</span> (!oc-&gt;<a class="code hl_variable" href="structoom__control.html#a9daccb5f19503408ff6d384c5628361b">chosen</a>) {</div>
+<div class="line"><span class="lineno"> 1174</span>        <a class="code hl_function" href="oom__kill_8c.html#aea916b5aa02c3bfa036b26bbeeb0ab94">dump_header</a>(oc);</div>
+<div class="line"><span class="lineno"> 1175</span>        pr_warn(<span class="stringliteral">&quot;Out of memory and no killable processes...\n&quot;</span>);</div>
+<div class="line"><span class="lineno"> 1176</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 1177</span><span class="comment">         * If we got here due to an actual allocation at the</span></div>
+<div class="line"><span class="lineno"> 1178</span><span class="comment">         * system level, we cannot survive this and will enter</span></div>
+<div class="line"><span class="lineno"> 1179</span><span class="comment">         * an endless loop in the allocator. Bail out now.</span></div>
+<div class="line"><span class="lineno"> 1180</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno"> 1181</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="oom__kill_8c.html#a2f58593fb1fd01768ae7dee4adda9f5e">is_sysrq_oom</a>(oc) &amp;&amp; !<a class="code hl_function" href="oom__kill_8c.html#a6e3502acb34f83d33a9524f88c0fef6c">is_memcg_oom</a>(oc))</div>
+<div class="line"><span class="lineno"> 1182</span>            panic(<span class="stringliteral">&quot;System is deadlocked on memory\n&quot;</span>);</div>
+<div class="line"><span class="lineno"> 1183</span>    }</div>
+<div class="line"><span class="lineno"> 1184</span>    <span class="keywordflow">if</span> (oc-&gt;<a class="code hl_variable" href="structoom__control.html#a9daccb5f19503408ff6d384c5628361b">chosen</a> &amp;&amp; oc-&gt;<a class="code hl_variable" href="structoom__control.html#a9daccb5f19503408ff6d384c5628361b">chosen</a> != (<span class="keywordtype">void</span> *)-1UL)</div>
+<div class="line"><span class="lineno"> 1185</span>        <a class="code hl_function" href="oom__kill_8c.html#a35abeafa870b1071f586e7c2190e3f91">oom_kill_process</a>(oc, !<a class="code hl_function" href="oom__kill_8c.html#a6e3502acb34f83d33a9524f88c0fef6c">is_memcg_oom</a>(oc) ? <span class="stringliteral">&quot;Out of memory&quot;</span> :</div>
+<div class="line"><span class="lineno"> 1186</span>                 <span class="stringliteral">&quot;Memory cgroup out of memory&quot;</span>);</div>
+<div class="line"><span class="lineno"> 1187</span>    <span class="keywordflow">return</span> !!oc-&gt;<a class="code hl_variable" href="structoom__control.html#a9daccb5f19503408ff6d384c5628361b">chosen</a>;</div>
+<div class="line"><span class="lineno"> 1188</span>}</div>
+<div class="ttc" id="agfp__types_8h_html_acc4c173bc83c94ecbc3d825bc82bd3bf"><div class="ttname"><a href="gfp__types_8h.html#acc4c173bc83c94ecbc3d825bc82bd3bf">__GFP_FS</a></div><div class="ttdeci">#define __GFP_FS</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00256">gfp_types.h:256</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_a068ee9e4fea673d126f12b3cfb729f46"><div class="ttname"><a href="oom__kill_8c.html#a068ee9e4fea673d126f12b3cfb729f46">check_panic_on_oom</a></div><div class="ttdeci">static void check_panic_on_oom(struct oom_control *oc)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l01075">oom_kill.c:1075</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_a18a0a476b0773bd969d383802bbfa797"><div class="ttname"><a href="oom__kill_8c.html#a18a0a476b0773bd969d383802bbfa797">sysctl_oom_kill_allocating_task</a></div><div class="ttdeci">static int sysctl_oom_kill_allocating_task</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00057">oom_kill.c:57</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_a1e8053daf46eda4e3504f66319b0818f"><div class="ttname"><a href="oom__kill_8c.html#a1e8053daf46eda4e3504f66319b0818f">constrained_alloc</a></div><div class="ttdeci">static enum oom_constraint constrained_alloc(struct oom_control *oc)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00252">oom_kill.c:252</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_a2f58593fb1fd01768ae7dee4adda9f5e"><div class="ttname"><a href="oom__kill_8c.html#a2f58593fb1fd01768ae7dee4adda9f5e">is_sysrq_oom</a></div><div class="ttdeci">static bool is_sysrq_oom(struct oom_control *oc)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00157">oom_kill.c:157</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_a35abeafa870b1071f586e7c2190e3f91"><div class="ttname"><a href="oom__kill_8c.html#a35abeafa870b1071f586e7c2190e3f91">oom_kill_process</a></div><div class="ttdeci">static void oom_kill_process(struct oom_control *oc, const char *message)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l01024">oom_kill.c:1024</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_a45ef4eccca82c1ba3bc43e8a864f7580"><div class="ttname"><a href="oom__kill_8c.html#a45ef4eccca82c1ba3bc43e8a864f7580">queue_oom_reaper</a></div><div class="ttdeci">static void queue_oom_reaper(struct task_struct *tsk)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00702">oom_kill.c:702</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_a6e3502acb34f83d33a9524f88c0fef6c"><div class="ttname"><a href="oom__kill_8c.html#a6e3502acb34f83d33a9524f88c0fef6c">is_memcg_oom</a></div><div class="ttdeci">static bool is_memcg_oom(struct oom_control *oc)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00072">oom_kill.c:72</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_a7967783b7d5c1ae8b7c1b56178494103"><div class="ttname"><a href="oom__kill_8c.html#a7967783b7d5c1ae8b7c1b56178494103">oom_cpuset_eligible</a></div><div class="ttdeci">static bool oom_cpuset_eligible(struct task_struct *start, struct oom_control *oc)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00090">oom_kill.c:90</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_ab5093b5df0e5bdf2b662a3ac5e09c7bb"><div class="ttname"><a href="oom__kill_8c.html#ab5093b5df0e5bdf2b662a3ac5e09c7bb">select_bad_process</a></div><div class="ttdeci">static void select_bad_process(struct oom_control *oc)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00365">oom_kill.c:365</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_acc739a6f05963dc316e1923b4549f693"><div class="ttname"><a href="oom__kill_8c.html#acc739a6f05963dc316e1923b4549f693">task_will_free_mem</a></div><div class="ttdeci">static bool task_will_free_mem(struct task_struct *task)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00881">oom_kill.c:881</a></div></div>
+<div class="ttc" id="aoom__kill_8c_html_aea916b5aa02c3bfa036b26bbeeb0ab94"><div class="ttname"><a href="oom__kill_8c.html#aea916b5aa02c3bfa036b26bbeeb0ab94">dump_header</a></div><div class="ttdeci">static void dump_header(struct oom_control *oc)</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00459">oom_kill.c:459</a></div></div>
+<div class="ttc" id="astructoom__control_html_a453b14030607f612ad6a08a46725f5c7"><div class="ttname"><a href="structoom__control.html#a453b14030607f612ad6a08a46725f5c7">oom_control::nodemask</a></div><div class="ttdeci">nodemask_t * nodemask</div><div class="ttdef"><b>Definition</b> <a href="oom_8h_source.html#l00033">oom.h:33</a></div></div>
+<div class="ttc" id="astructoom__control_html_a62dbc511b3d2829e824eff2fc510d05b"><div class="ttname"><a href="structoom__control.html#a62dbc511b3d2829e824eff2fc510d05b">oom_control::constraint</a></div><div class="ttdeci">enum oom_constraint constraint</div><div class="ttdef"><b>Definition</b> <a href="oom_8h_source.html#l00053">oom.h:53</a></div></div>
+<div class="ttc" id="astructoom__control_html_a9daccb5f19503408ff6d384c5628361b"><div class="ttname"><a href="structoom__control.html#a9daccb5f19503408ff6d384c5628361b">oom_control::chosen</a></div><div class="ttdeci">struct task_struct * chosen</div><div class="ttdef"><b>Definition</b> <a href="oom_8h_source.html#l00049">oom.h:49</a></div></div>
+<div class="ttc" id="astructoom__control_html_ac0fa696227f3f57c02ee123ae6daa3a8"><div class="ttname"><a href="structoom__control.html#ac0fa696227f3f57c02ee123ae6daa3a8">oom_control::gfp_mask</a></div><div class="ttdeci">const gfp_t gfp_mask</div><div class="ttdef"><b>Definition</b> <a href="oom_8h_source.html#l00039">oom.h:39</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_ac9d9325ddb79f52e4f7a6006eb42d9af_cgraph.svg" width="1367" height="1554"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_ac9d9325ddb79f52e4f7a6006eb42d9af_icgraph.svg" width="2567" height="896"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a2aead0e1e9e533753e3ce1833078d482" name="a2aead0e1e9e533753e3ce1833078d482"></a>
@@ -384,10 +712,85 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="oom__kill_8c_source.html#l01098">1098</a> of file <a class="el" href="oom__kill_8c_source.html">oom_kill.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1099</span>{</div>
+<div class="line"><span class="lineno"> 1100</span>    <span class="keywordflow">return</span> blocking_notifier_chain_register(&amp;oom_notify_list, nb);</div>
+<div class="line"><span class="lineno"> 1101</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_a2aead0e1e9e533753e3ce1833078d482_icgraph.svg" width="372" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7df1d6c0735c0afde6522850eb4c6118" name="a7df1d6c0735c0afde6522850eb4c6118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7df1d6c0735c0afde6522850eb4c6118">&#9670;&#160;</a></span>set_current_oom_origin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void set_current_oom_origin </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="oom_8h_source.html#l00059">59</a> of file <a class="el" href="oom_8h_source.html">oom.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   60</span>{</div>
+<div class="line"><span class="lineno">   61</span>    current-&gt;signal-&gt;oom_flag_origin = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   62</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_a7df1d6c0735c0afde6522850eb4c6118_icgraph.svg" width="360" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae8d0053df81087f748dfe29c704739a6" name="ae8d0053df81087f748dfe29c704739a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8d0053df81087f748dfe29c704739a6">&#9670;&#160;</a></span>tsk_is_oom_victim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tsk_is_oom_victim </td>
+          <td>(</td>
+          <td class="paramtype">struct task_struct *</td>          <td class="paramname"><span class="paramname"><em>tsk</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="oom_8h_source.html#l00074">74</a> of file <a class="el" href="oom_8h_source.html">oom.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   75</span>{</div>
+<div class="line"><span class="lineno">   76</span>    <span class="keywordflow">return</span> tsk-&gt;signal-&gt;oom_mm;</div>
+<div class="line"><span class="lineno">   77</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_ae8d0053df81087f748dfe29c704739a6_icgraph.svg" width="2996" height="683"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -414,7 +817,12 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="oom__kill_8c_source.html#l01104">1104</a> of file <a class="el" href="oom__kill_8c_source.html">oom_kill.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1105</span>{</div>
+<div class="line"><span class="lineno"> 1106</span>    <span class="keywordflow">return</span> blocking_notifier_chain_unregister(&amp;oom_notify_list, nb);</div>
+<div class="line"><span class="lineno"> 1107</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="oom_8h_ae00ee46e52e5e22872a1c9e1e50ce21a_icgraph.svg" width="386" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>

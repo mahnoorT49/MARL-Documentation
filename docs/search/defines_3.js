@@ -9,13 +9,14 @@ var searchData=
   ['cgroup_5fhas_5fsubsys_5fconfig_6',['CGROUP_HAS_SUBSYS_CONFIG',['../cgroup_8c.html#a75f31a26a1944a52abbb3c7b4b2b350a',1,'cgroup.c']]],
   ['cgroup_5fmgctx_5finit_7',['CGROUP_MGCTX_INIT',['../cgroup-internal_8h.html#a3031319f695fbd448d197be0c7d2b270',1,'cgroup-internal.h']]],
   ['cgroup_5fpidlist_5fdestroy_5fdelay_8',['CGROUP_PIDLIST_DESTROY_DELAY',['../cgroup-v1_8c.html#a45fd1a11c5c8daf4bef8f5b9a48af759',1,'cgroup-v1.c']]],
-  ['cgroup_5fsubsys_5fcount_9',['CGROUP_SUBSYS_COUNT',['../cgroup-defs_8h.html#a90f6bcfc89bcf4c41f32472be7f712ba',1,'cgroup-defs.h']]],
-  ['cgroup_5ftaskset_5finit_10',['CGROUP_TASKSET_INIT',['../cgroup-internal_8h.html#a8a927c1349d1832f9ab726329602a1c7',1,'cgroup-internal.h']]],
-  ['check_5freclaimer_5foffset_11',['CHECK_RECLAIMER_OFFSET',['../vmscan_8c.html#a1227c8554e9ef2905e8561c4a5ac3d03',1,'vmscan.c']]],
-  ['class_5fbits_12',['CLASS_BITS',['../zsmalloc_8c.html#a4540995708a9e324f9fb5c60f249a054',1,'zsmalloc.c']]],
-  ['cma_5fmax_5franges_13',['CMA_MAX_RANGES',['../cma_8h.html#a16659937567831cca6bbe6a65f443165',1,'cma.h']]],
-  ['create_5ftrace_5fpoints_14',['CREATE_TRACE_POINTS',['../cgroup_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;cgroup.c'],['../mapping_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;mapping.c'],['../cma_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;cma.c'],['../memcontrol_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;memcontrol.c'],['../oom__kill_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;oom_kill.c'],['../percpu_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;percpu.c'],['../slab__common_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;slab_common.c'],['../swap_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;swap.c'],['../vmalloc_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;vmalloc.c'],['../vmscan_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;vmscan.c']]],
-  ['css_5fset_5fhash_5fbits_15',['CSS_SET_HASH_BITS',['../cgroup_8c.html#a841c38c6a538a9100531f51f77941cf9',1,'cgroup.c']]],
-  ['current_5fobjcg_5fupdate_5fbit_16',['CURRENT_OBJCG_UPDATE_BIT',['../memcontrol_8c.html#a9784a5ef619915018e4d4fa01e1333a7',1,'memcontrol.c']]],
-  ['current_5fobjcg_5fupdate_5fflag_17',['CURRENT_OBJCG_UPDATE_FLAG',['../memcontrol_8c.html#a1a6e18fa0f4224c8ba3b498c52f3481c',1,'memcontrol.c']]]
+  ['cgroup_5fref_5fexport_9',['CGROUP_REF_EXPORT',['../cgroup_8c.html#a2154767efe23abfc9d3b0c759af28f74',1,'cgroup.c']]],
+  ['cgroup_5fref_5ffn_5fattrs_10',['CGROUP_REF_FN_ATTRS',['../cgroup_8c.html#a340c2ce35e3992e5123ee3d9544f93fc',1,'cgroup.c']]],
+  ['cgroup_5ftaskset_5finit_11',['CGROUP_TASKSET_INIT',['../cgroup-internal_8h.html#a8a927c1349d1832f9ab726329602a1c7',1,'cgroup-internal.h']]],
+  ['check_5freclaimer_5foffset_12',['CHECK_RECLAIMER_OFFSET',['../vmscan_8c.html#a1227c8554e9ef2905e8561c4a5ac3d03',1,'vmscan.c']]],
+  ['class_5fbits_13',['CLASS_BITS',['../zsmalloc_8c.html#a4540995708a9e324f9fb5c60f249a054',1,'zsmalloc.c']]],
+  ['cma_5fmax_5franges_14',['CMA_MAX_RANGES',['../cma_8h.html#a16659937567831cca6bbe6a65f443165',1,'cma.h']]],
+  ['create_5ftrace_5fpoints_15',['CREATE_TRACE_POINTS',['../cgroup_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;cgroup.c'],['../mapping_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;mapping.c'],['../cma_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;cma.c'],['../memcontrol_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;memcontrol.c'],['../oom__kill_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;oom_kill.c'],['../percpu_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;percpu.c'],['../slab__common_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;slab_common.c'],['../swap_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;swap.c'],['../vmalloc_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;vmalloc.c'],['../vmscan_8c.html#a40473b47b4871fa538a0fa131f94e774',1,'CREATE_TRACE_POINTS:&#160;vmscan.c']]],
+  ['css_5fset_5fhash_5fbits_16',['CSS_SET_HASH_BITS',['../cgroup_8c.html#a841c38c6a538a9100531f51f77941cf9',1,'cgroup.c']]],
+  ['current_5fobjcg_5fupdate_5fbit_17',['CURRENT_OBJCG_UPDATE_BIT',['../memcontrol_8c.html#a9784a5ef619915018e4d4fa01e1333a7',1,'memcontrol.c']]],
+  ['current_5fobjcg_5fupdate_5fflag_18',['CURRENT_OBJCG_UPDATE_FLAG',['../memcontrol_8c.html#a1a6e18fa0f4224c8ba3b498c52f3481c',1,'memcontrol.c']]]
 ];

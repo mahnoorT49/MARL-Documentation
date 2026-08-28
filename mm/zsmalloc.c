@@ -43,7 +43,7 @@
 
 #define ZSPAGE_MAGIC	0x58
 
-/*
+/**
  * This must be power of 2 and greater than or equal to sizeof(link_free).
  * These two conditions ensure that any 'struct link_free' itself doesn't
  * span more than 1 page which avoids complex case of mapping 2 pages simply
@@ -53,7 +53,7 @@
 
 #define ZS_HANDLE_SIZE (sizeof(unsigned long))
 
-/*
+/**
  * Object location (<PFN>, <obj_idx>) is encoded as
  * a single (unsigned long) handle value.
  *
@@ -66,7 +66,7 @@
 #ifdef MAX_PHYSMEM_BITS
 #define MAX_POSSIBLE_PHYSMEM_BITS MAX_PHYSMEM_BITS
 #else
-/*
+/**
  * If this definition of MAX_PHYSMEM_BITS is used, OBJ_INDEX_BITS will just
  * be PAGE_SHIFT
  */
@@ -76,7 +76,7 @@
 
 #define _PFN_BITS		(MAX_POSSIBLE_PHYSMEM_BITS - PAGE_SHIFT)
 
-/*
+/**
  * Head in allocated object should have OBJ_ALLOCATED_TAG
  * to identify the object was allocated or not.
  * It's okay to add the status bit in the least bit because
@@ -98,13 +98,13 @@
 
 #define ZS_MAX_PAGES_PER_ZSPAGE	(_AC(CONFIG_ZSMALLOC_CHAIN_SIZE, UL))
 
-/* ZS_MIN_ALLOC_SIZE must be multiple of ZS_ALIGN */
+/** ZS_MIN_ALLOC_SIZE must be multiple of ZS_ALIGN */
 #define ZS_MIN_ALLOC_SIZE \
 	MAX(32, (ZS_MAX_PAGES_PER_ZSPAGE << PAGE_SHIFT >> OBJ_INDEX_BITS))
 /* each chunk includes extra space to keep handle */
 #define ZS_MAX_ALLOC_SIZE	PAGE_SIZE
 
-/*
+/**
  * On systems with 4K page size, this gives 255 size classes! There is a
  * trade-off here:
  *  - Large number of size classes is potentially wasteful as free page are
@@ -121,7 +121,7 @@
 #define ZS_SIZE_CLASSES	(DIV_ROUND_UP(ZS_MAX_ALLOC_SIZE - ZS_MIN_ALLOC_SIZE, \
 				      ZS_SIZE_CLASS_DELTA) + 1)
 
-/*
+/**
  * Pages are distinguished by the ratio of used memory (that is the ratio
  * of ->inuse objects to all objects that page can store). For example,
  * INUSE_RATIO_10 means that the ratio of used objects is > 0% and <= 10%.
@@ -130,23 +130,32 @@
  * difference between the least busy page in the group (minimum permitted
  * number of ->inuse objects) and the most busy page (maximum permitted
  * number of ->inuse objects) at a reasonable value.
+ * 
+ * 
+ * Enumeration Description: This enumeration defines the fullness groups for zspages, based on the ratio of used objects to total objects in the zspage. ZS_INUSE_RATIO_0 means 0% used (empty), ZS_INUSE_RATIO_10 means >0% to ≤10% used, and so on up to ZS_INUSE_RATIO_99 (≤99% used) and ZS_INUSE_RATIO_100 (100% full). These groups are used to classify zspages so that allocation can find a zspage with appropriate free space, and the number of groups is chosen to keep the difference between the least and most busy pages in each group reasonable.
  */
 enum fullness_group {
 	ZS_INUSE_RATIO_0,
 	ZS_INUSE_RATIO_10,
-	/* NOTE: 8 more fullness groups here */
+	/** NOTE: 8 more fullness groups here */
 	ZS_INUSE_RATIO_99       = 10,
 	ZS_INUSE_RATIO_100,
 	NR_FULLNESS_GROUPS,
 };
 
+/**
+ * Enumeration Description: This enumeration defines the statistic types tracked for each size class. It includes the 12 fullness group counters (from NR_FULLNESS_GROUPS), plus ZS_OBJS_ALLOCATED (total objects allocated in the class) and ZS_OBJS_INUSE (objects currently in use). These statistics are used to track memory usage, fragmentation, and compaction effectiveness within each size class.
+ */
 enum class_stat_type {
-	/* NOTE: stats for 12 fullness groups here: from inuse 0 to 100 */
+	/** NOTE: stats for 12 fullness groups here: from inuse 0 to 100 */
 	ZS_OBJS_ALLOCATED       = NR_FULLNESS_GROUPS,
 	ZS_OBJS_INUSE,
 	NR_CLASS_STAT_TYPES,
 };
 
+/**
+ * struct Description: This structure holds statistics for a size class in zsmalloc. It contains an array of counters for different statistic types including object allocations per fullness group, total allocated objects, and objects in use. It is used to track memory usage and fragmentation within each size class.
+ */
 struct zs_size_stat {
 	unsigned long objs[NR_CLASS_STAT_TYPES];
 };
@@ -157,36 +166,42 @@ static struct dentry *zs_stat_root;
 
 static size_t huge_class_size;
 
+/**
+ * struct Description: This structure represents a size class in zsmalloc. It contains a spinlock for protection, fullness lists for zspages at different usage ratios, object size, objects per zspage, pages per zspage, class index, and statistics. Each size class manages zspages of a specific object size.
+ */
 struct size_class {
 	spinlock_t lock;
 	struct list_head fullness_list[NR_FULLNESS_GROUPS];
-	/*
+	/**
 	 * Size of objects stored in this class. Must be multiple
 	 * of ZS_ALIGN.
 	 */
 	int size;
 	int objs_per_zspage;
-	/* Number of PAGE_SIZE sized pages to combine to form a 'zspage' */
+	/** Number of PAGE_SIZE sized pages to combine to form a 'zspage' */
 	int pages_per_zspage;
 
 	unsigned int index;
 	struct zs_size_stat stats;
 };
 
-/*
+/**
  * Placed within free objects to form a singly linked list.
  * For every zspage, zspage->freeobj gives head of this list.
  *
  * This must be power of 2 and less than or equal to ZS_ALIGN
+ * 
+ * 
+ * struct Description: This structure is placed within free objects to form a singly linked list of free objects in a zspage. It contains either the next free object index (for free objects) or the handle of allocated objects. It is used to maintain the freelist within each zspage.
  */
 struct link_free {
 	union {
-		/*
+		/**
 		 * Free object index;
 		 * It's valid for non-allocated object
 		 */
 		unsigned long next;
-		/*
+		/**
 		 * Handle of allocated object.
 		 */
 		unsigned long handle;
@@ -196,6 +211,9 @@ struct link_free {
 static struct kmem_cache *handle_cachep;
 static struct kmem_cache *zspage_cachep;
 
+/**
+ * Function Description: This is the main structure representing a zsmalloc pool. It contains the pool name, array of size classes, total pages allocated, pool statistics, shrinker, compaction work, and locks. Each pool manages memory allocations for compressed pages (like in zswap).
+ */
 struct zs_pool {
 	const char *name;
 
@@ -205,7 +223,7 @@ struct zs_pool {
 
 	struct zs_pool_stats stats;
 
-	/* Compact classes */
+	/** Compact classes */
 	struct shrinker *shrinker;
 
 #ifdef CONFIG_ZSMALLOC_STAT
@@ -214,26 +232,38 @@ struct zs_pool {
 #ifdef CONFIG_COMPACTION
 	struct work_struct free_work;
 #endif
-	/* protect zspage migration/compaction */
+	/** protect zspage migration/compaction */
 	rwlock_t lock;
 	atomic_t compaction_in_progress;
 };
 
+/**
+ * Function Description: Marks a zpdesc as the first page in a zspage by setting the Private flag on the underlying page. This identifies the head page of the zspage chain.
+ */
 static inline void zpdesc_set_first(struct zpdesc *zpdesc)
 {
 	SetPagePrivate(zpdesc_page(zpdesc));
 }
 
+/**
+ * Function Description: Increments the zone page state counter for NR_ZSPAGES. Used to track the number of zspage pages in the system for memory statistics.
+ */
 static inline void zpdesc_inc_zone_page_state(struct zpdesc *zpdesc)
 {
 	inc_zone_page_state(zpdesc_page(zpdesc), NR_ZSPAGES);
 }
 
+/**
+ * Function Description: Decrements the zone page state counter for NR_ZSPAGES. Used to track the number of zspage pages in the system for memory statistics.
+ */
 static inline void zpdesc_dec_zone_page_state(struct zpdesc *zpdesc)
 {
 	dec_zone_page_state(zpdesc_page(zpdesc), NR_ZSPAGES);
 }
 
+/**
+ * Function Description: Allocates a single page (zpdesc) for use in a zspage. It calls alloc_pages_node() with order 0 and converts the page to a zpdesc. Returns the zpdesc or NULL on failure.
+ */
 static inline struct zpdesc *alloc_zpdesc(gfp_t gfp, const int nid)
 {
 	struct page *page = alloc_pages_node(nid, gfp, 0);
@@ -241,6 +271,9 @@ static inline struct zpdesc *alloc_zpdesc(gfp_t gfp, const int nid)
 	return page_zpdesc(page);
 }
 
+/**
+ * Function Description: Frees a zpdesc back to the buddy allocator. It calls __free_page() on the underlying page. Used when freeing a zspage.
+ */
 static inline void free_zpdesc(struct zpdesc *zpdesc)
 {
 	struct page *page = zpdesc_page(zpdesc);
@@ -252,12 +285,18 @@ static inline void free_zpdesc(struct zpdesc *zpdesc)
 #define ZS_PAGE_UNLOCKED	0
 #define ZS_PAGE_WRLOCKED	-1
 
+/**
+ * struct Description: This structure implements a reader-writer lock for zspages. It contains a spinlock, a counter for readers, and a lockdep map. It allows multiple readers or a single writer to access a zspage, with readers allowed to sleep while holding the lock.
+ */
 struct zspage_lock {
 	spinlock_t lock;
 	int cnt;
 	struct lockdep_map dep_map;
 };
 
+/**
+ * struct Description: This structure represents a zspage (a group of physical pages forming a larger allocation unit). It contains flags for huge pages, fullness group, class index, magic number, inuse count, free object index, first zpdesc pointer, list linkage, pool pointer, and the zspage lock. Each zspage manages a set of objects of a specific size.
+ */
 struct zspage {
 	struct {
 		unsigned int huge:HUGE_BITS;
@@ -273,6 +312,9 @@ struct zspage {
 	struct zspage_lock zsl;
 };
 
+/**
+ * Function Description: Initializes a zspage's lock structure. It sets up the lockdep map, initializes the spinlock, and sets the counter to unlocked state. Called when a new zspage is allocated.
+ */
 static void zspage_lock_init(struct zspage *zspage)
 {
 	static struct lock_class_key __key;
@@ -283,7 +325,7 @@ static void zspage_lock_init(struct zspage *zspage)
 	zsl->cnt = ZS_PAGE_UNLOCKED;
 }
 
-/*
+/**
  * The zspage lock can be held from atomic contexts, but it needs to remain
  * preemptible when held for reading because it remains held outside of those
  * atomic contexts, otherwise we unnecessarily lose preemptibility.
@@ -300,6 +342,9 @@ static void zspage_lock_init(struct zspage *zspage)
  * - Readers may spin on the lock (as they can only wait for atomic writers).
  *
  * - Readers may sleep while holding the lock (as writes only use trylock).
+ * 
+ * 
+ * Function Description: Acquires a read lock on a zspage. It increments the reader count and allows multiple readers to hold the lock concurrently. Readers may sleep while holding the lock.
  */
 static void zspage_read_lock(struct zspage *zspage)
 {
@@ -314,6 +359,9 @@ static void zspage_read_lock(struct zspage *zspage)
 	lock_acquired(&zsl->dep_map, _RET_IP_);
 }
 
+/**
+ * Function Description: Releases a read lock on a zspage. It decrements the reader count. Must be called after zspage_read_lock().
+ */
 static void zspage_read_unlock(struct zspage *zspage)
 {
 	struct zspage_lock *zsl = &zspage->zsl;
@@ -325,6 +373,9 @@ static void zspage_read_unlock(struct zspage *zspage)
 	spin_unlock(&zsl->lock);
 }
 
+/**
+ * Function Description: Tries to acquire a write lock on a zspage. It only succeeds if no readers or writers are holding the lock. Returns true if the lock was acquired, false otherwise.
+ */
 static __must_check bool zspage_write_trylock(struct zspage *zspage)
 {
 	struct zspage_lock *zsl = &zspage->zsl;
@@ -341,6 +392,9 @@ static __must_check bool zspage_write_trylock(struct zspage *zspage)
 	return false;
 }
 
+/**
+ * Function Description: Releases a write lock on a zspage. It resets the counter to unlocked state. Must be called after zspage_write_trylock() succeeds.
+ */
 static void zspage_write_unlock(struct zspage *zspage)
 {
 	struct zspage_lock *zsl = &zspage->zsl;
@@ -351,12 +405,19 @@ static void zspage_write_unlock(struct zspage *zspage)
 	spin_unlock(&zsl->lock);
 }
 
-/* huge object: pages_per_zspage == 1 && maxobj_per_zspage == 1 */
+/** huge object: pages_per_zspage == 1 && maxobj_per_zspage == 1 
+ * 
+ * 
+ * Function Description: Marks a zspage as a huge page (pages_per_zspage == 1 and objs_per_zspage == 1). Huge pages store a single large object per page.
+ */
 static void SetZsHugePage(struct zspage *zspage)
 {
 	zspage->huge = 1;
 }
 
+/**
+ * Function Description: Checks if a zspage is a huge page. Returns true if the zspage stores a single large object per page.
+ */
 static bool ZsHugePage(struct zspage *zspage)
 {
 	return zspage->huge;
@@ -372,6 +433,9 @@ static void init_deferred_free(struct zs_pool *pool) {}
 static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage) {}
 #endif
 
+/**
+ * Function Description: Allocates a handle from the handle cache (kmem_cache). Handles are used to store object locations. Returns the handle or 0 on failure.
+ */
 static unsigned long cache_alloc_handle(gfp_t gfp)
 {
 	gfp = gfp & ~(__GFP_HIGHMEM | __GFP_MOVABLE);
@@ -379,11 +443,17 @@ static unsigned long cache_alloc_handle(gfp_t gfp)
 	return (unsigned long)kmem_cache_alloc(handle_cachep, gfp);
 }
 
+/**
+ * Function Description: Frees a handle back to the handle cache. Called when an object is freed.
+ */
 static void cache_free_handle(unsigned long handle)
 {
 	kmem_cache_free(handle_cachep, (void *)handle);
 }
 
+/**
+ * Function Description: Allocates a zspage structure from the zspage cache (kmem_cache). Returns the zspage or NULL on failure.
+ */
 static struct zspage *cache_alloc_zspage(gfp_t gfp)
 {
 	gfp = gfp & ~(__GFP_HIGHMEM | __GFP_MOVABLE);
@@ -391,33 +461,53 @@ static struct zspage *cache_alloc_zspage(gfp_t gfp)
 	return kmem_cache_zalloc(zspage_cachep, gfp);
 }
 
+/**
+ * Function Description: Frees a zspage structure back to the zspage cache. Called when a zspage is destroyed.
+ */
 static void cache_free_zspage(struct zspage *zspage)
 {
 	kmem_cache_free(zspage_cachep, zspage);
 }
 
-/* class->lock(which owns the handle) synchronizes races */
+/** class->lock(which owns the handle) synchronizes races 
+ * 
+ * 
+ * Function Description: Records an object location (encoded as a handle) in the handle memory. It writes the object value to the address pointed to by the handle.
+ */
 static void record_obj(unsigned long handle, unsigned long obj)
 {
 	*(unsigned long *)handle = obj;
 }
 
+/**
+ * Function Description: Returns the number of objects currently in use (allocated) in a zspage. This is the inuse counter.
+ */
 static inline bool __maybe_unused is_first_zpdesc(struct zpdesc *zpdesc)
 {
 	return PagePrivate(zpdesc_page(zpdesc));
 }
 
-/* Protected by class->lock */
+/** Protected by class->lock 
+ * 
+ * 
+ * Function Description: Returns the number of objects currently in use (allocated) in a zspage. This is the inuse counter.
+*/
 static inline int get_zspage_inuse(struct zspage *zspage)
 {
 	return zspage->inuse;
 }
 
+/**
+ * Function Description: Modifies the inuse counter of a zspage by adding the specified value (positive or negative). Used when allocating or freeing objects.
+ */
 static inline void mod_zspage_inuse(struct zspage *zspage, int val)
 {
 	zspage->inuse += val;
 }
 
+/**
+ * Function Description: Returns the first zpdesc in a zspage. It asserts that the zpdesc is the first page in the chain.
+ */
 static struct zpdesc *get_first_zpdesc(struct zspage *zspage)
 {
 	struct zpdesc *first_zpdesc = zspage->first_zpdesc;
@@ -428,12 +518,18 @@ static struct zpdesc *get_first_zpdesc(struct zspage *zspage)
 
 #define FIRST_OBJ_PAGE_TYPE_MASK	0xffffff
 
+/**
+ * Function Description: Returns the offset of the first object within a zpdesc. The offset is stored in the first_obj_offset field of the zpdesc.
+ */
 static inline unsigned int get_first_obj_offset(struct zpdesc *zpdesc)
 {
 	VM_WARN_ON_ONCE(!PageZsmalloc(zpdesc_page(zpdesc)));
 	return zpdesc->first_obj_offset & FIRST_OBJ_PAGE_TYPE_MASK;
 }
 
+/**
+ * Function Description: Sets the offset of the first object within a zpdesc. Used when initializing a zspage.
+ */
 static inline void set_first_obj_offset(struct zpdesc *zpdesc, unsigned int offset)
 {
 	/* With 24 bits available, we can support offsets into 16 MiB pages. */
@@ -444,28 +540,40 @@ static inline void set_first_obj_offset(struct zpdesc *zpdesc, unsigned int offs
 	zpdesc->first_obj_offset |= offset & FIRST_OBJ_PAGE_TYPE_MASK;
 }
 
+/**
+ * Function Description: Returns the index of the first free object in a zspage's freelist. This is the head of the free list.
+ */
 static inline unsigned int get_freeobj(struct zspage *zspage)
 {
 	return zspage->freeobj;
 }
 
+/**
+ * Function Description: Sets the index of the first free object in a zspage's freelist. Used when updating the freelist.
+ */
 static inline void set_freeobj(struct zspage *zspage, unsigned int obj)
 {
 	zspage->freeobj = obj;
 }
 
+/**
+ * Function Description: Returns the size class associated with a zspage. It indexes into the pool's size_class array using the zspage's class field.
+ */
 static struct size_class *zspage_class(struct zs_pool *pool,
 				       struct zspage *zspage)
 {
 	return pool->size_class[zspage->class];
 }
 
-/*
+/**
  * zsmalloc divides the pool into various size classes where each
  * class maintains a list of zspages where each zspage is divided
  * into equal sized chunks. Each allocation falls into one of these
  * classes depending on its size. This function returns index of the
  * size class which has chunk size big enough to hold the given size.
+ * 
+ * 
+ * Function Description: Returns the index of the size class that can accommodate a given allocation size. It calculates the index based on ZS_MIN_ALLOC_SIZE and ZS_SIZE_CLASS_DELTA.
  */
 static int get_size_class_index(int size)
 {
@@ -478,24 +586,34 @@ static int get_size_class_index(int size)
 	return min_t(int, ZS_SIZE_CLASSES - 1, idx);
 }
 
+/**
+ * Function Description: Adds a value to a statistic counter for a size class. Used to track allocations, inuse counts, and fullness group counts.
+ */
 static inline void class_stat_add(struct size_class *class, int type,
 				  unsigned long cnt)
 {
 	class->stats.objs[type] += cnt;
 }
 
+/**
+ * Function Description: Subtracts a value from a statistic counter for a size class. Used when objects are freed or removed.
+ */
 static inline void class_stat_sub(struct size_class *class, int type,
 				  unsigned long cnt)
 {
 	class->stats.objs[type] -= cnt;
 }
 
+/**
+ * Function Description: Reads a statistic counter value for a size class. Used to report statistics.
+ */
 static inline unsigned long class_stat_read(struct size_class *class, int type)
 {
 	return class->stats.objs[type];
 }
 
 #ifdef CONFIG_ZSMALLOC_STAT
+
 
 static void __init zs_stat_init(void)
 {
@@ -514,6 +632,9 @@ static void __exit zs_stat_exit(void)
 
 static unsigned long zs_can_compact(struct size_class *class);
 
+/**
+ * Function Description: Show handler for the zsmalloc stats file. It displays statistics for each size class including fullness distribution, allocated objects, used objects, pages used, and freeable pages. Used for debugging and monitoring.
+ */
 static int zs_stats_size_show(struct seq_file *s, void *v)
 {
 	int i, fg;
@@ -579,6 +700,9 @@ static int zs_stats_size_show(struct seq_file *s, void *v)
 }
 DEFINE_SHOW_ATTRIBUTE(zs_stats_size);
 
+/**
+ * Function Description: Creates debugfs statistics entries for a zsmalloc pool. It creates a directory and a "classes" file for the pool. Used when CONFIG_ZSMALLOC_STAT is enabled.
+ */
 static void zs_pool_stat_create(struct zs_pool *pool, const char *name)
 {
 	if (!zs_stat_root) {
@@ -592,6 +716,9 @@ static void zs_pool_stat_create(struct zs_pool *pool, const char *name)
 			    &zs_stats_size_fops);
 }
 
+/**
+ * Function Description: Destroys debugfs statistics entries for a zsmalloc pool. It removes the directory and files. Used when CONFIG_ZSMALLOC_STAT is enabled.
+ */
 static void zs_pool_stat_destroy(struct zs_pool *pool)
 {
 	debugfs_remove_recursive(pool->stat_dentry);
@@ -616,10 +743,13 @@ static inline void zs_pool_stat_destroy(struct zs_pool *pool)
 #endif
 
 
-/*
+/**
  * For each size class, zspages are divided into different groups
  * depending on their usage ratio. This function returns fullness
  * status of the given page.
+ * 
+ * 
+ * Function Description: Determines the fullness group of a zspage based on its inuse count and total objects. Returns an index from 0 (empty) to 11 (100% full). Used to classify zspages for allocation decisions.
  */
 static int get_fullness_group(struct size_class *class, struct zspage *zspage)
 {
@@ -642,11 +772,14 @@ static int get_fullness_group(struct size_class *class, struct zspage *zspage)
 	return ratio / 10 + 1;
 }
 
-/*
+/**
  * Each size class maintains various freelists and zspages are assigned
  * to one of these freelists based on the number of live objects they
  * have. This functions inserts the given zspage into the freelist
  * identified by <class, fullness_group>.
+ * 
+ * 
+ * Function Description: Inserts a zspage into a size class's fullness list. It adds the zspage to the appropriate list and updates the fullness group count in statistics.
  */
 static void insert_zspage(struct size_class *class,
 				struct zspage *zspage,
@@ -657,9 +790,12 @@ static void insert_zspage(struct size_class *class,
 	zspage->fullness = fullness;
 }
 
-/*
+/**
  * This function removes the given zspage from the freelist identified
  * by <class, fullness_group>.
+ * 
+ * 
+ * Function Description: Removes a zspage from a size class's fullness list. It removes it from the current list and updates the fullness group count in statistics.
  */
 static void remove_zspage(struct size_class *class, struct zspage *zspage)
 {
@@ -671,7 +807,7 @@ static void remove_zspage(struct size_class *class, struct zspage *zspage)
 	class_stat_sub(class, fullness, 1);
 }
 
-/*
+/**
  * Each size class maintains zspages in different fullness groups depending
  * on the number of live objects they contain. When allocating or freeing
  * objects, the fullness status of the page can change, for instance, from
@@ -679,6 +815,9 @@ static void remove_zspage(struct size_class *class, struct zspage *zspage)
  * checks if such a status change has occurred for the given page and
  * accordingly moves the page from the list of the old fullness group to that
  * of the new fullness group.
+ * 
+ * 
+ * Function Description: Updates a zspage's fullness group when its inuse count changes. It removes the zspage from its old group and inserts it into the correct new group. Returns the new fullness group.
  */
 static int fix_fullness_group(struct size_class *class, struct zspage *zspage)
 {
@@ -694,6 +833,9 @@ out:
 	return newfg;
 }
 
+/**
+ * Function Description: Returns the zspage associated with a zpdesc. It verifies the magic number to ensure the zpdesc is valid.
+ */
 static struct zspage *get_zspage(struct zpdesc *zpdesc)
 {
 	struct zspage *zspage = zpdesc->zspage;
@@ -702,6 +844,9 @@ static struct zspage *get_zspage(struct zpdesc *zpdesc)
 	return zspage;
 }
 
+/**
+ * Function Description: Returns the next zpdesc in a zspage chain. For huge pages, it returns NULL as there is only one page.
+ */
 static struct zpdesc *get_next_zpdesc(struct zpdesc *zpdesc)
 {
 	struct zspage *zspage = get_zspage(zpdesc);
@@ -717,6 +862,9 @@ static struct zpdesc *get_next_zpdesc(struct zpdesc *zpdesc)
  * @obj: the encoded object value
  * @zpdesc: zpdesc object resides in zspage
  * @obj_idx: object index
+ * 
+ * 
+ * Function Description: Decodes an encoded object value to extract the zpdesc and object index. The object value encodes the page frame number and index.
  */
 static void obj_to_location(unsigned long obj, struct zpdesc **zpdesc,
 				unsigned int *obj_idx)
@@ -725,6 +873,9 @@ static void obj_to_location(unsigned long obj, struct zpdesc **zpdesc,
 	*obj_idx = (obj & OBJ_INDEX_MASK);
 }
 
+/**
+ * Function Description: Decodes an encoded object value to extract only the zpdesc (without the object index). Used when the index is not needed.
+ */
 static void obj_to_zpdesc(unsigned long obj, struct zpdesc **zpdesc)
 {
 	*zpdesc = pfn_zpdesc(obj >> OBJ_INDEX_BITS);
@@ -734,6 +885,9 @@ static void obj_to_zpdesc(unsigned long obj, struct zpdesc **zpdesc)
  * location_to_obj - get obj value encoded from (<zpdesc>, <obj_idx>)
  * @zpdesc: zpdesc object resides in zspage
  * @obj_idx: object index
+ * 
+ * 
+ * Function Description: Encodes a zpdesc and object index into a single object value. This value is stored in handles.
  */
 static unsigned long location_to_obj(struct zpdesc *zpdesc, unsigned int obj_idx)
 {
@@ -745,11 +899,17 @@ static unsigned long location_to_obj(struct zpdesc *zpdesc, unsigned int obj_idx
 	return obj;
 }
 
+/**
+ * Function Description: Extracts the encoded object value from a handle. Handles point to memory containing the object location.
+ */
 static unsigned long handle_to_obj(unsigned long handle)
 {
 	return *(unsigned long *)handle;
 }
 
+/**
+ * Function Description: Checks if an object is allocated (in use). It reads the handle from the object and checks the OBJ_ALLOCATED_TAG flag. Returns true if allocated and sets the handle output parameter.
+ */
 static inline bool obj_allocated(struct zpdesc *zpdesc, void *obj,
 				 unsigned long *phandle)
 {
@@ -770,6 +930,9 @@ static inline bool obj_allocated(struct zpdesc *zpdesc, void *obj,
 	return true;
 }
 
+/**
+ * Function Description: Resets a zpdesc to its initial state before freeing. It clears the Private flag, zspage pointer, and next pointer.
+ */
 static void reset_zpdesc(struct zpdesc *zpdesc)
 {
 	struct page *page = zpdesc_page(zpdesc);
@@ -780,6 +943,9 @@ static void reset_zpdesc(struct zpdesc *zpdesc)
 	/* PageZsmalloc is sticky until the page is freed to the buddy. */
 }
 
+/**
+ * Function Description: Attempts to lock all pages in a zspage. It iterates through the page chain and tries to lock each page. Returns 1 if all pages were locked, 0 if any failed.
+ */
 static int trylock_zspage(struct zspage *zspage)
 {
 	struct zpdesc *cursor, *fail;
@@ -801,6 +967,9 @@ unlock:
 	return 0;
 }
 
+/**
+ * Function Description: Internal function that frees a zspage. It assumes all pages are locked and the zspage is empty. It resets each zpdesc and frees the pages and the zspage structure.
+ */
 static void __free_zspage(struct zs_pool *pool, struct size_class *class,
 				struct zspage *zspage)
 {
@@ -828,6 +997,9 @@ static void __free_zspage(struct zs_pool *pool, struct size_class *class,
 	atomic_long_sub(class->pages_per_zspage, &pool->pages_allocated);
 }
 
+/**
+ * Function Description: Frees an empty zspage. It attempts to lock all pages; if unsuccessful, it kicks deferred freeing. It removes the zspage from its fullness list and calls __free_zspage().
+ */
 static void free_zspage(struct zs_pool *pool, struct size_class *class,
 				struct zspage *zspage)
 {
@@ -848,7 +1020,11 @@ static void free_zspage(struct zs_pool *pool, struct size_class *class,
 	__free_zspage(pool, class, zspage);
 }
 
-/* Initialize a newly allocated zspage */
+/** Initialize a newly allocated zspage 
+ * 
+ * 
+ * Function Description: Initializes a newly allocated zspage. It sets up the freelist by linking all objects together. Each free object points to the next free object, and the last object's next pointer is set to -1.
+*/
 static void init_zspage(struct size_class *class, struct zspage *zspage)
 {
 	unsigned int freeobj = 1;
@@ -893,6 +1069,9 @@ static void init_zspage(struct size_class *class, struct zspage *zspage)
 	set_freeobj(zspage, 0);
 }
 
+/**
+ * Function Description: Creates the page chain for a zspage. It links multiple zpdescs together using the next pointer, marks the first page with Private flag, and sets up the zspage.
+ */
 static void create_page_chain(struct size_class *class, struct zspage *zspage,
 				struct zpdesc *zpdescs[])
 {
@@ -926,8 +1105,11 @@ static void create_page_chain(struct size_class *class, struct zspage *zspage,
 	}
 }
 
-/*
+/**
  * Allocate a zspage for the given size class
+ * 
+ * 
+ * Function Description: Allocates a new zspage for a size class. It allocates the required number of pages, creates the page chain, and initializes the zspage. Returns the zspage or NULL on failure.
  */
 static struct zspage *alloc_zspage(struct zs_pool *pool,
 				   struct size_class *class,
@@ -972,6 +1154,9 @@ static struct zspage *alloc_zspage(struct zs_pool *pool,
 	return zspage;
 }
 
+/**
+ * Function Description: Finds a zspage with free space from a size class. It searches fullness groups from 99% down to 0% and returns the first zspage found. Used for allocation.
+ */
 static struct zspage *find_get_zspage(struct size_class *class)
 {
 	int i;
@@ -987,6 +1172,9 @@ static struct zspage *find_get_zspage(struct size_class *class)
 	return zspage;
 }
 
+/**
+ * Function Description: Checks if two size classes can be merged. It compares pages_per_zspage and objs_per_zspage. Used to reduce the number of size classes.
+ */
 static bool can_merge(struct size_class *prev, int pages_per_zspage,
 					int objs_per_zspage)
 {
@@ -997,11 +1185,17 @@ static bool can_merge(struct size_class *prev, int pages_per_zspage,
 	return false;
 }
 
+/**
+ * Function Description: Checks if a zspage is full (all objects allocated). Returns true if inuse count equals objects per zspage.
+ */
 static bool zspage_full(struct size_class *class, struct zspage *zspage)
 {
 	return get_zspage_inuse(zspage) == class->objs_per_zspage;
 }
 
+/**
+ * Function Description: Checks if a zspage is empty (no objects allocated). Returns true if inuse count is 0.
+ */
 static bool zspage_empty(struct zspage *zspage)
 {
 	return get_zspage_inuse(zspage) == 0;
@@ -1017,6 +1211,9 @@ static bool zspage_empty(struct zspage *zspage)
  *
  * Return: the index of the zsmalloc &size_class that hold objects of the
  * provided size.
+ * 
+ * 
+ * Function Description: Returns the index of the size class that holds objects of a given size. Used to determine which class a size belongs to. This is exported for external users.
  */
 unsigned int zs_lookup_class_index(struct zs_pool *pool, unsigned int size)
 {
@@ -1028,12 +1225,18 @@ unsigned int zs_lookup_class_index(struct zs_pool *pool, unsigned int size)
 }
 EXPORT_SYMBOL_GPL(zs_lookup_class_index);
 
+/**
+ * Function Description: Returns the total number of pages allocated by a zsmalloc pool. This includes all pages used for storing objects.
+ */
 unsigned long zs_get_total_pages(struct zs_pool *pool)
 {
 	return atomic_long_read(&pool->pages_allocated);
 }
 EXPORT_SYMBOL_GPL(zs_get_total_pages);
 
+/**
+ * Function Description: Begins a read operation on a zsmalloc object. It maps the object into memory for reading and handles objects that span two pages. Returns a pointer to the object data or a local copy.
+ */
 void *zs_obj_read_begin(struct zs_pool *pool, unsigned long handle,
 			size_t mem_len, void *local_copy)
 {
@@ -1084,6 +1287,9 @@ void *zs_obj_read_begin(struct zs_pool *pool, unsigned long handle,
 }
 EXPORT_SYMBOL_GPL(zs_obj_read_begin);
 
+/**
+ * Function Description: Ends a read operation on a zsmalloc object. It unmaps the object and releases the read lock. Must be called after zs_obj_read_begin().
+ */
 void zs_obj_read_end(struct zs_pool *pool, unsigned long handle,
 		     size_t mem_len, void *handle_mem)
 {
@@ -1111,6 +1317,9 @@ void zs_obj_read_end(struct zs_pool *pool, unsigned long handle,
 }
 EXPORT_SYMBOL_GPL(zs_obj_read_end);
 
+/**
+ * Function Description: Begins a scatter-gather read operation on a zsmalloc object. It sets up a scatterlist for the object's pages, handling objects that span two pages. Used for efficient I/O operations.
+ */
 void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
 			  struct scatterlist *sg, size_t mem_len)
 {
@@ -1158,6 +1367,9 @@ void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
 }
 EXPORT_SYMBOL_GPL(zs_obj_read_sg_begin);
 
+/**
+ * Function Description: Ends a scatter-gather read operation on a zsmalloc object. It releases the read lock. Must be called after zs_obj_read_sg_begin().
+ */
 void zs_obj_read_sg_end(struct zs_pool *pool, unsigned long handle)
 {
 	struct zspage *zspage;
@@ -1173,6 +1385,9 @@ void zs_obj_read_sg_end(struct zs_pool *pool, unsigned long handle)
 }
 EXPORT_SYMBOL_GPL(zs_obj_read_sg_end);
 
+/**
+ * Function Description: Writes data to a zsmalloc object. It maps the object into memory and copies the provided data, handling objects that span two pages.
+ */
 void zs_obj_write(struct zs_pool *pool, unsigned long handle,
 		  void *handle_mem, size_t mem_len)
 {
@@ -1234,6 +1449,9 @@ EXPORT_SYMBOL_GPL(zs_obj_write);
  * Context: Any context.
  *
  * Return: the size (in bytes) of the first huge zsmalloc &size_class.
+ * 
+ * 
+ * Function Description: Returns the size of the first huge class. Objects equal to or larger than this size are stored in huge zspages (single page, single object).
  */
 size_t zs_huge_class_size(struct zs_pool *pool)
 {
@@ -1241,6 +1459,9 @@ size_t zs_huge_class_size(struct zs_pool *pool)
 }
 EXPORT_SYMBOL_GPL(zs_huge_class_size);
 
+/**
+ * Function Description: Allocates an object from a zspage. It takes the first free object from the freelist, updates the freelist, sets the allocated tag in the handle, and returns the encoded object.
+ */
 static unsigned long obj_malloc(struct zs_pool *pool,
 				struct zspage *zspage, unsigned long handle)
 {
@@ -1293,6 +1514,9 @@ static unsigned long obj_malloc(struct zs_pool *pool,
  * On success, handle to the allocated object is returned,
  * otherwise an ERR_PTR().
  * Allocation requests with size > ZS_MAX_ALLOC_SIZE will fail.
+ * 
+ * 
+ * Function Description: Allocates a block of memory from a zsmalloc pool. It finds or creates a zspage of the appropriate size class and allocates an object. Returns a handle on success or an ERR_PTR on failure.
  */
 unsigned long zs_malloc(struct zs_pool *pool, size_t size, gfp_t gfp,
 			const int nid)
@@ -1353,6 +1577,9 @@ out:
 }
 EXPORT_SYMBOL_GPL(zs_malloc);
 
+/**
+ * Function Description: Frees an object back to its zspage. It adds the object to the freelist and decrements the inuse count.
+ */
 static void obj_free(int class_size, unsigned long obj)
 {
 	struct link_free *link;
@@ -1381,6 +1608,9 @@ static void obj_free(int class_size, unsigned long obj)
 	mod_zspage_inuse(zspage, -1);
 }
 
+/**
+ * Function Description: Frees a previously allocated object from a zsmalloc pool. It returns the object to its zspage and potentially frees the zspage if it becomes empty.
+ */
 void zs_free(struct zs_pool *pool, unsigned long handle)
 {
 	struct zspage *zspage;
@@ -1416,6 +1646,9 @@ void zs_free(struct zs_pool *pool, unsigned long handle)
 }
 EXPORT_SYMBOL_GPL(zs_free);
 
+/**
+ * Function Description: Copies data from one object to another within the same size class. Used during compaction and migration.
+ */
 static void zs_object_copy(struct size_class *class, unsigned long dst,
 				unsigned long src)
 {
@@ -1486,9 +1719,12 @@ static void zs_object_copy(struct size_class *class, unsigned long dst,
 	kunmap_local(s_addr);
 }
 
-/*
+/**
  * Find alloced object in zspage from index object and
  * return handle.
+ * 
+ * 
+ * Function Description: Finds an allocated object in a zspage starting from a given index. It scans through objects in a zpdesc and returns the handle of the first allocated object found.
  */
 static unsigned long find_alloced_obj(struct size_class *class,
 				      struct zpdesc *zpdesc, int *obj_idx)
@@ -1516,6 +1752,9 @@ static unsigned long find_alloced_obj(struct size_class *class,
 	return handle;
 }
 
+/**
+ * Function Description: Migrates allocated objects from a source zspage to a destination zspage. It moves objects one by one, updating their handles. Used during compaction.
+ */
 static void migrate_zspage(struct zs_pool *pool, struct zspage *src_zspage,
 			   struct zspage *dst_zspage)
 {
@@ -1551,6 +1790,9 @@ static void migrate_zspage(struct zs_pool *pool, struct zspage *src_zspage,
 	}
 }
 
+/**
+ * Function Description: Isolates a source zspage for compaction. It removes a zspage from fullness groups 10-99% and returns it. Used as the source for migration.
+ */
 static struct zspage *isolate_src_zspage(struct size_class *class)
 {
 	struct zspage *zspage;
@@ -1568,6 +1810,9 @@ static struct zspage *isolate_src_zspage(struct size_class *class)
 	return zspage;
 }
 
+/**
+ * Function Description: Isolates a destination zspage for compaction. It removes a zspage from fullness groups 99-10% and returns it. Used as the destination for migration.
+ */
 static struct zspage *isolate_dst_zspage(struct size_class *class)
 {
 	struct zspage *zspage;
@@ -1585,12 +1830,15 @@ static struct zspage *isolate_dst_zspage(struct size_class *class)
 	return zspage;
 }
 
-/*
+/**
  * putback_zspage - add @zspage into right class's fullness list
  * @class: destination class
  * @zspage: target page
  *
  * Return @zspage's fullness status
+ * 
+ * 
+ * Function Description: Returns a zspage to the appropriate fullness list. It calculates the fullness group and inserts the zspage. Returns the fullness group.
  */
 static int putback_zspage(struct size_class *class, struct zspage *zspage)
 {
@@ -1603,9 +1851,12 @@ static int putback_zspage(struct size_class *class, struct zspage *zspage)
 }
 
 #ifdef CONFIG_COMPACTION
-/*
+/**
  * To prevent zspage destroy during migration, zspage freeing should
  * hold locks of all pages in the zspage.
+ * 
+ * 
+ * Function Description: Locks all pages in a zspage. It acquires locks on each page in the chain, handling pages that may be migrated during the process. Used during compaction.
  */
 static void lock_zspage(struct zspage *zspage)
 {
@@ -1647,7 +1898,9 @@ static void lock_zspage(struct zspage *zspage)
 #endif /* CONFIG_COMPACTION */
 
 #ifdef CONFIG_COMPACTION
-
+/**
+ * Function Description: Replaces a page in a zspage with a new page during migration. It updates the page chain and copies the first object offset and handle data.
+ */
 static void replace_sub_page(struct size_class *class, struct zspage *zspage,
 				struct zpdesc *newzpdesc, struct zpdesc *oldzpdesc)
 {
@@ -1673,6 +1926,9 @@ static void replace_sub_page(struct size_class *class, struct zspage *zspage,
 	__zpdesc_set_movable(newzpdesc);
 }
 
+/**
+ * Function Description: Isolates a page for migration. It checks if the page belongs to a zspage and can be isolated. Called by the memory management subsystem.
+ */
 static bool zs_page_isolate(struct page *page, isolate_mode_t mode)
 {
 	/*
@@ -1683,6 +1939,9 @@ static bool zs_page_isolate(struct page *page, isolate_mode_t mode)
 	return page_zpdesc(page)->zspage;
 }
 
+/**
+ * Function Description: Migrates a page to a new location. It copies data, updates handles, and replaces the page in the zspage. Called by the memory management subsystem.
+ */
 static int zs_page_migrate(struct page *newpage, struct page *page,
 		enum migrate_mode mode)
 {
@@ -1698,7 +1957,9 @@ static int zs_page_migrate(struct page *newpage, struct page *page,
 	unsigned long old_obj, new_obj;
 	unsigned int obj_idx;
 
-	/*
+	/**
+	 * 
+	 * 
 	 * TODO: nothing prevents a zspage from getting destroyed while
 	 * it is isolated for migration, as the page lock is temporarily
 	 * dropped after zs_page_isolate() succeeded: we should rework that
@@ -1781,15 +2042,21 @@ static void zs_page_putback(struct page *page)
 {
 }
 
+/**
+ * Variable Description: The movable operations structure for zsmalloc. It provides callbacks for page isolation, migration, and putback, enabling zsmalloc pages to be migrated by the memory management subsystem.
+ */
 const struct movable_operations zsmalloc_mops = {
 	.isolate_page = zs_page_isolate,
 	.migrate_page = zs_page_migrate,
 	.putback_page = zs_page_putback,
 };
 
-/*
+/**
  * Caller should hold page_lock of all pages in the zspage
  * In here, we cannot use zspage meta data.
+ * 
+ * 
+ * Function Description: Work function for deferred zspage freeing. It frees empty zspages that couldn't be freed immediately due to lock contention. Called asynchronously.
  */
 static void async_free_zspage(struct work_struct *work)
 {
@@ -1823,21 +2090,33 @@ static void async_free_zspage(struct work_struct *work)
 	}
 };
 
+/**
+ * Function Description: Kicks off deferred freeing of empty zspages. It schedules the free_work work. Used when immediate freeing is not possible.
+ */
 static void kick_deferred_free(struct zs_pool *pool)
 {
 	schedule_work(&pool->free_work);
 }
 
+/**
+ * Function Description: Flushes the deferred freeing workqueue. Waits for all pending free operations to complete. Used during pool destruction.
+ */
 static void zs_flush_migration(struct zs_pool *pool)
 {
 	flush_work(&pool->free_work);
 }
 
+/**
+ * Function Description: Initializes the deferred free work structure. Sets up the work function for freeing zspages asynchronously.
+ */
 static void init_deferred_free(struct zs_pool *pool)
 {
 	INIT_WORK(&pool->free_work, async_free_zspage);
 }
 
+/**
+ * Function Description: Marks all pages in a zspage as movable for migration. This allows the memory management subsystem to migrate these pages.
+ */
 static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage)
 {
 	struct zpdesc *zpdesc = get_first_zpdesc(zspage);
@@ -1852,10 +2131,12 @@ static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage)
 static inline void zs_flush_migration(struct zs_pool *pool) { }
 #endif
 
-/*
- *
+/**
  * Based on the number of unused allocated objects calculate
  * and return the number of pages that we can free.
+ * 
+ * 
+ * Function Description: Calculates how many pages can be freed by compacting a size class. It computes wasted objects and converts to pages. Returns the number of pages that can be freed.
  */
 static unsigned long zs_can_compact(struct size_class *class)
 {
@@ -1872,6 +2153,9 @@ static unsigned long zs_can_compact(struct size_class *class)
 	return obj_wasted * class->pages_per_zspage;
 }
 
+/**
+ * Function Description: Internal compaction function for a size class. It migrates objects from fragmented zspages to fuller zspages and frees empty ones. Returns the number of pages freed.
+ */
 static unsigned long __zs_compact(struct zs_pool *pool,
 				  struct size_class *class)
 {
@@ -1936,6 +2220,9 @@ static unsigned long __zs_compact(struct zs_pool *pool,
 	return pages_freed;
 }
 
+/**
+ * Function Description: Compacts a zsmalloc pool to reduce fragmentation. It iterates through all size classes and compacts each one. Returns the total number of pages freed.
+ */
 unsigned long zs_compact(struct zs_pool *pool)
 {
 	int i;
@@ -1964,12 +2251,18 @@ unsigned long zs_compact(struct zs_pool *pool)
 }
 EXPORT_SYMBOL_GPL(zs_compact);
 
+/**
+ * Function Description: Copies pool statistics to a user-provided stats structure. Used to retrieve compaction statistics.
+ */
 void zs_pool_stats(struct zs_pool *pool, struct zs_pool_stats *stats)
 {
 	memcpy(stats, &pool->stats, sizeof(struct zs_pool_stats));
 }
 EXPORT_SYMBOL_GPL(zs_pool_stats);
 
+/**
+ * Function Description: Shrinker scan callback for zsmalloc. It compacts the pool and returns the number of pages freed. Used by the memory management subsystem to reclaim memory.
+ */
 static unsigned long zs_shrinker_scan(struct shrinker *shrinker,
 		struct shrink_control *sc)
 {
@@ -1986,6 +2279,9 @@ static unsigned long zs_shrinker_scan(struct shrinker *shrinker,
 	return pages_freed ? pages_freed : SHRINK_STOP;
 }
 
+/**
+ * Function Description: Shrinker count callback for zsmalloc. It returns the number of pages that can be freed by compaction. Used by the memory management subsystem.
+ */
 static unsigned long zs_shrinker_count(struct shrinker *shrinker,
 		struct shrink_control *sc)
 {
@@ -2005,11 +2301,17 @@ static unsigned long zs_shrinker_count(struct shrinker *shrinker,
 	return pages_to_free;
 }
 
+/**
+ * Function Description: Unregisters the shrinker for a zsmalloc pool. Frees the shrinker structure.
+ */
 static void zs_unregister_shrinker(struct zs_pool *pool)
 {
 	shrinker_free(pool->shrinker);
 }
 
+/**
+ * Function Description: Registers a shrinker for a zsmalloc pool. This allows the pool to be compacted when memory is low.
+ */
 static int zs_register_shrinker(struct zs_pool *pool)
 {
 	pool->shrinker = shrinker_alloc(0, "mm-zspool:%s", pool->name);
@@ -2026,6 +2328,9 @@ static int zs_register_shrinker(struct zs_pool *pool)
 	return 0;
 }
 
+/**
+ * Function Description: Calculates the optimal number of pages per zspage for a given object size. It minimizes wasted space by finding the chain size with the least waste.
+ */
 static int calculate_zspage_chain_size(int class_size)
 {
 	int i, min_waste = INT_MAX;
@@ -2056,6 +2361,9 @@ static int calculate_zspage_chain_size(int class_size)
  *
  * On success, a pointer to the newly created pool is returned,
  * otherwise NULL.
+ * 
+ * 
+ * Function Description: Creates a new zsmalloc pool. It initializes all size classes, sets up statistics, and registers a shrinker. Returns the pool on success or NULL on failure.
  */
 struct zs_pool *zs_create_pool(const char *name)
 {
@@ -2168,6 +2476,9 @@ err:
 }
 EXPORT_SYMBOL_GPL(zs_create_pool);
 
+/**
+ * Function Description: Destroys a zsmalloc pool and frees all associated memory. It unregisters the shrinker, flushes deferred work, and frees all size classes and the pool structure.
+ */
 void zs_destroy_pool(struct zs_pool *pool)
 {
 	int i;
@@ -2201,6 +2512,9 @@ void zs_destroy_pool(struct zs_pool *pool)
 }
 EXPORT_SYMBOL_GPL(zs_destroy_pool);
 
+/**
+ * Function Description: Destroys the kmem_caches used for handles and zspages. Called during module exit.
+ */
 static void zs_destroy_caches(void)
 {
 	kmem_cache_destroy(handle_cachep);
@@ -2209,6 +2523,9 @@ static void zs_destroy_caches(void)
 	zspage_cachep = NULL;
 }
 
+/**
+ * Function Description: Initializes the kmem_caches for handles and zspages. Called during module initialization. Returns 0 on success or -ENOMEM.
+ */
 static int __init zs_init_caches(void)
 {
 	handle_cachep = kmem_cache_create("zs_handle", ZS_HANDLE_SIZE,
@@ -2223,6 +2540,9 @@ static int __init zs_init_caches(void)
 	return 0;
 }
 
+/**
+ * Function Description: Module initialization function for zsmalloc. It initializes caches, registers movable operations, and sets up statistics. Returns 0 on success or a negative error code.
+ */
 static int __init zs_init(void)
 {
 	int rc;
@@ -2242,6 +2562,9 @@ static int __init zs_init(void)
 	return 0;
 }
 
+/**
+ * Function Description: Module exit function for zsmalloc. It unregisters movable operations, destroys statistics, and destroys caches. Called when the module is removed.
+ */
 static void __exit zs_exit(void)
 {
 #ifdef CONFIG_COMPACTION

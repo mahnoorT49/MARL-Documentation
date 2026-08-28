@@ -19,6 +19,7 @@ struct device;
 
 #ifdef CONFIG_HAS_DMA
 
+
 struct dma_pool *dma_pool_create_node(const char *name, struct device *dev,
 		size_t size, size_t align, size_t boundary, int node);
 
@@ -53,6 +54,9 @@ static inline struct dma_pool *dmam_pool_create(const char *name,
 static inline void dmam_pool_destroy(struct dma_pool *pool) { }
 #endif /* !CONFIG_HAS_DMA */
 
+/**
+ * Function Description: Creates a DMA pool that is automatically managed by the device. The pool will be automatically destroyed when the device is removed. This simplifies cleanup and prevents memory leaks in drivers.
+ */
 static inline struct dma_pool *dma_pool_create(const char *name,
 		struct device *dev, size_t size, size_t align, size_t boundary)
 {
@@ -67,6 +71,9 @@ static inline struct dma_pool *dma_pool_create(const char *name,
  * @handle: pointer to dma address of block
  *
  * Same as dma_pool_alloc(), but the returned memory is zeroed.
+ * 
+ * 
+ * Function Description: Allocates a zero-initialized DMA block from the pool. It works the same as dma_pool_alloc() but adds the __GFP_ZERO flag to ensure the returned memory is filled with zeros. This is useful when you need initialized memory for DMA.
  */
 static inline void *dma_pool_zalloc(struct dma_pool *pool, gfp_t mem_flags,
 				    dma_addr_t *handle)

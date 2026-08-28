@@ -1,0 +1,60 @@
+\doxysection{mem\+\_\+cgroup\+\_\+reclaim\+\_\+iter Struct Reference}
+\hypertarget{structmem__cgroup__reclaim__iter}{}\label{structmem__cgroup__reclaim__iter}\index{mem\_cgroup\_reclaim\_iter@{mem\_cgroup\_reclaim\_iter}}
+
+
+{\ttfamily \+\#include $<$memcontrol.\+h$>$}
+
+
+
+Collaboration diagram for mem\+\_\+cgroup\+\_\+reclaim\+\_\+iter:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structmem__cgroup__reclaim__iter__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structmem__cgroup}{mem\+\_\+cgroup}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structmem__cgroup__reclaim__iter_a1245cb011e4806f35a54c051975c72a5}{position}}
+\item 
+atomic\+\_\+t \doxymbox{\hyperlink{structmem__cgroup__reclaim__iter_a9e163ab2f15b4817bdf52ba78c10428a}{generation}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct Description:\+ This structure tracks the progress of reclaim iterations. It stores the current position in the cgroup hierarchy and an atomic generation counter that increases with each full round-\/trip. This is used for efficient scanning during memory reclaim. 
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l00096}{96}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+
+
+\label{structmem__cgroup__reclaim__iter_doc-variable-members}
+\Hypertarget{structmem__cgroup__reclaim__iter_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structmem__cgroup__reclaim__iter_a9e163ab2f15b4817bdf52ba78c10428a}\index{mem\_cgroup\_reclaim\_iter@{mem\_cgroup\_reclaim\_iter}!generation@{generation}}
+\index{generation@{generation}!mem\_cgroup\_reclaim\_iter@{mem\_cgroup\_reclaim\_iter}}
+\doxysubsubsection{\texorpdfstring{generation}{generation}}
+{\footnotesize\ttfamily \label{structmem__cgroup__reclaim__iter_a9e163ab2f15b4817bdf52ba78c10428a} 
+atomic\+\_\+t mem\+\_\+cgroup\+\_\+reclaim\+\_\+iter::\+generation}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l00099}{99}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+\Hypertarget{structmem__cgroup__reclaim__iter_a1245cb011e4806f35a54c051975c72a5}\index{mem\_cgroup\_reclaim\_iter@{mem\_cgroup\_reclaim\_iter}!position@{position}}
+\index{position@{position}!mem\_cgroup\_reclaim\_iter@{mem\_cgroup\_reclaim\_iter}}
+\doxysubsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily \label{structmem__cgroup__reclaim__iter_a1245cb011e4806f35a54c051975c72a5} 
+struct \doxymbox{\hyperlink{structmem__cgroup}{mem\+\_\+cgroup}}\texorpdfstring{$\ast$}{*} mem\+\_\+cgroup\+\_\+reclaim\+\_\+iter::\+position}
+
+
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l00097}{97}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{memcontrol_8h}{memcontrol.\+h}}\end{DoxyCompactItemize}

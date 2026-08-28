@@ -134,7 +134,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8d1d716292d7c5d5ec62240185b4074c" id="r_a8d1d716292d7c5d5ec62240185b4074c"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a8d1d716292d7c5d5ec62240185b4074c">index</a></td></tr>
 <tr class="memitem:ad26e17760a44939d330e558b608abd08" id="r_ad26e17760a44939d330e558b608abd08"><td class="memItemLeft">struct <a class="el" href="structzs__size__stat.html">zs_size_stat</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad26e17760a44939d330e558b608abd08">stats</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>struct Description: This structure represents a size class in zsmalloc. It contains a spinlock for protection, fullness lists for zspages at different usage ratios, object size, objects per zspage, pages per zspage, class index, and statistics. Each size class manages zspages of a specific object size. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00172">172</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a2f628e42d09ef5657993f499ff602f4f" name="a2f628e42d09ef5657993f499ff602f4f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2f628e42d09ef5657993f499ff602f4f">&#9670;&#160;</a></span>fullness_list</h2>
 
@@ -146,6 +150,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00174">174</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -161,6 +167,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00184">184</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+
 </div>
 </div>
 <a id="a3bb6c7da41dea4eea7373f0ad5ccbf16" name="a3bb6c7da41dea4eea7373f0ad5ccbf16"></a>
@@ -174,6 +182,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00173">173</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -189,6 +199,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00180">180</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+
 </div>
 </div>
 <a id="a01d33efdbf1914fc3ad408058d172aea" name="a01d33efdbf1914fc3ad408058d172aea"></a>
@@ -202,6 +214,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Number of PAGE_SIZE sized pages to combine to form a 'zspage' </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00182">182</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -216,6 +231,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Size of objects stored in this class. Must be multiple of ZS_ALIGN. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00179">179</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -231,10 +249,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00185">185</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="zsmalloc_8c.html">zsmalloc.c</a></li>
+<li>mm/<a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

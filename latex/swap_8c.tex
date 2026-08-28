@@ -1,0 +1,2167 @@
+\doxysection{mm/\+swap.c File Reference}
+\hypertarget{swap_8c}{}\label{swap_8c}\index{mm/swap.c@{mm/swap.c}}
+{\ttfamily \+\#include $<$linux/\+mm.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+sched.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+kernel\+\_\+stat.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+swap.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+mman.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+pagemap.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+pagevec.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+init.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+export.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+mm\+\_\+inline.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+percpu\+\_\+counter.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+memremap.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+percpu.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+cpu.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+notifier.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+backing-\/dev.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+memcontrol.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+gfp.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+uio.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+hugetlb.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+page\+\_\+idle.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+local\+\_\+lock.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+buffer\+\_\+head.\+h$>$}\newline
+{\ttfamily \+\#include "{}internal.\+h"{}}\newline
+{\ttfamily \+\#include $<$trace/\+events/\+pagemap.\+h$>$}\newline
+Include dependency graph for swap.\+c:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structcpu__fbatches}{cpu\+\_\+fbatches}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{swap_8c_a40473b47b4871fa538a0fa131f94e774}{CREATE\+\_\+\+TRACE\+\_\+\+POINTS}}
+\item 
+\+\#define \doxymbox{\hyperlink{swap_8c_a45230958a9c9323d98f855166b25d5fd}{folio\+\_\+batch\+\_\+add\+\_\+and\+\_\+move}}(folio,  op)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{swap_8c_a55bf7162009ab53e5f6980982feff7a7}{move\+\_\+fn\+\_\+t}}) (struct lruvec \texorpdfstring{$\ast$}{*}lruvec, struct folio \texorpdfstring{$\ast$}{*}folio)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \doxymbox{\hyperlink{swap_8c_a763cd84b07ccec007d089f6518ac3749}{DEFINE\+\_\+\+PER\+\_\+\+CPU}} (struct \doxymbox{\hyperlink{structcpu__fbatches}{cpu\+\_\+fbatches}}, \doxymbox{\hyperlink{structcpu__fbatches}{cpu\+\_\+fbatches}})
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a3d1ff772b18ad43501cf113add80abc7}{\+\_\+\+\_\+page\+\_\+cache\+\_\+release}} (struct folio \texorpdfstring{$\ast$}{*}folio, struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}lruvecp, unsigned long \texorpdfstring{$\ast$}{*}flagsp)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_ab8fff8504f19922ad21f1890429b2925}{page\+\_\+cache\+\_\+release}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+void \doxymbox{\hyperlink{swap_8c_a46d07cc2c81c98f89760f34341099924}{\+\_\+\+\_\+folio\+\_\+put}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+\doxymbox{\hyperlink{swap_8c_a80016696eef8126cfdc0655e398bf345}{EXPORT\+\_\+\+SYMBOL}} (\doxymbox{\hyperlink{swap_8c_a46d07cc2c81c98f89760f34341099924}{\+\_\+\+\_\+folio\+\_\+put}})
+\item 
+static void \doxymbox{\hyperlink{swap_8c_ab0b3b543583b6d9406b5a1568715ec72}{lru\+\_\+add}} (struct lruvec \texorpdfstring{$\ast$}{*}lruvec, struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_ad1ba07a9053342547c7dd9290fcabce0}{folio\+\_\+batch\+\_\+move\+\_\+lru}} (struct folio\+\_\+batch \texorpdfstring{$\ast$}{*}fbatch, \doxymbox{\hyperlink{swap_8c_a55bf7162009ab53e5f6980982feff7a7}{move\+\_\+fn\+\_\+t}} move\+\_\+fn)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a9771cb919eeb9b116a95ada43aa7eaff}{\+\_\+\+\_\+folio\+\_\+batch\+\_\+add\+\_\+and\+\_\+move}} (struct folio\+\_\+batch \+\_\+\+\_\+percpu \texorpdfstring{$\ast$}{*}fbatch, struct folio \texorpdfstring{$\ast$}{*}folio, \doxymbox{\hyperlink{swap_8c_a55bf7162009ab53e5f6980982feff7a7}{move\+\_\+fn\+\_\+t}} move\+\_\+fn, bool disable\+\_\+irq)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a726a92c46bc89d3fd80d8313e514d851}{lru\+\_\+move\+\_\+tail}} (struct lruvec \texorpdfstring{$\ast$}{*}lruvec, struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+void \doxymbox{\hyperlink{swap_8c_ac7d49ec61e56c72c8a3ff7af8bbb2559}{folio\+\_\+rotate\+\_\+reclaimable}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+void \doxymbox{\hyperlink{swap_8c_a19ccb634a8ab578df2e4aae0ebf0ead5}{lru\+\_\+note\+\_\+cost\+\_\+unlock\+\_\+irq}} (struct lruvec \texorpdfstring{$\ast$}{*}lruvec, bool file, unsigned int nr\+\_\+io, unsigned int nr\+\_\+rotated) \+\_\+\+\_\+releases(lruvec -\/$>$ lru\+\_\+lock)
+\item 
+void \doxymbox{\hyperlink{swap_8c_a9dc179f0c90d8478ba76a547896cdb3d}{lru\+\_\+note\+\_\+cost\+\_\+refault}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a7369aece80e793901d5caf51da13728e}{lru\+\_\+activate}} (struct lruvec \texorpdfstring{$\ast$}{*}lruvec, struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_af35150de9a4beb63787e476dc012ab16}{folio\+\_\+activate\+\_\+drain}} (int cpu)
+\item 
+void \doxymbox{\hyperlink{swap_8c_a2ade93c7e27c2623c0dd9f0849a1e7d6}{folio\+\_\+activate}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a4a8f7f0ebbe48eccc3eb556913b2d732}{\+\_\+\+\_\+lru\+\_\+cache\+\_\+activate\+\_\+folio}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a27c5ead57da1493a72cc91446819fe46}{lru\+\_\+gen\+\_\+inc\+\_\+refs}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+static bool \doxymbox{\hyperlink{swap_8c_ab3e2158101d9963bf9641bf4224e39de}{lru\+\_\+gen\+\_\+clear\+\_\+refs}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+void \doxymbox{\hyperlink{swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d}{folio\+\_\+mark\+\_\+accessed}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+\doxymbox{\hyperlink{swap_8c_a5df2f96684931eb0f2c26cbd66ddd80a}{EXPORT\+\_\+\+SYMBOL}} (\doxymbox{\hyperlink{swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d}{folio\+\_\+mark\+\_\+accessed}})
+\item 
+void \doxymbox{\hyperlink{swap_8c_a748e20c79b2f3f9a7861641784e180ba}{folio\+\_\+add\+\_\+lru}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+\doxymbox{\hyperlink{swap_8c_a16696b4c1dd91e8ea890203c41399f06}{EXPORT\+\_\+\+SYMBOL}} (\doxymbox{\hyperlink{swap_8c_a748e20c79b2f3f9a7861641784e180ba}{folio\+\_\+add\+\_\+lru}})
+\item 
+void \doxymbox{\hyperlink{swap_8c_aa2df6e948a26f4d288787917fb948208}{folio\+\_\+add\+\_\+lru\+\_\+vma}} (struct folio \texorpdfstring{$\ast$}{*}folio, struct vm\+\_\+area\+\_\+struct \texorpdfstring{$\ast$}{*}vma)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a39f8aeef59a546188e37aee6e1faa9a2}{lru\+\_\+deactivate\+\_\+file}} (struct lruvec \texorpdfstring{$\ast$}{*}lruvec, struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a0c4804e592f8b9c2091ebe70425ea94a}{lru\+\_\+deactivate}} (struct lruvec \texorpdfstring{$\ast$}{*}lruvec, struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a669e21ea6f543836bb26517e3b2721c3}{lru\+\_\+lazyfree}} (struct lruvec \texorpdfstring{$\ast$}{*}lruvec, struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+void \doxymbox{\hyperlink{swap_8c_af45ab7c311a3a462f207ff31cf7d4a69}{lru\+\_\+add\+\_\+drain\+\_\+cpu}} (int cpu)
+\item 
+void \doxymbox{\hyperlink{swap_8c_aa8909f510437417e49093e9e10a823f7}{deactivate\+\_\+file\+\_\+folio}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+void \doxymbox{\hyperlink{swap_8c_abeeef6f333b42e5b34eea1faa9dcbe0a}{folio\+\_\+deactivate}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+void \doxymbox{\hyperlink{swap_8c_a9d8f2f07ba5a50346adb5931c168e9f0}{folio\+\_\+mark\+\_\+lazyfree}} (struct folio \texorpdfstring{$\ast$}{*}folio)
+\item 
+void \doxymbox{\hyperlink{swap_8c_ab1c0247474c324ec2b4a26d5c3e57955}{lru\+\_\+add\+\_\+drain}} (void)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a53ca0a3d9e61a4d61d14a8e5529a0aa1}{lru\+\_\+add\+\_\+and\+\_\+bh\+\_\+lrus\+\_\+drain}} (void)
+\item 
+void \doxymbox{\hyperlink{swap_8c_aefb7d8f57322a5dbcf5cdee7b134545b}{lru\+\_\+add\+\_\+drain\+\_\+cpu\+\_\+zone}} (struct zone \texorpdfstring{$\ast$}{*}zone)
+\item 
+static \doxymbox{\hyperlink{swap_8c_ae7c7b151fbaf6d56de397e094ef9b40c}{DEFINE\+\_\+\+PER\+\_\+\+CPU}} (struct work\+\_\+struct, lru\+\_\+add\+\_\+drain\+\_\+work)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a55fbabea5e943fec625503fad58176ea}{lru\+\_\+add\+\_\+drain\+\_\+per\+\_\+cpu}} (struct work\+\_\+struct \texorpdfstring{$\ast$}{*}dummy)
+\item 
+static bool \doxymbox{\hyperlink{swap_8c_a54a8c8016d971d932585637b7b6fbe88}{cpu\+\_\+needs\+\_\+drain}} (unsigned int cpu)
+\item 
+static void \doxymbox{\hyperlink{swap_8c_a4b44dac2994765d7ed3bf070ac7711e2}{\+\_\+\+\_\+lru\+\_\+add\+\_\+drain\+\_\+all}} (bool force\+\_\+all\+\_\+cpus)
+\item 
+void \doxymbox{\hyperlink{swap_8c_af4054643fd1470f90028830be6b299bc}{lru\+\_\+add\+\_\+drain\+\_\+all}} (void)
+\item 
+void \doxymbox{\hyperlink{swap_8c_a6315185be80ff7daf73823c9bb9db403}{lru\+\_\+cache\+\_\+disable}} (void)
+\item 
+void \doxymbox{\hyperlink{swap_8c_a65d7ad226963eb57392114c5157c116b}{folios\+\_\+put\+\_\+refs}} (struct folio\+\_\+batch \texorpdfstring{$\ast$}{*}folios, unsigned int \texorpdfstring{$\ast$}{*}refs)
+\item 
+\doxymbox{\hyperlink{swap_8c_a65c2fdd64dfa873deda51d1175e38d39}{EXPORT\+\_\+\+SYMBOL}} (\doxymbox{\hyperlink{swap_8c_a65d7ad226963eb57392114c5157c116b}{folios\+\_\+put\+\_\+refs}})
+\item 
+void \doxymbox{\hyperlink{swap_8c_a99964c8a9495f06274fb49f336f03a12}{release\+\_\+pages}} (release\+\_\+pages\+\_\+arg arg, int nr)
+\item 
+\doxymbox{\hyperlink{swap_8c_aebe0dd35d72738ce1858dfee336a1ce3}{EXPORT\+\_\+\+SYMBOL}} (\doxymbox{\hyperlink{swap_8c_a99964c8a9495f06274fb49f336f03a12}{release\+\_\+pages}})
+\item 
+void \doxymbox{\hyperlink{swap_8c_a000d7845bef1019d83d77856dd5861ae}{\+\_\+\+\_\+folio\+\_\+batch\+\_\+release}} (struct folio\+\_\+batch \texorpdfstring{$\ast$}{*}fbatch)
+\item 
+\doxymbox{\hyperlink{swap_8c_a0aba7c0a16c23834781c25dd7d19a1ab}{EXPORT\+\_\+\+SYMBOL}} (\doxymbox{\hyperlink{swap_8c_a000d7845bef1019d83d77856dd5861ae}{\+\_\+\+\_\+folio\+\_\+batch\+\_\+release}})
+\item 
+void \doxymbox{\hyperlink{swap_8c_a023928eab59882763a081966f8f2e4e8}{folio\+\_\+batch\+\_\+remove\+\_\+exceptionals}} (struct folio\+\_\+batch \texorpdfstring{$\ast$}{*}fbatch)
+\item 
+void \+\_\+\+\_\+init \doxymbox{\hyperlink{swap_8c_a803b70796f5bdcabd940539a1c85df8a}{swap\+\_\+setup}} (void)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{swap_8c_afe6446ed43e97033afbee53032a572dc}{page\+\_\+cluster}}
+\item 
+static const int \doxymbox{\hyperlink{swap_8c_a99ace166ebddb574ad51089c272d57b8}{page\+\_\+cluster\+\_\+max}} = 31
+\item 
+atomic\+\_\+t \doxymbox{\hyperlink{swap_8c_ad22b5157c3afe2ce09460112075cafe6}{lru\+\_\+disable\+\_\+count}} = ATOMIC\+\_\+\+INIT(0)
+\item 
+static const struct ctl\+\_\+table \doxymbox{\hyperlink{swap_8c_a008a394e8426d6bd461b778d6246b8e5}{swap\+\_\+sysctl\+\_\+table}} \+[$\,$]\+
+\end{DoxyCompactItemize}
+
+
+\label{swap_8c_doc-define-members}
+\Hypertarget{swap_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{swap_8c_a40473b47b4871fa538a0fa131f94e774}\index{swap.c@{swap.c}!CREATE\_TRACE\_POINTS@{CREATE\_TRACE\_POINTS}}
+\index{CREATE\_TRACE\_POINTS@{CREATE\_TRACE\_POINTS}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{CREATE\_TRACE\_POINTS}{CREATE\_TRACE\_POINTS}}
+{\footnotesize\ttfamily \label{swap_8c_a40473b47b4871fa538a0fa131f94e774} 
+\+\#define CREATE\+\_\+\+TRACE\+\_\+\+POINTS}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00043}{43}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{swap_8c_a45230958a9c9323d98f855166b25d5fd}\index{swap.c@{swap.c}!folio\_batch\_add\_and\_move@{folio\_batch\_add\_and\_move}}
+\index{folio\_batch\_add\_and\_move@{folio\_batch\_add\_and\_move}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_batch\_add\_and\_move}{folio\_batch\_add\_and\_move}}
+{\footnotesize\ttfamily \label{swap_8c_a45230958a9c9323d98f855166b25d5fd} 
+\+\#define folio\+\_\+batch\+\_\+add\+\_\+and\+\_\+move(\begin{DoxyParamCaption}\item[{}]{folio}{, }\item[{}]{op}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{swap_8c_a9771cb919eeb9b116a95ada43aa7eaff}{\_\_folio\_batch\_add\_and\_move}}(\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.op,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ folio,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ op,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ offsetof(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}},\ op)\ >=\ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ offsetof(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}},\ lock\_irq)\ \(\backslash\)}
+\DoxyCodeLine{)}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00204}{204}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ folio\_batch\_add\_and\_move(folio,\ op)\ \ \ \ \ \(\backslash\) }}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ \ \ \_\_folio\_batch\_add\_and\_move(\ \ \ \ \ \ \ \ \ \(\backslash\) }}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \&cpu\_fbatches.op,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\) }}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ folio,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\) }}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ op,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\) }}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ offsetof(struct\ cpu\_fbatches,\ op)\ >=\ \ \ \ \(\backslash\) }}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ offsetof(struct\ cpu\_fbatches,\ lock\_irq)\ \(\backslash\) }}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\ \ \ \ ) }}
+
+\end{DoxyCode}
+
+
+\label{swap_8c_doc-typedef-members}
+\Hypertarget{swap_8c_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{swap_8c_a55bf7162009ab53e5f6980982feff7a7}\index{swap.c@{swap.c}!move\_fn\_t@{move\_fn\_t}}
+\index{move\_fn\_t@{move\_fn\_t}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{move\_fn\_t}{move\_fn\_t}}
+{\footnotesize\ttfamily \label{swap_8c_a55bf7162009ab53e5f6980982feff7a7} 
+typedef void(\texorpdfstring{$\ast$}{*} move\+\_\+fn\+\_\+t) (struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}\doxymbox{\hyperlink{structlruvec}{lruvec}}, struct folio \texorpdfstring{$\ast$}{*}folio)}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00116}{116}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+
+\label{swap_8c_doc-func-members}
+\Hypertarget{swap_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{swap_8c_a9771cb919eeb9b116a95ada43aa7eaff}\index{swap.c@{swap.c}!\_\_folio\_batch\_add\_and\_move@{\_\_folio\_batch\_add\_and\_move}}
+\index{\_\_folio\_batch\_add\_and\_move@{\_\_folio\_batch\_add\_and\_move}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{\_\_folio\_batch\_add\_and\_move()}{\_\_folio\_batch\_add\_and\_move()}}
+{\footnotesize\ttfamily \label{swap_8c_a9771cb919eeb9b116a95ada43aa7eaff} 
+void \+\_\+\+\_\+folio\+\_\+batch\+\_\+add\+\_\+and\+\_\+move (\begin{DoxyParamCaption}\item[{struct folio\+\_\+batch \+\_\+\+\_\+percpu \texorpdfstring{$\ast$}{*}}]{fbatch}{, }\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{, }\item[{\doxymbox{\hyperlink{swap_8c_a55bf7162009ab53e5f6980982feff7a7}{move\+\_\+fn\+\_\+t}}}]{move\+\_\+fn}{, }\item[{bool}]{disable\+\_\+irq}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00182}{182}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00184\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}};}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ folio\_get(folio);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{if}\ (disable\_irq)}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ local\_lock\_irqsave(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_a3cd8b0897b2619eff87a9cde667c3b8d}{lock\_irq}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ local\_lock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordflow}{if}\ (!folio\_batch\_add(this\_cpu\_ptr(fbatch),\ folio)\ ||}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ !folio\_may\_be\_lru\_cached(folio)\ ||\ lru\_cache\_disabled())}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ad1ba07a9053342547c7dd9290fcabce0}{folio\_batch\_move\_lru}}(this\_cpu\_ptr(fbatch),\ move\_fn);}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordflow}{if}\ (disable\_irq)}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ local\_unlock\_irqrestore(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_a3cd8b0897b2619eff87a9cde667c3b8d}{lock\_irq}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ local\_unlock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00202\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a9771cb919eeb9b116a95ada43aa7eaff_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a000d7845bef1019d83d77856dd5861ae}\index{swap.c@{swap.c}!\_\_folio\_batch\_release@{\_\_folio\_batch\_release}}
+\index{\_\_folio\_batch\_release@{\_\_folio\_batch\_release}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{\_\_folio\_batch\_release()}{\_\_folio\_batch\_release()}}
+{\footnotesize\ttfamily \label{swap_8c_a000d7845bef1019d83d77856dd5861ae} 
+void \+\_\+\+\_\+folio\+\_\+batch\+\_\+release (\begin{DoxyParamCaption}\item[{struct folio\+\_\+batch \texorpdfstring{$\ast$}{*}}]{fbatch}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l01056}{1056}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01057\ \{}
+\DoxyCodeLine{01058\ \ \ \ \ \textcolor{keywordflow}{if}\ (!fbatch-\/>percpu\_pvec\_drained)\ \{}
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ab1c0247474c324ec2b4a26d5c3e57955}{lru\_add\_drain}}();}
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ fbatch-\/>percpu\_pvec\_drained\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01061\ \ \ \ \ \}}
+\DoxyCodeLine{01062\ \ \ \ \ folios\_put(fbatch);}
+\DoxyCodeLine{01063\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a000d7845bef1019d83d77856dd5861ae_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{swap_8c_a000d7845bef1019d83d77856dd5861ae_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a46d07cc2c81c98f89760f34341099924}\index{swap.c@{swap.c}!\_\_folio\_put@{\_\_folio\_put}}
+\index{\_\_folio\_put@{\_\_folio\_put}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{\_\_folio\_put()}{\_\_folio\_put()}}
+{\footnotesize\ttfamily \label{swap_8c_a46d07cc2c81c98f89760f34341099924} 
+void \+\_\+\+\_\+folio\+\_\+put (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00097}{97}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00098\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{if}\ (unlikely(\doxymbox{\hyperlink{mmzone_8h_addd17dbc39ee6c88ccc23df720e1cd50}{folio\_is\_zone\_device}}(folio)))\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ free\_zone\_device\_folio(folio);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_hugetlb(folio))\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ free\_huge\_folio(folio);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ab8fff8504f19922ad21f1890429b2925}{page\_cache\_release}}(folio);}
+\DoxyCodeLine{00110\ \ \ \ \ folio\_unqueue\_deferred\_split(folio);}
+\DoxyCodeLine{00111\ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_a308c95533263f7ed0c93601803444317}{mem\_cgroup\_uncharge}}(folio);}
+\DoxyCodeLine{00112\ \ \ \ \ \doxymbox{\hyperlink{page__alloc_8c_afcaf6e63811188badf0f7b9802c8963a}{free\_frozen\_pages}}(\&folio-\/>page,\ folio\_order(folio));}
+\DoxyCodeLine{00113\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a46d07cc2c81c98f89760f34341099924_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{swap_8c_a46d07cc2c81c98f89760f34341099924_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a4b44dac2994765d7ed3bf070ac7711e2}\index{swap.c@{swap.c}!\_\_lru\_add\_drain\_all@{\_\_lru\_add\_drain\_all}}
+\index{\_\_lru\_add\_drain\_all@{\_\_lru\_add\_drain\_all}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{\_\_lru\_add\_drain\_all()}{\_\_lru\_add\_drain\_all()}}
+{\footnotesize\ttfamily \label{swap_8c_a4b44dac2994765d7ed3bf070ac7711e2} 
+void \+\_\+\+\_\+lru\+\_\+add\+\_\+drain\+\_\+all (\begin{DoxyParamCaption}\item[{bool}]{force\+\_\+all\+\_\+cpus}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00797}{797}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00798\ \{}
+\DoxyCodeLine{00799\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00800\ \textcolor{comment}{\ \ \ \ \ *\ lru\_drain\_gen\ -\/\ Global\ pages\ generation\ number }}
+\DoxyCodeLine{00801\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00802\ \textcolor{comment}{\ \ \ \ \ *\ (A)\ Definition:\ global\ lru\_drain\_gen\ =\ x\ implies\ that\ all\ generations }}
+\DoxyCodeLine{00803\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ 0\ <\ n\ <=\ x\ are\ already\ *scheduled*\ for\ draining. }}
+\DoxyCodeLine{00804\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00805\ \textcolor{comment}{\ \ \ \ \ *\ This\ is\ an\ optimization\ for\ the\ highly-\/contended\ use\ case\ where\ a }}
+\DoxyCodeLine{00806\ \textcolor{comment}{\ \ \ \ \ *\ user\ space\ workload\ keeps\ constantly\ generating\ a\ flow\ of\ pages\ for }}
+\DoxyCodeLine{00807\ \textcolor{comment}{\ \ \ \ \ *\ each\ CPU. }}
+\DoxyCodeLine{00808\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00809\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lru\_drain\_gen;}
+\DoxyCodeLine{00810\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }cpumask\ has\_work;}
+\DoxyCodeLine{00811\ \ \ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{cgroup_8c_a1004cbf06c35dfacfabf2158bb09eae6}{DEFINE\_MUTEX}}(lock);}
+\DoxyCodeLine{00812\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpu,\ this\_gen;}
+\DoxyCodeLine{00813\ }
+\DoxyCodeLine{00814\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00815\ \textcolor{comment}{\ \ \ \ \ *\ Make\ sure\ nobody\ triggers\ this\ path\ before\ mm\_percpu\_wq\ is\ fully }}
+\DoxyCodeLine{00816\ \textcolor{comment}{\ \ \ \ \ *\ initialized. }}
+\DoxyCodeLine{00817\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00818\ \ \ \ \ \textcolor{keywordflow}{if}\ (WARN\_ON(!mm\_percpu\_wq))}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00820\ }
+\DoxyCodeLine{00821\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00822\ \textcolor{comment}{\ \ \ \ \ *\ Guarantee\ folio\_batch\ counter\ stores\ visible\ by\ this\ CPU }}
+\DoxyCodeLine{00823\ \textcolor{comment}{\ \ \ \ \ *\ are\ visible\ to\ other\ CPUs\ before\ loading\ the\ current\ drain }}
+\DoxyCodeLine{00824\ \textcolor{comment}{\ \ \ \ \ *\ generation. }}
+\DoxyCodeLine{00825\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00826\ \ \ \ \ smp\_mb();}
+\DoxyCodeLine{00827\ }
+\DoxyCodeLine{00828\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00829\ \textcolor{comment}{\ \ \ \ \ *\ (B)\ Locally\ cache\ global\ LRU\ draining\ generation\ number }}
+\DoxyCodeLine{00830\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00831\ \textcolor{comment}{\ \ \ \ \ *\ The\ read\ barrier\ ensures\ that\ the\ counter\ is\ loaded\ before\ the\ mutex }}
+\DoxyCodeLine{00832\ \textcolor{comment}{\ \ \ \ \ *\ is\ taken.\ It\ pairs\ with\ smp\_mb()\ inside\ the\ mutex\ critical\ section }}
+\DoxyCodeLine{00833\ \textcolor{comment}{\ \ \ \ \ *\ at\ (D). }}
+\DoxyCodeLine{00834\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00835\ \ \ \ \ this\_gen\ =\ smp\_load\_acquire(\&lru\_drain\_gen);}
+\DoxyCodeLine{00836\ }
+\DoxyCodeLine{00837\ \ \ \ \ \textcolor{comment}{/*\ It\ helps\ everyone\ if\ we\ do\ our\ own\ local\ drain\ immediately.\ */}}
+\DoxyCodeLine{00838\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ab1c0247474c324ec2b4a26d5c3e57955}{lru\_add\_drain}}();}
+\DoxyCodeLine{00839\ }
+\DoxyCodeLine{00840\ \ \ \ \ mutex\_lock(\&lock);}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00843\ \textcolor{comment}{\ \ \ \ \ *\ (C)\ Exit\ the\ draining\ operation\ if\ a\ newer\ generation,\ from\ another }}
+\DoxyCodeLine{00844\ \textcolor{comment}{\ \ \ \ \ *\ lru\_add\_drain\_all(),\ was\ already\ scheduled\ for\ draining.\ Check\ (A). }}
+\DoxyCodeLine{00845\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00846\ \ \ \ \ \textcolor{keywordflow}{if}\ (unlikely(this\_gen\ !=\ lru\_drain\_gen\ \&\&\ !force\_all\_cpus))}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ done;}
+\DoxyCodeLine{00848\ }
+\DoxyCodeLine{00849\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00850\ \textcolor{comment}{\ \ \ \ \ *\ (D)\ Increment\ global\ generation\ number }}
+\DoxyCodeLine{00851\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00852\ \textcolor{comment}{\ \ \ \ \ *\ Pairs\ with\ smp\_load\_acquire()\ at\ (B),\ outside\ of\ the\ critical }}
+\DoxyCodeLine{00853\ \textcolor{comment}{\ \ \ \ \ *\ section.\ Use\ a\ full\ memory\ barrier\ to\ guarantee\ that\ the }}
+\DoxyCodeLine{00854\ \textcolor{comment}{\ \ \ \ \ *\ new\ global\ drain\ generation\ number\ is\ stored\ before\ loading }}
+\DoxyCodeLine{00855\ \textcolor{comment}{\ \ \ \ \ *\ folio\_batch\ counters. }}
+\DoxyCodeLine{00856\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00857\ \textcolor{comment}{\ \ \ \ \ *\ This\ pairing\ must\ be\ done\ here,\ before\ the\ for\_each\_online\_cpu\ loop }}
+\DoxyCodeLine{00858\ \textcolor{comment}{\ \ \ \ \ *\ below\ which\ drains\ the\ page\ vectors. }}
+\DoxyCodeLine{00859\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00860\ \textcolor{comment}{\ \ \ \ \ *\ Let\ x,\ y,\ and\ z\ represent\ some\ system\ CPU\ numbers,\ where\ x\ <\ y\ <\ z. }}
+\DoxyCodeLine{00861\ \textcolor{comment}{\ \ \ \ \ *\ Assume\ CPU\ \#z\ is\ in\ the\ middle\ of\ the\ for\_each\_online\_cpu\ loop }}
+\DoxyCodeLine{00862\ \textcolor{comment}{\ \ \ \ \ *\ below\ and\ has\ already\ reached\ CPU\ \#y's\ per-\/cpu\ data.\ CPU\ \#x\ comes }}
+\DoxyCodeLine{00863\ \textcolor{comment}{\ \ \ \ \ *\ along,\ adds\ some\ pages\ to\ its\ per-\/cpu\ vectors,\ then\ calls }}
+\DoxyCodeLine{00864\ \textcolor{comment}{\ \ \ \ \ *\ lru\_add\_drain\_all(). }}
+\DoxyCodeLine{00865\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00866\ \textcolor{comment}{\ \ \ \ \ *\ If\ the\ paired\ barrier\ is\ done\ at\ any\ later\ step,\ e.g.\ after\ the }}
+\DoxyCodeLine{00867\ \textcolor{comment}{\ \ \ \ \ *\ loop,\ CPU\ \#x\ will\ just\ exit\ at\ (C)\ and\ miss\ flushing\ out\ all\ of\ its }}
+\DoxyCodeLine{00868\ \textcolor{comment}{\ \ \ \ \ *\ added\ pages. }}
+\DoxyCodeLine{00869\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00870\ \ \ \ \ WRITE\_ONCE(lru\_drain\_gen,\ lru\_drain\_gen\ +\ 1);}
+\DoxyCodeLine{00871\ \ \ \ \ smp\_mb();}
+\DoxyCodeLine{00872\ }
+\DoxyCodeLine{00873\ \ \ \ \ cpumask\_clear(\&has\_work);}
+\DoxyCodeLine{00874\ \ \ \ \ for\_each\_online\_cpu(cpu)\ \{}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }work\_struct\ *work\ =\ \&per\_cpu(lru\_add\_drain\_work,\ cpu);}
+\DoxyCodeLine{00876\ }
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{swap_8c_a54a8c8016d971d932585637b7b6fbe88}{cpu\_needs\_drain}}(cpu))\ \{}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \ \ \ \ INIT\_WORK(work,\ \doxymbox{\hyperlink{swap_8c_a55fbabea5e943fec625503fad58176ea}{lru\_add\_drain\_per\_cpu}});}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ queue\_work\_on(cpu,\ mm\_percpu\_wq,\ work);}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_cpumask\_set\_cpu(cpu,\ \&has\_work);}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00882\ \ \ \ \ \}}
+\DoxyCodeLine{00883\ }
+\DoxyCodeLine{00884\ \ \ \ \ for\_each\_cpu(cpu,\ \&has\_work)}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ flush\_work(\&per\_cpu(lru\_add\_drain\_work,\ cpu));}
+\DoxyCodeLine{00886\ }
+\DoxyCodeLine{00887\ done:}
+\DoxyCodeLine{00888\ \ \ \ \ mutex\_unlock(\&lock);}
+\DoxyCodeLine{00889\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a4b44dac2994765d7ed3bf070ac7711e2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a4b44dac2994765d7ed3bf070ac7711e2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a4a8f7f0ebbe48eccc3eb556913b2d732}\index{swap.c@{swap.c}!\_\_lru\_cache\_activate\_folio@{\_\_lru\_cache\_activate\_folio}}
+\index{\_\_lru\_cache\_activate\_folio@{\_\_lru\_cache\_activate\_folio}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{\_\_lru\_cache\_activate\_folio()}{\_\_lru\_cache\_activate\_folio()}}
+{\footnotesize\ttfamily \label{swap_8c_a4a8f7f0ebbe48eccc3eb556913b2d732} 
+void \+\_\+\+\_\+lru\+\_\+cache\+\_\+activate\+\_\+folio (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00357}{357}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00358\ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keyword}{struct\ }folio\_batch\ *fbatch;}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \ \ local\_lock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00363\ \ \ \ \ fbatch\ =\ this\_cpu\_ptr(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_a778b4ea66ae52660ea5d7ec950d9c9ee}{lru\_add}});}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00366\ \textcolor{comment}{\ \ \ \ \ *\ Search\ backwards\ on\ the\ optimistic\ assumption\ that\ the\ folio\ being }}
+\DoxyCodeLine{00367\ \textcolor{comment}{\ \ \ \ \ *\ activated\ has\ just\ been\ added\ to\ this\ batch.\ Note\ that\ only }}
+\DoxyCodeLine{00368\ \textcolor{comment}{\ \ \ \ \ *\ the\ local\ batch\ is\ examined\ as\ a\ !LRU\ folio\ could\ be\ in\ the }}
+\DoxyCodeLine{00369\ \textcolor{comment}{\ \ \ \ \ *\ process\ of\ being\ released,\ reclaimed,\ migrated\ or\ on\ a\ remote }}
+\DoxyCodeLine{00370\ \textcolor{comment}{\ \ \ \ \ *\ batch\ that\ is\ currently\ being\ drained.\ Furthermore,\ marking }}
+\DoxyCodeLine{00371\ \textcolor{comment}{\ \ \ \ \ *\ a\ remote\ batch's\ folio\ active\ potentially\ hits\ a\ race\ where }}
+\DoxyCodeLine{00372\ \textcolor{comment}{\ \ \ \ \ *\ a\ folio\ is\ marked\ active\ just\ after\ it\ is\ added\ to\ the\ inactive }}
+\DoxyCodeLine{00373\ \textcolor{comment}{\ \ \ \ \ *\ list\ causing\ accounting\ errors\ and\ BUG\_ON\ checks\ to\ trigger. }}
+\DoxyCodeLine{00374\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ folio\_batch\_count(fbatch)\ -\/\ 1;\ i\ >=\ 0;\ i-\/-\/)\ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }folio\ *batch\_folio\ =\ fbatch-\/>folios[i];}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (batch\_folio\ ==\ folio)\ \{}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ folio\_set\_active(folio);}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00382\ \ \ \ \ \}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ local\_unlock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00385\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a4a8f7f0ebbe48eccc3eb556913b2d732_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a3d1ff772b18ad43501cf113add80abc7}\index{swap.c@{swap.c}!\_\_page\_cache\_release@{\_\_page\_cache\_release}}
+\index{\_\_page\_cache\_release@{\_\_page\_cache\_release}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{\_\_page\_cache\_release()}{\_\_page\_cache\_release()}}
+{\footnotesize\ttfamily \label{swap_8c_a3d1ff772b18ad43501cf113add80abc7} 
+void \+\_\+\+\_\+page\+\_\+cache\+\_\+release (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{, }\item[{struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{lruvecp}{, }\item[{unsigned long \texorpdfstring{$\ast$}{*}}]{flagsp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00073}{73}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00075\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_lru(folio))\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_a6ee9c74fea31835e7bc33a2efef54cba}{folio\_lruvec\_relock\_irqsave}}(folio,\ lruvecp,\ flagsp);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ lruvec\_del\_folio(*lruvecp,\ folio);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \_\_folio\_clear\_lru\_flags(folio);}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a3d1ff772b18ad43501cf113add80abc7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a3d1ff772b18ad43501cf113add80abc7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a54a8c8016d971d932585637b7b6fbe88}\index{swap.c@{swap.c}!cpu\_needs\_drain@{cpu\_needs\_drain}}
+\index{cpu\_needs\_drain@{cpu\_needs\_drain}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{cpu\_needs\_drain()}{cpu\_needs\_drain()}}
+{\footnotesize\ttfamily \label{swap_8c_a54a8c8016d971d932585637b7b6fbe88} 
+bool cpu\+\_\+needs\+\_\+drain (\begin{DoxyParamCaption}\item[{unsigned int}]{cpu}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00775}{775}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00776\ \{}
+\DoxyCodeLine{00777\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}\ *fbatches\ =\ \&per\_cpu(\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}},\ cpu);}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00779\ \ \ \ \ \textcolor{comment}{/*\ Check\ these\ in\ order\ of\ likelihood\ that\ they're\ not\ zero\ */}}
+\DoxyCodeLine{00780\ \ \ \ \ \textcolor{keywordflow}{return}\ folio\_batch\_count(\&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_a778b4ea66ae52660ea5d7ec950d9c9ee}{lru\_add}})\ ||}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ folio\_batch\_count(\&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_ac63a7ae5600713a30da620bb3f8aed74}{lru\_move\_tail}})\ ||}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ folio\_batch\_count(\&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_ad5a6ebb0d4d2ff51aaa4eef31e368dcc}{lru\_deactivate\_file}})\ ||}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ folio\_batch\_count(\&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_a45e8babf70fce405028791970cbdb9e8}{lru\_deactivate}})\ ||}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ folio\_batch\_count(\&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_a50fff309390e120f661f76fe62532311}{lru\_lazyfree}})\ ||}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ folio\_batch\_count(\&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_a44d7d13f53775c84d61bac8b7641dfd1}{lru\_activate}})\ ||}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ need\_mlock\_drain(cpu)\ ||}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ has\_bh\_in\_lru(cpu,\ NULL);}
+\DoxyCodeLine{00788\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a54a8c8016d971d932585637b7b6fbe88_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_aa8909f510437417e49093e9e10a823f7}\index{swap.c@{swap.c}!deactivate\_file\_folio@{deactivate\_file\_folio}}
+\index{deactivate\_file\_folio@{deactivate\_file\_folio}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{deactivate\_file\_folio()}{deactivate\_file\_folio()}}
+{\footnotesize\ttfamily \label{swap_8c_aa8909f510437417e49093e9e10a823f7} 
+void deactivate\+\_\+file\+\_\+folio (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})}
+
+\doxylink{swap_8c_aa8909f510437417e49093e9e10a823f7}{deactivate\+\_\+file\+\_\+folio()} -\/ Deactivate a file folio. @folio:\+ Folio to deactivate.
+
+This function hints to the VM that @folio is a good reclaim candidate, for example if its invalidation fails due to the folio being dirty or under writeback.
+
+Context:\+ Caller holds a reference on the folio. 
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00686}{686}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00687\ \{}
+\DoxyCodeLine{00688\ \ \ \ \ \textcolor{comment}{/*\ Deactivating\ an\ unevictable\ folio\ will\ not\ accelerate\ reclaim\ */}}
+\DoxyCodeLine{00689\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_unevictable(folio)\ ||\ !folio\_test\_lru(folio))}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00691\ }
+\DoxyCodeLine{00692\ \ \ \ \ \textcolor{keywordflow}{if}\ (lru\_gen\_enabled()\ \&\&\ \doxymbox{\hyperlink{swap_8c_ab3e2158101d9963bf9641bf4224e39de}{lru\_gen\_clear\_refs}}(folio))}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00694\ }
+\DoxyCodeLine{00695\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a45230958a9c9323d98f855166b25d5fd}{folio\_batch\_add\_and\_move}}(folio,\ \doxymbox{\hyperlink{swap_8c_a39f8aeef59a546188e37aee6e1faa9a2}{lru\_deactivate\_file}});}
+\DoxyCodeLine{00696\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_aa8909f510437417e49093e9e10a823f7_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a763cd84b07ccec007d089f6518ac3749}\index{swap.c@{swap.c}!DEFINE\_PER\_CPU@{DEFINE\_PER\_CPU}}
+\index{DEFINE\_PER\_CPU@{DEFINE\_PER\_CPU}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{DEFINE\_PER\_CPU()}{DEFINE\_PER\_CPU()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{swap_8c_a763cd84b07ccec007d089f6518ac3749} 
+DEFINE\+\_\+\+PER\+\_\+\+CPU (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structcpu__fbatches}{cpu\+\_\+fbatches}}}]{}{, }\item[{\doxymbox{\hyperlink{structcpu__fbatches}{cpu\+\_\+fbatches}}}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{swap_8c_ae7c7b151fbaf6d56de397e094ef9b40c}\index{swap.c@{swap.c}!DEFINE\_PER\_CPU@{DEFINE\_PER\_CPU}}
+\index{DEFINE\_PER\_CPU@{DEFINE\_PER\_CPU}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{DEFINE\_PER\_CPU()}{DEFINE\_PER\_CPU()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{swap_8c_ae7c7b151fbaf6d56de397e094ef9b40c} 
+DEFINE\+\_\+\+PER\+\_\+\+CPU (\begin{DoxyParamCaption}\item[{struct work\+\_\+struct}]{}{, }\item[{lru\+\_\+add\+\_\+drain\+\_\+work}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{swap_8c_a0aba7c0a16c23834781c25dd7d19a1ab}\index{swap.c@{swap.c}!EXPORT\_SYMBOL@{EXPORT\_SYMBOL}}
+\index{EXPORT\_SYMBOL@{EXPORT\_SYMBOL}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{EXPORT\_SYMBOL()}{EXPORT\_SYMBOL()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily \label{swap_8c_a0aba7c0a16c23834781c25dd7d19a1ab} 
+EXPORT\+\_\+\+SYMBOL (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{swap_8c_a000d7845bef1019d83d77856dd5861ae}{\+\_\+\+\_\+folio\+\_\+batch\+\_\+release}}}]{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a0aba7c0a16c23834781c25dd7d19a1ab_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a80016696eef8126cfdc0655e398bf345}\index{swap.c@{swap.c}!EXPORT\_SYMBOL@{EXPORT\_SYMBOL}}
+\index{EXPORT\_SYMBOL@{EXPORT\_SYMBOL}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{EXPORT\_SYMBOL()}{EXPORT\_SYMBOL()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily \label{swap_8c_a80016696eef8126cfdc0655e398bf345} 
+EXPORT\+\_\+\+SYMBOL (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{swap_8c_a46d07cc2c81c98f89760f34341099924}{\+\_\+\+\_\+folio\+\_\+put}}}]{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a80016696eef8126cfdc0655e398bf345_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a16696b4c1dd91e8ea890203c41399f06}\index{swap.c@{swap.c}!EXPORT\_SYMBOL@{EXPORT\_SYMBOL}}
+\index{EXPORT\_SYMBOL@{EXPORT\_SYMBOL}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{EXPORT\_SYMBOL()}{EXPORT\_SYMBOL()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily \label{swap_8c_a16696b4c1dd91e8ea890203c41399f06} 
+EXPORT\+\_\+\+SYMBOL (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{swap_8c_a748e20c79b2f3f9a7861641784e180ba}{folio\+\_\+add\+\_\+lru}}}]{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a16696b4c1dd91e8ea890203c41399f06_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a5df2f96684931eb0f2c26cbd66ddd80a}\index{swap.c@{swap.c}!EXPORT\_SYMBOL@{EXPORT\_SYMBOL}}
+\index{EXPORT\_SYMBOL@{EXPORT\_SYMBOL}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{EXPORT\_SYMBOL()}{EXPORT\_SYMBOL()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily \label{swap_8c_a5df2f96684931eb0f2c26cbd66ddd80a} 
+EXPORT\+\_\+\+SYMBOL (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d}{folio\+\_\+mark\+\_\+accessed}}}]{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a5df2f96684931eb0f2c26cbd66ddd80a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a65c2fdd64dfa873deda51d1175e38d39}\index{swap.c@{swap.c}!EXPORT\_SYMBOL@{EXPORT\_SYMBOL}}
+\index{EXPORT\_SYMBOL@{EXPORT\_SYMBOL}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{EXPORT\_SYMBOL()}{EXPORT\_SYMBOL()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily \label{swap_8c_a65c2fdd64dfa873deda51d1175e38d39} 
+EXPORT\+\_\+\+SYMBOL (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{swap_8c_a65d7ad226963eb57392114c5157c116b}{folios\+\_\+put\+\_\+refs}}}]{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a65c2fdd64dfa873deda51d1175e38d39_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_aebe0dd35d72738ce1858dfee336a1ce3}\index{swap.c@{swap.c}!EXPORT\_SYMBOL@{EXPORT\_SYMBOL}}
+\index{EXPORT\_SYMBOL@{EXPORT\_SYMBOL}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{EXPORT\_SYMBOL()}{EXPORT\_SYMBOL()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily \label{swap_8c_aebe0dd35d72738ce1858dfee336a1ce3} 
+EXPORT\+\_\+\+SYMBOL (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{swap_8c_a99964c8a9495f06274fb49f336f03a12}{release\+\_\+pages}}}]{}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_aebe0dd35d72738ce1858dfee336a1ce3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a2ade93c7e27c2623c0dd9f0849a1e7d6}\index{swap.c@{swap.c}!folio\_activate@{folio\_activate}}
+\index{folio\_activate@{folio\_activate}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_activate()}{folio\_activate()}}
+{\footnotesize\ttfamily \label{swap_8c_a2ade93c7e27c2623c0dd9f0849a1e7d6} 
+void folio\+\_\+activate (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00329}{329}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00330\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_active(folio)\ ||\ folio\_test\_unevictable(folio)\ ||}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ !folio\_test\_lru(folio))}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a45230958a9c9323d98f855166b25d5fd}{folio\_batch\_add\_and\_move}}(folio,\ \doxymbox{\hyperlink{swap_8c_a7369aece80e793901d5caf51da13728e}{lru\_activate}});}
+\DoxyCodeLine{00336\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a2ade93c7e27c2623c0dd9f0849a1e7d6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a2ade93c7e27c2623c0dd9f0849a1e7d6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_af35150de9a4beb63787e476dc012ab16}\index{swap.c@{swap.c}!folio\_activate\_drain@{folio\_activate\_drain}}
+\index{folio\_activate\_drain@{folio\_activate\_drain}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_activate\_drain()}{folio\_activate\_drain()}}
+{\footnotesize\ttfamily \label{swap_8c_af35150de9a4beb63787e476dc012ab16} 
+void folio\+\_\+activate\+\_\+drain (\begin{DoxyParamCaption}\item[{int}]{cpu}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00321}{321}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00322\ \{}
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keyword}{struct\ }folio\_batch\ *fbatch\ =\ \&per\_cpu(\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_a44d7d13f53775c84d61bac8b7641dfd1}{lru\_activate}},\ cpu);}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_batch\_count(fbatch))}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ad1ba07a9053342547c7dd9290fcabce0}{folio\_batch\_move\_lru}}(fbatch,\ \doxymbox{\hyperlink{swap_8c_a7369aece80e793901d5caf51da13728e}{lru\_activate}});}
+\DoxyCodeLine{00327\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_af35150de9a4beb63787e476dc012ab16_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_af35150de9a4beb63787e476dc012ab16_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a748e20c79b2f3f9a7861641784e180ba}\index{swap.c@{swap.c}!folio\_add\_lru@{folio\_add\_lru}}
+\index{folio\_add\_lru@{folio\_add\_lru}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_add\_lru()}{folio\_add\_lru()}}
+{\footnotesize\ttfamily \label{swap_8c_a748e20c79b2f3f9a7861641784e180ba} 
+void folio\+\_\+add\+\_\+lru (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})}
+
+folio\+\_\+add\+\_\+lru -\/ Add a folio to an LRU list. @folio:\+ The folio to be added to the LRU.
+
+Queue the folio for addition to the LRU. The decision on whether to add the page to the \+[in]\+active \+[file\texorpdfstring{$\vert$}{|}anon]\+ list is deferred until the folio\+\_\+batch is drained. This gives a chance for the caller of \doxylink{swap_8c_a748e20c79b2f3f9a7861641784e180ba}{folio\+\_\+add\+\_\+lru()} have the folio added to the active list using \doxylink{swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d}{folio\+\_\+mark\+\_\+accessed()}. 
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00500}{500}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00501\ \{}
+\DoxyCodeLine{00502\ \ \ \ \ VM\_BUG\_ON\_FOLIO(folio\_test\_active(folio)\ \&\&}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ folio\_test\_unevictable(folio),\ folio);}
+\DoxyCodeLine{00504\ \ \ \ \ VM\_BUG\_ON\_FOLIO(folio\_test\_lru(folio),\ folio);}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \ \ \ \ \textcolor{comment}{/*\ see\ the\ comment\ in\ lru\_gen\_folio\_seq()\ */}}
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keywordflow}{if}\ (lru\_gen\_enabled()\ \&\&\ !folio\_test\_unevictable(folio)\ \&\&}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ lru\_gen\_in\_fault()\ \&\&\ !(current-\/>flags\ \&\ PF\_MEMALLOC))}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ folio\_set\_active(folio);}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a45230958a9c9323d98f855166b25d5fd}{folio\_batch\_add\_and\_move}}(folio,\ \doxymbox{\hyperlink{swap_8c_ab0b3b543583b6d9406b5a1568715ec72}{lru\_add}});}
+\DoxyCodeLine{00512\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{swap_8c_a748e20c79b2f3f9a7861641784e180ba_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a748e20c79b2f3f9a7861641784e180ba_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_aa2df6e948a26f4d288787917fb948208}\index{swap.c@{swap.c}!folio\_add\_lru\_vma@{folio\_add\_lru\_vma}}
+\index{folio\_add\_lru\_vma@{folio\_add\_lru\_vma}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_add\_lru\_vma()}{folio\_add\_lru\_vma()}}
+{\footnotesize\ttfamily \label{swap_8c_aa2df6e948a26f4d288787917fb948208} 
+void folio\+\_\+add\+\_\+lru\+\_\+vma (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{, }\item[{struct vm\+\_\+area\+\_\+struct \texorpdfstring{$\ast$}{*}}]{vma}{}\end{DoxyParamCaption})}
+
+\doxylink{swap_8c_aa2df6e948a26f4d288787917fb948208}{folio\+\_\+add\+\_\+lru\+\_\+vma()} -\/ Add a folio to the appropriate LRU list for this VMA. @folio:\+ The folio to be added to the LRU. @vma:\+ VMA in which the folio is mapped.
+
+If the VMA is mlocked, @folio is added to the unevictable list. Otherwise, it is treated the same way as \doxylink{swap_8c_a748e20c79b2f3f9a7861641784e180ba}{folio\+\_\+add\+\_\+lru()}. 
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00523}{523}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00524\ \{}
+\DoxyCodeLine{00525\ \ \ \ \ VM\_BUG\_ON\_FOLIO(folio\_test\_lru(folio),\ folio);}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \ \ \textcolor{keywordflow}{if}\ (unlikely((vma-\/>vm\_flags\ \&\ (VM\_LOCKED\ |\ VM\_SPECIAL))\ ==\ VM\_LOCKED))}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ mlock\_new\_folio(folio);}
+\DoxyCodeLine{00529\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a748e20c79b2f3f9a7861641784e180ba}{folio\_add\_lru}}(folio);}
+\DoxyCodeLine{00531\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_aa2df6e948a26f4d288787917fb948208_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_aa2df6e948a26f4d288787917fb948208_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_ad1ba07a9053342547c7dd9290fcabce0}\index{swap.c@{swap.c}!folio\_batch\_move\_lru@{folio\_batch\_move\_lru}}
+\index{folio\_batch\_move\_lru@{folio\_batch\_move\_lru}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_batch\_move\_lru()}{folio\_batch\_move\_lru()}}
+{\footnotesize\ttfamily \label{swap_8c_ad1ba07a9053342547c7dd9290fcabce0} 
+void folio\+\_\+batch\+\_\+move\+\_\+lru (\begin{DoxyParamCaption}\item[{struct folio\+\_\+batch \texorpdfstring{$\ast$}{*}}]{fbatch}{, }\item[{\doxymbox{\hyperlink{swap_8c_a55bf7162009ab53e5f6980982feff7a7}{move\+\_\+fn\+\_\+t}}}]{move\+\_\+fn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00158}{158}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00159\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structlruvec}{lruvec}}\ *\doxymbox{\hyperlink{structlruvec}{lruvec}}\ =\ NULL;}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}}\ =\ 0;}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ folio\_batch\_count(fbatch);\ i++)\ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }folio\ *folio\ =\ fbatch-\/>folios[i];}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ block\ memcg\ migration\ while\ the\ folio\ moves\ between\ lru\ */}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (move\_fn\ !=\ \doxymbox{\hyperlink{swap_8c_ab0b3b543583b6d9406b5a1568715ec72}{lru\_add}}\ \&\&\ !folio\_test\_clear\_lru(folio))}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_a6ee9c74fea31835e7bc33a2efef54cba}{folio\_lruvec\_relock\_irqsave}}(folio,\ \&\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \&\doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ move\_fn(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ folio\_set\_lru(folio);}
+\DoxyCodeLine{00175\ \ \ \ \ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structlruvec}{lruvec}})}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_abe13a2546d8a94a5c7a5c208153c4d31}{unlock\_page\_lruvec\_irqrestore}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00179\ \ \ \ \ folios\_put(fbatch);}
+\DoxyCodeLine{00180\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_ad1ba07a9053342547c7dd9290fcabce0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_ad1ba07a9053342547c7dd9290fcabce0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a023928eab59882763a081966f8f2e4e8}\index{swap.c@{swap.c}!folio\_batch\_remove\_exceptionals@{folio\_batch\_remove\_exceptionals}}
+\index{folio\_batch\_remove\_exceptionals@{folio\_batch\_remove\_exceptionals}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_batch\_remove\_exceptionals()}{folio\_batch\_remove\_exceptionals()}}
+{\footnotesize\ttfamily \label{swap_8c_a023928eab59882763a081966f8f2e4e8} 
+void folio\+\_\+batch\+\_\+remove\+\_\+exceptionals (\begin{DoxyParamCaption}\item[{struct folio\+\_\+batch \texorpdfstring{$\ast$}{*}}]{fbatch}{}\end{DoxyParamCaption})}
+
+\doxylink{swap_8c_a023928eab59882763a081966f8f2e4e8}{folio\+\_\+batch\+\_\+remove\+\_\+exceptionals()} -\/ Prune non-\/folios from a batch. @fbatch:\+ The batch to prune
+
+find\+\_\+get\+\_\+entries() fills a batch with both folios and shadow/\+swap/\+\+DAX entries. This function prunes all the non-\/folio entries from @fbatch without leaving holes, so that it can be passed on to folio-\/only batch operations. 
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l01075}{1075}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01076\ \{}
+\DoxyCodeLine{01077\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i,\ j;}
+\DoxyCodeLine{01078\ }
+\DoxyCodeLine{01079\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0,\ j\ =\ 0;\ i\ <\ folio\_batch\_count(fbatch);\ i++)\ \{}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }folio\ *folio\ =\ fbatch-\/>folios[i];}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!xa\_is\_value(folio))}
+\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ \ fbatch-\/>folios[j++]\ =\ folio;}
+\DoxyCodeLine{01083\ \ \ \ \ \}}
+\DoxyCodeLine{01084\ \ \ \ \ fbatch-\/>nr\ =\ j;}
+\DoxyCodeLine{01085\ \}}
+
+\end{DoxyCode}
+\Hypertarget{swap_8c_abeeef6f333b42e5b34eea1faa9dcbe0a}\index{swap.c@{swap.c}!folio\_deactivate@{folio\_deactivate}}
+\index{folio\_deactivate@{folio\_deactivate}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_deactivate()}{folio\_deactivate()}}
+{\footnotesize\ttfamily \label{swap_8c_abeeef6f333b42e5b34eea1faa9dcbe0a} 
+void folio\+\_\+deactivate (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00706}{706}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00707\ \{}
+\DoxyCodeLine{00708\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_unevictable(folio)\ ||\ !folio\_test\_lru(folio))}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00711\ \ \ \ \ \textcolor{keywordflow}{if}\ (lru\_gen\_enabled()\ ?\ \doxymbox{\hyperlink{swap_8c_ab3e2158101d9963bf9641bf4224e39de}{lru\_gen\_clear\_refs}}(folio)\ :\ !folio\_test\_active(folio))}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a45230958a9c9323d98f855166b25d5fd}{folio\_batch\_add\_and\_move}}(folio,\ \doxymbox{\hyperlink{swap_8c_a0c4804e592f8b9c2091ebe70425ea94a}{lru\_deactivate}});}
+\DoxyCodeLine{00715\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_abeeef6f333b42e5b34eea1faa9dcbe0a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d}\index{swap.c@{swap.c}!folio\_mark\_accessed@{folio\_mark\_accessed}}
+\index{folio\_mark\_accessed@{folio\_mark\_accessed}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_mark\_accessed()}{folio\_mark\_accessed()}}
+{\footnotesize\ttfamily \label{swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d} 
+void folio\+\_\+mark\+\_\+accessed (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})}
+
+folio\+\_\+mark\+\_\+accessed -\/ Mark a folio as having seen activity. @folio:\+ The folio to mark.
+
+This function will perform one of the following transitions:\+
+
+
+\begin{DoxyItemize}
+\item inactive,unreferenced -\/\texorpdfstring{$>$}{>} inactive,referenced
+\item inactive,referenced -\/\texorpdfstring{$>$}{>} active,unreferenced
+\item active,unreferenced -\/\texorpdfstring{$>$}{>} active,referenced
+\end{DoxyItemize}
+
+When a newly allocated folio is not yet visible, so safe for non-\/atomic ops, \+\_\+\+\_\+folio\+\_\+set\+\_\+referenced() may be substituted for \doxylink{swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d}{folio\+\_\+mark\+\_\+accessed()}. 
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00455}{455}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00456\ \{}
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_dropbehind(folio))}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00459\ \ \ \ \ \textcolor{keywordflow}{if}\ (lru\_gen\_enabled())\ \{}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a27c5ead57da1493a72cc91446819fe46}{lru\_gen\_inc\_refs}}(folio);}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00462\ \ \ \ \ \}}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keywordflow}{if}\ (!folio\_test\_referenced(folio))\ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ folio\_set\_referenced(folio);}
+\DoxyCodeLine{00466\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (folio\_test\_unevictable(folio))\ \{}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00468\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Unevictable\ pages\ are\ on\ the\ "{}LRU\_UNEVICTABLE"{}\ list.\ But, }}
+\DoxyCodeLine{00469\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ this\ list\ is\ never\ rotated\ or\ maintained,\ so\ marking\ an }}
+\DoxyCodeLine{00470\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ unevictable\ page\ accessed\ has\ no\ effect. }}
+\DoxyCodeLine{00471\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00472\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!folio\_test\_active(folio))\ \{}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00474\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ the\ folio\ is\ on\ the\ LRU,\ queue\ it\ for\ activation\ via }}
+\DoxyCodeLine{00475\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ cpu\_fbatches.lru\_activate.\ Otherwise,\ assume\ the\ folio\ is\ in\ a }}
+\DoxyCodeLine{00476\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ folio\_batch,\ mark\ it\ active\ and\ it'll\ be\ moved\ to\ the\ active }}
+\DoxyCodeLine{00477\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ LRU\ on\ the\ next\ drain. }}
+\DoxyCodeLine{00478\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_lru(folio))}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a2ade93c7e27c2623c0dd9f0849a1e7d6}{folio\_activate}}(folio);}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a4a8f7f0ebbe48eccc3eb556913b2d732}{\_\_lru\_cache\_activate\_folio}}(folio);}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ folio\_clear\_referenced(folio);}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ workingset\_activation(folio);}
+\DoxyCodeLine{00485\ \ \ \ \ \}}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_idle(folio))}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ folio\_clear\_idle(folio);}
+\DoxyCodeLine{00488\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{swap_8c_a64ea14cffb102246a5569d2f5c9f2a3d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a9d8f2f07ba5a50346adb5931c168e9f0}\index{swap.c@{swap.c}!folio\_mark\_lazyfree@{folio\_mark\_lazyfree}}
+\index{folio\_mark\_lazyfree@{folio\_mark\_lazyfree}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_mark\_lazyfree()}{folio\_mark\_lazyfree()}}
+{\footnotesize\ttfamily \label{swap_8c_a9d8f2f07ba5a50346adb5931c168e9f0} 
+void folio\+\_\+mark\+\_\+lazyfree (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})}
+
+folio\+\_\+mark\+\_\+lazyfree -\/ make an anon folio lazyfree @folio:\+ folio to deactivate
+
+\doxylink{swap_8c_a9d8f2f07ba5a50346adb5931c168e9f0}{folio\+\_\+mark\+\_\+lazyfree()} moves @folio to the inactive file list. This is done to accelerate the reclaim of @folio. 
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00724}{724}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00725\ \{}
+\DoxyCodeLine{00726\ \ \ \ \ \textcolor{keywordflow}{if}\ (!folio\_test\_anon(folio)\ ||\ !folio\_test\_swapbacked(folio)\ ||}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ !folio\_test\_lru(folio)\ ||}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ folio\_test\_swapcache(folio)\ ||\ folio\_test\_unevictable(folio))}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a45230958a9c9323d98f855166b25d5fd}{folio\_batch\_add\_and\_move}}(folio,\ \doxymbox{\hyperlink{swap_8c_a669e21ea6f543836bb26517e3b2721c3}{lru\_lazyfree}});}
+\DoxyCodeLine{00732\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a9d8f2f07ba5a50346adb5931c168e9f0_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_ac7d49ec61e56c72c8a3ff7af8bbb2559}\index{swap.c@{swap.c}!folio\_rotate\_reclaimable@{folio\_rotate\_reclaimable}}
+\index{folio\_rotate\_reclaimable@{folio\_rotate\_reclaimable}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folio\_rotate\_reclaimable()}{folio\_rotate\_reclaimable()}}
+{\footnotesize\ttfamily \label{swap_8c_ac7d49ec61e56c72c8a3ff7af8bbb2559} 
+void folio\+\_\+rotate\+\_\+reclaimable (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00231}{231}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00232\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_locked(folio)\ ||\ folio\_test\_dirty(folio)\ ||}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ folio\_test\_unevictable(folio)\ ||\ !folio\_test\_lru(folio))}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a45230958a9c9323d98f855166b25d5fd}{folio\_batch\_add\_and\_move}}(folio,\ \doxymbox{\hyperlink{swap_8c_a726a92c46bc89d3fd80d8313e514d851}{lru\_move\_tail}});}
+\DoxyCodeLine{00238\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{swap_8c_ac7d49ec61e56c72c8a3ff7af8bbb2559_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a65d7ad226963eb57392114c5157c116b}\index{swap.c@{swap.c}!folios\_put\_refs@{folios\_put\_refs}}
+\index{folios\_put\_refs@{folios\_put\_refs}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{folios\_put\_refs()}{folios\_put\_refs()}}
+{\footnotesize\ttfamily \label{swap_8c_a65d7ad226963eb57392114c5157c116b} 
+void folios\+\_\+put\+\_\+refs (\begin{DoxyParamCaption}\item[{struct folio\+\_\+batch \texorpdfstring{$\ast$}{*}}]{folios}{, }\item[{unsigned int \texorpdfstring{$\ast$}{*}}]{refs}{}\end{DoxyParamCaption})}
+
+folios\+\_\+put\+\_\+refs -\/ Reduce the reference count on a batch of folios. @folios:\+ The folios. @refs:\+ The number of refs to subtract from each folio.
+
+Like folio\+\_\+put(), but for a batch of folios. This is more efficient than writing the loop yourself as it will optimise the locks which need to be taken if the folios are freed. The folios batch is returned empty and ready to be reused for another batch; there is no need to reinitialise it. If @refs is NULL, we subtract one from each folio refcount.
+
+Context:\+ May be called in process or interrupt context, but not in NMI context. May be called while holding a spinlock. 
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00951}{951}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00952\ \{}
+\DoxyCodeLine{00953\ \ \ \ \ \textcolor{keywordtype}{int}\ i,\ j;}
+\DoxyCodeLine{00954\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structlruvec}{lruvec}}\ *\doxymbox{\hyperlink{structlruvec}{lruvec}}\ =\ NULL;}
+\DoxyCodeLine{00955\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}}\ =\ 0;}
+\DoxyCodeLine{00956\ }
+\DoxyCodeLine{00957\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0,\ j\ =\ 0;\ i\ <\ folios-\/>nr;\ i++)\ \{}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }folio\ *folio\ =\ folios-\/>folios[i];}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nr\_refs\ =\ refs\ ?\ refs[i]\ :\ 1;}
+\DoxyCodeLine{00960\ }
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_huge\_zero\_folio(folio))}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00963\ }
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{mmzone_8h_addd17dbc39ee6c88ccc23df720e1cd50}{folio\_is\_zone\_device}}(folio))\ \{}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structlruvec}{lruvec}})\ \{}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_abe13a2546d8a94a5c7a5c208153c4d31}{unlock\_page\_lruvec\_irqrestore}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structlruvec}{lruvec}}\ =\ NULL;}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_ref\_sub\_and\_test(folio,\ nr\_refs))}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ free\_zone\_device\_folio(folio);}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00973\ }
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!folio\_ref\_sub\_and\_test(folio,\ nr\_refs))}
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00976\ }
+\DoxyCodeLine{00977\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ hugetlb\ has\ its\ own\ memcg\ */}}
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_hugetlb(folio))\ \{}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structlruvec}{lruvec}})\ \{}
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_abe13a2546d8a94a5c7a5c208153c4d31}{unlock\_page\_lruvec\_irqrestore}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00981\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structlruvec}{lruvec}}\ =\ NULL;}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ \ \ \ \ free\_huge\_folio(folio);}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ folio\_unqueue\_deferred\_split(folio);}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a3d1ff772b18ad43501cf113add80abc7}{\_\_page\_cache\_release}}(folio,\ \&\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \&\doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00988\ }
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (j\ !=\ i)}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ \ \ \ \ folios-\/>folios[j]\ =\ folio;}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ j++;}
+\DoxyCodeLine{00992\ \ \ \ \ \}}
+\DoxyCodeLine{00993\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structlruvec}{lruvec}})}
+\DoxyCodeLine{00994\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_abe13a2546d8a94a5c7a5c208153c4d31}{unlock\_page\_lruvec\_irqrestore}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00995\ \ \ \ \ \textcolor{keywordflow}{if}\ (!j)\ \{}
+\DoxyCodeLine{00996\ \ \ \ \ \ \ \ \ folio\_batch\_reinit(folios);}
+\DoxyCodeLine{00997\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00998\ \ \ \ \ \}}
+\DoxyCodeLine{00999\ }
+\DoxyCodeLine{01000\ \ \ \ \ folios-\/>nr\ =\ j;}
+\DoxyCodeLine{01001\ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_ae8caa9e7536786624db0dd2411571f41}{mem\_cgroup\_uncharge\_folios}}(folios);}
+\DoxyCodeLine{01002\ \ \ \ \ \doxymbox{\hyperlink{page__alloc_8c_ac5e35526aeea87923990814980e60782}{free\_unref\_folios}}(folios);}
+\DoxyCodeLine{01003\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a65d7ad226963eb57392114c5157c116b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a65d7ad226963eb57392114c5157c116b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a7369aece80e793901d5caf51da13728e}\index{swap.c@{swap.c}!lru\_activate@{lru\_activate}}
+\index{lru\_activate@{lru\_activate}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_activate()}{lru\_activate()}}
+{\footnotesize\ttfamily \label{swap_8c_a7369aece80e793901d5caf51da13728e} 
+void lru\+\_\+activate (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}}]{lruvec}{, }\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00303}{303}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00304\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordtype}{long}\ nr\_pages\ =\ folio\_nr\_pages(folio);}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_active(folio)\ ||\ folio\_test\_unevictable(folio))}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ lruvec\_del\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00312\ \ \ \ \ folio\_set\_active(folio);}
+\DoxyCodeLine{00313\ \ \ \ \ lruvec\_add\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00314\ \ \ \ \ trace\_mm\_lru\_activate(folio);}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \_\_count\_vm\_events(PGACTIVATE,\ nr\_pages);}
+\DoxyCodeLine{00317\ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_aef3cd4917378d2e713e787562c6e546b}{count\_memcg\_events}}(\doxymbox{\hyperlink{memcontrol_8h_a663d5383303493f1fdcef387c84cf349}{lruvec\_memcg}}(\doxymbox{\hyperlink{structlruvec}{lruvec}}),\ PGACTIVATE,\ nr\_pages);}
+\DoxyCodeLine{00318\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a7369aece80e793901d5caf51da13728e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a7369aece80e793901d5caf51da13728e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_ab0b3b543583b6d9406b5a1568715ec72}\index{swap.c@{swap.c}!lru\_add@{lru\_add}}
+\index{lru\_add@{lru\_add}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_add()}{lru\_add()}}
+{\footnotesize\ttfamily \label{swap_8c_ab0b3b543583b6d9406b5a1568715ec72} 
+void lru\+\_\+add (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}}]{lruvec}{, }\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00118}{118}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00119\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{int}\ was\_unevictable\ =\ folio\_test\_clear\_unevictable(folio);}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{long}\ nr\_pages\ =\ folio\_nr\_pages(folio);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ VM\_BUG\_ON\_FOLIO(folio\_test\_lru(folio),\ folio);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ \ \ *\ Is\ an\ smp\_mb\_\_after\_atomic()\ still\ required\ here,\ before }}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ \ \ *\ folio\_evictable()\ tests\ the\ mlocked\ flag,\ to\ rule\ out\ the\ possibility }}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ \ \ *\ of\ stranding\ an\ evictable\ folio\ on\ an\ unevictable\ LRU?\ \ I\ think }}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ \ \ *\ not,\ because\ \_\_munlock\_folio()\ only\ clears\ the\ mlocked\ flag }}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ \ \ *\ while\ the\ LRU\ lock\ is\ held. }}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ \ \ *\ (That\ is\ not\ true\ of\ \_\_page\_cache\_release(),\ and\ not\ necessarily }}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ \ \ *\ true\ of\ folios\_put():\ but\ those\ only\ clear\ the\ mlocked\ flag\ after }}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ \ \ *\ folio\_put\_testzero()\ has\ excluded\ any\ other\ users\ of\ the\ folio.) }}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_evictable(folio))\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (was\_unevictable)}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_count\_vm\_events(UNEVICTABLE\_PGRESCUED,\ nr\_pages);}
+\DoxyCodeLine{00139\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ folio\_clear\_active(folio);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ folio\_set\_unevictable(folio);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ folio-\/>mlock\_count\ =\ !!folio\_test\_mlocked(folio)? }}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ But\ that\ leaves\ \_\_mlock\_folio()\ in\ doubt\ whether\ another }}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ actor\ has\ already\ counted\ the\ mlock\ or\ not.\ \ Err\ on\ the }}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ safe\ side,\ underestimate,\ let\ page\ reclaim\ fix\ it,\ rather }}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ than\ leaving\ a\ page\ on\ the\ unevictable\ LRU\ indefinitely. }}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ folio-\/>mlock\_count\ =\ 0;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!was\_unevictable)}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_count\_vm\_events(UNEVICTABLE\_PGCULLED,\ nr\_pages);}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ lruvec\_add\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00155\ \ \ \ \ trace\_mm\_lru\_insertion(folio);}
+\DoxyCodeLine{00156\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_ab0b3b543583b6d9406b5a1568715ec72_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a53ca0a3d9e61a4d61d14a8e5529a0aa1}\index{swap.c@{swap.c}!lru\_add\_and\_bh\_lrus\_drain@{lru\_add\_and\_bh\_lrus\_drain}}
+\index{lru\_add\_and\_bh\_lrus\_drain@{lru\_add\_and\_bh\_lrus\_drain}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_add\_and\_bh\_lrus\_drain()}{lru\_add\_and\_bh\_lrus\_drain()}}
+{\footnotesize\ttfamily \label{swap_8c_a53ca0a3d9e61a4d61d14a8e5529a0aa1} 
+void lru\+\_\+add\+\_\+and\+\_\+bh\+\_\+lrus\+\_\+drain (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00748}{748}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00749\ \{}
+\DoxyCodeLine{00750\ \ \ \ \ local\_lock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00751\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_af45ab7c311a3a462f207ff31cf7d4a69}{lru\_add\_drain\_cpu}}(smp\_processor\_id());}
+\DoxyCodeLine{00752\ \ \ \ \ local\_unlock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00753\ \ \ \ \ invalidate\_bh\_lrus\_cpu();}
+\DoxyCodeLine{00754\ \ \ \ \ mlock\_drain\_local();}
+\DoxyCodeLine{00755\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a53ca0a3d9e61a4d61d14a8e5529a0aa1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a53ca0a3d9e61a4d61d14a8e5529a0aa1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_ab1c0247474c324ec2b4a26d5c3e57955}\index{swap.c@{swap.c}!lru\_add\_drain@{lru\_add\_drain}}
+\index{lru\_add\_drain@{lru\_add\_drain}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_add\_drain()}{lru\_add\_drain()}}
+{\footnotesize\ttfamily \label{swap_8c_ab1c0247474c324ec2b4a26d5c3e57955} 
+void lru\+\_\+add\+\_\+drain (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00734}{734}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00735\ \{}
+\DoxyCodeLine{00736\ \ \ \ \ local\_lock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00737\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_af45ab7c311a3a462f207ff31cf7d4a69}{lru\_add\_drain\_cpu}}(smp\_processor\_id());}
+\DoxyCodeLine{00738\ \ \ \ \ local\_unlock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00739\ \ \ \ \ mlock\_drain\_local();}
+\DoxyCodeLine{00740\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_ab1c0247474c324ec2b4a26d5c3e57955_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_ab1c0247474c324ec2b4a26d5c3e57955_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_af4054643fd1470f90028830be6b299bc}\index{swap.c@{swap.c}!lru\_add\_drain\_all@{lru\_add\_drain\_all}}
+\index{lru\_add\_drain\_all@{lru\_add\_drain\_all}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_add\_drain\_all()}{lru\_add\_drain\_all()}}
+{\footnotesize\ttfamily \label{swap_8c_af4054643fd1470f90028830be6b299bc} 
+void lru\+\_\+add\+\_\+drain\+\_\+all (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00891}{891}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00892\ \{}
+\DoxyCodeLine{00893\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a4b44dac2994765d7ed3bf070ac7711e2}{\_\_lru\_add\_drain\_all}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{00894\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_af4054643fd1470f90028830be6b299bc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_af4054643fd1470f90028830be6b299bc_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_af45ab7c311a3a462f207ff31cf7d4a69}\index{swap.c@{swap.c}!lru\_add\_drain\_cpu@{lru\_add\_drain\_cpu}}
+\index{lru\_add\_drain\_cpu@{lru\_add\_drain\_cpu}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_add\_drain\_cpu()}{lru\_add\_drain\_cpu()}}
+{\footnotesize\ttfamily \label{swap_8c_af45ab7c311a3a462f207ff31cf7d4a69} 
+void lru\+\_\+add\+\_\+drain\+\_\+cpu (\begin{DoxyParamCaption}\item[{int}]{cpu}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00642}{642}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00643\ \{}
+\DoxyCodeLine{00644\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}\ *fbatches\ =\ \&per\_cpu(\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}},\ cpu);}
+\DoxyCodeLine{00645\ \ \ \ \ \textcolor{keyword}{struct\ }folio\_batch\ *fbatch\ =\ \&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_a778b4ea66ae52660ea5d7ec950d9c9ee}{lru\_add}};}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00647\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_batch\_count(fbatch))}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ad1ba07a9053342547c7dd9290fcabce0}{folio\_batch\_move\_lru}}(fbatch,\ \doxymbox{\hyperlink{swap_8c_ab0b3b543583b6d9406b5a1568715ec72}{lru\_add}});}
+\DoxyCodeLine{00649\ }
+\DoxyCodeLine{00650\ \ \ \ \ fbatch\ =\ \&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_ac63a7ae5600713a30da620bb3f8aed74}{lru\_move\_tail}};}
+\DoxyCodeLine{00651\ \ \ \ \ \textcolor{comment}{/*\ Disabling\ interrupts\ below\ acts\ as\ a\ compiler\ barrier.\ */}}
+\DoxyCodeLine{00652\ \ \ \ \ \textcolor{keywordflow}{if}\ (data\_race(folio\_batch\_count(fbatch)))\ \{}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}};}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ No\ harm\ done\ if\ a\ racing\ interrupt\ already\ did\ this\ */}}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ local\_lock\_irqsave(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_a3cd8b0897b2619eff87a9cde667c3b8d}{lock\_irq}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ad1ba07a9053342547c7dd9290fcabce0}{folio\_batch\_move\_lru}}(fbatch,\ \doxymbox{\hyperlink{swap_8c_a726a92c46bc89d3fd80d8313e514d851}{lru\_move\_tail}});}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ local\_unlock\_irqrestore(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_a3cd8b0897b2619eff87a9cde667c3b8d}{lock\_irq}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00659\ \ \ \ \ \}}
+\DoxyCodeLine{00660\ }
+\DoxyCodeLine{00661\ \ \ \ \ fbatch\ =\ \&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_ad5a6ebb0d4d2ff51aaa4eef31e368dcc}{lru\_deactivate\_file}};}
+\DoxyCodeLine{00662\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_batch\_count(fbatch))}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ad1ba07a9053342547c7dd9290fcabce0}{folio\_batch\_move\_lru}}(fbatch,\ \doxymbox{\hyperlink{swap_8c_a39f8aeef59a546188e37aee6e1faa9a2}{lru\_deactivate\_file}});}
+\DoxyCodeLine{00664\ }
+\DoxyCodeLine{00665\ \ \ \ \ fbatch\ =\ \&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_a45e8babf70fce405028791970cbdb9e8}{lru\_deactivate}};}
+\DoxyCodeLine{00666\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_batch\_count(fbatch))}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ad1ba07a9053342547c7dd9290fcabce0}{folio\_batch\_move\_lru}}(fbatch,\ \doxymbox{\hyperlink{swap_8c_a0c4804e592f8b9c2091ebe70425ea94a}{lru\_deactivate}});}
+\DoxyCodeLine{00668\ }
+\DoxyCodeLine{00669\ \ \ \ \ fbatch\ =\ \&fbatches-\/>\doxymbox{\hyperlink{structcpu__fbatches_a50fff309390e120f661f76fe62532311}{lru\_lazyfree}};}
+\DoxyCodeLine{00670\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_batch\_count(fbatch))}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ad1ba07a9053342547c7dd9290fcabce0}{folio\_batch\_move\_lru}}(fbatch,\ \doxymbox{\hyperlink{swap_8c_a669e21ea6f543836bb26517e3b2721c3}{lru\_lazyfree}});}
+\DoxyCodeLine{00672\ }
+\DoxyCodeLine{00673\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_af35150de9a4beb63787e476dc012ab16}{folio\_activate\_drain}}(cpu);}
+\DoxyCodeLine{00674\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_af45ab7c311a3a462f207ff31cf7d4a69_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_af45ab7c311a3a462f207ff31cf7d4a69_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_aefb7d8f57322a5dbcf5cdee7b134545b}\index{swap.c@{swap.c}!lru\_add\_drain\_cpu\_zone@{lru\_add\_drain\_cpu\_zone}}
+\index{lru\_add\_drain\_cpu\_zone@{lru\_add\_drain\_cpu\_zone}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_add\_drain\_cpu\_zone()}{lru\_add\_drain\_cpu\_zone()}}
+{\footnotesize\ttfamily \label{swap_8c_aefb7d8f57322a5dbcf5cdee7b134545b} 
+void lru\+\_\+add\+\_\+drain\+\_\+cpu\+\_\+zone (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structzone}{zone}} \texorpdfstring{$\ast$}{*}}]{zone}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00757}{757}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00758\ \{}
+\DoxyCodeLine{00759\ \ \ \ \ local\_lock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00760\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_af45ab7c311a3a462f207ff31cf7d4a69}{lru\_add\_drain\_cpu}}(smp\_processor\_id());}
+\DoxyCodeLine{00761\ \ \ \ \ \doxymbox{\hyperlink{page__alloc_8c_a21fb337e42adb123b4035e1f51799851}{drain\_local\_pages}}(\doxymbox{\hyperlink{structzone}{zone}});}
+\DoxyCodeLine{00762\ \ \ \ \ local\_unlock(\&\doxymbox{\hyperlink{structcpu__fbatches}{cpu\_fbatches}}.\doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}});}
+\DoxyCodeLine{00763\ \ \ \ \ mlock\_drain\_local();}
+\DoxyCodeLine{00764\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_aefb7d8f57322a5dbcf5cdee7b134545b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a55fbabea5e943fec625503fad58176ea}\index{swap.c@{swap.c}!lru\_add\_drain\_per\_cpu@{lru\_add\_drain\_per\_cpu}}
+\index{lru\_add\_drain\_per\_cpu@{lru\_add\_drain\_per\_cpu}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_add\_drain\_per\_cpu()}{lru\_add\_drain\_per\_cpu()}}
+{\footnotesize\ttfamily \label{swap_8c_a55fbabea5e943fec625503fad58176ea} 
+void lru\+\_\+add\+\_\+drain\+\_\+per\+\_\+cpu (\begin{DoxyParamCaption}\item[{struct work\+\_\+struct \texorpdfstring{$\ast$}{*}}]{dummy}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00770}{770}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00771\ \{}
+\DoxyCodeLine{00772\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a53ca0a3d9e61a4d61d14a8e5529a0aa1}{lru\_add\_and\_bh\_lrus\_drain}}();}
+\DoxyCodeLine{00773\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a55fbabea5e943fec625503fad58176ea_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a55fbabea5e943fec625503fad58176ea_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a6315185be80ff7daf73823c9bb9db403}\index{swap.c@{swap.c}!lru\_cache\_disable@{lru\_cache\_disable}}
+\index{lru\_cache\_disable@{lru\_cache\_disable}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_cache\_disable()}{lru\_cache\_disable()}}
+{\footnotesize\ttfamily \label{swap_8c_a6315185be80ff7daf73823c9bb9db403} 
+void lru\+\_\+cache\+\_\+disable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00912}{912}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00913\ \{}
+\DoxyCodeLine{00914\ \ \ \ \ atomic\_inc(\&\doxymbox{\hyperlink{swap_8c_ad22b5157c3afe2ce09460112075cafe6}{lru\_disable\_count}});}
+\DoxyCodeLine{00915\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00916\ \textcolor{comment}{\ \ \ \ \ *\ Readers\ of\ lru\_disable\_count\ are\ protected\ by\ either\ disabling }}
+\DoxyCodeLine{00917\ \textcolor{comment}{\ \ \ \ \ *\ preemption\ or\ rcu\_read\_lock: }}
+\DoxyCodeLine{00918\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00919\ \textcolor{comment}{\ \ \ \ \ *\ preempt\_disable,\ local\_irq\_disable\ \ [bh\_lru\_lock()] }}
+\DoxyCodeLine{00920\ \textcolor{comment}{\ \ \ \ \ *\ rcu\_read\_lock\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [rt\_spin\_lock\ CONFIG\_PREEMPT\_RT] }}
+\DoxyCodeLine{00921\ \textcolor{comment}{\ \ \ \ \ *\ preempt\_disable\ \ \ \ \ \ \ \ \ \ \ \ \ [local\_lock\ !CONFIG\_PREEMPT\_RT] }}
+\DoxyCodeLine{00922\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00923\ \textcolor{comment}{\ \ \ \ \ *\ Since\ v5.1\ kernel,\ synchronize\_rcu()\ is\ guaranteed\ to\ wait\ on }}
+\DoxyCodeLine{00924\ \textcolor{comment}{\ \ \ \ \ *\ preempt\_disable()\ regions\ of\ code.\ So\ any\ CPU\ which\ sees }}
+\DoxyCodeLine{00925\ \textcolor{comment}{\ \ \ \ \ *\ lru\_disable\_count\ =\ 0\ will\ have\ exited\ the\ critical }}
+\DoxyCodeLine{00926\ \textcolor{comment}{\ \ \ \ \ *\ section\ when\ synchronize\_rcu()\ returns. }}
+\DoxyCodeLine{00927\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00928\ \ \ \ \ synchronize\_rcu\_expedited();}
+\DoxyCodeLine{00929\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_SMP }}
+\DoxyCodeLine{00930\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a4b44dac2994765d7ed3bf070ac7711e2}{\_\_lru\_add\_drain\_all}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{00931\ \textcolor{preprocessor}{\#else }}
+\DoxyCodeLine{00932\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a53ca0a3d9e61a4d61d14a8e5529a0aa1}{lru\_add\_and\_bh\_lrus\_drain}}();}
+\DoxyCodeLine{00933\ \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{00934\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a6315185be80ff7daf73823c9bb9db403_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a6315185be80ff7daf73823c9bb9db403_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a0c4804e592f8b9c2091ebe70425ea94a}\index{swap.c@{swap.c}!lru\_deactivate@{lru\_deactivate}}
+\index{lru\_deactivate@{lru\_deactivate}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_deactivate()}{lru\_deactivate()}}
+{\footnotesize\ttfamily \label{swap_8c_a0c4804e592f8b9c2091ebe70425ea94a} 
+void lru\+\_\+deactivate (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}}]{lruvec}{, }\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00595}{595}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00596\ \{}
+\DoxyCodeLine{00597\ \ \ \ \ \textcolor{keywordtype}{long}\ nr\_pages\ =\ folio\_nr\_pages(folio);}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_unevictable(folio)\ ||\ !(folio\_test\_active(folio)\ ||\ lru\_gen\_enabled()))}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00602\ \ \ \ \ lruvec\_del\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00603\ \ \ \ \ folio\_clear\_active(folio);}
+\DoxyCodeLine{00604\ \ \ \ \ folio\_clear\_referenced(folio);}
+\DoxyCodeLine{00605\ \ \ \ \ lruvec\_add\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \ \ \ \ \_\_count\_vm\_events(PGDEACTIVATE,\ nr\_pages);}
+\DoxyCodeLine{00608\ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_aef3cd4917378d2e713e787562c6e546b}{count\_memcg\_events}}(\doxymbox{\hyperlink{memcontrol_8h_a663d5383303493f1fdcef387c84cf349}{lruvec\_memcg}}(\doxymbox{\hyperlink{structlruvec}{lruvec}}),\ PGDEACTIVATE,\ nr\_pages);}
+\DoxyCodeLine{00609\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a0c4804e592f8b9c2091ebe70425ea94a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a0c4804e592f8b9c2091ebe70425ea94a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a39f8aeef59a546188e37aee6e1faa9a2}\index{swap.c@{swap.c}!lru\_deactivate\_file@{lru\_deactivate\_file}}
+\index{lru\_deactivate\_file@{lru\_deactivate\_file}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_deactivate\_file()}{lru\_deactivate\_file()}}
+{\footnotesize\ttfamily \label{swap_8c_a39f8aeef59a546188e37aee6e1faa9a2} 
+void lru\+\_\+deactivate\+\_\+file (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}}]{lruvec}{, }\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00554}{554}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00555\ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \textcolor{keywordtype}{bool}\ active\ =\ folio\_test\_active(folio)\ ||\ lru\_gen\_enabled();}
+\DoxyCodeLine{00557\ \ \ \ \ \textcolor{keywordtype}{long}\ nr\_pages\ =\ folio\_nr\_pages(folio);}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00559\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_unevictable(folio))}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \ \ \ \ \textcolor{comment}{/*\ Some\ processes\ are\ using\ the\ folio\ */}}
+\DoxyCodeLine{00563\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_mapped(folio))}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \ \ \ \ lruvec\_del\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00567\ \ \ \ \ folio\_clear\_active(folio);}
+\DoxyCodeLine{00568\ \ \ \ \ folio\_clear\_referenced(folio);}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_writeback(folio)\ ||\ folio\_test\_dirty(folio))\ \{}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00572\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Setting\ the\ reclaim\ flag\ could\ race\ with }}
+\DoxyCodeLine{00573\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ folio\_end\_writeback()\ and\ confuse\ readahead.\ \ But\ the }}
+\DoxyCodeLine{00574\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ race\ window\ is\ \_really\_\ small\ and\ \ it's\ not\ a\ critical }}
+\DoxyCodeLine{00575\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ problem. }}
+\DoxyCodeLine{00576\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ lruvec\_add\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ folio\_set\_reclaim(folio);}
+\DoxyCodeLine{00579\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00581\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ The\ folio's\ writeback\ ended\ while\ it\ was\ in\ the\ batch. }}
+\DoxyCodeLine{00582\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ We\ move\ that\ folio\ to\ the\ tail\ of\ the\ inactive\ list. }}
+\DoxyCodeLine{00583\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ lruvec\_add\_folio\_tail(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \_\_count\_vm\_events(PGROTATED,\ nr\_pages);}
+\DoxyCodeLine{00586\ \ \ \ \ \}}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ \ \ \ \ \textcolor{keywordflow}{if}\ (active)\ \{}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \_\_count\_vm\_events(PGDEACTIVATE,\ nr\_pages);}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_aef3cd4917378d2e713e787562c6e546b}{count\_memcg\_events}}(\doxymbox{\hyperlink{memcontrol_8h_a663d5383303493f1fdcef387c84cf349}{lruvec\_memcg}}(\doxymbox{\hyperlink{structlruvec}{lruvec}}),\ PGDEACTIVATE,}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nr\_pages);}
+\DoxyCodeLine{00592\ \ \ \ \ \}}
+\DoxyCodeLine{00593\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a39f8aeef59a546188e37aee6e1faa9a2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a39f8aeef59a546188e37aee6e1faa9a2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_ab3e2158101d9963bf9641bf4224e39de}\index{swap.c@{swap.c}!lru\_gen\_clear\_refs@{lru\_gen\_clear\_refs}}
+\index{lru\_gen\_clear\_refs@{lru\_gen\_clear\_refs}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_gen\_clear\_refs()}{lru\_gen\_clear\_refs()}}
+{\footnotesize\ttfamily \label{swap_8c_ab3e2158101d9963bf9641bf4224e39de} 
+bool lru\+\_\+gen\+\_\+clear\+\_\+refs (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00435}{435}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00436\ \{}
+\DoxyCodeLine{00437\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00438\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_ab3e2158101d9963bf9641bf4224e39de_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a27c5ead57da1493a72cc91446819fe46}\index{swap.c@{swap.c}!lru\_gen\_inc\_refs@{lru\_gen\_inc\_refs}}
+\index{lru\_gen\_inc\_refs@{lru\_gen\_inc\_refs}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_gen\_inc\_refs()}{lru\_gen\_inc\_refs()}}
+{\footnotesize\ttfamily \label{swap_8c_a27c5ead57da1493a72cc91446819fe46} 
+void lru\+\_\+gen\+\_\+inc\+\_\+refs (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00431}{431}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00432\ \{}
+\DoxyCodeLine{00433\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a27c5ead57da1493a72cc91446819fe46_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a669e21ea6f543836bb26517e3b2721c3}\index{swap.c@{swap.c}!lru\_lazyfree@{lru\_lazyfree}}
+\index{lru\_lazyfree@{lru\_lazyfree}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_lazyfree()}{lru\_lazyfree()}}
+{\footnotesize\ttfamily \label{swap_8c_a669e21ea6f543836bb26517e3b2721c3} 
+void lru\+\_\+lazyfree (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}}]{lruvec}{, }\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00611}{611}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00612\ \{}
+\DoxyCodeLine{00613\ \ \ \ \ \textcolor{keywordtype}{long}\ nr\_pages\ =\ folio\_nr\_pages(folio);}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00615\ \ \ \ \ \textcolor{keywordflow}{if}\ (!folio\_test\_anon(folio)\ ||\ !folio\_test\_swapbacked(folio)\ ||}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ folio\_test\_swapcache(folio)\ ||\ folio\_test\_unevictable(folio))}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00618\ }
+\DoxyCodeLine{00619\ \ \ \ \ lruvec\_del\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00620\ \ \ \ \ folio\_clear\_active(folio);}
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keywordflow}{if}\ (lru\_gen\_enabled())}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_ab3e2158101d9963bf9641bf4224e39de}{lru\_gen\_clear\_refs}}(folio);}
+\DoxyCodeLine{00623\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ folio\_clear\_referenced(folio);}
+\DoxyCodeLine{00625\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00626\ \textcolor{comment}{\ \ \ \ \ *\ Lazyfree\ folios\ are\ clean\ anonymous\ folios.\ \ They\ have }}
+\DoxyCodeLine{00627\ \textcolor{comment}{\ \ \ \ \ *\ the\ swapbacked\ flag\ cleared,\ to\ distinguish\ them\ from\ normal }}
+\DoxyCodeLine{00628\ \textcolor{comment}{\ \ \ \ \ *\ anonymous\ folios }}
+\DoxyCodeLine{00629\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00630\ \ \ \ \ folio\_clear\_swapbacked(folio);}
+\DoxyCodeLine{00631\ \ \ \ \ lruvec\_add\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \ \ \ \ \_\_count\_vm\_events(PGLAZYFREE,\ nr\_pages);}
+\DoxyCodeLine{00634\ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_aef3cd4917378d2e713e787562c6e546b}{count\_memcg\_events}}(\doxymbox{\hyperlink{memcontrol_8h_a663d5383303493f1fdcef387c84cf349}{lruvec\_memcg}}(\doxymbox{\hyperlink{structlruvec}{lruvec}}),\ PGLAZYFREE,\ nr\_pages);}
+\DoxyCodeLine{00635\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a669e21ea6f543836bb26517e3b2721c3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a669e21ea6f543836bb26517e3b2721c3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a726a92c46bc89d3fd80d8313e514d851}\index{swap.c@{swap.c}!lru\_move\_tail@{lru\_move\_tail}}
+\index{lru\_move\_tail@{lru\_move\_tail}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_move\_tail()}{lru\_move\_tail()}}
+{\footnotesize\ttfamily \label{swap_8c_a726a92c46bc89d3fd80d8313e514d851} 
+void lru\+\_\+move\+\_\+tail (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}}]{lruvec}{, }\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00213}{213}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00214\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_test\_unevictable(folio))}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ lruvec\_del\_folio(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00219\ \ \ \ \ folio\_clear\_active(folio);}
+\DoxyCodeLine{00220\ \ \ \ \ lruvec\_add\_folio\_tail(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio);}
+\DoxyCodeLine{00221\ \ \ \ \ \_\_count\_vm\_events(PGROTATED,\ folio\_nr\_pages(folio));}
+\DoxyCodeLine{00222\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a726a92c46bc89d3fd80d8313e514d851_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a9dc179f0c90d8478ba76a547896cdb3d}\index{swap.c@{swap.c}!lru\_note\_cost\_refault@{lru\_note\_cost\_refault}}
+\index{lru\_note\_cost\_refault@{lru\_note\_cost\_refault}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_note\_cost\_refault()}{lru\_note\_cost\_refault()}}
+{\footnotesize\ttfamily \label{swap_8c_a9dc179f0c90d8478ba76a547896cdb3d} 
+void lru\+\_\+note\+\_\+cost\+\_\+refault (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00294}{294}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00295\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structlruvec}{lruvec}}\ *\doxymbox{\hyperlink{structlruvec}{lruvec}};}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \doxymbox{\hyperlink{structlruvec}{lruvec}}\ =\ \doxymbox{\hyperlink{memcontrol_8h_ab98eda6393d88d00f03d8d17e6bfcb64}{folio\_lruvec\_lock\_irq}}(folio);}
+\DoxyCodeLine{00299\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a19ccb634a8ab578df2e4aae0ebf0ead5}{lru\_note\_cost\_unlock\_irq}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ folio\_is\_file\_lru(folio),}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ folio\_nr\_pages(folio),\ 0);}
+\DoxyCodeLine{00301\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a9dc179f0c90d8478ba76a547896cdb3d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a19ccb634a8ab578df2e4aae0ebf0ead5}\index{swap.c@{swap.c}!lru\_note\_cost\_unlock\_irq@{lru\_note\_cost\_unlock\_irq}}
+\index{lru\_note\_cost\_unlock\_irq@{lru\_note\_cost\_unlock\_irq}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_note\_cost\_unlock\_irq()}{lru\_note\_cost\_unlock\_irq()}}
+{\footnotesize\ttfamily \label{swap_8c_a19ccb634a8ab578df2e4aae0ebf0ead5} 
+void lru\+\_\+note\+\_\+cost\+\_\+unlock\+\_\+irq (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \texorpdfstring{$\ast$}{*}}]{lruvec}{, }\item[{bool}]{file}{, }\item[{unsigned int}]{nr\+\_\+io}{, }\item[{unsigned int}]{nr\+\_\+rotated}{}\end{DoxyParamCaption}) -\/$>$ lru\+\_\+lock)}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00240}{240}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00243\ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ cost;}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\ \ \ \ \ *\ Reflect\ the\ relative\ cost\ of\ incurring\ IO\ and\ spending\ CPU }}
+\DoxyCodeLine{00248\ \textcolor{comment}{\ \ \ \ \ *\ time\ on\ rotations.\ This\ doesn't\ attempt\ to\ make\ a\ precise }}
+\DoxyCodeLine{00249\ \textcolor{comment}{\ \ \ \ \ *\ comparison,\ it\ just\ says:\ if\ reloads\ are\ about\ comparable }}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ \ \ \ \ *\ between\ the\ LRU\ lists,\ or\ rotations\ are\ overwhelmingly }}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ \ \ \ \ *\ different\ between\ them,\ adjust\ scan\ balance\ for\ CPU\ work. }}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00253\ \ \ \ \ cost\ =\ nr\_io\ *\ SWAP\_CLUSTER\_MAX\ +\ nr\_rotated;}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordflow}{if}\ (!cost)\ \{}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structlruvec}{lruvec}}-\/>\doxymbox{\hyperlink{structlruvec_a7d5c790766072bae353e08bd58c22447}{lru\_lock}});}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00257\ \ \ \ \ \}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{for}\ (;;)\ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ lrusize;}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Record\ cost\ event\ */}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (file)}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structlruvec}{lruvec}}-\/>\doxymbox{\hyperlink{structlruvec_a32fac3e332313df8b7c37ee91611b97c}{file\_cost}}\ +=\ cost;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structlruvec}{lruvec}}-\/>\doxymbox{\hyperlink{structlruvec_a9bffe84ea852f0e64e7f3882d89abc05}{anon\_cost}}\ +=\ cost;}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00269\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Decay\ previous\ events }}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Because\ workloads\ change\ over\ time\ (and\ to\ avoid }}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ overflow)\ we\ keep\ these\ statistics\ as\ a\ floating }}
+\DoxyCodeLine{00273\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ average,\ which\ ends\ up\ weighing\ recent\ refaults }}
+\DoxyCodeLine{00274\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ more\ than\ old\ ones. }}
+\DoxyCodeLine{00275\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ lrusize\ =\ \doxymbox{\hyperlink{memcontrol_8h_a4f337aec4b7b4755ac749befe77cf451}{lruvec\_page\_state}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \doxymbox{\hyperlink{mmzone_8h_a09749c0356969cc3f134a9ed6d2b8409ab79fc62393421f71f8538e0cf3c45498}{NR\_INACTIVE\_ANON}})\ +}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_a4f337aec4b7b4755ac749befe77cf451}{lruvec\_page\_state}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \doxymbox{\hyperlink{mmzone_8h_a09749c0356969cc3f134a9ed6d2b8409aa9bd80733ebc515cfbf9fdaada0a460a}{NR\_ACTIVE\_ANON}})\ +}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_a4f337aec4b7b4755ac749befe77cf451}{lruvec\_page\_state}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \doxymbox{\hyperlink{mmzone_8h_a09749c0356969cc3f134a9ed6d2b8409a20893001f69958fcfc30ad6ed22ba1e0}{NR\_INACTIVE\_FILE}})\ +}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_a4f337aec4b7b4755ac749befe77cf451}{lruvec\_page\_state}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \doxymbox{\hyperlink{mmzone_8h_a09749c0356969cc3f134a9ed6d2b8409a040889f089ab3d31ac432fa932484104}{NR\_ACTIVE\_FILE}});}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structlruvec}{lruvec}}-\/>\doxymbox{\hyperlink{structlruvec_a32fac3e332313df8b7c37ee91611b97c}{file\_cost}}\ +\ \doxymbox{\hyperlink{structlruvec}{lruvec}}-\/>\doxymbox{\hyperlink{structlruvec_a9bffe84ea852f0e64e7f3882d89abc05}{anon\_cost}}\ >\ lrusize\ /\ 4)\ \{}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structlruvec}{lruvec}}-\/>\doxymbox{\hyperlink{structlruvec_a32fac3e332313df8b7c37ee91611b97c}{file\_cost}}\ /=\ 2;}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structlruvec}{lruvec}}-\/>\doxymbox{\hyperlink{structlruvec_a9bffe84ea852f0e64e7f3882d89abc05}{anon\_cost}}\ /=\ 2;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ spin\_unlock\_irq(\&\doxymbox{\hyperlink{structlruvec}{lruvec}}-\/>\doxymbox{\hyperlink{structlruvec_a7d5c790766072bae353e08bd58c22447}{lru\_lock}});}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structlruvec}{lruvec}}\ =\ \doxymbox{\hyperlink{memcontrol_8h_a1978677c5c94b3ea64e9223dd4c6e1bd}{parent\_lruvec}}(\doxymbox{\hyperlink{structlruvec}{lruvec}});}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structlruvec}{lruvec}})}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ spin\_lock\_irq(\&\doxymbox{\hyperlink{structlruvec}{lruvec}}-\/>\doxymbox{\hyperlink{structlruvec_a7d5c790766072bae353e08bd58c22447}{lru\_lock}});}
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a19ccb634a8ab578df2e4aae0ebf0ead5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a19ccb634a8ab578df2e4aae0ebf0ead5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_ab8fff8504f19922ad21f1890429b2925}\index{swap.c@{swap.c}!page\_cache\_release@{page\_cache\_release}}
+\index{page\_cache\_release@{page\_cache\_release}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{page\_cache\_release()}{page\_cache\_release()}}
+{\footnotesize\ttfamily \label{swap_8c_ab8fff8504f19922ad21f1890429b2925} 
+void page\+\_\+cache\+\_\+release (\begin{DoxyParamCaption}\item[{struct folio \texorpdfstring{$\ast$}{*}}]{folio}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00087}{87}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00088\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structlruvec}{lruvec}}\ *\doxymbox{\hyperlink{structlruvec}{lruvec}}\ =\ NULL;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a3d1ff772b18ad43501cf113add80abc7}{\_\_page\_cache\_release}}(folio,\ \&\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \&\doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structlruvec}{lruvec}})}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{memcontrol_8h_abe13a2546d8a94a5c7a5c208153c4d31}{unlock\_page\_lruvec\_irqrestore}}(\doxymbox{\hyperlink{structlruvec}{lruvec}},\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{00095\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_ab8fff8504f19922ad21f1890429b2925_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_ab8fff8504f19922ad21f1890429b2925_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a99964c8a9495f06274fb49f336f03a12}\index{swap.c@{swap.c}!release\_pages@{release\_pages}}
+\index{release\_pages@{release\_pages}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{release\_pages()}{release\_pages()}}
+{\footnotesize\ttfamily \label{swap_8c_a99964c8a9495f06274fb49f336f03a12} 
+void release\+\_\+pages (\begin{DoxyParamCaption}\item[{release\+\_\+pages\+\_\+arg}]{arg}{, }\item[{int}]{nr}{}\end{DoxyParamCaption})}
+
+release\+\_\+pages -\/ batched put\+\_\+page() \begin{DoxyItemize}
+\item :\+ array of pages to release @nr:\+ number of pages\end{DoxyItemize}
+Decrement the reference count on all the pages in \begin{DoxyItemize}
+\item . If it fell to zero, remove the page from the LRU and free it.\end{DoxyItemize}
+Note that the argument can be an array of pages, encoded pages, or folio pointers. We ignore any encoded bits, and turn any of them into just a folio that gets free\textquotesingle{}d. 
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l01018}{1018}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01019\ \{}
+\DoxyCodeLine{01020\ \ \ \ \ \textcolor{keyword}{struct\ }folio\_batch\ fbatch;}
+\DoxyCodeLine{01021\ \ \ \ \ \textcolor{keywordtype}{int}\ refs[PAGEVEC\_SIZE];}
+\DoxyCodeLine{01022\ \ \ \ \ \textcolor{keyword}{struct\ }encoded\_page\ **encoded\ =\ arg.encoded\_pages;}
+\DoxyCodeLine{01023\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{01024\ }
+\DoxyCodeLine{01025\ \ \ \ \ folio\_batch\_init(\&fbatch);}
+\DoxyCodeLine{01026\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ nr;\ i++)\ \{}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Turn\ any\ of\ the\ argument\ types\ into\ a\ folio\ */}}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }folio\ *folio\ =\ page\_folio(encoded\_page\_ptr(encoded[i]));}
+\DoxyCodeLine{01029\ }
+\DoxyCodeLine{01030\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Is\ our\ next\ entry\ actually\ "{}nr\_pages"{}\ -\/>\ "{}nr\_refs"{}\ ?\ */}}
+\DoxyCodeLine{01031\ \ \ \ \ \ \ \ \ refs[fbatch.nr]\ =\ 1;}
+\DoxyCodeLine{01032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (unlikely(encoded\_page\_flags(encoded[i])\ \&}
+\DoxyCodeLine{01033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ENCODED\_PAGE\_BIT\_NR\_PAGES\_NEXT))}
+\DoxyCodeLine{01034\ \ \ \ \ \ \ \ \ \ \ \ \ refs[fbatch.nr]\ =\ encoded\_nr\_pages(encoded[++i]);}
+\DoxyCodeLine{01035\ }
+\DoxyCodeLine{01036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (folio\_batch\_add(\&fbatch,\ folio)\ >\ 0)}
+\DoxyCodeLine{01037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01038\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a65d7ad226963eb57392114c5157c116b}{folios\_put\_refs}}(\&fbatch,\ refs);}
+\DoxyCodeLine{01039\ \ \ \ \ \}}
+\DoxyCodeLine{01040\ }
+\DoxyCodeLine{01041\ \ \ \ \ \textcolor{keywordflow}{if}\ (fbatch.nr)}
+\DoxyCodeLine{01042\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8c_a65d7ad226963eb57392114c5157c116b}{folios\_put\_refs}}(\&fbatch,\ refs);}
+\DoxyCodeLine{01043\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a99964c8a9495f06274fb49f336f03a12_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{swap_8c_a99964c8a9495f06274fb49f336f03a12_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{swap_8c_a803b70796f5bdcabd940539a1c85df8a}\index{swap.c@{swap.c}!swap\_setup@{swap\_setup}}
+\index{swap\_setup@{swap\_setup}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{swap\_setup()}{swap\_setup()}}
+{\footnotesize\ttfamily \label{swap_8c_a803b70796f5bdcabd940539a1c85df8a} 
+void \+\_\+\+\_\+init swap\+\_\+setup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l01102}{1102}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01103\ \{}
+\DoxyCodeLine{01104\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ megs\ =\ PAGES\_TO\_MB(totalram\_pages());}
+\DoxyCodeLine{01105\ }
+\DoxyCodeLine{01106\ \ \ \ \ \textcolor{comment}{/*\ Use\ a\ smaller\ cluster\ for\ small-\/memory\ machines\ */}}
+\DoxyCodeLine{01107\ \ \ \ \ \textcolor{keywordflow}{if}\ (megs\ <\ 16)}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8h_afe6446ed43e97033afbee53032a572dc}{page\_cluster}}\ =\ 2;}
+\DoxyCodeLine{01109\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01110\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8h_afe6446ed43e97033afbee53032a572dc}{page\_cluster}}\ =\ 3;}
+\DoxyCodeLine{01111\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01112\ \textcolor{comment}{\ \ \ \ \ *\ Right\ now\ other\ parts\ of\ the\ system\ means\ that\ we }}
+\DoxyCodeLine{01113\ \textcolor{comment}{\ \ \ \ \ *\ \_really\_\ don't\ want\ to\ cluster\ much\ more }}
+\DoxyCodeLine{01114\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01115\ }
+\DoxyCodeLine{01116\ \ \ \ \ register\_sysctl\_init(\textcolor{stringliteral}{"{}vm"{}},\ \doxymbox{\hyperlink{swap_8c_a008a394e8426d6bd461b778d6246b8e5}{swap\_sysctl\_table}});}
+\DoxyCodeLine{01117\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{swap_8c_a803b70796f5bdcabd940539a1c85df8a_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{swap_8c_doc-var-members}
+\Hypertarget{swap_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{swap_8c_ad22b5157c3afe2ce09460112075cafe6}\index{swap.c@{swap.c}!lru\_disable\_count@{lru\_disable\_count}}
+\index{lru\_disable\_count@{lru\_disable\_count}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{lru\_disable\_count}{lru\_disable\_count}}
+{\footnotesize\ttfamily \label{swap_8c_ad22b5157c3afe2ce09460112075cafe6} 
+atomic\+\_\+t lru\+\_\+disable\+\_\+count = ATOMIC\+\_\+\+INIT(0)}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00902}{902}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{swap_8c_afe6446ed43e97033afbee53032a572dc}\index{swap.c@{swap.c}!page\_cluster@{page\_cluster}}
+\index{page\_cluster@{page\_cluster}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{page\_cluster}{page\_cluster}}
+{\footnotesize\ttfamily \label{swap_8c_afe6446ed43e97033afbee53032a572dc} 
+int page\+\_\+cluster}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00047}{47}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{swap_8c_a99ace166ebddb574ad51089c272d57b8}\index{swap.c@{swap.c}!page\_cluster\_max@{page\_cluster\_max}}
+\index{page\_cluster\_max@{page\_cluster\_max}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{page\_cluster\_max}{page\_cluster\_max}}
+{\footnotesize\ttfamily \label{swap_8c_a99ace166ebddb574ad51089c272d57b8} 
+const int page\+\_\+cluster\+\_\+max = 31\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00048}{48}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{swap_8c_a008a394e8426d6bd461b778d6246b8e5}\index{swap.c@{swap.c}!swap\_sysctl\_table@{swap\_sysctl\_table}}
+\index{swap\_sysctl\_table@{swap\_sysctl\_table}!swap.c@{swap.c}}
+\doxysubsubsection{\texorpdfstring{swap\_sysctl\_table}{swap\_sysctl\_table}}
+{\footnotesize\ttfamily \label{swap_8c_a008a394e8426d6bd461b778d6246b8e5} 
+const struct ctl\+\_\+table swap\+\_\+sysctl\+\_\+table\+[$\,$]\+\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .procname\ \ \ =\ \textcolor{stringliteral}{"{}page-\/cluster"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .data\ \ \ \ \ \ \ =\ \&\doxymbox{\hyperlink{swap_8h_afe6446ed43e97033afbee53032a572dc}{page\_cluster}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .maxlen\ \ \ \ \ =\ \textcolor{keyword}{sizeof}(int),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .mode\ \ \ \ \ \ \ =\ 0644,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .proc\_handler\ \ \ =\ proc\_dointvec\_minmax,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .extra1\ \ \ \ \ =\ SYSCTL\_ZERO,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .extra2\ \ \ \ \ =\ (\textcolor{keywordtype}{void}\ *)\&\doxymbox{\hyperlink{swap_8c_a99ace166ebddb574ad51089c272d57b8}{page\_cluster\_max}},}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l01087}{1087}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01088\ \ \ \ \ \{}
+\DoxyCodeLine{01089\ \ \ \ \ \ \ \ \ .procname\ \ \ =\ \textcolor{stringliteral}{"{}page-\/cluster"{}},}
+\DoxyCodeLine{01090\ \ \ \ \ \ \ \ \ .data\ \ \ \ \ \ \ =\ \&\doxymbox{\hyperlink{swap_8h_afe6446ed43e97033afbee53032a572dc}{page\_cluster}},}
+\DoxyCodeLine{01091\ \ \ \ \ \ \ \ \ .maxlen\ \ \ \ \ =\ \textcolor{keyword}{sizeof}(int),}
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ .mode\ \ \ \ \ \ \ =\ 0644,}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ .proc\_handler\ \ \ =\ proc\_dointvec\_minmax,}
+\DoxyCodeLine{01094\ \ \ \ \ \ \ \ \ .extra1\ \ \ \ \ =\ SYSCTL\_ZERO,}
+\DoxyCodeLine{01095\ \ \ \ \ \ \ \ \ .extra2\ \ \ \ \ =\ (\textcolor{keywordtype}{void}\ *)\&\doxymbox{\hyperlink{swap_8c_a99ace166ebddb574ad51089c272d57b8}{page\_cluster\_max}},}
+\DoxyCodeLine{01096\ \ \ \ \ \}}
+\DoxyCodeLine{01097\ \};}
+
+\end{DoxyCode}

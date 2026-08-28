@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structslub__pe
 <div class="dynheader">
 Collaboration diagram for slub_percpu_sheaves:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structslub__percpu__sheaves__coll__graph.svg" width="526" height="395"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structslub__percpu__sheaves__coll__graph.svg" width="684" height="395"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -131,7 +131,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a3234dc0cfdd7b52295fbd7b0920b1cfa" id="r_a3234dc0cfdd7b52295fbd7b0920b1cfa"><td class="memItemLeft">struct <a class="el" href="structslab__sheaf.html">slab_sheaf</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a3234dc0cfdd7b52295fbd7b0920b1cfa">spare</a></td></tr>
 <tr class="memitem:af9f3456ea78e4820698f1c83f0a35da9" id="r_af9f3456ea78e4820698f1c83f0a35da9"><td class="memItemLeft">struct <a class="el" href="structslab__sheaf.html">slab_sheaf</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af9f3456ea78e4820698f1c83f0a35da9">rcu_free</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>struct Description: This structure holds per-CPU sheaves for a slab cache. It contains a local lock, main sheaf (always present), spare sheaf (may be NULL), and an rcu_free sheaf for batching kfree_rcu(). It is used to provide fast-path allocation and freeing. </p>
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00466">466</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="abf0c6a5cee8a2706d839b28e2446d2dc" name="abf0c6a5cee8a2706d839b28e2446d2dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abf0c6a5cee8a2706d839b28e2446d2dc">&#9670;&#160;</a></span>lock</h2>
 
@@ -143,6 +147,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00467">467</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
 
 </div>
 </div>
@@ -158,6 +164,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00468">468</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+
 </div>
 </div>
 <a id="af9f3456ea78e4820698f1c83f0a35da9" name="af9f3456ea78e4820698f1c83f0a35da9"></a>
@@ -171,6 +179,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>empty or full, may be NULL </p>
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00470">470</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
 
 </div>
 </div>
@@ -185,11 +196,14 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>never NULL when unlocked </p>
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00469">469</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="slub_8c.html">slub.c</a></li>
+<li>mm/<a class="el" href="slub_8c_source.html">slub.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

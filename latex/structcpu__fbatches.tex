@@ -1,0 +1,118 @@
+\doxysection{cpu\+\_\+fbatches Struct Reference}
+\hypertarget{structcpu__fbatches}{}\label{structcpu__fbatches}\index{cpu\_fbatches@{cpu\_fbatches}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+local\+\_\+lock\+\_\+t \doxymbox{\hyperlink{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}{lock}}
+\item 
+struct folio\+\_\+batch \doxymbox{\hyperlink{structcpu__fbatches_a778b4ea66ae52660ea5d7ec950d9c9ee}{lru\+\_\+add}}
+\item 
+struct folio\+\_\+batch \doxymbox{\hyperlink{structcpu__fbatches_ad5a6ebb0d4d2ff51aaa4eef31e368dcc}{lru\+\_\+deactivate\+\_\+file}}
+\item 
+struct folio\+\_\+batch \doxymbox{\hyperlink{structcpu__fbatches_a45e8babf70fce405028791970cbdb9e8}{lru\+\_\+deactivate}}
+\item 
+struct folio\+\_\+batch \doxymbox{\hyperlink{structcpu__fbatches_a50fff309390e120f661f76fe62532311}{lru\+\_\+lazyfree}}
+\item 
+struct folio\+\_\+batch \doxymbox{\hyperlink{structcpu__fbatches_a44d7d13f53775c84d61bac8b7641dfd1}{lru\+\_\+activate}}
+\item 
+local\+\_\+lock\+\_\+t \doxymbox{\hyperlink{structcpu__fbatches_a3cd8b0897b2619eff87a9cde667c3b8d}{lock\+\_\+irq}}
+\item 
+struct folio\+\_\+batch \doxymbox{\hyperlink{structcpu__fbatches_ac63a7ae5600713a30da620bb3f8aed74}{lru\+\_\+move\+\_\+tail}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00050}{50}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+
+\label{structcpu__fbatches_doc-variable-members}
+\Hypertarget{structcpu__fbatches_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcpu__fbatches_ac67887db06057091ced2072366d5eedf}\index{cpu\_fbatches@{cpu\_fbatches}!lock@{lock}}
+\index{lock@{lock}!cpu\_fbatches@{cpu\_fbatches}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily \label{structcpu__fbatches_ac67887db06057091ced2072366d5eedf} 
+local\+\_\+lock\+\_\+t cpu\+\_\+fbatches::\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00055}{55}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{structcpu__fbatches_a3cd8b0897b2619eff87a9cde667c3b8d}\index{cpu\_fbatches@{cpu\_fbatches}!lock\_irq@{lock\_irq}}
+\index{lock\_irq@{lock\_irq}!cpu\_fbatches@{cpu\_fbatches}}
+\doxysubsubsection{\texorpdfstring{lock\_irq}{lock\_irq}}
+{\footnotesize\ttfamily \label{structcpu__fbatches_a3cd8b0897b2619eff87a9cde667c3b8d} 
+local\+\_\+lock\+\_\+t cpu\+\_\+fbatches::\+lock\+\_\+irq}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00064}{64}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{structcpu__fbatches_a44d7d13f53775c84d61bac8b7641dfd1}\index{cpu\_fbatches@{cpu\_fbatches}!lru\_activate@{lru\_activate}}
+\index{lru\_activate@{lru\_activate}!cpu\_fbatches@{cpu\_fbatches}}
+\doxysubsubsection{\texorpdfstring{lru\_activate}{lru\_activate}}
+{\footnotesize\ttfamily \label{structcpu__fbatches_a44d7d13f53775c84d61bac8b7641dfd1} 
+struct folio\+\_\+batch cpu\+\_\+fbatches::\+lru\+\_\+activate}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00061}{61}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{structcpu__fbatches_a778b4ea66ae52660ea5d7ec950d9c9ee}\index{cpu\_fbatches@{cpu\_fbatches}!lru\_add@{lru\_add}}
+\index{lru\_add@{lru\_add}!cpu\_fbatches@{cpu\_fbatches}}
+\doxysubsubsection{\texorpdfstring{lru\_add}{lru\_add}}
+{\footnotesize\ttfamily \label{structcpu__fbatches_a778b4ea66ae52660ea5d7ec950d9c9ee} 
+struct folio\+\_\+batch cpu\+\_\+fbatches::\+lru\+\_\+add}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00056}{56}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{structcpu__fbatches_a45e8babf70fce405028791970cbdb9e8}\index{cpu\_fbatches@{cpu\_fbatches}!lru\_deactivate@{lru\_deactivate}}
+\index{lru\_deactivate@{lru\_deactivate}!cpu\_fbatches@{cpu\_fbatches}}
+\doxysubsubsection{\texorpdfstring{lru\_deactivate}{lru\_deactivate}}
+{\footnotesize\ttfamily \label{structcpu__fbatches_a45e8babf70fce405028791970cbdb9e8} 
+struct folio\+\_\+batch cpu\+\_\+fbatches::\+lru\+\_\+deactivate}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00058}{58}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{structcpu__fbatches_ad5a6ebb0d4d2ff51aaa4eef31e368dcc}\index{cpu\_fbatches@{cpu\_fbatches}!lru\_deactivate\_file@{lru\_deactivate\_file}}
+\index{lru\_deactivate\_file@{lru\_deactivate\_file}!cpu\_fbatches@{cpu\_fbatches}}
+\doxysubsubsection{\texorpdfstring{lru\_deactivate\_file}{lru\_deactivate\_file}}
+{\footnotesize\ttfamily \label{structcpu__fbatches_ad5a6ebb0d4d2ff51aaa4eef31e368dcc} 
+struct folio\+\_\+batch cpu\+\_\+fbatches::\+lru\+\_\+deactivate\+\_\+file}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00057}{57}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{structcpu__fbatches_a50fff309390e120f661f76fe62532311}\index{cpu\_fbatches@{cpu\_fbatches}!lru\_lazyfree@{lru\_lazyfree}}
+\index{lru\_lazyfree@{lru\_lazyfree}!cpu\_fbatches@{cpu\_fbatches}}
+\doxysubsubsection{\texorpdfstring{lru\_lazyfree}{lru\_lazyfree}}
+{\footnotesize\ttfamily \label{structcpu__fbatches_a50fff309390e120f661f76fe62532311} 
+struct folio\+\_\+batch cpu\+\_\+fbatches::\+lru\+\_\+lazyfree}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00059}{59}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+\Hypertarget{structcpu__fbatches_ac63a7ae5600713a30da620bb3f8aed74}\index{cpu\_fbatches@{cpu\_fbatches}!lru\_move\_tail@{lru\_move\_tail}}
+\index{lru\_move\_tail@{lru\_move\_tail}!cpu\_fbatches@{cpu\_fbatches}}
+\doxysubsubsection{\texorpdfstring{lru\_move\_tail}{lru\_move\_tail}}
+{\footnotesize\ttfamily \label{structcpu__fbatches_ac63a7ae5600713a30da620bb3f8aed74} 
+struct folio\+\_\+batch cpu\+\_\+fbatches::\+lru\+\_\+move\+\_\+tail}
+
+
+
+Definition at line \doxymbox{\hyperlink{swap_8c_source_l00065}{65}} of file \doxymbox{\hyperlink{swap_8c_source}{swap.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{swap_8c}{swap.\+c}}\end{DoxyCompactItemize}

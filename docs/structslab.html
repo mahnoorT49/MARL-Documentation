@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structslab.htm
 <div class="dynheader">
 Collaboration diagram for slab:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structslab__coll__graph.svg" width="360" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structslab__coll__graph.svg" width="514" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -138,8 +138,14 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:abbf3076b2e138468e68ef3053182fd55" id="r_abbf3076b2e138468e68ef3053182fd55"><td class="memItemLeft anonEnd">};&#160;</td><td class="memItemRight"></td></tr>
 <tr class="memitem:a140b317cd57d0c4c1b8d55607c29a132" id="r_a140b317cd57d0c4c1b8d55607c29a132"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a140b317cd57d0c4c1b8d55607c29a132">__page_type</a></td></tr>
 <tr class="memitem:a8a86a449424e005b760fe03f863fe191" id="r_a8a86a449424e005b760fe03f863fe191"><td class="memItemLeft">atomic_t&#160;</td><td class="memItemRight"><a class="el" href="#a8a86a449424e005b760fe03f863fe191">__page_refcount</a></td></tr>
+<tr class="memitem:a6c1e914ae50a1b6854c1e5b4ed89b850" id="r_a6c1e914ae50a1b6854c1e5b4ed89b850"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a6c1e914ae50a1b6854c1e5b4ed89b850">obj_exts</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Reuses the bits in struct page</p>
+<p>struct Description: This structure represents a slab page in the SLUB allocator. It contains flags, pointer to the <a class="el" href="structkmem__cache.html">kmem_cache</a>, list linkage, freelist counters, page type, refcount, and optional object extensions. It overlays with struct page and is used to manage individual slabs (groups of objects) within a <a class="el" href="structkmem__cache.html">kmem_cache</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00081">81</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="abbf3076b2e138468e68ef3053182fd55" name="abbf3076b2e138468e68ef3053182fd55"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abbf3076b2e138468e68ef3053182fd55">&#9670;&#160;</a></span>[union]</h2>
 
@@ -166,6 +172,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00095">95</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="a140b317cd57d0c4c1b8d55607c29a132" name="a140b317cd57d0c4c1b8d55607c29a132"></a>
@@ -179,6 +187,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00094">94</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -194,6 +204,24 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00082">82</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="a6c1e914ae50a1b6854c1e5b4ed89b850" name="a6c1e914ae50a1b6854c1e5b4ed89b850"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c1e914ae50a1b6854c1e5b4ed89b850">&#9670;&#160;</a></span>obj_exts</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long slab::obj_exts</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00097">97</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="a4bc220325d21916aef80acb158c24004" name="a4bc220325d21916aef80acb158c24004"></a>
@@ -207,6 +235,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00091">91</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -222,6 +252,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00084">84</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="ae39ebf326cf56c0c841970468c6eb5fd" name="ae39ebf326cf56c0c841970468c6eb5fd"></a>
@@ -235,6 +267,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00087">87</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>

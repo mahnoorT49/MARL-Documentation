@@ -1,0 +1,264 @@
+\doxysection{page\+\_\+counter Struct Reference}
+\hypertarget{structpage__counter}{}\label{structpage__counter}\index{page\_counter@{page\_counter}}
+
+
+{\ttfamily \+\#include $<$page\+\_\+counter.\+h$>$}
+
+
+
+Collaboration diagram for page\+\_\+counter:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{structpage__counter__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{structpage__counter_a5003a2b574066cb0baf05cd9cc7b2de7}{CACHELINE\+\_\+\+PADDING}} (\+\_\+pad1\+\_\+)
+\item 
+\doxymbox{\hyperlink{structpage__counter_aa3b56a86c8a4eeaea4003d13bb10faf6}{CACHELINE\+\_\+\+PADDING}} (\+\_\+pad2\+\_\+)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpage__counter_a998c7490a5b7a9c5bf710a908659af9a}{failcnt}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpage__counter_aa8a4687d4641235cd274e7bf3d361cbe}{emin}}
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structpage__counter_a0b5d5235d85fb6d1eaf868130fd605d9}{min\+\_\+usage}}
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structpage__counter_a87f2a0f40922dda224247db41b2b65fd}{children\+\_\+min\+\_\+usage}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpage__counter_ac2d0221f54401660560ba120c0336e41}{elow}}
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structpage__counter_a06d99f93fa13f28dff9d1e0a1e08fdde}{low\+\_\+usage}}
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structpage__counter_a0dde0d3b8550ffdfdf6ecba962da204e}{children\+\_\+low\+\_\+usage}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpage__counter_a9304505f0554eabb2e6f2458798d522d}{watermark}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpage__counter_acb177f8121d9123ac353fcfebfbc4c79}{local\+\_\+watermark}}
+\item 
+bool \doxymbox{\hyperlink{structpage__counter_a96e19452c0392f76c85ef36a9cbec881}{protection\+\_\+support}}
+\item 
+bool \doxymbox{\hyperlink{structpage__counter_ae197550c11cc6ec54cda113c2998c1d6}{track\+\_\+failcnt}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpage__counter_a7ab26b4bb8412bfa062b0067dee81c19}{min}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpage__counter_aea0abbe53e5f2139f406cd896740612f}{low}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpage__counter_aa2f3fdd9e3d72605892e61ab88c96e37}{high}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpage__counter_a46c7a60a5def71f346782e747ad2a5e7}{max}}
+\item 
+struct \doxymbox{\hyperlink{structpage__counter}{page\+\_\+counter}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00010}{10}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+
+
+\label{structpage__counter_doc-func-members}
+\Hypertarget{structpage__counter_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structpage__counter_a5003a2b574066cb0baf05cd9cc7b2de7}\index{page\_counter@{page\_counter}!CACHELINE\_PADDING@{CACHELINE\_PADDING}}
+\index{CACHELINE\_PADDING@{CACHELINE\_PADDING}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{CACHELINE\_PADDING()}{CACHELINE\_PADDING()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{structpage__counter_a5003a2b574066cb0baf05cd9cc7b2de7} 
+page\+\_\+counter::\+\+CACHELINE\+\_\+\+PADDING (\begin{DoxyParamCaption}\item[{\+\_\+pad1\+\_\+}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{structpage__counter_aa3b56a86c8a4eeaea4003d13bb10faf6}\index{page\_counter@{page\_counter}!CACHELINE\_PADDING@{CACHELINE\_PADDING}}
+\index{CACHELINE\_PADDING@{CACHELINE\_PADDING}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{CACHELINE\_PADDING()}{CACHELINE\_PADDING()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{structpage__counter_aa3b56a86c8a4eeaea4003d13bb10faf6} 
+page\+\_\+counter::\+\+CACHELINE\+\_\+\+PADDING (\begin{DoxyParamCaption}\item[{\+\_\+pad2\+\_\+}]{}{}\end{DoxyParamCaption})}
+
+
+
+\label{structpage__counter_doc-variable-members}
+\Hypertarget{structpage__counter_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structpage__counter_a0dde0d3b8550ffdfdf6ecba962da204e}\index{page\_counter@{page\_counter}!children\_low\_usage@{children\_low\_usage}}
+\index{children\_low\_usage@{children\_low\_usage}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{children\_low\_usage}{children\_low\_usage}}
+{\footnotesize\ttfamily \label{structpage__counter_a0dde0d3b8550ffdfdf6ecba962da204e} 
+atomic\+\_\+long\+\_\+t page\+\_\+counter::\+children\+\_\+low\+\_\+usage}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_a87f2a0f40922dda224247db41b2b65fd}\index{page\_counter@{page\_counter}!children\_min\_usage@{children\_min\_usage}}
+\index{children\_min\_usage@{children\_min\_usage}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{children\_min\_usage}{children\_min\_usage}}
+{\footnotesize\ttfamily \label{structpage__counter_a87f2a0f40922dda224247db41b2b65fd} 
+atomic\+\_\+long\+\_\+t page\+\_\+counter::\+children\+\_\+min\+\_\+usage}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00023}{23}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_ac2d0221f54401660560ba120c0336e41}\index{page\_counter@{page\_counter}!elow@{elow}}
+\index{elow@{elow}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{elow}{elow}}
+{\footnotesize\ttfamily \label{structpage__counter_ac2d0221f54401660560ba120c0336e41} 
+unsigned long page\+\_\+counter::\+elow}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00026}{26}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_aa8a4687d4641235cd274e7bf3d361cbe}\index{page\_counter@{page\_counter}!emin@{emin}}
+\index{emin@{emin}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{emin}{emin}}
+{\footnotesize\ttfamily \label{structpage__counter_aa8a4687d4641235cd274e7bf3d361cbe} 
+unsigned long page\+\_\+counter::\+emin}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00021}{21}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_a998c7490a5b7a9c5bf710a908659af9a}\index{page\_counter@{page\_counter}!failcnt@{failcnt}}
+\index{failcnt@{failcnt}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{failcnt}{failcnt}}
+{\footnotesize\ttfamily \label{structpage__counter_a998c7490a5b7a9c5bf710a908659af9a} 
+unsigned long page\+\_\+counter::\+failcnt}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00016}{16}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_aa2f3fdd9e3d72605892e61ab88c96e37}\index{page\_counter@{page\_counter}!high@{high}}
+\index{high@{high}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{high}{high}}
+{\footnotesize\ttfamily \label{structpage__counter_aa2f3fdd9e3d72605892e61ab88c96e37} 
+unsigned long page\+\_\+counter::\+high}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00041}{41}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_acb177f8121d9123ac353fcfebfbc4c79}\index{page\_counter@{page\_counter}!local\_watermark@{local\_watermark}}
+\index{local\_watermark@{local\_watermark}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{local\_watermark}{local\_watermark}}
+{\footnotesize\ttfamily \label{structpage__counter_acb177f8121d9123ac353fcfebfbc4c79} 
+unsigned long page\+\_\+counter::\+local\+\_\+watermark}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_aea0abbe53e5f2139f406cd896740612f}\index{page\_counter@{page\_counter}!low@{low}}
+\index{low@{low}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{low}{low}}
+{\footnotesize\ttfamily \label{structpage__counter_aea0abbe53e5f2139f406cd896740612f} 
+unsigned long page\+\_\+counter::\+low}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_a06d99f93fa13f28dff9d1e0a1e08fdde}\index{page\_counter@{page\_counter}!low\_usage@{low\_usage}}
+\index{low\_usage@{low\_usage}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{low\_usage}{low\_usage}}
+{\footnotesize\ttfamily \label{structpage__counter_a06d99f93fa13f28dff9d1e0a1e08fdde} 
+atomic\+\_\+long\+\_\+t page\+\_\+counter::\+low\+\_\+usage}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_a46c7a60a5def71f346782e747ad2a5e7}\index{page\_counter@{page\_counter}!max@{max}}
+\index{max@{max}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{max}{max}}
+{\footnotesize\ttfamily \label{structpage__counter_a46c7a60a5def71f346782e747ad2a5e7} 
+unsigned long page\+\_\+counter::\+max}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00042}{42}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_a7ab26b4bb8412bfa062b0067dee81c19}\index{page\_counter@{page\_counter}!min@{min}}
+\index{min@{min}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{min}{min}}
+{\footnotesize\ttfamily \label{structpage__counter_a7ab26b4bb8412bfa062b0067dee81c19} 
+unsigned long page\+\_\+counter::\+min}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_a0b5d5235d85fb6d1eaf868130fd605d9}\index{page\_counter@{page\_counter}!min\_usage@{min\_usage}}
+\index{min\_usage@{min\_usage}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{min\_usage}{min\_usage}}
+{\footnotesize\ttfamily \label{structpage__counter_a0b5d5235d85fb6d1eaf868130fd605d9} 
+atomic\+\_\+long\+\_\+t page\+\_\+counter::\+min\+\_\+usage}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00022}{22}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}\index{page\_counter@{page\_counter}!parent@{parent}}
+\index{parent@{parent}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{parent}{parent}}
+{\footnotesize\ttfamily \label{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5} 
+struct \doxymbox{\hyperlink{structpage__counter}{page\+\_\+counter}}\texorpdfstring{$\ast$}{*} page\+\_\+counter::\+parent}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00043}{43}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_a96e19452c0392f76c85ef36a9cbec881}\index{page\_counter@{page\_counter}!protection\_support@{protection\_support}}
+\index{protection\_support@{protection\_support}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{protection\_support}{protection\_support}}
+{\footnotesize\ttfamily \label{structpage__counter_a96e19452c0392f76c85ef36a9cbec881} 
+bool page\+\_\+counter::\+protection\+\_\+support}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_ae197550c11cc6ec54cda113c2998c1d6}\index{page\_counter@{page\_counter}!track\_failcnt@{track\_failcnt}}
+\index{track\_failcnt@{track\_failcnt}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{track\_failcnt}{track\_failcnt}}
+{\footnotesize\ttfamily \label{structpage__counter_ae197550c11cc6ec54cda113c2998c1d6} 
+bool page\+\_\+counter::\+track\+\_\+failcnt}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}\index{page\_counter@{page\_counter}!usage@{usage}}
+\index{usage@{usage}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{usage}{usage}}
+{\footnotesize\ttfamily \label{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f} 
+atomic\+\_\+long\+\_\+t page\+\_\+counter::\+usage}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00015}{15}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+\Hypertarget{structpage__counter_a9304505f0554eabb2e6f2458798d522d}\index{page\_counter@{page\_counter}!watermark@{watermark}}
+\index{watermark@{watermark}!page\_counter@{page\_counter}}
+\doxysubsubsection{\texorpdfstring{watermark}{watermark}}
+{\footnotesize\ttfamily \label{structpage__counter_a9304505f0554eabb2e6f2458798d522d} 
+unsigned long page\+\_\+counter::\+watermark}
+
+
+
+Definition at line \doxymbox{\hyperlink{page__counter_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{page__counter_8h_source}{page\+\_\+counter.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{page__counter_8h}{page\+\_\+counter.\+h}}\end{DoxyCompactItemize}

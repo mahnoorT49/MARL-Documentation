@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structpglist__
 <div class="dynheader">
 Collaboration diagram for pglist_data:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structpglist__data__coll__graph.svg" width="758" height="432"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structpglist__data__coll__graph.svg" width="883" height="432"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -136,6 +136,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a4efe1dc7860b75910e8178591869a55e" id="r_a4efe1dc7860b75910e8178591869a55e"><td class="memItemLeft">struct <a class="el" href="structzone.html">zone</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4efe1dc7860b75910e8178591869a55e">node_zones</a> [MAX_NR_ZONES]</td></tr>
 <tr class="memitem:ac32308fa580c6ff4e02b12c4ba6d3434" id="r_ac32308fa580c6ff4e02b12c4ba6d3434"><td class="memItemLeft">struct <a class="el" href="structzonelist.html">zonelist</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac32308fa580c6ff4e02b12c4ba6d3434">node_zonelists</a> [<a class="el" href="mmzone_8h.html#a84820424b8da1e611570a924155e51f4a3225128d48ee428805847398fd6e3b91">MAX_ZONELISTS</a>]</td></tr>
 <tr class="memitem:a86a05c1cfbf75b08d8bdb84abb8768dd" id="r_a86a05c1cfbf75b08d8bdb84abb8768dd"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a86a05c1cfbf75b08d8bdb84abb8768dd">nr_zones</a></td></tr>
+<tr class="memitem:aef4dcc7b1d408d9a1b41beaf698fff79" id="r_aef4dcc7b1d408d9a1b41beaf698fff79"><td class="memItemLeft">struct page *&#160;</td><td class="memItemRight"><a class="el" href="#aef4dcc7b1d408d9a1b41beaf698fff79">node_mem_map</a></td></tr>
+<tr class="memitem:a4a902e8c9e319db306ce0e3be75dc75d" id="r_a4a902e8c9e319db306ce0e3be75dc75d"><td class="memItemLeft">spinlock_t&#160;</td><td class="memItemRight"><a class="el" href="#a4a902e8c9e319db306ce0e3be75dc75d">node_size_lock</a></td></tr>
 <tr class="memitem:acc7c4a468d53a88b91f881f119617e4a" id="r_acc7c4a468d53a88b91f881f119617e4a"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#acc7c4a468d53a88b91f881f119617e4a">node_start_pfn</a></td></tr>
 <tr class="memitem:aafdebd264a12e7bcef64861f50b05a08" id="r_aafdebd264a12e7bcef64861f50b05a08"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#aafdebd264a12e7bcef64861f50b05a08">node_present_pages</a></td></tr>
 <tr class="memitem:ae60f503698010798977e16009969df72" id="r_ae60f503698010798977e16009969df72"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#ae60f503698010798977e16009969df72">node_spanned_pages</a></td></tr>
@@ -145,17 +147,31 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ae45a4278de784a1a742d877b13140a7f" id="r_ae45a4278de784a1a742d877b13140a7f"><td class="memItemLeft">wait_queue_head_t&#160;</td><td class="memItemRight"><a class="el" href="#ae45a4278de784a1a742d877b13140a7f">reclaim_wait</a> [<a class="el" href="mmzone_8h.html#af14e5bfad718e129a885979753be280aa10c3b983a4e0d5011659b53d28bb4b53">NR_VMSCAN_THROTTLE</a>]</td></tr>
 <tr class="memitem:a2d9d109aac7e836e1eab4a5a0162539e" id="r_a2d9d109aac7e836e1eab4a5a0162539e"><td class="memItemLeft">atomic_t&#160;</td><td class="memItemRight"><a class="el" href="#a2d9d109aac7e836e1eab4a5a0162539e">nr_writeback_throttled</a></td></tr>
 <tr class="memitem:ad375b5b62c3bf921e11f023297bbcf3b" id="r_ad375b5b62c3bf921e11f023297bbcf3b"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#ad375b5b62c3bf921e11f023297bbcf3b">nr_reclaim_start</a></td></tr>
+<tr class="memitem:aec3f6363fd3b82ee34dc93db216a44c5" id="r_aec3f6363fd3b82ee34dc93db216a44c5"><td class="memItemLeft">struct mutex&#160;</td><td class="memItemRight"><a class="el" href="#aec3f6363fd3b82ee34dc93db216a44c5">kswapd_lock</a></td></tr>
 <tr class="memitem:ae17af85762902d65cd50d67b97dbab84" id="r_ae17af85762902d65cd50d67b97dbab84"><td class="memItemLeft">struct task_struct *&#160;</td><td class="memItemRight"><a class="el" href="#ae17af85762902d65cd50d67b97dbab84">kswapd</a></td></tr>
 <tr class="memitem:a08cf85b2e40ae2109df0552826c78a16" id="r_a08cf85b2e40ae2109df0552826c78a16"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a08cf85b2e40ae2109df0552826c78a16">kswapd_order</a></td></tr>
 <tr class="memitem:a2903bd4b4aeed30cdaa3cad2ddad95f5" id="r_a2903bd4b4aeed30cdaa3cad2ddad95f5"><td class="memItemLeft">enum <a class="el" href="mmzone_8h.html#a0fdf79ffb0b79648e58d693137ccfada">zone_type</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2903bd4b4aeed30cdaa3cad2ddad95f5">kswapd_highest_zoneidx</a></td></tr>
 <tr class="memitem:ace59e247590d1e8aa6a915c0a562c700" id="r_ace59e247590d1e8aa6a915c0a562c700"><td class="memItemLeft">atomic_t&#160;</td><td class="memItemRight"><a class="el" href="#ace59e247590d1e8aa6a915c0a562c700">kswapd_failures</a></td></tr>
+<tr class="memitem:a9615130fff0ec97ce5e29e9c4b86f370" id="r_a9615130fff0ec97ce5e29e9c4b86f370"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9615130fff0ec97ce5e29e9c4b86f370">kcompactd_max_order</a></td></tr>
+<tr class="memitem:a57aa728638f70410b25a12febc03a3be" id="r_a57aa728638f70410b25a12febc03a3be"><td class="memItemLeft">enum <a class="el" href="mmzone_8h.html#a0fdf79ffb0b79648e58d693137ccfada">zone_type</a>&#160;</td><td class="memItemRight"><a class="el" href="#a57aa728638f70410b25a12febc03a3be">kcompactd_highest_zoneidx</a></td></tr>
+<tr class="memitem:a4f64a8f46aa74acba22d9070e75ff672" id="r_a4f64a8f46aa74acba22d9070e75ff672"><td class="memItemLeft">wait_queue_head_t&#160;</td><td class="memItemRight"><a class="el" href="#a4f64a8f46aa74acba22d9070e75ff672">kcompactd_wait</a></td></tr>
+<tr class="memitem:aeb7631833b058ae17de0fb9d4946167d" id="r_aeb7631833b058ae17de0fb9d4946167d"><td class="memItemLeft">struct task_struct *&#160;</td><td class="memItemRight"><a class="el" href="#aeb7631833b058ae17de0fb9d4946167d">kcompactd</a></td></tr>
+<tr class="memitem:a0a3bed0261456b04650b8f029fd87d69" id="r_a0a3bed0261456b04650b8f029fd87d69"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0a3bed0261456b04650b8f029fd87d69">proactive_compact_trigger</a></td></tr>
 <tr class="memitem:ae44d591152d86855726eecf28373e5ca" id="r_ae44d591152d86855726eecf28373e5ca"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#ae44d591152d86855726eecf28373e5ca">totalreserve_pages</a></td></tr>
+<tr class="memitem:a9f00d6cd79673b945f8804c5d0d21058" id="r_a9f00d6cd79673b945f8804c5d0d21058"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a9f00d6cd79673b945f8804c5d0d21058">min_unmapped_pages</a></td></tr>
+<tr class="memitem:ab3023b576dee84baa433a57a45f9c0da" id="r_ab3023b576dee84baa433a57a45f9c0da"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#ab3023b576dee84baa433a57a45f9c0da">min_slab_pages</a></td></tr>
+<tr class="memitem:a8e707fffbdb969783478486d3f22d835" id="r_a8e707fffbdb969783478486d3f22d835"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a8e707fffbdb969783478486d3f22d835">first_deferred_pfn</a></td></tr>
+<tr class="memitem:af8ea4910adea257d59b3d67102aa13f3" id="r_af8ea4910adea257d59b3d67102aa13f3"><td class="memItemLeft">struct <a class="el" href="structdeferred__split.html">deferred_split</a>&#160;</td><td class="memItemRight"><a class="el" href="#af8ea4910adea257d59b3d67102aa13f3">deferred_split_queue</a></td></tr>
 <tr class="memitem:a6a175cf5647ea7a42374d3f588de983e" id="r_a6a175cf5647ea7a42374d3f588de983e"><td class="memItemLeft">struct <a class="el" href="structlruvec.html">lruvec</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6a175cf5647ea7a42374d3f588de983e">__lruvec</a></td></tr>
 <tr class="memitem:ae5f3a76d97901671245d5dd3cf031ee0" id="r_ae5f3a76d97901671245d5dd3cf031ee0"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#ae5f3a76d97901671245d5dd3cf031ee0">flags</a></td></tr>
 <tr class="memitem:ab6ecf41bcc9df250a61036348710abca" id="r_ab6ecf41bcc9df250a61036348710abca"><td class="memItemLeft">struct <a class="el" href="structper__cpu__nodestat.html">per_cpu_nodestat</a> __percpu *&#160;</td><td class="memItemRight"><a class="el" href="#ab6ecf41bcc9df250a61036348710abca">per_cpu_nodestats</a></td></tr>
 <tr class="memitem:ad715440c11b01ec24ffc9281a1fc707e" id="r_ad715440c11b01ec24ffc9281a1fc707e"><td class="memItemLeft">atomic_long_t&#160;</td><td class="memItemRight"><a class="el" href="#ad715440c11b01ec24ffc9281a1fc707e">vm_stat</a> [<a class="el" href="mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409af007bdde9c9c86e1879e9387706e208e">NR_VM_NODE_STAT_ITEMS</a>]</td></tr>
+<tr class="memitem:a17567e4e202ec3fd1e3fb3b62c0c2092" id="r_a17567e4e202ec3fd1e3fb3b62c0c2092"><td class="memItemLeft">struct memory_tier __rcu *&#160;</td><td class="memItemRight"><a class="el" href="#a17567e4e202ec3fd1e3fb3b62c0c2092">memtier</a></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01381">1381</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a1af4df2786350f4e286f21781ca3a54f" name="a1af4df2786350f4e286f21781ca3a54f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1af4df2786350f4e286f21781ca3a54f">&#9670;&#160;</a></span>CACHELINE_PADDING() <span class="overload">[1/2]</span></h2>
 
@@ -203,6 +219,40 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01499">1499</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="af8ea4910adea257d59b3d67102aa13f3" name="af8ea4910adea257d59b3d67102aa13f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8ea4910adea257d59b3d67102aa13f3">&#9670;&#160;</a></span>deferred_split_queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structdeferred__split.html">deferred_split</a> pglist_data::deferred_split_queue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01474">1474</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="a8e707fffbdb969783478486d3f22d835" name="a8e707fffbdb969783478486d3f22d835"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e707fffbdb969783478486d3f22d835">&#9670;&#160;</a></span>first_deferred_pfn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long pglist_data::first_deferred_pfn</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01470">1470</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="ae5f3a76d97901671245d5dd3cf031ee0" name="ae5f3a76d97901671245d5dd3cf031ee0"></a>
@@ -216,6 +266,72 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01501">1501</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="aeb7631833b058ae17de0fb9d4946167d" name="aeb7631833b058ae17de0fb9d4946167d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb7631833b058ae17de0fb9d4946167d">&#9670;&#160;</a></span>kcompactd</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct task_struct* pglist_data::kcompactd</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01445">1445</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="a57aa728638f70410b25a12febc03a3be" name="a57aa728638f70410b25a12febc03a3be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57aa728638f70410b25a12febc03a3be">&#9670;&#160;</a></span>kcompactd_highest_zoneidx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="mmzone_8h.html#a0fdf79ffb0b79648e58d693137ccfada">zone_type</a> pglist_data::kcompactd_highest_zoneidx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01443">1443</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="a9615130fff0ec97ce5e29e9c4b86f370" name="a9615130fff0ec97ce5e29e9c4b86f370"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9615130fff0ec97ce5e29e9c4b86f370">&#9670;&#160;</a></span>kcompactd_max_order</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pglist_data::kcompactd_max_order</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01442">1442</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="a4f64a8f46aa74acba22d9070e75ff672" name="a4f64a8f46aa74acba22d9070e75ff672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f64a8f46aa74acba22d9070e75ff672">&#9670;&#160;</a></span>kcompactd_wait</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wait_queue_head_t pglist_data::kcompactd_wait</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01444">1444</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -231,6 +347,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01435">1435</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="ace59e247590d1e8aa6a915c0a562c700" name="ace59e247590d1e8aa6a915c0a562c700"></a>
@@ -244,6 +362,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01439">1439</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -259,6 +379,24 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01437">1437</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="aec3f6363fd3b82ee34dc93db216a44c5" name="aec3f6363fd3b82ee34dc93db216a44c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec3f6363fd3b82ee34dc93db216a44c5">&#9670;&#160;</a></span>kswapd_lock</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct mutex pglist_data::kswapd_lock</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01433">1433</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="a08cf85b2e40ae2109df0552826c78a16" name="a08cf85b2e40ae2109df0552826c78a16"></a>
@@ -272,6 +410,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01436">1436</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -287,6 +427,56 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01423">1423</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="a17567e4e202ec3fd1e3fb3b62c0c2092" name="a17567e4e202ec3fd1e3fb3b62c0c2092"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17567e4e202ec3fd1e3fb3b62c0c2092">&#9670;&#160;</a></span>memtier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct memory_tier __rcu* pglist_data::memtier</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01516">1516</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="ab3023b576dee84baa433a57a45f9c0da" name="ab3023b576dee84baa433a57a45f9c0da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3023b576dee84baa433a57a45f9c0da">&#9670;&#160;</a></span>min_slab_pages</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long pglist_data::min_slab_pages</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01459">1459</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="a9f00d6cd79673b945f8804c5d0d21058" name="a9f00d6cd79673b945f8804c5d0d21058"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f00d6cd79673b945f8804c5d0d21058">&#9670;&#160;</a></span>min_unmapped_pages</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long pglist_data::min_unmapped_pages</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01458">1458</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="af6b37a8b60abfaa04aad03ecc1b0396a" name="af6b37a8b60abfaa04aad03ecc1b0396a"></a>
@@ -300,6 +490,24 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01422">1422</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="aef4dcc7b1d408d9a1b41beaf698fff79" name="aef4dcc7b1d408d9a1b41beaf698fff79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef4dcc7b1d408d9a1b41beaf698fff79">&#9670;&#160;</a></span>node_mem_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct page* pglist_data::node_mem_map</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01398">1398</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -315,6 +523,24 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01419">1419</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="a4a902e8c9e319db306ce0e3be75dc75d" name="a4a902e8c9e319db306ce0e3be75dc75d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a902e8c9e319db306ce0e3be75dc75d">&#9670;&#160;</a></span>node_size_lock</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">spinlock_t pglist_data::node_size_lock</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01416">1416</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="ae60f503698010798977e16009969df72" name="ae60f503698010798977e16009969df72"></a>
@@ -328,6 +554,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01420">1420</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -343,6 +571,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01418">1418</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="ac32308fa580c6ff4e02b12c4ba6d3434" name="ac32308fa580c6ff4e02b12c4ba6d3434"></a>
@@ -356,6 +586,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01394">1394</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -371,6 +603,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01387">1387</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="ad375b5b62c3bf921e11f023297bbcf3b" name="ad375b5b62c3bf921e11f023297bbcf3b"></a>
@@ -384,6 +618,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01430">1430</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -399,6 +635,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01429">1429</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="a86a05c1cfbf75b08d8bdb84abb8768dd" name="a86a05c1cfbf75b08d8bdb84abb8768dd"></a>
@@ -412,6 +650,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01396">1396</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -427,6 +667,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01513">1513</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="aa9e9d66c3eeb8b52b1836c11d7c6296a" name="aa9e9d66c3eeb8b52b1836c11d7c6296a"></a>
@@ -440,6 +682,24 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01424">1424</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
+</div>
+</div>
+<a id="a0a3bed0261456b04650b8f029fd87d69" name="a0a3bed0261456b04650b8f029fd87d69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a3bed0261456b04650b8f029fd87d69">&#9670;&#160;</a></span>proactive_compact_trigger</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pglist_data::proactive_compact_trigger</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01446">1446</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>
@@ -455,6 +715,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01427">1427</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="ae44d591152d86855726eecf28373e5ca" name="ae44d591152d86855726eecf28373e5ca"></a>
@@ -469,6 +731,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01452">1452</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
+
 </div>
 </div>
 <a id="ad715440c11b01ec24ffc9281a1fc707e" name="ad715440c11b01ec24ffc9281a1fc707e"></a>
@@ -482,6 +746,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mmzone_8h_source.html#l01514">1514</a> of file <a class="el" href="mmzone_8h_source.html">mmzone.h</a>.</p>
 
 </div>
 </div>

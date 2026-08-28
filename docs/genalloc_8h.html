@@ -150,8 +150,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a146cdd0d92177f877acb0e82ad65a3f0" id="r_a146cdd0d92177f877acb0e82ad65a3f0"><td class="memItemLeft">struct <a class="el" href="structgen__pool.html">gen_pool</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a146cdd0d92177f877acb0e82ad65a3f0">gen_pool_create</a> (int, int)</td></tr>
 <tr class="memitem:aa04986e92cd89671950442f1546129c0" id="r_aa04986e92cd89671950442f1546129c0"><td class="memItemLeft">phys_addr_t&#160;</td><td class="memItemRight"><a class="el" href="#aa04986e92cd89671950442f1546129c0">gen_pool_virt_to_phys</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, unsigned long)</td></tr>
 <tr class="memitem:a6bbb4ed72405a4ae46980f32111901d9" id="r_a6bbb4ed72405a4ae46980f32111901d9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6bbb4ed72405a4ae46980f32111901d9">gen_pool_add_owner</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *, unsigned long, phys_addr_t, size_t, int, void *)</td></tr>
+<tr class="memitem:a74665b05896ad50f71b158136fd919ad" id="r_a74665b05896ad50f71b158136fd919ad"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a74665b05896ad50f71b158136fd919ad">gen_pool_add_virt</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, unsigned long addr, phys_addr_t phys, size_t size, int nid)</td></tr>
+<tr class="memitem:ad120d998148855d947cd90f7f508f85c" id="r_ad120d998148855d947cd90f7f508f85c"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#ad120d998148855d947cd90f7f508f85c">gen_pool_add</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, unsigned long addr, size_t size, int nid)</td></tr>
 <tr class="memitem:ab782c5e04a75eab0ac1ce226f08349ff" id="r_ab782c5e04a75eab0ac1ce226f08349ff"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab782c5e04a75eab0ac1ce226f08349ff">gen_pool_destroy</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *)</td></tr>
 <tr class="memitem:a82613a35becfc3fe664a8cc55b28d858" id="r_a82613a35becfc3fe664a8cc55b28d858"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a82613a35becfc3fe664a8cc55b28d858">gen_pool_alloc_algo_owner</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, size_t size, <a class="el" href="#a003652a94f6f84df23fbdeb4fb381c13">genpool_algo_t</a> algo, void *data, void **owner)</td></tr>
+<tr class="memitem:a117c4c52cbbade37f957d4058f121798" id="r_a117c4c52cbbade37f957d4058f121798"><td class="memItemLeft">static unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a117c4c52cbbade37f957d4058f121798">gen_pool_alloc_owner</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, size_t size, void **owner)</td></tr>
+<tr class="memitem:a3ab7a8671a33ee60a3b3f65e97f1b586" id="r_a3ab7a8671a33ee60a3b3f65e97f1b586"><td class="memItemLeft">static unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a3ab7a8671a33ee60a3b3f65e97f1b586">gen_pool_alloc_algo</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, size_t size, <a class="el" href="#a003652a94f6f84df23fbdeb4fb381c13">genpool_algo_t</a> algo, void *data)</td></tr>
+<tr class="memitem:a638c4bdecbf8b382920089b335f75099" id="r_a638c4bdecbf8b382920089b335f75099"><td class="memItemLeft">static unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a638c4bdecbf8b382920089b335f75099">gen_pool_alloc</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, size_t size)</td></tr>
 <tr class="memitem:a0e80b0d79e7be055aa7f52941388e71c" id="r_a0e80b0d79e7be055aa7f52941388e71c"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a0e80b0d79e7be055aa7f52941388e71c">gen_pool_dma_alloc</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, size_t size, dma_addr_t *dma)</td></tr>
 <tr class="memitem:a8dcfb3a3ff80f3b8a1a96ba03c2edfd7" id="r_a8dcfb3a3ff80f3b8a1a96ba03c2edfd7"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a8dcfb3a3ff80f3b8a1a96ba03c2edfd7">gen_pool_dma_alloc_algo</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, size_t size, dma_addr_t *dma, <a class="el" href="#a003652a94f6f84df23fbdeb4fb381c13">genpool_algo_t</a> algo, void *data)</td></tr>
 <tr class="memitem:a478a87b2d64503c96a7d695e455cca39" id="r_a478a87b2d64503c96a7d695e455cca39"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a478a87b2d64503c96a7d695e455cca39">gen_pool_dma_alloc_align</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, size_t size, dma_addr_t *dma, int align)</td></tr>
@@ -159,6 +164,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a9522b66c91e04060b5d648b1798e52e1" id="r_a9522b66c91e04060b5d648b1798e52e1"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a9522b66c91e04060b5d648b1798e52e1">gen_pool_dma_zalloc_algo</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, size_t size, dma_addr_t *dma, <a class="el" href="#a003652a94f6f84df23fbdeb4fb381c13">genpool_algo_t</a> algo, void *data)</td></tr>
 <tr class="memitem:ad6df8bca0978ebd19f79b6b327b468fb" id="r_ad6df8bca0978ebd19f79b6b327b468fb"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#ad6df8bca0978ebd19f79b6b327b468fb">gen_pool_dma_zalloc_align</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, size_t size, dma_addr_t *dma, int align)</td></tr>
 <tr class="memitem:a9a9b4b9df7b9bfc314df2f2b0145d4fc" id="r_a9a9b4b9df7b9bfc314df2f2b0145d4fc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9a9b4b9df7b9bfc314df2f2b0145d4fc">gen_pool_free_owner</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, unsigned long addr, size_t size, void **owner)</td></tr>
+<tr class="memitem:a05f3f32d1526b3d0a2d534b6deb442ef" id="r_a05f3f32d1526b3d0a2d534b6deb442ef"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a05f3f32d1526b3d0a2d534b6deb442ef">gen_pool_free</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, unsigned long addr, size_t size)</td></tr>
 <tr class="memitem:ad33c35c873e976c4b6c026a1e0d79c2b" id="r_ad33c35c873e976c4b6c026a1e0d79c2b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad33c35c873e976c4b6c026a1e0d79c2b">gen_pool_for_each_chunk</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *, void(*)(struct <a class="el" href="structgen__pool.html">gen_pool</a> *, struct <a class="el" href="structgen__pool__chunk.html">gen_pool_chunk</a> *, void *), void *)</td></tr>
 <tr class="memitem:abf9d26abd849226744e15c1cecbe94ff" id="r_abf9d26abd849226744e15c1cecbe94ff"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#abf9d26abd849226744e15c1cecbe94ff">gen_pool_avail</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *)</td></tr>
 <tr class="memitem:a34c006f34196f28797a12b6aaf98fbec" id="r_a34c006f34196f28797a12b6aaf98fbec"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#a34c006f34196f28797a12b6aaf98fbec">gen_pool_size</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *)</td></tr>
@@ -171,6 +177,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a5c0953e104f4c45ab25e35ae88df4bde" id="r_a5c0953e104f4c45ab25e35ae88df4bde"><td class="memItemLeft">struct <a class="el" href="structgen__pool.html">gen_pool</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5c0953e104f4c45ab25e35ae88df4bde">devm_gen_pool_create</a> (struct device *dev, int min_alloc_order, int nid, const char *name)</td></tr>
 <tr class="memitem:a73baa960dc09460f2aa4c9d8c9c326b4" id="r_a73baa960dc09460f2aa4c9d8c9c326b4"><td class="memItemLeft">struct <a class="el" href="structgen__pool.html">gen_pool</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a73baa960dc09460f2aa4c9d8c9c326b4">gen_pool_get</a> (struct device *dev, const char *name)</td></tr>
 <tr class="memitem:ab1cda6c64f32b28965c4f0e44b48622b" id="r_ab1cda6c64f32b28965c4f0e44b48622b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab1cda6c64f32b28965c4f0e44b48622b">gen_pool_has_addr</a> (struct <a class="el" href="structgen__pool.html">gen_pool</a> *pool, unsigned long start, size_t size)</td></tr>
+<tr class="memitem:a35481ce6de372a867c5cf13756b27245" id="r_a35481ce6de372a867c5cf13756b27245"><td class="memItemLeft">struct <a class="el" href="structgen__pool.html">gen_pool</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a35481ce6de372a867c5cf13756b27245">of_gen_pool_get</a> (struct device_node *np, const char *propname, int index)</td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
 <a id="a003652a94f6f84df23fbdeb4fb381c13" name="a003652a94f6f84df23fbdeb4fb381c13"></a>
@@ -185,6 +192,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>typedef <a class="el" href="#a003652a94f6f84df23fbdeb4fb381c13">genpool_algo_t</a>: Allocation callback function type definition @map: Pointer to bitmap @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: optional additional data used by the callback @pool: the pool being allocated from @start_addr: start address of memory chunk </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8h_source.html#l00049">49</a> of file <a class="el" href="genalloc_8h_source.html">genalloc.h</a>.</p>
 
 </div>
 </div>
@@ -225,15 +234,114 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00921">921</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  923</span>{</div>
+<div class="line"><span class="lineno">  924</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool.html">gen_pool</a> **ptr, *pool;</div>
+<div class="line"><span class="lineno">  925</span>    <span class="keyword">const</span> <span class="keywordtype">char</span> *pool_name = NULL;</div>
+<div class="line"><span class="lineno">  926</span> </div>
+<div class="line"><span class="lineno">  927</span>    <span class="comment">/* Check that genpool to be created is uniquely addressed on device */</span></div>
+<div class="line"><span class="lineno">  928</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="genalloc_8c.html#a73baa960dc09460f2aa4c9d8c9c326b4">gen_pool_get</a>(dev, <a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a>))</div>
+<div class="line"><span class="lineno">  929</span>        <span class="keywordflow">return</span> ERR_PTR(-EINVAL);</div>
+<div class="line"><span class="lineno">  930</span> </div>
+<div class="line"><span class="lineno">  931</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a>) {</div>
+<div class="line"><span class="lineno">  932</span>        pool_name = kstrdup_const(<a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a>, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  933</span>        <span class="keywordflow">if</span> (!pool_name)</div>
+<div class="line"><span class="lineno">  934</span>            <span class="keywordflow">return</span> ERR_PTR(-ENOMEM);</div>
+<div class="line"><span class="lineno">  935</span>    }</div>
+<div class="line"><span class="lineno">  936</span> </div>
+<div class="line"><span class="lineno">  937</span>    ptr = devres_alloc(<a class="code hl_function" href="genalloc_8c.html#a661ce632cea21daf59885b460acde75b">devm_gen_pool_release</a>, <span class="keyword">sizeof</span>(*ptr), <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  938</span>    <span class="keywordflow">if</span> (!ptr)</div>
+<div class="line"><span class="lineno">  939</span>        <span class="keywordflow">goto</span> free_pool_name;</div>
+<div class="line"><span class="lineno">  940</span> </div>
+<div class="line"><span class="lineno">  941</span>    pool = <a class="code hl_function" href="genalloc_8c.html#aedd63900b2922bd92e21e1842ce79b5e">gen_pool_create</a>(<a class="code hl_variable" href="structgen__pool.html#ab6635280055ebc487c513afa90368994">min_alloc_order</a>, nid);</div>
+<div class="line"><span class="lineno">  942</span>    <span class="keywordflow">if</span> (!pool)</div>
+<div class="line"><span class="lineno">  943</span>        <span class="keywordflow">goto</span> free_devres;</div>
+<div class="line"><span class="lineno">  944</span> </div>
+<div class="line"><span class="lineno">  945</span>    *ptr = pool;</div>
+<div class="line"><span class="lineno">  946</span>    pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a> = pool_name;</div>
+<div class="line"><span class="lineno">  947</span>    devres_add(dev, ptr);</div>
+<div class="line"><span class="lineno">  948</span> </div>
+<div class="line"><span class="lineno">  949</span>    <span class="keywordflow">return</span> pool;</div>
+<div class="line"><span class="lineno">  950</span> </div>
+<div class="line"><span class="lineno">  951</span>free_devres:</div>
+<div class="line"><span class="lineno">  952</span>    devres_free(ptr);</div>
+<div class="line"><span class="lineno">  953</span>free_pool_name:</div>
+<div class="line"><span class="lineno">  954</span>    kfree_const(pool_name);</div>
+<div class="line"><span class="lineno">  955</span> </div>
+<div class="line"><span class="lineno">  956</span>    <span class="keywordflow">return</span> ERR_PTR(-ENOMEM);</div>
+<div class="line"><span class="lineno">  957</span>}</div>
+<div class="ttc" id="agenalloc_8c_html_a661ce632cea21daf59885b460acde75b"><div class="ttname"><a href="genalloc_8c.html#a661ce632cea21daf59885b460acde75b">devm_gen_pool_release</a></div><div class="ttdeci">static void devm_gen_pool_release(struct device *dev, void *res)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00863">genalloc.c:863</a></div></div>
+<div class="ttc" id="agenalloc_8c_html_a73baa960dc09460f2aa4c9d8c9c326b4"><div class="ttname"><a href="genalloc_8c.html#a73baa960dc09460f2aa4c9d8c9c326b4">gen_pool_get</a></div><div class="ttdeci">struct gen_pool * gen_pool_get(struct device *dev, const char *name)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00895">genalloc.c:895</a></div></div>
+<div class="ttc" id="agenalloc_8c_html_aedd63900b2922bd92e21e1842ce79b5e"><div class="ttname"><a href="genalloc_8c.html#aedd63900b2922bd92e21e1842ce79b5e">gen_pool_create</a></div><div class="ttdeci">struct gen_pool * gen_pool_create(int min_alloc_order, int nid)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00171">genalloc.c:171</a></div></div>
+<div class="ttc" id="agfp__types_8h_html_a44b9e863fd60efc9018a5524b77532ee"><div class="ttname"><a href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a></div><div class="ttdeci">#define GFP_KERNEL</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00377">gfp_types.h:377</a></div></div>
+<div class="ttc" id="astructgen__pool_html"><div class="ttname"><a href="structgen__pool.html">gen_pool</a></div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00062">genalloc.h:62</a></div></div>
+<div class="ttc" id="astructgen__pool_html_a94ef314104bf7b85b9c2857a4a440940"><div class="ttname"><a href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">gen_pool::name</a></div><div class="ttdeci">const char * name</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00070">genalloc.h:70</a></div></div>
+<div class="ttc" id="astructgen__pool_html_ab6635280055ebc487c513afa90368994"><div class="ttname"><a href="structgen__pool.html#ab6635280055ebc487c513afa90368994">gen_pool::min_alloc_order</a></div><div class="ttdeci">int min_alloc_order</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00065">genalloc.h:65</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a5c0953e104f4c45ab25e35ae88df4bde_cgraph.svg" width="499" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a5c0953e104f4c45ab25e35ae88df4bde_cgraph.svg" width="2044" height="1102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a5c0953e104f4c45ab25e35ae88df4bde_icgraph.svg" width="352" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad120d998148855d947cd90f7f508f85c" name="ad120d998148855d947cd90f7f508f85c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad120d998148855d947cd90f7f508f85c">&#9670;&#160;</a></span>gen_pool_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int gen_pool_add </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structgen__pool.html">gen_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>addr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nid</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>gen_pool_add - add a new chunk of special memory to the pool @pool: pool to add new memory chunk to @addr: starting address of memory chunk to add to pool @size: size in bytes of the memory chunk to add to pool @nid: node id of the node the chunk structure and bitmap should be allocated on, or -1</p>
+<p>Add a new chunk of special memory to the specified pool.</p>
+<p>Returns 0 on success or a -ve errno on failure.</p>
+<p>Function Description: Adds a new memory chunk to a pool with optional owner data. It allocates the chunk structure and bitmap, stores the virtual and physical addresses, and links the chunk into the pool's list. The owner data can be retrieved later during allocation. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8h_source.html#l00138">138</a> of file <a class="el" href="genalloc_8h_source.html">genalloc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  140</span>{</div>
+<div class="line"><span class="lineno">  141</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a74665b05896ad50f71b158136fd919ad">gen_pool_add_virt</a>(pool, addr, -1, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, nid);</div>
+<div class="line"><span class="lineno">  142</span>}</div>
+<div class="ttc" id="agenalloc_8h_html_a74665b05896ad50f71b158136fd919ad"><div class="ttname"><a href="#a74665b05896ad50f71b158136fd919ad">gen_pool_add_virt</a></div><div class="ttdeci">static int gen_pool_add_virt(struct gen_pool *pool, unsigned long addr, phys_addr_t phys, size_t size, int nid)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00117">genalloc.h:117</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_af6ef73962e335cb2dfc15144f11215ba"><div class="ttname"><a href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a></div><div class="ttdeci">static size_t size</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01189">slab.h:1189</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ad120d998148855d947cd90f7f508f85c_cgraph.svg" width="478" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -286,11 +394,208 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>gen_pool_add_owner- add a new chunk of special memory to the pool @pool: pool to add new memory chunk to @virt: virtual starting address of memory chunk to add to pool @phys: physical starting address of memory chunk to add to pool @size: size in bytes of the memory chunk to add to pool @nid: node id of the node the chunk structure and bitmap should be allocated on, or -1 @owner: private data the publisher would like to recall at alloc time</p>
 <p>Add a new chunk of special memory to the specified pool.</p>
-<p>Returns 0 on success or a -ve errno on failure. </p>
+<p>Returns 0 on success or a -ve errno on failure.</p>
+<p>Function Description: Adds a new chunk of memory to an existing pool. It calculates how many bits are needed for the chunk based on the size and allocation order, allocates memory for the chunk structure and bitmap, and stores the chunk's physical and virtual addresses. It then adds the chunk to the pool's list while holding a lock. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00205">205</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  207</span>{</div>
+<div class="line"><span class="lineno">  208</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a> *chunk;</div>
+<div class="line"><span class="lineno">  209</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> nbits = <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> &gt;&gt; pool-&gt;<a class="code hl_variable" href="structgen__pool.html#ab6635280055ebc487c513afa90368994">min_alloc_order</a>;</div>
+<div class="line"><span class="lineno">  210</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> nbytes = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a>) +</div>
+<div class="line"><span class="lineno">  211</span>                BITS_TO_LONGS(nbits) * <span class="keyword">sizeof</span>(long);</div>
+<div class="line"><span class="lineno">  212</span> </div>
+<div class="line"><span class="lineno">  213</span>    chunk = <a class="code hl_define" href="vmalloc_8h.html#a5a98e640b51e42b458cd21d2b92e60f7">vzalloc_node</a>(nbytes, nid);</div>
+<div class="line"><span class="lineno">  214</span>    <span class="keywordflow">if</span> (unlikely(chunk == NULL))</div>
+<div class="line"><span class="lineno">  215</span>        <span class="keywordflow">return</span> -ENOMEM;</div>
+<div class="line"><span class="lineno">  216</span> </div>
+<div class="line"><span class="lineno">  217</span>    chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#ac1b9ddab088b6e84d283eed37ad59b99">phys_addr</a> = phys;</div>
+<div class="line"><span class="lineno">  218</span>    chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#af5fbf27f219751fd0df54cc57f2e0825">start_addr</a> = virt;</div>
+<div class="line"><span class="lineno">  219</span>    chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#ab784657da62f16008f5f64abc77b4622">end_addr</a> = virt + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> - 1;</div>
+<div class="line"><span class="lineno">  220</span>    chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a> = <a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a>;</div>
+<div class="line"><span class="lineno">  221</span>    atomic_long_set(&amp;chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed">avail</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  222</span> </div>
+<div class="line"><span class="lineno">  223</span>    spin_lock(&amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a85a1abbd550a62df25a029cad18030f5">lock</a>);</div>
+<div class="line"><span class="lineno">  224</span>    list_add_rcu(&amp;chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>, &amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aeb6f5ba70df05d5b4228fa899d5a3c31">chunks</a>);</div>
+<div class="line"><span class="lineno">  225</span>    spin_unlock(&amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a85a1abbd550a62df25a029cad18030f5">lock</a>);</div>
+<div class="line"><span class="lineno">  226</span> </div>
+<div class="line"><span class="lineno">  227</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  228</span>}</div>
+<div class="ttc" id="astructgen__pool__chunk_html"><div class="ttname"><a href="structgen__pool__chunk.html">gen_pool_chunk</a></div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00079">genalloc.h:79</a></div></div>
+<div class="ttc" id="astructgen__pool__chunk_html_a06c04804fe96e8f29d1dbc26b3f08881"><div class="ttname"><a href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">gen_pool_chunk::next_chunk</a></div><div class="ttdeci">struct list_head next_chunk</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00080">genalloc.h:80</a></div></div>
+<div class="ttc" id="astructgen__pool__chunk_html_a0cd072bf291e6045e35512c79918f1ed"><div class="ttname"><a href="structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed">gen_pool_chunk::avail</a></div><div class="ttdeci">atomic_long_t avail</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00081">genalloc.h:81</a></div></div>
+<div class="ttc" id="astructgen__pool__chunk_html_a8c6b00377889653cdd5a00b80d6dc8c0"><div class="ttname"><a href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">gen_pool_chunk::owner</a></div><div class="ttdeci">void * owner</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00083">genalloc.h:83</a></div></div>
+<div class="ttc" id="astructgen__pool__chunk_html_ab784657da62f16008f5f64abc77b4622"><div class="ttname"><a href="structgen__pool__chunk.html#ab784657da62f16008f5f64abc77b4622">gen_pool_chunk::end_addr</a></div><div class="ttdeci">unsigned long end_addr</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00085">genalloc.h:85</a></div></div>
+<div class="ttc" id="astructgen__pool__chunk_html_ac1b9ddab088b6e84d283eed37ad59b99"><div class="ttname"><a href="structgen__pool__chunk.html#ac1b9ddab088b6e84d283eed37ad59b99">gen_pool_chunk::phys_addr</a></div><div class="ttdeci">phys_addr_t phys_addr</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00082">genalloc.h:82</a></div></div>
+<div class="ttc" id="astructgen__pool__chunk_html_af5fbf27f219751fd0df54cc57f2e0825"><div class="ttname"><a href="structgen__pool__chunk.html#af5fbf27f219751fd0df54cc57f2e0825">gen_pool_chunk::start_addr</a></div><div class="ttdeci">unsigned long start_addr</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00084">genalloc.h:84</a></div></div>
+<div class="ttc" id="astructgen__pool_html_a85a1abbd550a62df25a029cad18030f5"><div class="ttname"><a href="structgen__pool.html#a85a1abbd550a62df25a029cad18030f5">gen_pool::lock</a></div><div class="ttdeci">spinlock_t lock</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00063">genalloc.h:63</a></div></div>
+<div class="ttc" id="astructgen__pool_html_aeb6f5ba70df05d5b4228fa899d5a3c31"><div class="ttname"><a href="structgen__pool.html#aeb6f5ba70df05d5b4228fa899d5a3c31">gen_pool::chunks</a></div><div class="ttdeci">struct list_head chunks</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00064">genalloc.h:64</a></div></div>
+<div class="ttc" id="avmalloc_8h_html_a5a98e640b51e42b458cd21d2b92e60f7"><div class="ttname"><a href="vmalloc_8h.html#a5a98e640b51e42b458cd21d2b92e60f7">vzalloc_node</a></div><div class="ttdeci">#define vzalloc_node(...)</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8h_source.html#l00216">vmalloc.h:216</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a6bbb4ed72405a4ae46980f32111901d9_icgraph.svg" width="490" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a74665b05896ad50f71b158136fd919ad" name="a74665b05896ad50f71b158136fd919ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74665b05896ad50f71b158136fd919ad">&#9670;&#160;</a></span>gen_pool_add_virt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int gen_pool_add_virt </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structgen__pool.html">gen_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>addr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">phys_addr_t</td>          <td class="paramname"><span class="paramname"><em>phys</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nid</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Converts a virtual address to its corresponding physical address for a given pool. It searches through all chunks in the pool to find which chunk contains the address, then calculates and returns the physical address. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8h_source.html#l00117">117</a> of file <a class="el" href="genalloc_8h_source.html">genalloc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  119</span>{</div>
+<div class="line"><span class="lineno">  120</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a6bbb4ed72405a4ae46980f32111901d9">gen_pool_add_owner</a>(pool, addr, phys, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, nid, NULL);</div>
+<div class="line"><span class="lineno">  121</span>}</div>
+<div class="ttc" id="agenalloc_8h_html_a6bbb4ed72405a4ae46980f32111901d9"><div class="ttname"><a href="#a6bbb4ed72405a4ae46980f32111901d9">gen_pool_add_owner</a></div><div class="ttdeci">int gen_pool_add_owner(struct gen_pool *, unsigned long, phys_addr_t, size_t, int, void *)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00205">genalloc.c:205</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a74665b05896ad50f71b158136fd919ad_cgraph.svg" width="328" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a6bbb4ed72405a4ae46980f32111901d9_icgraph.svg" width="340" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a74665b05896ad50f71b158136fd919ad_icgraph.svg" width="287" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a638c4bdecbf8b382920089b335f75099" name="a638c4bdecbf8b382920089b335f75099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a638c4bdecbf8b382920089b335f75099">&#9670;&#160;</a></span>gen_pool_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long gen_pool_alloc </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structgen__pool.html">gen_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>gen_pool_alloc - allocate special memory from the pool @pool: pool to allocate from @size: number of bytes to allocate from the pool</p>
+<p>Allocate the requested number of bytes from the specified pool. Uses the pool allocation function (with first-fit algorithm by default). Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation.</p>
+<p>Function Description: Allocates memory from a pool using the default algorithm. This is the simplest allocation function that uses the pool's configured algorithm and data. Returns the allocated address or 0 on failure. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8h_source.html#l00179">179</a> of file <a class="el" href="genalloc_8h_source.html">genalloc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  180</span>{</div>
+<div class="line"><span class="lineno">  181</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a3ab7a8671a33ee60a3b3f65e97f1b586">gen_pool_alloc_algo</a>(pool, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa">algo</a>, pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aa769b13a0724616052f4ddf8d3102d38">data</a>);</div>
+<div class="line"><span class="lineno">  182</span>}</div>
+<div class="ttc" id="agenalloc_8h_html_a3ab7a8671a33ee60a3b3f65e97f1b586"><div class="ttname"><a href="#a3ab7a8671a33ee60a3b3f65e97f1b586">gen_pool_alloc_algo</a></div><div class="ttdeci">static unsigned long gen_pool_alloc_algo(struct gen_pool *pool, size_t size, genpool_algo_t algo, void *data)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00160">genalloc.h:160</a></div></div>
+<div class="ttc" id="astructgen__pool_html_a1c9e9591a20e518a5ee5653566e978fa"><div class="ttname"><a href="structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa">gen_pool::algo</a></div><div class="ttdeci">genpool_algo_t algo</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00067">genalloc.h:67</a></div></div>
+<div class="ttc" id="astructgen__pool_html_aa769b13a0724616052f4ddf8d3102d38"><div class="ttname"><a href="structgen__pool.html#aa769b13a0724616052f4ddf8d3102d38">gen_pool::data</a></div><div class="ttdeci">void * data</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00068">genalloc.h:68</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a638c4bdecbf8b382920089b335f75099_cgraph.svg" width="786" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3ab7a8671a33ee60a3b3f65e97f1b586" name="a3ab7a8671a33ee60a3b3f65e97f1b586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ab7a8671a33ee60a3b3f65e97f1b586">&#9670;&#160;</a></span>gen_pool_alloc_algo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long gen_pool_alloc_algo </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structgen__pool.html">gen_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a003652a94f6f84df23fbdeb4fb381c13">genpool_algo_t</a></td>          <td class="paramname"><span class="paramname"><em>algo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Allocates memory from a pool using a specified algorithm without returning the owner. It calls <a class="el" href="#a82613a35becfc3fe664a8cc55b28d858">gen_pool_alloc_algo_owner()</a> with NULL for the owner pointer. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8h_source.html#l00160">160</a> of file <a class="el" href="genalloc_8h_source.html">genalloc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  162</span>{</div>
+<div class="line"><span class="lineno">  163</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a82613a35becfc3fe664a8cc55b28d858">gen_pool_alloc_algo_owner</a>(pool, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, algo, data, NULL);</div>
+<div class="line"><span class="lineno">  164</span>}</div>
+<div class="ttc" id="agenalloc_8h_html_a82613a35becfc3fe664a8cc55b28d858"><div class="ttname"><a href="#a82613a35becfc3fe664a8cc55b28d858">gen_pool_alloc_algo_owner</a></div><div class="ttdeci">unsigned long gen_pool_alloc_algo_owner(struct gen_pool *pool, size_t size, genpool_algo_t algo, void *data, void **owner)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00307">genalloc.c:307</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a3ab7a8671a33ee60a3b3f65e97f1b586_cgraph.svg" width="631" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a3ab7a8671a33ee60a3b3f65e97f1b586_icgraph.svg" width="972" height="311"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -329,11 +634,116 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>gen_pool_alloc_algo_owner - allocate special memory from the pool @pool: pool to allocate from @size: number of bytes to allocate from the pool @algo: algorithm passed from caller @data: data passed to algorithm @owner: optionally retrieve the chunk owner</p>
-<p>Allocate the requested number of bytes from the specified pool. Uses the pool allocation function (with first-fit algorithm by default). Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation. </p>
+<p>Allocate the requested number of bytes from the specified pool. Uses the pool allocation function (with first-fit algorithm by default). Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation.</p>
+<p>Function Description: Allocates memory from a pool using a specified allocation algorithm. It calculates how many bits are needed for the requested size, searches through each chunk to find a free region using the algorithm, and then atomically sets the bits to mark them as allocated. It also updates the available space counter and optionally returns the chunk owner. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00307">307</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  309</span>{</div>
+<div class="line"><span class="lineno">  310</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a> *chunk;</div>
+<div class="line"><span class="lineno">  311</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> addr = 0;</div>
+<div class="line"><span class="lineno">  312</span>    <span class="keywordtype">int</span> order = pool-&gt;<a class="code hl_variable" href="structgen__pool.html#ab6635280055ebc487c513afa90368994">min_alloc_order</a>;</div>
+<div class="line"><span class="lineno">  313</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> nbits, start_bit, end_bit, remain;</div>
+<div class="line"><span class="lineno">  314</span> </div>
+<div class="line"><span class="lineno">  315</span><span class="preprocessor">#ifndef CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG</span></div>
+<div class="line"><span class="lineno">  316</span>    BUG_ON(in_nmi());</div>
+<div class="line"><span class="lineno">  317</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  318</span> </div>
+<div class="line"><span class="lineno">  319</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a>)</div>
+<div class="line"><span class="lineno">  320</span>        *<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a> = NULL;</div>
+<div class="line"><span class="lineno">  321</span> </div>
+<div class="line"><span class="lineno">  322</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> == 0)</div>
+<div class="line"><span class="lineno">  323</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  324</span> </div>
+<div class="line"><span class="lineno">  325</span>    nbits = (<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> + (1UL &lt;&lt; order) - 1) &gt;&gt; order;</div>
+<div class="line"><span class="lineno">  326</span>    rcu_read_lock();</div>
+<div class="line"><span class="lineno">  327</span>    list_for_each_entry_rcu(chunk, &amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aeb6f5ba70df05d5b4228fa899d5a3c31">chunks</a>, <a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>) {</div>
+<div class="line"><span class="lineno">  328</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> &gt; atomic_long_read(&amp;chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed">avail</a>))</div>
+<div class="line"><span class="lineno">  329</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  330</span> </div>
+<div class="line"><span class="lineno">  331</span>        start_bit = 0;</div>
+<div class="line"><span class="lineno">  332</span>        end_bit = <a class="code hl_function" href="genalloc_8c.html#a825cdd577934de7258cbece402ea50d4">chunk_size</a>(chunk) &gt;&gt; order;</div>
+<div class="line"><span class="lineno">  333</span>retry:</div>
+<div class="line"><span class="lineno">  334</span>        start_bit = algo(chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a8affb9cabbc99068dd9ca9950f9d7c49">bits</a>, end_bit, start_bit,</div>
+<div class="line"><span class="lineno">  335</span>                 nbits, data, pool, chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#af5fbf27f219751fd0df54cc57f2e0825">start_addr</a>);</div>
+<div class="line"><span class="lineno">  336</span>        <span class="keywordflow">if</span> (start_bit &gt;= end_bit)</div>
+<div class="line"><span class="lineno">  337</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  338</span>        remain = <a class="code hl_function" href="genalloc_8c.html#a03d24dd11c59191e1ed2d4971903591f">bitmap_set_ll</a>(chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a8affb9cabbc99068dd9ca9950f9d7c49">bits</a>, start_bit, nbits);</div>
+<div class="line"><span class="lineno">  339</span>        <span class="keywordflow">if</span> (remain) {</div>
+<div class="line"><span class="lineno">  340</span>            remain = <a class="code hl_function" href="genalloc_8c.html#a7980772fd92ca024173bc874aa1e57b2">bitmap_clear_ll</a>(chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a8affb9cabbc99068dd9ca9950f9d7c49">bits</a>, start_bit,</div>
+<div class="line"><span class="lineno">  341</span>                         nbits - remain);</div>
+<div class="line"><span class="lineno">  342</span>            BUG_ON(remain);</div>
+<div class="line"><span class="lineno">  343</span>            <span class="keywordflow">goto</span> retry;</div>
+<div class="line"><span class="lineno">  344</span>        }</div>
+<div class="line"><span class="lineno">  345</span> </div>
+<div class="line"><span class="lineno">  346</span>        addr = chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#af5fbf27f219751fd0df54cc57f2e0825">start_addr</a> + ((<span class="keywordtype">unsigned</span> long)start_bit &lt;&lt; order);</div>
+<div class="line"><span class="lineno">  347</span>        <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = nbits &lt;&lt; order;</div>
+<div class="line"><span class="lineno">  348</span>        atomic_long_sub(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, &amp;chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed">avail</a>);</div>
+<div class="line"><span class="lineno">  349</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a>)</div>
+<div class="line"><span class="lineno">  350</span>            *<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a> = chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a>;</div>
+<div class="line"><span class="lineno">  351</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  352</span>    }</div>
+<div class="line"><span class="lineno">  353</span>    rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  354</span>    <span class="keywordflow">return</span> addr;</div>
+<div class="line"><span class="lineno">  355</span>}</div>
+<div class="ttc" id="agenalloc_8c_html_a03d24dd11c59191e1ed2d4971903591f"><div class="ttname"><a href="genalloc_8c.html#a03d24dd11c59191e1ed2d4971903591f">bitmap_set_ll</a></div><div class="ttdeci">static unsigned long bitmap_set_ll(unsigned long *map, unsigned long start, unsigned long nr)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00097">genalloc.c:97</a></div></div>
+<div class="ttc" id="agenalloc_8c_html_a7980772fd92ca024173bc874aa1e57b2"><div class="ttname"><a href="genalloc_8c.html#a7980772fd92ca024173bc874aa1e57b2">bitmap_clear_ll</a></div><div class="ttdeci">static unsigned long bitmap_clear_ll(unsigned long *map, unsigned long start, unsigned long nr)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00136">genalloc.c:136</a></div></div>
+<div class="ttc" id="agenalloc_8c_html_a825cdd577934de7258cbece402ea50d4"><div class="ttname"><a href="genalloc_8c.html#a825cdd577934de7258cbece402ea50d4">chunk_size</a></div><div class="ttdeci">static size_t chunk_size(const struct gen_pool_chunk *chunk)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00043">genalloc.c:43</a></div></div>
+<div class="ttc" id="astructgen__pool__chunk_html_a8affb9cabbc99068dd9ca9950f9d7c49"><div class="ttname"><a href="structgen__pool__chunk.html#a8affb9cabbc99068dd9ca9950f9d7c49">gen_pool_chunk::bits</a></div><div class="ttdeci">unsigned long bits[]</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00086">genalloc.h:86</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a82613a35becfc3fe664a8cc55b28d858_cgraph.svg" width="444" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a82613a35becfc3fe664a8cc55b28d858_icgraph.svg" width="335" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a82613a35becfc3fe664a8cc55b28d858_icgraph.svg" width="1170" height="311"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a117c4c52cbbade37f957d4058f121798" name="a117c4c52cbbade37f957d4058f121798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a117c4c52cbbade37f957d4058f121798">&#9670;&#160;</a></span>gen_pool_alloc_owner()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long gen_pool_alloc_owner </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structgen__pool.html">gen_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void **</td>          <td class="paramname"><span class="paramname"><em>owner</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Allocates memory from a pool using the pool's default algorithm and optionally returns the chunk owner. It calls <a class="el" href="#a82613a35becfc3fe664a8cc55b28d858">gen_pool_alloc_algo_owner()</a> with the pool's algorithm and data. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8h_source.html#l00150">150</a> of file <a class="el" href="genalloc_8h_source.html">genalloc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  152</span>{</div>
+<div class="line"><span class="lineno">  153</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a82613a35becfc3fe664a8cc55b28d858">gen_pool_alloc_algo_owner</a>(pool, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa">algo</a>, pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aa769b13a0724616052f4ddf8d3102d38">data</a>,</div>
+<div class="line"><span class="lineno">  154</span>            owner);</div>
+<div class="line"><span class="lineno">  155</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a117c4c52cbbade37f957d4058f121798_cgraph.svg" width="642" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -361,8 +771,21 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>gen_pool_avail - get available free space of the pool @pool: pool to get available free space</p>
-<p>Return available free space of the specified pool. </p>
-<div class="dynheader">
+<p>Return available free space of the specified pool.</p>
+<p>Function Description: Calculates and returns the total available free space in a pool. It goes through all chunks in the pool, reads the available space counter for each chunk, and adds them together to get the total free space. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00639">639</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  640</span>{</div>
+<div class="line"><span class="lineno">  641</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a> *chunk;</div>
+<div class="line"><span class="lineno">  642</span>    <span class="keywordtype">size_t</span> <a class="code hl_variable" href="structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed">avail</a> = 0;</div>
+<div class="line"><span class="lineno">  643</span> </div>
+<div class="line"><span class="lineno">  644</span>    rcu_read_lock();</div>
+<div class="line"><span class="lineno">  645</span>    list_for_each_entry_rcu(chunk, &amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aeb6f5ba70df05d5b4228fa899d5a3c31">chunks</a>, <a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>)</div>
+<div class="line"><span class="lineno">  646</span>        <a class="code hl_variable" href="structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed">avail</a> += atomic_long_read(&amp;chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed">avail</a>);</div>
+<div class="line"><span class="lineno">  647</span>    rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  648</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed">avail</a>;</div>
+<div class="line"><span class="lineno">  649</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_abf9d26abd849226744e15c1cecbe94ff_icgraph.svg" width="336" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -422,8 +845,33 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>gen_pool_best_fit - find the best fitting region of memory matching the size requirement (no alignment constraint) @map: The address to base the search on @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: additional data - unused @pool: pool to find the fit region memory from @start_addr: not used in this function</p>
-<p>Iterate over the bitmap to find the smallest free region which we can allocate the memory. </p>
-<div class="dynheader">
+<p>Iterate over the bitmap to find the smallest free region which we can allocate the memory.</p>
+<p>Function Description: Finds the best-fitting free region that matches the size requirement. Unlike first-fit which stops at the first available region, this searches through all free regions and returns the smallest region that can accommodate the request, which helps reduce memory fragmentation. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00834">834</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  837</span>{</div>
+<div class="line"><span class="lineno">  838</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> start_bit = <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno">  839</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a7360b55975153b822efc5217b7734e6a">len</a> = <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> + 1;</div>
+<div class="line"><span class="lineno">  840</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> index;</div>
+<div class="line"><span class="lineno">  841</span> </div>
+<div class="line"><span class="lineno">  842</span>    index = bitmap_find_next_zero_area(map, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, start, nr, 0);</div>
+<div class="line"><span class="lineno">  843</span> </div>
+<div class="line"><span class="lineno">  844</span>    <span class="keywordflow">while</span> (index &lt; <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>) {</div>
+<div class="line"><span class="lineno">  845</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> next_bit = find_next_bit(map, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, index + nr);</div>
+<div class="line"><span class="lineno">  846</span>        <span class="keywordflow">if</span> ((next_bit - index) &lt; <a class="code hl_variable" href="include_2linux_2slab_8h.html#a7360b55975153b822efc5217b7734e6a">len</a>) {</div>
+<div class="line"><span class="lineno">  847</span>            <a class="code hl_variable" href="include_2linux_2slab_8h.html#a7360b55975153b822efc5217b7734e6a">len</a> = next_bit - index;</div>
+<div class="line"><span class="lineno">  848</span>            start_bit = index;</div>
+<div class="line"><span class="lineno">  849</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="include_2linux_2slab_8h.html#a7360b55975153b822efc5217b7734e6a">len</a> == nr)</div>
+<div class="line"><span class="lineno">  850</span>                <span class="keywordflow">return</span> start_bit;</div>
+<div class="line"><span class="lineno">  851</span>        }</div>
+<div class="line"><span class="lineno">  852</span>        index = bitmap_find_next_zero_area(map, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>,</div>
+<div class="line"><span class="lineno">  853</span>                           next_bit + 1, nr, 0);</div>
+<div class="line"><span class="lineno">  854</span>    }</div>
+<div class="line"><span class="lineno">  855</span> </div>
+<div class="line"><span class="lineno">  856</span>    <span class="keywordflow">return</span> start_bit;</div>
+<div class="line"><span class="lineno">  857</span>}</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a7360b55975153b822efc5217b7734e6a"><div class="ttname"><a href="include_2linux_2slab_8h.html#a7360b55975153b822efc5217b7734e6a">len</a></div><div class="ttdeci">size_t len</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01356">slab.h:1356</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a36dee0d2e8f3847a1a3fa968c2250c5f_icgraph.svg" width="320" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -458,8 +906,27 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>gen_pool_create - create a new special memory pool @min_alloc_order: log base 2 of number of bytes each bitmap bit represents @nid: node id of the node the pool structure should be allocated on, or -1</p>
-<p>Create a new special memory pool that can be used to manage special purpose memory not managed by the regular kmalloc/kfree interface. </p>
-<div class="dynheader">
+<p>Create a new special memory pool that can be used to manage special purpose memory not managed by the regular kmalloc/kfree interface.</p>
+<p>Function Description: Creates a new memory pool and initializes it. It allocates memory for the pool structure, sets up a lock to protect the pool, initializes the list of memory chunks, and sets the default allocation algorithm to first-fit. It returns the newly created pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00171">171</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  172</span>{</div>
+<div class="line"><span class="lineno">  173</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool.html">gen_pool</a> *pool;</div>
+<div class="line"><span class="lineno">  174</span> </div>
+<div class="line"><span class="lineno">  175</span>    pool = <a class="code hl_define" href="include_2linux_2slab_8h.html#a54e25ef96b7c67f1ac00e8e9d5bca0d7">kmalloc_node</a>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structgen__pool.html">gen_pool</a>), <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>, nid);</div>
+<div class="line"><span class="lineno">  176</span>    <span class="keywordflow">if</span> (pool != NULL) {</div>
+<div class="line"><span class="lineno">  177</span>        spin_lock_init(&amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a85a1abbd550a62df25a029cad18030f5">lock</a>);</div>
+<div class="line"><span class="lineno">  178</span>        INIT_LIST_HEAD(&amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aeb6f5ba70df05d5b4228fa899d5a3c31">chunks</a>);</div>
+<div class="line"><span class="lineno">  179</span>        pool-&gt;<a class="code hl_variable" href="structgen__pool.html#ab6635280055ebc487c513afa90368994">min_alloc_order</a> = <a class="code hl_variable" href="structgen__pool.html#ab6635280055ebc487c513afa90368994">min_alloc_order</a>;</div>
+<div class="line"><span class="lineno">  180</span>        pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa">algo</a> = <a class="code hl_function" href="#ac466225a70c860ee95668633a1861a9e">gen_pool_first_fit</a>;</div>
+<div class="line"><span class="lineno">  181</span>        pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aa769b13a0724616052f4ddf8d3102d38">data</a> = NULL;</div>
+<div class="line"><span class="lineno">  182</span>        pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a> = NULL;</div>
+<div class="line"><span class="lineno">  183</span>    }</div>
+<div class="line"><span class="lineno">  184</span>    <span class="keywordflow">return</span> pool;</div>
+<div class="line"><span class="lineno">  185</span>}</div>
+<div class="ttc" id="agenalloc_8h_html_ac466225a70c860ee95668633a1861a9e"><div class="ttname"><a href="#ac466225a70c860ee95668633a1861a9e">gen_pool_first_fit</a></div><div class="ttdeci">unsigned long gen_pool_first_fit(unsigned long *map, unsigned long size, unsigned long start, unsigned int nr, void *data, struct gen_pool *pool, unsigned long start_addr)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00715">genalloc.c:715</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a54e25ef96b7c67f1ac00e8e9d5bca0d7"><div class="ttname"><a href="include_2linux_2slab_8h.html#a54e25ef96b7c67f1ac00e8e9d5bca0d7">kmalloc_node</a></div><div class="ttdeci">#define kmalloc_node(...)</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01178">slab.h:1178</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a146cdd0d92177f877acb0e82ad65a3f0_cgraph.svg" width="296" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -495,16 +962,40 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>gen_pool_destroy - destroy a special memory pool @pool: pool to destroy</p>
-<p>Destroy the specified special memory pool. Verifies that there are no outstanding allocations. </p>
-<div class="dynheader">
+<p>Destroy the specified special memory pool. Verifies that there are no outstanding allocations.</p>
+<p>Function Description: Destroys a memory pool and frees all its memory. It goes through each chunk in the pool, verifies that all bits are free (no active allocations), removes the chunk from the list, and frees it. It then frees the pool structure itself. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00269">269</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  270</span>{</div>
+<div class="line"><span class="lineno">  271</span>    <span class="keyword">struct </span>list_head *_chunk, *_next_chunk;</div>
+<div class="line"><span class="lineno">  272</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a> *chunk;</div>
+<div class="line"><span class="lineno">  273</span>    <span class="keywordtype">int</span> order = pool-&gt;<a class="code hl_variable" href="structgen__pool.html#ab6635280055ebc487c513afa90368994">min_alloc_order</a>;</div>
+<div class="line"><span class="lineno">  274</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> bit, end_bit;</div>
+<div class="line"><span class="lineno">  275</span> </div>
+<div class="line"><span class="lineno">  276</span>    list_for_each_safe(_chunk, _next_chunk, &amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aeb6f5ba70df05d5b4228fa899d5a3c31">chunks</a>) {</div>
+<div class="line"><span class="lineno">  277</span>        chunk = list_entry(_chunk, <span class="keyword">struct</span> <a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a>, <a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>);</div>
+<div class="line"><span class="lineno">  278</span>        list_del(&amp;chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>);</div>
+<div class="line"><span class="lineno">  279</span> </div>
+<div class="line"><span class="lineno">  280</span>        end_bit = <a class="code hl_function" href="genalloc_8c.html#a825cdd577934de7258cbece402ea50d4">chunk_size</a>(chunk) &gt;&gt; order;</div>
+<div class="line"><span class="lineno">  281</span>        bit = find_first_bit(chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a8affb9cabbc99068dd9ca9950f9d7c49">bits</a>, end_bit);</div>
+<div class="line"><span class="lineno">  282</span>        BUG_ON(bit &lt; end_bit);</div>
+<div class="line"><span class="lineno">  283</span> </div>
+<div class="line"><span class="lineno">  284</span>        <a class="code hl_function" href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vfree</a>(chunk);</div>
+<div class="line"><span class="lineno">  285</span>    }</div>
+<div class="line"><span class="lineno">  286</span>    kfree_const(pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a>);</div>
+<div class="line"><span class="lineno">  287</span>    <a class="code hl_function" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>(pool);</div>
+<div class="line"><span class="lineno">  288</span>}</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a5273884a01705283d2b9e4262a8e6da3"><div class="ttname"><a href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a></div><div class="ttdeci">void kfree(const void *objp)</div><div class="ttdef"><b>Definition</b> <a href="slub_8c_source.html#l07184">slub.c:7184</a></div></div>
+<div class="ttc" id="avmalloc_8h_html_a2aeead9450a5b920c65bea908edead23"><div class="ttname"><a href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vfree</a></div><div class="ttdeci">void vfree(const void *addr)</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8c_source.html#l03839">vmalloc.c:3839</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ab782c5e04a75eab0ac1ce226f08349ff_cgraph.svg" width="566" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ab782c5e04a75eab0ac1ce226f08349ff_cgraph.svg" width="1528" height="1312"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ab782c5e04a75eab0ac1ce226f08349ff_icgraph.svg" width="320" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ab782c5e04a75eab0ac1ce226f08349ff_icgraph.svg" width="927" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -542,11 +1033,18 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>gen_pool_dma_alloc - allocate special memory from the pool for DMA usage @pool: pool to allocate from @size: number of bytes to allocate from the pool @dma: dma-view physical address return value. Use NULL if unneeded.</p>
 <p>Allocate the requested number of bytes from the specified pool. Uses the pool allocation function (with first-fit algorithm by default). Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation.</p>
-<p>Return: virtual address of the allocated memory, or NULL on failure </p>
-<div class="dynheader">
+<p>Return: virtual address of the allocated memory, or NULL on failure</p>
+<p>Function Description: Allocates memory from a pool for DMA usage using the default allocation algorithm. It is a wrapper that calls the more general allocation function and also returns the physical address needed for DMA operations. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00374">374</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  375</span>{</div>
+<div class="line"><span class="lineno">  376</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="genalloc_8c.html#a8dcfb3a3ff80f3b8a1a96ba03c2edfd7">gen_pool_dma_alloc_algo</a>(pool, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, dma, pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa">algo</a>, pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aa769b13a0724616052f4ddf8d3102d38">data</a>);</div>
+<div class="line"><span class="lineno">  377</span>}</div>
+<div class="ttc" id="agenalloc_8c_html_a8dcfb3a3ff80f3b8a1a96ba03c2edfd7"><div class="ttname"><a href="genalloc_8c.html#a8dcfb3a3ff80f3b8a1a96ba03c2edfd7">gen_pool_dma_alloc_algo</a></div><div class="ttdeci">void * gen_pool_dma_alloc_algo(struct gen_pool *pool, size_t size, dma_addr_t *dma, genpool_algo_t algo, void *data)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00398">genalloc.c:398</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a0e80b0d79e7be055aa7f52941388e71c_cgraph.svg" width="568" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a0e80b0d79e7be055aa7f52941388e71c_cgraph.svg" width="1050" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -599,11 +1097,30 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>gen_pool_dma_alloc_algo - allocate special memory from the pool for DMA usage with the given pool algorithm @pool: pool to allocate from @size: number of bytes to allocate from the pool @dma: DMA-view physical address return value. Use NULL if unneeded. @algo: algorithm passed from caller @data: data passed to algorithm</p>
 <p>Allocate the requested number of bytes from the specified pool. Uses the given pool allocation function. Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation.</p>
-<p>Return: virtual address of the allocated memory, or NULL on failure </p>
-<div class="dynheader">
+<p>Return: virtual address of the allocated memory, or NULL on failure</p>
+<p>Function Description: Allocates memory from a pool for DMA usage using a specified allocation algorithm. It calls the main allocation function to get a virtual address and then converts that address to a physical address for DMA. It returns the virtual address or NULL on failure. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00398">398</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  400</span>{</div>
+<div class="line"><span class="lineno">  401</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> vaddr;</div>
+<div class="line"><span class="lineno">  402</span> </div>
+<div class="line"><span class="lineno">  403</span>    <span class="keywordflow">if</span> (!pool)</div>
+<div class="line"><span class="lineno">  404</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  405</span> </div>
+<div class="line"><span class="lineno">  406</span>    vaddr = <a class="code hl_function" href="#a3ab7a8671a33ee60a3b3f65e97f1b586">gen_pool_alloc_algo</a>(pool, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, algo, data);</div>
+<div class="line"><span class="lineno">  407</span>    <span class="keywordflow">if</span> (!vaddr)</div>
+<div class="line"><span class="lineno">  408</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  409</span> </div>
+<div class="line"><span class="lineno">  410</span>    <span class="keywordflow">if</span> (dma)</div>
+<div class="line"><span class="lineno">  411</span>        *dma = <a class="code hl_function" href="genalloc_8c.html#ae1e0cbb9c097e2231bdc2b6fb95b72f1">gen_pool_virt_to_phys</a>(pool, vaddr);</div>
+<div class="line"><span class="lineno">  412</span> </div>
+<div class="line"><span class="lineno">  413</span>    <span class="keywordflow">return</span> (<span class="keywordtype">void</span> *)vaddr;</div>
+<div class="line"><span class="lineno">  414</span>}</div>
+<div class="ttc" id="agenalloc_8c_html_ae1e0cbb9c097e2231bdc2b6fb95b72f1"><div class="ttname"><a href="genalloc_8c.html#ae1e0cbb9c097e2231bdc2b6fb95b72f1">gen_pool_virt_to_phys</a></div><div class="ttdeci">phys_addr_t gen_pool_virt_to_phys(struct gen_pool *pool, unsigned long addr)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00241">genalloc.c:241</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a8dcfb3a3ff80f3b8a1a96ba03c2edfd7_cgraph.svg" width="380" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a8dcfb3a3ff80f3b8a1a96ba03c2edfd7_cgraph.svg" width="862" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -651,11 +1168,23 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>gen_pool_dma_alloc_align - allocate special memory from the pool for DMA usage with the given alignment @pool: pool to allocate from @size: number of bytes to allocate from the pool @dma: DMA-view physical address return value. Use NULL if unneeded. @align: alignment in bytes for starting address</p>
 <p>Allocate the requested number bytes from the specified pool, with the given alignment restriction. Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation.</p>
-<p>Return: virtual address of the allocated memory, or NULL on failure </p>
-<div class="dynheader">
+<p>Return: virtual address of the allocated memory, or NULL on failure</p>
+<p>Function Description: Allocates memory from a pool for DMA usage with a specific alignment requirement. It creates alignment data and passes it to the allocation function that handles aligned allocations. The allocated memory will start at an address aligned to the specified number of bytes. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00434">434</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  436</span>{</div>
+<div class="line"><span class="lineno">  437</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgenpool__data__align.html">genpool_data_align</a> data = { .align = <a class="code hl_variable" href="structgenpool__data__align.html#afd23b3b4df1c47592a4fff8ff9837c81">align</a> };</div>
+<div class="line"><span class="lineno">  438</span> </div>
+<div class="line"><span class="lineno">  439</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="genalloc_8c.html#a8dcfb3a3ff80f3b8a1a96ba03c2edfd7">gen_pool_dma_alloc_algo</a>(pool, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, dma,</div>
+<div class="line"><span class="lineno">  440</span>            <a class="code hl_function" href="#abcb446ba2274747cccf6c76bc7f3d1e7">gen_pool_first_fit_align</a>, &amp;data);</div>
+<div class="line"><span class="lineno">  441</span>}</div>
+<div class="ttc" id="agenalloc_8h_html_abcb446ba2274747cccf6c76bc7f3d1e7"><div class="ttname"><a href="#abcb446ba2274747cccf6c76bc7f3d1e7">gen_pool_first_fit_align</a></div><div class="ttdeci">unsigned long gen_pool_first_fit_align(unsigned long *map, unsigned long size, unsigned long start, unsigned int nr, void *data, struct gen_pool *pool, unsigned long start_addr)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00737">genalloc.c:737</a></div></div>
+<div class="ttc" id="astructgenpool__data__align_html"><div class="ttname"><a href="structgenpool__data__align.html">genpool_data_align</a></div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00095">genalloc.h:95</a></div></div>
+<div class="ttc" id="astructgenpool__data__align_html_afd23b3b4df1c47592a4fff8ff9837c81"><div class="ttname"><a href="structgenpool__data__align.html#afd23b3b4df1c47592a4fff8ff9837c81">genpool_data_align::align</a></div><div class="ttdeci">int align</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00096">genalloc.h:96</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a478a87b2d64503c96a7d695e455cca39_cgraph.svg" width="568" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a478a87b2d64503c96a7d695e455cca39_cgraph.svg" width="1050" height="180"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -698,11 +1227,18 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>gen_pool_dma_zalloc - allocate special zeroed memory from the pool for DMA usage @pool: pool to allocate from @size: number of bytes to allocate from the pool @dma: dma-view physical address return value. Use NULL if unneeded.</p>
 <p>Allocate the requested number of zeroed bytes from the specified pool. Uses the pool allocation function (with first-fit algorithm by default). Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation.</p>
-<p>Return: virtual address of the allocated zeroed memory, or NULL on failure </p>
-<div class="dynheader">
+<p>Return: virtual address of the allocated zeroed memory, or NULL on failure</p>
+<p>Function Description: Allocates zeroed memory from a pool for DMA usage using the default algorithm. It allocates memory and then fills it with zeros before returning. This is useful when you need initialized memory for DMA operations. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00461">461</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  462</span>{</div>
+<div class="line"><span class="lineno">  463</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="genalloc_8c.html#a9522b66c91e04060b5d648b1798e52e1">gen_pool_dma_zalloc_algo</a>(pool, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, dma, pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa">algo</a>, pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aa769b13a0724616052f4ddf8d3102d38">data</a>);</div>
+<div class="line"><span class="lineno">  464</span>}</div>
+<div class="ttc" id="agenalloc_8c_html_a9522b66c91e04060b5d648b1798e52e1"><div class="ttname"><a href="genalloc_8c.html#a9522b66c91e04060b5d648b1798e52e1">gen_pool_dma_zalloc_algo</a></div><div class="ttdeci">void * gen_pool_dma_zalloc_algo(struct gen_pool *pool, size_t size, dma_addr_t *dma, genpool_algo_t algo, void *data)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00485">genalloc.c:485</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a80adf974063384cfebce3aa1ddacf7cb_cgraph.svg" width="800" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a80adf974063384cfebce3aa1ddacf7cb_cgraph.svg" width="1282" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -755,11 +1291,22 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>gen_pool_dma_zalloc_algo - allocate special zeroed memory from the pool for DMA usage with the given pool algorithm @pool: pool to allocate from @size: number of bytes to allocate from the pool @dma: DMA-view physical address return value. Use NULL if unneeded. @algo: algorithm passed from caller @data: data passed to algorithm</p>
 <p>Allocate the requested number of zeroed bytes from the specified pool. Uses the given pool allocation function. Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation.</p>
-<p>Return: virtual address of the allocated zeroed memory, or NULL on failure </p>
-<div class="dynheader">
+<p>Return: virtual address of the allocated zeroed memory, or NULL on failure</p>
+<p>Function Description: Allocates zeroed memory from a pool for DMA usage using a specified algorithm. It allocates memory using the given algorithm, then zeroes the allocated memory before returning it to ensure no sensitive data is exposed. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00485">485</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  487</span>{</div>
+<div class="line"><span class="lineno">  488</span>    <span class="keywordtype">void</span> *vaddr = <a class="code hl_function" href="genalloc_8c.html#a8dcfb3a3ff80f3b8a1a96ba03c2edfd7">gen_pool_dma_alloc_algo</a>(pool, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, dma, algo, data);</div>
+<div class="line"><span class="lineno">  489</span> </div>
+<div class="line"><span class="lineno">  490</span>    <span class="keywordflow">if</span> (vaddr)</div>
+<div class="line"><span class="lineno">  491</span>        memset(vaddr, 0, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  492</span> </div>
+<div class="line"><span class="lineno">  493</span>    <span class="keywordflow">return</span> vaddr;</div>
+<div class="line"><span class="lineno">  494</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a9522b66c91e04060b5d648b1798e52e1_cgraph.svg" width="606" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a9522b66c91e04060b5d648b1798e52e1_cgraph.svg" width="1087" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -807,11 +1354,20 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>gen_pool_dma_zalloc_align - allocate special zeroed memory from the pool for DMA usage with the given alignment @pool: pool to allocate from @size: number of bytes to allocate from the pool @dma: DMA-view physical address return value. Use NULL if unneeded. @align: alignment in bytes for starting address</p>
 <p>Allocate the requested number of zeroed bytes from the specified pool, with the given alignment restriction. Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation.</p>
-<p>Return: virtual address of the allocated zeroed memory, or NULL on failure </p>
-<div class="dynheader">
+<p>Return: virtual address of the allocated zeroed memory, or NULL on failure</p>
+<p>Function Description: Allocates zeroed memory from a pool for DMA usage with alignment requirements. It combines alignment and zeroing features, ensuring the allocated memory is properly aligned and filled with zeros. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00514">514</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  516</span>{</div>
+<div class="line"><span class="lineno">  517</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgenpool__data__align.html">genpool_data_align</a> data = { .align = <a class="code hl_variable" href="structgenpool__data__align.html#afd23b3b4df1c47592a4fff8ff9837c81">align</a> };</div>
+<div class="line"><span class="lineno">  518</span> </div>
+<div class="line"><span class="lineno">  519</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="genalloc_8c.html#a9522b66c91e04060b5d648b1798e52e1">gen_pool_dma_zalloc_algo</a>(pool, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, dma,</div>
+<div class="line"><span class="lineno">  520</span>            <a class="code hl_function" href="#abcb446ba2274747cccf6c76bc7f3d1e7">gen_pool_first_fit_align</a>, &amp;data);</div>
+<div class="line"><span class="lineno">  521</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ad6df8bca0978ebd19f79b6b327b468fb_cgraph.svg" width="800" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ad6df8bca0978ebd19f79b6b327b468fb_cgraph.svg" width="1282" height="180"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -872,8 +1428,14 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>gen_pool_first_fit - find the first available region of memory matching the size requirement (no alignment constraint) @map: The address to base the search on @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: additional data - unused @pool: pool to find the fit region memory from @start_addr: not used in this function </p>
-<div class="dynheader">
+<p>gen_pool_first_fit - find the first available region of memory matching the size requirement (no alignment constraint) @map: The address to base the search on @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: additional data - unused @pool: pool to find the fit region memory from @start_addr: not used in this function</p>
+<p>Function Description: Finds the first free region in a bitmap that can accommodate the requested number of bits. It searches from the given start position and returns the starting bit of the first available region that is large enough, without any alignment requirements. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00715">715</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  718</span>{</div>
+<div class="line"><span class="lineno">  719</span>    <span class="keywordflow">return</span> bitmap_find_next_zero_area(map, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, start, nr, 0);</div>
+<div class="line"><span class="lineno">  720</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ac466225a70c860ee95668633a1861a9e_icgraph.svg" width="706" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -932,8 +1494,24 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>gen_pool_first_fit_align - find the first available region of memory matching the size requirement (alignment constraint) @map: The address to base the search on @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: data for alignment @pool: pool to get order from @start_addr: start addr of alloction chunk </p>
-<div class="dynheader">
+<p>gen_pool_first_fit_align - find the first available region of memory matching the size requirement (alignment constraint) @map: The address to base the search on @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: data for alignment @pool: pool to get order from @start_addr: start addr of alloction chunk</p>
+<p>Function Description: Finds the first free region in a bitmap that meets both size and alignment requirements. It calculates alignment mask and offset based on the chunk's start address and the requested alignment, then searches for a suitable region that satisfies both conditions. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00737">737</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  740</span>{</div>
+<div class="line"><span class="lineno">  741</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgenpool__data__align.html">genpool_data_align</a> *alignment;</div>
+<div class="line"><span class="lineno">  742</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> align_mask, align_off;</div>
+<div class="line"><span class="lineno">  743</span>    <span class="keywordtype">int</span> order;</div>
+<div class="line"><span class="lineno">  744</span> </div>
+<div class="line"><span class="lineno">  745</span>    alignment = data;</div>
+<div class="line"><span class="lineno">  746</span>    order = pool-&gt;<a class="code hl_variable" href="structgen__pool.html#ab6635280055ebc487c513afa90368994">min_alloc_order</a>;</div>
+<div class="line"><span class="lineno">  747</span>    align_mask = ((alignment-&gt;<a class="code hl_variable" href="structgenpool__data__align.html#afd23b3b4df1c47592a4fff8ff9837c81">align</a> + (1UL &lt;&lt; order) - 1) &gt;&gt; order) - 1;</div>
+<div class="line"><span class="lineno">  748</span>    align_off = (start_addr &amp; (alignment-&gt;<a class="code hl_variable" href="structgenpool__data__align.html#afd23b3b4df1c47592a4fff8ff9837c81">align</a> - 1)) &gt;&gt; order;</div>
+<div class="line"><span class="lineno">  749</span> </div>
+<div class="line"><span class="lineno">  750</span>    <span class="keywordflow">return</span> bitmap_find_next_zero_area_off(map, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, start, nr,</div>
+<div class="line"><span class="lineno">  751</span>                          align_mask, align_off);</div>
+<div class="line"><span class="lineno">  752</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_abcb446ba2274747cccf6c76bc7f3d1e7_icgraph.svg" width="511" height="171"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -992,8 +1570,16 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>gen_pool_first_fit_order_align - find the first available region of memory matching the size requirement. The region will be aligned to the order of the size specified. @map: The address to base the search on @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: additional data - unused @pool: pool to find the fit region memory from @start_addr: not used in this function </p>
-<div class="dynheader">
+<p>gen_pool_first_fit_order_align - find the first available region of memory matching the size requirement. The region will be aligned to the order of the size specified. @map: The address to base the search on @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: additional data - unused @pool: pool to find the fit region memory from @start_addr: not used in this function</p>
+<p>Function Description: Finds the first free region that is aligned to the order (power of two) of the requested size. It calculates an alignment mask based on the number of bits needed and searches for a region that naturally aligns to that size boundary. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00806">806</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  810</span>{</div>
+<div class="line"><span class="lineno">  811</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> align_mask = roundup_pow_of_two(nr) - 1;</div>
+<div class="line"><span class="lineno">  812</span> </div>
+<div class="line"><span class="lineno">  813</span>    <span class="keywordflow">return</span> bitmap_find_next_zero_area(map, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, start, nr, align_mask);</div>
+<div class="line"><span class="lineno">  814</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a02a2dd51b33fbf43009c204c0718b601_icgraph.svg" width="316" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -1052,8 +1638,31 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>gen_pool_fixed_alloc - reserve a specific region @map: The address to base the search on @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: data for alignment @pool: pool to get order from @start_addr: not used in this function </p>
-<div class="dynheader">
+<p>gen_pool_fixed_alloc - reserve a specific region @map: The address to base the search on @size: The bitmap size in bits @start: The bitnumber to start searching at @nr: The number of zeroed bits we're looking for @data: data for alignment @pool: pool to get order from @start_addr: not used in this function</p>
+<p>Function Description: Reserves a specific fixed region in a pool. It uses the offset provided in the data to find a region at a particular position. If the specified region is already in use or not free, it returns an error by indicating the region is not available. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00768">768</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  771</span>{</div>
+<div class="line"><span class="lineno">  772</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgenpool__data__fixed.html">genpool_data_fixed</a> *fixed_data;</div>
+<div class="line"><span class="lineno">  773</span>    <span class="keywordtype">int</span> order;</div>
+<div class="line"><span class="lineno">  774</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> offset_bit;</div>
+<div class="line"><span class="lineno">  775</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> start_bit;</div>
+<div class="line"><span class="lineno">  776</span> </div>
+<div class="line"><span class="lineno">  777</span>    fixed_data = data;</div>
+<div class="line"><span class="lineno">  778</span>    order = pool-&gt;<a class="code hl_variable" href="structgen__pool.html#ab6635280055ebc487c513afa90368994">min_alloc_order</a>;</div>
+<div class="line"><span class="lineno">  779</span>    offset_bit = fixed_data-&gt;<a class="code hl_variable" href="structgenpool__data__fixed.html#ae9daf49184e76e3cbb6b58708dfadef9">offset</a> &gt;&gt; order;</div>
+<div class="line"><span class="lineno">  780</span>    <span class="keywordflow">if</span> (WARN_ON(fixed_data-&gt;<a class="code hl_variable" href="structgenpool__data__fixed.html#ae9daf49184e76e3cbb6b58708dfadef9">offset</a> &amp; ((1UL &lt;&lt; order) - 1)))</div>
+<div class="line"><span class="lineno">  781</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno">  782</span> </div>
+<div class="line"><span class="lineno">  783</span>    start_bit = bitmap_find_next_zero_area(map, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>,</div>
+<div class="line"><span class="lineno">  784</span>            start + offset_bit, nr, 0);</div>
+<div class="line"><span class="lineno">  785</span>    <span class="keywordflow">if</span> (start_bit != offset_bit)</div>
+<div class="line"><span class="lineno">  786</span>        start_bit = <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno">  787</span>    <span class="keywordflow">return</span> start_bit;</div>
+<div class="line"><span class="lineno">  788</span>}</div>
+<div class="ttc" id="astructgenpool__data__fixed_html"><div class="ttname"><a href="structgenpool__data__fixed.html">genpool_data_fixed</a></div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00105">genalloc.h:105</a></div></div>
+<div class="ttc" id="astructgenpool__data__fixed_html_ae9daf49184e76e3cbb6b58708dfadef9"><div class="ttname"><a href="structgenpool__data__fixed.html#ae9daf49184e76e3cbb6b58708dfadef9">genpool_data_fixed::offset</a></div><div class="ttdeci">unsigned long offset</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8h_source.html#l00106">genalloc.h:106</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_af7e021192c4541ba5dda17bf3df88c45_icgraph.svg" width="339" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -1093,11 +1702,68 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>gen_pool_for_each_chunk - call func for every chunk of generic memory pool @pool: the generic memory pool @func: func to call @data: additional data used by @func</p>
-<p>Call @func for every chunk of generic memory pool. The @func is called with rcu_read_lock held. </p>
-<div class="dynheader">
+<p>Call @func for every chunk of generic memory pool. The @func is called with rcu_read_lock held.</p>
+<p>Function Description: Calls a given function for each memory chunk in the pool. It walks through the list of chunks with read lock protection and executes the user-provided callback function on each chunk. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00585">585</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  588</span>{</div>
+<div class="line"><span class="lineno">  589</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a> *chunk;</div>
+<div class="line"><span class="lineno">  590</span> </div>
+<div class="line"><span class="lineno">  591</span>    rcu_read_lock();</div>
+<div class="line"><span class="lineno">  592</span>    list_for_each_entry_rcu(chunk, &amp;(pool)-&gt;chunks, <a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>)</div>
+<div class="line"><span class="lineno">  593</span>        func(pool, chunk, data);</div>
+<div class="line"><span class="lineno">  594</span>    rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  595</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ad33c35c873e976c4b6c026a1e0d79c2b_icgraph.svg" width="368" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a05f3f32d1526b3d0a2d534b6deb442ef" name="a05f3f32d1526b3d0a2d534b6deb442ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05f3f32d1526b3d0a2d534b6deb442ef">&#9670;&#160;</a></span>gen_pool_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gen_pool_free </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structgen__pool.html">gen_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>addr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Frees previously allocated memory back to the pool. This is the simpler version that doesn't return the chunk owner. It calls <a class="el" href="#a9a9b4b9df7b9bfc314df2f2b0145d4fc">gen_pool_free_owner()</a> with NULL for the owner pointer. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8h_source.html#l00201">201</a> of file <a class="el" href="genalloc_8h_source.html">genalloc.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  203</span>{</div>
+<div class="line"><span class="lineno">  204</span>    <a class="code hl_function" href="#a9a9b4b9df7b9bfc314df2f2b0145d4fc">gen_pool_free_owner</a>(pool, addr, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, NULL);</div>
+<div class="line"><span class="lineno">  205</span>}</div>
+<div class="ttc" id="agenalloc_8h_html_a9a9b4b9df7b9bfc314df2f2b0145d4fc"><div class="ttname"><a href="#a9a9b4b9df7b9bfc314df2f2b0145d4fc">gen_pool_free_owner</a></div><div class="ttdeci">void gen_pool_free_owner(struct gen_pool *pool, unsigned long addr, size_t size, void **owner)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00538">genalloc.c:538</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a05f3f32d1526b3d0a2d534b6deb442ef_cgraph.svg" width="600" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1138,12 +1804,51 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>gen_pool_free_owner - free allocated special memory back to the pool @pool: pool to free to @addr: starting address of memory to free back to pool @size: size in bytes of memory to free @owner: private data stashed at gen_pool_add() time</p>
-<p>Free previously allocated special memory back to the specified pool. Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation. </p>
+<p>gen_pool_free_owner - free allocated special memory back to the pool @pool: pool to free to @addr: starting address of memory to free back to pool @size: size in bytes of memory to free @owner: private data stashed at <a class="el" href="#ad120d998148855d947cd90f7f508f85c">gen_pool_add()</a> time</p>
+<p>Free previously allocated special memory back to the specified pool. Can not be used in NMI handler on architectures without NMI-safe cmpxchg implementation.</p>
+<p>Function Description: Frees previously allocated memory back to the pool. It finds the chunk containing the address, calculates the bit position, clears the bits atomically to mark them as free, updates the available space counter, and optionally returns the chunk owner. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00538">538</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  540</span>{</div>
+<div class="line"><span class="lineno">  541</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a> *chunk;</div>
+<div class="line"><span class="lineno">  542</span>    <span class="keywordtype">int</span> order = pool-&gt;<a class="code hl_variable" href="structgen__pool.html#ab6635280055ebc487c513afa90368994">min_alloc_order</a>;</div>
+<div class="line"><span class="lineno">  543</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> start_bit, nbits, remain;</div>
+<div class="line"><span class="lineno">  544</span> </div>
+<div class="line"><span class="lineno">  545</span><span class="preprocessor">#ifndef CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG</span></div>
+<div class="line"><span class="lineno">  546</span>    BUG_ON(in_nmi());</div>
+<div class="line"><span class="lineno">  547</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  548</span> </div>
+<div class="line"><span class="lineno">  549</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a>)</div>
+<div class="line"><span class="lineno">  550</span>        *<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a> = NULL;</div>
+<div class="line"><span class="lineno">  551</span> </div>
+<div class="line"><span class="lineno">  552</span>    nbits = (<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> + (1UL &lt;&lt; order) - 1) &gt;&gt; order;</div>
+<div class="line"><span class="lineno">  553</span>    rcu_read_lock();</div>
+<div class="line"><span class="lineno">  554</span>    list_for_each_entry_rcu(chunk, &amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aeb6f5ba70df05d5b4228fa899d5a3c31">chunks</a>, <a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>) {</div>
+<div class="line"><span class="lineno">  555</span>        <span class="keywordflow">if</span> (addr &gt;= chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#af5fbf27f219751fd0df54cc57f2e0825">start_addr</a> &amp;&amp; addr &lt;= chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#ab784657da62f16008f5f64abc77b4622">end_addr</a>) {</div>
+<div class="line"><span class="lineno">  556</span>            BUG_ON(addr + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> - 1 &gt; chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#ab784657da62f16008f5f64abc77b4622">end_addr</a>);</div>
+<div class="line"><span class="lineno">  557</span>            start_bit = (addr - chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#af5fbf27f219751fd0df54cc57f2e0825">start_addr</a>) &gt;&gt; order;</div>
+<div class="line"><span class="lineno">  558</span>            remain = <a class="code hl_function" href="genalloc_8c.html#a7980772fd92ca024173bc874aa1e57b2">bitmap_clear_ll</a>(chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a8affb9cabbc99068dd9ca9950f9d7c49">bits</a>, start_bit, nbits);</div>
+<div class="line"><span class="lineno">  559</span>            BUG_ON(remain);</div>
+<div class="line"><span class="lineno">  560</span>            <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = nbits &lt;&lt; order;</div>
+<div class="line"><span class="lineno">  561</span>            atomic_long_add(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, &amp;chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a0cd072bf291e6045e35512c79918f1ed">avail</a>);</div>
+<div class="line"><span class="lineno">  562</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a>)</div>
+<div class="line"><span class="lineno">  563</span>                *<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a> = chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#a8c6b00377889653cdd5a00b80d6dc8c0">owner</a>;</div>
+<div class="line"><span class="lineno">  564</span>            rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  565</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  566</span>        }</div>
+<div class="line"><span class="lineno">  567</span>    }</div>
+<div class="line"><span class="lineno">  568</span>    rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  569</span>    BUG();</div>
+<div class="line"><span class="lineno">  570</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a9a9b4b9df7b9bfc314df2f2b0145d4fc_cgraph.svg" width="450" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a9a9b4b9df7b9bfc314df2f2b0145d4fc_icgraph.svg" width="340" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a9a9b4b9df7b9bfc314df2f2b0145d4fc_icgraph.svg" width="340" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1174,10 +1879,27 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00895">895</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  896</span>{</div>
+<div class="line"><span class="lineno">  897</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool.html">gen_pool</a> **p;</div>
+<div class="line"><span class="lineno">  898</span> </div>
+<div class="line"><span class="lineno">  899</span>    p = devres_find(dev, <a class="code hl_function" href="genalloc_8c.html#a661ce632cea21daf59885b460acde75b">devm_gen_pool_release</a>, <a class="code hl_function" href="genalloc_8c.html#a1e5611077e275ccd5b82cd7468ebfb8d">devm_gen_pool_match</a>,</div>
+<div class="line"><span class="lineno">  900</span>            (<span class="keywordtype">void</span> *)<a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a>);</div>
+<div class="line"><span class="lineno">  901</span>    <span class="keywordflow">if</span> (!p)</div>
+<div class="line"><span class="lineno">  902</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  903</span>    <span class="keywordflow">return</span> *p;</div>
+<div class="line"><span class="lineno">  904</span>}</div>
+<div class="ttc" id="agenalloc_8c_html_a1e5611077e275ccd5b82cd7468ebfb8d"><div class="ttname"><a href="genalloc_8c.html#a1e5611077e275ccd5b82cd7468ebfb8d">devm_gen_pool_match</a></div><div class="ttdeci">static int devm_gen_pool_match(struct device *dev, void *res, void *data)</div><div class="ttdef"><b>Definition</b> <a href="genalloc_8c_source.html#l00871">genalloc.c:871</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a73baa960dc09460f2aa4c9d8c9c326b4_cgraph.svg" width="1851" height="1127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a73baa960dc09460f2aa4c9d8c9c326b4_icgraph.svg" width="514" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a73baa960dc09460f2aa4c9d8c9c326b4_icgraph.svg" width="546" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1214,8 +1936,28 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>gen_pool_has_addr - checks if an address falls within the range of a pool @pool: the generic memory pool @start: start address @size: size of the region</p>
-<p>Check if the range of addresses falls within the specified pool. Returns true if the entire range is contained in the pool and false otherwise. </p>
-<div class="dynheader">
+<p>Check if the range of addresses falls within the specified pool. Returns true if the entire range is contained in the pool and false otherwise.</p>
+<p>Function Description: Checks whether a given address range falls completely within a pool. It searches through all chunks and verifies that both the start and end addresses are contained in the same chunk. Returns true if the whole range is in the pool, false otherwise. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00610">610</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  612</span>{</div>
+<div class="line"><span class="lineno">  613</span>    <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  614</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> end = start + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> - 1;</div>
+<div class="line"><span class="lineno">  615</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a> *chunk;</div>
+<div class="line"><span class="lineno">  616</span> </div>
+<div class="line"><span class="lineno">  617</span>    rcu_read_lock();</div>
+<div class="line"><span class="lineno">  618</span>    list_for_each_entry_rcu(chunk, &amp;(pool)-&gt;chunks, <a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>) {</div>
+<div class="line"><span class="lineno">  619</span>        <span class="keywordflow">if</span> (start &gt;= chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#af5fbf27f219751fd0df54cc57f2e0825">start_addr</a> &amp;&amp; start &lt;= chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#ab784657da62f16008f5f64abc77b4622">end_addr</a>) {</div>
+<div class="line"><span class="lineno">  620</span>            <span class="keywordflow">if</span> (end &lt;= chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#ab784657da62f16008f5f64abc77b4622">end_addr</a>) {</div>
+<div class="line"><span class="lineno">  621</span>                found = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  622</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  623</span>            }</div>
+<div class="line"><span class="lineno">  624</span>        }</div>
+<div class="line"><span class="lineno">  625</span>    }</div>
+<div class="line"><span class="lineno">  626</span>    rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  627</span>    <span class="keywordflow">return</span> found;</div>
+<div class="line"><span class="lineno">  628</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_ab1cda6c64f32b28965c4f0e44b48622b_icgraph.svg" width="330" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -1255,8 +1997,22 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>gen_pool_set_algo - set the allocation algorithm @pool: pool to change allocation algorithm @algo: custom algorithm function @data: additional data used by @algo</p>
-<p>Call @algo for each memory allocation in the pool. If @algo is NULL use gen_pool_first_fit as default memory allocation function. </p>
-<div class="dynheader">
+<p>Call @algo for each memory allocation in the pool. If @algo is NULL use gen_pool_first_fit as default memory allocation function.</p>
+<p>Function Description: Changes the allocation algorithm used by a pool. It takes a new algorithm function and associated data, and sets them as the pool's allocation method. If no algorithm is provided, it falls back to the default first-fit algorithm. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00687">687</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  688</span>{</div>
+<div class="line"><span class="lineno">  689</span>    rcu_read_lock();</div>
+<div class="line"><span class="lineno">  690</span> </div>
+<div class="line"><span class="lineno">  691</span>    pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa">algo</a> = algo;</div>
+<div class="line"><span class="lineno">  692</span>    <span class="keywordflow">if</span> (!pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa">algo</a>)</div>
+<div class="line"><span class="lineno">  693</span>        pool-&gt;<a class="code hl_variable" href="structgen__pool.html#a1c9e9591a20e518a5ee5653566e978fa">algo</a> = <a class="code hl_function" href="#ac466225a70c860ee95668633a1861a9e">gen_pool_first_fit</a>;</div>
+<div class="line"><span class="lineno">  694</span> </div>
+<div class="line"><span class="lineno">  695</span>    pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aa769b13a0724616052f4ddf8d3102d38">data</a> = data;</div>
+<div class="line"><span class="lineno">  696</span> </div>
+<div class="line"><span class="lineno">  697</span>    rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  698</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a01f03aede4b699df122f62d1e75da65f_cgraph.svg" width="308" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -1292,7 +2048,25 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>gen_pool_size - get size in bytes of memory managed by the pool @pool: pool to get size</p>
-<p>Return size in bytes of memory managed by the pool. </p>
+<p>Return size in bytes of memory managed by the pool.</p>
+<p>Function Description: Calculates and returns the total size of all memory managed by a pool. It goes through each chunk and adds up their sizes to get the total amount of memory in the pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00661">661</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  662</span>{</div>
+<div class="line"><span class="lineno">  663</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a> *chunk;</div>
+<div class="line"><span class="lineno">  664</span>    <span class="keywordtype">size_t</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = 0;</div>
+<div class="line"><span class="lineno">  665</span> </div>
+<div class="line"><span class="lineno">  666</span>    rcu_read_lock();</div>
+<div class="line"><span class="lineno">  667</span>    list_for_each_entry_rcu(chunk, &amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aeb6f5ba70df05d5b4228fa899d5a3c31">chunks</a>, <a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>)</div>
+<div class="line"><span class="lineno">  668</span>        <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> += <a class="code hl_function" href="genalloc_8c.html#a825cdd577934de7258cbece402ea50d4">chunk_size</a>(chunk);</div>
+<div class="line"><span class="lineno">  669</span>    rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  670</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno">  671</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a34c006f34196f28797a12b6aaf98fbec_cgraph.svg" width="251" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1328,11 +2102,108 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>gen_pool_virt_to_phys - return the physical address of memory @pool: pool to allocate from @addr: starting address of memory</p>
-<p>Returns the physical address on success, or -1 on error. </p>
-<div class="dynheader">
+<p>Returns the physical address on success, or -1 on error.</p>
+<p>Function Description: Converts a virtual address to its corresponding physical address for a given pool. It searches through all the chunks in the pool to find which chunk contains the address, then calculates the physical address by adding the offset to the chunk's physical start address. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00241">241</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  242</span>{</div>
+<div class="line"><span class="lineno">  243</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool__chunk.html">gen_pool_chunk</a> *chunk;</div>
+<div class="line"><span class="lineno">  244</span>    phys_addr_t paddr = -1;</div>
+<div class="line"><span class="lineno">  245</span> </div>
+<div class="line"><span class="lineno">  246</span>    rcu_read_lock();</div>
+<div class="line"><span class="lineno">  247</span>    list_for_each_entry_rcu(chunk, &amp;pool-&gt;<a class="code hl_variable" href="structgen__pool.html#aeb6f5ba70df05d5b4228fa899d5a3c31">chunks</a>, <a class="code hl_variable" href="structgen__pool__chunk.html#a06c04804fe96e8f29d1dbc26b3f08881">next_chunk</a>) {</div>
+<div class="line"><span class="lineno">  248</span>        <span class="keywordflow">if</span> (addr &gt;= chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#af5fbf27f219751fd0df54cc57f2e0825">start_addr</a> &amp;&amp; addr &lt;= chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#ab784657da62f16008f5f64abc77b4622">end_addr</a>) {</div>
+<div class="line"><span class="lineno">  249</span>            paddr = chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#ac1b9ddab088b6e84d283eed37ad59b99">phys_addr</a> + (addr - chunk-&gt;<a class="code hl_variable" href="structgen__pool__chunk.html#af5fbf27f219751fd0df54cc57f2e0825">start_addr</a>);</div>
+<div class="line"><span class="lineno">  250</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  251</span>        }</div>
+<div class="line"><span class="lineno">  252</span>    }</div>
+<div class="line"><span class="lineno">  253</span>    rcu_read_unlock();</div>
+<div class="line"><span class="lineno">  254</span> </div>
+<div class="line"><span class="lineno">  255</span>    <span class="keywordflow">return</span> paddr;</div>
+<div class="line"><span class="lineno">  256</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_aa04986e92cd89671950442f1546129c0_icgraph.svg" width="986" height="311"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a35481ce6de372a867c5cf13756b27245" name="a35481ce6de372a867c5cf13756b27245"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35481ce6de372a867c5cf13756b27245">&#9670;&#160;</a></span>of_gen_pool_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structgen__pool.html">gen_pool</a> * of_gen_pool_get </td>
+          <td>(</td>
+          <td class="paramtype">struct device_node *</td>          <td class="paramname"><span class="paramname"><em>np</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>propname</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>of_gen_pool_get - find a pool by phandle property @np: device node @propname: property name containing phandle(s) @index: index into the phandle array</p>
+<p>Returns the pool that contains the chunk starting at the physical address of the device tree node pointed at by the phandle property, or NULL if not found.</p>
+<p>Function Description: Finds a memory pool using a device tree property. It parses a phandle property from the device tree, finds the corresponding device, and retrieves the pool associated with that device. This is used in systems where memory pools are defined in the device tree. </p>
+
+<p class="definition">Definition at line <a class="el" href="genalloc_8c_source.html#l00974">974</a> of file <a class="el" href="genalloc_8c_source.html">genalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  976</span>{</div>
+<div class="line"><span class="lineno">  977</span>    <span class="keyword">struct </span>platform_device *pdev;</div>
+<div class="line"><span class="lineno">  978</span>    <span class="keyword">struct </span>device_node *np_pool, *parent;</div>
+<div class="line"><span class="lineno">  979</span>    <span class="keyword">const</span> <span class="keywordtype">char</span> *name = NULL;</div>
+<div class="line"><span class="lineno">  980</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structgen__pool.html">gen_pool</a> *pool = NULL;</div>
+<div class="line"><span class="lineno">  981</span> </div>
+<div class="line"><span class="lineno">  982</span>    np_pool = of_parse_phandle(np, propname, index);</div>
+<div class="line"><span class="lineno">  983</span>    <span class="keywordflow">if</span> (!np_pool)</div>
+<div class="line"><span class="lineno">  984</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  985</span> </div>
+<div class="line"><span class="lineno">  986</span>    pdev = of_find_device_by_node(np_pool);</div>
+<div class="line"><span class="lineno">  987</span>    <span class="keywordflow">if</span> (!pdev) {</div>
+<div class="line"><span class="lineno">  988</span>        <span class="comment">/* Check if named gen_pool is created by parent node device */</span></div>
+<div class="line"><span class="lineno">  989</span>        parent = of_get_parent(np_pool);</div>
+<div class="line"><span class="lineno">  990</span>        pdev = of_find_device_by_node(parent);</div>
+<div class="line"><span class="lineno">  991</span>        of_node_put(parent);</div>
+<div class="line"><span class="lineno">  992</span> </div>
+<div class="line"><span class="lineno">  993</span>        of_property_read_string(np_pool, <span class="stringliteral">&quot;label&quot;</span>, &amp;<a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a>);</div>
+<div class="line"><span class="lineno">  994</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a>)</div>
+<div class="line"><span class="lineno">  995</span>            <a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a> = of_node_full_name(np_pool);</div>
+<div class="line"><span class="lineno">  996</span>    }</div>
+<div class="line"><span class="lineno">  997</span>    <span class="keywordflow">if</span> (pdev) {</div>
+<div class="line"><span class="lineno">  998</span>        pool = <a class="code hl_function" href="genalloc_8c.html#a73baa960dc09460f2aa4c9d8c9c326b4">gen_pool_get</a>(&amp;pdev-&gt;dev, <a class="code hl_variable" href="structgen__pool.html#a94ef314104bf7b85b9c2857a4a440940">name</a>);</div>
+<div class="line"><span class="lineno">  999</span>        put_device(&amp;pdev-&gt;dev);</div>
+<div class="line"><span class="lineno"> 1000</span>    }</div>
+<div class="line"><span class="lineno"> 1001</span> </div>
+<div class="line"><span class="lineno"> 1002</span>    of_node_put(np_pool);</div>
+<div class="line"><span class="lineno"> 1003</span> </div>
+<div class="line"><span class="lineno"> 1004</span>    <span class="keywordflow">return</span> pool;</div>
+<div class="line"><span class="lineno"> 1005</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a35481ce6de372a867c5cf13756b27245_cgraph.svg" width="2016" height="1312"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="genalloc_8h_a35481ce6de372a867c5cf13756b27245_icgraph.svg" width="346" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

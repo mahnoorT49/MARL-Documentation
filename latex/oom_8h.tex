@@ -1,0 +1,629 @@
+\doxysection{include/\+linux/\+oom.h File Reference}
+\hypertarget{oom_8h}{}\label{oom_8h}\index{include/linux/oom.h@{include/linux/oom.h}}
+{\ttfamily \+\#include $<$linux/\+sched/\+signal.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+types.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+nodemask.\+h$>$}\newline
+{\ttfamily \+\#include $<$uapi/\+linux/\+oom.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+mm.\+h$>$}\newline
+Include dependency graph for oom.\+h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structoom__control}{oom\+\_\+control}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65}{oom\+\_\+constraint}} \{ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e}{CONSTRAINT\+\_\+\+NONE}}
+, \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba}{CONSTRAINT\+\_\+\+CPUSET}}
+, \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9}{CONSTRAINT\+\_\+\+MEMORY\+\_\+\+POLICY}}
+, \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026}{CONSTRAINT\+\_\+\+MEMCG}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{oom_8h_a7df1d6c0735c0afde6522850eb4c6118}{set\+\_\+current\+\_\+oom\+\_\+origin}} (void)
+\item 
+static void \doxymbox{\hyperlink{oom_8h_a045ed2288edfd9aba0a40d3ecae4f1c7}{clear\+\_\+current\+\_\+oom\+\_\+origin}} (void)
+\item 
+static bool \doxymbox{\hyperlink{oom_8h_a1a638b5613a7e9c2c40c3a39e2e14bd1}{oom\+\_\+task\+\_\+origin}} (const struct task\+\_\+struct \texorpdfstring{$\ast$}{*}p)
+\item 
+static bool \doxymbox{\hyperlink{oom_8h_ae8d0053df81087f748dfe29c704739a6}{tsk\+\_\+is\+\_\+oom\+\_\+victim}} (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}tsk)
+\item 
+static vm\+\_\+fault\+\_\+t \doxymbox{\hyperlink{oom_8h_af859f490d2bf591f85132ba60dc530c7}{check\+\_\+stable\+\_\+address\+\_\+space}} (struct mm\+\_\+struct \texorpdfstring{$\ast$}{*}mm)
+\item 
+long \doxymbox{\hyperlink{oom_8h_ae4e11cec487474b4125f554a190216be}{oom\+\_\+badness}} (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}p, unsigned long totalpages)
+\item 
+bool \doxymbox{\hyperlink{oom_8h_ac9d9325ddb79f52e4f7a6006eb42d9af}{out\+\_\+of\+\_\+memory}} (struct \doxymbox{\hyperlink{structoom__control}{oom\+\_\+control}} \texorpdfstring{$\ast$}{*}oc)
+\item 
+void \doxymbox{\hyperlink{oom_8h_ac9cee488548f07bc19f46df22e914374}{exit\+\_\+oom\+\_\+victim}} (void)
+\item 
+int \doxymbox{\hyperlink{oom_8h_a2aead0e1e9e533753e3ce1833078d482}{register\+\_\+oom\+\_\+notifier}} (struct notifier\+\_\+block \texorpdfstring{$\ast$}{*}nb)
+\item 
+int \doxymbox{\hyperlink{oom_8h_ae00ee46e52e5e22872a1c9e1e50ce21a}{unregister\+\_\+oom\+\_\+notifier}} (struct notifier\+\_\+block \texorpdfstring{$\ast$}{*}nb)
+\item 
+bool \doxymbox{\hyperlink{oom_8h_ab628c96ff638a785d9fa8e71ad6d190f}{oom\+\_\+killer\+\_\+disable}} (signed long timeout)
+\item 
+void \doxymbox{\hyperlink{oom_8h_a4f44936c61a212e79f10ca36de616e69}{oom\+\_\+killer\+\_\+enable}} (void)
+\item 
+struct task\+\_\+struct \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{oom_8h_a63add4ec9a8055221f83d425aae186b3}{find\+\_\+lock\+\_\+task\+\_\+mm}} (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}p)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct mutex \doxymbox{\hyperlink{oom_8h_ab7d77c517a7ca9042d6355010e06982b}{oom\+\_\+lock}}
+\item 
+struct mutex \doxymbox{\hyperlink{oom_8h_a8f24f28738dbd32c02aa07c5eb729f72}{oom\+\_\+adj\+\_\+mutex}}
+\end{DoxyCompactItemize}
+
+
+\label{oom_8h_doc-enum-members}
+\Hypertarget{oom_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65}\index{oom.h@{oom.h}!oom\_constraint@{oom\_constraint}}
+\index{oom\_constraint@{oom\_constraint}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{oom\_constraint}{oom\_constraint}}
+{\footnotesize\ttfamily \label{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65} 
+enum \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65}{oom\+\_\+constraint}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CONSTRAINT\_NONE@{CONSTRAINT\_NONE}!oom.h@{oom.h}}
+\index{oom.h@{oom.h}!CONSTRAINT\_NONE@{CONSTRAINT\_NONE}}
+}\Hypertarget{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e}\label{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e} 
+CONSTRAINT\+\_\+\+NONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CONSTRAINT\_CPUSET@{CONSTRAINT\_CPUSET}!oom.h@{oom.h}}
+\index{oom.h@{oom.h}!CONSTRAINT\_CPUSET@{CONSTRAINT\_CPUSET}}
+}\Hypertarget{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba}\label{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba} 
+CONSTRAINT\+\_\+\+CPUSET&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CONSTRAINT\_MEMORY\_POLICY@{CONSTRAINT\_MEMORY\_POLICY}!oom.h@{oom.h}}
+\index{oom.h@{oom.h}!CONSTRAINT\_MEMORY\_POLICY@{CONSTRAINT\_MEMORY\_POLICY}}
+}\Hypertarget{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9}\label{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9} 
+CONSTRAINT\+\_\+\+MEMORY\+\_\+\+POLICY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CONSTRAINT\_MEMCG@{CONSTRAINT\_MEMCG}!oom.h@{oom.h}}
+\index{oom.h@{oom.h}!CONSTRAINT\_MEMCG@{CONSTRAINT\_MEMCG}}
+}\Hypertarget{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026}\label{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026} 
+CONSTRAINT\+\_\+\+MEMCG&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00017}{17}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e}{CONSTRAINT\_NONE}},}
+\DoxyCodeLine{00019\ \ \ \ \ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba}{CONSTRAINT\_CPUSET}},}
+\DoxyCodeLine{00020\ \ \ \ \ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9}{CONSTRAINT\_MEMORY\_POLICY}},}
+\DoxyCodeLine{00021\ \ \ \ \ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026}{CONSTRAINT\_MEMCG}},}
+\DoxyCodeLine{00022\ \};}
+
+\end{DoxyCode}
+
+
+\label{oom_8h_doc-func-members}
+\Hypertarget{oom_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{oom_8h_af859f490d2bf591f85132ba60dc530c7}\index{oom.h@{oom.h}!check\_stable\_address\_space@{check\_stable\_address\_space}}
+\index{check\_stable\_address\_space@{check\_stable\_address\_space}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{check\_stable\_address\_space()}{check\_stable\_address\_space()}}
+{\footnotesize\ttfamily \label{oom_8h_af859f490d2bf591f85132ba60dc530c7} 
+vm\+\_\+fault\+\_\+t check\+\_\+stable\+\_\+address\+\_\+space (\begin{DoxyParamCaption}\item[{struct mm\+\_\+struct \texorpdfstring{$\ast$}{*}}]{mm}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00092}{92}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00093\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (unlikely(mm\_flags\_test(MMF\_UNSTABLE,\ mm)))}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VM\_FAULT\_SIGBUS;}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00097\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_af859f490d2bf591f85132ba60dc530c7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_a045ed2288edfd9aba0a40d3ecae4f1c7}\index{oom.h@{oom.h}!clear\_current\_oom\_origin@{clear\_current\_oom\_origin}}
+\index{clear\_current\_oom\_origin@{clear\_current\_oom\_origin}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{clear\_current\_oom\_origin()}{clear\_current\_oom\_origin()}}
+{\footnotesize\ttfamily \label{oom_8h_a045ed2288edfd9aba0a40d3ecae4f1c7} 
+void clear\+\_\+current\+\_\+oom\+\_\+origin (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00064}{64}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ current-\/>signal-\/>oom\_flag\_origin\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00067\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_a045ed2288edfd9aba0a40d3ecae4f1c7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_ac9cee488548f07bc19f46df22e914374}\index{oom.h@{oom.h}!exit\_oom\_victim@{exit\_oom\_victim}}
+\index{exit\_oom\_victim@{exit\_oom\_victim}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{exit\_oom\_victim()}{exit\_oom\_victim()}}
+{\footnotesize\ttfamily \label{oom_8h_ac9cee488548f07bc19f46df22e914374} 
+void exit\+\_\+oom\+\_\+victim (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+exit\+\_\+oom\+\_\+victim -\/ note the exit of an OOM victim 
+
+Definition at line \doxymbox{\hyperlink{oom__kill_8c_source_l00797}{797}} of file \doxymbox{\hyperlink{oom__kill_8c_source}{oom\+\_\+kill.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00798\ \{}
+\DoxyCodeLine{00799\ \ \ \ \ clear\_thread\_flag(TIF\_MEMDIE);}
+\DoxyCodeLine{00800\ }
+\DoxyCodeLine{00801\ \ \ \ \ \textcolor{keywordflow}{if}\ (!atomic\_dec\_return(\&\doxymbox{\hyperlink{oom__kill_8c_ae9a0cfe68fed5e7f783a4c5beae4748a}{oom\_victims}}))}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ wake\_up\_all(\&oom\_victims\_wait);}
+\DoxyCodeLine{00803\ \}}
+
+\end{DoxyCode}
+\Hypertarget{oom_8h_a63add4ec9a8055221f83d425aae186b3}\index{oom.h@{oom.h}!find\_lock\_task\_mm@{find\_lock\_task\_mm}}
+\index{find\_lock\_task\_mm@{find\_lock\_task\_mm}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{find\_lock\_task\_mm()}{find\_lock\_task\_mm()}}
+{\footnotesize\ttfamily \label{oom_8h_a63add4ec9a8055221f83d425aae186b3} 
+struct task\+\_\+struct \texorpdfstring{$\ast$}{*} find\+\_\+lock\+\_\+task\+\_\+mm (\begin{DoxyParamCaption}\item[{struct task\+\_\+struct \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom__kill_8c_source_l00134}{134}} of file \doxymbox{\hyperlink{oom__kill_8c_source}{oom\+\_\+kill.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00135\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{struct\ }task\_struct\ *t;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ rcu\_read\_lock();}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ for\_each\_thread(p,\ t)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ task\_lock(t);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (likely(t-\/>mm))}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ found;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ task\_unlock(t);}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ t\ =\ NULL;}
+\DoxyCodeLine{00147\ found:}
+\DoxyCodeLine{00148\ \ \ \ \ rcu\_read\_unlock();}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00151\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_a63add4ec9a8055221f83d425aae186b3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_ae4e11cec487474b4125f554a190216be}\index{oom.h@{oom.h}!oom\_badness@{oom\_badness}}
+\index{oom\_badness@{oom\_badness}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{oom\_badness()}{oom\_badness()}}
+{\footnotesize\ttfamily \label{oom_8h_ae4e11cec487474b4125f554a190216be} 
+long oom\+\_\+badness (\begin{DoxyParamCaption}\item[{struct task\+\_\+struct \texorpdfstring{$\ast$}{*}}]{p}{, }\item[{unsigned long}]{totalpages}{}\end{DoxyParamCaption})}
+
+oom\+\_\+badness -\/ heuristic function to determine which candidate task to kill {\ttfamily }:\+ task struct of which task we should calculate @totalpages:\+ total present RAM allowed for page allocation
+
+The heuristic for determining which task to kill is made to be as simple and predictable as possible. The goal is to return the highest value for the task consuming the most memory to avoid subsequent oom failures. 
+
+Definition at line \doxymbox{\hyperlink{oom__kill_8c_source_l00202}{202}} of file \doxymbox{\hyperlink{oom__kill_8c_source}{oom\+\_\+kill.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00203\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordtype}{long}\ points;}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{long}\ adj;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{oom__kill_8c_ae72b010768f083d10efa64e7377c87d8}{oom\_unkillable\_task}}(p))}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ LONG\_MIN;}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ p\ =\ \doxymbox{\hyperlink{oom__kill_8c_a63add4ec9a8055221f83d425aae186b3}{find\_lock\_task\_mm}}(p);}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordflow}{if}\ (!p)}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ LONG\_MIN;}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ \ \ \ \ *\ Do\ not\ even\ consider\ tasks\ which\ are\ explicitly\ marked\ oom }}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ \ \ *\ unkillable\ or\ have\ been\ already\ oom\ reaped\ or\ the\ are\ in }}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ \ \ \ \ *\ the\ middle\ of\ vfork }}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00219\ \ \ \ \ adj\ =\ (long)p-\/>signal-\/>oom\_score\_adj;}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{if}\ (adj\ ==\ OOM\_SCORE\_ADJ\_MIN\ ||}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ mm\_flags\_test(MMF\_OOM\_SKIP,\ p-\/>mm)\ ||}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ in\_vfork(p))\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ task\_unlock(p);}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ LONG\_MIN;}
+\DoxyCodeLine{00225\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ \ \ \ \ *\ The\ baseline\ for\ the\ badness\ score\ is\ the\ proportion\ of\ RAM\ that\ each }}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ \ \ \ \ *\ task's\ rss,\ pagetable\ and\ swap\ space\ use. }}
+\DoxyCodeLine{00230\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00231\ \ \ \ \ points\ =\ get\_mm\_rss\_sum(p-\/>mm)\ +\ get\_mm\_counter\_sum(p-\/>mm,\ MM\_SWAPENTS)\ +}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ mm\_pgtables\_bytes(p-\/>mm)\ /\ PAGE\_SIZE;}
+\DoxyCodeLine{00233\ \ \ \ \ task\_unlock(p);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{comment}{/*\ Normalize\ to\ oom\_score\_adj\ units\ */}}
+\DoxyCodeLine{00236\ \ \ \ \ adj\ *=\ totalpages\ /\ 1000;}
+\DoxyCodeLine{00237\ \ \ \ \ points\ +=\ adj;}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordflow}{return}\ points;}
+\DoxyCodeLine{00240\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{oom_8h_ae4e11cec487474b4125f554a190216be_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_ae4e11cec487474b4125f554a190216be_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_ab628c96ff638a785d9fa8e71ad6d190f}\index{oom.h@{oom.h}!oom\_killer\_disable@{oom\_killer\_disable}}
+\index{oom\_killer\_disable@{oom\_killer\_disable}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{oom\_killer\_disable()}{oom\_killer\_disable()}}
+{\footnotesize\ttfamily \label{oom_8h_ab628c96ff638a785d9fa8e71ad6d190f} 
+bool oom\+\_\+killer\+\_\+disable (\begin{DoxyParamCaption}\item[{signed long}]{timeout}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+oom\+\_\+killer\+\_\+disable -\/ disable OOM killer @timeout:\+ maximum timeout to wait for oom victims in jiffies
+
+Forces all page allocations to fail rather than trigger OOM killer. Will block and wait until all OOM victims are killed or the given timeout expires.
+
+The function cannot be called when there are runnable user tasks because the userspace would see unexpected allocation failures as a result. Any new usage of this function should be consulted with MM people.
+
+Returns true if successful and false if the OOM killer cannot be disabled. 
+
+Definition at line \doxymbox{\hyperlink{oom__kill_8c_source_l00829}{829}} of file \doxymbox{\hyperlink{oom__kill_8c_source}{oom\+\_\+kill.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00830\ \{}
+\DoxyCodeLine{00831\ \ \ \ \ \textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{long}\ ret;}
+\DoxyCodeLine{00832\ }
+\DoxyCodeLine{00833\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00834\ \textcolor{comment}{\ \ \ \ \ *\ Make\ sure\ to\ not\ race\ with\ an\ ongoing\ OOM\ killer.\ Check\ that\ the }}
+\DoxyCodeLine{00835\ \textcolor{comment}{\ \ \ \ \ *\ current\ is\ not\ killed\ (possibly\ due\ to\ sharing\ the\ victim's\ memory). }}
+\DoxyCodeLine{00836\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00837\ \ \ \ \ \textcolor{keywordflow}{if}\ (mutex\_lock\_killable(\&\doxymbox{\hyperlink{oom_8h_ab7d77c517a7ca9042d6355010e06982b}{oom\_lock}}))}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00839\ \ \ \ \ oom\_killer\_disabled\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00840\ \ \ \ \ mutex\_unlock(\&\doxymbox{\hyperlink{oom_8h_ab7d77c517a7ca9042d6355010e06982b}{oom\_lock}});}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ \ \ \ \ ret\ =\ wait\_event\_interruptible\_timeout(oom\_victims\_wait,}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ \ \ \ \ \ \ !atomic\_read(\&\doxymbox{\hyperlink{oom__kill_8c_ae9a0cfe68fed5e7f783a4c5beae4748a}{oom\_victims}}),\ timeout);}
+\DoxyCodeLine{00844\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ <=\ 0)\ \{}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{oom__kill_8c_a4f44936c61a212e79f10ca36de616e69}{oom\_killer\_enable}}();}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00847\ \ \ \ \ \}}
+\DoxyCodeLine{00848\ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}OOM\ killer\ disabled.\(\backslash\)n"{}});}
+\DoxyCodeLine{00849\ }
+\DoxyCodeLine{00850\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00851\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{oom_8h_ab628c96ff638a785d9fa8e71ad6d190f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_a4f44936c61a212e79f10ca36de616e69}\index{oom.h@{oom.h}!oom\_killer\_enable@{oom\_killer\_enable}}
+\index{oom\_killer\_enable@{oom\_killer\_enable}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{oom\_killer\_enable()}{oom\_killer\_enable()}}
+{\footnotesize\ttfamily \label{oom_8h_a4f44936c61a212e79f10ca36de616e69} 
+void oom\+\_\+killer\+\_\+enable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+oom\+\_\+killer\+\_\+enable -\/ enable OOM killer 
+
+Definition at line \doxymbox{\hyperlink{oom__kill_8c_source_l00808}{808}} of file \doxymbox{\hyperlink{oom__kill_8c_source}{oom\+\_\+kill.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00809\ \{}
+\DoxyCodeLine{00810\ \ \ \ \ oom\_killer\_disabled\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00811\ \ \ \ \ pr\_info(\textcolor{stringliteral}{"{}OOM\ killer\ enabled.\(\backslash\)n"{}});}
+\DoxyCodeLine{00812\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{oom_8h_a4f44936c61a212e79f10ca36de616e69_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_a1a638b5613a7e9c2c40c3a39e2e14bd1}\index{oom.h@{oom.h}!oom\_task\_origin@{oom\_task\_origin}}
+\index{oom\_task\_origin@{oom\_task\_origin}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{oom\_task\_origin()}{oom\_task\_origin()}}
+{\footnotesize\ttfamily \label{oom_8h_a1a638b5613a7e9c2c40c3a39e2e14bd1} 
+bool oom\+\_\+task\+\_\+origin (\begin{DoxyParamCaption}\item[{const struct task\+\_\+struct \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00069}{69}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00070\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{return}\ p-\/>signal-\/>oom\_flag\_origin;}
+\DoxyCodeLine{00072\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_a1a638b5613a7e9c2c40c3a39e2e14bd1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_ac9d9325ddb79f52e4f7a6006eb42d9af}\index{oom.h@{oom.h}!out\_of\_memory@{out\_of\_memory}}
+\index{out\_of\_memory@{out\_of\_memory}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{out\_of\_memory()}{out\_of\_memory()}}
+{\footnotesize\ttfamily \label{oom_8h_ac9d9325ddb79f52e4f7a6006eb42d9af} 
+bool out\+\_\+of\+\_\+memory (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structoom__control}{oom\+\_\+control}} \texorpdfstring{$\ast$}{*}}]{oc}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+out\+\_\+of\+\_\+memory -\/ kill the "{}best"{} process when we run out of memory @oc:\+ pointer to struct \doxylink{structoom__control}{oom\+\_\+control}
+
+If we run out of memory, we have the choice between either killing a random task (bad), letting the system crash (worse) OR try to be smart about which process to kill. Note that we don\textquotesingle{}t have to be perfect here, we just have to be good. 
+
+Definition at line \doxymbox{\hyperlink{oom__kill_8c_source_l01119}{1119}} of file \doxymbox{\hyperlink{oom__kill_8c_source}{oom\+\_\+kill.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01120\ \{}
+\DoxyCodeLine{01121\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ freed\ =\ 0;}
+\DoxyCodeLine{01122\ }
+\DoxyCodeLine{01123\ \ \ \ \ \textcolor{keywordflow}{if}\ (oom\_killer\_disabled)}
+\DoxyCodeLine{01124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01125\ }
+\DoxyCodeLine{01126\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{oom__kill_8c_a6e3502acb34f83d33a9524f88c0fef6c}{is\_memcg\_oom}}(oc))\ \{}
+\DoxyCodeLine{01127\ \ \ \ \ \ \ \ \ blocking\_notifier\_call\_chain(\&oom\_notify\_list,\ 0,\ \&freed);}
+\DoxyCodeLine{01128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (freed\ >\ 0\ \&\&\ !\doxymbox{\hyperlink{oom__kill_8c_a2f58593fb1fd01768ae7dee4adda9f5e}{is\_sysrq\_oom}}(oc))}
+\DoxyCodeLine{01129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Got\ some\ memory\ back\ in\ the\ last\ second.\ */}}
+\DoxyCodeLine{01130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01131\ \ \ \ \ \}}
+\DoxyCodeLine{01132\ }
+\DoxyCodeLine{01133\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01134\ \textcolor{comment}{\ \ \ \ \ *\ If\ current\ has\ a\ pending\ SIGKILL\ or\ is\ exiting,\ then\ automatically }}
+\DoxyCodeLine{01135\ \textcolor{comment}{\ \ \ \ \ *\ select\ it.\ \ The\ goal\ is\ to\ allow\ it\ to\ allocate\ so\ that\ it\ may }}
+\DoxyCodeLine{01136\ \textcolor{comment}{\ \ \ \ \ *\ quickly\ exit\ and\ free\ its\ memory. }}
+\DoxyCodeLine{01137\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01138\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{oom__kill_8c_acc739a6f05963dc316e1923b4549f693}{task\_will\_free\_mem}}(current))\ \{}
+\DoxyCodeLine{01139\ \ \ \ \ \ \ \ \ mark\_oom\_victim(current);}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{oom__kill_8c_a45ef4eccca82c1ba3bc43e8a864f7580}{queue\_oom\_reaper}}(current);}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01142\ \ \ \ \ \}}
+\DoxyCodeLine{01143\ }
+\DoxyCodeLine{01144\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01145\ \textcolor{comment}{\ \ \ \ \ *\ The\ OOM\ killer\ does\ not\ compensate\ for\ IO-\/less\ reclaim. }}
+\DoxyCodeLine{01146\ \textcolor{comment}{\ \ \ \ \ *\ But\ mem\_cgroup\_oom()\ has\ to\ invoke\ the\ OOM\ killer\ even }}
+\DoxyCodeLine{01147\ \textcolor{comment}{\ \ \ \ \ *\ if\ it\ is\ a\ GFP\_NOFS\ allocation. }}
+\DoxyCodeLine{01148\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01149\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(oc-\/>\doxymbox{\hyperlink{structoom__control_ac0fa696227f3f57c02ee123ae6daa3a8}{gfp\_mask}}\ \&\ \doxymbox{\hyperlink{gfp__types_8h_acc4c173bc83c94ecbc3d825bc82bd3bf}{\_\_GFP\_FS}})\ \&\&\ !\doxymbox{\hyperlink{oom__kill_8c_a6e3502acb34f83d33a9524f88c0fef6c}{is\_memcg\_oom}}(oc))}
+\DoxyCodeLine{01150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01151\ }
+\DoxyCodeLine{01152\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01153\ \textcolor{comment}{\ \ \ \ \ *\ Check\ if\ there\ were\ limitations\ on\ the\ allocation\ (only\ relevant\ for }}
+\DoxyCodeLine{01154\ \textcolor{comment}{\ \ \ \ \ *\ NUMA\ and\ memcg)\ that\ may\ require\ different\ handling. }}
+\DoxyCodeLine{01155\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01156\ \ \ \ \ oc-\/>\doxymbox{\hyperlink{structoom__control_a62dbc511b3d2829e824eff2fc510d05b}{constraint}}\ =\ \doxymbox{\hyperlink{oom__kill_8c_a1e8053daf46eda4e3504f66319b0818f}{constrained\_alloc}}(oc);}
+\DoxyCodeLine{01157\ \ \ \ \ \textcolor{keywordflow}{if}\ (oc-\/>\doxymbox{\hyperlink{structoom__control_a62dbc511b3d2829e824eff2fc510d05b}{constraint}}\ !=\ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9}{CONSTRAINT\_MEMORY\_POLICY}})}
+\DoxyCodeLine{01158\ \ \ \ \ \ \ \ \ oc-\/>\doxymbox{\hyperlink{structoom__control_a453b14030607f612ad6a08a46725f5c7}{nodemask}}\ =\ NULL;}
+\DoxyCodeLine{01159\ \ \ \ \ \doxymbox{\hyperlink{oom__kill_8c_a068ee9e4fea673d126f12b3cfb729f46}{check\_panic\_on\_oom}}(oc);}
+\DoxyCodeLine{01160\ }
+\DoxyCodeLine{01161\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{oom__kill_8c_a6e3502acb34f83d33a9524f88c0fef6c}{is\_memcg\_oom}}(oc)\ \&\&\ \doxymbox{\hyperlink{oom__kill_8c_a18a0a476b0773bd969d383802bbfa797}{sysctl\_oom\_kill\_allocating\_task}}\ \&\&}
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ current-\/>mm\ \&\&\ !\doxymbox{\hyperlink{oom__kill_8c_ae72b010768f083d10efa64e7377c87d8}{oom\_unkillable\_task}}(current)\ \&\&}
+\DoxyCodeLine{01163\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{oom__kill_8c_a7967783b7d5c1ae8b7c1b56178494103}{oom\_cpuset\_eligible}}(current,\ oc)\ \&\&}
+\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ current-\/>signal-\/>oom\_score\_adj\ !=\ OOM\_SCORE\_ADJ\_MIN)\ \{}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ get\_task\_struct(current);}
+\DoxyCodeLine{01166\ \ \ \ \ \ \ \ \ oc-\/>\doxymbox{\hyperlink{structoom__control_a9daccb5f19503408ff6d384c5628361b}{chosen}}\ =\ current;}
+\DoxyCodeLine{01167\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{oom__kill_8c_a35abeafa870b1071f586e7c2190e3f91}{oom\_kill\_process}}(oc,\ \textcolor{stringliteral}{"{}Out\ of\ memory\ (oom\_kill\_allocating\_task)"{}});}
+\DoxyCodeLine{01168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01169\ \ \ \ \ \}}
+\DoxyCodeLine{01170\ }
+\DoxyCodeLine{01171\ \ \ \ \ \doxymbox{\hyperlink{oom__kill_8c_ab5093b5df0e5bdf2b662a3ac5e09c7bb}{select\_bad\_process}}(oc);}
+\DoxyCodeLine{01172\ \ \ \ \ \textcolor{comment}{/*\ Found\ nothing?!?!\ */}}
+\DoxyCodeLine{01173\ \ \ \ \ \textcolor{keywordflow}{if}\ (!oc-\/>\doxymbox{\hyperlink{structoom__control_a9daccb5f19503408ff6d384c5628361b}{chosen}})\ \{}
+\DoxyCodeLine{01174\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{oom__kill_8c_aea916b5aa02c3bfa036b26bbeeb0ab94}{dump\_header}}(oc);}
+\DoxyCodeLine{01175\ \ \ \ \ \ \ \ \ pr\_warn(\textcolor{stringliteral}{"{}Out\ of\ memory\ and\ no\ killable\ processes...\(\backslash\)n"{}});}
+\DoxyCodeLine{01176\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01177\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ If\ we\ got\ here\ due\ to\ an\ actual\ allocation\ at\ the }}
+\DoxyCodeLine{01178\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ system\ level,\ we\ cannot\ survive\ this\ and\ will\ enter }}
+\DoxyCodeLine{01179\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ an\ endless\ loop\ in\ the\ allocator.\ Bail\ out\ now. }}
+\DoxyCodeLine{01180\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{oom__kill_8c_a2f58593fb1fd01768ae7dee4adda9f5e}{is\_sysrq\_oom}}(oc)\ \&\&\ !\doxymbox{\hyperlink{oom__kill_8c_a6e3502acb34f83d33a9524f88c0fef6c}{is\_memcg\_oom}}(oc))}
+\DoxyCodeLine{01182\ \ \ \ \ \ \ \ \ \ \ \ \ panic(\textcolor{stringliteral}{"{}System\ is\ deadlocked\ on\ memory\(\backslash\)n"{}});}
+\DoxyCodeLine{01183\ \ \ \ \ \}}
+\DoxyCodeLine{01184\ \ \ \ \ \textcolor{keywordflow}{if}\ (oc-\/>\doxymbox{\hyperlink{structoom__control_a9daccb5f19503408ff6d384c5628361b}{chosen}}\ \&\&\ oc-\/>\doxymbox{\hyperlink{structoom__control_a9daccb5f19503408ff6d384c5628361b}{chosen}}\ !=\ (\textcolor{keywordtype}{void}\ *)-\/1UL)}
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{oom__kill_8c_a35abeafa870b1071f586e7c2190e3f91}{oom\_kill\_process}}(oc,\ !\doxymbox{\hyperlink{oom__kill_8c_a6e3502acb34f83d33a9524f88c0fef6c}{is\_memcg\_oom}}(oc)\ ?\ \textcolor{stringliteral}{"{}Out\ of\ memory"{}}\ :}
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Memory\ cgroup\ out\ of\ memory"{}});}
+\DoxyCodeLine{01187\ \ \ \ \ \textcolor{keywordflow}{return}\ !!oc-\/>\doxymbox{\hyperlink{structoom__control_a9daccb5f19503408ff6d384c5628361b}{chosen}};}
+\DoxyCodeLine{01188\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_ac9d9325ddb79f52e4f7a6006eb42d9af_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_ac9d9325ddb79f52e4f7a6006eb42d9af_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_a2aead0e1e9e533753e3ce1833078d482}\index{oom.h@{oom.h}!register\_oom\_notifier@{register\_oom\_notifier}}
+\index{register\_oom\_notifier@{register\_oom\_notifier}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{register\_oom\_notifier()}{register\_oom\_notifier()}}
+{\footnotesize\ttfamily \label{oom_8h_a2aead0e1e9e533753e3ce1833078d482} 
+int register\+\_\+oom\+\_\+notifier (\begin{DoxyParamCaption}\item[{struct notifier\+\_\+block \texorpdfstring{$\ast$}{*}}]{nb}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom__kill_8c_source_l01098}{1098}} of file \doxymbox{\hyperlink{oom__kill_8c_source}{oom\+\_\+kill.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01099\ \{}
+\DoxyCodeLine{01100\ \ \ \ \ \textcolor{keywordflow}{return}\ blocking\_notifier\_chain\_register(\&oom\_notify\_list,\ nb);}
+\DoxyCodeLine{01101\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_a2aead0e1e9e533753e3ce1833078d482_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_a7df1d6c0735c0afde6522850eb4c6118}\index{oom.h@{oom.h}!set\_current\_oom\_origin@{set\_current\_oom\_origin}}
+\index{set\_current\_oom\_origin@{set\_current\_oom\_origin}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{set\_current\_oom\_origin()}{set\_current\_oom\_origin()}}
+{\footnotesize\ttfamily \label{oom_8h_a7df1d6c0735c0afde6522850eb4c6118} 
+void set\+\_\+current\+\_\+oom\+\_\+origin (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00059}{59}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00060\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ current-\/>signal-\/>oom\_flag\_origin\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00062\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{oom_8h_a7df1d6c0735c0afde6522850eb4c6118_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_ae8d0053df81087f748dfe29c704739a6}\index{oom.h@{oom.h}!tsk\_is\_oom\_victim@{tsk\_is\_oom\_victim}}
+\index{tsk\_is\_oom\_victim@{tsk\_is\_oom\_victim}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{tsk\_is\_oom\_victim()}{tsk\_is\_oom\_victim()}}
+{\footnotesize\ttfamily \label{oom_8h_ae8d0053df81087f748dfe29c704739a6} 
+bool tsk\+\_\+is\+\_\+oom\+\_\+victim (\begin{DoxyParamCaption}\item[{struct task\+\_\+struct \texorpdfstring{$\ast$}{*}}]{tsk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom_8h_source_l00074}{74}} of file \doxymbox{\hyperlink{oom_8h_source}{oom.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00075\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{return}\ tsk-\/>signal-\/>oom\_mm;}
+\DoxyCodeLine{00077\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_ae8d0053df81087f748dfe29c704739a6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{oom_8h_ae00ee46e52e5e22872a1c9e1e50ce21a}\index{oom.h@{oom.h}!unregister\_oom\_notifier@{unregister\_oom\_notifier}}
+\index{unregister\_oom\_notifier@{unregister\_oom\_notifier}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{unregister\_oom\_notifier()}{unregister\_oom\_notifier()}}
+{\footnotesize\ttfamily \label{oom_8h_ae00ee46e52e5e22872a1c9e1e50ce21a} 
+int unregister\+\_\+oom\+\_\+notifier (\begin{DoxyParamCaption}\item[{struct notifier\+\_\+block \texorpdfstring{$\ast$}{*}}]{nb}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{oom__kill_8c_source_l01104}{1104}} of file \doxymbox{\hyperlink{oom__kill_8c_source}{oom\+\_\+kill.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01105\ \{}
+\DoxyCodeLine{01106\ \ \ \ \ \textcolor{keywordflow}{return}\ blocking\_notifier\_chain\_unregister(\&oom\_notify\_list,\ nb);}
+\DoxyCodeLine{01107\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{oom_8h_ae00ee46e52e5e22872a1c9e1e50ce21a_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{oom_8h_doc-var-members}
+\Hypertarget{oom_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{oom_8h_a8f24f28738dbd32c02aa07c5eb729f72}\index{oom.h@{oom.h}!oom\_adj\_mutex@{oom\_adj\_mutex}}
+\index{oom\_adj\_mutex@{oom\_adj\_mutex}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{oom\_adj\_mutex}{oom\_adj\_mutex}}
+{\footnotesize\ttfamily \label{oom_8h_a8f24f28738dbd32c02aa07c5eb729f72} 
+struct mutex oom\+\_\+adj\+\_\+mutex\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{oom_8h_ab7d77c517a7ca9042d6355010e06982b}\index{oom.h@{oom.h}!oom\_lock@{oom\_lock}}
+\index{oom\_lock@{oom\_lock}!oom.h@{oom.h}}
+\doxysubsubsection{\texorpdfstring{oom\_lock}{oom\_lock}}
+{\footnotesize\ttfamily \label{oom_8h_ab7d77c517a7ca9042d6355010e06982b} 
+struct mutex oom\+\_\+lock\hspace{0.3cm}{\ttfamily [extern]}}
+

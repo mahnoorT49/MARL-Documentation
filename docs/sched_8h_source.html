@@ -288,34 +288,42 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('sched_8h_sourc
 </div>
 <div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="preprocessor">#ifdef CONFIG_DEBUG_ATOMIC_SLEEP</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="preprocessor"># define debug_normal_state_change(state_value)             \</span></div>
+<div class="foldopen" id="foldopen00167" data-start="" data-end="">
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="sched_8h.html#ae6d9356500d024597d1f4fd226b490b8">  167</a></span><span class="preprocessor"># define debug_normal_state_change(state_value)             \</span></div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="preprocessor">    do {                                \</span></div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="preprocessor">        WARN_ON_ONCE(is_special_task_state(state_value));   \</span></div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">        current-&gt;task_state_change = _THIS_IP_;         \</span></div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="preprocessor">    } while (0)</span></div>
+</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="preprocessor"># define debug_special_state_change(state_value)            \</span></div>
+<div class="foldopen" id="foldopen00173" data-start="" data-end="">
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="sched_8h.html#a1d853247fb63588e5951caa7fd2930a1">  173</a></span><span class="preprocessor"># define debug_special_state_change(state_value)            \</span></div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="preprocessor">    do {                                \</span></div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="preprocessor">        WARN_ON_ONCE(!is_special_task_state(state_value));  \</span></div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="preprocessor">        current-&gt;task_state_change = _THIS_IP_;         \</span></div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="preprocessor">    } while (0)</span></div>
+</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="preprocessor"># define debug_rtlock_wait_set_state()                  \</span></div>
+<div class="foldopen" id="foldopen00179" data-start="" data-end="">
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="sched_8h.html#ad1de2deed0fb1c9ff0479449f45c51fd">  179</a></span><span class="preprocessor"># define debug_rtlock_wait_set_state()                  \</span></div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="preprocessor">    do {                                 \</span></div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="preprocessor">        current-&gt;saved_state_change = current-&gt;task_state_change;\</span></div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="preprocessor">        current-&gt;task_state_change = _THIS_IP_;          \</span></div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="preprocessor">    } while (0)</span></div>
+</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="preprocessor"># define debug_rtlock_wait_restore_state()              \</span></div>
+<div class="foldopen" id="foldopen00185" data-start="" data-end="">
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="sched_8h.html#a35140505a4dff0c0435fd8cc8fabeb0d">  185</a></span><span class="preprocessor"># define debug_rtlock_wait_restore_state()              \</span></div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="preprocessor">    do {                                 \</span></div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="preprocessor">        current-&gt;task_state_change = current-&gt;saved_state_change;\</span></div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="preprocessor">    } while (0)</span></div>
+</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="sched_8h.html#aba12b69727b04f36eb8432b54a16540f">  191</a></span><span class="preprocessor"># define debug_normal_state_change(cond)    do { } while (0)</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="sched_8h.html#af5798411f93fe055f692a90df2eb0e4c">  192</a></span><span class="preprocessor"># define debug_special_state_change(cond)   do { } while (0)</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="sched_8h.html#ad1de2deed0fb1c9ff0479449f45c51fd">  193</a></span><span class="preprocessor"># define debug_rtlock_wait_set_state()      do { } while (0)</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="sched_8h.html#a35140505a4dff0c0435fd8cc8fabeb0d">  194</a></span><span class="preprocessor"># define debug_rtlock_wait_restore_state()  do { } while (0)</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="preprocessor"># define debug_normal_state_change(cond)    do { } while (0)</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor"># define debug_special_state_change(cond)   do { } while (0)</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor"># define debug_rtlock_wait_set_state()      do { } while (0)</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="preprocessor"># define debug_rtlock_wait_restore_state()  do { } while (0)</span></div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
 <div class="foldopen" id="foldopen00197" data-start="" data-end="">
@@ -1651,10 +1659,10 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('sched_8h_sourc
 <div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>            memcg_nr_pages_over_high;</div>
 <div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span> </div>
 <div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span>    <span class="comment">/* Used by memcontrol for targeted memcg charge: */</span></div>
-<div class="line"><a id="l01537" name="l01537"></a><span class="lineno"> 1537</span>    <span class="keyword">struct </span>mem_cgroup       *active_memcg;</div>
+<div class="line"><a id="l01537" name="l01537"></a><span class="lineno"> 1537</span>    <span class="keyword">struct </span>mem_cgroup       *<a class="code hl_function" href="memcontrol_8c.html#a5883d97053d844c30cda6023c6250276">active_memcg</a>;</div>
 <div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span> </div>
 <div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span>    <span class="comment">/* Cache for current-&gt;cgroups-&gt;memcg-&gt;objcg lookups: */</span></div>
-<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>    <span class="keyword">struct </span>obj_cgroup       *objcg;</div>
+<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span>    <span class="keyword">struct </span>obj_cgroup       *<a class="code hl_variable" href="memcontrol_8h.html#a8967359b8034a97b341657c23964e061">objcg</a>;</div>
 <div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span> </div>
 <div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span><span class="preprocessor">#ifdef CONFIG_BLK_CGROUP</span></div>
@@ -1679,7 +1687,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('sched_8h_sourc
 <div class="line"><a id="l01562" name="l01562"></a><span class="lineno"> 1562</span>    refcount_t          rcu_users;</div>
 <div class="line"><a id="l01563" name="l01563"></a><span class="lineno"> 1563</span>    <span class="keywordtype">int</span>             pagefault_disabled;</div>
 <div class="line"><a id="l01564" name="l01564"></a><span class="lineno"> 1564</span><span class="preprocessor">#ifdef CONFIG_MMU</span></div>
-<div class="line"><a id="l01565" name="l01565"></a><span class="lineno"> 1565</span>    <span class="keyword">struct </span>task_struct      *oom_reaper_list;</div>
+<div class="line"><a id="l01565" name="l01565"></a><span class="lineno"> 1565</span>    <span class="keyword">struct </span>task_struct      *<a class="code hl_variable" href="oom__kill_8c.html#a1e02435dbc38a8ab4571e4c7e50340bd">oom_reaper_list</a>;</div>
 <div class="line"><a id="l01566" name="l01566"></a><span class="lineno"> 1566</span>    <span class="keyword">struct </span>timer_list       oom_reaper_timer;</div>
 <div class="line"><a id="l01567" name="l01567"></a><span class="lineno"> 1567</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l01568" name="l01568"></a><span class="lineno"> 1568</span><span class="preprocessor">#ifdef CONFIG_VMAP_STACK</span></div>
@@ -1771,7 +1779,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('sched_8h_sourc
 <div class="line"><a id="l01654" name="l01654"></a><span class="lineno"> 1654</span>} __attribute__ ((aligned (64)));</div>
 <div class="line"><a id="l01655" name="l01655"></a><span class="lineno"> 1655</span> </div>
 <div class="line"><a id="l01656" name="l01656"></a><span class="lineno"> 1656</span><span class="preprocessor">#ifdef CONFIG_SCHED_PROXY_EXEC</span></div>
-<div class="line"><a id="l01657" name="l01657"></a><span class="lineno"> 1657</span>DECLARE_STATIC_KEY_TRUE(__sched_proxy_exec);</div>
+<div class="line"><a id="l01657" name="l01657"></a><span class="lineno"> 1657</span><a class="code hl_function" href="mm_2slab_8h.html#ac2ae0f25277842312154899e7d0c26d5">DECLARE_STATIC_KEY_TRUE</a>(__sched_proxy_exec);</div>
 <div class="line"><a id="l01658" name="l01658"></a><span class="lineno"> 1658</span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> sched_proxy_exec(<span class="keywordtype">void</span>)</div>
 <div class="line"><a id="l01659" name="l01659"></a><span class="lineno"> 1659</span>{</div>
 <div class="line"><a id="l01660" name="l01660"></a><span class="lineno"> 1660</span>    <span class="keywordflow">return</span> static_branch_likely(&amp;__sched_proxy_exec);</div>
@@ -2566,14 +2574,18 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('sched_8h_sourc
 <div class="line"><a id="l02492" name="l02492"></a><span class="lineno"> 2492</span>DEFINE_LOCK_GUARD_0(migrate, migrate_disable(), migrate_enable())</div>
 <div class="line"><a id="l02493" name="l02493"></a><span class="lineno"> 2493</span> </div>
 <div class="line"><a id="l02494" name="l02494"></a><span class="lineno"> 2494</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="ainclude_2linux_2slab_8h_html_a3d472d9e3a45410122d89f40f6301c0d"><div class="ttname"><a href="include_2linux_2slab_8h.html#a3d472d9e3a45410122d89f40f6301c0d">node</a></div><div class="ttdeci">static __always_inline gfp_t int node</div><div class="ttdef"><b>Definition</b> slab.h:1069</div></div>
-<div class="ttc" id="ainclude_2linux_2slab_8h_html_a87339f115a0975a129ebf95946fe26d6"><div class="ttname"><a href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a></div><div class="ttdeci">static __always_inline gfp_t flags</div><div class="ttdef"><b>Definition</b> slab.h:942</div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a3d472d9e3a45410122d89f40f6301c0d"><div class="ttname"><a href="include_2linux_2slab_8h.html#a3d472d9e3a45410122d89f40f6301c0d">node</a></div><div class="ttdeci">static __always_inline gfp_t int node</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01163">slab.h:1164</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a87339f115a0975a129ebf95946fe26d6"><div class="ttname"><a href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a></div><div class="ttdeci">static __always_inline gfp_t flags</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01021">slab.h:1022</a></div></div>
 <div class="ttc" id="amemcontrol_8c_html_a2d77d62270ad953097c95533e52e387d"><div class="ttname"><a href="memcontrol_8c.html#a2d77d62270ad953097c95533e52e387d">____cacheline_aligned</a></div><div class="ttdeci">struct memcg_vmstats_percpu ____cacheline_aligned</div></div>
-<div class="ttc" id="asched_8h_html_a0816f4ce69502eb14f1b8574c1d0c7c8"><div class="ttname"><a href="sched_8h.html#a0816f4ce69502eb14f1b8574c1d0c7c8">TASK_REPORT</a></div><div class="ttdeci">#define TASK_REPORT</div><div class="ttdef"><b>Definition</b> sched.h:147</div></div>
-<div class="ttc" id="asched_8h_html_a484c8ea1bf2a1fbe6fcd28c7617166ae"><div class="ttname"><a href="sched_8h.html#a484c8ea1bf2a1fbe6fcd28c7617166ae">TASK_FROZEN</a></div><div class="ttdeci">#define TASK_FROZEN</div><div class="ttdef"><b>Definition</b> sched.h:126</div></div>
-<div class="ttc" id="asched_8h_html_a797095919d5e24e5dc00c4d0bbc7ec31"><div class="ttname"><a href="sched_8h.html#a797095919d5e24e5dc00c4d0bbc7ec31">TASK_UNINTERRUPTIBLE</a></div><div class="ttdeci">#define TASK_UNINTERRUPTIBLE</div><div class="ttdef"><b>Definition</b> sched.h:109</div></div>
-<div class="ttc" id="asched_8h_html_aa56ba1aed5aa073e789fd485da6202f0"><div class="ttname"><a href="sched_8h.html#aa56ba1aed5aa073e789fd485da6202f0">TASK_IDLE</a></div><div class="ttdeci">#define TASK_IDLE</div><div class="ttdef"><b>Definition</b> sched.h:141</div></div>
-<div class="ttc" id="asched_8h_html_ad5c0b8005e1733ac2f2ff31abca4b3d5"><div class="ttname"><a href="sched_8h.html#ad5c0b8005e1733ac2f2ff31abca4b3d5">TASK_RTLOCK_WAIT</a></div><div class="ttdeci">#define TASK_RTLOCK_WAIT</div><div class="ttdef"><b>Definition</b> sched.h:123</div></div>
+<div class="ttc" id="amemcontrol_8c_html_a5883d97053d844c30cda6023c6250276"><div class="ttname"><a href="memcontrol_8c.html#a5883d97053d844c30cda6023c6250276">active_memcg</a></div><div class="ttdeci">static __always_inline struct mem_cgroup * active_memcg(void)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8c_source.html#l00907">memcontrol.c:907</a></div></div>
+<div class="ttc" id="amemcontrol_8h_html_a8967359b8034a97b341657c23964e061"><div class="ttname"><a href="memcontrol_8h.html#a8967359b8034a97b341657c23964e061">objcg</a></div><div class="ttdeci">struct obj_cgroup * objcg</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8h_source.html#l00001">memcontrol.h:1</a></div></div>
+<div class="ttc" id="amm_2slab_8h_html_ac2ae0f25277842312154899e7d0c26d5"><div class="ttname"><a href="mm_2slab_8h.html#ac2ae0f25277842312154899e7d0c26d5">DECLARE_STATIC_KEY_TRUE</a></div><div class="ttdeci">DECLARE_STATIC_KEY_TRUE(slub_debug_enabled)</div></div>
+<div class="ttc" id="aoom__kill_8c_html_a1e02435dbc38a8ab4571e4c7e50340bd"><div class="ttname"><a href="oom__kill_8c.html#a1e02435dbc38a8ab4571e4c7e50340bd">oom_reaper_list</a></div><div class="ttdeci">static struct task_struct * oom_reaper_list</div><div class="ttdef"><b>Definition</b> <a href="oom__kill_8c_source.html#l00513">oom_kill.c:513</a></div></div>
+<div class="ttc" id="asched_8h_html_a0816f4ce69502eb14f1b8574c1d0c7c8"><div class="ttname"><a href="sched_8h.html#a0816f4ce69502eb14f1b8574c1d0c7c8">TASK_REPORT</a></div><div class="ttdeci">#define TASK_REPORT</div><div class="ttdef"><b>Definition</b> <a href="#l00147">sched.h:147</a></div></div>
+<div class="ttc" id="asched_8h_html_a484c8ea1bf2a1fbe6fcd28c7617166ae"><div class="ttname"><a href="sched_8h.html#a484c8ea1bf2a1fbe6fcd28c7617166ae">TASK_FROZEN</a></div><div class="ttdeci">#define TASK_FROZEN</div><div class="ttdef"><b>Definition</b> <a href="#l00126">sched.h:126</a></div></div>
+<div class="ttc" id="asched_8h_html_a797095919d5e24e5dc00c4d0bbc7ec31"><div class="ttname"><a href="sched_8h.html#a797095919d5e24e5dc00c4d0bbc7ec31">TASK_UNINTERRUPTIBLE</a></div><div class="ttdeci">#define TASK_UNINTERRUPTIBLE</div><div class="ttdef"><b>Definition</b> <a href="#l00109">sched.h:109</a></div></div>
+<div class="ttc" id="asched_8h_html_aa56ba1aed5aa073e789fd485da6202f0"><div class="ttname"><a href="sched_8h.html#aa56ba1aed5aa073e789fd485da6202f0">TASK_IDLE</a></div><div class="ttdeci">#define TASK_IDLE</div><div class="ttdef"><b>Definition</b> <a href="#l00141">sched.h:141</a></div></div>
+<div class="ttc" id="asched_8h_html_ad5c0b8005e1733ac2f2ff31abca4b3d5"><div class="ttname"><a href="sched_8h.html#ad5c0b8005e1733ac2f2ff31abca4b3d5">TASK_RTLOCK_WAIT</a></div><div class="ttdeci">#define TASK_RTLOCK_WAIT</div><div class="ttdef"><b>Definition</b> <a href="#l00123">sched.h:123</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

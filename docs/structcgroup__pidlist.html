@@ -118,6 +118,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structcgroup__
   <div class="headertitle"><div class="title">cgroup_pidlist Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Collaboration diagram for cgroup_pidlist:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structcgroup__pidlist__coll__graph.svg" width="1375" height="292"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -128,10 +133,15 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab0771a2b05310f80cbad0dc1448fe710" id="r_ab0771a2b05310f80cbad0dc1448fe710"><td class="memItemLeft">pid_t *&#160;</td><td class="memItemRight"><a class="el" href="#ab0771a2b05310f80cbad0dc1448fe710">list</a></td></tr>
 <tr class="memitem:adb52462ce67473a76d3f822043459cc0" id="r_adb52462ce67473a76d3f822043459cc0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adb52462ce67473a76d3f822043459cc0">length</a></td></tr>
 <tr class="memitem:ad7adb66d2789c727cc67ae64254cb12b" id="r_ad7adb66d2789c727cc67ae64254cb12b"><td class="memItemLeft">struct list_head&#160;</td><td class="memItemRight"><a class="el" href="#ad7adb66d2789c727cc67ae64254cb12b">links</a></td></tr>
-<tr class="memitem:ade4ad136cb50283e3f32b0bb37d6134b" id="r_ade4ad136cb50283e3f32b0bb37d6134b"><td class="memItemLeft">struct cgroup *&#160;</td><td class="memItemRight"><a class="el" href="#ade4ad136cb50283e3f32b0bb37d6134b">owner</a></td></tr>
+<tr class="memitem:ade4ad136cb50283e3f32b0bb37d6134b" id="r_ade4ad136cb50283e3f32b0bb37d6134b"><td class="memItemLeft">struct <a class="el" href="structcgroup.html">cgroup</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ade4ad136cb50283e3f32b0bb37d6134b">owner</a></td></tr>
 <tr class="memitem:ae1e532f854d5773f0241f16fce511671" id="r_ae1e532f854d5773f0241f16fce511671"><td class="memItemLeft">struct delayed_work&#160;</td><td class="memItemRight"><a class="el" href="#ae1e532f854d5773f0241f16fce511671">destroy_dwork</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A pidlist is a list of pids that virtually represents the contents of one of the cgroup files ("procs" or "tasks"). We keep a list of such pidlists, a pair (one each for procs, tasks) for each pid namespace that's relevant to the cgroup.</p>
+<p>struct Description: This structure holds a list of PIDs for a cgroup's "tasks" or "procs" file. It contains the key (type and namespace), the array of PIDs, length, links for list management, owner cgroup, and a delayed work for destruction. It is used to cache the list of processes in a cgroup for efficient reading. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-v1_8c_source.html#l00203">203</a> of file <a class="el" href="cgroup-v1_8c_source.html">cgroup-v1.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="ae1e532f854d5773f0241f16fce511671" name="ae1e532f854d5773f0241f16fce511671"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae1e532f854d5773f0241f16fce511671">&#9670;&#160;</a></span>destroy_dwork</h2>
 
@@ -143,6 +153,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>for delayed destruction </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-v1_8c_source.html#l00218">218</a> of file <a class="el" href="cgroup-v1_8c_source.html">cgroup-v1.c</a>.</p>
 
 </div>
 </div>
@@ -157,6 +170,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>used to find which pidlist is wanted. doesn't change as long as this particular list stays in the list. </p>
 
 </div>
 </div>
@@ -171,6 +185,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>how many elements the above list has </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-v1_8c_source.html#l00212">212</a> of file <a class="el" href="cgroup-v1_8c_source.html">cgroup-v1.c</a>.</p>
 
 </div>
 </div>
@@ -185,6 +202,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>each of these stored in a list by its cgroup </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-v1_8c_source.html#l00214">214</a> of file <a class="el" href="cgroup-v1_8c_source.html">cgroup-v1.c</a>.</p>
 
 </div>
 </div>
@@ -199,6 +219,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>array of xids </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-v1_8c_source.html#l00210">210</a> of file <a class="el" href="cgroup-v1_8c_source.html">cgroup-v1.c</a>.</p>
 
 </div>
 </div>
@@ -214,6 +237,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cgroup-v1_8c_source.html#l00208">208</a> of file <a class="el" href="cgroup-v1_8c_source.html">cgroup-v1.c</a>.</p>
+
 </div>
 </div>
 <a id="ade4ad136cb50283e3f32b0bb37d6134b" name="ade4ad136cb50283e3f32b0bb37d6134b"></a>
@@ -223,10 +248,13 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct cgroup* cgroup_pidlist::owner</td>
+          <td class="memname">struct <a class="el" href="structcgroup.html">cgroup</a>* cgroup_pidlist::owner</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>pointer to the cgroup we belong to, for list removal purposes </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-v1_8c_source.html#l00216">216</a> of file <a class="el" href="cgroup-v1_8c_source.html">cgroup-v1.c</a>.</p>
 
 </div>
 </div>
@@ -242,10 +270,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="cgroup-v1_8c_source.html#l00208">208</a> of file <a class="el" href="cgroup-v1_8c_source.html">cgroup-v1.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>kernel/cgroup/<a class="el" href="cgroup-v1_8c.html">cgroup-v1.c</a></li>
+<li>kernel/cgroup/<a class="el" href="cgroup-v1_8c_source.html">cgroup-v1.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

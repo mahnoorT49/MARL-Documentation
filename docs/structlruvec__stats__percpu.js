@@ -1,5 +1,5 @@
 var structlruvec__stats__percpu =
 [
-    [ "state", "structlruvec__stats__percpu.html#af7cfad5f3eb2eded617d19ec680c43ab", null ],
-    [ "state_prev", "structlruvec__stats__percpu.html#aab48f8b9f77a18390e55392ba3fd7287", null ]
+    [ "state", "structlruvec__stats__percpu.html#a4e1674c5e98ff18f42843b080573c5a8", null ],
+    [ "state_prev", "structlruvec__stats__percpu.html#af7d94816f4eeba7ca8b8f0eae92192a4", null ]
 ];

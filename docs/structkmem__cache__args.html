@@ -134,7 +134,10 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>struct <a class="el" href="structkmem__cache__args.html">kmem_cache_args</a> - Less common arguments for <a class="el" href="include_2linux_2slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a></p>
 <p>Any uninitialized fields of the structure are interpreted as unused. The exception is @freeptr_offset where %0 is a valid value, so @use_freeptr_offset must be also set to true in order to interpret the field as used. For @useroffset %0 is also valid, but only with non-%0 @usersize.</p>
-<p>When NULL args is passed to <a class="el" href="include_2linux_2slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a>, it is equivalent to all fields unused. </p>
+<p>When NULL args is passed to <a class="el" href="include_2linux_2slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a>, it is equivalent to all fields unused.</p>
+<p>struct Description: This structure holds optional arguments for <a class="el" href="include_2linux_2slab_8h.html#adf8cdc761f51d67846ff22c9b5798a58">kmem_cache_create()</a>. It contains alignment, usercopy region (offset and size), free pointer offset, constructor function, and sheaf capacity. This provides a flexible way to pass less common parameters when creating a slab cache. </p>
+
+<p class="definition">Definition at line <a class="el" href="include_2linux_2slab_8h_source.html#l00293">293</a> of file <a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="aa573dbd1390ac87c6eab589ba28300dd" name="aa573dbd1390ac87c6eab589ba28300dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa573dbd1390ac87c6eab589ba28300dd">&#9670;&#160;</a></span>align</h2>
@@ -149,6 +152,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>@align: The required alignment for the objects.</p>
 <p>%0 means no specific alignment is requested. </p>
+
+<p class="definition">Definition at line <a class="el" href="include_2linux_2slab_8h_source.html#l00299">299</a> of file <a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -166,6 +171,8 @@ Public Attributes</h2></td></tr>
 <p>@ctor: A constructor for the objects.</p>
 <p>The constructor is invoked for each object in a newly allocated slab page. It is the cache user's responsibility to free object in the same state as after calling the constructor, or deal appropriately with any differences between a freshly constructed and a reallocated object.</p>
 <p>NULL means no constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="include_2linux_2slab_8h_source.html#l00351">351</a> of file <a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -186,6 +193,8 @@ Public Attributes</h2></td></tr>
 <p>For caches with @ctor, the caller must ensure that the free pointer does not overlay fields initialized by the constructor.</p>
 <p>Currently, only caches with &amp;SLAB_TYPESAFE_BY_RCU or @ctor may specify @freeptr_offset.</p>
 <p>Using %0 as a value for @freeptr_offset is valid. If @freeptr_offset is specified, @use_freeptr_offset must be set true. </p>
+
+<p class="definition">Definition at line <a class="el" href="include_2linux_2slab_8h_source.html#l00335">335</a> of file <a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -209,6 +218,8 @@ Public Attributes</h2></td></tr>
 <p>When slub_debug is enabled for the cache, the sheaf_capacity argument is ignored.</p>
 <p>%0 means no sheaves will be created. </p>
 
+<p class="definition">Definition at line <a class="el" href="include_2linux_2slab_8h_source.html#l00382">382</a> of file <a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="a8399127fff5bf790e35688499db907d9" name="a8399127fff5bf790e35688499db907d9"></a>
@@ -223,6 +234,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>@use_freeptr_offset: Whether a @freeptr_offset is used. </p>
+
+<p class="definition">Definition at line <a class="el" href="include_2linux_2slab_8h_source.html#l00339">339</a> of file <a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -240,6 +253,8 @@ Public Attributes</h2></td></tr>
 <p>@useroffset: Usercopy region offset.</p>
 <p>%0 is a valid offset, when @usersize is non-%0 </p>
 
+<p class="definition">Definition at line <a class="el" href="include_2linux_2slab_8h_source.html#l00305">305</a> of file <a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="af33d6a553fa07b051bd3c8d408ad2fb8" name="af33d6a553fa07b051bd3c8d408ad2fb8"></a>
@@ -255,6 +270,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>@usersize: Usercopy region size.</p>
 <p>%0 means no usercopy region is specified. </p>
+
+<p class="definition">Definition at line <a class="el" href="include_2linux_2slab_8h_source.html#l00311">311</a> of file <a class="el" href="include_2linux_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>

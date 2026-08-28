@@ -1,0 +1,84 @@
+\doxysection{mem\+\_\+cgroup\+\_\+threshold\+\_\+ary Struct Reference}
+\hypertarget{structmem__cgroup__threshold__ary}{}\label{structmem__cgroup__threshold__ary}\index{mem\_cgroup\_threshold\_ary@{mem\_cgroup\_threshold\_ary}}
+
+
+{\ttfamily \+\#include $<$memcontrol.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structmem__cgroup__threshold}{mem\+\_\+cgroup\+\_\+threshold}} entries\+[$\,$]\+ \doxymbox{\hyperlink{structmem__cgroup__threshold__ary_a0b9fefefbc51bba0b2c3d1f30fff4238}{\+\_\+\+\_\+counted\+\_\+by}} (\doxymbox{\hyperlink{structmem__cgroup__threshold__ary_ace359eec0f155b788bb5bcf63cd3ad56}{size}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{structmem__cgroup__threshold__ary_af59ddc394787d67e39209b39cd28b24d}{current\+\_\+threshold}}
+\item 
+unsigned int \doxymbox{\hyperlink{structmem__cgroup__threshold__ary_ace359eec0f155b788bb5bcf63cd3ad56}{size}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+For threshold
+
+struct Description:\+ This structure holds an array of memory thresholds. It contains the current threshold index, the size of the array, and the entries themselves. It is used to manage multiple thresholds for a cgroup. 
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l00159}{159}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+
+
+\label{structmem__cgroup__threshold__ary_doc-func-members}
+\Hypertarget{structmem__cgroup__threshold__ary_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structmem__cgroup__threshold__ary_a0b9fefefbc51bba0b2c3d1f30fff4238}\index{mem\_cgroup\_threshold\_ary@{mem\_cgroup\_threshold\_ary}!\_\_counted\_by@{\_\_counted\_by}}
+\index{\_\_counted\_by@{\_\_counted\_by}!mem\_cgroup\_threshold\_ary@{mem\_cgroup\_threshold\_ary}}
+\doxysubsubsection{\texorpdfstring{\_\_counted\_by()}{\_\_counted\_by()}}
+{\footnotesize\ttfamily \label{structmem__cgroup__threshold__ary_a0b9fefefbc51bba0b2c3d1f30fff4238} 
+struct \doxymbox{\hyperlink{structmem__cgroup__threshold}{mem\+\_\+cgroup\+\_\+threshold}} entries\+[$\,$]\+ mem\+\_\+cgroup\+\_\+threshold\+\_\+ary::\+\+\_\+\+\_\+counted\+\_\+by (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structmem__cgroup__threshold__ary_ace359eec0f155b788bb5bcf63cd3ad56}{size}}}]{}{}\end{DoxyParamCaption})}
+
+Array of thresholds Here is the call graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{structmem__cgroup__threshold__ary_a0b9fefefbc51bba0b2c3d1f30fff4238_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{structmem__cgroup__threshold__ary_a0b9fefefbc51bba0b2c3d1f30fff4238_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{structmem__cgroup__threshold__ary_doc-variable-members}
+\Hypertarget{structmem__cgroup__threshold__ary_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structmem__cgroup__threshold__ary_af59ddc394787d67e39209b39cd28b24d}\index{mem\_cgroup\_threshold\_ary@{mem\_cgroup\_threshold\_ary}!current\_threshold@{current\_threshold}}
+\index{current\_threshold@{current\_threshold}!mem\_cgroup\_threshold\_ary@{mem\_cgroup\_threshold\_ary}}
+\doxysubsubsection{\texorpdfstring{current\_threshold}{current\_threshold}}
+{\footnotesize\ttfamily \label{structmem__cgroup__threshold__ary_af59ddc394787d67e39209b39cd28b24d} 
+int mem\+\_\+cgroup\+\_\+threshold\+\_\+ary::\+current\+\_\+threshold}
+
+An array index points to threshold just below or equal to usage. 
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l00161}{161}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+\Hypertarget{structmem__cgroup__threshold__ary_ace359eec0f155b788bb5bcf63cd3ad56}\index{mem\_cgroup\_threshold\_ary@{mem\_cgroup\_threshold\_ary}!size@{size}}
+\index{size@{size}!mem\_cgroup\_threshold\_ary@{mem\_cgroup\_threshold\_ary}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily \label{structmem__cgroup__threshold__ary_ace359eec0f155b788bb5bcf63cd3ad56} 
+unsigned int mem\+\_\+cgroup\+\_\+threshold\+\_\+ary::\+size}
+
+Size of entries\+[]\+ 
+
+Definition at line \doxymbox{\hyperlink{memcontrol_8h_source_l00163}{163}} of file \doxymbox{\hyperlink{memcontrol_8h_source}{memcontrol.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{memcontrol_8h}{memcontrol.\+h}}\end{DoxyCompactItemize}

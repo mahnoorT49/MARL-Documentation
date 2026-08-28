@@ -133,21 +133,90 @@ Include dependency graph for execmem.c:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c__incl.svg" width="4655" height="278"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-</div><table class="memberdecls">
+</div>
+<p><a href="execmem_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:execmem_5Fcache" id="r_execmem_5Fcache"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structexecmem__cache.html">execmem_cache</a></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a1f8c165bf4196327bc3abff648276d92" id="r_a1f8c165bf4196327bc3abff648276d92"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1f8c165bf4196327bc3abff648276d92">pr_fmt</a>(fmt)</td></tr>
+<tr class="memitem:a7f2fafbaf97605bf1660ba5f42e4b940" id="r_a7f2fafbaf97605bf1660ba5f42e4b940"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7f2fafbaf97605bf1660ba5f42e4b940">FREE_DELAY</a>&#160;&#160;&#160;(msecs_to_jiffies(10))</td></tr>
+<tr class="memitem:afc5dd37ed085f0aec800ddda6869389d" id="r_afc5dd37ed085f0aec800ddda6869389d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#afc5dd37ed085f0aec800ddda6869389d">PENDING_FREE_MASK</a>&#160;&#160;&#160;(1 &lt;&lt; (PAGE_SHIFT - 1))</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a626c7e7f7505929d4cc2ddb266401984" id="r_a626c7e7f7505929d4cc2ddb266401984"><td class="memItemLeft">static void *&#160;</td><td class="memItemRight"><a class="el" href="#a626c7e7f7505929d4cc2ddb266401984">execmem_vmalloc</a> (struct execmem_range *range, size_t size, pgprot_t pgprot, unsigned long vm_flags)</td></tr>
+<tr class="memitem:a2bc1659bcbf3698e01263c5b37e44166" id="r_a2bc1659bcbf3698e01263c5b37e44166"><td class="memItemLeft">struct <a class="el" href="structvm__struct.html">vm_struct</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a2bc1659bcbf3698e01263c5b37e44166">execmem_vmap</a> (size_t size)</td></tr>
+<tr class="memitem:a8ae7ad87ec01bee85da766636c0b96e3" id="r_a8ae7ad87ec01bee85da766636c0b96e3"><td class="memItemLeft">static unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a8ae7ad87ec01bee85da766636c0b96e3">mas_range_len</a> (struct ma_state *mas)</td></tr>
+<tr class="memitem:a399f7a460f51f244d295aaf666e39aac" id="r_a399f7a460f51f244d295aaf666e39aac"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a399f7a460f51f244d295aaf666e39aac">execmem_set_direct_map_valid</a> (struct <a class="el" href="structvm__struct.html">vm_struct</a> *vm, bool valid)</td></tr>
+<tr class="memitem:a490e479cab08824e30af8d85380c41ce" id="r_a490e479cab08824e30af8d85380c41ce"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a490e479cab08824e30af8d85380c41ce">execmem_force_rw</a> (void *ptr, size_t size)</td></tr>
+<tr class="memitem:a4ce4a3f4d3d8f95911f5d5eeac9f43f4" id="r_a4ce4a3f4d3d8f95911f5d5eeac9f43f4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4ce4a3f4d3d8f95911f5d5eeac9f43f4">execmem_restore_rox</a> (void *ptr, size_t size)</td></tr>
+<tr class="memitem:a3889c800d92fea0aff9821c22e9eb8b3" id="r_a3889c800d92fea0aff9821c22e9eb8b3"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a3889c800d92fea0aff9821c22e9eb8b3">execmem_cache_clean</a> (struct work_struct *work)</td></tr>
+<tr class="memitem:a5acd37be2f260d565f4f83e4bae5982c" id="r_a5acd37be2f260d565f4f83e4bae5982c"><td class="memItemLeft">static&#160;</td><td class="memItemRight"><a class="el" href="#a5acd37be2f260d565f4f83e4bae5982c">DECLARE_WORK</a> (execmem_cache_clean_work, <a class="el" href="#a3889c800d92fea0aff9821c22e9eb8b3">execmem_cache_clean</a>)</td></tr>
+<tr class="memitem:aa9574e2eabd8f224365484047df2665c" id="r_aa9574e2eabd8f224365484047df2665c"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#aa9574e2eabd8f224365484047df2665c">execmem_cache_add_locked</a> (void *ptr, size_t size, gfp_t gfp_mask)</td></tr>
+<tr class="memitem:ac8d3280ce2c3960209f263cb47b43bc7" id="r_ac8d3280ce2c3960209f263cb47b43bc7"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#ac8d3280ce2c3960209f263cb47b43bc7">execmem_cache_add</a> (void *ptr, size_t size, gfp_t gfp_mask)</td></tr>
+<tr class="memitem:aad1f81fab09ea4688f5419abb401da0e" id="r_aad1f81fab09ea4688f5419abb401da0e"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#aad1f81fab09ea4688f5419abb401da0e">within_range</a> (struct execmem_range *range, struct ma_state *mas, size_t size)</td></tr>
+<tr class="memitem:a39f8a6aafa5b520c720e70db027f653c" id="r_a39f8a6aafa5b520c720e70db027f653c"><td class="memItemLeft">static void *&#160;</td><td class="memItemRight"><a class="el" href="#a39f8a6aafa5b520c720e70db027f653c">__execmem_cache_alloc</a> (struct execmem_range *range, size_t size)</td></tr>
+<tr class="memitem:aa7c2c2197224e843793156e5a56ed086" id="r_aa7c2c2197224e843793156e5a56ed086"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#aa7c2c2197224e843793156e5a56ed086">execmem_cache_populate</a> (struct execmem_range *range, size_t size)</td></tr>
+<tr class="memitem:a96e7d0e01bca5033b3fcbfba22d3d2e8" id="r_a96e7d0e01bca5033b3fcbfba22d3d2e8"><td class="memItemLeft">static void *&#160;</td><td class="memItemRight"><a class="el" href="#a96e7d0e01bca5033b3fcbfba22d3d2e8">execmem_cache_alloc</a> (struct execmem_range *range, size_t size)</td></tr>
+<tr class="memitem:acf2798ad88129bea99e130daa4fc95c7" id="r_acf2798ad88129bea99e130daa4fc95c7"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#acf2798ad88129bea99e130daa4fc95c7">is_pending_free</a> (void *ptr)</td></tr>
+<tr class="memitem:a0f6db0393630a22054a44a665f5bcba6" id="r_a0f6db0393630a22054a44a665f5bcba6"><td class="memItemLeft">static void *&#160;</td><td class="memItemRight"><a class="el" href="#a0f6db0393630a22054a44a665f5bcba6">pending_free_set</a> (void *ptr)</td></tr>
+<tr class="memitem:a631eae632dea10446e113f66bbf8781c" id="r_a631eae632dea10446e113f66bbf8781c"><td class="memItemLeft">static void *&#160;</td><td class="memItemRight"><a class="el" href="#a631eae632dea10446e113f66bbf8781c">pending_free_clear</a> (void *ptr)</td></tr>
+<tr class="memitem:a32d4cd5329d950549000c70d06ad3ed4" id="r_a32d4cd5329d950549000c70d06ad3ed4"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a32d4cd5329d950549000c70d06ad3ed4">__execmem_cache_free</a> (struct ma_state *mas, void *ptr, gfp_t gfp_mask)</td></tr>
+<tr class="memitem:a47937bf431bb770044358b9d7a9c7263" id="r_a47937bf431bb770044358b9d7a9c7263"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a47937bf431bb770044358b9d7a9c7263">execmem_cache_free_slow</a> (struct work_struct *work)</td></tr>
+<tr class="memitem:a191b21b0012b2c0678ee13de6a622fb9" id="r_a191b21b0012b2c0678ee13de6a622fb9"><td class="memItemLeft">static&#160;</td><td class="memItemRight"><a class="el" href="#a191b21b0012b2c0678ee13de6a622fb9">DECLARE_DELAYED_WORK</a> (execmem_cache_free_work, <a class="el" href="#a47937bf431bb770044358b9d7a9c7263">execmem_cache_free_slow</a>)</td></tr>
+<tr class="memitem:a034e1db6b1cabd6eba6f861952904a1e" id="r_a034e1db6b1cabd6eba6f861952904a1e"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a034e1db6b1cabd6eba6f861952904a1e">execmem_cache_free</a> (void *ptr)</td></tr>
 <tr class="memitem:a6024d8b5d70299df46a773ee79129853" id="r_a6024d8b5d70299df46a773ee79129853"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a6024d8b5d70299df46a773ee79129853">execmem_alloc</a> (enum execmem_type type, size_t size)</td></tr>
 <tr class="memitem:a88ae26a850a07a0ec7c97c4581ab58b6" id="r_a88ae26a850a07a0ec7c97c4581ab58b6"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a88ae26a850a07a0ec7c97c4581ab58b6">execmem_alloc_rw</a> (enum execmem_type type, size_t size)</td></tr>
 <tr class="memitem:aec0268ee3e815aad85f781db6ad81637" id="r_aec0268ee3e815aad85f781db6ad81637"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aec0268ee3e815aad85f781db6ad81637">execmem_free</a> (void *ptr)</td></tr>
 <tr class="memitem:a67c0f53d62cd690fe70a4bc2ac3a2784" id="r_a67c0f53d62cd690fe70a4bc2ac3a2784"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a67c0f53d62cd690fe70a4bc2ac3a2784">execmem_is_rox</a> (enum execmem_type type)</td></tr>
+<tr class="memitem:abe8b4c04e72d1569015305a2db188261" id="r_abe8b4c04e72d1569015305a2db188261"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#abe8b4c04e72d1569015305a2db188261">execmem_validate</a> (struct execmem_info *info)</td></tr>
+<tr class="memitem:a1246406a477499d37c9415fdd92a04f6" id="r_a1246406a477499d37c9415fdd92a04f6"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a1246406a477499d37c9415fdd92a04f6">execmem_init_missing</a> (struct execmem_info *info)</td></tr>
 <tr class="memitem:a7588ffd986a3b4db29f81b90d6bba115" id="r_a7588ffd986a3b4db29f81b90d6bba115"><td class="memItemLeft">struct execmem_info *__weak&#160;</td><td class="memItemRight"><a class="el" href="#a7588ffd986a3b4db29f81b90d6bba115">execmem_arch_setup</a> (void)</td></tr>
+<tr class="memitem:aa79acb9bcb62cc233ebcf7066c300278" id="r_aa79acb9bcb62cc233ebcf7066c300278"><td class="memItemLeft">static void __init&#160;</td><td class="memItemRight"><a class="el" href="#aa79acb9bcb62cc233ebcf7066c300278">__execmem_init</a> (void)</td></tr>
 <tr class="memitem:af0b70b1499241b90b8c35491b605e58c" id="r_af0b70b1499241b90b8c35491b605e58c"><td class="memItemLeft">void __init&#160;</td><td class="memItemRight"><a class="el" href="#af0b70b1499241b90b8c35491b605e58c">execmem_init</a> (void)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a93a0520ad5869f318dc763779fbce2b9" id="r_a93a0520ad5869f318dc763779fbce2b9"><td class="memItemLeft">static struct execmem_info *execmem_info&#160;</td><td class="memItemRight"><a class="el" href="#a93a0520ad5869f318dc763779fbce2b9">__ro_after_init</a></td></tr>
+<tr class="memitem:a66cbe1eb4be9887fb33b475ab0ea8e5c" id="r_a66cbe1eb4be9887fb33b475ab0ea8e5c"><td class="memItemLeft">static struct execmem_cache&#160;</td><td class="memItemRight"><a class="el" href="#a66cbe1eb4be9887fb33b475ab0ea8e5c">execmem_cache</a></td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a7f2fafbaf97605bf1660ba5f42e4b940" name="a7f2fafbaf97605bf1660ba5f42e4b940"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f2fafbaf97605bf1660ba5f42e4b940">&#9670;&#160;</a></span>FREE_DELAY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FREE_DELAY&#160;&#160;&#160;(msecs_to_jiffies(10))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00114">114</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+
+</div>
+</div>
+<a id="afc5dd37ed085f0aec800ddda6869389d" name="afc5dd37ed085f0aec800ddda6869389d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc5dd37ed085f0aec800ddda6869389d">&#9670;&#160;</a></span>PENDING_FREE_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PENDING_FREE_MASK&#160;&#160;&#160;(1 &lt;&lt; (PAGE_SHIFT - 1))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00117">117</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+
+</div>
+</div>
 <a id="a1f8c165bf4196327bc3abff648276d92" name="a1f8c165bf4196327bc3abff648276d92"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1f8c165bf4196327bc3abff648276d92">&#9670;&#160;</a></span>pr_fmt</h2>
 
@@ -164,9 +233,304 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="stringliteral">&quot;execmem: &quot;</span> fmt</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00009">9</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a39f8a6aafa5b520c720e70db027f653c" name="a39f8a6aafa5b520c720e70db027f653c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39f8a6aafa5b520c720e70db027f653c">&#9670;&#160;</a></span>__execmem_cache_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * __execmem_cache_alloc </td>
+          <td>(</td>
+          <td class="paramtype">struct execmem_range *</td>          <td class="paramname"><span class="paramname"><em>range</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00318">318</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  319</span>{</div>
+<div class="line"><span class="lineno">  320</span>    <span class="keyword">struct </span>maple_tree *free_areas = &amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a3fce59bff21a3747c0295cb1a23e1e0b">free_areas</a>;</div>
+<div class="line"><span class="lineno">  321</span>    <span class="keyword">struct </span>maple_tree *busy_areas = &amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#aacf000eeba5e03cb7166832bc1de99ee">busy_areas</a>;</div>
+<div class="line"><span class="lineno">  322</span>    MA_STATE(mas_free, free_areas, 0, ULONG_MAX);</div>
+<div class="line"><span class="lineno">  323</span>    MA_STATE(mas_busy, busy_areas, 0, ULONG_MAX);</div>
+<div class="line"><span class="lineno">  324</span>    <span class="keyword">struct </span>mutex *mutex = &amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>;</div>
+<div class="line"><span class="lineno">  325</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> addr, last, area_size = 0;</div>
+<div class="line"><span class="lineno">  326</span>    <span class="keywordtype">void</span> *area, *ptr = NULL;</div>
+<div class="line"><span class="lineno">  327</span>    <span class="keywordtype">int</span> err;</div>
+<div class="line"><span class="lineno">  328</span> </div>
+<div class="line"><span class="lineno">  329</span>    mutex_lock(mutex);</div>
+<div class="line"><span class="lineno">  330</span>    mas_for_each(&amp;mas_free, area, ULONG_MAX) {</div>
+<div class="line"><span class="lineno">  331</span>        area_size = <a class="code hl_function" href="#a8ae7ad87ec01bee85da766636c0b96e3">mas_range_len</a>(&amp;mas_free);</div>
+<div class="line"><span class="lineno">  332</span> </div>
+<div class="line"><span class="lineno">  333</span>        <span class="keywordflow">if</span> (area_size &gt;= <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> &amp;&amp; <a class="code hl_function" href="#aad1f81fab09ea4688f5419abb401da0e">within_range</a>(range, &amp;mas_free, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>))</div>
+<div class="line"><span class="lineno">  334</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  335</span>    }</div>
+<div class="line"><span class="lineno">  336</span> </div>
+<div class="line"><span class="lineno">  337</span>    <span class="keywordflow">if</span> (area_size &lt; <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>)</div>
+<div class="line"><span class="lineno">  338</span>        <span class="keywordflow">goto</span> out_unlock;</div>
+<div class="line"><span class="lineno">  339</span> </div>
+<div class="line"><span class="lineno">  340</span>    addr = mas_free.index;</div>
+<div class="line"><span class="lineno">  341</span>    last = mas_free.last;</div>
+<div class="line"><span class="lineno">  342</span> </div>
+<div class="line"><span class="lineno">  343</span>    <span class="comment">/* insert allocated size to busy_areas at range [addr, addr + size) */</span></div>
+<div class="line"><span class="lineno">  344</span>    mas_set_range(&amp;mas_busy, addr, addr + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> - 1);</div>
+<div class="line"><span class="lineno">  345</span>    err = mas_store_gfp(&amp;mas_busy, (<span class="keywordtype">void</span> *)addr, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  346</span>    <span class="keywordflow">if</span> (err)</div>
+<div class="line"><span class="lineno">  347</span>        <span class="keywordflow">goto</span> out_unlock;</div>
+<div class="line"><span class="lineno">  348</span> </div>
+<div class="line"><span class="lineno">  349</span>    mas_store_gfp(&amp;mas_free, NULL, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  350</span>    <span class="keywordflow">if</span> (area_size &gt; <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>) {</div>
+<div class="line"><span class="lineno">  351</span>        <span class="keywordtype">void</span> *ptr = (<span class="keywordtype">void</span> *)(addr + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  352</span> </div>
+<div class="line"><span class="lineno">  353</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  354</span><span class="comment">         * re-insert remaining free size to free_areas at range</span></div>
+<div class="line"><span class="lineno">  355</span><span class="comment">         * [addr + size, last]</span></div>
+<div class="line"><span class="lineno">  356</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  357</span>        mas_set_range(&amp;mas_free, addr + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, last);</div>
+<div class="line"><span class="lineno">  358</span>        err = mas_store_gfp(&amp;mas_free, ptr, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  359</span>        <span class="keywordflow">if</span> (err) {</div>
+<div class="line"><span class="lineno">  360</span>            mas_store_gfp(&amp;mas_busy, NULL, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  361</span>            <span class="keywordflow">goto</span> out_unlock;</div>
+<div class="line"><span class="lineno">  362</span>        }</div>
+<div class="line"><span class="lineno">  363</span>    }</div>
+<div class="line"><span class="lineno">  364</span>    ptr = (<span class="keywordtype">void</span> *)addr;</div>
+<div class="line"><span class="lineno">  365</span> </div>
+<div class="line"><span class="lineno">  366</span>out_unlock:</div>
+<div class="line"><span class="lineno">  367</span>    mutex_unlock(mutex);</div>
+<div class="line"><span class="lineno">  368</span>    <span class="keywordflow">return</span> ptr;</div>
+<div class="line"><span class="lineno">  369</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a8ae7ad87ec01bee85da766636c0b96e3"><div class="ttname"><a href="#a8ae7ad87ec01bee85da766636c0b96e3">mas_range_len</a></div><div class="ttdeci">static unsigned long mas_range_len(struct ma_state *mas)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00134">execmem.c:134</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_aad1f81fab09ea4688f5419abb401da0e"><div class="ttname"><a href="#aad1f81fab09ea4688f5419abb401da0e">within_range</a></div><div class="ttdeci">static bool within_range(struct execmem_range *range, struct ma_state *mas, size_t size)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00295">execmem.c:295</a></div></div>
+<div class="ttc" id="agfp__types_8h_html_a44b9e863fd60efc9018a5524b77532ee"><div class="ttname"><a href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a></div><div class="ttdeci">#define GFP_KERNEL</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00377">gfp_types.h:377</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_af6ef73962e335cb2dfc15144f11215ba"><div class="ttname"><a href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a></div><div class="ttdeci">static size_t size</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01189">slab.h:1189</a></div></div>
+<div class="ttc" id="astructexecmem__cache_html"><div class="ttname"><a href="structexecmem__cache.html">execmem_cache</a></div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00106">execmem.c:106</a></div></div>
+<div class="ttc" id="astructexecmem__cache_html_a3fce59bff21a3747c0295cb1a23e1e0b"><div class="ttname"><a href="structexecmem__cache.html#a3fce59bff21a3747c0295cb1a23e1e0b">execmem_cache::free_areas</a></div><div class="ttdeci">struct maple_tree free_areas</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00109">execmem.c:109</a></div></div>
+<div class="ttc" id="astructexecmem__cache_html_a6c7795475d9830e88c183034566c5367"><div class="ttname"><a href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">execmem_cache::mutex</a></div><div class="ttdeci">struct mutex mutex</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00107">execmem.c:107</a></div></div>
+<div class="ttc" id="astructexecmem__cache_html_aacf000eeba5e03cb7166832bc1de99ee"><div class="ttname"><a href="structexecmem__cache.html#aacf000eeba5e03cb7166832bc1de99ee">execmem_cache::busy_areas</a></div><div class="ttdeci">struct maple_tree busy_areas</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00108">execmem.c:108</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a39f8a6aafa5b520c720e70db027f653c_cgraph.svg" width="336" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a39f8a6aafa5b520c720e70db027f653c_icgraph.svg" width="723" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a32d4cd5329d950549000c70d06ad3ed4" name="a32d4cd5329d950549000c70d06ad3ed4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32d4cd5329d950549000c70d06ad3ed4">&#9670;&#160;</a></span>__execmem_cache_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int __execmem_cache_free </td>
+          <td>(</td>
+          <td class="paramtype">struct ma_state *</td>          <td class="paramname"><span class="paramname"><em>mas</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfp_t</td>          <td class="paramname"><span class="paramname"><em>gfp_mask</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00466">466</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  467</span>{</div>
+<div class="line"><span class="lineno">  468</span>    <span class="keywordtype">size_t</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = <a class="code hl_function" href="#a8ae7ad87ec01bee85da766636c0b96e3">mas_range_len</a>(mas);</div>
+<div class="line"><span class="lineno">  469</span>    <span class="keywordtype">int</span> err;</div>
+<div class="line"><span class="lineno">  470</span> </div>
+<div class="line"><span class="lineno">  471</span>    err = <a class="code hl_function" href="#a490e479cab08824e30af8d85380c41ce">execmem_force_rw</a>(ptr, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  472</span>    <span class="keywordflow">if</span> (err)</div>
+<div class="line"><span class="lineno">  473</span>        <span class="keywordflow">return</span> err;</div>
+<div class="line"><span class="lineno">  474</span> </div>
+<div class="line"><span class="lineno">  475</span>    execmem_fill_trapping_insns(ptr, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  476</span>    <a class="code hl_function" href="#a4ce4a3f4d3d8f95911f5d5eeac9f43f4">execmem_restore_rox</a>(ptr, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  477</span> </div>
+<div class="line"><span class="lineno">  478</span>    err = <a class="code hl_function" href="#aa9574e2eabd8f224365484047df2665c">execmem_cache_add_locked</a>(ptr, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, gfp_mask);</div>
+<div class="line"><span class="lineno">  479</span>    <span class="keywordflow">if</span> (err)</div>
+<div class="line"><span class="lineno">  480</span>        <span class="keywordflow">return</span> err;</div>
+<div class="line"><span class="lineno">  481</span> </div>
+<div class="line"><span class="lineno">  482</span>    mas_store_gfp(mas, NULL, gfp_mask);</div>
+<div class="line"><span class="lineno">  483</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  484</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a490e479cab08824e30af8d85380c41ce"><div class="ttname"><a href="#a490e479cab08824e30af8d85380c41ce">execmem_force_rw</a></div><div class="ttdeci">static int execmem_force_rw(void *ptr, size_t size)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00176">execmem.c:176</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_a4ce4a3f4d3d8f95911f5d5eeac9f43f4"><div class="ttname"><a href="#a4ce4a3f4d3d8f95911f5d5eeac9f43f4">execmem_restore_rox</a></div><div class="ttdeci">int execmem_restore_rox(void *ptr, size_t size)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00196">execmem.c:196</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_aa9574e2eabd8f224365484047df2665c"><div class="ttname"><a href="#aa9574e2eabd8f224365484047df2665c">execmem_cache_add_locked</a></div><div class="ttdeci">static int execmem_cache_add_locked(void *ptr, size_t size, gfp_t gfp_mask)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00251">execmem.c:251</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a32d4cd5329d950549000c70d06ad3ed4_cgraph.svg" width="416" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a32d4cd5329d950549000c70d06ad3ed4_icgraph.svg" width="658" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa79acb9bcb62cc233ebcf7066c300278" name="aa79acb9bcb62cc233ebcf7066c300278"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa79acb9bcb62cc233ebcf7066c300278">&#9670;&#160;</a></span>__execmem_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __init __execmem_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00735">735</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  736</span>{</div>
+<div class="line"><span class="lineno">  737</span>    <span class="keyword">struct </span>execmem_info *info = <a class="code hl_function" href="#a7588ffd986a3b4db29f81b90d6bba115">execmem_arch_setup</a>();</div>
+<div class="line"><span class="lineno">  738</span> </div>
+<div class="line"><span class="lineno">  739</span>    <span class="keywordflow">if</span> (!info) {</div>
+<div class="line"><span class="lineno">  740</span>        info = execmem_info = &amp;default_execmem_info;</div>
+<div class="line"><span class="lineno">  741</span>        info-&gt;ranges[EXECMEM_DEFAULT].start = VMALLOC_START;</div>
+<div class="line"><span class="lineno">  742</span>        info-&gt;ranges[EXECMEM_DEFAULT].end = VMALLOC_END;</div>
+<div class="line"><span class="lineno">  743</span>        info-&gt;ranges[EXECMEM_DEFAULT].pgprot = PAGE_KERNEL_EXEC;</div>
+<div class="line"><span class="lineno">  744</span>        info-&gt;ranges[EXECMEM_DEFAULT].alignment = 1;</div>
+<div class="line"><span class="lineno">  745</span>    }</div>
+<div class="line"><span class="lineno">  746</span> </div>
+<div class="line"><span class="lineno">  747</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="#abe8b4c04e72d1569015305a2db188261">execmem_validate</a>(info))</div>
+<div class="line"><span class="lineno">  748</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  749</span> </div>
+<div class="line"><span class="lineno">  750</span>    <a class="code hl_function" href="#a1246406a477499d37c9415fdd92a04f6">execmem_init_missing</a>(info);</div>
+<div class="line"><span class="lineno">  751</span> </div>
+<div class="line"><span class="lineno">  752</span>    execmem_info = info;</div>
+<div class="line"><span class="lineno">  753</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a1246406a477499d37c9415fdd92a04f6"><div class="ttname"><a href="#a1246406a477499d37c9415fdd92a04f6">execmem_init_missing</a></div><div class="ttdeci">static void execmem_init_missing(struct execmem_info *info)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00700">execmem.c:700</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_a7588ffd986a3b4db29f81b90d6bba115"><div class="ttname"><a href="#a7588ffd986a3b4db29f81b90d6bba115">execmem_arch_setup</a></div><div class="ttdeci">struct execmem_info *__weak execmem_arch_setup(void)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00722">execmem.c:722</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_abe8b4c04e72d1569015305a2db188261"><div class="ttname"><a href="#abe8b4c04e72d1569015305a2db188261">execmem_validate</a></div><div class="ttdeci">static bool execmem_validate(struct execmem_info *info)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00669">execmem.c:669</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_aa79acb9bcb62cc233ebcf7066c300278_cgraph.svg" width="330" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_aa79acb9bcb62cc233ebcf7066c300278_icgraph.svg" width="278" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a191b21b0012b2c0678ee13de6a622fb9" name="a191b21b0012b2c0678ee13de6a622fb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a191b21b0012b2c0678ee13de6a622fb9">&#9670;&#160;</a></span>DECLARE_DELAYED_WORK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DECLARE_DELAYED_WORK </td>
+          <td>(</td>
+          <td class="paramtype">execmem_cache_free_work</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a47937bf431bb770044358b9d7a9c7263">execmem_cache_free_slow</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a191b21b0012b2c0678ee13de6a622fb9_cgraph.svg" width="899" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5acd37be2f260d565f4f83e4bae5982c" name="a5acd37be2f260d565f4f83e4bae5982c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5acd37be2f260d565f4f83e4bae5982c">&#9670;&#160;</a></span>DECLARE_WORK()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DECLARE_WORK </td>
+          <td>(</td>
+          <td class="paramtype">execmem_cache_clean_work</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a3889c800d92fea0aff9821c22e9eb8b3">execmem_cache_clean</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a5acd37be2f260d565f4f83e4bae5982c_cgraph.svg" width="1508" height="1054"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a6024d8b5d70299df46a773ee79129853" name="a6024d8b5d70299df46a773ee79129853"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6024d8b5d70299df46a773ee79129853">&#9670;&#160;</a></span>execmem_alloc()</h2>
 
@@ -185,6 +549,32 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00597">597</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  598</span>{</div>
+<div class="line"><span class="lineno">  599</span>    <span class="keyword">struct </span>execmem_range *range = &amp;execmem_info-&gt;ranges[type];</div>
+<div class="line"><span class="lineno">  600</span>    <span class="keywordtype">bool</span> use_cache = range-&gt;flags &amp; EXECMEM_ROX_CACHE;</div>
+<div class="line"><span class="lineno">  601</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> vm_flags = <a class="code hl_define" href="vmalloc_8h.html#a0bca02b8d5d5cc283d8b39502f7c0a6f">VM_FLUSH_RESET_PERMS</a>;</div>
+<div class="line"><span class="lineno">  602</span>    pgprot_t pgprot = range-&gt;pgprot;</div>
+<div class="line"><span class="lineno">  603</span>    <span class="keywordtype">void</span> *p = NULL;</div>
+<div class="line"><span class="lineno">  604</span> </div>
+<div class="line"><span class="lineno">  605</span>    <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = PAGE_ALIGN(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  606</span> </div>
+<div class="line"><span class="lineno">  607</span>    <span class="keywordflow">if</span> (use_cache)</div>
+<div class="line"><span class="lineno">  608</span>        p = <a class="code hl_function" href="#a96e7d0e01bca5033b3fcbfba22d3d2e8">execmem_cache_alloc</a>(range, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  609</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  610</span>        p = <a class="code hl_function" href="#a626c7e7f7505929d4cc2ddb266401984">execmem_vmalloc</a>(range, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, pgprot, vm_flags);</div>
+<div class="line"><span class="lineno">  611</span> </div>
+<div class="line"><span class="lineno">  612</span>    <span class="keywordflow">return</span> kasan_reset_tag(p);</div>
+<div class="line"><span class="lineno">  613</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a626c7e7f7505929d4cc2ddb266401984"><div class="ttname"><a href="#a626c7e7f7505929d4cc2ddb266401984">execmem_vmalloc</a></div><div class="ttdeci">static void * execmem_vmalloc(struct execmem_range *range, size_t size, pgprot_t pgprot, unsigned long vm_flags)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00037">execmem.c:37</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_a96e7d0e01bca5033b3fcbfba22d3d2e8"><div class="ttname"><a href="#a96e7d0e01bca5033b3fcbfba22d3d2e8">execmem_cache_alloc</a></div><div class="ttdeci">static void * execmem_cache_alloc(struct execmem_range *range, size_t size)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00428">execmem.c:428</a></div></div>
+<div class="ttc" id="avmalloc_8h_html_a0bca02b8d5d5cc283d8b39502f7c0a6f"><div class="ttname"><a href="vmalloc_8h.html#a0bca02b8d5d5cc283d8b39502f7c0a6f">VM_FLUSH_RESET_PERMS</a></div><div class="ttdeci">#define VM_FLUSH_RESET_PERMS</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8h_source.html#l00030">vmalloc.h:30</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a6024d8b5d70299df46a773ee79129853_cgraph.svg" width="1935" height="719"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -211,10 +601,26 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00623">623</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  624</span>{</div>
+<div class="line"><span class="lineno">  625</span>    <span class="keywordtype">void</span> *p __free(execmem) = <a class="code hl_function" href="#a6024d8b5d70299df46a773ee79129853">execmem_alloc</a>(type, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  626</span>    <span class="keywordtype">int</span> err;</div>
+<div class="line"><span class="lineno">  627</span> </div>
+<div class="line"><span class="lineno">  628</span>    <span class="keywordflow">if</span> (!p)</div>
+<div class="line"><span class="lineno">  629</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  630</span> </div>
+<div class="line"><span class="lineno">  631</span>    err = <a class="code hl_function" href="#a490e479cab08824e30af8d85380c41ce">execmem_force_rw</a>(p, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  632</span>    <span class="keywordflow">if</span> (err)</div>
+<div class="line"><span class="lineno">  633</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  634</span> </div>
+<div class="line"><span class="lineno">  635</span>    <span class="keywordflow">return</span> no_free_ptr(p);</div>
+<div class="line"><span class="lineno">  636</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a6024d8b5d70299df46a773ee79129853"><div class="ttname"><a href="#a6024d8b5d70299df46a773ee79129853">execmem_alloc</a></div><div class="ttdeci">void * execmem_alloc(enum execmem_type type, size_t size)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00597">execmem.c:597</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a88ae26a850a07a0ec7c97c4581ab58b6_cgraph.svg" width="304" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a88ae26a850a07a0ec7c97c4581ab58b6_cgraph.svg" width="2140" height="675"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -234,6 +640,518 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00722">722</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  723</span>{</div>
+<div class="line"><span class="lineno">  724</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  725</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a7588ffd986a3b4db29f81b90d6bba115_icgraph.svg" width="475" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac8d3280ce2c3960209f263cb47b43bc7" name="ac8d3280ce2c3960209f263cb47b43bc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8d3280ce2c3960209f263cb47b43bc7">&#9670;&#160;</a></span>execmem_cache_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int execmem_cache_add </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfp_t</td>          <td class="paramname"><span class="paramname"><em>gfp_mask</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00280">280</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  281</span>{</div>
+<div class="line"><span class="lineno">  282</span>    guard(mutex)(&amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>);</div>
+<div class="line"><span class="lineno">  283</span> </div>
+<div class="line"><span class="lineno">  284</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#aa9574e2eabd8f224365484047df2665c">execmem_cache_add_locked</a>(ptr, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, gfp_mask);</div>
+<div class="line"><span class="lineno">  285</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_ac8d3280ce2c3960209f263cb47b43bc7_cgraph.svg" width="400" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_ac8d3280ce2c3960209f263cb47b43bc7_icgraph.svg" width="928" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa9574e2eabd8f224365484047df2665c" name="aa9574e2eabd8f224365484047df2665c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9574e2eabd8f224365484047df2665c">&#9670;&#160;</a></span>execmem_cache_add_locked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int execmem_cache_add_locked </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfp_t</td>          <td class="paramname"><span class="paramname"><em>gfp_mask</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00251">251</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  252</span>{</div>
+<div class="line"><span class="lineno">  253</span>    <span class="keyword">struct </span>maple_tree *free_areas = &amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a3fce59bff21a3747c0295cb1a23e1e0b">free_areas</a>;</div>
+<div class="line"><span class="lineno">  254</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> addr = (<span class="keywordtype">unsigned</span> long)ptr;</div>
+<div class="line"><span class="lineno">  255</span>    MA_STATE(mas, free_areas, addr - 1, addr + 1);</div>
+<div class="line"><span class="lineno">  256</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> lower, upper;</div>
+<div class="line"><span class="lineno">  257</span>    <span class="keywordtype">void</span> *area = NULL;</div>
+<div class="line"><span class="lineno">  258</span> </div>
+<div class="line"><span class="lineno">  259</span>    lower = addr;</div>
+<div class="line"><span class="lineno">  260</span>    upper = addr + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> - 1;</div>
+<div class="line"><span class="lineno">  261</span> </div>
+<div class="line"><span class="lineno">  262</span>    area = mas_walk(&amp;mas);</div>
+<div class="line"><span class="lineno">  263</span>    <span class="keywordflow">if</span> (area &amp;&amp; mas.last == addr - 1)</div>
+<div class="line"><span class="lineno">  264</span>        lower = mas.index;</div>
+<div class="line"><span class="lineno">  265</span> </div>
+<div class="line"><span class="lineno">  266</span>    area = mas_next(&amp;mas, ULONG_MAX);</div>
+<div class="line"><span class="lineno">  267</span>    <span class="keywordflow">if</span> (area &amp;&amp; mas.index == addr + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>)</div>
+<div class="line"><span class="lineno">  268</span>        upper = mas.last;</div>
+<div class="line"><span class="lineno">  269</span> </div>
+<div class="line"><span class="lineno">  270</span>    mas_set_range(&amp;mas, lower, upper);</div>
+<div class="line"><span class="lineno">  271</span>    <span class="keywordflow">return</span> mas_store_gfp(&amp;mas, (<span class="keywordtype">void</span> *)lower, gfp_mask);</div>
+<div class="line"><span class="lineno">  272</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_aa9574e2eabd8f224365484047df2665c_icgraph.svg" width="1240" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a96e7d0e01bca5033b3fcbfba22d3d2e8" name="a96e7d0e01bca5033b3fcbfba22d3d2e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96e7d0e01bca5033b3fcbfba22d3d2e8">&#9670;&#160;</a></span>execmem_cache_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * execmem_cache_alloc </td>
+          <td>(</td>
+          <td class="paramtype">struct execmem_range *</td>          <td class="paramname"><span class="paramname"><em>range</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00428">428</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  429</span>{</div>
+<div class="line"><span class="lineno">  430</span>    <span class="keywordtype">void</span> *p;</div>
+<div class="line"><span class="lineno">  431</span>    <span class="keywordtype">int</span> err;</div>
+<div class="line"><span class="lineno">  432</span> </div>
+<div class="line"><span class="lineno">  433</span>    p = <a class="code hl_function" href="#a39f8a6aafa5b520c720e70db027f653c">__execmem_cache_alloc</a>(range, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  434</span>    <span class="keywordflow">if</span> (p)</div>
+<div class="line"><span class="lineno">  435</span>        <span class="keywordflow">return</span> p;</div>
+<div class="line"><span class="lineno">  436</span> </div>
+<div class="line"><span class="lineno">  437</span>    err = <a class="code hl_function" href="#aa7c2c2197224e843793156e5a56ed086">execmem_cache_populate</a>(range, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  438</span>    <span class="keywordflow">if</span> (err)</div>
+<div class="line"><span class="lineno">  439</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  440</span> </div>
+<div class="line"><span class="lineno">  441</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a39f8a6aafa5b520c720e70db027f653c">__execmem_cache_alloc</a>(range, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">  442</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a39f8a6aafa5b520c720e70db027f653c"><div class="ttname"><a href="#a39f8a6aafa5b520c720e70db027f653c">__execmem_cache_alloc</a></div><div class="ttdeci">static void * __execmem_cache_alloc(struct execmem_range *range, size_t size)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00318">execmem.c:318</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_aa7c2c2197224e843793156e5a56ed086"><div class="ttname"><a href="#aa7c2c2197224e843793156e5a56ed086">execmem_cache_populate</a></div><div class="ttdeci">static int execmem_cache_populate(struct execmem_range *range, size_t size)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00379">execmem.c:379</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a96e7d0e01bca5033b3fcbfba22d3d2e8_cgraph.svg" width="1775" height="742"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a96e7d0e01bca5033b3fcbfba22d3d2e8_icgraph.svg" width="507" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3889c800d92fea0aff9821c22e9eb8b3" name="a3889c800d92fea0aff9821c22e9eb8b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3889c800d92fea0aff9821c22e9eb8b3">&#9670;&#160;</a></span>execmem_cache_clean()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void execmem_cache_clean </td>
+          <td>(</td>
+          <td class="paramtype">struct work_struct *</td>          <td class="paramname"><span class="paramname"><em>work</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00211">211</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  212</span>{</div>
+<div class="line"><span class="lineno">  213</span>    <span class="keyword">struct </span>maple_tree *free_areas = &amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a3fce59bff21a3747c0295cb1a23e1e0b">free_areas</a>;</div>
+<div class="line"><span class="lineno">  214</span>    <span class="keyword">struct </span>mutex *mutex = &amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>;</div>
+<div class="line"><span class="lineno">  215</span>    MA_STATE(mas, free_areas, 0, ULONG_MAX);</div>
+<div class="line"><span class="lineno">  216</span>    <span class="keywordtype">void</span> *area;</div>
+<div class="line"><span class="lineno">  217</span> </div>
+<div class="line"><span class="lineno">  218</span>    mutex_lock(mutex);</div>
+<div class="line"><span class="lineno">  219</span>    mas_for_each(&amp;mas, area, ULONG_MAX) {</div>
+<div class="line"><span class="lineno">  220</span>        <span class="keywordtype">size_t</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = <a class="code hl_function" href="#a8ae7ad87ec01bee85da766636c0b96e3">mas_range_len</a>(&amp;mas);</div>
+<div class="line"><span class="lineno">  221</span> </div>
+<div class="line"><span class="lineno">  222</span>        <span class="keywordflow">if</span> (IS_ALIGNED(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, PMD_SIZE) &amp;&amp;</div>
+<div class="line"><span class="lineno">  223</span>            IS_ALIGNED(mas.index, PMD_SIZE)) {</div>
+<div class="line"><span class="lineno">  224</span>            <span class="keyword">struct </span><a class="code hl_struct" href="structvm__struct.html">vm_struct</a> *vm = <a class="code hl_function" href="vmalloc_8h.html#a15953778ee3f894cc6715d5f7e5bdaed">find_vm_area</a>(area);</div>
+<div class="line"><span class="lineno">  225</span> </div>
+<div class="line"><span class="lineno">  226</span>            <a class="code hl_function" href="#a399f7a460f51f244d295aaf666e39aac">execmem_set_direct_map_valid</a>(vm, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  227</span>            mas_store_gfp(&amp;mas, NULL, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  228</span>            <a class="code hl_function" href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vfree</a>(area);</div>
+<div class="line"><span class="lineno">  229</span>        }</div>
+<div class="line"><span class="lineno">  230</span>    }</div>
+<div class="line"><span class="lineno">  231</span>    mutex_unlock(mutex);</div>
+<div class="line"><span class="lineno">  232</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a399f7a460f51f244d295aaf666e39aac"><div class="ttname"><a href="#a399f7a460f51f244d295aaf666e39aac">execmem_set_direct_map_valid</a></div><div class="ttdeci">static int execmem_set_direct_map_valid(struct vm_struct *vm, bool valid)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00147">execmem.c:147</a></div></div>
+<div class="ttc" id="astructvm__struct_html"><div class="ttname"><a href="structvm__struct.html">vm_struct</a></div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8h_source.html#l00055">vmalloc.h:55</a></div></div>
+<div class="ttc" id="avmalloc_8h_html_a15953778ee3f894cc6715d5f7e5bdaed"><div class="ttname"><a href="vmalloc_8h.html#a15953778ee3f894cc6715d5f7e5bdaed">find_vm_area</a></div><div class="ttdeci">struct vm_struct * find_vm_area(const void *addr)</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8c_source.html#l03677">vmalloc.c:3677</a></div></div>
+<div class="ttc" id="avmalloc_8h_html_a2aeead9450a5b920c65bea908edead23"><div class="ttname"><a href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vfree</a></div><div class="ttdeci">void vfree(const void *addr)</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8c_source.html#l03839">vmalloc.c:3839</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a3889c800d92fea0aff9821c22e9eb8b3_cgraph.svg" width="1326" height="1054"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a3889c800d92fea0aff9821c22e9eb8b3_icgraph.svg" width="352" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a034e1db6b1cabd6eba6f861952904a1e" name="a034e1db6b1cabd6eba6f861952904a1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a034e1db6b1cabd6eba6f861952904a1e">&#9670;&#160;</a></span>execmem_cache_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool execmem_cache_free </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00533">533</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  534</span>{</div>
+<div class="line"><span class="lineno">  535</span>    <span class="keyword">struct </span>maple_tree *busy_areas = &amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#aacf000eeba5e03cb7166832bc1de99ee">busy_areas</a>;</div>
+<div class="line"><span class="lineno">  536</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> addr = (<span class="keywordtype">unsigned</span> long)ptr;</div>
+<div class="line"><span class="lineno">  537</span>    MA_STATE(mas, busy_areas, addr, addr);</div>
+<div class="line"><span class="lineno">  538</span>    <span class="keywordtype">void</span> *area;</div>
+<div class="line"><span class="lineno">  539</span>    <span class="keywordtype">int</span> err;</div>
+<div class="line"><span class="lineno">  540</span> </div>
+<div class="line"><span class="lineno">  541</span>    guard(mutex)(&amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>);</div>
+<div class="line"><span class="lineno">  542</span> </div>
+<div class="line"><span class="lineno">  543</span>    area = mas_walk(&amp;mas);</div>
+<div class="line"><span class="lineno">  544</span>    <span class="keywordflow">if</span> (!area)</div>
+<div class="line"><span class="lineno">  545</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  546</span> </div>
+<div class="line"><span class="lineno">  547</span>    err = <a class="code hl_function" href="#a32d4cd5329d950549000c70d06ad3ed4">__execmem_cache_free</a>(&amp;mas, area, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a> | <a class="code hl_define" href="gfp__types_8h.html#a1195bb948e91036359d29a1796eaae52">__GFP_NORETRY</a>);</div>
+<div class="line"><span class="lineno">  548</span>    <span class="keywordflow">if</span> (err) {</div>
+<div class="line"><span class="lineno">  549</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  550</span><span class="comment">         * mas points to exact slot we&#39;ve got the area from, nothing</span></div>
+<div class="line"><span class="lineno">  551</span><span class="comment">         * else can modify the tree because of the mutex, so there</span></div>
+<div class="line"><span class="lineno">  552</span><span class="comment">         * won&#39;t be any allocations in mas_store_gfp() and it will just</span></div>
+<div class="line"><span class="lineno">  553</span><span class="comment">         * change the pointer.</span></div>
+<div class="line"><span class="lineno">  554</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  555</span>        area = <a class="code hl_function" href="#a0f6db0393630a22054a44a665f5bcba6">pending_free_set</a>(area);</div>
+<div class="line"><span class="lineno">  556</span>        mas_store_gfp(&amp;mas, area, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  557</span>        <a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#adfc9b7f577521c5ed5bf62a8ed4b9090">pending_free_cnt</a>++;</div>
+<div class="line"><span class="lineno">  558</span>        schedule_delayed_work(&amp;execmem_cache_free_work, <a class="code hl_define" href="#a7f2fafbaf97605bf1660ba5f42e4b940">FREE_DELAY</a>);</div>
+<div class="line"><span class="lineno">  559</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  560</span>    }</div>
+<div class="line"><span class="lineno">  561</span> </div>
+<div class="line"><span class="lineno">  562</span>    schedule_work(&amp;execmem_cache_clean_work);</div>
+<div class="line"><span class="lineno">  563</span> </div>
+<div class="line"><span class="lineno">  564</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  565</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a0f6db0393630a22054a44a665f5bcba6"><div class="ttname"><a href="#a0f6db0393630a22054a44a665f5bcba6">pending_free_set</a></div><div class="ttdeci">static void * pending_free_set(void *ptr)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00449">execmem.c:449</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_a32d4cd5329d950549000c70d06ad3ed4"><div class="ttname"><a href="#a32d4cd5329d950549000c70d06ad3ed4">__execmem_cache_free</a></div><div class="ttdeci">static int __execmem_cache_free(struct ma_state *mas, void *ptr, gfp_t gfp_mask)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00466">execmem.c:466</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_a7f2fafbaf97605bf1660ba5f42e4b940"><div class="ttname"><a href="#a7f2fafbaf97605bf1660ba5f42e4b940">FREE_DELAY</a></div><div class="ttdeci">#define FREE_DELAY</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00114">execmem.c:114</a></div></div>
+<div class="ttc" id="agfp__types_8h_html_a1195bb948e91036359d29a1796eaae52"><div class="ttname"><a href="gfp__types_8h.html#a1195bb948e91036359d29a1796eaae52">__GFP_NORETRY</a></div><div class="ttdeci">#define __GFP_NORETRY</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00262">gfp_types.h:262</a></div></div>
+<div class="ttc" id="astructexecmem__cache_html_adfc9b7f577521c5ed5bf62a8ed4b9090"><div class="ttname"><a href="structexecmem__cache.html#adfc9b7f577521c5ed5bf62a8ed4b9090">execmem_cache::pending_free_cnt</a></div><div class="ttdeci">unsigned int pending_free_cnt</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00110">execmem.c:110</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a034e1db6b1cabd6eba6f861952904a1e_cgraph.svg" width="614" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a034e1db6b1cabd6eba6f861952904a1e_icgraph.svg" width="316" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a47937bf431bb770044358b9d7a9c7263" name="a47937bf431bb770044358b9d7a9c7263"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47937bf431bb770044358b9d7a9c7263">&#9670;&#160;</a></span>execmem_cache_free_slow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void execmem_cache_free_slow </td>
+          <td>(</td>
+          <td class="paramtype">struct work_struct *</td>          <td class="paramname"><span class="paramname"><em>work</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00497">497</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  498</span>{</div>
+<div class="line"><span class="lineno">  499</span>    <span class="keyword">struct </span>maple_tree *busy_areas = &amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#aacf000eeba5e03cb7166832bc1de99ee">busy_areas</a>;</div>
+<div class="line"><span class="lineno">  500</span>    MA_STATE(mas, busy_areas, 0, ULONG_MAX);</div>
+<div class="line"><span class="lineno">  501</span>    <span class="keywordtype">void</span> *area;</div>
+<div class="line"><span class="lineno">  502</span> </div>
+<div class="line"><span class="lineno">  503</span>    guard(mutex)(&amp;<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>);</div>
+<div class="line"><span class="lineno">  504</span> </div>
+<div class="line"><span class="lineno">  505</span>    <span class="keywordflow">if</span> (!<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#adfc9b7f577521c5ed5bf62a8ed4b9090">pending_free_cnt</a>)</div>
+<div class="line"><span class="lineno">  506</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  507</span> </div>
+<div class="line"><span class="lineno">  508</span>    mas_for_each(&amp;mas, area, ULONG_MAX) {</div>
+<div class="line"><span class="lineno">  509</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="#acf2798ad88129bea99e130daa4fc95c7">is_pending_free</a>(area))</div>
+<div class="line"><span class="lineno">  510</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  511</span> </div>
+<div class="line"><span class="lineno">  512</span>        area = <a class="code hl_function" href="#a631eae632dea10446e113f66bbf8781c">pending_free_clear</a>(area);</div>
+<div class="line"><span class="lineno">  513</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="#a32d4cd5329d950549000c70d06ad3ed4">__execmem_cache_free</a>(&amp;mas, area, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>))</div>
+<div class="line"><span class="lineno">  514</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  515</span> </div>
+<div class="line"><span class="lineno">  516</span>        <a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#adfc9b7f577521c5ed5bf62a8ed4b9090">pending_free_cnt</a>--;</div>
+<div class="line"><span class="lineno">  517</span>    }</div>
+<div class="line"><span class="lineno">  518</span> </div>
+<div class="line"><span class="lineno">  519</span>    <span class="keywordflow">if</span> (<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#adfc9b7f577521c5ed5bf62a8ed4b9090">pending_free_cnt</a>)</div>
+<div class="line"><span class="lineno">  520</span>        schedule_delayed_work(&amp;execmem_cache_free_work, <a class="code hl_define" href="#a7f2fafbaf97605bf1660ba5f42e4b940">FREE_DELAY</a>);</div>
+<div class="line"><span class="lineno">  521</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  522</span>        schedule_work(&amp;execmem_cache_clean_work);</div>
+<div class="line"><span class="lineno">  523</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a631eae632dea10446e113f66bbf8781c"><div class="ttname"><a href="#a631eae632dea10446e113f66bbf8781c">pending_free_clear</a></div><div class="ttdeci">static void * pending_free_clear(void *ptr)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00454">execmem.c:454</a></div></div>
+<div class="ttc" id="aexecmem_8c_html_acf2798ad88129bea99e130daa4fc95c7"><div class="ttname"><a href="#acf2798ad88129bea99e130daa4fc95c7">is_pending_free</a></div><div class="ttdeci">static bool is_pending_free(void *ptr)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00444">execmem.c:444</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a47937bf431bb770044358b9d7a9c7263_cgraph.svg" width="647" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a47937bf431bb770044358b9d7a9c7263_icgraph.svg" width="446" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa7c2c2197224e843793156e5a56ed086" name="aa7c2c2197224e843793156e5a56ed086"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7c2c2197224e843793156e5a56ed086">&#9670;&#160;</a></span>execmem_cache_populate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int execmem_cache_populate </td>
+          <td>(</td>
+          <td class="paramtype">struct execmem_range *</td>          <td class="paramname"><span class="paramname"><em>range</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00379">379</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  380</span>{</div>
+<div class="line"><span class="lineno">  381</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> vm_flags = <a class="code hl_define" href="vmalloc_8h.html#a87b3a6a6e0d67cb79a31c95bdcd57bdf">VM_ALLOW_HUGE_VMAP</a>;</div>
+<div class="line"><span class="lineno">  382</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structvm__struct.html">vm_struct</a> *vm;</div>
+<div class="line"><span class="lineno">  383</span>    <span class="keywordtype">size_t</span> alloc_size;</div>
+<div class="line"><span class="lineno">  384</span>    <span class="keywordtype">int</span> err = -ENOMEM;</div>
+<div class="line"><span class="lineno">  385</span>    <span class="keywordtype">void</span> *p;</div>
+<div class="line"><span class="lineno">  386</span> </div>
+<div class="line"><span class="lineno">  387</span>    alloc_size = round_up(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, PMD_SIZE);</div>
+<div class="line"><span class="lineno">  388</span>    p = <a class="code hl_function" href="#a626c7e7f7505929d4cc2ddb266401984">execmem_vmalloc</a>(range, alloc_size, PAGE_KERNEL, vm_flags);</div>
+<div class="line"><span class="lineno">  389</span>    <span class="keywordflow">if</span> (!p) {</div>
+<div class="line"><span class="lineno">  390</span>        alloc_size = <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno">  391</span>        p = <a class="code hl_function" href="#a626c7e7f7505929d4cc2ddb266401984">execmem_vmalloc</a>(range, alloc_size, PAGE_KERNEL, vm_flags);</div>
+<div class="line"><span class="lineno">  392</span>    }</div>
+<div class="line"><span class="lineno">  393</span> </div>
+<div class="line"><span class="lineno">  394</span>    <span class="keywordflow">if</span> (!p)</div>
+<div class="line"><span class="lineno">  395</span>        <span class="keywordflow">return</span> err;</div>
+<div class="line"><span class="lineno">  396</span> </div>
+<div class="line"><span class="lineno">  397</span>    vm = <a class="code hl_function" href="vmalloc_8h.html#a15953778ee3f894cc6715d5f7e5bdaed">find_vm_area</a>(p);</div>
+<div class="line"><span class="lineno">  398</span>    <span class="keywordflow">if</span> (!vm)</div>
+<div class="line"><span class="lineno">  399</span>        <span class="keywordflow">goto</span> err_free_mem;</div>
+<div class="line"><span class="lineno">  400</span> </div>
+<div class="line"><span class="lineno">  401</span>    <span class="comment">/* fill memory with instructions that will trap */</span></div>
+<div class="line"><span class="lineno">  402</span>    execmem_fill_trapping_insns(p, alloc_size);</div>
+<div class="line"><span class="lineno">  403</span> </div>
+<div class="line"><span class="lineno">  404</span>    err = set_memory_rox((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)p, vm-&gt;<a class="code hl_variable" href="structvm__struct.html#a34c7d5e41f7db43174e97dedc03e1e18">nr_pages</a>);</div>
+<div class="line"><span class="lineno">  405</span>    <span class="keywordflow">if</span> (err)</div>
+<div class="line"><span class="lineno">  406</span>        <span class="keywordflow">goto</span> err_free_mem;</div>
+<div class="line"><span class="lineno">  407</span> </div>
+<div class="line"><span class="lineno">  408</span>    err = <a class="code hl_function" href="#ac8d3280ce2c3960209f263cb47b43bc7">execmem_cache_add</a>(p, alloc_size, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  409</span>    <span class="keywordflow">if</span> (err)</div>
+<div class="line"><span class="lineno">  410</span>        <span class="keywordflow">goto</span> err_reset_direct_map;</div>
+<div class="line"><span class="lineno">  411</span> </div>
+<div class="line"><span class="lineno">  412</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  413</span> </div>
+<div class="line"><span class="lineno">  414</span>err_reset_direct_map:</div>
+<div class="line"><span class="lineno">  415</span>    <a class="code hl_function" href="#a399f7a460f51f244d295aaf666e39aac">execmem_set_direct_map_valid</a>(vm, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  416</span>err_free_mem:</div>
+<div class="line"><span class="lineno">  417</span>    <a class="code hl_function" href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vfree</a>(p);</div>
+<div class="line"><span class="lineno">  418</span>    <span class="keywordflow">return</span> err;</div>
+<div class="line"><span class="lineno">  419</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_ac8d3280ce2c3960209f263cb47b43bc7"><div class="ttname"><a href="#ac8d3280ce2c3960209f263cb47b43bc7">execmem_cache_add</a></div><div class="ttdeci">static int execmem_cache_add(void *ptr, size_t size, gfp_t gfp_mask)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00280">execmem.c:280</a></div></div>
+<div class="ttc" id="astructvm__struct_html_a34c7d5e41f7db43174e97dedc03e1e18"><div class="ttname"><a href="structvm__struct.html#a34c7d5e41f7db43174e97dedc03e1e18">vm_struct::nr_pages</a></div><div class="ttdeci">unsigned int nr_pages</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8h_source.html#l00068">vmalloc.h:68</a></div></div>
+<div class="ttc" id="avmalloc_8h_html_a87b3a6a6e0d67cb79a31c95bdcd57bdf"><div class="ttname"><a href="vmalloc_8h.html#a87b3a6a6e0d67cb79a31c95bdcd57bdf">VM_ALLOW_HUGE_VMAP</a></div><div class="ttdeci">#define VM_ALLOW_HUGE_VMAP</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8h_source.html#l00032">vmalloc.h:32</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_aa7c2c2197224e843793156e5a56ed086_cgraph.svg" width="1584" height="915"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_aa7c2c2197224e843793156e5a56ed086_icgraph.svg" width="731" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a490e479cab08824e30af8d85380c41ce" name="a490e479cab08824e30af8d85380c41ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a490e479cab08824e30af8d85380c41ce">&#9670;&#160;</a></span>execmem_force_rw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int execmem_force_rw </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00176">176</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  177</span>{</div>
+<div class="line"><span class="lineno">  178</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nr = PAGE_ALIGN(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>) &gt;&gt; PAGE_SHIFT;</div>
+<div class="line"><span class="lineno">  179</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> addr = (<span class="keywordtype">unsigned</span> long)ptr;</div>
+<div class="line"><span class="lineno">  180</span>    <span class="keywordtype">int</span> ret;</div>
+<div class="line"><span class="lineno">  181</span> </div>
+<div class="line"><span class="lineno">  182</span>    ret = set_memory_nx(addr, nr);</div>
+<div class="line"><span class="lineno">  183</span>    <span class="keywordflow">if</span> (ret)</div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">  185</span> </div>
+<div class="line"><span class="lineno">  186</span>    <span class="keywordflow">return</span> set_memory_rw(addr, nr);</div>
+<div class="line"><span class="lineno">  187</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a490e479cab08824e30af8d85380c41ce_icgraph.svg" width="840" height="114"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="aec0268ee3e815aad85f781db6ad81637" name="aec0268ee3e815aad85f781db6ad81637"></a>
@@ -250,10 +1168,23 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00645">645</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  646</span>{</div>
+<div class="line"><span class="lineno">  647</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  648</span><span class="comment">     * This memory may be RO, and freeing RO memory in an interrupt is not</span></div>
+<div class="line"><span class="lineno">  649</span><span class="comment">     * supported by vmalloc.</span></div>
+<div class="line"><span class="lineno">  650</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  651</span>    WARN_ON(in_interrupt());</div>
+<div class="line"><span class="lineno">  652</span> </div>
+<div class="line"><span class="lineno">  653</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="#a034e1db6b1cabd6eba6f861952904a1e">execmem_cache_free</a>(ptr))</div>
+<div class="line"><span class="lineno">  654</span>        <a class="code hl_function" href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vfree</a>(ptr);</div>
+<div class="line"><span class="lineno">  655</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_a034e1db6b1cabd6eba6f861952904a1e"><div class="ttname"><a href="#a034e1db6b1cabd6eba6f861952904a1e">execmem_cache_free</a></div><div class="ttdeci">static bool execmem_cache_free(void *ptr)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00533">execmem.c:533</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_aec0268ee3e815aad85f781db6ad81637_cgraph.svg" width="550" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_aec0268ee3e815aad85f781db6ad81637_cgraph.svg" width="1308" height="1028"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -273,6 +1204,69 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00763">763</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  764</span>{</div>
+<div class="line"><span class="lineno">  765</span>    <a class="code hl_function" href="#aa79acb9bcb62cc233ebcf7066c300278">__execmem_init</a>();</div>
+<div class="line"><span class="lineno">  766</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_aa79acb9bcb62cc233ebcf7066c300278"><div class="ttname"><a href="#aa79acb9bcb62cc233ebcf7066c300278">__execmem_init</a></div><div class="ttdeci">static void __init __execmem_init(void)</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00735">execmem.c:735</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_af0b70b1499241b90b8c35491b605e58c_cgraph.svg" width="480" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1246406a477499d37c9415fdd92a04f6" name="a1246406a477499d37c9415fdd92a04f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1246406a477499d37c9415fdd92a04f6">&#9670;&#160;</a></span>execmem_init_missing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void execmem_init_missing </td>
+          <td>(</td>
+          <td class="paramtype">struct execmem_info *</td>          <td class="paramname"><span class="paramname"><em>info</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00700">700</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  701</span>{</div>
+<div class="line"><span class="lineno">  702</span>    <span class="keyword">struct </span>execmem_range *default_range = &amp;info-&gt;ranges[EXECMEM_DEFAULT];</div>
+<div class="line"><span class="lineno">  703</span> </div>
+<div class="line"><span class="lineno">  704</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = EXECMEM_DEFAULT + 1; i &lt; EXECMEM_TYPE_MAX; i++) {</div>
+<div class="line"><span class="lineno">  705</span>        <span class="keyword">struct </span>execmem_range *r = &amp;info-&gt;ranges[i];</div>
+<div class="line"><span class="lineno">  706</span> </div>
+<div class="line"><span class="lineno">  707</span>        <span class="keywordflow">if</span> (!r-&gt;start) {</div>
+<div class="line"><span class="lineno">  708</span>            <span class="keywordflow">if</span> (i == EXECMEM_MODULE_DATA)</div>
+<div class="line"><span class="lineno">  709</span>                r-&gt;pgprot = PAGE_KERNEL;</div>
+<div class="line"><span class="lineno">  710</span>            <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  711</span>                r-&gt;pgprot = default_range-&gt;pgprot;</div>
+<div class="line"><span class="lineno">  712</span>            r-&gt;alignment = default_range-&gt;alignment;</div>
+<div class="line"><span class="lineno">  713</span>            r-&gt;start = default_range-&gt;start;</div>
+<div class="line"><span class="lineno">  714</span>            r-&gt;end = default_range-&gt;end;</div>
+<div class="line"><span class="lineno">  715</span>            r-&gt;flags = default_range-&gt;flags;</div>
+<div class="line"><span class="lineno">  716</span>            r-&gt;fallback_start = default_range-&gt;fallback_start;</div>
+<div class="line"><span class="lineno">  717</span>            r-&gt;fallback_end = default_range-&gt;fallback_end;</div>
+<div class="line"><span class="lineno">  718</span>        }</div>
+<div class="line"><span class="lineno">  719</span>    }</div>
+<div class="line"><span class="lineno">  720</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a1246406a477499d37c9415fdd92a04f6_icgraph.svg" width="480" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a67c0f53d62cd690fe70a4bc2ac3a2784" name="a67c0f53d62cd690fe70a4bc2ac3a2784"></a>
@@ -290,6 +1284,546 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00657">657</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  658</span>{</div>
+<div class="line"><span class="lineno">  659</span>    <span class="keywordflow">return</span> !!(execmem_info-&gt;ranges[type].flags &amp; EXECMEM_ROX_CACHE);</div>
+<div class="line"><span class="lineno">  660</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a4ce4a3f4d3d8f95911f5d5eeac9f43f4" name="a4ce4a3f4d3d8f95911f5d5eeac9f43f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ce4a3f4d3d8f95911f5d5eeac9f43f4">&#9670;&#160;</a></span>execmem_restore_rox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int execmem_restore_rox </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00196">196</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  197</span>{</div>
+<div class="line"><span class="lineno">  198</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nr = PAGE_ALIGN(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>) &gt;&gt; PAGE_SHIFT;</div>
+<div class="line"><span class="lineno">  199</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> addr = (<span class="keywordtype">unsigned</span> long)ptr;</div>
+<div class="line"><span class="lineno">  200</span> </div>
+<div class="line"><span class="lineno">  201</span>    <span class="keywordflow">return</span> set_memory_rox(addr, nr);</div>
+<div class="line"><span class="lineno">  202</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a4ce4a3f4d3d8f95911f5d5eeac9f43f4_icgraph.svg" width="855" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a399f7a460f51f244d295aaf666e39aac" name="a399f7a460f51f244d295aaf666e39aac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a399f7a460f51f244d295aaf666e39aac">&#9670;&#160;</a></span>execmem_set_direct_map_valid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int execmem_set_direct_map_valid </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structvm__struct.html">vm_struct</a> *</td>          <td class="paramname"><span class="paramname"><em>vm</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>valid</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00147">147</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  148</span>{</div>
+<div class="line"><span class="lineno">  149</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nr = (1 &lt;&lt; <a class="code hl_function" href="vmalloc_8c.html#a31c63ff43f099d7004766481b8eb2a01">get_vm_area_page_order</a>(vm));</div>
+<div class="line"><span class="lineno">  150</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> updated = 0;</div>
+<div class="line"><span class="lineno">  151</span>    <span class="keywordtype">int</span> err = 0;</div>
+<div class="line"><span class="lineno">  152</span> </div>
+<div class="line"><span class="lineno">  153</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; vm-&gt;<a class="code hl_variable" href="structvm__struct.html#a34c7d5e41f7db43174e97dedc03e1e18">nr_pages</a>; i += nr) {</div>
+<div class="line"><span class="lineno">  154</span>        err = set_direct_map_valid_noflush(vm-&gt;<a class="code hl_variable" href="structvm__struct.html#ae83b89b8ab0beaa44c9f6e9fa257a9ee">pages</a>[i], nr, valid);</div>
+<div class="line"><span class="lineno">  155</span>        <span class="keywordflow">if</span> (err)</div>
+<div class="line"><span class="lineno">  156</span>            <span class="keywordflow">goto</span> err_restore;</div>
+<div class="line"><span class="lineno">  157</span>        updated += nr;</div>
+<div class="line"><span class="lineno">  158</span>    }</div>
+<div class="line"><span class="lineno">  159</span> </div>
+<div class="line"><span class="lineno">  160</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  161</span> </div>
+<div class="line"><span class="lineno">  162</span>err_restore:</div>
+<div class="line"><span class="lineno">  163</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; updated; i += nr)</div>
+<div class="line"><span class="lineno">  164</span>        set_direct_map_valid_noflush(vm-&gt;<a class="code hl_variable" href="structvm__struct.html#ae83b89b8ab0beaa44c9f6e9fa257a9ee">pages</a>[i], nr, !valid);</div>
+<div class="line"><span class="lineno">  165</span> </div>
+<div class="line"><span class="lineno">  166</span>    <span class="keywordflow">return</span> err;</div>
+<div class="line"><span class="lineno">  167</span>}</div>
+<div class="ttc" id="astructvm__struct_html_ae83b89b8ab0beaa44c9f6e9fa257a9ee"><div class="ttname"><a href="structvm__struct.html#ae83b89b8ab0beaa44c9f6e9fa257a9ee">vm_struct::pages</a></div><div class="ttdeci">struct page ** pages</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8h_source.html#l00064">vmalloc.h:64</a></div></div>
+<div class="ttc" id="avmalloc_8c_html_a31c63ff43f099d7004766481b8eb2a01"><div class="ttname"><a href="vmalloc_8c.html#a31c63ff43f099d7004766481b8eb2a01">get_vm_area_page_order</a></div><div class="ttdeci">unsigned int get_vm_area_page_order(struct vm_struct *vm)</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8c_source.html#l03471">vmalloc.c:3471</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a399f7a460f51f244d295aaf666e39aac_cgraph.svg" width="559" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a399f7a460f51f244d295aaf666e39aac_icgraph.svg" width="922" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="abe8b4c04e72d1569015305a2db188261" name="abe8b4c04e72d1569015305a2db188261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe8b4c04e72d1569015305a2db188261">&#9670;&#160;</a></span>execmem_validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool execmem_validate </td>
+          <td>(</td>
+          <td class="paramtype">struct execmem_info *</td>          <td class="paramname"><span class="paramname"><em>info</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00669">669</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  670</span>{</div>
+<div class="line"><span class="lineno">  671</span>    <span class="keyword">struct </span>execmem_range *r = &amp;info-&gt;ranges[EXECMEM_DEFAULT];</div>
+<div class="line"><span class="lineno">  672</span> </div>
+<div class="line"><span class="lineno">  673</span>    <span class="keywordflow">if</span> (!r-&gt;alignment || !r-&gt;start || !r-&gt;end || !pgprot_val(r-&gt;pgprot)) {</div>
+<div class="line"><span class="lineno">  674</span>        pr_crit(<span class="stringliteral">&quot;Invalid parameters for execmem allocator, module loading will fail&quot;</span>);</div>
+<div class="line"><span class="lineno">  675</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  676</span>    }</div>
+<div class="line"><span class="lineno">  677</span> </div>
+<div class="line"><span class="lineno">  678</span>    <span class="keywordflow">if</span> (!IS_ENABLED(CONFIG_ARCH_HAS_EXECMEM_ROX)) {</div>
+<div class="line"><span class="lineno">  679</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = EXECMEM_DEFAULT; i &lt; EXECMEM_TYPE_MAX; i++) {</div>
+<div class="line"><span class="lineno">  680</span>            r = &amp;info-&gt;ranges[i];</div>
+<div class="line"><span class="lineno">  681</span> </div>
+<div class="line"><span class="lineno">  682</span>            <span class="keywordflow">if</span> (r-&gt;flags &amp; EXECMEM_ROX_CACHE) {</div>
+<div class="line"><span class="lineno">  683</span>                pr_warn_once(<span class="stringliteral">&quot;ROX cache is not supported\n&quot;</span>);</div>
+<div class="line"><span class="lineno">  684</span>                r-&gt;flags &amp;= ~EXECMEM_ROX_CACHE;</div>
+<div class="line"><span class="lineno">  685</span>            }</div>
+<div class="line"><span class="lineno">  686</span>        }</div>
+<div class="line"><span class="lineno">  687</span>    }</div>
+<div class="line"><span class="lineno">  688</span> </div>
+<div class="line"><span class="lineno">  689</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  690</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_abe8b4c04e72d1569015305a2db188261_icgraph.svg" width="456" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a626c7e7f7505929d4cc2ddb266401984" name="a626c7e7f7505929d4cc2ddb266401984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a626c7e7f7505929d4cc2ddb266401984">&#9670;&#160;</a></span>execmem_vmalloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * execmem_vmalloc </td>
+          <td>(</td>
+          <td class="paramtype">struct execmem_range *</td>          <td class="paramname"><span class="paramname"><em>range</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pgprot_t</td>          <td class="paramname"><span class="paramname"><em>pgprot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>vm_flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00037">37</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>{</div>
+<div class="line"><span class="lineno">   40</span>    <span class="keywordtype">bool</span> kasan = range-&gt;flags &amp; EXECMEM_KASAN_SHADOW;</div>
+<div class="line"><span class="lineno">   41</span>    gfp_t gfp_flags = <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a> | <a class="code hl_define" href="gfp__types_8h.html#ad16e4916f64bf12d9016393d48ff9aa1">__GFP_NOWARN</a>;</div>
+<div class="line"><span class="lineno">   42</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> align = range-&gt;alignment;</div>
+<div class="line"><span class="lineno">   43</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> start = range-&gt;start;</div>
+<div class="line"><span class="lineno">   44</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> end = range-&gt;end;</div>
+<div class="line"><span class="lineno">   45</span>    <span class="keywordtype">void</span> *p;</div>
+<div class="line"><span class="lineno">   46</span> </div>
+<div class="line"><span class="lineno">   47</span>    <span class="keywordflow">if</span> (kasan)</div>
+<div class="line"><span class="lineno">   48</span>        vm_flags |= <a class="code hl_define" href="vmalloc_8h.html#a39e8d7a956e0d609f89f3908105c4592">VM_DEFER_KMEMLEAK</a>;</div>
+<div class="line"><span class="lineno">   49</span> </div>
+<div class="line"><span class="lineno">   50</span>    p = <a class="code hl_define" href="vmalloc_8h.html#a08b352ce7783e3a20c50e7a6e8fcd612">__vmalloc_node_range</a>(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, align, start, end, gfp_flags,</div>
+<div class="line"><span class="lineno">   51</span>                 pgprot, vm_flags, NUMA_NO_NODE,</div>
+<div class="line"><span class="lineno">   52</span>                 __builtin_return_address(0));</div>
+<div class="line"><span class="lineno">   53</span>    <span class="keywordflow">if</span> (!p &amp;&amp; range-&gt;fallback_start) {</div>
+<div class="line"><span class="lineno">   54</span>        start = range-&gt;fallback_start;</div>
+<div class="line"><span class="lineno">   55</span>        end = range-&gt;fallback_end;</div>
+<div class="line"><span class="lineno">   56</span>        p = <a class="code hl_define" href="vmalloc_8h.html#a08b352ce7783e3a20c50e7a6e8fcd612">__vmalloc_node_range</a>(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, align, start, end, gfp_flags,</div>
+<div class="line"><span class="lineno">   57</span>                     pgprot, vm_flags, NUMA_NO_NODE,</div>
+<div class="line"><span class="lineno">   58</span>                     __builtin_return_address(0));</div>
+<div class="line"><span class="lineno">   59</span>    }</div>
+<div class="line"><span class="lineno">   60</span> </div>
+<div class="line"><span class="lineno">   61</span>    <span class="keywordflow">if</span> (!p) {</div>
+<div class="line"><span class="lineno">   62</span>        pr_warn_ratelimited(<span class="stringliteral">&quot;unable to allocate memory\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   63</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   64</span>    }</div>
+<div class="line"><span class="lineno">   65</span> </div>
+<div class="line"><span class="lineno">   66</span>    <span class="keywordflow">if</span> (kasan &amp;&amp; (kasan_alloc_module_shadow(p, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>) &lt; 0)) {</div>
+<div class="line"><span class="lineno">   67</span>        <a class="code hl_function" href="vmalloc_8h.html#a2aeead9450a5b920c65bea908edead23">vfree</a>(p);</div>
+<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   69</span>    }</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>    <span class="keywordflow">return</span> p;</div>
+<div class="line"><span class="lineno">   72</span>}</div>
+<div class="ttc" id="agfp__types_8h_html_ad16e4916f64bf12d9016393d48ff9aa1"><div class="ttname"><a href="gfp__types_8h.html#ad16e4916f64bf12d9016393d48ff9aa1">__GFP_NOWARN</a></div><div class="ttdeci">#define __GFP_NOWARN</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00288">gfp_types.h:288</a></div></div>
+<div class="ttc" id="avmalloc_8h_html_a08b352ce7783e3a20c50e7a6e8fcd612"><div class="ttname"><a href="vmalloc_8h.html#a08b352ce7783e3a20c50e7a6e8fcd612">__vmalloc_node_range</a></div><div class="ttdeci">#define __vmalloc_node_range(...)</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8h_source.html#l00243">vmalloc.h:243</a></div></div>
+<div class="ttc" id="avmalloc_8h_html_a39e8d7a956e0d609f89f3908105c4592"><div class="ttname"><a href="vmalloc_8h.html#a39e8d7a956e0d609f89f3908105c4592">VM_DEFER_KMEMLEAK</a></div><div class="ttdeci">#define VM_DEFER_KMEMLEAK</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8h_source.html#l00036">vmalloc.h:36</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a626c7e7f7505929d4cc2ddb266401984_cgraph.svg" width="1396" height="1206"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a626c7e7f7505929d4cc2ddb266401984_icgraph.svg" width="910" height="63"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a2bc1659bcbf3698e01263c5b37e44166" name="a2bc1659bcbf3698e01263c5b37e44166"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bc1659bcbf3698e01263c5b37e44166">&#9670;&#160;</a></span>execmem_vmap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structvm__struct.html">vm_struct</a> * execmem_vmap </td>
+          <td>(</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00082">82</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   83</span>{</div>
+<div class="line"><span class="lineno">   84</span>    <span class="keyword">struct </span>execmem_range *range = &amp;execmem_info-&gt;ranges[EXECMEM_MODULE_DATA];</div>
+<div class="line"><span class="lineno">   85</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structvm__struct.html">vm_struct</a> *area;</div>
+<div class="line"><span class="lineno">   86</span> </div>
+<div class="line"><span class="lineno">   87</span>    area = <a class="code hl_function" href="vmalloc_8c.html#af575bf68e263ce21bbbe0baca21cc979">__get_vm_area_node</a>(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, range-&gt;alignment, PAGE_SHIFT, <a class="code hl_define" href="vmalloc_8h.html#a368cef2ce42510c470a6037647d10d10">VM_ALLOC</a>,</div>
+<div class="line"><span class="lineno">   88</span>                  range-&gt;start, range-&gt;end, NUMA_NO_NODE,</div>
+<div class="line"><span class="lineno">   89</span>                  <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>, __builtin_return_address(0));</div>
+<div class="line"><span class="lineno">   90</span>    <span class="keywordflow">if</span> (!area &amp;&amp; range-&gt;fallback_start)</div>
+<div class="line"><span class="lineno">   91</span>        area = <a class="code hl_function" href="vmalloc_8c.html#af575bf68e263ce21bbbe0baca21cc979">__get_vm_area_node</a>(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, range-&gt;alignment, PAGE_SHIFT, <a class="code hl_define" href="vmalloc_8h.html#a368cef2ce42510c470a6037647d10d10">VM_ALLOC</a>,</div>
+<div class="line"><span class="lineno">   92</span>                      range-&gt;fallback_start, range-&gt;fallback_end,</div>
+<div class="line"><span class="lineno">   93</span>                      NUMA_NO_NODE, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>, __builtin_return_address(0));</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span>    <span class="keywordflow">return</span> area;</div>
+<div class="line"><span class="lineno">   96</span>}</div>
+<div class="ttc" id="avmalloc_8c_html_af575bf68e263ce21bbbe0baca21cc979"><div class="ttname"><a href="vmalloc_8c.html#af575bf68e263ce21bbbe0baca21cc979">__get_vm_area_node</a></div><div class="ttdeci">struct vm_struct * __get_vm_area_node(unsigned long size, unsigned long align, unsigned long shift, unsigned long flags, unsigned long start, unsigned long end, int node, gfp_t gfp_mask, const void *caller)</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8c_source.html#l03569">vmalloc.c:3569</a></div></div>
+<div class="ttc" id="avmalloc_8h_html_a368cef2ce42510c470a6037647d10d10"><div class="ttname"><a href="vmalloc_8h.html#a368cef2ce42510c470a6037647d10d10">VM_ALLOC</a></div><div class="ttdeci">#define VM_ALLOC</div><div class="ttdef"><b>Definition</b> <a href="vmalloc_8h_source.html#l00023">vmalloc.h:23</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a2bc1659bcbf3698e01263c5b37e44166_cgraph.svg" width="1971" height="1134"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="acf2798ad88129bea99e130daa4fc95c7" name="acf2798ad88129bea99e130daa4fc95c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf2798ad88129bea99e130daa4fc95c7">&#9670;&#160;</a></span>is_pending_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_pending_free </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00444">444</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  445</span>{</div>
+<div class="line"><span class="lineno">  446</span>    <span class="keywordflow">return</span> ((<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)ptr &amp; <a class="code hl_define" href="#afc5dd37ed085f0aec800ddda6869389d">PENDING_FREE_MASK</a>);</div>
+<div class="line"><span class="lineno">  447</span>}</div>
+<div class="ttc" id="aexecmem_8c_html_afc5dd37ed085f0aec800ddda6869389d"><div class="ttname"><a href="#afc5dd37ed085f0aec800ddda6869389d">PENDING_FREE_MASK</a></div><div class="ttdeci">#define PENDING_FREE_MASK</div><div class="ttdef"><b>Definition</b> <a href="execmem_8c_source.html#l00117">execmem.c:117</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_acf2798ad88129bea99e130daa4fc95c7_icgraph.svg" width="606" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a8ae7ad87ec01bee85da766636c0b96e3" name="a8ae7ad87ec01bee85da766636c0b96e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ae7ad87ec01bee85da766636c0b96e3">&#9670;&#160;</a></span>mas_range_len()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long mas_range_len </td>
+          <td>(</td>
+          <td class="paramtype">struct ma_state *</td>          <td class="paramname"><span class="paramname"><em>mas</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00134">134</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  135</span>{</div>
+<div class="line"><span class="lineno">  136</span>    <span class="keywordflow">return</span> mas-&gt;last - mas-&gt;index + 1;</div>
+<div class="line"><span class="lineno">  137</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a8ae7ad87ec01bee85da766636c0b96e3_icgraph.svg" width="1000" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a631eae632dea10446e113f66bbf8781c" name="a631eae632dea10446e113f66bbf8781c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a631eae632dea10446e113f66bbf8781c">&#9670;&#160;</a></span>pending_free_clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * pending_free_clear </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00454">454</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  455</span>{</div>
+<div class="line"><span class="lineno">  456</span>    <span class="keywordflow">return</span> (<span class="keywordtype">void</span> *)((<span class="keywordtype">unsigned</span> long)ptr &amp; <a class="code hl_define" href="#afc5dd37ed085f0aec800ddda6869389d">~PENDING_FREE_MASK</a>);</div>
+<div class="line"><span class="lineno">  457</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a631eae632dea10446e113f66bbf8781c_icgraph.svg" width="624" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0f6db0393630a22054a44a665f5bcba6" name="a0f6db0393630a22054a44a665f5bcba6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f6db0393630a22054a44a665f5bcba6">&#9670;&#160;</a></span>pending_free_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * pending_free_set </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>ptr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00449">449</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  450</span>{</div>
+<div class="line"><span class="lineno">  451</span>    <span class="keywordflow">return</span> (<span class="keywordtype">void</span> *)((<span class="keywordtype">unsigned</span> long)ptr | <a class="code hl_define" href="#afc5dd37ed085f0aec800ddda6869389d">PENDING_FREE_MASK</a>);</div>
+<div class="line"><span class="lineno">  452</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_a0f6db0393630a22054a44a665f5bcba6_icgraph.svg" width="484" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aad1f81fab09ea4688f5419abb401da0e" name="aad1f81fab09ea4688f5419abb401da0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad1f81fab09ea4688f5419abb401da0e">&#9670;&#160;</a></span>within_range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool within_range </td>
+          <td>(</td>
+          <td class="paramtype">struct execmem_range *</td>          <td class="paramname"><span class="paramname"><em>range</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct ma_state *</td>          <td class="paramname"><span class="paramname"><em>mas</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00295">295</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  297</span>{</div>
+<div class="line"><span class="lineno">  298</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> addr = mas-&gt;index;</div>
+<div class="line"><span class="lineno">  299</span> </div>
+<div class="line"><span class="lineno">  300</span>    <span class="keywordflow">if</span> (addr &gt;= range-&gt;start &amp;&amp; addr + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size &lt; range-&gt;</a>end)</div>
+<div class="line"><span class="lineno">  301</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  302</span> </div>
+<div class="line"><span class="lineno">  303</span>    <span class="keywordflow">if</span> (range-&gt;fallback_start &amp;&amp;</div>
+<div class="line"><span class="lineno">  304</span>        addr &gt;= range-&gt;fallback_start &amp;&amp; addr + <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size &lt; range-&gt;</a>fallback_end)</div>
+<div class="line"><span class="lineno">  305</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  306</span> </div>
+<div class="line"><span class="lineno">  307</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  308</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="execmem_8c_aad1f81fab09ea4688f5419abb401da0e_icgraph.svg" width="866" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a93a0520ad5869f318dc763779fbce2b9" name="a93a0520ad5869f318dc763779fbce2b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93a0520ad5869f318dc763779fbce2b9">&#9670;&#160;</a></span>__ro_after_init</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct execmem_info default_execmem_info __ro_after_init</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00024">24</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+
+</div>
+</div>
+<a id="a66cbe1eb4be9887fb33b475ab0ea8e5c" name="a66cbe1eb4be9887fb33b475ab0ea8e5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66cbe1eb4be9887fb33b475ab0ea8e5c">&#9670;&#160;</a></span>execmem_cache</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct execmem_cache execmem_cache</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                          = {</div>
+<div class="line">    .mutex = __MUTEX_INITIALIZER(<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>),</div>
+<div class="line">    .busy_areas = MTREE_INIT_EXT(<a class="code hl_variable" href="structexecmem__cache.html#aacf000eeba5e03cb7166832bc1de99ee">busy_areas</a>, MT_FLAGS_LOCK_EXTERN,</div>
+<div class="line">                     <a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>),</div>
+<div class="line">    .free_areas = MTREE_INIT_EXT(<a class="code hl_variable" href="structexecmem__cache.html#a3fce59bff21a3747c0295cb1a23e1e0b">free_areas</a>, MT_FLAGS_LOCK_EXTERN,</div>
+<div class="line">                     <a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>),</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="execmem_8c_source.html#l00119">119</a> of file <a class="el" href="execmem_8c_source.html">execmem.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  119</span>                                          {</div>
+<div class="line"><span class="lineno">  120</span>    .mutex = __MUTEX_INITIALIZER(<a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>),</div>
+<div class="line"><span class="lineno">  121</span>    .busy_areas = MTREE_INIT_EXT(busy_areas, MT_FLAGS_LOCK_EXTERN,</div>
+<div class="line"><span class="lineno">  122</span>                     <a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>),</div>
+<div class="line"><span class="lineno">  123</span>    .free_areas = MTREE_INIT_EXT(free_areas, MT_FLAGS_LOCK_EXTERN,</div>
+<div class="line"><span class="lineno">  124</span>                     <a class="code hl_struct" href="structexecmem__cache.html">execmem_cache</a>.<a class="code hl_variable" href="structexecmem__cache.html#a6c7795475d9830e88c183034566c5367">mutex</a>),</div>
+<div class="line"><span class="lineno">  125</span>};</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

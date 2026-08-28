@@ -1,0 +1,76 @@
+\doxysection{sock\+\_\+cgroup\+\_\+data Struct Reference}
+\hypertarget{structsock__cgroup__data}{}\label{structsock__cgroup__data}\index{sock\_cgroup\_data@{sock\_cgroup\_data}}
+
+
+{\ttfamily \+\#include $<$cgroup-\/defs.\+h$>$}
+
+
+
+Collaboration diagram for sock\+\_\+cgroup\+\_\+data:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structsock__cgroup__data__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structcgroup}{cgroup}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structsock__cgroup__data_ad8f80137a18ab6e350f7e6df13ff735f}{cgroup}}
+\item 
+u32 \doxymbox{\hyperlink{structsock__cgroup__data_a064e377721d87be017509957fe68f5b0}{classid}}
+\item 
+u16 \doxymbox{\hyperlink{structsock__cgroup__data_a31cef0b343333add56b168fe6ae16a1b}{prioidx}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+CONFIG\+\_\+\+CGROUPS \doxylink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data} is embedded at sock-\/\texorpdfstring{$>$}{>}sk\+\_\+cgrp\+\_\+data and contains per-\/socket cgroup information except for memcg association.
+
+On legacy hierarchies, net\+\_\+prio and net\+\_\+cls controllers directly set attributes on each sock which can then be tested by the network layer. On the default hierarchy, each sock is associated with the cgroup it was created in and the networking layer can match the cgroup directly.
+
+struct Description:\+ This structure holds per-\/socket cgroup information for network controllers. It contains the cgroup pointer for v2, and classid and prioidx for v1 controllers. The network layer uses this to enforce network policies based on cgroups. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00990}{990}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+\label{structsock__cgroup__data_doc-variable-members}
+\Hypertarget{structsock__cgroup__data_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structsock__cgroup__data_ad8f80137a18ab6e350f7e6df13ff735f}\index{sock\_cgroup\_data@{sock\_cgroup\_data}!cgroup@{cgroup}}
+\index{cgroup@{cgroup}!sock\_cgroup\_data@{sock\_cgroup\_data}}
+\doxysubsubsection{\texorpdfstring{cgroup}{cgroup}}
+{\footnotesize\ttfamily \label{structsock__cgroup__data_ad8f80137a18ab6e350f7e6df13ff735f} 
+struct \doxymbox{\hyperlink{structcgroup}{cgroup}}\texorpdfstring{$\ast$}{*} sock\+\_\+cgroup\+\_\+data::\+cgroup}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00991}{991}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structsock__cgroup__data_a064e377721d87be017509957fe68f5b0}\index{sock\_cgroup\_data@{sock\_cgroup\_data}!classid@{classid}}
+\index{classid@{classid}!sock\_cgroup\_data@{sock\_cgroup\_data}}
+\doxysubsubsection{\texorpdfstring{classid}{classid}}
+{\footnotesize\ttfamily \label{structsock__cgroup__data_a064e377721d87be017509957fe68f5b0} 
+u32 sock\+\_\+cgroup\+\_\+data::\+classid}
+
+v2 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00993}{993}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structsock__cgroup__data_a31cef0b343333add56b168fe6ae16a1b}\index{sock\_cgroup\_data@{sock\_cgroup\_data}!prioidx@{prioidx}}
+\index{prioidx@{prioidx}!sock\_cgroup\_data@{sock\_cgroup\_data}}
+\doxysubsubsection{\texorpdfstring{prioidx}{prioidx}}
+{\footnotesize\ttfamily \label{structsock__cgroup__data_a31cef0b343333add56b168fe6ae16a1b} 
+u16 sock\+\_\+cgroup\+\_\+data::\+prioidx}
+
+v1 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00996}{996}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{cgroup-defs_8h}{cgroup-\/defs.\+h}}\end{DoxyCompactItemize}

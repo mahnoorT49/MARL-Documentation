@@ -1,0 +1,144 @@
+\doxysection{lruvec Struct Reference}
+\hypertarget{structlruvec}{}\label{structlruvec}\index{lruvec@{lruvec}}
+
+
+{\ttfamily \+\#include $<$mmzone.\+h$>$}
+
+
+
+Collaboration diagram for lruvec:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structlruvec__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structlruvec_a9e8fe33229a645f0a5cff089896806a7}{lists}} \+[\doxymbox{\hyperlink{mmzone_8h_a9069db9a052061e24cf2539ead8e53e1ad76a9b4b7e73a201167ef6493da5f847}{NR\+\_\+\+LRU\+\_\+\+LISTS}}]\+
+\item 
+spinlock\+\_\+t \doxymbox{\hyperlink{structlruvec_a7d5c790766072bae353e08bd58c22447}{lru\+\_\+lock}}
+\item 
+unsigned long \doxymbox{\hyperlink{structlruvec_a9bffe84ea852f0e64e7f3882d89abc05}{anon\+\_\+cost}}
+\item 
+unsigned long \doxymbox{\hyperlink{structlruvec_a32fac3e332313df8b7c37ee91611b97c}{file\+\_\+cost}}
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structlruvec_a08cad966ddd5b5b99316d60329b9c81a}{nonresident\+\_\+age}}
+\item 
+unsigned long \doxymbox{\hyperlink{structlruvec_a2dad84a193e829b40d67e87446cf13ad}{refaults}} \+[2]\+
+\item 
+unsigned long \doxymbox{\hyperlink{structlruvec_a1935dbb69bc7dfec1a02b41644f08cb7}{flags}}
+\item 
+struct \doxymbox{\hyperlink{structpglist__data}{pglist\+\_\+data}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structlruvec_aab0133a25f81a81e37e08573a33ccdc2}{pgdat}}
+\item 
+struct zswap\+\_\+lruvec\+\_\+state \doxymbox{\hyperlink{structlruvec_a339bc098683e8c711e7ec6f00968fe6b}{zswap\+\_\+lruvec\+\_\+state}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00669}{669}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+
+
+\label{structlruvec_doc-variable-members}
+\Hypertarget{structlruvec_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structlruvec_a9bffe84ea852f0e64e7f3882d89abc05}\index{lruvec@{lruvec}!anon\_cost@{anon\_cost}}
+\index{anon\_cost@{anon\_cost}!lruvec@{lruvec}}
+\doxysubsubsection{\texorpdfstring{anon\_cost}{anon\_cost}}
+{\footnotesize\ttfamily \label{structlruvec_a9bffe84ea852f0e64e7f3882d89abc05} 
+unsigned long lruvec::\+anon\+\_\+cost}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00678}{678}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structlruvec_a32fac3e332313df8b7c37ee91611b97c}\index{lruvec@{lruvec}!file\_cost@{file\_cost}}
+\index{file\_cost@{file\_cost}!lruvec@{lruvec}}
+\doxysubsubsection{\texorpdfstring{file\_cost}{file\_cost}}
+{\footnotesize\ttfamily \label{structlruvec_a32fac3e332313df8b7c37ee91611b97c} 
+unsigned long lruvec::\+file\+\_\+cost}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00679}{679}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structlruvec_a1935dbb69bc7dfec1a02b41644f08cb7}\index{lruvec@{lruvec}!flags@{flags}}
+\index{flags@{flags}!lruvec@{lruvec}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structlruvec_a1935dbb69bc7dfec1a02b41644f08cb7} 
+unsigned long lruvec::\+flags}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00685}{685}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structlruvec_a9e8fe33229a645f0a5cff089896806a7}\index{lruvec@{lruvec}!lists@{lists}}
+\index{lists@{lists}!lruvec@{lruvec}}
+\doxysubsubsection{\texorpdfstring{lists}{lists}}
+{\footnotesize\ttfamily \label{structlruvec_a9e8fe33229a645f0a5cff089896806a7} 
+struct list\+\_\+head lruvec::\+lists\+[\doxymbox{\hyperlink{mmzone_8h_a9069db9a052061e24cf2539ead8e53e1ad76a9b4b7e73a201167ef6493da5f847}{NR\+\_\+\+LRU\+\_\+\+LISTS}}]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00670}{670}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structlruvec_a7d5c790766072bae353e08bd58c22447}\index{lruvec@{lruvec}!lru\_lock@{lru\_lock}}
+\index{lru\_lock@{lru\_lock}!lruvec@{lruvec}}
+\doxysubsubsection{\texorpdfstring{lru\_lock}{lru\_lock}}
+{\footnotesize\ttfamily \label{structlruvec_a7d5c790766072bae353e08bd58c22447} 
+spinlock\+\_\+t lruvec::\+lru\+\_\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00672}{672}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structlruvec_a08cad966ddd5b5b99316d60329b9c81a}\index{lruvec@{lruvec}!nonresident\_age@{nonresident\_age}}
+\index{nonresident\_age@{nonresident\_age}!lruvec@{lruvec}}
+\doxysubsubsection{\texorpdfstring{nonresident\_age}{nonresident\_age}}
+{\footnotesize\ttfamily \label{structlruvec_a08cad966ddd5b5b99316d60329b9c81a} 
+atomic\+\_\+long\+\_\+t lruvec::\+nonresident\+\_\+age}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00681}{681}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structlruvec_aab0133a25f81a81e37e08573a33ccdc2}\index{lruvec@{lruvec}!pgdat@{pgdat}}
+\index{pgdat@{pgdat}!lruvec@{lruvec}}
+\doxysubsubsection{\texorpdfstring{pgdat}{pgdat}}
+{\footnotesize\ttfamily \label{structlruvec_aab0133a25f81a81e37e08573a33ccdc2} 
+struct \doxymbox{\hyperlink{structpglist__data}{pglist\+\_\+data}}\texorpdfstring{$\ast$}{*} lruvec::\+pgdat}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00695}{695}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structlruvec_a2dad84a193e829b40d67e87446cf13ad}\index{lruvec@{lruvec}!refaults@{refaults}}
+\index{refaults@{refaults}!lruvec@{lruvec}}
+\doxysubsubsection{\texorpdfstring{refaults}{refaults}}
+{\footnotesize\ttfamily \label{structlruvec_a2dad84a193e829b40d67e87446cf13ad} 
+unsigned long lruvec::\+refaults\+[2]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00683}{683}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structlruvec_a339bc098683e8c711e7ec6f00968fe6b}\index{lruvec@{lruvec}!zswap\_lruvec\_state@{zswap\_lruvec\_state}}
+\index{zswap\_lruvec\_state@{zswap\_lruvec\_state}!lruvec@{lruvec}}
+\doxysubsubsection{\texorpdfstring{zswap\_lruvec\_state}{zswap\_lruvec\_state}}
+{\footnotesize\ttfamily \label{structlruvec_a339bc098683e8c711e7ec6f00968fe6b} 
+struct zswap\+\_\+lruvec\+\_\+state lruvec::\+zswap\+\_\+lruvec\+\_\+state}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00697}{697}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{mmzone_8h}{mmzone.\+h}}\end{DoxyCompactItemize}

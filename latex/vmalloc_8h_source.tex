@@ -1,0 +1,331 @@
+\doxysection{vmalloc.\+h}
+\hypertarget{vmalloc_8h_source}{}\label{vmalloc_8h_source}\index{include/linux/vmalloc.h@{include/linux/vmalloc.h}}
+\doxymbox{\hyperlink{vmalloc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00001}00001\ \textcolor{comment}{/*\ SPDX-\/License-\/Identifier:\ GPL-\/2.0\ */}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00002}00002\ \textcolor{preprocessor}{\#ifndef\ \_LINUX\_VMALLOC\_H}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00003}00003\ \textcolor{preprocessor}{\#define\ \_LINUX\_VMALLOC\_H}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <linux/alloc\_tag.h>}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{sched_8h}{linux/sched.h}}>}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <linux/spinlock.h>}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <linux/init.h>}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <linux/list.h>}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <linux/llist.h>}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <asm/page.h>}\ \ \ \ \ \ \ \textcolor{comment}{/*\ pgprot\_t\ */}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <linux/rbtree.h>}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <linux/overflow.h>}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <asm/vmalloc.h>}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00017}00017\ \textcolor{keyword}{struct\ }vm\_area\_struct;\ \ \ \ \ \ \textcolor{comment}{/*\ vma\ defining\ user\ mapping\ in\ mm\_types.h\ */}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00018}00018\ \textcolor{keyword}{struct\ }notifier\_block;\ \ \ \ \ \ \textcolor{comment}{/*\ in\ notifier.h\ */}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00019}00019\ \textcolor{keyword}{struct\ }iov\_iter;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ in\ uio.h\ */}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00022}\doxymbox{\hyperlink{vmalloc_8h_a0e9129da5a74c2d5607342039277e938}{00022}}\ \textcolor{preprocessor}{\#define\ VM\_IOREMAP\ \ \ \ \ \ 0x00000001\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00023}\doxymbox{\hyperlink{vmalloc_8h_a368cef2ce42510c470a6037647d10d10}{00023}}\ \textcolor{preprocessor}{\#define\ VM\_ALLOC\ \ \ \ \ \ \ \ 0x00000002\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00024}\doxymbox{\hyperlink{vmalloc_8h_abf5ad359d5be0b62e123ff13d0a1504c}{00024}}\ \textcolor{preprocessor}{\#define\ VM\_MAP\ \ \ \ \ \ \ \ \ \ 0x00000004\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00025}\doxymbox{\hyperlink{vmalloc_8h_a81cc3e5712a7ace846ac4fda63996bf6}{00025}}\ \textcolor{preprocessor}{\#define\ VM\_USERMAP\ \ \ \ \ \ 0x00000008\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00026}\doxymbox{\hyperlink{vmalloc_8h_afa81448fd8bd60cdd111d3d18683582a}{00026}}\ \textcolor{preprocessor}{\#define\ VM\_DMA\_COHERENT\ \ \ \ \ 0x00000010\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00027}\doxymbox{\hyperlink{vmalloc_8h_ada6d7140e48da590089ecb27abeeea6f}{00027}}\ \textcolor{preprocessor}{\#define\ VM\_UNINITIALIZED\ \ \ \ 0x00000020\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00028}\doxymbox{\hyperlink{vmalloc_8h_aab693f55b52f2ffbb35861ddf6c5daa3}{00028}}\ \textcolor{preprocessor}{\#define\ VM\_NO\_GUARD\ \ \ \ \ 0x00000040\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00029}\doxymbox{\hyperlink{vmalloc_8h_a2bea29648c68ee66b4a9e8b4bffd6361}{00029}}\ \textcolor{preprocessor}{\#define\ VM\_KASAN\ \ \ \ \ \ \ \ 0x00000080\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00030}\doxymbox{\hyperlink{vmalloc_8h_a0bca02b8d5d5cc283d8b39502f7c0a6f}{00030}}\ \textcolor{preprocessor}{\#define\ VM\_FLUSH\_RESET\_PERMS\ \ \ \ 0x00000100\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00031}\doxymbox{\hyperlink{vmalloc_8h_aa0730efe140e67a58748375186ce3885}{00031}}\ \textcolor{preprocessor}{\#define\ VM\_MAP\_PUT\_PAGES\ \ \ \ 0x00000200\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00032}\doxymbox{\hyperlink{vmalloc_8h_a87b3a6a6e0d67cb79a31c95bdcd57bdf}{00032}}\ \textcolor{preprocessor}{\#define\ VM\_ALLOW\_HUGE\_VMAP\ \ 0x00000400\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00034}00034\ \textcolor{preprocessor}{\#if\ (defined(CONFIG\_KASAN\_GENERIC)\ ||\ defined(CONFIG\_KASAN\_SW\_TAGS))\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00035}00035\ \textcolor{preprocessor}{\ \ \ \ !defined(CONFIG\_KASAN\_VMALLOC)}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00036}\doxymbox{\hyperlink{vmalloc_8h_a39e8d7a956e0d609f89f3908105c4592}{00036}}\ \textcolor{preprocessor}{\#define\ VM\_DEFER\_KMEMLEAK\ \ \ 0x00000800\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00037}00037\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00038}00038\ \textcolor{preprocessor}{\#define\ VM\_DEFER\_KMEMLEAK\ \ \ 0}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00039}00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00040}\doxymbox{\hyperlink{vmalloc_8h_aa5b04ed153ac6615d7b127b3269e2179}{00040}}\ \textcolor{preprocessor}{\#define\ VM\_SPARSE\ \ \ \ \ \ \ 0x00001000\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00042}00042\ \textcolor{comment}{/*\ bits\ [20..32]\ reserved\ for\ arch\ specific\ ioremap\ internals\ */}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00048}00048\ \textcolor{preprocessor}{\#ifndef\ IOREMAP\_MAX\_ORDER}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00049}\doxymbox{\hyperlink{vmalloc_8h_a666ba86c902d8863fe1a967b4c12791a}{00049}}\ \textcolor{preprocessor}{\#define\ IOREMAP\_MAX\_ORDER\ \ \ (7\ +\ PAGE\_SHIFT)\ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00050}00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00055}\doxymbox{\hyperlink{structvm__struct}{00055}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00056}00056\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00057}\doxymbox{\hyperlink{structvm__struct_aa82d14297a1a4c82d89075ed48323071}{00057}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *\doxymbox{\hyperlink{structvm__struct_aa82d14297a1a4c82d89075ed48323071}{next}};\ \ \ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00058}\doxymbox{\hyperlink{structvm__struct_a3293d1fc3f812bff6d2e8f9cabe5bea6}{00058}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }llist\_node\ \doxymbox{\hyperlink{structvm__struct_a3293d1fc3f812bff6d2e8f9cabe5bea6}{llnode}};\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00059}00059\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00061}\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{00061}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ *\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00062}\doxymbox{\hyperlink{structvm__struct_a07a1b9fdeeb7917a0e95648118877b26}{00062}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvm__struct_a07a1b9fdeeb7917a0e95648118877b26}{size}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00063}\doxymbox{\hyperlink{structvm__struct_a8c456bd222e970dc349ea9a63eef5261}{00063}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvm__struct_a8c456bd222e970dc349ea9a63eef5261}{flags}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00064}\doxymbox{\hyperlink{structvm__struct_ae83b89b8ab0beaa44c9f6e9fa257a9ee}{00064}}\ \ \ \ \ \textcolor{keyword}{struct\ }page\ \ \ \ \ **\doxymbox{\hyperlink{structvm__struct_ae83b89b8ab0beaa44c9f6e9fa257a9ee}{pages}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00065}00065\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_HAVE\_ARCH\_HUGE\_VMALLOC}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00066}\doxymbox{\hyperlink{structvm__struct_a947986779a54d51ee76081846272ae05}{00066}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvm__struct_a947986779a54d51ee76081846272ae05}{page\_order}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00067}00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00068}\doxymbox{\hyperlink{structvm__struct_a34c7d5e41f7db43174e97dedc03e1e18}{00068}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structvm__struct_a34c7d5e41f7db43174e97dedc03e1e18}{nr\_pages}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00069}\doxymbox{\hyperlink{structvm__struct_acd71f40735dacf45bfa5938eb9f466b1}{00069}}\ \ \ \ \ phys\_addr\_t\ \ \ \ \ \doxymbox{\hyperlink{structvm__struct_acd71f40735dacf45bfa5938eb9f466b1}{phys\_addr}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00070}\doxymbox{\hyperlink{structvm__struct_ab0ced520968bd2f6149efc1ac79e5e18}{00070}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ \ \ \ \ \ *\doxymbox{\hyperlink{structvm__struct_ab0ced520968bd2f6149efc1ac79e5e18}{caller}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00071}\doxymbox{\hyperlink{structvm__struct_a5bc2dc4d068d331e534dea024fd4ca24}{00071}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \doxymbox{\hyperlink{structvm__struct_a5bc2dc4d068d331e534dea024fd4ca24}{requested\_size}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00072}00072\ \};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00077}\doxymbox{\hyperlink{structvmap__area}{00077}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvmap__area}{vmap\_area}}\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00078}\doxymbox{\hyperlink{structvmap__area_aaafb988ede17b89efe873f73958a52c4}{00078}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structvmap__area_aaafb988ede17b89efe873f73958a52c4}{va\_start}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00079}\doxymbox{\hyperlink{structvmap__area_af50adead4509238223685c113e6dba88}{00079}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structvmap__area_af50adead4509238223685c113e6dba88}{va\_end}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00081}\doxymbox{\hyperlink{structvmap__area_a7708377c31d5e0eff5224c835444eaf7}{00081}}\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvmap__area_a7708377c31d5e0eff5224c835444eaf7}{rb\_node}}\ \doxymbox{\hyperlink{structvmap__area_a7708377c31d5e0eff5224c835444eaf7}{rb\_node}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00082}\doxymbox{\hyperlink{structvmap__area_a903cbd8aea1ac57ab7d1adba73725cf6}{00082}}\ \ \ \ \ \textcolor{keyword}{struct\ }list\_head\ \doxymbox{\hyperlink{structvmap__area_a903cbd8aea1ac57ab7d1adba73725cf6}{list}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00090}00090\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00091}\doxymbox{\hyperlink{structvmap__area_a7f3ff0a4d1f4ebf09f110ee120e24acd}{00091}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structvmap__area_a7f3ff0a4d1f4ebf09f110ee120e24acd}{subtree\_max\_size}};\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00092}\doxymbox{\hyperlink{structvmap__area_a62cce77852f241a18638bc69f60972d9}{00092}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *\doxymbox{\hyperlink{structvmap__area_a62cce77852f241a18638bc69f60972d9}{vm}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00093}00093\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00094}\doxymbox{\hyperlink{structvmap__area_a919b570a07b248fc93c0c305ee6bb499}{00094}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structvmap__area_a919b570a07b248fc93c0c305ee6bb499}{flags}};\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00095}00095\ \};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00097}00097\ \textcolor{comment}{/*\ archs\ that\ select\ HAVE\_ARCH\_HUGE\_VMAP\ should\ override\ one\ or\ more\ of\ these\ */}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00098}00098\ \textcolor{preprocessor}{\#ifndef\ arch\_vmap\_p4d\_supported}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00102}\doxymbox{\hyperlink{vmalloc_8h_aaaab06c94040893b7e166f4ae95c13c5}{00102}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{vmalloc_8h_aaaab06c94040893b7e166f4ae95c13c5}{arch\_vmap\_p4d\_supported}}(pgprot\_t\ prot)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00103}00103\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00106}00106\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00108}00108\ \textcolor{preprocessor}{\#ifndef\ arch\_vmap\_pud\_supported}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00112}\doxymbox{\hyperlink{vmalloc_8h_a2ed7f4772c552164a008825d8bb70013}{00112}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{vmalloc_8h_a2ed7f4772c552164a008825d8bb70013}{arch\_vmap\_pud\_supported}}(pgprot\_t\ prot)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00113}00113\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00115}00115\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00116}00116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00118}00118\ \textcolor{preprocessor}{\#ifndef\ arch\_vmap\_pmd\_supported}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00122}\doxymbox{\hyperlink{vmalloc_8h_a83b3bc1484230e2395eb5b8410c752d0}{00122}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{vmalloc_8h_a83b3bc1484230e2395eb5b8410c752d0}{arch\_vmap\_pmd\_supported}}(pgprot\_t\ prot)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00123}00123\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00124}00124\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00125}00125\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00126}00126\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00128}00128\ \textcolor{preprocessor}{\#ifndef\ arch\_vmap\_pte\_range\_map\_size}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00132}\doxymbox{\hyperlink{vmalloc_8h_a54b7b4a62a6b05f3bc846fbbcd658a5c}{00132}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{vmalloc_8h_a54b7b4a62a6b05f3bc846fbbcd658a5c}{arch\_vmap\_pte\_range\_map\_size}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u64\ pfn,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ max\_page\_shift)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00134}00134\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{return}\ PAGE\_SIZE;}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00136}00136\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00137}00137\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00139}00139\ \textcolor{preprocessor}{\#ifndef\ arch\_vmap\_pte\_range\_unmap\_size}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00143}\doxymbox{\hyperlink{vmalloc_8h_aabc5203c622a8a83310a598ae7b8e5b4}{00143}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{vmalloc_8h_aabc5203c622a8a83310a598ae7b8e5b4}{arch\_vmap\_pte\_range\_unmap\_size}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}},}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pte\_t\ *ptep)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00145}00145\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00146}00146\ \ \ \ \ \textcolor{keywordflow}{return}\ PAGE\_SIZE;}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00147}00147\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00148}00148\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00150}00150\ \textcolor{preprocessor}{\#ifndef\ arch\_vmap\_pte\_supported\_shift}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00154}\doxymbox{\hyperlink{vmalloc_8h_ac1dd3c4c8c3697a74bf74d8266fd2854}{00154}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{vmalloc_8h_ac1dd3c4c8c3697a74bf74d8266fd2854}{arch\_vmap\_pte\_supported\_shift}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00155}00155\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{return}\ PAGE\_SHIFT;}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00157}00157\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00158}00158\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00160}00160\ \textcolor{preprocessor}{\#ifndef\ arch\_vmap\_pgprot\_tagged}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00164}\doxymbox{\hyperlink{vmalloc_8h_afb06d8995f08849dda52722c0d0aec39}{00164}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ pgprot\_t\ \doxymbox{\hyperlink{vmalloc_8h_afb06d8995f08849dda52722c0d0aec39}{arch\_vmap\_pgprot\_tagged}}(pgprot\_t\ prot)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00165}00165\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00166}00166\ \ \ \ \ \textcolor{keywordflow}{return}\ prot;}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00167}00167\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00168}00168\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00176}00176\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a9a0fddcf890f2c86b2d7e95b75335ce3}{vm\_unmap\_ram}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *mem,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00181}00181\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_acd02620225f5b290f8935dbc1e45b18e}{vm\_map\_ram}}(\textcolor{keyword}{struct}\ page\ **\doxymbox{\hyperlink{structvm__struct_ae83b89b8ab0beaa44c9f6e9fa257a9ee}{pages}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count,\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a3d472d9e3a45410122d89f40f6301c0d}{node}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00186}00186\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a80f7345092c599bf5a7648045113ae99}{vm\_unmap\_aliases}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00191}00191\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a745a0ec4a695b4a615cd738d70b9e91f}{vmalloc\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00192}\doxymbox{\hyperlink{vmalloc_8h_a4fa760a1e23c4b642add844f040ae713}{00192}}\ \textcolor{preprocessor}{\#define\ vmalloc(...)\ \ \ \ \ \ \ \ alloc\_hooks(vmalloc\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00197}00197\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a64f7afd1e1788467018eb5b9d3c518f3}{vzalloc\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00198}\doxymbox{\hyperlink{vmalloc_8h_a5868566242b769d58025e333da614bee}{00198}}\ \textcolor{preprocessor}{\#define\ vzalloc(...)\ \ \ \ \ \ \ \ alloc\_hooks(vzalloc\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00203}00203\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a84a7ff920eb1687729b77513aafd82b7}{vmalloc\_user\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00204}\doxymbox{\hyperlink{vmalloc_8h_a05a3f3e79e71ba84906314a0f29cd506}{00204}}\ \textcolor{preprocessor}{\#define\ vmalloc\_user(...)\ \ \ alloc\_hooks(vmalloc\_user\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00209}00209\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a0b7c63637ea87d83d60146d028461289}{vmalloc\_node\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a3d472d9e3a45410122d89f40f6301c0d}{node}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00210}\doxymbox{\hyperlink{vmalloc_8h_a3b2d920abf792e259839419e3d968148}{00210}}\ \textcolor{preprocessor}{\#define\ vmalloc\_node(...)\ \ \ alloc\_hooks(vmalloc\_node\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00215}00215\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_ab72e5fd1501ee5bc0ec456497b28f47d}{vzalloc\_node\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a3d472d9e3a45410122d89f40f6301c0d}{node}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00216}\doxymbox{\hyperlink{vmalloc_8h_a5a98e640b51e42b458cd21d2b92e60f7}{00216}}\ \textcolor{preprocessor}{\#define\ vzalloc\_node(...)\ \ \ alloc\_hooks(vzalloc\_node\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00221}00221\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_ac6848b9d54cb5091ca63dfcbefa31c9c}{vmalloc\_32\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00222}\doxymbox{\hyperlink{vmalloc_8h_a77dbad2382c3e4a50ddea513a0707f01}{00222}}\ \textcolor{preprocessor}{\#define\ vmalloc\_32(...)\ \ \ \ \ alloc\_hooks(vmalloc\_32\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00227}00227\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a3d6948aff55023868844e1e7acc7dc24}{vmalloc\_32\_user\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00228}\doxymbox{\hyperlink{vmalloc_8h_acd8f9b4506906e6ca4e40df96df20206}{00228}}\ \textcolor{preprocessor}{\#define\ vmalloc\_32\_user(...)\ \ \ \ alloc\_hooks(vmalloc\_32\_user\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00233}00233\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_aeb6040703261f85263641356d7a34544}{\_\_vmalloc\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ gfp\_t\ gfp\_mask)\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00234}\doxymbox{\hyperlink{vmalloc_8h_abf4d6ac386bd660cbdd449b5cfefc11d}{00234}}\ \textcolor{preprocessor}{\#define\ \_\_vmalloc(...)\ \ \ \ \ \ alloc\_hooks(\_\_vmalloc\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00239}00239\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a699b8df354004dc37ced2903d4833a54}{\_\_vmalloc\_node\_range\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ align,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end,\ gfp\_t\ gfp\_mask,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ pgprot\_t\ prot,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ vm\_flags,\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a3d472d9e3a45410122d89f40f6301c0d}{node}},}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ab0ced520968bd2f6149efc1ac79e5e18}{caller}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00243}\doxymbox{\hyperlink{vmalloc_8h_a08b352ce7783e3a20c50e7a6e8fcd612}{00243}}\ \textcolor{preprocessor}{\#define\ \_\_vmalloc\_node\_range(...)\ \ \ alloc\_hooks(\_\_vmalloc\_node\_range\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00248}00248\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_ac0437723f499fd249a1859f24eff01d0}{\_\_vmalloc\_node\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ align,\ gfp\_t\ gfp\_mask,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00249}00249\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a3d472d9e3a45410122d89f40f6301c0d}{node}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ab0ced520968bd2f6149efc1ac79e5e18}{caller}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00250}\doxymbox{\hyperlink{vmalloc_8h_adcb6460c4975e163db21e9c8d6adb01e}{00250}}\ \textcolor{preprocessor}{\#define\ \_\_vmalloc\_node(...)\ alloc\_hooks(\_\_vmalloc\_node\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00255}00255\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a01cad822997f4c4f9e2a52812b0ee465}{vmalloc\_huge\_node\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ gfp\_t\ gfp\_mask,\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a3d472d9e3a45410122d89f40f6301c0d}{node}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00256}\doxymbox{\hyperlink{vmalloc_8h_acf45152e1bd8d16cfd865b33f48b99fb}{00256}}\ \textcolor{preprocessor}{\#define\ vmalloc\_huge\_node(...)\ \ alloc\_hooks(vmalloc\_huge\_node\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00261}\doxymbox{\hyperlink{vmalloc_8h_a4cff68a5eb8df3ba9582ec902f0e899d}{00261}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a4cff68a5eb8df3ba9582ec902f0e899d}{vmalloc\_huge}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ gfp\_t\ gfp\_mask)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00262}00262\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00263}00263\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{vmalloc_8h_acf45152e1bd8d16cfd865b33f48b99fb}{vmalloc\_huge\_node}}(\doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ gfp\_mask,\ NUMA\_NO\_NODE);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00264}00264\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00269}\doxymbox{\hyperlink{vmalloc_8h_aacf73a0f0269a7bd121d2e4f30fb4ac8}{00269}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_aacf73a0f0269a7bd121d2e4f30fb4ac8}{\_\_vmalloc\_array\_noprof}}(\textcolor{keywordtype}{size\_t}\ n,\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ gfp\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1,\ 2);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00270}\doxymbox{\hyperlink{vmalloc_8h_adc998e3d671ef5588bab17b0d0af46a1}{00270}}\ \textcolor{preprocessor}{\#define\ \_\_vmalloc\_array(...)\ \ \ \ alloc\_hooks(\_\_vmalloc\_array\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00275}\doxymbox{\hyperlink{vmalloc_8h_ac7122667f698a4e1d5f56b2d626c0dae}{00275}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_ac7122667f698a4e1d5f56b2d626c0dae}{vmalloc\_array\_noprof}}(\textcolor{keywordtype}{size\_t}\ n,\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1,\ 2);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00276}\doxymbox{\hyperlink{vmalloc_8h_a01f0fbc1aa2822c31ee6d4d133f8b440}{00276}}\ \textcolor{preprocessor}{\#define\ vmalloc\_array(...)\ \ alloc\_hooks(vmalloc\_array\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00281}\doxymbox{\hyperlink{vmalloc_8h_a33fa1396afe4da70de48541f52b06a55}{00281}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a33fa1396afe4da70de48541f52b06a55}{\_\_vcalloc\_noprof}}(\textcolor{keywordtype}{size\_t}\ n,\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ gfp\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1,\ 2);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00282}\doxymbox{\hyperlink{vmalloc_8h_a49c81138e47d0e00c840d9c6d46ebcda}{00282}}\ \textcolor{preprocessor}{\#define\ \_\_vcalloc(...)\ \ \ \ \ \ alloc\_hooks(\_\_vcalloc\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00283}00283\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00287}\doxymbox{\hyperlink{vmalloc_8h_ab86908daadfbfc00add9673b23cd90b8}{00287}}\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_ab86908daadfbfc00add9673b23cd90b8}{vcalloc\_noprof}}(\textcolor{keywordtype}{size\_t}\ n,\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}})\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1,\ 2);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00288}\doxymbox{\hyperlink{vmalloc_8h_aeaec68fe396182f9f32aee1de69d9b8f}{00288}}\ \textcolor{preprocessor}{\#define\ vcalloc(...)\ \ \ \ \ \ \ \ alloc\_hooks(vcalloc\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00293}00293\ \textcolor{keywordtype}{void}\ *\_\_must\_check\ \doxymbox{\hyperlink{vmalloc_8h_a5e8f69c662b265347214d2aa20e6a490}{vrealloc\_node\_align\_noprof}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *p,\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00294}00294\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ align,\ gfp\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}},\ \textcolor{keywordtype}{int}\ nid)\ \doxymbox{\hyperlink{include_2linux_2slab_8h_ae06c4998c38440e97132a934b74e642f}{\_\_realloc\_size}}(2);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00295}\doxymbox{\hyperlink{vmalloc_8h_a58246ca0bb2b12a66c09404d7e6bd90f}{00295}}\ \textcolor{preprocessor}{\#define\ vrealloc\_node\_noprof(\_p,\ \_s,\ \_f,\ \_nid)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00296}00296\ \textcolor{preprocessor}{\ \ \ \ vrealloc\_node\_align\_noprof(\_p,\ \_s,\ 1,\ \_f,\ \_nid)}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00297}\doxymbox{\hyperlink{vmalloc_8h_af93d29a3ed963b054e488aa4404e3a0e}{00297}}\ \textcolor{preprocessor}{\#define\ vrealloc\_noprof(\_p,\ \_s,\ \_f)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00298}00298\ \textcolor{preprocessor}{\ \ \ \ vrealloc\_node\_align\_noprof(\_p,\ \_s,\ 1,\ \_f,\ NUMA\_NO\_NODE)}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00299}\doxymbox{\hyperlink{vmalloc_8h_a9e9f6e589cdf47eba9c5f15b8c59ed90}{00299}}\ \textcolor{preprocessor}{\#define\ vrealloc\_node\_align(...)\ \ \ \ \ \ \ \ alloc\_hooks(vrealloc\_node\_align\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00300}\doxymbox{\hyperlink{vmalloc_8h_a576799e803eb199f6f2dd74ca7c34e37}{00300}}\ \textcolor{preprocessor}{\#define\ vrealloc\_node(...)\ \ \ \ \ \ \ \ \ \ alloc\_hooks(vrealloc\_node\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00301}\doxymbox{\hyperlink{vmalloc_8h_abcec25323fef6b663262a625402bf1f1}{00301}}\ \textcolor{preprocessor}{\#define\ vrealloc(...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alloc\_hooks(vrealloc\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00306}00306\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a2aeead9450a5b920c65bea908edead23}{vfree}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00311}00311\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a876e3efe295a93f23b3dadee17edb49a}{vfree\_atomic}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00316}00316\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_a6abc66bc01119bd5e7bc61dd8f3c6274}{vmap}}(\textcolor{keyword}{struct}\ page\ **\doxymbox{\hyperlink{structvm__struct_ae83b89b8ab0beaa44c9f6e9fa257a9ee}{pages}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}},\ pgprot\_t\ prot);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00322}\doxymbox{\hyperlink{vmalloc_8h_ab218c25270faa6b418d9a3859dc066ad}{00322}}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{vmalloc_8h_ab218c25270faa6b418d9a3859dc066ad}{vmap\_pfn}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *pfns,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count,\ pgprot\_t\ prot);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00327}00327\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_af115207536ac97045f67feba98e766d5}{vunmap}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00332}00332\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{vmalloc_8h_a4cf06feeca551e895c56816fa2aad779}{remap\_vmalloc\_range\_partial}}(\textcolor{keyword}{struct}\ vm\_area\_struct\ *vma,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ uaddr,\ \textcolor{keywordtype}{void}\ *kaddr,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pgoff,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00339}00339\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{vmalloc_8h_a0cb5dbe0a4270c86c2eb4d40252a1be7}{remap\_vmalloc\_range}}(\textcolor{keyword}{struct}\ vm\_area\_struct\ *vma,\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}},}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pgoff);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00345}00345\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{vmalloc_8h_a00e002a837662a6657c266ca9a997a2e}{vmap\_pages\_range}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end,\ pgprot\_t\ prot,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ page\ **\doxymbox{\hyperlink{structvm__struct_ae83b89b8ab0beaa44c9f6e9fa257a9ee}{pages}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ page\_shift);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00347}00347\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00354}\doxymbox{\hyperlink{vmalloc_8h_a31e7d141a7210c2bff2dda25c2b6b979}{00354}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{vmalloc_8h_a31e7d141a7210c2bff2dda25c2b6b979}{get\_vm\_area\_size}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *area)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00355}00355\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00356}00356\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(area-\/>\doxymbox{\hyperlink{structvm__struct_a8c456bd222e970dc349ea9a63eef5261}{flags}}\ \&\ \doxymbox{\hyperlink{vmalloc_8h_aab693f55b52f2ffbb35861ddf6c5daa3}{VM\_NO\_GUARD}}))}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00357}00357\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ return\ actual\ size\ without\ guard\ page\ */}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00358}00358\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ area-\/>\doxymbox{\hyperlink{structvm__struct_a07a1b9fdeeb7917a0e95648118877b26}{size}}\ -\/\ PAGE\_SIZE;}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00359}00359\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00360}00360\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ area-\/>\doxymbox{\hyperlink{structvm__struct_a07a1b9fdeeb7917a0e95648118877b26}{size}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00362}00362\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00367}00367\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *\doxymbox{\hyperlink{vmalloc_8h_ad435cc2d2a600160f3af2be75e695c02}{get\_vm\_area}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00372}00372\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *\doxymbox{\hyperlink{vmalloc_8h_aba16c8b63bd88ec38cc502bdc37598e4}{get\_vm\_area\_caller}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ab0ced520968bd2f6149efc1ac79e5e18}{caller}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00374}00374\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00378}00378\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *\doxymbox{\hyperlink{vmalloc_8h_a2c321a3f8c4e82448185d00fbe5d59fc}{\_\_get\_vm\_area\_caller}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}},}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ab0ced520968bd2f6149efc1ac79e5e18}{caller}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00386}00386\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_aef11fbe09279a47f2b64adee7d75b1e0}{free\_vm\_area}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *area);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00387}00387\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00391}00391\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *\doxymbox{\hyperlink{vmalloc_8h_ae57ef71b686f9e0fa536cd948632082f}{remove\_vm\_area}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00392}00392\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00396}00396\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *\doxymbox{\hyperlink{vmalloc_8h_a15953778ee3f894cc6715d5f7e5bdaed}{find\_vm\_area}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00401}00401\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvmap__area}{vmap\_area}}\ *\doxymbox{\hyperlink{vmalloc_8h_a27fc6020f6bedb8e2ffe7e1bdbd5383c}{find\_vmap\_area}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ addr);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00406}\doxymbox{\hyperlink{vmalloc_8h_a226cf99ba65d86d0f766fb07fc064a4b}{00406}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{vmalloc_8h_a226cf99ba65d86d0f766fb07fc064a4b}{is\_vm\_area\_hugepages}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *addr)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00407}00407\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00417}00417\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_HAVE\_ARCH\_HUGE\_VMALLOC}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00418}00418\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{vmalloc_8h_a15953778ee3f894cc6715d5f7e5bdaed}{find\_vm\_area}}(addr)-\/>\doxymbox{\hyperlink{structvm__struct_a947986779a54d51ee76081846272ae05}{page\_order}}\ >\ 0;}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00419}00419\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00420}00420\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00421}00421\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00422}00422\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00423}00423\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00430}00430\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{vmalloc_8h_ad9f5fb23122792d02fb4b9a116bb552d}{vread\_iter}}(\textcolor{keyword}{struct}\ iov\_iter\ *iter,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *addr,\ \textcolor{keywordtype}{size\_t}\ count);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00431}00431\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00438}00438\ \_\_init\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_ab8c6dfc84af0bb6ee203e906744db264}{vm\_area\_add\_early}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *\doxymbox{\hyperlink{structvmap__area_a62cce77852f241a18638bc69f60972d9}{vm}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00439}00439\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00443}00443\ \_\_init\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a35acd2398f1281faa7859d4b6ec0ed52}{vm\_area\_register\_early}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *\doxymbox{\hyperlink{structvmap__area_a62cce77852f241a18638bc69f60972d9}{vm}},\ \textcolor{keywordtype}{size\_t}\ align);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00448}00448\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{vmalloc_8h_a547c47daa166e8cadaaf265ba6b69757}{register\_vmap\_purge\_notifier}}(\textcolor{keyword}{struct}\ notifier\_block\ *nb);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00449}00449\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00453}00453\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{vmalloc_8h_a53df2f1dbd235cb854fe8a1ce017fc53}{unregister\_vmap\_purge\_notifier}}(\textcolor{keyword}{struct}\ notifier\_block\ *nb);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00455}00455\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_MMU}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00459}\doxymbox{\hyperlink{vmalloc_8h_a7346086a6de3c2c9d8abeace544984f8}{00459}}\ \textcolor{preprocessor}{\#define\ VMALLOC\_TOTAL\ (VMALLOC\_END\ -\/\ VMALLOC\_START)}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00460}00460\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00464}\doxymbox{\hyperlink{vmalloc_8h_a454e340df956a2aa19e744432952b5c2}{00464}}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{vmalloc_8h_a454e340df956a2aa19e744432952b5c2}{vmalloc\_nr\_pages}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00465}00465\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00469}00469\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{vmalloc_8h_a09b9e6fc4db632d52b5893d9e3e27a90}{vm\_area\_map\_pages}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *area,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end,\ \textcolor{keyword}{struct}\ page\ **pages);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00475}00475\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_ac81142171e3c168ccb0dccfa066d8c51}{vm\_area\_unmap\_pages}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *area,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00476}00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00477}00477\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00481}00481\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a565049476219e919d8f6dd24ef917cd5}{vunmap\_range}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ addr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00482}00482\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00486}\doxymbox{\hyperlink{vmalloc_8h_a3653d9652c843746d71c9878bb7d2eef}{00486}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a3653d9652c843746d71c9878bb7d2eef}{set\_vm\_flush\_reset\_perms}}(\textcolor{keywordtype}{void}\ *addr)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00487}00487\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00488}00488\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ *vm\ =\ \doxymbox{\hyperlink{vmalloc_8h_a15953778ee3f894cc6715d5f7e5bdaed}{find\_vm\_area}}(\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00489}00489\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00490}00490\ \ \ \ \ \textcolor{keywordflow}{if}\ (vm)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00491}00491\ \ \ \ \ \ \ \ \ vm-\/>\doxymbox{\hyperlink{structvm__struct_a8c456bd222e970dc349ea9a63eef5261}{flags}}\ |=\ \doxymbox{\hyperlink{vmalloc_8h_a0bca02b8d5d5cc283d8b39502f7c0a6f}{VM\_FLUSH\_RESET\_PERMS}};}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00492}00492\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00493}00493\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{/*\ !CONFIG\_MMU\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00494}00494\ \textcolor{preprocessor}{\#define\ VMALLOC\_TOTAL\ 0UL}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00495}00495\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00496}00496\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{vmalloc_8h_a454e340df956a2aa19e744432952b5c2}{vmalloc\_nr\_pages}}(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ 0;\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00497}00497\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a3653d9652c843746d71c9878bb7d2eef}{set\_vm\_flush\_reset\_perms}}(\textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{structvm__struct_ad8d546c22160194946c6e523a1a847f8}{addr}})\ \{\}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00498}00498\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_MMU\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00499}00499\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00500}00500\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_MMU)\ \&\&\ defined(CONFIG\_SMP)}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00501}00501\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00505}00505\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ **\doxymbox{\hyperlink{vmalloc_8h_a8ac394f9dd55e5dca1705b7d761aca93}{pcpu\_get\_vm\_areas}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *offsets,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00506}00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *sizes,\ \textcolor{keywordtype}{int}\ nr\_vms,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00507}00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ align);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00508}00508\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00512}00512\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a1355943f7b5c446445b9de5dceb682cb}{pcpu\_free\_vm\_areas}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ **vms,\ \textcolor{keywordtype}{int}\ nr\_vms);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00513}00513\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00514}00514\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ **}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00515}00515\ \doxymbox{\hyperlink{vmalloc_8h_a8ac394f9dd55e5dca1705b7d761aca93}{pcpu\_get\_vm\_areas}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *offsets,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00516}00516\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ *sizes,\ \textcolor{keywordtype}{int}\ nr\_vms,}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00517}00517\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ align)}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00518}00518\ \{}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00519}00519\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00520}00520\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00521}00521\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00522}00522\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_a1355943f7b5c446445b9de5dceb682cb}{pcpu\_free\_vm\_areas}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structvm__struct}{vm\_struct}}\ **vms,\ \textcolor{keywordtype}{int}\ nr\_vms)\ \{\}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00523}00523\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00524}00524\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00525}00525\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_MMU)\ \&\&\ defined(CONFIG\_PRINTK)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00529}00529\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{vmalloc_8h_a76d397ede0c84fc2ce69c0752d97165e}{vmalloc\_dump\_obj}}(\textcolor{keywordtype}{void}\ *\textcolor{keywordtype}{object});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00530}00530\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00531}\doxymbox{\hyperlink{vmalloc_8h_a76d397ede0c84fc2ce69c0752d97165e}{00531}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{vmalloc_8h_a76d397ede0c84fc2ce69c0752d97165e}{vmalloc\_dump\_obj}}(\textcolor{keywordtype}{void}\ *\textcolor{keywordtype}{object})\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00532}00532\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00533}00533\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00537}00537\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{vmalloc_8h_a003f56d75368f13a3519ddc63f2dd817}{memalloc\_apply\_gfp\_scope}}(gfp\_t\ gfp\_mask);}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00538}00538\ }
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00542}00542\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{vmalloc_8h_ae20c4becd07d9295ee66c64e0d830a22}{memalloc\_restore\_scope}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{\Hypertarget{vmalloc_8h_source_l00543}00543\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_LINUX\_VMALLOC\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

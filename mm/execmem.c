@@ -25,6 +25,15 @@ static struct execmem_info *execmem_info __ro_after_init;
 static struct execmem_info default_execmem_info __ro_after_init;
 
 #ifdef CONFIG_MMU
+
+/*
+ * execmem_vmalloc - Allocates physically backed virtual memory for
+ * executable code or related control data within specific architectural
+ * address ranges. It attempts allocation in a primary address range
+ * first, automatically falls back to an alternate range if space is
+ * exhausted, and handles KASAN shadow memory setup when memory
+ * sanitization is enabled.
+ */
 static void *execmem_vmalloc(struct execmem_range *range, size_t size,
 			     pgprot_t pgprot, unsigned long vm_flags)
 {
@@ -62,6 +71,14 @@ static void *execmem_vmalloc(struct execmem_range *range, size_t size,
 	return p;
 }
 
+
+/*
+ * execmem_vmap - Reserves a contiguous virtual memory address region
+ * (vm_struct) earmarked specifically for module data without immediately
+ * allocating or mapping physical pages. It queries for space within the
+ * primary module data range and tries a secondary fallback range if the
+ * initial allocation fails.
+ */
 struct vm_struct *execmem_vmap(size_t size)
 {
 	struct execmem_range *range = &execmem_info->ranges[EXECMEM_MODULE_DATA];
@@ -107,11 +124,26 @@ static struct execmem_cache execmem_cache = {
 				     execmem_cache.mutex),
 };
 
+
+/*
+ * mas_range_len - Calculates the total length of the memory range tracked
+ * by a Maple Tree state cursor (ma_state). It computes the span size as
+ * last - index + 1 to return how many contiguous slots or indices the
+ * current range covers.
+ */
 static inline unsigned long mas_range_len(struct ma_state *mas)
 {
 	return mas->last - mas->index + 1;
 }
 
+
+/*
+ * execmem_set_direct_map_valid - Enables or disables valid direct-map
+ * (kernel 1:1 physical memory mapping) access for the pages within a vm_struct
+ * allocation. It iterates through the virtual allocation's pages in order-sized
+ * blocks without triggering an immediate TLB flush, and automatically rolls
+ * back modified pages to their original state if an error occurs midway.
+ */
 static int execmem_set_direct_map_valid(struct vm_struct *vm, bool valid)
 {
 	unsigned int nr = (1 << get_vm_area_page_order(vm));
@@ -134,6 +166,13 @@ err_restore:
 	return err;
 }
 
+
+/*
+ * execmem_force_rw - Transitions an executable memory buffer into a Read-Write
+ * Non-Executable (RW/NX) state so it can be safely modified. It strips
+ * execution permissions first (set_memory_nx) before granting write permissions
+ * (set_memory_rw) to enforce strict W^X kernel safety policies.
+ */
 static int execmem_force_rw(void *ptr, size_t size)
 {
 	unsigned int nr = PAGE_ALIGN(size) >> PAGE_SHIFT;
@@ -147,6 +186,13 @@ static int execmem_force_rw(void *ptr, size_t size)
 	return set_memory_rw(addr, nr);
 }
 
+
+/*
+ * execmem_restore_rox - Restores memory permissions back to ROX after code
+ * loading, patching, or updates are complete. It converts the target byte range
+ * into page counts and applies set_memory_rox() to lock the memory against
+ * write access while allowing execution.
+ */
 int execmem_restore_rox(void *ptr, size_t size)
 {
 	unsigned int nr = PAGE_ALIGN(size) >> PAGE_SHIFT;
@@ -155,6 +201,13 @@ int execmem_restore_rox(void *ptr, size_t size)
 	return set_memory_rox(addr, nr);
 }
 
+
+/*
+ * execmem_cache_clean - Deferred workqueue handler that scans the free-area
+ * Maple Tree for large, PMD-aligned memory blocks. When a fully PMD-sized free
+ * range is found, it restores direct-map page validity, unlinks the entry from
+ * the cache, and returns physical memory to the system via vfree().
+ */
 static void execmem_cache_clean(struct work_struct *work)
 {
 	struct maple_tree *free_areas = &execmem_cache.free_areas;
@@ -178,8 +231,23 @@ static void execmem_cache_clean(struct work_struct *work)
 	mutex_unlock(mutex);
 }
 
+
+/*
+ * execmem_cache_clean - Calculates the total length of the memory range tracked
+ * by a Maple Tree state cursor (ma_state). It computes the span size as
+ * last - index + 1 to return how many contiguous slots or indices the
+ * current range covers.
+ */
 static DECLARE_WORK(execmem_cache_clean_work, execmem_cache_clean);
 
+
+/*
+ * execmem_cache_add_locked - Inserts a freed memory block into the free_areas
+ * Maple Tree while assuming the cache mutex is already held. It checks for
+ * adjacent free blocks immediately before and after the incoming block,
+ * automatically coalescing contiguous ranges into a single larger block to
+ * reduce fragmentation.
+ */
 static int execmem_cache_add_locked(void *ptr, size_t size, gfp_t gfp_mask)
 {
 	struct maple_tree *free_areas = &execmem_cache.free_areas;
@@ -203,6 +271,12 @@ static int execmem_cache_add_locked(void *ptr, size_t size, gfp_t gfp_mask)
 	return mas_store_gfp(&mas, (void *)lower, gfp_mask);
 }
 
+
+/*
+ * execmem_cache_add - A thread-safe wrapper around execmem_cache_add_locked().
+ * It utilizes RAII-style mutex management (guard(mutex)) to automatically
+ * acquire and release execmem_cache.mutex while adding memory to the free cache.
+ */
 static int execmem_cache_add(void *ptr, size_t size, gfp_t gfp_mask)
 {
 	guard(mutex)(&execmem_cache.mutex);
@@ -210,6 +284,14 @@ static int execmem_cache_add(void *ptr, size_t size, gfp_t gfp_mask)
 	return execmem_cache_add_locked(ptr, size, gfp_mask);
 }
 
+
+/*
+ * within_range - Validates whether a candidate memory block
+ * (starting at mas->index with size size) fits within allowed address
+ * boundaries. It checks if the block lies entirely inside either the primary
+ * memory region (start to end) or the designated secondary region
+ * (fallback_start to fallback_end).
+ */
 static bool within_range(struct execmem_range *range, struct ma_state *mas,
 			 size_t size)
 {
@@ -225,6 +307,14 @@ static bool within_range(struct execmem_range *range, struct ma_state *mas,
 	return false;
 }
 
+
+/*
+ * __execmem_cache_alloc - Searches the free_areas Maple Tree for an available
+ * memory block within the requested range that satisfies the requested size.
+ * If found, it updates busy_areas to track the allocation, splits off any
+ * remaining unused trailing space back into free_areas, and returns the
+ * memory address.
+ */
 static void *__execmem_cache_alloc(struct execmem_range *range, size_t size)
 {
 	struct maple_tree *free_areas = &execmem_cache.free_areas;
@@ -278,6 +368,14 @@ out_unlock:
 	return ptr;
 }
 
+
+/*
+ * execmem_cache_populate - Allocates a new underlying memory region
+ * (preferably rounded up to a large PMD_SIZE boundary) using execmem_vmalloc()
+ * to refill the cache. It poisons the memory with trapping instructions for
+ * security, transitions the memory to Read-Only Executable (ROX), and adds it
+ * to free_areas.
+ */
 static int execmem_cache_populate(struct execmem_range *range, size_t size)
 {
 	unsigned long vm_flags = VM_ALLOW_HUGE_VMAP;
@@ -320,6 +418,13 @@ err_free_mem:
 	return err;
 }
 
+
+/*
+ * execmem_cache_alloc - It first attempts a fast path allocation via
+ * __execmem_cache_alloc(); if the cache lacks available space, it trigger
+ * execmem_cache_populate() to pull fresh memory into the pool before retrying
+ * the allocation.
+ */
 static void *execmem_cache_alloc(struct execmem_range *range, size_t size)
 {
 	void *p;
@@ -351,6 +456,13 @@ static inline void *pending_free_clear(void *ptr)
 	return (void *)((unsigned long)ptr & ~PENDING_FREE_MASK);
 }
 
+
+/*
+ * __execmem_cache_free - Performs low-level cleanup for a single memory region.
+ * It temporarily switches the block to Read-Write to overwrite it with trapping
+ * instructions for security, restores ROX permissions, transfers the region
+ * back to free_areas, and removes it from busy_areas.
+ */
 static int __execmem_cache_free(struct ma_state *mas, void *ptr, gfp_t gfp_mask)
 {
 	size_t size = mas_range_len(mas);
@@ -374,6 +486,14 @@ static int __execmem_cache_free(struct ma_state *mas, void *ptr, gfp_t gfp_mask)
 static void execmem_cache_free_slow(struct work_struct *work);
 static DECLARE_DELAYED_WORK(execmem_cache_free_work, execmem_cache_free_slow);
 
+
+/*
+ * execmem_cache_free_slow - A delayed work kernel structure and its background
+ * handler used for asynchronous cleanup. It periodically scans busy_areas for
+ * blocks previously flagged as "pending free," retries __execmem_cache_free(),
+ * and either reschedules itself if pending items remain or hands off execution
+ * to execmem_cache_clean_work once all items are cleared.
+ */
 static void execmem_cache_free_slow(struct work_struct *work)
 {
 	struct maple_tree *busy_areas = &execmem_cache.busy_areas;
@@ -402,6 +522,14 @@ static void execmem_cache_free_slow(struct work_struct *work)
 		schedule_work(&execmem_cache_clean_work);
 }
 
+
+/*
+ * execmem_cache_free - The primary entry point to free an executable memory
+ * cache. It looks up the target address in busy_areas and attempts an
+ * immediate, synchronous cleanup; if the fast path fails (e.g., tree allocation
+ * constraints under memory pressure), it flags the block as pending and
+ * schedules execmem_cache_free_slow() to resolve it asynchronously.
+ */
 static bool execmem_cache_free(void *ptr)
 {
 	struct maple_tree *busy_areas = &execmem_cache.busy_areas;
@@ -458,6 +586,14 @@ static bool execmem_cache_free(void *ptr)
 }
 #endif /* CONFIG_ARCH_HAS_EXECMEM_ROX */
 
+
+/*
+ * execmem_alloc - High-level public allocator for executable memory. It aligns
+ * the requested size to page boundaries and either provisions memory from the
+ * ROX caching layer via execmem_cache_alloc() or directly allocates standard
+ * vmalloc pages with specified page protection rules, stripping KASAN address
+ * tags before returning the pointer.
+ */
 void *execmem_alloc(enum execmem_type type, size_t size)
 {
 	struct execmem_range *range = &execmem_info->ranges[type];
@@ -476,6 +612,14 @@ void *execmem_alloc(enum execmem_type type, size_t size)
 	return kasan_reset_tag(p);
 }
 
+
+/*
+ * execmem_alloc_rw - Wrapper that allocates executable-capable memory and
+ * immediately prepares it for writing. It uses __free(execmem) to prevent leaks
+ * on failure, calls execmem_alloc(), and then calls execmem_force_rw() to
+ * temporarily switch permissions to Read-Write Non-Executable (RW/NX) before
+ * handing back the pointer.
+ */
 void *execmem_alloc_rw(enum execmem_type type, size_t size)
 {
 	void *p __free(execmem) = execmem_alloc(type, size);
@@ -491,6 +635,13 @@ void *execmem_alloc_rw(enum execmem_type type, size_t size)
 	return no_free_ptr(p);
 }
 
+
+/*
+ * execmem_free - High-level public cleanup function for freeing executable
+ * memory regions. It enforces a safety check via WARN_ON(in_interrupt()), then
+ * attempts to return the buffer to execmem_cache; if the address was not
+ * managed by the cache, it falls back to standard vfree().
+ */
 void execmem_free(void *ptr)
 {
 	/*
@@ -508,6 +659,13 @@ bool execmem_is_rox(enum execmem_type type)
 	return !!(execmem_info->ranges[type].flags & EXECMEM_ROX_CACHE);
 }
 
+
+/*
+ * execmem_validate - Validates the configuration parameters for executable
+ * memory ranges. It ensures required settings like alignment, address bounds,
+ * and page protections are set for the default range, and automatically strips
+ * he EXECMEM_ROX_CACHE flag if the host architecture lacks support for ROX caching.
+ */
 static bool execmem_validate(struct execmem_info *info)
 {
 	struct execmem_range *r = &info->ranges[EXECMEM_DEFAULT];
@@ -531,6 +689,14 @@ static bool execmem_validate(struct execmem_info *info)
 	return true;
 }
 
+
+/*
+ * execmem_init_missing - Populates unconfigured memory range types by
+ * inheriting baseline settings from the EXECMEM_DEFAULT region template. It
+ * copies over address boundaries, alignments, flags, and fallback limits, while
+ * ensuring data-only regions (like EXECMEM_MODULE_DATA) receive non-executable
+ * PAGE_KERNEL page protections.
+ */
 static void execmem_init_missing(struct execmem_info *info)
 {
 	struct execmem_range *default_range = &info->ranges[EXECMEM_DEFAULT];
@@ -558,6 +724,14 @@ struct execmem_info * __weak execmem_arch_setup(void)
 	return NULL;
 }
 
+
+/*
+ * __execmem_init - Initialization handler for the execmem subsystem. It
+ * requests architecture-specific memory layouts via execmem_arch_setup()
+ * (defaulting to standard vmalloc bounds and PAGE_KERNEL_EXEC permissions if
+ * none are provided), runs validation, fills missing range defaults, and
+ * commits the global execmem_info pointer.
+ */
 static void __init __execmem_init(void)
 {
 	struct execmem_info *info = execmem_arch_setup();

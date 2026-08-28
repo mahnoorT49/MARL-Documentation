@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded',() => { initNavTree('structslabobj__ext.html','',''); });
+document.addEventListener('DOMContentLoaded',() => { initNavTree('structslabobj__ext.html','','structslabobj__ext-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -120,6 +120,55 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structslabobj_
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="memcontrol_8h_source.html">memcontrol.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for slabobj_ext:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structslabobj__ext__coll__graph.svg" width="1696" height="1690"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aaab3e2cbb94d80b5f5c5172e94366551" id="r_aaab3e2cbb94d80b5f5c5172e94366551"><td class="memItemLeft">struct <a class="el" href="structobj__cgroup.html">obj_cgroup</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aaab3e2cbb94d80b5f5c5172e94366551">objcg</a></td></tr>
+<tr class="memitem:a18dd67939d7a25455d81eb6edadebc26" id="r_a18dd67939d7a25455d81eb6edadebc26"><td class="memItemLeft">union codetag_ref&#160;</td><td class="memItemRight"><a class="el" href="#a18dd67939d7a25455d81eb6edadebc26">ref</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Extended information for slab objects stored as an array in page-&gt;memcg_data if MEMCG_DATA_OBJEXTS is set.</p>
+<p>struct Description: This structure holds extended information for slab objects. It contains the object cgroup pointer for memcg accounting and a code tag reference for memory allocation profiling. It is stored as an array in page-&gt;memcg_data when MEMCG_DATA_OBJEXTS is set. </p>
+
+<p class="definition">Definition at line <a class="el" href="memcontrol_8h_source.html#l01642">1642</a> of file <a class="el" href="memcontrol_8h_source.html">memcontrol.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="aaab3e2cbb94d80b5f5c5172e94366551" name="aaab3e2cbb94d80b5f5c5172e94366551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaab3e2cbb94d80b5f5c5172e94366551">&#9670;&#160;</a></span>objcg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structobj__cgroup.html">obj_cgroup</a>* slabobj_ext::objcg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="memcontrol_8h_source.html#l01644">1644</a> of file <a class="el" href="memcontrol_8h_source.html">memcontrol.h</a>.</p>
+
+</div>
+</div>
+<a id="a18dd67939d7a25455d81eb6edadebc26" name="a18dd67939d7a25455d81eb6edadebc26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18dd67939d7a25455d81eb6edadebc26">&#9670;&#160;</a></span>ref</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">union codetag_ref slabobj_ext::ref</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="memcontrol_8h_source.html#l01647">1647</a> of file <a class="el" href="memcontrol_8h_source.html">memcontrol.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/linux/<a class="el" href="memcontrol_8h_source.html">memcontrol.h</a></li>
 </ul>

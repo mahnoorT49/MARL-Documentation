@@ -1,0 +1,158 @@
+\doxysection{zspage Struct Reference}
+\hypertarget{structzspage}{}\label{structzspage}\index{zspage@{zspage}}
+
+
+Collaboration diagram for zspage:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{structzspage__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>unsigned int \doxymbox{\hyperlink{structzspage_a1c247ab3a62677397f393d2b3c068f4a}{huge}}:1\\
+\>unsigned int \doxymbox{\hyperlink{structzspage_a4d461592e86d4b52e89b6022492bb9d4}{fullness}}:4\\
+\>unsigned int \doxymbox{\hyperlink{structzspage_a81e8c1e30cd3bde51aea96458b9a9c58}{class}}:8 + 1\\
+\>unsigned int \doxymbox{\hyperlink{structzspage_a0f5fe05c70a680a013e3d3aa4066c0ef}{magic}}:8\\
+\}; \\
+
+\end{tabbing}\item 
+unsigned int \doxymbox{\hyperlink{structzspage_a2462242a8aaf4fe281e0df21314afae5}{inuse}}
+\item 
+unsigned int \doxymbox{\hyperlink{structzspage_a3483e5b61da2cf53fb395867c214d180}{freeobj}}
+\item 
+struct zpdesc \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structzspage_aca366812f1404dba7490b2f337e14747}{first\+\_\+zpdesc}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structzspage_adc965c143c38b7972853b062a2cc84f1}{list}}
+\item 
+struct \doxymbox{\hyperlink{structzs__pool}{zs\+\_\+pool}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structzspage_a7bcae9d9d1446fa220c6c9234ee1516a}{pool}}
+\item 
+struct \doxymbox{\hyperlink{structzspage__lock}{zspage\+\_\+lock}} \doxymbox{\hyperlink{structzspage_af437769d9d155d955caa2e95eda4fd72}{zsl}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct Description:\+ This structure represents a zspage (a group of physical pages forming a larger allocation unit). It contains flags for huge pages, fullness group, class index, magic number, inuse count, free object index, first zpdesc pointer, list linkage, pool pointer, and the zspage lock. Each zspage manages a set of objects of a specific size. 
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00300}{300}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+
+
+\label{structzspage_doc-variable-members}
+\Hypertarget{structzspage_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structzspage_a5d57a4d7e49a4e8234241fda4cc9d9b1}\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily \label{structzspage_a5d57a4d7e49a4e8234241fda4cc9d9b1} 
+struct  \{ ... \}  \doxymbox{\hyperlink{structzspage}{zspage}}}
+
+\Hypertarget{structzspage_a81e8c1e30cd3bde51aea96458b9a9c58}\index{zspage@{zspage}!class@{class}}
+\index{class@{class}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{class}{class}}
+{\footnotesize\ttfamily \label{structzspage_a81e8c1e30cd3bde51aea96458b9a9c58} 
+unsigned int zspage::\+class}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00304}{304}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzspage_aca366812f1404dba7490b2f337e14747}\index{zspage@{zspage}!first\_zpdesc@{first\_zpdesc}}
+\index{first\_zpdesc@{first\_zpdesc}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{first\_zpdesc}{first\_zpdesc}}
+{\footnotesize\ttfamily \label{structzspage_aca366812f1404dba7490b2f337e14747} 
+struct zpdesc\texorpdfstring{$\ast$}{*} zspage::\+first\+\_\+zpdesc}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00309}{309}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzspage_a3483e5b61da2cf53fb395867c214d180}\index{zspage@{zspage}!freeobj@{freeobj}}
+\index{freeobj@{freeobj}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{freeobj}{freeobj}}
+{\footnotesize\ttfamily \label{structzspage_a3483e5b61da2cf53fb395867c214d180} 
+unsigned int zspage::\+freeobj}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00308}{308}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzspage_a4d461592e86d4b52e89b6022492bb9d4}\index{zspage@{zspage}!fullness@{fullness}}
+\index{fullness@{fullness}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{fullness}{fullness}}
+{\footnotesize\ttfamily \label{structzspage_a4d461592e86d4b52e89b6022492bb9d4} 
+unsigned int zspage::\+fullness}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00303}{303}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzspage_a1c247ab3a62677397f393d2b3c068f4a}\index{zspage@{zspage}!huge@{huge}}
+\index{huge@{huge}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{huge}{huge}}
+{\footnotesize\ttfamily \label{structzspage_a1c247ab3a62677397f393d2b3c068f4a} 
+unsigned int zspage::\+huge}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00302}{302}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzspage_a2462242a8aaf4fe281e0df21314afae5}\index{zspage@{zspage}!inuse@{inuse}}
+\index{inuse@{inuse}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{inuse}{inuse}}
+{\footnotesize\ttfamily \label{structzspage_a2462242a8aaf4fe281e0df21314afae5} 
+unsigned int zspage::\+inuse}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00307}{307}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzspage_adc965c143c38b7972853b062a2cc84f1}\index{zspage@{zspage}!list@{list}}
+\index{list@{list}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{list}{list}}
+{\footnotesize\ttfamily \label{structzspage_adc965c143c38b7972853b062a2cc84f1} 
+struct list\+\_\+head zspage::\+list}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00310}{310}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzspage_a0f5fe05c70a680a013e3d3aa4066c0ef}\index{zspage@{zspage}!magic@{magic}}
+\index{magic@{magic}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{magic}{magic}}
+{\footnotesize\ttfamily \label{structzspage_a0f5fe05c70a680a013e3d3aa4066c0ef} 
+unsigned int zspage::\+magic}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00305}{305}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzspage_a7bcae9d9d1446fa220c6c9234ee1516a}\index{zspage@{zspage}!pool@{pool}}
+\index{pool@{pool}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{pool}{pool}}
+{\footnotesize\ttfamily \label{structzspage_a7bcae9d9d1446fa220c6c9234ee1516a} 
+struct \doxymbox{\hyperlink{structzs__pool}{zs\+\_\+pool}}\texorpdfstring{$\ast$}{*} zspage::\+pool}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00311}{311}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzspage_af437769d9d155d955caa2e95eda4fd72}\index{zspage@{zspage}!zsl@{zsl}}
+\index{zsl@{zsl}!zspage@{zspage}}
+\doxysubsubsection{\texorpdfstring{zsl}{zsl}}
+{\footnotesize\ttfamily \label{structzspage_af437769d9d155d955caa2e95eda4fd72} 
+struct \doxymbox{\hyperlink{structzspage__lock}{zspage\+\_\+lock}} zspage::\+zsl}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00312}{312}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{zsmalloc_8c}{zsmalloc.\+c}}\end{DoxyCompactItemize}

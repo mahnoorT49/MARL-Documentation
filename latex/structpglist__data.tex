@@ -1,0 +1,468 @@
+\doxysection{pglist\+\_\+data Struct Reference}
+\hypertarget{structpglist__data}{}\label{structpglist__data}\index{pglist\_data@{pglist\_data}}
+
+
+{\ttfamily \+\#include $<$mmzone.\+h$>$}
+
+
+
+Collaboration diagram for pglist\+\_\+data:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structpglist__data__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{structpglist__data_a1af4df2786350f4e286f21781ca3a54f}{CACHELINE\+\_\+\+PADDING}} (\+\_\+pad1\+\_\+)
+\item 
+\doxymbox{\hyperlink{structpglist__data_a5fa27f920e59255c261230eb0de02421}{CACHELINE\+\_\+\+PADDING}} (\+\_\+pad2\+\_\+)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structzone}{zone}} \doxymbox{\hyperlink{structpglist__data_a4efe1dc7860b75910e8178591869a55e}{node\+\_\+zones}} \+[MAX\+\_\+\+NR\+\_\+\+ZONES]\+
+\item 
+struct \doxymbox{\hyperlink{structzonelist}{zonelist}} \doxymbox{\hyperlink{structpglist__data_ac32308fa580c6ff4e02b12c4ba6d3434}{node\+\_\+zonelists}} \+[\doxymbox{\hyperlink{mmzone_8h_a84820424b8da1e611570a924155e51f4a3225128d48ee428805847398fd6e3b91}{MAX\+\_\+\+ZONELISTS}}]\+
+\item 
+int \doxymbox{\hyperlink{structpglist__data_a86a05c1cfbf75b08d8bdb84abb8768dd}{nr\+\_\+zones}}
+\item 
+struct page \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structpglist__data_aef4dcc7b1d408d9a1b41beaf698fff79}{node\+\_\+mem\+\_\+map}}
+\item 
+spinlock\+\_\+t \doxymbox{\hyperlink{structpglist__data_a4a902e8c9e319db306ce0e3be75dc75d}{node\+\_\+size\+\_\+lock}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpglist__data_acc7c4a468d53a88b91f881f119617e4a}{node\+\_\+start\+\_\+pfn}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpglist__data_aafdebd264a12e7bcef64861f50b05a08}{node\+\_\+present\+\_\+pages}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpglist__data_ae60f503698010798977e16009969df72}{node\+\_\+spanned\+\_\+pages}}
+\item 
+int \doxymbox{\hyperlink{structpglist__data_af6b37a8b60abfaa04aad03ecc1b0396a}{node\+\_\+id}}
+\item 
+wait\+\_\+queue\+\_\+head\+\_\+t \doxymbox{\hyperlink{structpglist__data_aabf4026f57497cee9881452fec034df5}{kswapd\+\_\+wait}}
+\item 
+wait\+\_\+queue\+\_\+head\+\_\+t \doxymbox{\hyperlink{structpglist__data_aa9e9d66c3eeb8b52b1836c11d7c6296a}{pfmemalloc\+\_\+wait}}
+\item 
+wait\+\_\+queue\+\_\+head\+\_\+t \doxymbox{\hyperlink{structpglist__data_ae45a4278de784a1a742d877b13140a7f}{reclaim\+\_\+wait}} \+[\doxymbox{\hyperlink{mmzone_8h_af14e5bfad718e129a885979753be280aa10c3b983a4e0d5011659b53d28bb4b53}{NR\+\_\+\+VMSCAN\+\_\+\+THROTTLE}}]\+
+\item 
+atomic\+\_\+t \doxymbox{\hyperlink{structpglist__data_a2d9d109aac7e836e1eab4a5a0162539e}{nr\+\_\+writeback\+\_\+throttled}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpglist__data_ad375b5b62c3bf921e11f023297bbcf3b}{nr\+\_\+reclaim\+\_\+start}}
+\item 
+struct mutex \doxymbox{\hyperlink{structpglist__data_aec3f6363fd3b82ee34dc93db216a44c5}{kswapd\+\_\+lock}}
+\item 
+struct task\+\_\+struct \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structpglist__data_ae17af85762902d65cd50d67b97dbab84}{kswapd}}
+\item 
+int \doxymbox{\hyperlink{structpglist__data_a08cf85b2e40ae2109df0552826c78a16}{kswapd\+\_\+order}}
+\item 
+enum \doxymbox{\hyperlink{mmzone_8h_a0fdf79ffb0b79648e58d693137ccfada}{zone\+\_\+type}} \doxymbox{\hyperlink{structpglist__data_a2903bd4b4aeed30cdaa3cad2ddad95f5}{kswapd\+\_\+highest\+\_\+zoneidx}}
+\item 
+atomic\+\_\+t \doxymbox{\hyperlink{structpglist__data_ace59e247590d1e8aa6a915c0a562c700}{kswapd\+\_\+failures}}
+\item 
+int \doxymbox{\hyperlink{structpglist__data_a9615130fff0ec97ce5e29e9c4b86f370}{kcompactd\+\_\+max\+\_\+order}}
+\item 
+enum \doxymbox{\hyperlink{mmzone_8h_a0fdf79ffb0b79648e58d693137ccfada}{zone\+\_\+type}} \doxymbox{\hyperlink{structpglist__data_a57aa728638f70410b25a12febc03a3be}{kcompactd\+\_\+highest\+\_\+zoneidx}}
+\item 
+wait\+\_\+queue\+\_\+head\+\_\+t \doxymbox{\hyperlink{structpglist__data_a4f64a8f46aa74acba22d9070e75ff672}{kcompactd\+\_\+wait}}
+\item 
+struct task\+\_\+struct \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structpglist__data_aeb7631833b058ae17de0fb9d4946167d}{kcompactd}}
+\item 
+bool \doxymbox{\hyperlink{structpglist__data_a0a3bed0261456b04650b8f029fd87d69}{proactive\+\_\+compact\+\_\+trigger}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpglist__data_ae44d591152d86855726eecf28373e5ca}{totalreserve\+\_\+pages}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpglist__data_a9f00d6cd79673b945f8804c5d0d21058}{min\+\_\+unmapped\+\_\+pages}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpglist__data_ab3023b576dee84baa433a57a45f9c0da}{min\+\_\+slab\+\_\+pages}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpglist__data_a8e707fffbdb969783478486d3f22d835}{first\+\_\+deferred\+\_\+pfn}}
+\item 
+struct \doxymbox{\hyperlink{structdeferred__split}{deferred\+\_\+split}} \doxymbox{\hyperlink{structpglist__data_af8ea4910adea257d59b3d67102aa13f3}{deferred\+\_\+split\+\_\+queue}}
+\item 
+struct \doxymbox{\hyperlink{structlruvec}{lruvec}} \doxymbox{\hyperlink{structpglist__data_a6a175cf5647ea7a42374d3f588de983e}{\+\_\+\+\_\+lruvec}}
+\item 
+unsigned long \doxymbox{\hyperlink{structpglist__data_ae5f3a76d97901671245d5dd3cf031ee0}{flags}}
+\item 
+struct \doxymbox{\hyperlink{structper__cpu__nodestat}{per\+\_\+cpu\+\_\+nodestat}} \+\_\+\+\_\+percpu \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structpglist__data_ab6ecf41bcc9df250a61036348710abca}{per\+\_\+cpu\+\_\+nodestats}}
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structpglist__data_ad715440c11b01ec24ffc9281a1fc707e}{vm\+\_\+stat}} \+[\doxymbox{\hyperlink{mmzone_8h_a09749c0356969cc3f134a9ed6d2b8409af007bdde9c9c86e1879e9387706e208e}{NR\+\_\+\+VM\+\_\+\+NODE\+\_\+\+STAT\+\_\+\+ITEMS}}]\+
+\item 
+struct memory\+\_\+tier \+\_\+\+\_\+rcu \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structpglist__data_a17567e4e202ec3fd1e3fb3b62c0c2092}{memtier}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01381}{1381}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+
+
+\label{structpglist__data_doc-func-members}
+\Hypertarget{structpglist__data_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structpglist__data_a1af4df2786350f4e286f21781ca3a54f}\index{pglist\_data@{pglist\_data}!CACHELINE\_PADDING@{CACHELINE\_PADDING}}
+\index{CACHELINE\_PADDING@{CACHELINE\_PADDING}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{CACHELINE\_PADDING()}{CACHELINE\_PADDING()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{structpglist__data_a1af4df2786350f4e286f21781ca3a54f} 
+pglist\+\_\+data::\+\+CACHELINE\+\_\+\+PADDING (\begin{DoxyParamCaption}\item[{\+\_\+pad1\+\_\+}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{structpglist__data_a5fa27f920e59255c261230eb0de02421}\index{pglist\_data@{pglist\_data}!CACHELINE\_PADDING@{CACHELINE\_PADDING}}
+\index{CACHELINE\_PADDING@{CACHELINE\_PADDING}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{CACHELINE\_PADDING()}{CACHELINE\_PADDING()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{structpglist__data_a5fa27f920e59255c261230eb0de02421} 
+pglist\+\_\+data::\+\+CACHELINE\+\_\+\+PADDING (\begin{DoxyParamCaption}\item[{\+\_\+pad2\+\_\+}]{}{}\end{DoxyParamCaption})}
+
+
+
+\label{structpglist__data_doc-variable-members}
+\Hypertarget{structpglist__data_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structpglist__data_a6a175cf5647ea7a42374d3f588de983e}\index{pglist\_data@{pglist\_data}!\_\_lruvec@{\_\_lruvec}}
+\index{\_\_lruvec@{\_\_lruvec}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{\_\_lruvec}{\_\_lruvec}}
+{\footnotesize\ttfamily \label{structpglist__data_a6a175cf5647ea7a42374d3f588de983e} 
+struct \doxymbox{\hyperlink{structlruvec}{lruvec}} pglist\+\_\+data::\+\+\_\+\+\_\+lruvec}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01499}{1499}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_af8ea4910adea257d59b3d67102aa13f3}\index{pglist\_data@{pglist\_data}!deferred\_split\_queue@{deferred\_split\_queue}}
+\index{deferred\_split\_queue@{deferred\_split\_queue}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{deferred\_split\_queue}{deferred\_split\_queue}}
+{\footnotesize\ttfamily \label{structpglist__data_af8ea4910adea257d59b3d67102aa13f3} 
+struct \doxymbox{\hyperlink{structdeferred__split}{deferred\+\_\+split}} pglist\+\_\+data::\+deferred\+\_\+split\+\_\+queue}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01474}{1474}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a8e707fffbdb969783478486d3f22d835}\index{pglist\_data@{pglist\_data}!first\_deferred\_pfn@{first\_deferred\_pfn}}
+\index{first\_deferred\_pfn@{first\_deferred\_pfn}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{first\_deferred\_pfn}{first\_deferred\_pfn}}
+{\footnotesize\ttfamily \label{structpglist__data_a8e707fffbdb969783478486d3f22d835} 
+unsigned long pglist\+\_\+data::\+first\+\_\+deferred\+\_\+pfn}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01470}{1470}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ae5f3a76d97901671245d5dd3cf031ee0}\index{pglist\_data@{pglist\_data}!flags@{flags}}
+\index{flags@{flags}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structpglist__data_ae5f3a76d97901671245d5dd3cf031ee0} 
+unsigned long pglist\+\_\+data::\+flags}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01501}{1501}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_aeb7631833b058ae17de0fb9d4946167d}\index{pglist\_data@{pglist\_data}!kcompactd@{kcompactd}}
+\index{kcompactd@{kcompactd}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kcompactd}{kcompactd}}
+{\footnotesize\ttfamily \label{structpglist__data_aeb7631833b058ae17de0fb9d4946167d} 
+struct task\+\_\+struct\texorpdfstring{$\ast$}{*} pglist\+\_\+data::\+kcompactd}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01445}{1445}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a57aa728638f70410b25a12febc03a3be}\index{pglist\_data@{pglist\_data}!kcompactd\_highest\_zoneidx@{kcompactd\_highest\_zoneidx}}
+\index{kcompactd\_highest\_zoneidx@{kcompactd\_highest\_zoneidx}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kcompactd\_highest\_zoneidx}{kcompactd\_highest\_zoneidx}}
+{\footnotesize\ttfamily \label{structpglist__data_a57aa728638f70410b25a12febc03a3be} 
+enum \doxymbox{\hyperlink{mmzone_8h_a0fdf79ffb0b79648e58d693137ccfada}{zone\+\_\+type}} pglist\+\_\+data::\+kcompactd\+\_\+highest\+\_\+zoneidx}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01443}{1443}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a9615130fff0ec97ce5e29e9c4b86f370}\index{pglist\_data@{pglist\_data}!kcompactd\_max\_order@{kcompactd\_max\_order}}
+\index{kcompactd\_max\_order@{kcompactd\_max\_order}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kcompactd\_max\_order}{kcompactd\_max\_order}}
+{\footnotesize\ttfamily \label{structpglist__data_a9615130fff0ec97ce5e29e9c4b86f370} 
+int pglist\+\_\+data::\+kcompactd\+\_\+max\+\_\+order}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01442}{1442}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a4f64a8f46aa74acba22d9070e75ff672}\index{pglist\_data@{pglist\_data}!kcompactd\_wait@{kcompactd\_wait}}
+\index{kcompactd\_wait@{kcompactd\_wait}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kcompactd\_wait}{kcompactd\_wait}}
+{\footnotesize\ttfamily \label{structpglist__data_a4f64a8f46aa74acba22d9070e75ff672} 
+wait\+\_\+queue\+\_\+head\+\_\+t pglist\+\_\+data::\+kcompactd\+\_\+wait}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01444}{1444}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ae17af85762902d65cd50d67b97dbab84}\index{pglist\_data@{pglist\_data}!kswapd@{kswapd}}
+\index{kswapd@{kswapd}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kswapd}{kswapd}}
+{\footnotesize\ttfamily \label{structpglist__data_ae17af85762902d65cd50d67b97dbab84} 
+struct task\+\_\+struct\texorpdfstring{$\ast$}{*} pglist\+\_\+data::\+kswapd}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01435}{1435}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ace59e247590d1e8aa6a915c0a562c700}\index{pglist\_data@{pglist\_data}!kswapd\_failures@{kswapd\_failures}}
+\index{kswapd\_failures@{kswapd\_failures}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kswapd\_failures}{kswapd\_failures}}
+{\footnotesize\ttfamily \label{structpglist__data_ace59e247590d1e8aa6a915c0a562c700} 
+atomic\+\_\+t pglist\+\_\+data::\+kswapd\+\_\+failures}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01439}{1439}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a2903bd4b4aeed30cdaa3cad2ddad95f5}\index{pglist\_data@{pglist\_data}!kswapd\_highest\_zoneidx@{kswapd\_highest\_zoneidx}}
+\index{kswapd\_highest\_zoneidx@{kswapd\_highest\_zoneidx}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kswapd\_highest\_zoneidx}{kswapd\_highest\_zoneidx}}
+{\footnotesize\ttfamily \label{structpglist__data_a2903bd4b4aeed30cdaa3cad2ddad95f5} 
+enum \doxymbox{\hyperlink{mmzone_8h_a0fdf79ffb0b79648e58d693137ccfada}{zone\+\_\+type}} pglist\+\_\+data::\+kswapd\+\_\+highest\+\_\+zoneidx}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01437}{1437}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_aec3f6363fd3b82ee34dc93db216a44c5}\index{pglist\_data@{pglist\_data}!kswapd\_lock@{kswapd\_lock}}
+\index{kswapd\_lock@{kswapd\_lock}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kswapd\_lock}{kswapd\_lock}}
+{\footnotesize\ttfamily \label{structpglist__data_aec3f6363fd3b82ee34dc93db216a44c5} 
+struct mutex pglist\+\_\+data::\+kswapd\+\_\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01433}{1433}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a08cf85b2e40ae2109df0552826c78a16}\index{pglist\_data@{pglist\_data}!kswapd\_order@{kswapd\_order}}
+\index{kswapd\_order@{kswapd\_order}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kswapd\_order}{kswapd\_order}}
+{\footnotesize\ttfamily \label{structpglist__data_a08cf85b2e40ae2109df0552826c78a16} 
+int pglist\+\_\+data::\+kswapd\+\_\+order}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01436}{1436}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_aabf4026f57497cee9881452fec034df5}\index{pglist\_data@{pglist\_data}!kswapd\_wait@{kswapd\_wait}}
+\index{kswapd\_wait@{kswapd\_wait}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{kswapd\_wait}{kswapd\_wait}}
+{\footnotesize\ttfamily \label{structpglist__data_aabf4026f57497cee9881452fec034df5} 
+wait\+\_\+queue\+\_\+head\+\_\+t pglist\+\_\+data::\+kswapd\+\_\+wait}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01423}{1423}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a17567e4e202ec3fd1e3fb3b62c0c2092}\index{pglist\_data@{pglist\_data}!memtier@{memtier}}
+\index{memtier@{memtier}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{memtier}{memtier}}
+{\footnotesize\ttfamily \label{structpglist__data_a17567e4e202ec3fd1e3fb3b62c0c2092} 
+struct memory\+\_\+tier \+\_\+\+\_\+rcu\texorpdfstring{$\ast$}{*} pglist\+\_\+data::\+memtier}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01516}{1516}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ab3023b576dee84baa433a57a45f9c0da}\index{pglist\_data@{pglist\_data}!min\_slab\_pages@{min\_slab\_pages}}
+\index{min\_slab\_pages@{min\_slab\_pages}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{min\_slab\_pages}{min\_slab\_pages}}
+{\footnotesize\ttfamily \label{structpglist__data_ab3023b576dee84baa433a57a45f9c0da} 
+unsigned long pglist\+\_\+data::\+min\+\_\+slab\+\_\+pages}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01459}{1459}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a9f00d6cd79673b945f8804c5d0d21058}\index{pglist\_data@{pglist\_data}!min\_unmapped\_pages@{min\_unmapped\_pages}}
+\index{min\_unmapped\_pages@{min\_unmapped\_pages}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{min\_unmapped\_pages}{min\_unmapped\_pages}}
+{\footnotesize\ttfamily \label{structpglist__data_a9f00d6cd79673b945f8804c5d0d21058} 
+unsigned long pglist\+\_\+data::\+min\+\_\+unmapped\+\_\+pages}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01458}{1458}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_af6b37a8b60abfaa04aad03ecc1b0396a}\index{pglist\_data@{pglist\_data}!node\_id@{node\_id}}
+\index{node\_id@{node\_id}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{node\_id}{node\_id}}
+{\footnotesize\ttfamily \label{structpglist__data_af6b37a8b60abfaa04aad03ecc1b0396a} 
+int pglist\+\_\+data::\+node\+\_\+id}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01422}{1422}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_aef4dcc7b1d408d9a1b41beaf698fff79}\index{pglist\_data@{pglist\_data}!node\_mem\_map@{node\_mem\_map}}
+\index{node\_mem\_map@{node\_mem\_map}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{node\_mem\_map}{node\_mem\_map}}
+{\footnotesize\ttfamily \label{structpglist__data_aef4dcc7b1d408d9a1b41beaf698fff79} 
+struct page\texorpdfstring{$\ast$}{*} pglist\+\_\+data::\+node\+\_\+mem\+\_\+map}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01398}{1398}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_aafdebd264a12e7bcef64861f50b05a08}\index{pglist\_data@{pglist\_data}!node\_present\_pages@{node\_present\_pages}}
+\index{node\_present\_pages@{node\_present\_pages}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{node\_present\_pages}{node\_present\_pages}}
+{\footnotesize\ttfamily \label{structpglist__data_aafdebd264a12e7bcef64861f50b05a08} 
+unsigned long pglist\+\_\+data::\+node\+\_\+present\+\_\+pages}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01419}{1419}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a4a902e8c9e319db306ce0e3be75dc75d}\index{pglist\_data@{pglist\_data}!node\_size\_lock@{node\_size\_lock}}
+\index{node\_size\_lock@{node\_size\_lock}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{node\_size\_lock}{node\_size\_lock}}
+{\footnotesize\ttfamily \label{structpglist__data_a4a902e8c9e319db306ce0e3be75dc75d} 
+spinlock\+\_\+t pglist\+\_\+data::\+node\+\_\+size\+\_\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01416}{1416}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ae60f503698010798977e16009969df72}\index{pglist\_data@{pglist\_data}!node\_spanned\_pages@{node\_spanned\_pages}}
+\index{node\_spanned\_pages@{node\_spanned\_pages}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{node\_spanned\_pages}{node\_spanned\_pages}}
+{\footnotesize\ttfamily \label{structpglist__data_ae60f503698010798977e16009969df72} 
+unsigned long pglist\+\_\+data::\+node\+\_\+spanned\+\_\+pages}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01420}{1420}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_acc7c4a468d53a88b91f881f119617e4a}\index{pglist\_data@{pglist\_data}!node\_start\_pfn@{node\_start\_pfn}}
+\index{node\_start\_pfn@{node\_start\_pfn}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{node\_start\_pfn}{node\_start\_pfn}}
+{\footnotesize\ttfamily \label{structpglist__data_acc7c4a468d53a88b91f881f119617e4a} 
+unsigned long pglist\+\_\+data::\+node\+\_\+start\+\_\+pfn}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01418}{1418}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ac32308fa580c6ff4e02b12c4ba6d3434}\index{pglist\_data@{pglist\_data}!node\_zonelists@{node\_zonelists}}
+\index{node\_zonelists@{node\_zonelists}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{node\_zonelists}{node\_zonelists}}
+{\footnotesize\ttfamily \label{structpglist__data_ac32308fa580c6ff4e02b12c4ba6d3434} 
+struct \doxymbox{\hyperlink{structzonelist}{zonelist}} pglist\+\_\+data::\+node\+\_\+zonelists\+[\doxymbox{\hyperlink{mmzone_8h_a84820424b8da1e611570a924155e51f4a3225128d48ee428805847398fd6e3b91}{MAX\+\_\+\+ZONELISTS}}]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01394}{1394}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a4efe1dc7860b75910e8178591869a55e}\index{pglist\_data@{pglist\_data}!node\_zones@{node\_zones}}
+\index{node\_zones@{node\_zones}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{node\_zones}{node\_zones}}
+{\footnotesize\ttfamily \label{structpglist__data_a4efe1dc7860b75910e8178591869a55e} 
+struct \doxymbox{\hyperlink{structzone}{zone}} pglist\+\_\+data::\+node\+\_\+zones\+[MAX\+\_\+\+NR\+\_\+\+ZONES]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01387}{1387}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ad375b5b62c3bf921e11f023297bbcf3b}\index{pglist\_data@{pglist\_data}!nr\_reclaim\_start@{nr\_reclaim\_start}}
+\index{nr\_reclaim\_start@{nr\_reclaim\_start}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{nr\_reclaim\_start}{nr\_reclaim\_start}}
+{\footnotesize\ttfamily \label{structpglist__data_ad375b5b62c3bf921e11f023297bbcf3b} 
+unsigned long pglist\+\_\+data::\+nr\+\_\+reclaim\+\_\+start}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01430}{1430}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a2d9d109aac7e836e1eab4a5a0162539e}\index{pglist\_data@{pglist\_data}!nr\_writeback\_throttled@{nr\_writeback\_throttled}}
+\index{nr\_writeback\_throttled@{nr\_writeback\_throttled}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{nr\_writeback\_throttled}{nr\_writeback\_throttled}}
+{\footnotesize\ttfamily \label{structpglist__data_a2d9d109aac7e836e1eab4a5a0162539e} 
+atomic\+\_\+t pglist\+\_\+data::\+nr\+\_\+writeback\+\_\+throttled}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01429}{1429}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a86a05c1cfbf75b08d8bdb84abb8768dd}\index{pglist\_data@{pglist\_data}!nr\_zones@{nr\_zones}}
+\index{nr\_zones@{nr\_zones}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{nr\_zones}{nr\_zones}}
+{\footnotesize\ttfamily \label{structpglist__data_a86a05c1cfbf75b08d8bdb84abb8768dd} 
+int pglist\+\_\+data::\+nr\+\_\+zones}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01396}{1396}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ab6ecf41bcc9df250a61036348710abca}\index{pglist\_data@{pglist\_data}!per\_cpu\_nodestats@{per\_cpu\_nodestats}}
+\index{per\_cpu\_nodestats@{per\_cpu\_nodestats}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{per\_cpu\_nodestats}{per\_cpu\_nodestats}}
+{\footnotesize\ttfamily \label{structpglist__data_ab6ecf41bcc9df250a61036348710abca} 
+struct \doxymbox{\hyperlink{structper__cpu__nodestat}{per\+\_\+cpu\+\_\+nodestat}} \+\_\+\+\_\+percpu\texorpdfstring{$\ast$}{*} pglist\+\_\+data::\+per\+\_\+cpu\+\_\+nodestats}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01513}{1513}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_aa9e9d66c3eeb8b52b1836c11d7c6296a}\index{pglist\_data@{pglist\_data}!pfmemalloc\_wait@{pfmemalloc\_wait}}
+\index{pfmemalloc\_wait@{pfmemalloc\_wait}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{pfmemalloc\_wait}{pfmemalloc\_wait}}
+{\footnotesize\ttfamily \label{structpglist__data_aa9e9d66c3eeb8b52b1836c11d7c6296a} 
+wait\+\_\+queue\+\_\+head\+\_\+t pglist\+\_\+data::\+pfmemalloc\+\_\+wait}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01424}{1424}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_a0a3bed0261456b04650b8f029fd87d69}\index{pglist\_data@{pglist\_data}!proactive\_compact\_trigger@{proactive\_compact\_trigger}}
+\index{proactive\_compact\_trigger@{proactive\_compact\_trigger}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{proactive\_compact\_trigger}{proactive\_compact\_trigger}}
+{\footnotesize\ttfamily \label{structpglist__data_a0a3bed0261456b04650b8f029fd87d69} 
+bool pglist\+\_\+data::\+proactive\+\_\+compact\+\_\+trigger}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01446}{1446}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ae45a4278de784a1a742d877b13140a7f}\index{pglist\_data@{pglist\_data}!reclaim\_wait@{reclaim\_wait}}
+\index{reclaim\_wait@{reclaim\_wait}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{reclaim\_wait}{reclaim\_wait}}
+{\footnotesize\ttfamily \label{structpglist__data_ae45a4278de784a1a742d877b13140a7f} 
+wait\+\_\+queue\+\_\+head\+\_\+t pglist\+\_\+data::\+reclaim\+\_\+wait\+[\doxymbox{\hyperlink{mmzone_8h_af14e5bfad718e129a885979753be280aa10c3b983a4e0d5011659b53d28bb4b53}{NR\+\_\+\+VMSCAN\+\_\+\+THROTTLE}}]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01427}{1427}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ae44d591152d86855726eecf28373e5ca}\index{pglist\_data@{pglist\_data}!totalreserve\_pages@{totalreserve\_pages}}
+\index{totalreserve\_pages@{totalreserve\_pages}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{totalreserve\_pages}{totalreserve\_pages}}
+{\footnotesize\ttfamily \label{structpglist__data_ae44d591152d86855726eecf28373e5ca} 
+unsigned long pglist\+\_\+data::\+totalreserve\+\_\+pages}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01452}{1452}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structpglist__data_ad715440c11b01ec24ffc9281a1fc707e}\index{pglist\_data@{pglist\_data}!vm\_stat@{vm\_stat}}
+\index{vm\_stat@{vm\_stat}!pglist\_data@{pglist\_data}}
+\doxysubsubsection{\texorpdfstring{vm\_stat}{vm\_stat}}
+{\footnotesize\ttfamily \label{structpglist__data_ad715440c11b01ec24ffc9281a1fc707e} 
+atomic\+\_\+long\+\_\+t pglist\+\_\+data::\+vm\+\_\+stat\+[\doxymbox{\hyperlink{mmzone_8h_a09749c0356969cc3f134a9ed6d2b8409af007bdde9c9c86e1879e9387706e208e}{NR\+\_\+\+VM\+\_\+\+NODE\+\_\+\+STAT\+\_\+\+ITEMS}}]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l01514}{1514}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{mmzone_8h}{mmzone.\+h}}\end{DoxyCompactItemize}

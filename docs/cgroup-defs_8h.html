@@ -131,10 +131,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('cgroup-defs_8h
 <code>#include &lt;linux/workqueue.h&gt;</code><br />
 <code>#include &lt;linux/bpf-cgroup-defs.h&gt;</code><br />
 <code>#include &lt;linux/psi_types.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="cgroup__subsys_8h_source.html">linux/cgroup_subsys.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for cgroup-defs.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup-defs_8h__incl.svg" width="1816" height="128"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup-defs_8h__incl.svg" width="1992" height="128"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -146,23 +147,693 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:cgroup_5Ffile" id="r_cgroup_5Ffile"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcgroup__file.html">cgroup_file</a></td></tr>
+<tr class="memitem:cgroup_5Fsubsys_5Fstate" id="r_cgroup_5Fsubsys_5Fstate"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a></td></tr>
+<tr class="memitem:css_5Fset" id="r_css_5Fset"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcss__set.html">css_set</a></td></tr>
+<tr class="memitem:cgroup_5Fbase_5Fstat" id="r_cgroup_5Fbase_5Fstat"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcgroup__base__stat.html">cgroup_base_stat</a></td></tr>
+<tr class="memitem:css_5Frstat_5Fcpu" id="r_css_5Frstat_5Fcpu"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcss__rstat__cpu.html">css_rstat_cpu</a></td></tr>
+<tr class="memitem:cgroup_5Frstat_5Fbase_5Fcpu" id="r_cgroup_5Frstat_5Fbase_5Fcpu"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcgroup__rstat__base__cpu.html">cgroup_rstat_base_cpu</a></td></tr>
+<tr class="memitem:cgroup_5Ffreezer_5Fstate" id="r_cgroup_5Ffreezer_5Fstate"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcgroup__freezer__state.html">cgroup_freezer_state</a></td></tr>
+<tr class="memitem:cgroup" id="r_cgroup"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcgroup.html">cgroup</a></td></tr>
+<tr class="memitem:cgroup_5Froot" id="r_cgroup_5Froot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcgroup__root.html">cgroup_root</a></td></tr>
+<tr class="memitem:cftype" id="r_cftype"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcftype.html">cftype</a></td></tr>
+<tr class="memitem:cgroup_5Fsubsys" id="r_cgroup_5Fsubsys"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcgroup__subsys.html">cgroup_subsys</a></td></tr>
+<tr class="memitem:cgroup_5Fof_5Fpeak" id="r_cgroup_5Fof_5Fpeak"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcgroup__of__peak.html">cgroup_of_peak</a></td></tr>
 <tr class="memitem:sock_5Fcgroup_5Fdata" id="r_sock_5Fcgroup_5Fdata"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a90f6bcfc89bcf4c41f32472be7f712ba" id="r_a90f6bcfc89bcf4c41f32472be7f712ba"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a90f6bcfc89bcf4c41f32472be7f712ba">CGROUP_SUBSYS_COUNT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:af8edc83112d4fc405d4cb5ae15182389" id="r_af8edc83112d4fc405d4cb5ae15182389"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af8edc83112d4fc405d4cb5ae15182389">MAX_CGROUP_TYPE_NAMELEN</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memitem:ae322fa6bdd657418f4f011f562343700" id="r_ae322fa6bdd657418f4f011f562343700"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae322fa6bdd657418f4f011f562343700">MAX_CGROUP_ROOT_NAMELEN</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memitem:a12fbf010cdec51fd2e068efb94f61864" id="r_a12fbf010cdec51fd2e068efb94f61864"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a12fbf010cdec51fd2e068efb94f61864">MAX_CFTYPE_NAME</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memitem:a3ebcb2f103577578af500979b2be8936" id="r_a3ebcb2f103577578af500979b2be8936"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a3ebcb2f103577578af500979b2be8936">SUBSYS</a>(_x)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ab973e45b7b369efe6a8dabe48ed4016a" id="r_ab973e45b7b369efe6a8dabe48ed4016a"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#ab973e45b7b369efe6a8dabe48ed4016a">cgroup_subsys_id</a> { <a class="el" href="#ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59">CGROUP_SUBSYS_COUNT</a>
+ }</td></tr>
+<tr class="memitem:ae147c4422c3dfa61eed61b2e830db234" id="r_ae147c4422c3dfa61eed61b2e830db234"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <br />
+&#160;&#160;<a class="el" href="#ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0">CSS_NO_REF</a> = (1 &lt;&lt; 0)
+, <a class="el" href="#ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050">CSS_ONLINE</a> = (1 &lt;&lt; 1)
+, <a class="el" href="#ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523">CSS_RELEASED</a> = (1 &lt;&lt; 2)
+, <a class="el" href="#ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d">CSS_VISIBLE</a> = (1 &lt;&lt; 3)
+, <br />
+&#160;&#160;<a class="el" href="#ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8">CSS_DYING</a> = (1 &lt;&lt; 4)
+<br />
+ }</td></tr>
+<tr class="memitem:aa9feed9941e224f538a5b37d9c2248cc" id="r_aa9feed9941e224f538a5b37d9c2248cc"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <a class="el" href="#aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642">CGRP_NOTIFY_ON_RELEASE</a>
+, <a class="el" href="#aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639">CGRP_CPUSET_CLONE_CHILDREN</a>
+, <a class="el" href="#aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357">CGRP_FREEZE</a>
+, <a class="el" href="#aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37">CGRP_FROZEN</a>
+ }</td></tr>
+<tr class="memitem:ae02a93d3bf4fd3f670068c90ce045f24" id="r_ae02a93d3bf4fd3f670068c90ce045f24"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <br />
+&#160;&#160;<a class="el" href="#ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be">CGRP_ROOT_NOPREFIX</a> = (1 &lt;&lt; 1)
+, <a class="el" href="#ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e">CGRP_ROOT_XATTR</a> = (1 &lt;&lt; 2)
+, <a class="el" href="#ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41">CGRP_ROOT_NS_DELEGATE</a> = (1 &lt;&lt; 3)
+, <a class="el" href="#ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea">CGRP_ROOT_FAVOR_DYNMODS</a> = (1 &lt;&lt; 4)
+, <br />
+&#160;&#160;<a class="el" href="#ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b">CGRP_ROOT_CPUSET_V2_MODE</a> = (1 &lt;&lt; 16)
+, <a class="el" href="#ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b">CGRP_ROOT_MEMORY_LOCAL_EVENTS</a> = (1 &lt;&lt; 17)
+, <a class="el" href="#ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e">CGRP_ROOT_MEMORY_RECURSIVE_PROT</a> = (1 &lt;&lt; 18)
+, <a class="el" href="#ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c">CGRP_ROOT_MEMORY_HUGETLB_ACCOUNTING</a> = (1 &lt;&lt; 19)
+, <br />
+&#160;&#160;<a class="el" href="#ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87">CGRP_ROOT_PIDS_LOCAL_EVENTS</a> = (1 &lt;&lt; 20)
+<br />
+ }</td></tr>
+<tr class="memitem:a0e42c7bf03e98a0870177fc816a019f8" id="r_a0e42c7bf03e98a0870177fc816a019f8"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <br />
+&#160;&#160;<a class="el" href="#a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89">CFTYPE_ONLY_ON_ROOT</a> = (1 &lt;&lt; 0)
+, <a class="el" href="#a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d">CFTYPE_NOT_ON_ROOT</a> = (1 &lt;&lt; 1)
+, <a class="el" href="#a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3">CFTYPE_NS_DELEGATABLE</a> = (1 &lt;&lt; 2)
+, <a class="el" href="#a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc">CFTYPE_NO_PREFIX</a> = (1 &lt;&lt; 3)
+, <br />
+&#160;&#160;<a class="el" href="#a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e">CFTYPE_WORLD_WRITABLE</a> = (1 &lt;&lt; 4)
+, <a class="el" href="#a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca">CFTYPE_DEBUG</a> = (1 &lt;&lt; 5)
+, <a class="el" href="#a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf">__CFTYPE_ONLY_ON_DFL</a> = (1 &lt;&lt; 16)
+, <a class="el" href="#a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18">__CFTYPE_NOT_ON_DFL</a> = (1 &lt;&lt; 17)
+, <br />
+&#160;&#160;<a class="el" href="#a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035">__CFTYPE_ADDED</a> = (1 &lt;&lt; 18)
+<br />
+ }</td></tr>
+<tr class="memitem:a6f88470278a2f9e2137cf0f8b6672f4a" id="r_a6f88470278a2f9e2137cf0f8b6672f4a"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a6f88470278a2f9e2137cf0f8b6672f4a">cgroup_attach_lock_mode</a> { <a class="el" href="#a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c">CGRP_ATTACH_LOCK_GLOBAL</a>
+, <a class="el" href="#a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5">CGRP_ATTACH_LOCK_NONE</a>
+, <a class="el" href="#a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f">CGRP_ATTACH_LOCK_PER_THREADGROUP</a>
+ }</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aec642643e6eff3731ee6072a3d5e1a05" id="r_aec642643e6eff3731ee6072a3d5e1a05"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#aec642643e6eff3731ee6072a3d5e1a05">cgroup_threadgroup_change_begin</a> (struct task_struct *tsk)</td></tr>
+<tr class="memitem:aa9142157ca6510e79e7931de6e70d547" id="r_aa9142157ca6510e79e7931de6e70d547"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#aa9142157ca6510e79e7931de6e70d547">cgroup_threadgroup_change_end</a> (struct task_struct *tsk)</td></tr>
+<tr class="memitem:a07a90bca90e12c1e4c73056a2ac1ac9a" id="r_a07a90bca90e12c1e4c73056a2ac1ac9a"><td class="memItemLeft">static u16&#160;</td><td class="memItemRight"><a class="el" href="#a07a90bca90e12c1e4c73056a2ac1ac9a">sock_cgroup_prioidx</a> (const struct <a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a> *skcd)</td></tr>
+<tr class="memitem:a0073a047e09cace7686bbb0ae1dba77a" id="r_a0073a047e09cace7686bbb0ae1dba77a"><td class="memItemLeft">static u32&#160;</td><td class="memItemRight"><a class="el" href="#a0073a047e09cace7686bbb0ae1dba77a">sock_cgroup_classid</a> (const struct <a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a> *skcd)</td></tr>
+<tr class="memitem:a1fb3c413df18d4275a21ec784c400808" id="r_a1fb3c413df18d4275a21ec784c400808"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a1fb3c413df18d4275a21ec784c400808">sock_cgroup_set_prioidx</a> (struct <a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a> *skcd, u16 prioidx)</td></tr>
+<tr class="memitem:ace3174b5d6c11894278acb4f3d4361b8" id="r_ace3174b5d6c11894278acb4f3d4361b8"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ace3174b5d6c11894278acb4f3d4361b8">sock_cgroup_set_classid</a> (struct <a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a> *skcd, u32 classid)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4ae532c1eac15a6effcdc964dbf2e636" id="r_a4ae532c1eac15a6effcdc964dbf2e636"><td class="memItemLeft">struct percpu_rw_semaphore&#160;</td><td class="memItemRight"><a class="el" href="#a4ae532c1eac15a6effcdc964dbf2e636">cgroup_threadgroup_rwsem</a></td></tr>
+<tr class="memitem:acdd761f7b3bd3a2d3569f375035d4b86" id="r_acdd761f7b3bd3a2d3569f375035d4b86"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acdd761f7b3bd3a2d3569f375035d4b86">cgroup_enable_per_threadgroup_rwsem</a></td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a90f6bcfc89bcf4c41f32472be7f712ba" name="a90f6bcfc89bcf4c41f32472be7f712ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90f6bcfc89bcf4c41f32472be7f712ba">&#9670;&#160;</a></span>CGROUP_SUBSYS_COUNT</h2>
+<a id="a12fbf010cdec51fd2e068efb94f61864" name="a12fbf010cdec51fd2e068efb94f61864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12fbf010cdec51fd2e068efb94f61864">&#9670;&#160;</a></span>MAX_CFTYPE_NAME</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CGROUP_SUBSYS_COUNT&#160;&#160;&#160;0</td>
+          <td class="memname">#define MAX_CFTYPE_NAME&#160;&#160;&#160;64</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00039">39</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+
+</div>
+</div>
+<a id="ae322fa6bdd657418f4f011f562343700" name="ae322fa6bdd657418f4f011f562343700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae322fa6bdd657418f4f011f562343700">&#9670;&#160;</a></span>MAX_CGROUP_ROOT_NAMELEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_CGROUP_ROOT_NAMELEN&#160;&#160;&#160;64</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00038">38</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+
+</div>
+</div>
+<a id="af8edc83112d4fc405d4cb5ae15182389" name="af8edc83112d4fc405d4cb5ae15182389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8edc83112d4fc405d4cb5ae15182389">&#9670;&#160;</a></span>MAX_CGROUP_TYPE_NAMELEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_CGROUP_TYPE_NAMELEN&#160;&#160;&#160;32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00037">37</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+
+</div>
+</div>
+<a id="a3ebcb2f103577578af500979b2be8936" name="a3ebcb2f103577578af500979b2be8936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ebcb2f103577578af500979b2be8936">&#9670;&#160;</a></span>SUBSYS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SUBSYS</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>_x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">_x ## _cgrp_id,</div>
+</div><!-- fragment --><p>define the enumeration of all cgroup subsystems Enumeration Description: This enumeration lists all the cgroup subsystem IDs. Each subsystem (like cpuset, cpu, memory, io, etc.) gets a unique ID. The CGROUP_SUBSYS_COUNT value at the end indicates the total number of subsystems. This is used to index arrays of subsystem states. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00044">44</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="ae147c4422c3dfa61eed61b2e830db234" name="ae147c4422c3dfa61eed61b2e830db234"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae147c4422c3dfa61eed61b2e830db234">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>bits in struct <a class="el" href="structcgroup__subsys__state.html">cgroup_subsys_state</a> flags field</p>
+<p>Enumeration Description: These flags represent the state of a cgroup subsystem state (css). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0" name="ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0"></a>CSS_NO_REF&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050" name="ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050"></a>CSS_ONLINE&#160;</td><td class="fielddoc"><p>no reference counting for this css </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523" name="ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523"></a>CSS_RELEASED&#160;</td><td class="fielddoc"><p>between -&gt;css_online() and -&gt;css_offline() </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d" name="ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d"></a>CSS_VISIBLE&#160;</td><td class="fielddoc"><p>refcnt reached zero, released </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8" name="ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8"></a>CSS_DYING&#160;</td><td class="fielddoc"><p>css is visible to userland </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00056">56</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   56</span>     {</div>
+<div class="line"><span class="lineno">   57</span>    <a class="code hl_enumvalue" href="#ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0">CSS_NO_REF</a>  = (1 &lt;&lt; 0), </div>
+<div class="line"><span class="lineno">   58</span>    <a class="code hl_enumvalue" href="#ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050">CSS_ONLINE</a>  = (1 &lt;&lt; 1), </div>
+<div class="line"><span class="lineno">   59</span>    <a class="code hl_enumvalue" href="#ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523">CSS_RELEASED</a>    = (1 &lt;&lt; 2), </div>
+<div class="line"><span class="lineno">   60</span>    <a class="code hl_enumvalue" href="#ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d">CSS_VISIBLE</a> = (1 &lt;&lt; 3), </div>
+<div class="line"><span class="lineno">   61</span>    <a class="code hl_enumvalue" href="#ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8">CSS_DYING</a>   = (1 &lt;&lt; 4), </div>
+<div class="line"><span class="lineno">   62</span>};</div>
+<div class="ttc" id="acgroup-defs_8h_html_ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d"><div class="ttname"><a href="#ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d">CSS_VISIBLE</a></div><div class="ttdeci">@ CSS_VISIBLE</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00060">cgroup-defs.h:60</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8"><div class="ttname"><a href="#ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8">CSS_DYING</a></div><div class="ttdeci">@ CSS_DYING</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00061">cgroup-defs.h:61</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050"><div class="ttname"><a href="#ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050">CSS_ONLINE</a></div><div class="ttdeci">@ CSS_ONLINE</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00058">cgroup-defs.h:58</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0"><div class="ttname"><a href="#ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0">CSS_NO_REF</a></div><div class="ttdeci">@ CSS_NO_REF</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00057">cgroup-defs.h:57</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523"><div class="ttname"><a href="#ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523">CSS_RELEASED</a></div><div class="ttdeci">@ CSS_RELEASED</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00059">cgroup-defs.h:59</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0e42c7bf03e98a0870177fc816a019f8" name="a0e42c7bf03e98a0870177fc816a019f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e42c7bf03e98a0870177fc816a019f8">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>cftype-&gt;flags</p>
+<p>Enumeration Description: These flags control how cgroup files (cftype) are created and behave. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89" name="a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89"></a>CFTYPE_ONLY_ON_ROOT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d" name="a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d"></a>CFTYPE_NOT_ON_ROOT&#160;</td><td class="fielddoc"><p>only create on root cgrp </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3" name="a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3"></a>CFTYPE_NS_DELEGATABLE&#160;</td><td class="fielddoc"><p>don't create on root cgrp </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc" name="a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc"></a>CFTYPE_NO_PREFIX&#160;</td><td class="fielddoc"><p>writeable beyond delegation boundaries </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e" name="a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e"></a>CFTYPE_WORLD_WRITABLE&#160;</td><td class="fielddoc"><p>(DON'T USE FOR NEW FILES) no subsys prefix </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca" name="a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca"></a>CFTYPE_DEBUG&#160;</td><td class="fielddoc"><p>(DON'T USE FOR NEW FILES) S_IWUGO </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf" name="a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf"></a>__CFTYPE_ONLY_ON_DFL&#160;</td><td class="fielddoc"><p>create when cgroup_debug internal flags, do not use outside cgroup core proper </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18" name="a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18"></a>__CFTYPE_NOT_ON_DFL&#160;</td><td class="fielddoc"><p>only on default hierarchy </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035" name="a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035"></a>__CFTYPE_ADDED&#160;</td><td class="fielddoc"><p>not on default hierarchy </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00152">152</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  152</span>     {</div>
+<div class="line"><span class="lineno">  153</span>    <a class="code hl_enumvalue" href="#a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89">CFTYPE_ONLY_ON_ROOT</a> = (1 &lt;&lt; 0), </div>
+<div class="line"><span class="lineno">  154</span>    <a class="code hl_enumvalue" href="#a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d">CFTYPE_NOT_ON_ROOT</a>  = (1 &lt;&lt; 1), </div>
+<div class="line"><span class="lineno">  155</span>    <a class="code hl_enumvalue" href="#a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3">CFTYPE_NS_DELEGATABLE</a>   = (1 &lt;&lt; 2), </div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span>    <a class="code hl_enumvalue" href="#a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc">CFTYPE_NO_PREFIX</a>    = (1 &lt;&lt; 3), </div>
+<div class="line"><span class="lineno">  158</span>    <a class="code hl_enumvalue" href="#a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e">CFTYPE_WORLD_WRITABLE</a>   = (1 &lt;&lt; 4), </div>
+<div class="line"><span class="lineno">  159</span>    <a class="code hl_enumvalue" href="#a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca">CFTYPE_DEBUG</a>        = (1 &lt;&lt; 5), </div>
+<div class="line"><span class="lineno">  160</span></div>
+<div class="line"><span class="lineno">  162</span>    <a class="code hl_enumvalue" href="#a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf">__CFTYPE_ONLY_ON_DFL</a>    = (1 &lt;&lt; 16),    </div>
+<div class="line"><span class="lineno">  163</span>    <a class="code hl_enumvalue" href="#a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18">__CFTYPE_NOT_ON_DFL</a> = (1 &lt;&lt; 17),    </div>
+<div class="line"><span class="lineno">  164</span>    <a class="code hl_enumvalue" href="#a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035">__CFTYPE_ADDED</a>      = (1 &lt;&lt; 18),</div>
+<div class="line"><span class="lineno">  165</span>};</div>
+<div class="ttc" id="acgroup-defs_8h_html_a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3"><div class="ttname"><a href="#a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3">CFTYPE_NS_DELEGATABLE</a></div><div class="ttdeci">@ CFTYPE_NS_DELEGATABLE</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00155">cgroup-defs.h:155</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca"><div class="ttname"><a href="#a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca">CFTYPE_DEBUG</a></div><div class="ttdeci">@ CFTYPE_DEBUG</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00159">cgroup-defs.h:159</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89"><div class="ttname"><a href="#a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89">CFTYPE_ONLY_ON_ROOT</a></div><div class="ttdeci">@ CFTYPE_ONLY_ON_ROOT</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00153">cgroup-defs.h:153</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035"><div class="ttname"><a href="#a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035">__CFTYPE_ADDED</a></div><div class="ttdeci">@ __CFTYPE_ADDED</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00164">cgroup-defs.h:164</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e"><div class="ttname"><a href="#a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e">CFTYPE_WORLD_WRITABLE</a></div><div class="ttdeci">@ CFTYPE_WORLD_WRITABLE</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00158">cgroup-defs.h:158</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc"><div class="ttname"><a href="#a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc">CFTYPE_NO_PREFIX</a></div><div class="ttdeci">@ CFTYPE_NO_PREFIX</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00157">cgroup-defs.h:157</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d"><div class="ttname"><a href="#a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d">CFTYPE_NOT_ON_ROOT</a></div><div class="ttdeci">@ CFTYPE_NOT_ON_ROOT</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00154">cgroup-defs.h:154</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf"><div class="ttname"><a href="#a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf">__CFTYPE_ONLY_ON_DFL</a></div><div class="ttdeci">@ __CFTYPE_ONLY_ON_DFL</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00162">cgroup-defs.h:162</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18"><div class="ttname"><a href="#a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18">__CFTYPE_NOT_ON_DFL</a></div><div class="ttdeci">@ __CFTYPE_NOT_ON_DFL</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00163">cgroup-defs.h:163</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae02a93d3bf4fd3f670068c90ce045f24" name="ae02a93d3bf4fd3f670068c90ce045f24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae02a93d3bf4fd3f670068c90ce045f24">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>cgroup_root-&gt;flags</p>
+<p>Enumeration Description: These flags control cgroup root behavior. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be" name="ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be"></a>CGRP_ROOT_NOPREFIX&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e" name="ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e"></a>CGRP_ROOT_XATTR&#160;</td><td class="fielddoc"><p>mounted subsystems have no named prefix </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41" name="ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41"></a>CGRP_ROOT_NS_DELEGATE&#160;</td><td class="fielddoc"><p>supports extended attributes Consider namespaces as delegation boundaries. If this flag is set, controller specific interface files in a namespace root aren't writeable from inside the namespace. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea" name="ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea"></a>CGRP_ROOT_FAVOR_DYNMODS&#160;</td><td class="fielddoc"><p>Reduce latencies on dynamic cgroup modifications such as task migrations and controller on/offs by disabling percpu operation on cgroup_threadgroup_rwsem. This makes hot path operations such as forks and exits into the slow path and more expensive.</p>
+<p>Alleviate the contention between fork, exec, exit operations and writing to cgroup.procs by taking a per threadgroup rwsem instead of the global cgroup_threadgroup_rwsem. Fork and other operations from threads in different thread groups no longer contend with writing to cgroup.procs.</p>
+<p>The static usage pattern of creating a cgroup, enabling controllers, and then seeding it with CLONE_INTO_CGROUP doesn't require write locking cgroup_threadgroup_rwsem and thus doesn't benefit from favordynmod. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b" name="ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b"></a>CGRP_ROOT_CPUSET_V2_MODE&#160;</td><td class="fielddoc"><p>Enable cpuset controller in v1 cgroup to use v2 behavior. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b" name="ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b"></a>CGRP_ROOT_MEMORY_LOCAL_EVENTS&#160;</td><td class="fielddoc"><p>Enable legacy local memory.events. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e" name="ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e"></a>CGRP_ROOT_MEMORY_RECURSIVE_PROT&#160;</td><td class="fielddoc"><p>Enable recursive subtree protection </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c" name="ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c"></a>CGRP_ROOT_MEMORY_HUGETLB_ACCOUNTING&#160;</td><td class="fielddoc"><p>Enable hugetlb accounting for the memory controller. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87" name="ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87"></a>CGRP_ROOT_PIDS_LOCAL_EVENTS&#160;</td><td class="fielddoc"><p>Enable legacy local pids.events. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00091">91</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   91</span>     {</div>
+<div class="line"><span class="lineno">   92</span>    <a class="code hl_enumvalue" href="#ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be">CGRP_ROOT_NOPREFIX</a>  = (1 &lt;&lt; 1), </div>
+<div class="line"><span class="lineno">   93</span>    <a class="code hl_enumvalue" href="#ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e">CGRP_ROOT_XATTR</a>     = (1 &lt;&lt; 2), </div>
+<div class="line"><span class="lineno">   94</span></div>
+<div class="line"><span class="lineno">  100</span>    <a class="code hl_enumvalue" href="#ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41">CGRP_ROOT_NS_DELEGATE</a>   = (1 &lt;&lt; 3),</div>
+<div class="line"><span class="lineno">  101</span></div>
+<div class="line"><span class="lineno">  119</span>    <a class="code hl_enumvalue" href="#ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea">CGRP_ROOT_FAVOR_DYNMODS</a> = (1 &lt;&lt; 4),</div>
+<div class="line"><span class="lineno">  120</span></div>
+<div class="line"><span class="lineno">  124</span>    <a class="code hl_enumvalue" href="#ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b">CGRP_ROOT_CPUSET_V2_MODE</a> = (1 &lt;&lt; 16),</div>
+<div class="line"><span class="lineno">  125</span></div>
+<div class="line"><span class="lineno">  129</span>    <a class="code hl_enumvalue" href="#ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b">CGRP_ROOT_MEMORY_LOCAL_EVENTS</a> = (1 &lt;&lt; 17),</div>
+<div class="line"><span class="lineno">  130</span></div>
+<div class="line"><span class="lineno">  134</span>    <a class="code hl_enumvalue" href="#ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e">CGRP_ROOT_MEMORY_RECURSIVE_PROT</a> = (1 &lt;&lt; 18),</div>
+<div class="line"><span class="lineno">  135</span></div>
+<div class="line"><span class="lineno">  139</span>    <a class="code hl_enumvalue" href="#ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c">CGRP_ROOT_MEMORY_HUGETLB_ACCOUNTING</a> = (1 &lt;&lt; 19),</div>
+<div class="line"><span class="lineno">  140</span></div>
+<div class="line"><span class="lineno">  144</span>    <a class="code hl_enumvalue" href="#ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87">CGRP_ROOT_PIDS_LOCAL_EVENTS</a> = (1 &lt;&lt; 20),</div>
+<div class="line"><span class="lineno">  145</span>};</div>
+<div class="ttc" id="acgroup-defs_8h_html_ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c"><div class="ttname"><a href="#ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c">CGRP_ROOT_MEMORY_HUGETLB_ACCOUNTING</a></div><div class="ttdeci">@ CGRP_ROOT_MEMORY_HUGETLB_ACCOUNTING</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00139">cgroup-defs.h:139</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be"><div class="ttname"><a href="#ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be">CGRP_ROOT_NOPREFIX</a></div><div class="ttdeci">@ CGRP_ROOT_NOPREFIX</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00092">cgroup-defs.h:92</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87"><div class="ttname"><a href="#ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87">CGRP_ROOT_PIDS_LOCAL_EVENTS</a></div><div class="ttdeci">@ CGRP_ROOT_PIDS_LOCAL_EVENTS</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00144">cgroup-defs.h:144</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e"><div class="ttname"><a href="#ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e">CGRP_ROOT_MEMORY_RECURSIVE_PROT</a></div><div class="ttdeci">@ CGRP_ROOT_MEMORY_RECURSIVE_PROT</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00134">cgroup-defs.h:134</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b"><div class="ttname"><a href="#ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b">CGRP_ROOT_CPUSET_V2_MODE</a></div><div class="ttdeci">@ CGRP_ROOT_CPUSET_V2_MODE</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00124">cgroup-defs.h:124</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea"><div class="ttname"><a href="#ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea">CGRP_ROOT_FAVOR_DYNMODS</a></div><div class="ttdeci">@ CGRP_ROOT_FAVOR_DYNMODS</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00119">cgroup-defs.h:119</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41"><div class="ttname"><a href="#ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41">CGRP_ROOT_NS_DELEGATE</a></div><div class="ttdeci">@ CGRP_ROOT_NS_DELEGATE</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00100">cgroup-defs.h:100</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b"><div class="ttname"><a href="#ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b">CGRP_ROOT_MEMORY_LOCAL_EVENTS</a></div><div class="ttdeci">@ CGRP_ROOT_MEMORY_LOCAL_EVENTS</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00129">cgroup-defs.h:129</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e"><div class="ttname"><a href="#ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e">CGRP_ROOT_XATTR</a></div><div class="ttdeci">@ CGRP_ROOT_XATTR</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00093">cgroup-defs.h:93</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa9feed9941e224f538a5b37d9c2248cc" name="aa9feed9941e224f538a5b37d9c2248cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9feed9941e224f538a5b37d9c2248cc">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>bits in struct cgroup flags field</p>
+<p>Enumeration Description: These flags represent the state of a cgroup. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642" name="aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642"></a>CGRP_NOTIFY_ON_RELEASE&#160;</td><td class="fielddoc"><p>Control Group requires release notifications to userspace </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639" name="aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639"></a>CGRP_CPUSET_CLONE_CHILDREN&#160;</td><td class="fielddoc"><p>Clone the parent's configuration when creating a new child cpuset cgroup. For historical reasons, this option can be specified at mount time and thus is implemented here. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357" name="aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357"></a>CGRP_FREEZE&#160;</td><td class="fielddoc"><p>Control group has to be frozen. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37" name="aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37"></a>CGRP_FROZEN&#160;</td><td class="fielddoc"><p>Cgroup is frozen. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00069">69</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   69</span>     {</div>
+<div class="line"><span class="lineno">   71</span>    <a class="code hl_enumvalue" href="#aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642">CGRP_NOTIFY_ON_RELEASE</a>,</div>
+<div class="line"><span class="lineno">   77</span>    <a class="code hl_enumvalue" href="#aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639">CGRP_CPUSET_CLONE_CHILDREN</a>,</div>
+<div class="line"><span class="lineno">   78</span></div>
+<div class="line"><span class="lineno">   80</span>    <a class="code hl_enumvalue" href="#aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357">CGRP_FREEZE</a>,</div>
+<div class="line"><span class="lineno">   81</span></div>
+<div class="line"><span class="lineno">   83</span>    <a class="code hl_enumvalue" href="#aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37">CGRP_FROZEN</a>,</div>
+<div class="line"><span class="lineno">   84</span>};</div>
+<div class="ttc" id="acgroup-defs_8h_html_aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639"><div class="ttname"><a href="#aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639">CGRP_CPUSET_CLONE_CHILDREN</a></div><div class="ttdeci">@ CGRP_CPUSET_CLONE_CHILDREN</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00077">cgroup-defs.h:77</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357"><div class="ttname"><a href="#aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357">CGRP_FREEZE</a></div><div class="ttdeci">@ CGRP_FREEZE</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00080">cgroup-defs.h:80</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37"><div class="ttname"><a href="#aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37">CGRP_FROZEN</a></div><div class="ttdeci">@ CGRP_FROZEN</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00083">cgroup-defs.h:83</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642"><div class="ttname"><a href="#aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642">CGRP_NOTIFY_ON_RELEASE</a></div><div class="ttdeci">@ CGRP_NOTIFY_ON_RELEASE</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00071">cgroup-defs.h:71</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6f88470278a2f9e2137cf0f8b6672f4a" name="a6f88470278a2f9e2137cf0f8b6672f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f88470278a2f9e2137cf0f8b6672f4a">&#9670;&#160;</a></span>cgroup_attach_lock_mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a6f88470278a2f9e2137cf0f8b6672f4a">cgroup_attach_lock_mode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Enumeration Description: This enum defines the locking mode used during cgroup attach operations. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c" name="a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c"></a>CGRP_ATTACH_LOCK_GLOBAL&#160;</td><td class="fielddoc"><p>Default </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5" name="a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5"></a>CGRP_ATTACH_LOCK_NONE&#160;</td><td class="fielddoc"><p>When pid=0 &amp;&amp; threadgroup=false, see comments in cgroup_procs_write_start </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f" name="a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f"></a>CGRP_ATTACH_LOCK_PER_THREADGROUP&#160;</td><td class="fielddoc"><p>When favordynmods is on, see comments above CGRP_ROOT_FAVOR_DYNMODS </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00170">170</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  170</span>                             {</div>
+<div class="line"><span class="lineno">  172</span>    <a class="code hl_enumvalue" href="#a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c">CGRP_ATTACH_LOCK_GLOBAL</a>,</div>
+<div class="line"><span class="lineno">  173</span></div>
+<div class="line"><span class="lineno">  175</span>    <a class="code hl_enumvalue" href="#a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5">CGRP_ATTACH_LOCK_NONE</a>,</div>
+<div class="line"><span class="lineno">  176</span></div>
+<div class="line"><span class="lineno">  178</span>    <a class="code hl_enumvalue" href="#a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f">CGRP_ATTACH_LOCK_PER_THREADGROUP</a>,</div>
+<div class="line"><span class="lineno">  179</span>};</div>
+<div class="ttc" id="acgroup-defs_8h_html_a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f"><div class="ttname"><a href="#a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f">CGRP_ATTACH_LOCK_PER_THREADGROUP</a></div><div class="ttdeci">@ CGRP_ATTACH_LOCK_PER_THREADGROUP</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00178">cgroup-defs.h:178</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5"><div class="ttname"><a href="#a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5">CGRP_ATTACH_LOCK_NONE</a></div><div class="ttdeci">@ CGRP_ATTACH_LOCK_NONE</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00175">cgroup-defs.h:175</a></div></div>
+<div class="ttc" id="acgroup-defs_8h_html_a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c"><div class="ttname"><a href="#a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c">CGRP_ATTACH_LOCK_GLOBAL</a></div><div class="ttdeci">@ CGRP_ATTACH_LOCK_GLOBAL</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00172">cgroup-defs.h:172</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab973e45b7b369efe6a8dabe48ed4016a" name="ab973e45b7b369efe6a8dabe48ed4016a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab973e45b7b369efe6a8dabe48ed4016a">&#9670;&#160;</a></span>cgroup_subsys_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ab973e45b7b369efe6a8dabe48ed4016a">cgroup_subsys_id</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59" name="ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59"></a>CGROUP_SUBSYS_COUNT&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00045">45</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   45</span>                      {</div>
+<div class="line"><span class="lineno">   46</span><span class="preprocessor">#include &lt;<a class="code" href="cgroup__subsys_8h.html">linux/cgroup_subsys.h</a>&gt;</span></div>
+<div class="line"><span class="lineno">   47</span>    <a class="code hl_enumvalue" href="#ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59">CGROUP_SUBSYS_COUNT</a>,</div>
+<div class="line"><span class="lineno">   48</span>};</div>
+<div class="ttc" id="acgroup-defs_8h_html_ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59"><div class="ttname"><a href="#ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59">CGROUP_SUBSYS_COUNT</a></div><div class="ttdeci">@ CGROUP_SUBSYS_COUNT</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00129">cgroup-defs.h:129</a></div></div>
+<div class="ttc" id="acgroup__subsys_8h_html"><div class="ttname"><a href="cgroup__subsys_8h.html">cgroup_subsys.h</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aec642643e6eff3731ee6072a3d5e1a05" name="aec642643e6eff3731ee6072a3d5e1a05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec642643e6eff3731ee6072a3d5e1a05">&#9670;&#160;</a></span>cgroup_threadgroup_change_begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cgroup_threadgroup_change_begin </td>
+          <td>(</td>
+          <td class="paramtype">struct task_struct *</td>          <td class="paramname"><span class="paramname"><em>tsk</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>cgroup_threadgroup_change_begin - threadgroup exclusion for cgroups @tsk: target task</p>
+<p>Allows cgroup operations to synchronize against threadgroup changes using a global percpu_rw_semaphore and a per threadgroup rw_semaphore when favordynmods is on. See the comment above CGRP_ROOT_FAVOR_DYNMODS definition.</p>
+<p>Function Description: Starts a read-side critical section for threadgroup changes. It acquires a global lock to prevent threadgroup modifications during cgroup operations. If the favordynmods feature is enabled, it also acquires a per-threadgroup lock to reduce contention and improve performance. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00939">939</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  940</span>{</div>
+<div class="line"><span class="lineno">  941</span>    percpu_down_read(&amp;<a class="code hl_variable" href="#a4ae532c1eac15a6effcdc964dbf2e636">cgroup_threadgroup_rwsem</a>);</div>
+<div class="line"><span class="lineno">  942</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#acdd761f7b3bd3a2d3569f375035d4b86">cgroup_enable_per_threadgroup_rwsem</a>)</div>
+<div class="line"><span class="lineno">  943</span>        down_read(&amp;tsk-&gt;signal-&gt;cgroup_threadgroup_rwsem);</div>
+<div class="line"><span class="lineno">  944</span>}</div>
+<div class="ttc" id="acgroup-defs_8h_html_a4ae532c1eac15a6effcdc964dbf2e636"><div class="ttname"><a href="#a4ae532c1eac15a6effcdc964dbf2e636">cgroup_threadgroup_rwsem</a></div><div class="ttdeci">struct percpu_rw_semaphore cgroup_threadgroup_rwsem</div></div>
+<div class="ttc" id="acgroup-defs_8h_html_acdd761f7b3bd3a2d3569f375035d4b86"><div class="ttname"><a href="#acdd761f7b3bd3a2d3569f375035d4b86">cgroup_enable_per_threadgroup_rwsem</a></div><div class="ttdeci">bool cgroup_enable_per_threadgroup_rwsem</div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup-defs_8h_aec642643e6eff3731ee6072a3d5e1a05_icgraph.svg" width="502" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa9142157ca6510e79e7931de6e70d547" name="aa9142157ca6510e79e7931de6e70d547"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9142157ca6510e79e7931de6e70d547">&#9670;&#160;</a></span>cgroup_threadgroup_change_end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cgroup_threadgroup_change_end </td>
+          <td>(</td>
+          <td class="paramtype">struct task_struct *</td>          <td class="paramname"><span class="paramname"><em>tsk</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>cgroup_threadgroup_change_end - threadgroup exclusion for cgroups @tsk: target task</p>
+<p>Counterpart of cgroup_threadcgroup_change_begin().</p>
+<p>Function Description: Ends a read-side critical section for threadgroup changes. It releases the per-threadgroup lock if favordynmods is enabled, then releases the global lock. This is the counterpart to <a class="el" href="#aec642643e6eff3731ee6072a3d5e1a05">cgroup_threadgroup_change_begin()</a> and must be called after completing cgroup operations. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l00955">955</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  956</span>{</div>
+<div class="line"><span class="lineno">  957</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#acdd761f7b3bd3a2d3569f375035d4b86">cgroup_enable_per_threadgroup_rwsem</a>)</div>
+<div class="line"><span class="lineno">  958</span>        up_read(&amp;tsk-&gt;signal-&gt;cgroup_threadgroup_rwsem);</div>
+<div class="line"><span class="lineno">  959</span>    percpu_up_read(&amp;<a class="code hl_variable" href="#a4ae532c1eac15a6effcdc964dbf2e636">cgroup_threadgroup_rwsem</a>);</div>
+<div class="line"><span class="lineno">  960</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="cgroup-defs_8h_aa9142157ca6510e79e7931de6e70d547_icgraph.svg" width="544" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0073a047e09cace7686bbb0ae1dba77a" name="a0073a047e09cace7686bbb0ae1dba77a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0073a047e09cace7686bbb0ae1dba77a">&#9670;&#160;</a></span>sock_cgroup_classid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 sock_cgroup_classid </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a> *</td>          <td class="paramname"><span class="paramname"><em>skcd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Returns the network class identifier for a socket's cgroup data. It reads the classid field from the socket's cgroup data structure. This is used by the network layer to classify network traffic from sockets in cgroups. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l01016">1016</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1017</span>{</div>
+<div class="line"><span class="lineno"> 1018</span>    <span class="keywordflow">return</span> READ_ONCE(skcd-&gt;<a class="code hl_variable" href="structsock__cgroup__data.html#a064e377721d87be017509957fe68f5b0">classid</a>);</div>
+<div class="line"><span class="lineno"> 1019</span>}</div>
+<div class="ttc" id="astructsock__cgroup__data_html_a064e377721d87be017509957fe68f5b0"><div class="ttname"><a href="structsock__cgroup__data.html#a064e377721d87be017509957fe68f5b0">sock_cgroup_data::classid</a></div><div class="ttdeci">u32 classid</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00993">cgroup-defs.h:993</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a07a90bca90e12c1e4c73056a2ac1ac9a" name="a07a90bca90e12c1e4c73056a2ac1ac9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07a90bca90e12c1e4c73056a2ac1ac9a">&#9670;&#160;</a></span>sock_cgroup_prioidx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">u16 sock_cgroup_prioidx </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a> *</td>          <td class="paramname"><span class="paramname"><em>skcd</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Returns the network priority index for a socket's cgroup data. It reads the prioidx field from the socket's cgroup data structure. This is used by the network layer to determine packet priority for sockets in cgroups. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l01003">1003</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1004</span>{</div>
+<div class="line"><span class="lineno"> 1005</span><span class="preprocessor">#ifdef CONFIG_CGROUP_NET_PRIO</span></div>
+<div class="line"><span class="lineno"> 1006</span>    <span class="keywordflow">return</span> READ_ONCE(skcd-&gt;<a class="code hl_variable" href="structsock__cgroup__data.html#a31cef0b343333add56b168fe6ae16a1b">prioidx</a>);</div>
+<div class="line"><span class="lineno"> 1007</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno"> 1008</span>    <span class="keywordflow">return</span> 1;</div>
+<div class="line"><span class="lineno"> 1009</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno"> 1010</span>}</div>
+<div class="ttc" id="astructsock__cgroup__data_html_a31cef0b343333add56b168fe6ae16a1b"><div class="ttname"><a href="structsock__cgroup__data.html#a31cef0b343333add56b168fe6ae16a1b">sock_cgroup_data::prioidx</a></div><div class="ttdeci">u16 prioidx</div><div class="ttdef"><b>Definition</b> <a href="cgroup-defs_8h_source.html#l00996">cgroup-defs.h:996</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ace3174b5d6c11894278acb4f3d4361b8" name="ace3174b5d6c11894278acb4f3d4361b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace3174b5d6c11894278acb4f3d4361b8">&#9670;&#160;</a></span>sock_cgroup_set_classid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sock_cgroup_set_classid </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a> *</td>          <td class="paramname"><span class="paramname"><em>skcd</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32</td>          <td class="paramname"><span class="paramname"><em>classid</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Sets the network class identifier for a socket's cgroup data. It writes the class identifier value to the socket's cgroup data structure. This allows the net_cls controller to assign class IDs to sockets for traffic classification. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l01038">1038</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1040</span>{</div>
+<div class="line"><span class="lineno"> 1041</span>    WRITE_ONCE(skcd-&gt;<a class="code hl_variable" href="structsock__cgroup__data.html#a064e377721d87be017509957fe68f5b0">classid</a>, classid);</div>
+<div class="line"><span class="lineno"> 1042</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1fb3c413df18d4275a21ec784c400808" name="a1fb3c413df18d4275a21ec784c400808"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fb3c413df18d4275a21ec784c400808">&#9670;&#160;</a></span>sock_cgroup_set_prioidx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sock_cgroup_set_prioidx </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structsock__cgroup__data.html">sock_cgroup_data</a> *</td>          <td class="paramname"><span class="paramname"><em>skcd</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16</td>          <td class="paramname"><span class="paramname"><em>prioidx</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Sets the network priority index for a socket's cgroup data. It writes the priority index value to the socket's cgroup data structure. This allows the net_prio controller to assign priority levels to sockets. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-defs_8h_source.html#l01025">1025</a> of file <a class="el" href="cgroup-defs_8h_source.html">cgroup-defs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1027</span>{</div>
+<div class="line"><span class="lineno"> 1028</span><span class="preprocessor">#ifdef CONFIG_CGROUP_NET_PRIO</span></div>
+<div class="line"><span class="lineno"> 1029</span>    WRITE_ONCE(skcd-&gt;<a class="code hl_variable" href="structsock__cgroup__data.html#a31cef0b343333add56b168fe6ae16a1b">prioidx</a>, prioidx);</div>
+<div class="line"><span class="lineno"> 1030</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno"> 1031</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="acdd761f7b3bd3a2d3569f375035d4b86" name="acdd761f7b3bd3a2d3569f375035d4b86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdd761f7b3bd3a2d3569f375035d4b86">&#9670;&#160;</a></span>cgroup_enable_per_threadgroup_rwsem</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cgroup_enable_per_threadgroup_rwsem</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4ae532c1eac15a6effcdc964dbf2e636" name="a4ae532c1eac15a6effcdc964dbf2e636"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ae532c1eac15a6effcdc964dbf2e636">&#9670;&#160;</a></span>cgroup_threadgroup_rwsem</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct percpu_rw_semaphore cgroup_threadgroup_rwsem</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

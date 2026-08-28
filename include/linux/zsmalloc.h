@@ -16,6 +16,9 @@
 
 #include <linux/types.h>
 
+/**
+ * struct Description: This structure holds statistics for a zsmalloc pool. It contains a counter for how many pages were migrated (freed) during compaction. This is used to track the effectiveness of memory compaction in the zsmalloc allocator.
+ */
 struct zs_pool_stats {
 	/* How many pages were migrated (freed) */
 	atomic_long_t pages_compacted;

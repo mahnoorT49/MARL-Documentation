@@ -119,7 +119,8 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('_a.html','',''
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>page_slab - Converts from struct page to its slab.  </p>
-<p>Return: The slab which contains this page or NULL if the page does not belong to a slab. This includes pages returned from large kmalloc. </p>
+<p>Return: The slab which contains this page or NULL if the page does not belong to a slab. This includes pages returned from large kmalloc.</p>
+<p>Function Description: Converts a struct page pointer to a struct slab pointer. It handles compound pages by following the compound_head pointer and verifies the page type is PGTY_slab. Returns the slab pointer or NULL if the page does not belong to a slab. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

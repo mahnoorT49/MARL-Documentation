@@ -30,7 +30,12 @@ struct page;
 struct mm_struct;
 struct kmem_cache;
 
-/* Cgroup-specific page state, on top of universal node page state */
+/**
+ * Cgroup-specific page state, on top of universal node page state 
+ * 
+ * 
+ * Enumeration Description: This enumeration lists all memory cgroup statistics items. It extends the node page state items with cgroup-specific counters like swap usage, socket memory, percpu memory, vmalloc memory, kernel memory, and zswap usage. These are used to track various types of memory usage per cgroup.
+ */
 enum memcg_stat_item {
 	MEMCG_SWAP = NR_VM_NODE_STAT_ITEMS,
 	MEMCG_SOCK,
@@ -42,6 +47,9 @@ enum memcg_stat_item {
 	MEMCG_NR_STAT,
 };
 
+/**
+ * Enumeration Description: This enumeration lists all memory events that can be triggered for a cgroup. Events include low memory, high memory, max limit reached, OOM (out-of-memory) events, OOM kills, swap high, swap max, swap failures, and socket throttling. These events are used for monitoring and alerting.
+ */
 enum memcg_memory_event {
 	MEMCG_LOW,
 	MEMCG_HIGH,
@@ -56,6 +64,9 @@ enum memcg_memory_event {
 	MEMCG_NR_MEMORY_EVENTS,
 };
 
+/**
+ * struct Description: This structure holds reclaim context information. It contains the pgdat (node data) and a generation number. It is used during memory reclaim to track the current reclaim round and avoid infinite loops.
+ */
 struct mem_cgroup_reclaim_cookie {
 	pg_data_t *pgdat;
 	int generation;
@@ -65,6 +76,9 @@ struct mem_cgroup_reclaim_cookie {
 
 #define MEM_CGROUP_ID_SHIFT	16
 
+/**
+ * struct Description: This structure represents a private ID for a memory cgroup. It contains an ID number and a reference count. This ID is used to identify objects that outlive the cgroup itself. 
+ */
 struct mem_cgroup_private_id {
 	int id;
 	refcount_t ref;
@@ -76,71 +90,88 @@ struct memcg_vmstats;
 struct lruvec_stats_percpu;
 struct lruvec_stats;
 
+/**
+ * struct Description: This structure tracks the progress of reclaim iterations. It stores the current position in the cgroup hierarchy and an atomic generation counter that increases with each full round-trip. This is used for efficient scanning during memory reclaim.
+ */
 struct mem_cgroup_reclaim_iter {
 	struct mem_cgroup *position;
 	/* scan generation, increased every round-trip */
 	atomic_t generation;
 };
 
-/*
+/**
  * per-node information in memory controller.
+ * 
+ * 
+ * struct Description: This structure holds per-node information for a memory cgroup. It contains back pointer to the memcg, lruvec stats, shrinker info, v1-specific fields (like soft limit tracking), and the lruvec itself. It is used to manage per-node memory accounting and reclaim.
  */
 struct mem_cgroup_per_node {
-	/* Keep the read-only fields at the start */
-	struct mem_cgroup	*memcg;		/* Back pointer, we cannot */
-						/* use container_of	   */
+	/** Keep the read-only fields at the start */
+	struct mem_cgroup	*memcg;		/** Back pointer, we cannot */
+						/** use container_of	   */
 
 	struct lruvec_stats_percpu __percpu	*lruvec_stats_percpu;
 	struct lruvec_stats			*lruvec_stats;
 	struct shrinker_info __rcu	*shrinker_info;
 
 #ifdef CONFIG_MEMCG_V1
-	/*
+	/**
 	 * Memcg-v1 only stuff in middle as buffer between read mostly fields
 	 * and update often fields to avoid false sharing. If v1 stuff is
 	 * not present, an explicit padding is needed.
 	 */
 
-	struct rb_node		tree_node;	/* RB tree node */
-	unsigned long		usage_in_excess;/* Set to the value by which */
-						/* the soft limit is exceeded*/
+	struct rb_node		tree_node;	/** RB tree node */
+	unsigned long		usage_in_excess;/** Set to the value by which */
+						/** the soft limit is exceeded*/
 	bool			on_tree;
 #else
 	CACHELINE_PADDING(_pad1_);
 #endif
 
-	/* Fields which get updated often at the end. */
+	/** Fields which get updated often at the end. */
 	struct lruvec		lruvec;
 	CACHELINE_PADDING(_pad2_);
 	unsigned long		lru_zone_size[MAX_NR_ZONES][NR_LRU_LISTS];
 	struct mem_cgroup_reclaim_iter	iter;
 
 #ifdef CONFIG_MEMCG_NMI_SAFETY_REQUIRES_ATOMIC
-	/* slab stats for nmi context */
+	/** slab stats for nmi context */
 	atomic_t		slab_reclaimable;
 	atomic_t		slab_unreclaimable;
 #endif
 };
 
+/**
+ * struct Description: This structure represents a single threshold for memory events. It contains an eventfd context and the threshold value. Userspace can set thresholds and receive notifications when memory usage crosses them.
+ */
 struct mem_cgroup_threshold {
 	struct eventfd_ctx *eventfd;
 	unsigned long threshold;
 };
 
-/* For threshold */
+/**
+ * For threshold
+ * 
+ * 
+ * struct Description: This structure holds an array of memory thresholds. It contains the current threshold index, the size of the array, and the entries themselves. It is used to manage multiple thresholds for a cgroup. 
+ */
 struct mem_cgroup_threshold_ary {
-	/* An array index points to threshold just below or equal to usage. */
+	/** An array index points to threshold just below or equal to usage. */
 	int current_threshold;
-	/* Size of entries[] */
+	/** Size of entries[] */
 	unsigned int size;
-	/* Array of thresholds */
+	/** Array of thresholds */
 	struct mem_cgroup_threshold entries[] __counted_by(size);
 };
 
+/**
+ * struct Description: This structure holds primary and spare threshold arrays. The spare array allows mem_cgroup_unregister_event() to never fail by providing backup storage. This is used for managing memory threshold events.
+ */
 struct mem_cgroup_thresholds {
-	/* Primary thresholds array */
+	/** Primary thresholds array */
 	struct mem_cgroup_threshold_ary *primary;
-	/*
+	/**
 	 * Spare threshold array.
 	 * This is needed to make mem_cgroup_unregister_event() "never fail".
 	 * It must be able to store at least primary->size - 1 entries.
@@ -158,6 +189,9 @@ struct mem_cgroup_thresholds {
  */
 #define MEMCG_CGWB_FRN_CNT	4
 
+/**
+ * struct Description: This structure tracks foreign writeback information. It contains the bdi ID, memcg ID, timestamp, and a completion for tracking in-flight writebacks. It is used to track which cgroups are dirtying pages on behalf of other cgroups.  
+ */
 struct memcg_cgwb_frn {
 	u64 bdi_id;			/* bdi->id of the foreign inode */
 	int memcg_id;			/* memcg->css.id of foreign inode */
@@ -165,11 +199,14 @@ struct memcg_cgwb_frn {
 	struct wb_completion done;	/* tracks in-flight foreign writebacks */
 };
 
-/*
+/**
  * Bucket for arbitrarily byte-sized objects charged to a memory
  * cgroup. The bucket can be reparented in one piece when the cgroup
  * is destroyed, without having to round up the individual references
  * of all live memory objects in the wild.
+ * 
+ * 
+ * struct Description: This structure represents an object cgroup for charging arbitrarily-sized objects. It contains a percpu reference count, a pointer to the memcg, and atomic byte counters. This allows efficient charging and reparenting of objects without rounding up individual references.
  */
 struct obj_cgroup {
 	struct percpu_ref refcnt;
@@ -181,73 +218,76 @@ struct obj_cgroup {
 	};
 };
 
-/*
+/**
  * The memory controller data structure. The memory controller controls both
  * page cache and RSS per cgroup. We would eventually like to provide
  * statistics based on the statistics developed by Rik Van Riel for clock-pro,
  * to help the administrator determine what knobs to tune.
+ * 
+ * 
+ * struct Description: This is the main memory controller structure. It contains the cgroup subsystem state, private ID, page counters for memory and swap, vmpressure notifications, OOM group flag, swappiness, events files, vmstats, and various v1-specific fields. Each memory cgroup has one of these structures.
  */
 struct mem_cgroup {
 	struct cgroup_subsys_state css;
 
-	/* Private memcg ID. Used to ID objects that outlive the cgroup */
+	/** Private memcg ID. Used to ID objects that outlive the cgroup */
 	struct mem_cgroup_private_id id;
 
-	/* Accounted resources */
-	struct page_counter memory;		/* Both v1 & v2 */
+	/** Accounted resources */
+	struct page_counter memory;		/** Both v1 & v2 */
 
 	union {
-		struct page_counter swap;	/* v2 only */
-		struct page_counter memsw;	/* v1 only */
+		struct page_counter swap;	/** v2 only */
+		struct page_counter memsw;	/** v1 only */
 	};
 
-	/* registered local peak watchers */
+	/** registered local peak watchers */
 	struct list_head memory_peaks;
 	struct list_head swap_peaks;
 	spinlock_t	 peaks_lock;
 
-	/* Range enforcement for interrupt charges */
+	/** Range enforcement for interrupt charges */
 	struct work_struct high_work;
 
 #ifdef CONFIG_ZSWAP
 	unsigned long zswap_max;
 
-	/*
+	/**
 	 * Prevent pages from this memcg from being written back from zswap to
 	 * swap, and from being swapped out on zswap store failures.
 	 */
 	bool zswap_writeback;
 #endif
 
-	/* vmpressure notifications */
+	/** vmpressure notifications */
 	struct vmpressure vmpressure;
 
-	/*
+	/**
 	 * Should the OOM killer kill all belonging tasks, had it kill one?
 	 */
 	bool oom_group;
 
 	int swappiness;
 
-	/* memory.events and memory.events.local */
+	/** memory.events and memory.events.local */
 	struct cgroup_file events_file;
 	struct cgroup_file events_local_file;
 
-	/* handle for "memory.swap.events" */
+	/** handle for "memory.swap.events" */
 	struct cgroup_file swap_events_file;
 
-	/* memory.stat */
+	/** memory.stat */
 	struct memcg_vmstats	*vmstats;
 
-	/* memory.events */
+	/** memory.events */
 	atomic_long_t		memory_events[MEMCG_NR_MEMORY_EVENTS];
 	atomic_long_t		memory_events_local[MEMCG_NR_MEMORY_EVENTS];
 
 #ifdef CONFIG_MEMCG_NMI_SAFETY_REQUIRES_ATOMIC
-	/* MEMCG_KMEM for nmi context */
+	/** MEMCG_KMEM for nmi context */
 	atomic_t		kmem_stat;
 #endif
-	/*
+	/**
 	 * Hint of reclaim pressure for socket memroy management. Note
 	 * that this indicator should NOT be used in legacy cgroup mode
 	 * where socket memory is accounted/charged separately.
@@ -257,14 +297,14 @@ struct mem_cgroup {
 	seqlock_t		socket_pressure_seqlock;
 #endif
 	int kmemcg_id;
-	/*
+	/**
 	 * memcg->objcg is wiped out as a part of the objcg repaprenting
 	 * process. memcg->orig_objcg preserves a pointer (and a reference)
 	 * to the original objcg until the end of live of memcg.
 	 */
 	struct obj_cgroup __rcu	*objcg;
 	struct obj_cgroup	*orig_objcg;
-	/* list of inherited objcgs, protected by objcg_lock */
+	/** list of inherited objcgs, protected by objcg_lock */
 	struct list_head objcg_list;
 
 	struct memcg_vmstats_percpu __percpu *vmstats_percpu;
@@ -280,12 +320,12 @@ struct mem_cgroup {
 #endif
 
 #ifdef CONFIG_LRU_GEN_WALKS_MMU
-	/* per-memcg mm_struct list */
+	/** per-memcg mm_struct list */
 	struct lru_gen_mm_list mm_list;
 #endif
 
 #ifdef CONFIG_MEMCG_V1
-	/* Legacy consumer-oriented counters */
+	/** Legacy consumer-oriented counters */
 	struct page_counter kmem;		/* v1 only */
 	struct page_counter tcpmem;		/* v1 only */
 
@@ -293,33 +333,33 @@ struct mem_cgroup {
 
 	unsigned long soft_limit;
 
-	/* protected by memcg_oom_lock */
+	/** protected by memcg_oom_lock */
 	bool oom_lock;
 	int under_oom;
 
-	/* OOM-Killer disable */
+	/** OOM-Killer disable */
 	int oom_kill_disable;
 
-	/* protect arrays of thresholds */
+	/** protect arrays of thresholds */
 	struct mutex thresholds_lock;
 
-	/* thresholds for memory usage. RCU-protected */
+	/** thresholds for memory usage. RCU-protected */
 	struct mem_cgroup_thresholds thresholds;
 
-	/* thresholds for mem+swap usage. RCU-protected */
+	/** thresholds for mem+swap usage. RCU-protected */
 	struct mem_cgroup_thresholds memsw_thresholds;
 
-	/* For oom notifier event fd */
+	/** For oom notifier event fd */
 	struct list_head oom_notify;
 
-	/* Legacy tcp memory accounting */
+	/** Legacy tcp memory accounting */
 	bool tcpmem_active;
 	int tcpmem_pressure;
 
-	/* List of events which userspace want to receive */
+	/** List of events which userspace want to receive */
 	struct list_head event_list;
 	spinlock_t event_list_lock;
-#endif /* CONFIG_MEMCG_V1 */
+#endif /** CONFIG_MEMCG_V1 */
 
 	struct mem_cgroup_per_node *nodeinfo[];
 };
@@ -333,12 +373,15 @@ struct mem_cgroup {
 
 extern struct mem_cgroup *root_mem_cgroup;
 
+/**
+ * Enumeration Description: These flags are stored in the page's memcg_data field. MEMCG_DATA_OBJEXTS indicates the page has an slabobj_ext vector. MEMCG_DATA_KMEM indicates the page has been accounted as a non-slab kernel page. These flags help determine what type of memory accounting applies to a page.
+ */
 enum page_memcg_data_flags {
-	/* page->memcg_data is a pointer to an slabobj_ext vector */
+	/** page->memcg_data is a pointer to an slabobj_ext vector */
 	MEMCG_DATA_OBJEXTS = (1UL << 0),
-	/* page has been accounted as a non-slab kernel page */
+	/** page has been accounted as a non-slab kernel page */
 	MEMCG_DATA_KMEM = (1UL << 1),
-	/* the next bit after the last actual flag */
+	/** the next bit after the last actual flag */
 	__NR_MEMCG_DATA_FLAGS  = (1UL << 2),
 };
 
@@ -352,15 +395,18 @@ enum page_memcg_data_flags {
 
 #endif /* CONFIG_MEMCG */
 
+/**
+ * Enumeration Description: These flags are used for slab object extensions. OBJEXTS_ALLOC_FAIL indicates that allocation of the slabobj_ext vector failed. Other flags are reserved for future use. These are used when tracking per-object memory accounting.
+ */
 enum objext_flags {
-	/*
+	/**
 	 * Use bit 0 with zero other bits to signal that slabobj_ext vector
 	 * failed to allocate. The same bit 0 with valid upper bits means
 	 * MEMCG_DATA_OBJEXTS.
 	 */
 	OBJEXTS_ALLOC_FAIL = __OBJEXTS_ALLOC_FAIL,
 	__OBJEXTS_FLAG_UNUSED = __FIRST_OBJEXT_FLAG,
-	/* the next bit after the last actual flag */
+	/** the next bit after the last actual flag */
 	__NR_OBJEXTS_FLAGS  = (__FIRST_OBJEXT_FLAG << 1),
 };
 
@@ -370,11 +416,14 @@ enum objext_flags {
 
 static inline bool folio_memcg_kmem(struct folio *folio);
 
-/*
+/**
  * After the initialization objcg->memcg is always pointing at
  * a valid memcg, but can be atomically swapped to the parent memcg.
  *
  * The caller must ensure that the returned memcg won't be released.
+ * 
+ * 
+ * Function Description: Returns the memory cgroup associated with an object cgroup. It reads the memcg pointer from the objcg structure. The caller must ensure RCU read lock is held or cgroup_mutex is locked to prevent the memcg from being released.
  */
 static inline struct mem_cgroup *obj_cgroup_memcg(struct obj_cgroup *objcg)
 {
@@ -382,7 +431,7 @@ static inline struct mem_cgroup *obj_cgroup_memcg(struct obj_cgroup *objcg)
 	return READ_ONCE(objcg->memcg);
 }
 
-/*
+/**
  * __folio_memcg - Get the memory cgroup associated with a non-kmem folio
  * @folio: Pointer to the folio.
  *
@@ -391,6 +440,9 @@ static inline struct mem_cgroup *obj_cgroup_memcg(struct obj_cgroup *objcg)
  * proper memory cgroup pointer. It's not safe to call this function
  * against some type of folios, e.g. slab folios or ex-slab folios or
  * kmem folios.
+ * 
+ * 
+ * Function Description: Gets the memory cgroup associated with a non-kmem folio. It extracts the memcg pointer from folio->memcg_data after verifying the folio is not a slab folio and does not have OBJEXTS or KMEM flags. This is an internal function used by folio_memcg().
  */
 static inline struct mem_cgroup *__folio_memcg(struct folio *folio)
 {
@@ -403,7 +455,7 @@ static inline struct mem_cgroup *__folio_memcg(struct folio *folio)
 	return (struct mem_cgroup *)(memcg_data & ~OBJEXTS_FLAGS_MASK);
 }
 
-/*
+/**
  * __folio_objcg - get the object cgroup associated with a kmem folio.
  * @folio: Pointer to the folio.
  *
@@ -412,6 +464,9 @@ static inline struct mem_cgroup *__folio_memcg(struct folio *folio)
  * proper object cgroup pointer. It's not safe to call this function
  * against some type of folios, e.g. slab folios or ex-slab folios or
  * LRU folios.
+ * 
+ * 
+ * Function Description: Gets the object cgroup associated with a kmem folio. It extracts the objcg pointer from folio->memcg_data after verifying the KMEM flag is set. This is an internal function used by folio_memcg() for kmem folios.
  */
 static inline struct obj_cgroup *__folio_objcg(struct folio *folio)
 {
@@ -424,7 +479,7 @@ static inline struct obj_cgroup *__folio_objcg(struct folio *folio)
 	return (struct obj_cgroup *)(memcg_data & ~OBJEXTS_FLAGS_MASK);
 }
 
-/*
+/**
  * folio_memcg - Get the memory cgroup associated with a folio.
  * @folio: Pointer to the folio.
  *
@@ -442,6 +497,9 @@ static inline struct obj_cgroup *__folio_objcg(struct folio *folio)
  *
  * For a kmem folio a caller should hold an rcu read lock to protect memcg
  * associated with a kmem folio from being released.
+ * 
+ * 
+ * Function Description: Returns the memory cgroup associated with a folio. For kmem folios, it gets the objcg and returns its memcg. For non-kmem folios, it returns the memcg directly. This function assumes the folio has a proper memory cgroup pointer and is not a slab folio.
  */
 static inline struct mem_cgroup *folio_memcg(struct folio *folio)
 {
@@ -450,18 +508,21 @@ static inline struct mem_cgroup *folio_memcg(struct folio *folio)
 	return __folio_memcg(folio);
 }
 
-/*
+/**
  * folio_memcg_charged - If a folio is charged to a memory cgroup.
  * @folio: Pointer to the folio.
  *
  * Returns true if folio is charged to a memory cgroup, otherwise returns false.
+ * 
+ * 
+ * Function Description: Checks if a folio is charged to a memory cgroup. It returns true if folio->memcg_data is non-zero, indicating the folio has an associated memory cgroup or object cgroup.
  */
 static inline bool folio_memcg_charged(struct folio *folio)
 {
 	return folio->memcg_data != 0;
 }
 
-/*
+/**
  * folio_memcg_check - Get the memory cgroup associated with a folio.
  * @folio: Pointer to the folio.
  *
@@ -480,6 +541,9 @@ static inline bool folio_memcg_charged(struct folio *folio)
  *
  * For a kmem folio a caller should hold an rcu read lock to protect memcg
  * associated with a kmem folio from being released.
+ * 
+ * 
+ * Function Description: Safely gets the memory cgroup associated with any folio. Unlike folio_memcg(), this function can handle slab folios, folios with OBJEXTS, and folios with KMEM flags. It uses READ_ONCE() for safe access and returns NULL if the folio has OBJEXTS.
  */
 static inline struct mem_cgroup *folio_memcg_check(struct folio *folio)
 {
@@ -502,6 +566,9 @@ static inline struct mem_cgroup *folio_memcg_check(struct folio *folio)
 	return (struct mem_cgroup *)(memcg_data & ~OBJEXTS_FLAGS_MASK);
 }
 
+/**
+ * Function Description: Gets the memory cgroup associated with a page. It checks if the page is a tail page (returning NULL) and then calls folio_memcg_check(). This is a page-level wrapper for folio_memcg_check().
+ */
 static inline struct mem_cgroup *page_memcg_check(struct page *page)
 {
 	if (PageTail(page))
@@ -509,6 +576,9 @@ static inline struct mem_cgroup *page_memcg_check(struct page *page)
 	return folio_memcg_check((struct folio *)page);
 }
 
+/**
+ * Function Description: Gets a reference to the memory cgroup from an object cgroup. It uses RCU protection to read the memcg pointer and tries to get a reference with css_tryget(). If the tryget fails, it retries until successful. Returns the memcg with an acquired reference.
+ */
 static inline struct mem_cgroup *get_mem_cgroup_from_objcg(struct obj_cgroup *objcg)
 {
 	struct mem_cgroup *memcg;
@@ -523,13 +593,16 @@ retry:
 	return memcg;
 }
 
-/*
+/**
  * folio_memcg_kmem - Check if the folio has the memcg_kmem flag set.
  * @folio: Pointer to the folio.
  *
  * Checks if the folio has MemcgKmem flag set. The caller must ensure
  * that the folio has an associated memory cgroup. It's not safe to call
  * this function against some types of folios, e.g. slab folios.
+ * 
+ * 
+ * Function Description: Checks if a folio has the memcg_kmem flag set. This indicates the folio is a kernel memory folio charged to an object cgroup. The caller must ensure the folio has an associated memory cgroup.
  */
 static inline bool folio_memcg_kmem(struct folio *folio)
 {
@@ -538,21 +611,33 @@ static inline bool folio_memcg_kmem(struct folio *folio)
 	return folio->memcg_data & MEMCG_DATA_KMEM;
 }
 
+/**
+ * Function Description: Checks if a page has the memcg_kmem flag set. It calls folio_memcg_kmem() on the page's folio. This is a page-level wrapper for folio_memcg_kmem().
+ */
 static inline bool PageMemcgKmem(struct page *page)
 {
 	return folio_memcg_kmem(page_folio(page));
 }
 
+/**
+ * Function Description: Checks if a memcg is the root memory cgroup. Returns true if the memcg equals root_mem_cgroup. This is used to identify the root cgroup which has special handling.
+ */
 static inline bool mem_cgroup_is_root(struct mem_cgroup *memcg)
 {
 	return (memcg == root_mem_cgroup);
 }
 
+/**
+ * Function Description: Checks if the memory cgroup subsystem is disabled. Returns true if the memory cgroup controller is not enabled in the kernel configuration or at runtime.
+ */
 static inline bool mem_cgroup_disabled(void)
 {
 	return !cgroup_subsys_enabled(memory_cgrp_subsys);
 }
 
+/**
+ * Function Description: Gets the memory protection values for a cgroup. It reads the effective min and low values from the memcg's memory page counter. These values are used to determine how much memory the cgroup is protected from reclaim.
+ */
 static inline void mem_cgroup_protection(struct mem_cgroup *root,
 					 struct mem_cgroup *memcg,
 					 unsigned long *min,
@@ -565,7 +650,9 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
 		return;
 
 	*usage = page_counter_read(&memcg->memory);
-	/*
+	/**
+	 * 
+	 * 
 	 * There is no reclaim protection applied to a targeted reclaim.
 	 * We are special casing this specific case here because
 	 * mem_cgroup_calculate_protection is not robust enough to keep
@@ -608,6 +695,9 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
 void mem_cgroup_calculate_protection(struct mem_cgroup *root,
 				     struct mem_cgroup *memcg);
 
+/**
+ * Function Description: Checks if a cgroup is unprotected from reclaim. Returns true if memory cgroup is disabled, the memcg is the root, or the target memcg equals the memcg being checked. Unprotected cgroups have no memory protection.
+ */
 static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
 					  struct mem_cgroup *memcg)
 {
@@ -620,6 +710,9 @@ static inline bool mem_cgroup_unprotected(struct mem_cgroup *target,
 		memcg == target;
 }
 
+/**
+ * Function Description: Checks if a cgroup's memory usage is below its low protection limit. Returns true if the current usage is less than or equal to the effective low limit. This indicates the cgroup is within its low protection.
+ */
 static inline bool mem_cgroup_below_low(struct mem_cgroup *target,
 					struct mem_cgroup *memcg)
 {
@@ -630,6 +723,9 @@ static inline bool mem_cgroup_below_low(struct mem_cgroup *target,
 		page_counter_read(&memcg->memory);
 }
 
+/**
+ * Function Description: Checks if a cgroup's memory usage is below its min protection limit. Returns true if the current usage is less than or equal to the effective min limit. This indicates the cgroup is within its min protection.
+ */
 static inline bool mem_cgroup_below_min(struct mem_cgroup *target,
 					struct mem_cgroup *memcg)
 {
@@ -655,6 +751,9 @@ int __mem_cgroup_charge(struct folio *folio, struct mm_struct *mm, gfp_t gfp);
  * Do not use this for folios allocated for swapin.
  *
  * Return: 0 on success. Otherwise, an error code is returned.
+ * 
+ * 
+ * Function Description: Charges a newly allocated folio to a memory cgroup. It tries to charge the folio to the memcg that the mm belongs to, reclaiming pages if necessary. Returns 0 on success or an error code. This is the main function for charging folios.
  */
 static inline int mem_cgroup_charge(struct folio *folio, struct mm_struct *mm,
 				    gfp_t gfp)
@@ -676,6 +775,9 @@ void __mem_cgroup_uncharge(struct folio *folio);
  * @folio: Folio to uncharge.
  *
  * Uncharge a folio previously charged with mem_cgroup_charge().
+ * 
+ * 
+ * Function Description: Uncharges a folio previously charged with mem_cgroup_charge(). It releases the folio from its memory cgroup accounting. This should be called when the folio is freed.
  */
 static inline void mem_cgroup_uncharge(struct folio *folio)
 {
@@ -684,6 +786,10 @@ static inline void mem_cgroup_uncharge(struct folio *folio)
 	__mem_cgroup_uncharge(folio);
 }
 
+
+/**
+ * Function Description: Uncharges multiple folios in a batch. It calls __mem_cgroup_uncharge_folios() to uncharge all folios in the folio_batch. This is more efficient than uncharging folios individually.
+ */
 void __mem_cgroup_uncharge_folios(struct folio_batch *folios);
 static inline void mem_cgroup_uncharge_folios(struct folio_batch *folios)
 {
@@ -703,6 +809,9 @@ void mem_cgroup_migrate(struct folio *old, struct folio *new);
  * Returns the lru list vector holding pages for a given @memcg &
  * @pgdat combination. This can be the node lruvec, if the memory
  * controller is disabled.
+ * 
+ * 
+ * Function Description: Returns the lru list vector for a memcg and node combination. It gets the per-node memcg data and returns its lruvec. This is used to get the correct LRU list for a memcg on a specific node.
  */
 static inline struct lruvec *mem_cgroup_lruvec(struct mem_cgroup *memcg,
 					       struct pglist_data *pgdat)
@@ -736,6 +845,9 @@ out:
  * @folio: Pointer to the folio.
  *
  * This function relies on folio->mem_cgroup being stable.
+ * 
+ * 
+ * Function Description: Returns the lruvec for isolating or putting an LRU folio. It gets the memcg from the folio and calls mem_cgroup_lruvec() with the folio's pgdat. This relies on stable folio->memcg binding.
  */
 static inline struct lruvec *folio_lruvec(struct folio *folio)
 {
@@ -767,43 +879,67 @@ void lruvec_memcg_debug(struct lruvec *lruvec, struct folio *folio)
 }
 #endif
 
+/**
+ * Function Description: Returns the mem_cgroup from a cgroup subsystem state. It uses container_of() to get the memcg from the css. Returns NULL if the css is NULL.
+ */
 static inline
 struct mem_cgroup *mem_cgroup_from_css(struct cgroup_subsys_state *css){
 	return css ? container_of(css, struct mem_cgroup, css) : NULL;
 }
 
+/**
+ * Function Description: Tries to get a reference to an object cgroup. It calls percpu_ref_tryget() to increment the reference count if the object cgroup is not being destroyed. Returns true if successful.
+ */
 static inline bool obj_cgroup_tryget(struct obj_cgroup *objcg)
 {
 	return percpu_ref_tryget(&objcg->refcnt);
 }
 
+/**
+ * Function Description: Gets a reference to an object cgroup. It calls percpu_ref_get() to increment the reference count. The caller must ensure the objcg is valid.
+ */
 static inline void obj_cgroup_get(struct obj_cgroup *objcg)
 {
 	percpu_ref_get(&objcg->refcnt);
 }
 
+/**
+ * Function Description: Gets multiple references to an object cgroup. It calls percpu_ref_get_many() to increment the reference count by the specified number. This is useful for bulk operations.
+ */
 static inline void obj_cgroup_get_many(struct obj_cgroup *objcg,
 				       unsigned long nr)
 {
 	percpu_ref_get_many(&objcg->refcnt, nr);
 }
 
+/**
+ * Function Description: Puts a reference to an object cgroup. It calls percpu_ref_put() to decrement the reference count. If the refcount reaches zero, the object cgroup is destroyed.
+ */
 static inline void obj_cgroup_put(struct obj_cgroup *objcg)
 {
 	if (objcg)
 		percpu_ref_put(&objcg->refcnt);
 }
 
+/**
+ * Function Description: Tries to get a reference to a memory cgroup. It calls css_tryget() on the memcg's css. Returns true if successful, false if the memcg is NULL or cannot be referenced.
+ */
 static inline bool mem_cgroup_tryget(struct mem_cgroup *memcg)
 {
 	return !memcg || css_tryget(&memcg->css);
 }
 
+/**
+ * Function Description: Tries to get a reference to an online memory cgroup. It calls css_tryget_online() which only succeeds if the cgroup is online. Returns true if successful.
+ */
 static inline bool mem_cgroup_tryget_online(struct mem_cgroup *memcg)
 {
 	return !memcg || css_tryget_online(&memcg->css);
 }
 
+/**
+ * Function Description: Puts a reference to a memory cgroup. It calls css_put() on the memcg's css. This should be called to release references obtained with mem_cgroup_tryget().
+ */
 static inline void mem_cgroup_put(struct mem_cgroup *memcg)
 {
 	if (memcg)
@@ -820,6 +956,9 @@ void mem_cgroup_iter_break(struct mem_cgroup *, struct mem_cgroup *);
 void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
 			   int (*)(struct task_struct *, void *), void *arg);
 
+/**
+ * Function Description: Returns the private ID of a memory cgroup. This ID is used to identify objects that outlive the cgroup. Returns 0 if memory cgroup is disabled.
+ */
 static inline unsigned short mem_cgroup_private_id(struct mem_cgroup *memcg)
 {
 	if (mem_cgroup_disabled())
@@ -829,6 +968,9 @@ static inline unsigned short mem_cgroup_private_id(struct mem_cgroup *memcg)
 }
 struct mem_cgroup *mem_cgroup_from_private_id(unsigned short id);
 
+/**
+ * Function Description: Returns the cgroup ID of a memory cgroup. This is the kernel's unique ID for the cgroup. Returns 0 if the memcg is NULL.
+ */
 static inline u64 mem_cgroup_id(struct mem_cgroup *memcg)
 {
 	return memcg ? cgroup_id(memcg->css.cgroup) : 0;
@@ -841,6 +983,9 @@ static inline struct mem_cgroup *mem_cgroup_from_seq(struct seq_file *m)
 	return mem_cgroup_from_css(seq_css(m));
 }
 
+/**
+ * Function Description: Returns the memcg associated with an lruvec. It uses container_of() to get the mem_cgroup_per_node from the lruvec, then returns its memcg pointer. Returns NULL if memory cgroup is disabled.
+ */
 static inline struct mem_cgroup *lruvec_memcg(struct lruvec *lruvec)
 {
 	struct mem_cgroup_per_node *mz;
@@ -857,12 +1002,18 @@ static inline struct mem_cgroup *lruvec_memcg(struct lruvec *lruvec)
  * @memcg: memcg whose parent to find
  *
  * Returns the parent memcg, or NULL if this is the root.
+ * 
+ * 
+ * Function Description: Returns the parent of a memory cgroup. It gets the parent css from the memcg's css and converts it to a memcg. Returns NULL if the memcg is the root.
  */
 static inline struct mem_cgroup *parent_mem_cgroup(struct mem_cgroup *memcg)
 {
 	return mem_cgroup_from_css(memcg->css.parent);
 }
 
+/**
+ * Function Description: Checks if one memcg is a descendant of another. It uses cgroup_is_descendant() on the cgroup structures. Returns true if memcg is a descendant of root.
+ */
 static inline bool mem_cgroup_is_descendant(struct mem_cgroup *memcg,
 			      struct mem_cgroup *root)
 {
@@ -871,6 +1022,9 @@ static inline bool mem_cgroup_is_descendant(struct mem_cgroup *memcg,
 	return cgroup_is_descendant(memcg->css.cgroup, root->css.cgroup);
 }
 
+/**
+ * Function Description: Checks if a memory cgroup matches the cgroup of a task's mm. It gets the memcg from the mm's owner task and checks if it's a descendant of the given memcg. Returns true if they match.
+ */
 static inline bool mm_match_cgroup(struct mm_struct *mm,
 				   struct mem_cgroup *memcg)
 {
@@ -888,6 +1042,9 @@ static inline bool mm_match_cgroup(struct mm_struct *mm,
 struct cgroup_subsys_state *mem_cgroup_css_from_folio(struct folio *folio);
 ino_t page_cgroup_ino(struct page *page);
 
+/**
+ * Function Description: Checks if a memory cgroup is online. Returns true if memory cgroup is disabled or if the css is online. A cgroup is online between css_online() and css_offline().
+ */
 static inline bool mem_cgroup_online(struct mem_cgroup *memcg)
 {
 	if (mem_cgroup_disabled())
@@ -897,6 +1054,7 @@ static inline bool mem_cgroup_online(struct mem_cgroup *memcg)
 
 void mem_cgroup_update_lru_size(struct lruvec *lruvec, enum lru_list lru,
 		int zid, int nr_pages);
+
 
 static inline
 unsigned long mem_cgroup_get_zone_lru_size(struct lruvec *lruvec,
@@ -908,6 +1066,9 @@ unsigned long mem_cgroup_get_zone_lru_size(struct lruvec *lruvec,
 	return READ_ONCE(mz->lru_zone_size[zone_idx][lru]);
 }
 
+/**
+ * Function Description: Handles the case where a cgroup's memory usage is over its high limit. It checks if current has over_high pages and calls the internal handler. This triggers reclaim or other actions to bring usage back below the limit.
+ */
 void __mem_cgroup_handle_over_high(gfp_t gfp_mask);
 
 static inline void mem_cgroup_handle_over_high(gfp_t gfp_mask)
@@ -931,6 +1092,9 @@ void mem_cgroup_print_oom_group(struct mem_cgroup *memcg);
 void mod_memcg_state(struct mem_cgroup *memcg,
 		     enum memcg_stat_item idx, int val);
 
+/**
+ * Function Description: Modifies a memory cgroup state counter for a page. It gets the memcg from the page and calls mod_memcg_state() with the page's memcg. This is a page-level wrapper for mod_memcg_state().
+ */
 static inline void mod_memcg_page_state(struct page *page,
 					enum memcg_stat_item idx, int val)
 {
@@ -963,6 +1127,9 @@ void mod_lruvec_kmem_state(void *p, enum node_stat_item idx, int val);
 void count_memcg_events(struct mem_cgroup *memcg, enum vm_event_item idx,
 			unsigned long count);
 
+/**
+ * Function Description: Counts memory cgroup events for a folio. It gets the memcg from the folio and calls count_memcg_events(). This is a folio-level wrapper for counting events.
+ */
 static inline void count_memcg_folio_events(struct folio *folio,
 		enum vm_event_item idx, unsigned long nr)
 {
@@ -972,6 +1139,9 @@ static inline void count_memcg_folio_events(struct folio *folio,
 		count_memcg_events(memcg, idx, nr);
 }
 
+/**
+ * Function Description: Counts memory cgroup events for an mm_struct. It gets the memcg from the mm's owner task and calls count_memcg_events(). This is used for events associated with a process.
+ */
 static inline void count_memcg_events_mm(struct mm_struct *mm,
 					enum vm_event_item idx, unsigned long count)
 {
@@ -993,6 +1163,9 @@ static inline void count_memcg_event_mm(struct mm_struct *mm,
 	count_memcg_events_mm(mm, idx, 1);
 }
 
+/**
+ * Function Description: Triggers a memory event for a cgroup. It calls __memcg_memory_event() with allow_spinning=true. This is used to notify userspace of memory events like OOM, low, high, etc.
+ */
 void __memcg_memory_event(struct mem_cgroup *memcg,
 			  enum memcg_memory_event event, bool allow_spinning);
 
@@ -1002,6 +1175,9 @@ static inline void memcg_memory_event(struct mem_cgroup *memcg,
 	__memcg_memory_event(memcg, event, true);
 }
 
+/**
+ * Function Description: Triggers a memory event for a cgroup associated with an mm. It gets the memcg from the mm's owner task and calls memcg_memory_event(). This is used for events associated with a process.
+ */
 static inline void memcg_memory_event_mm(struct mm_struct *mm,
 					 enum memcg_memory_event event)
 {
@@ -1021,6 +1197,9 @@ void split_page_memcg(struct page *first, unsigned order);
 void folio_split_memcg_refs(struct folio *folio, unsigned old_order,
 		unsigned new_order);
 
+/**
+ * Function Description: Returns the cgroup ID from an mm_struct. It gets the memcg from the mm's owner task and returns its cgroup ID. Returns 0 if memory cgroup is disabled.
+ */
 static inline u64 cgroup_id_from_mm(struct mm_struct *mm)
 {
 	struct mem_cgroup *memcg;
@@ -1453,9 +1632,12 @@ static inline void mem_cgroup_flush_workqueue(void) { }
 static inline int mem_cgroup_init(void) { return 0; }
 #endif /* CONFIG_MEMCG */
 
-/*
+/**
  * Extended information for slab objects stored as an array in page->memcg_data
  * if MEMCG_DATA_OBJEXTS is set.
+ * 
+ * 
+ * struct Description: This structure holds extended information for slab objects. It contains the object cgroup pointer for memcg accounting and a code tag reference for memory allocation profiling. It is stored as an array in page->memcg_data when MEMCG_DATA_OBJEXTS is set.
  */
 struct slabobj_ext {
 #ifdef CONFIG_MEMCG
@@ -1595,6 +1777,10 @@ bool mem_cgroup_sk_charge(const struct sock *sk, unsigned int nr_pages,
 void mem_cgroup_sk_uncharge(const struct sock *sk, unsigned int nr_pages);
 
 #if BITS_PER_LONG < 64
+
+/**
+ * Function Description: Sets the socket pressure hint for a cgroup. It sets the socket_pressure field to jiffies + HZ, indicating recent socket memory pressure. This is used for socket memory management.
+ */
 static inline void mem_cgroup_set_socket_pressure(struct mem_cgroup *memcg)
 {
 	u64 val = get_jiffies_64() + HZ;
@@ -1605,6 +1791,9 @@ static inline void mem_cgroup_set_socket_pressure(struct mem_cgroup *memcg)
 	write_sequnlock_irqrestore(&memcg->socket_pressure_seqlock, flags);
 }
 
+/**
+ * Function Description: Gets the socket pressure hint for a cgroup. It reads the socket_pressure field, using seqlock protection on 32-bit systems. This is used to check if the cgroup is under socket memory pressure.
+ */
 static inline u64 mem_cgroup_get_socket_pressure(struct mem_cgroup *memcg)
 {
 	unsigned int seq;
@@ -1718,6 +1907,9 @@ static inline bool memcg_kmem_online(void)
 	return static_branch_likely(&memcg_kmem_online_key);
 }
 
+/**
+ * Function Description: Charges a page to the kernel memory controller. It calls __memcg_kmem_charge_page() if kmem accounting is online. This is used for charging kernel memory allocations.
+ */
 static inline int memcg_kmem_charge_page(struct page *page, gfp_t gfp,
 					 int order)
 {
@@ -1726,15 +1918,21 @@ static inline int memcg_kmem_charge_page(struct page *page, gfp_t gfp,
 	return 0;
 }
 
+/**
+ * Function Description: Uncharges a page from the kernel memory controller. It calls __memcg_kmem_uncharge_page() if kmem accounting is online. This releases the page from kernel memory accounting.
+ */
 static inline void memcg_kmem_uncharge_page(struct page *page, int order)
 {
 	if (memcg_kmem_online())
 		__memcg_kmem_uncharge_page(page, order);
 }
 
-/*
+/**
  * A helper for accessing memcg's kmem_id, used for getting
  * corresponding LRU lists.
+ * 
+ * 
+ * Function Description: Returns the kmem ID of a memcg. This ID is used for looking up corresponding LRU lists. Returns -1 if the memcg is NULL.
  */
 static inline int memcg_kmem_id(struct mem_cgroup *memcg)
 {
@@ -1743,6 +1941,9 @@ static inline int memcg_kmem_id(struct mem_cgroup *memcg)
 
 struct mem_cgroup *mem_cgroup_from_virt(void *p);
 
+/**
+ * Function Description: Counts memory events for an object cgroup. It gets the memcg from the objcg and calls count_memcg_events(). This is used for tracking events for slab objects.
+ */
 static inline void count_objcg_events(struct obj_cgroup *objcg,
 				      enum vm_event_item idx,
 				      unsigned long count)
@@ -1762,6 +1963,9 @@ void mem_cgroup_node_filter_allowed(struct mem_cgroup *memcg, nodemask_t *mask);
 
 void mem_cgroup_show_protected_memory(struct mem_cgroup *memcg);
 
+/**
+ * Function Description: Checks if a memory cgroup is dying. Returns true if the css is being destroyed. This is used to skip operations on cgroups that are being removed.
+ */
 static inline bool memcg_is_dying(struct mem_cgroup *memcg)
 {
 	return memcg ? css_is_dying(&memcg->css) : false;
@@ -1884,12 +2088,18 @@ static inline bool task_in_memcg_oom(struct task_struct *p)
 	return p->memcg_in_oom;
 }
 
+/**
+ * Function Description: Marks that the current task has entered a user fault. This is used for OOM handling to track user page faults. For v1, it sets the in_user_fault flag.
+ */
 static inline void mem_cgroup_enter_user_fault(void)
 {
 	WARN_ON(current->in_user_fault);
 	current->in_user_fault = 1;
 }
 
+/**
+ * Function Description: Marks that the current task has exited a user fault. This is used for OOM handling to track user page faults. For v1, it clears the in_user_fault flag.
+ */
 static inline void mem_cgroup_exit_user_fault(void)
 {
 	WARN_ON(!current->in_user_fault);

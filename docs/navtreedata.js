@@ -46,7 +46,7 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", "globals_func" ],
-        [ "Variables", "globals_vars.html", null ],
+        [ "Variables", "globals_vars.html", "globals_vars" ],
         [ "Typedefs", "globals_type.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
         [ "Enumerator", "globals_eval.html", "globals_eval" ],
@@ -59,17 +59,28 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_a.html",
-"cgroup_8h.html#ae24b0776d5efc0398b2385e1946e8f48",
-"gfp__types_8h.html#a01e37e52e366faf6ce7067b231abf7ae",
-"include_2linux_2slab_8h.html#a6fce67019e3e6a221351e14ab5cecb87",
-"memcontrol_8c.html#a06035107a25eb3263a98ade373b4476b",
-"mm_2slab_8h.html#af3906c465dac60e87d91ac453d6aed3b",
-"oom__kill_8c.html#ae00ee46e52e5e22872a1c9e1e50ce21a",
-"slab__common_8c.html#a65e1df628459026d1e8d3ce0e69d9e8e",
-"structdetached__freelist.html",
-"structper__cpu__pages.html#aff90e3d1b3a9e56259ad93572bd0d7bf",
-"swap_8c.html#a2ade93c7e27c2623c0dd9f0849a1e7d6",
-"vmalloc_8h.html#ada6d7140e48da590089ecb27abeeea6f"
+"cgroup_8c.html#a3b9e9313c1877129213e112dca217239",
+"cgroup_8c.html#afe83320aa1cf0b78396775a47d325c8a",
+"dmapool_8c.html#afffd209ceffa1bf77fe4cdb86462d891",
+"gfp__types_8h.html#ac10d7ef0481062246cdcc1e750209ee2",
+"include_2linux_2slab_8h.html#a847d50d1b022f898afc8abb6f0fcdf16a8f4c0a2fde3375ef199babcc47f87e21",
+"memblock_8c.html#a83980438740a11363f0a98200c2c4c4f",
+"memcontrol_8c.html#aa933e6fa620171a9fc8ee3c5ef6e8f10",
+"memcontrol_8h.html#accc81c9064a67a03bbf66102c258f57eaecbb1087c5415db0e49ae698c8bcf238",
+"mmzone_8h.html#a09749c0356969cc3f134a9ed6d2b8409aa9bd80733ebc515cfbf9fdaada0a460a",
+"mmzone_8h.html#adf625afd7f24733787d089925d01530c",
+"page__alloc_8c.html#a644e65789e77afa946f3d755e7a069f9",
+"percpu_8c.html#a20e2ada4f6048f93071db8c1b4d09bbf",
+"slab__common_8c.html#a9435dc0ef662e6be82d9ef692f35a5b0",
+"slub_8c.html#a85cba6bfb1c77c44671d84b0c5644792",
+"structcgroup.html#a2741c0b543a729109d690c3ee11dbad4",
+"structdma__block.html",
+"structmem__cgroup__threshold.html",
+"structscan__control.html#abe160d0640791299b6f6441b373cc428",
+"swap_8c.html#ac7d49ec61e56c72c8a3ff7af8bbb2559",
+"vmalloc_8c.html#a2341bbbe98eaf303f5c21cfaabe1b036",
+"vmalloc_8h.html#a8ac394f9dd55e5dca1705b7d761aca93",
+"zsmalloc_8c.html#a8be5d19525075e74e0c5531826870879"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

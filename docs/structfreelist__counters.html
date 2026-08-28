@@ -132,12 +132,18 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aff49cd1ecc28fdba049628770653d32c" id="r_aff49cd1ecc28fdba049628770653d32c"><td class="memItemLeft anon">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="#afb64a431646035a23ecb23b51c266ae3">inuse</a>:16&#160;</td><td class="memItemRight"></td></tr>
 <tr class="memitem:ace2ff5d535aaf4d030e3cfc9bf365005" id="r_ace2ff5d535aaf4d030e3cfc9bf365005"><td class="memItemLeft anon">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="#ab0e2f9937381555fb56c6da61194fd09">objects</a>:15&#160;</td><td class="memItemRight"></td></tr>
 <tr class="memitem:a69e087a6cb71fda21b429b692b6c9c42" id="r_a69e087a6cb71fda21b429b692b6c9c42"><td class="memItemLeft anon">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;unsigned&#160;&#160;&#160;<a class="el" href="#a9be7578759667fe4f8494528537b81dc">frozen</a>:1&#160;</td><td class="memItemRight"></td></tr>
+<tr class="memitem:ae31542534f27454bfa2cd10abcb7b35b" id="r_ae31542534f27454bfa2cd10abcb7b35b"><td class="memItemLeft anon">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;unsigned int&#160;&#160;&#160;<a class="el" href="#a1777f79a996eed3622572969e79d1e56">stride</a>&#160;</td><td class="memItemRight"></td></tr>
 <tr class="memitem:afdee2391d4d8446e2bac73836d37723f" id="r_afdee2391d4d8446e2bac73836d37723f"><td class="memItemLeft anonEnd">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight"></td></tr>
 <tr class="memitem:ae60c0c88966e0dfdd19fb6f49ec6e820" id="r_ae60c0c88966e0dfdd19fb6f49ec6e820"><td class="memItemLeft anonEnd">&#160;&#160;&#160;&#160;&#160;&#160;}&#160;</td><td class="memItemRight"></td></tr>
 <tr class="memitem:a2a99682f7d83ab509d55e68d88a7d791" id="r_a2a99682f7d83ab509d55e68d88a7d791"><td class="memItemLeft anonEnd">&#160;&#160;&#160;}&#160;</td><td class="memItemRight"></td></tr>
 <tr class="memitem:abb76a1ba4572f87ec7a7d13f0616a399" id="r_abb76a1ba4572f87ec7a7d13f0616a399"><td class="memItemLeft anonEnd">};&#160;</td><td class="memItemRight"></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Freelist pointer and counter to cmpxchg together, avoids the typical ABA problems with cmpxchg of just a pointer.</p>
+<p>struct Description: This structure combines a freelist pointer and counters into a single atomically-accessible unit. It contains the freelist pointer, and counters for inuse objects, total objects, frozen state, and stride. It is used to enable ABA-free cmpxchg operations on freelists, preventing the typical ABA problem when updating freelist pointers. </p>
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00044">44</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="abb76a1ba4572f87ec7a7d13f0616a399" name="abb76a1ba4572f87ec7a7d13f0616a399"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abb76a1ba4572f87ec7a7d13f0616a399">&#9670;&#160;</a></span>[union]</h2>
 
@@ -164,6 +170,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00049">49</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="a541281c99905848431c0e6586ab318fc" name="a541281c99905848431c0e6586ab318fc"></a>
@@ -177,6 +185,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00047">47</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>
@@ -192,6 +202,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00058">58</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="afb64a431646035a23ecb23b51c266ae3" name="afb64a431646035a23ecb23b51c266ae3"></a>
@@ -206,6 +218,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00051">51</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
 </div>
 </div>
 <a id="ab0e2f9937381555fb56c6da61194fd09" name="ab0e2f9937381555fb56c6da61194fd09"></a>
@@ -219,6 +233,24 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00052">52</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
+
+</div>
+</div>
+<a id="a1777f79a996eed3622572969e79d1e56" name="a1777f79a996eed3622572969e79d1e56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1777f79a996eed3622572969e79d1e56">&#9670;&#160;</a></span>stride</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int freelist_counters::stride</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mm_2slab_8h_source.html#l00065">65</a> of file <a class="el" href="mm_2slab_8h_source.html">slab.h</a>.</p>
 
 </div>
 </div>

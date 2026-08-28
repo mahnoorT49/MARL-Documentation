@@ -127,14 +127,19 @@ Collaboration diagram for zs_pool:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ab9a9dbe441765655228cfd28b49fc203" id="r_ab9a9dbe441765655228cfd28b49fc203"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#ab9a9dbe441765655228cfd28b49fc203">name</a></td></tr>
-<tr class="memitem:a18cf6948dc16a40ddcbd009ed6b20911" id="r_a18cf6948dc16a40ddcbd009ed6b20911"><td class="memItemLeft">struct <a class="el" href="structsize__class.html">size_class</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a18cf6948dc16a40ddcbd009ed6b20911">size_class</a> [<a class="el" href="zsmalloc_8c.html#a4864db1fc833cab58b5f01cbacaaf594">ZS_SIZE_CLASSES</a>]</td></tr>
+<tr class="memitem:adccaa0c5cd0b9797facfb9051a025ade" id="r_adccaa0c5cd0b9797facfb9051a025ade"><td class="memItemLeft">struct <a class="el" href="structsize__class.html">size_class</a> *&#160;</td><td class="memItemRight"><a class="el" href="#adccaa0c5cd0b9797facfb9051a025ade">size_class</a> [(DIV_ROUND_UP(PAGE_SIZE - MAX(32,((_AC(CONFIG_ZSMALLOC_CHAIN_SIZE, UL))&lt;&lt; PAGE_SHIFT &gt; &gt;(BITS_PER_LONG -(BITS_PER_LONG - PAGE_SHIFT)))),(PAGE_SIZE &gt; &gt; 8))+1)]</td></tr>
 <tr class="memitem:a1bd63d6003671d2ef1e704bd9ab74bd7" id="r_a1bd63d6003671d2ef1e704bd9ab74bd7"><td class="memItemLeft">atomic_long_t&#160;</td><td class="memItemRight"><a class="el" href="#a1bd63d6003671d2ef1e704bd9ab74bd7">pages_allocated</a></td></tr>
 <tr class="memitem:a6a116e95b42d020b779ca4a5888bdc71" id="r_a6a116e95b42d020b779ca4a5888bdc71"><td class="memItemLeft">struct <a class="el" href="structzs__pool__stats.html">zs_pool_stats</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6a116e95b42d020b779ca4a5888bdc71">stats</a></td></tr>
 <tr class="memitem:a607bedf591043fb2f407537a13ddbc78" id="r_a607bedf591043fb2f407537a13ddbc78"><td class="memItemLeft">struct shrinker *&#160;</td><td class="memItemRight"><a class="el" href="#a607bedf591043fb2f407537a13ddbc78">shrinker</a></td></tr>
+<tr class="memitem:aef7e1b0578674b020d699052e739fe11" id="r_aef7e1b0578674b020d699052e739fe11"><td class="memItemLeft">struct work_struct&#160;</td><td class="memItemRight"><a class="el" href="#aef7e1b0578674b020d699052e739fe11">free_work</a></td></tr>
 <tr class="memitem:a7d315ed171712cfc3712f26b2bc0332d" id="r_a7d315ed171712cfc3712f26b2bc0332d"><td class="memItemLeft">rwlock_t&#160;</td><td class="memItemRight"><a class="el" href="#a7d315ed171712cfc3712f26b2bc0332d">lock</a></td></tr>
 <tr class="memitem:ad612ee92724289ed95f7d20364273462" id="r_ad612ee92724289ed95f7d20364273462"><td class="memItemLeft">atomic_t&#160;</td><td class="memItemRight"><a class="el" href="#ad612ee92724289ed95f7d20364273462">compaction_in_progress</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Function Description: This is the main structure representing a zsmalloc pool. It contains the pool name, array of size classes, total pages allocated, pool statistics, shrinker, compaction work, and locks. Each pool manages memory allocations for compressed pages (like in zswap). </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00217">217</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="ad612ee92724289ed95f7d20364273462" name="ad612ee92724289ed95f7d20364273462"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad612ee92724289ed95f7d20364273462">&#9670;&#160;</a></span>compaction_in_progress</h2>
 
@@ -146,6 +151,24 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00237">237</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+
+</div>
+</div>
+<a id="aef7e1b0578674b020d699052e739fe11" name="aef7e1b0578674b020d699052e739fe11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef7e1b0578674b020d699052e739fe11">&#9670;&#160;</a></span>free_work</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct work_struct zs_pool::free_work</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00233">233</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -160,6 +183,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>protect zspage migration/compaction </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00236">236</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -175,6 +201,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00218">218</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+
 </div>
 </div>
 <a id="a1bd63d6003671d2ef1e704bd9ab74bd7" name="a1bd63d6003671d2ef1e704bd9ab74bd7"></a>
@@ -189,6 +217,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00222">222</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+
 </div>
 </div>
 <a id="a607bedf591043fb2f407537a13ddbc78" name="a607bedf591043fb2f407537a13ddbc78"></a>
@@ -202,20 +232,25 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Compact classes </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00227">227</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
-<a id="a18cf6948dc16a40ddcbd009ed6b20911" name="a18cf6948dc16a40ddcbd009ed6b20911"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18cf6948dc16a40ddcbd009ed6b20911">&#9670;&#160;</a></span>size_class</h2>
+<a id="adccaa0c5cd0b9797facfb9051a025ade" name="adccaa0c5cd0b9797facfb9051a025ade"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adccaa0c5cd0b9797facfb9051a025ade">&#9670;&#160;</a></span>size_class</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="structsize__class.html">size_class</a>* zs_pool::size_class[<a class="el" href="zsmalloc_8c.html#a4864db1fc833cab58b5f01cbacaaf594">ZS_SIZE_CLASSES</a>]</td>
+          <td class="memname">struct <a class="el" href="structsize__class.html">size_class</a>* zs_pool::size_class[(DIV_ROUND_UP(PAGE_SIZE - MAX(32,((_AC(CONFIG_ZSMALLOC_CHAIN_SIZE, UL))&lt;&lt; PAGE_SHIFT &gt; &gt;(BITS_PER_LONG -(BITS_PER_LONG - PAGE_SHIFT)))),(PAGE_SIZE &gt; &gt; 8))+1)]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00220">220</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -231,10 +266,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00224">224</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="zsmalloc_8c.html">zsmalloc.c</a></li>
+<li>mm/<a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

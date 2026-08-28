@@ -1,0 +1,158 @@
+\doxysection{per\+\_\+cpu\+\_\+pages Struct Reference}
+\hypertarget{structper__cpu__pages}{}\label{structper__cpu__pages}\index{per\_cpu\_pages@{per\_cpu\_pages}}
+
+
+{\ttfamily \+\#include $<$mmzone.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+spinlock\+\_\+t \doxymbox{\hyperlink{structper__cpu__pages_a8d156119fc0768eec36a372fbfc886c1}{lock}}
+\item 
+int \doxymbox{\hyperlink{structper__cpu__pages_a97c2e052ad53a4d27cec90627d01d897}{count}}
+\item 
+int \doxymbox{\hyperlink{structper__cpu__pages_a5785d4930534b71d6fed09c8b440ee96}{high}}
+\item 
+int \doxymbox{\hyperlink{structper__cpu__pages_a8af581adc9a34ba5a2c1b5d1b99c9e99}{high\+\_\+min}}
+\item 
+int \doxymbox{\hyperlink{structper__cpu__pages_ad6465e4740e84ab5b41c83af9b81a9f2}{high\+\_\+max}}
+\item 
+int \doxymbox{\hyperlink{structper__cpu__pages_a39e96360e94744f1c3d214ba0fd71555}{batch}}
+\item 
+u8 \doxymbox{\hyperlink{structper__cpu__pages_a67ed071045bbc9f5a452d8698b4a4acd}{flags}}
+\item 
+u8 \doxymbox{\hyperlink{structper__cpu__pages_aff90e3d1b3a9e56259ad93572bd0d7bf}{alloc\+\_\+factor}}
+\item 
+u8 \doxymbox{\hyperlink{structper__cpu__pages_aa62fe7145c577451c8bea0e9b4f7cfed}{expire}}
+\item 
+short \doxymbox{\hyperlink{structper__cpu__pages_a22ca01a295c418c073e57a01698cb978}{free\+\_\+count}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structper__cpu__pages_a8cd8d53e371ebe3a6093af85f9503843}{lists}} \+[((\doxymbox{\hyperlink{mmzone_8h_ae632273c4909482b279ed0e527a94b5fa5b81964ab81a9818979086c75160117a}{MIGRATE\+\_\+\+PCPTYPES}} \texorpdfstring{$\ast$}{*}(3+1))+2)]\+
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00744}{744}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+
+
+\label{structper__cpu__pages_doc-variable-members}
+\Hypertarget{structper__cpu__pages_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structper__cpu__pages_aff90e3d1b3a9e56259ad93572bd0d7bf}\index{per\_cpu\_pages@{per\_cpu\_pages}!alloc\_factor@{alloc\_factor}}
+\index{alloc\_factor@{alloc\_factor}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{alloc\_factor}{alloc\_factor}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_aff90e3d1b3a9e56259ad93572bd0d7bf} 
+u8 per\+\_\+cpu\+\_\+pages::\+alloc\+\_\+factor}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00752}{752}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_a39e96360e94744f1c3d214ba0fd71555}\index{per\_cpu\_pages@{per\_cpu\_pages}!batch@{batch}}
+\index{batch@{batch}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{batch}{batch}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_a39e96360e94744f1c3d214ba0fd71555} 
+int per\+\_\+cpu\+\_\+pages::\+batch}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00750}{750}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_a97c2e052ad53a4d27cec90627d01d897}\index{per\_cpu\_pages@{per\_cpu\_pages}!count@{count}}
+\index{count@{count}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{count}{count}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_a97c2e052ad53a4d27cec90627d01d897} 
+int per\+\_\+cpu\+\_\+pages::\+count}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00746}{746}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_aa62fe7145c577451c8bea0e9b4f7cfed}\index{per\_cpu\_pages@{per\_cpu\_pages}!expire@{expire}}
+\index{expire@{expire}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{expire}{expire}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_aa62fe7145c577451c8bea0e9b4f7cfed} 
+u8 per\+\_\+cpu\+\_\+pages::\+expire}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00754}{754}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_a67ed071045bbc9f5a452d8698b4a4acd}\index{per\_cpu\_pages@{per\_cpu\_pages}!flags@{flags}}
+\index{flags@{flags}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_a67ed071045bbc9f5a452d8698b4a4acd} 
+u8 per\+\_\+cpu\+\_\+pages::\+flags}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00751}{751}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_a22ca01a295c418c073e57a01698cb978}\index{per\_cpu\_pages@{per\_cpu\_pages}!free\_count@{free\_count}}
+\index{free\_count@{free\_count}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{free\_count}{free\_count}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_a22ca01a295c418c073e57a01698cb978} 
+short per\+\_\+cpu\+\_\+pages::\+free\+\_\+count}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00756}{756}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_a5785d4930534b71d6fed09c8b440ee96}\index{per\_cpu\_pages@{per\_cpu\_pages}!high@{high}}
+\index{high@{high}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{high}{high}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_a5785d4930534b71d6fed09c8b440ee96} 
+int per\+\_\+cpu\+\_\+pages::\+high}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00747}{747}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_ad6465e4740e84ab5b41c83af9b81a9f2}\index{per\_cpu\_pages@{per\_cpu\_pages}!high\_max@{high\_max}}
+\index{high\_max@{high\_max}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{high\_max}{high\_max}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_ad6465e4740e84ab5b41c83af9b81a9f2} 
+int per\+\_\+cpu\+\_\+pages::\+high\+\_\+max}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00749}{749}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_a8af581adc9a34ba5a2c1b5d1b99c9e99}\index{per\_cpu\_pages@{per\_cpu\_pages}!high\_min@{high\_min}}
+\index{high\_min@{high\_min}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{high\_min}{high\_min}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_a8af581adc9a34ba5a2c1b5d1b99c9e99} 
+int per\+\_\+cpu\+\_\+pages::\+high\+\_\+min}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00748}{748}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_a8cd8d53e371ebe3a6093af85f9503843}\index{per\_cpu\_pages@{per\_cpu\_pages}!lists@{lists}}
+\index{lists@{lists}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{lists}{lists}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_a8cd8d53e371ebe3a6093af85f9503843} 
+struct list\+\_\+head per\+\_\+cpu\+\_\+pages::\+lists\+[((\doxymbox{\hyperlink{mmzone_8h_ae632273c4909482b279ed0e527a94b5fa5b81964ab81a9818979086c75160117a}{MIGRATE\+\_\+\+PCPTYPES}} \texorpdfstring{$\ast$}{*}(3+1))+2)]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00759}{759}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+\Hypertarget{structper__cpu__pages_a8d156119fc0768eec36a372fbfc886c1}\index{per\_cpu\_pages@{per\_cpu\_pages}!lock@{lock}}
+\index{lock@{lock}!per\_cpu\_pages@{per\_cpu\_pages}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily \label{structper__cpu__pages_a8d156119fc0768eec36a372fbfc886c1} 
+spinlock\+\_\+t per\+\_\+cpu\+\_\+pages::\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{mmzone_8h_source_l00745}{745}} of file \doxymbox{\hyperlink{mmzone_8h_source}{mmzone.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{mmzone_8h}{mmzone.\+h}}\end{DoxyCompactItemize}

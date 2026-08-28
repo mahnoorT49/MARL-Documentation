@@ -188,11 +188,14 @@
  * The slab flags share space with the page flags but some bits have
  * different interpretations.  The high bits are used for information
  * like zone/node/section.
+ * 
+ * 
+ * Enumeration Description: This enumeration defines the bit flags stored in a slab's flags field (which overlays the page flags) to track the slab's state and special properties. SL_locked uses the PG_locked bit to indicate that the slab is locked for exclusive access, typically used during list manipulation or when updating the slab's freelist to prevent concurrent modifications. SL_partial uses the PG_workingset bit (for historical reasons) to mark that the slab is on the per-node partial list, indicating it has some free objects available for allocation but is not completely empty or full. SL_pfmemalloc uses the PG_active bit (also for historical reasons) to indicate that the slab was allocated from the PFMEMALLOC reserves, meaning its objects should be treated specially (e.g., not used for regular allocations or freed with extra caution) to ensure memory availability during low-memory conditions. These flags allow the slab allocator to encode important state information directly into the slab's page structure without requiring additional memory, enabling fast and efficient state checks in performance-critical paths.
  */
 enum slab_flags {
 	SL_locked = PG_locked,
-	SL_partial = PG_workingset,	/* Historical reasons for this bit */
-	SL_pfmemalloc = PG_active,	/* Historical reasons for this bit */
+	SL_partial = PG_workingset,	/** Historical reasons for this bit */
+	SL_pfmemalloc = PG_active,	/** Historical reasons for this bit */
 };
 
 #ifndef CONFIG_SLUB_TINY
@@ -213,13 +216,20 @@ DEFINE_STATIC_KEY_FALSE(slub_debug_enabled);
 static DEFINE_STATIC_KEY_FALSE(strict_numa);
 #endif
 
-/* Structure holding parameters for get_from_partial() call chain */
+/** Structure holding parameters for get_from_partial() call chain 
+ * 
+ * struct Description: This structure holds parameters for the get_from_partial() allocation path. It contains the GFP flags and the original allocation size. It is used to pass context through the partial slab allocation chain.
+ */
 struct partial_context {
 	gfp_t flags;
 	unsigned int orig_size;
 };
 
-/* Structure holding parameters for get_partial_node_bulk() */
+/** Structure holding parameters for get_partial_node_bulk() 
+ * 
+ * 
+ * struct Description: This structure holds parameters for bulk allocation from partial slabs. It contains GFP flags, minimum and maximum objects to allocate, and a list head for collected slabs. It is used during bulk allocation to gather slabs from the partial list.
+ */
 struct partial_bulk_context {
 	gfp_t flags;
 	unsigned int min_objects;
@@ -227,11 +237,17 @@ struct partial_bulk_context {
 	struct list_head slabs;
 };
 
+/**
+ * Function Description: Checks if a slab cache has debugging enabled. Returns true if any of SLAB_DEBUG_FLAGS are set. Used to conditionally enable debug paths.
+ */
 static inline bool kmem_cache_debug(struct kmem_cache *s)
 {
 	return kmem_cache_debug_flags(s, SLAB_DEBUG_FLAGS);
 }
 
+/**
+ * Function Description: Adjusts a pointer to account for left redzone padding. It adds s->red_left_pad if SLAB_RED_ZONE is enabled. Used to get the actual object start address.
+ */
 void *fixup_red_left(struct kmem_cache *s, void *p)
 {
 	if (kmem_cache_debug_flags(s, SLAB_RED_ZONE))
@@ -248,17 +264,17 @@ void *fixup_red_left(struct kmem_cache *s, void *p)
  * - Variable sizing of the per node arrays
  */
 
-/* Enable to log cmpxchg failures */
+/** Enable to log cmpxchg failures */
 #undef SLUB_DEBUG_CMPXCHG
 
 #ifndef CONFIG_SLUB_TINY
-/*
+/**
  * Minimum number of partial slabs. These will be left on the partial
  * lists even if they are empty. kmem_cache_shrink may reclaim them.
  */
 #define MIN_PARTIAL 5
 
-/*
+/**
  * Maximum number of desirable partial slabs.
  * The existence of more partial slabs makes kmem_cache_shrink
  * sort the partial list by the number of objects in use.
@@ -272,7 +288,7 @@ void *fixup_red_left(struct kmem_cache *s, void *p)
 #define DEBUG_DEFAULT_FLAGS (SLAB_CONSISTENCY_CHECKS | SLAB_RED_ZONE | \
 				SLAB_POISON | SLAB_STORE_USER)
 
-/*
+/**
  * These debug flags cannot use CMPXCHG because there might be consistency
  * issues when checking or reading debug information
  */
@@ -280,7 +296,7 @@ void *fixup_red_left(struct kmem_cache *s, void *p)
 				SLAB_TRACE)
 
 
-/*
+/**
  * Debugging flags that require metadata to be stored in the slab.  These get
  * disabled when slab_debug=O is used and a cache's min order increases with
  * metadata.
@@ -291,10 +307,10 @@ void *fixup_red_left(struct kmem_cache *s, void *p)
 #define OO_MASK		((1 << OO_SHIFT) - 1)
 #define MAX_OBJS_PER_PAGE	32767 /* since slab.objects is u15 */
 
-/* Internal SLUB flags */
-/* Poison object */
+/** Internal SLUB flags */
+/** Poison object */
 #define __OBJECT_POISON		__SLAB_FLAG_BIT(_SLAB_OBJECT_POISON)
-/* Use cmpxchg_double */
+/** Use cmpxchg_double */
 
 #ifdef system_has_freelist_aba
 #define __CMPXCHG_DOUBLE	__SLAB_FLAG_BIT(_SLAB_CMPXCHG_DOUBLE)
@@ -302,8 +318,11 @@ void *fixup_red_left(struct kmem_cache *s, void *p)
 #define __CMPXCHG_DOUBLE	__SLAB_FLAG_UNUSED
 #endif
 
-/*
+/**
  * Tracking user of a slab.
+ * 
+ * 
+ * struct Description: This structure stores tracking information for debugging. It contains the allocation/free address, stack depot handle, CPU, PID, and timestamp. It is used when SLAB_STORE_USER is enabled to track object allocations and frees.
  */
 #define TRACK_ADDRS_COUNT 16
 struct track {
@@ -316,6 +335,9 @@ struct track {
 	unsigned long when;	/* When did the operation occur */
 };
 
+/**
+ * Enumeration Description: This enumeration defines the two types of tracking entries stored for objects when CONFIG_SLUB_DEBUG and SLAB_STORE_USER are enabled. TRACK_ALLOC represents allocation tracking information (who allocated the object, when, and the stack trace), while TRACK_FREE represents deallocation tracking information (who freed the object, when, and the stack trace). These values are used as indices into the tracking arrays stored in a slab's object metadata, allowing the allocator to record and retrieve both allocation and free history for debugging memory leaks, use-after-free bugs, and double-free detection. 
+ */
 enum track_item { TRACK_ALLOC, TRACK_FREE };
 
 #ifdef SLAB_SUPPORTS_SYSFS
@@ -330,47 +352,59 @@ static void debugfs_slab_add(struct kmem_cache *);
 static inline void debugfs_slab_add(struct kmem_cache *s) { }
 #endif
 
+/**
+ * Enumeration Description: This enumeration defines the two possible positions for adding a slab to the per-node partial list. ADD_TO_HEAD adds the slab at the beginning of the list, making it the first candidate for future allocations (hot cache), while ADD_TO_TAIL appends it to the end, reducing its priority. This allows the allocator to implement different policies for optimizing cache locality and fragmentation behavior.
+ */
 enum add_mode {
 	ADD_TO_HEAD,
 	ADD_TO_TAIL,
 };
 
+/**
+ * Enumeration Description: This enumeration defines all the performance and event counters tracked by the SLUB allocator when CONFIG_SLUB_STATS is enabled, providing detailed visibility into the allocator's behavior for performance analysis, debugging, and tuning. The counters cover allocation paths (ALLOC_FASTPATH from percpu sheaves and ALLOC_SLOWPATH from partial or new slabs), free paths (FREE_FASTPATH to sheaves, FREE_SLOWPATH to slabs, FREE_RCU_SHEAF for RCU-deferred frees, and FREE_RCU_SHEAF_FAIL for failures), slab management operations (FREE_ADD_PARTIAL when adding to partial list, FREE_REMOVE_PARTIAL when removing, ALLOC_SLAB for new slabs from page allocator, FREE_SLAB when freeing slabs back, and ALLOC_NODE_MISMATCH for NUMA node mismatches), sheaf and barn operations (SHEAF_FLUSH, SHEAF_REFILL, SHEAF_ALLOC, SHEAF_FREE, BARN_GET, BARN_GET_FAIL, BARN_PUT, BARN_PUT_FAIL, SHEAF_PREFILL_FAST/SLOW/OVERSIZE, and SHEAF_RETURN_FAST/SLOW), and error/fallback conditions (ORDER_FALLBACK and CMPXCHG_DOUBLE_FAIL). The NR_SLUB_STAT_ITEMS constant represents the total number of counters, used for sizing the stat array in struct kmem_cache_stats. These statistics can be accessed and cleared via sysfs, making them invaluable for identifying bottlenecks, understanding allocation patterns, and optimizing the slab allocator's performance. 
+ */
 enum stat_item {
-	ALLOC_FASTPATH,		/* Allocation from percpu sheaves */
-	ALLOC_SLOWPATH,		/* Allocation from partial or new slab */
-	FREE_RCU_SHEAF,		/* Free to rcu_free sheaf */
-	FREE_RCU_SHEAF_FAIL,	/* Failed to free to a rcu_free sheaf */
-	FREE_FASTPATH,		/* Free to percpu sheaves */
-	FREE_SLOWPATH,		/* Free to a slab */
-	FREE_ADD_PARTIAL,	/* Freeing moves slab to partial list */
-	FREE_REMOVE_PARTIAL,	/* Freeing removes last object */
-	ALLOC_SLAB,		/* New slab acquired from page allocator */
-	ALLOC_NODE_MISMATCH,	/* Requested node different from cpu sheaf */
-	FREE_SLAB,		/* Slab freed to the page allocator */
-	ORDER_FALLBACK,		/* Number of times fallback was necessary */
-	CMPXCHG_DOUBLE_FAIL,	/* Failures of slab freelist update */
-	SHEAF_FLUSH,		/* Objects flushed from a sheaf */
-	SHEAF_REFILL,		/* Objects refilled to a sheaf */
-	SHEAF_ALLOC,		/* Allocation of an empty sheaf */
-	SHEAF_FREE,		/* Freeing of an empty sheaf */
-	BARN_GET,		/* Got full sheaf from barn */
-	BARN_GET_FAIL,		/* Failed to get full sheaf from barn */
-	BARN_PUT,		/* Put full sheaf to barn */
-	BARN_PUT_FAIL,		/* Failed to put full sheaf to barn */
-	SHEAF_PREFILL_FAST,	/* Sheaf prefill grabbed the spare sheaf */
-	SHEAF_PREFILL_SLOW,	/* Sheaf prefill found no spare sheaf */
-	SHEAF_PREFILL_OVERSIZE,	/* Allocation of oversize sheaf for prefill */
-	SHEAF_RETURN_FAST,	/* Sheaf return reattached spare sheaf */
-	SHEAF_RETURN_SLOW,	/* Sheaf return could not reattach spare */
+	ALLOC_FASTPATH,		/** Allocation from percpu sheaves */
+	ALLOC_SLOWPATH,		/** Allocation from partial or new slab */
+	FREE_RCU_SHEAF,		/** Free to rcu_free sheaf */
+	FREE_RCU_SHEAF_FAIL,	/** Failed to free to a rcu_free sheaf */
+	FREE_FASTPATH,		/** Free to percpu sheaves */
+	FREE_SLOWPATH,		/** Free to a slab */
+	FREE_ADD_PARTIAL,	/** Freeing moves slab to partial list */
+	FREE_REMOVE_PARTIAL,	/** Freeing removes last object */
+	ALLOC_SLAB,		/** New slab acquired from page allocator */
+	ALLOC_NODE_MISMATCH,	/** Requested node different from cpu sheaf */
+	FREE_SLAB,		/** Slab freed to the page allocator */
+	ORDER_FALLBACK,		/** Number of times fallback was necessary */
+	CMPXCHG_DOUBLE_FAIL,	/** Failures of slab freelist update */
+	SHEAF_FLUSH,		/** Objects flushed from a sheaf */
+	SHEAF_REFILL,		/** Objects refilled to a sheaf */
+	SHEAF_ALLOC,		/** Allocation of an empty sheaf */
+	SHEAF_FREE,		/** Freeing of an empty sheaf */
+	BARN_GET,		/** Got full sheaf from barn */
+	BARN_GET_FAIL,		/** Failed to get full sheaf from barn */
+	BARN_PUT,		/** Put full sheaf to barn */
+	BARN_PUT_FAIL,		/** Failed to put full sheaf to barn */
+	SHEAF_PREFILL_FAST,	/** Sheaf prefill grabbed the spare sheaf */
+	SHEAF_PREFILL_SLOW,	/** Sheaf prefill found no spare sheaf */
+	SHEAF_PREFILL_OVERSIZE,	/** Allocation of oversize sheaf for prefill */
+	SHEAF_RETURN_FAST,	/** Sheaf return reattached spare sheaf */
+	SHEAF_RETURN_SLOW,	/** Sheaf return could not reattach spare */
 	NR_SLUB_STAT_ITEMS
 };
 
 #ifdef CONFIG_SLUB_STATS
+/**
+ * struct Description: This structure holds per-CPU statistics counters for a kmem_cache when CONFIG_SLUB_STATS is enabled. It contains an array stat of unsigned integers indexed by enum stat_item, which includes counters for various allocator events such as fastpath/slowpath allocations and frees, partial list operations, sheaf operations, barn operations, and other performance metrics. These counters are updated atomically (or using per-CPU operations) during allocation and free paths, and can be read via sysfs files to provide visibility into allocator behavior, helping with performance tuning, debugging, and understanding memory usage patterns. 
+ */
 struct kmem_cache_stats {
 	unsigned int stat[NR_SLUB_STAT_ITEMS];
 };
 #endif
 
+/**
+ * Function Description: This inline function increments a specific statistics counter for a kmem_cache by 1. When CONFIG_SLUB_STATS is enabled, it uses raw_cpu_inc() to increment the counter for the current CPU without disabling interrupts, accepting that the operation is racy on preemptible kernels (which is acceptable for statistics). This function is used throughout the slab allocator fastpath and slowpath code to record events like allocations, frees, and various operations, providing lightweight performance monitoring with minimal overhead.
+ */
 static inline void stat(const struct kmem_cache *s, enum stat_item si)
 {
 #ifdef CONFIG_SLUB_STATS
@@ -382,6 +416,9 @@ static inline void stat(const struct kmem_cache *s, enum stat_item si)
 #endif
 }
 
+/**
+ * Function Description: This inline function adds a specified value (v) to a specific statistics counter for a kmem_cache. When CONFIG_SLUB_STATS is enabled, it uses raw_cpu_add() to atomically add the value to the current CPU's counter without disabling interrupts. This is used for batch statistics updates, such as when bulk allocations or frees occur, allowing the system to accurately track aggregated counts (like total objects allocated or freed in a batch) without incurring the overhead of calling stat() in a loop.
+ */
 static inline
 void stat_add(const struct kmem_cache *s, enum stat_item si, int v)
 {
@@ -393,6 +430,9 @@ void stat_add(const struct kmem_cache *s, enum stat_item si, int v)
 #define MAX_FULL_SHEAVES	10
 #define MAX_EMPTY_SHEAVES	10
 
+/**
+ * struct Description: This structure represents a per-NUMA-node barn for caching sheaves. It contains a spinlock, lists of full and empty sheaves, and counters for each. It is used to balance sheaves between CPUs on the same node.
+ */
 struct node_barn {
 	spinlock_t lock;
 	struct list_head sheaves_full;
@@ -401,11 +441,14 @@ struct node_barn {
 	unsigned int nr_empty;
 };
 
+/**
+ * struct Description: This structure represents a sheaf (array) of cached slab objects. It contains a union for RCU/list linkage, cache pointer, size (number of objects), and a flexible array of object pointers. It is used for per-CPU caching of allocations and frees. 
+ */
 struct slab_sheaf {
 	union {
 		struct rcu_head rcu_head;
 		struct list_head barn_list;
-		/* only used for prefilled sheafs */
+		/** only used for prefilled sheafs */
 		struct {
 			unsigned int capacity;
 			bool pfmemalloc;
@@ -413,19 +456,25 @@ struct slab_sheaf {
 	};
 	struct kmem_cache *cache;
 	unsigned int size;
-	int node; /* only used for rcu_sheaf */
+	int node; /** only used for rcu_sheaf */
 	void *objects[];
 };
 
+/**
+ * struct Description: This structure holds per-CPU sheaves for a slab cache. It contains a local lock, main sheaf (always present), spare sheaf (may be NULL), and an rcu_free sheaf for batching kfree_rcu(). It is used to provide fast-path allocation and freeing. 
+ */
 struct slub_percpu_sheaves {
 	local_trylock_t lock;
-	struct slab_sheaf *main; /* never NULL when unlocked */
-	struct slab_sheaf *spare; /* empty or full, may be NULL */
-	struct slab_sheaf *rcu_free; /* for batching kfree_rcu() */
+	struct slab_sheaf *main; /** never NULL when unlocked */
+	struct slab_sheaf *spare; /** empty or full, may be NULL */
+	struct slab_sheaf *rcu_free; /** for batching kfree_rcu() */
 };
 
-/*
+/**
  * The slab lists for all objects.
+ * 
+ * 
+ * struct Description: This structure represents per-node data for a slab cache. It contains the list lock, partial slab count and list, full list for debugging, slab counters, and a pointer to the node barn. It is used to manage slabs on a specific NUMA node.
  */
 struct kmem_cache_node {
 	spinlock_t list_lock;
@@ -439,14 +488,20 @@ struct kmem_cache_node {
 	struct node_barn *barn;
 };
 
+/**
+ * Function Description: This inline function retrieves the per-node kmem_cache_node structure for a given kmem_cache and NUMA node ID. It simply returns the pointer stored in s->node[node], which is an array indexed by node ID containing the node-specific data for that cache (such as the partial slab list, statistics, and barn pointer). This is a fundamental accessor used throughout the slab allocator to obtain node-local state when performing allocations, frees, and list management operations, ensuring proper NUMA awareness and per-node resource tracking.
+ */
 static inline struct kmem_cache_node *get_node(struct kmem_cache *s, int node)
 {
 	return s->node[node];
 }
 
-/*
+/**
  * Get the barn of the current cpu's closest memory node. It may not exist on
  * systems with memoryless nodes but without CONFIG_HAVE_MEMORYLESS_NODES
+ * 
+ * 
+ * Function Description: This inline function retrieves the node_barn structure associated with the current CPU's closest memory node for a given kmem_cache. It calls get_node() with numa_mem_id() (which returns the NUMA node ID of the current CPU's local memory) to obtain the per-node structure, and then returns the barn field from that node. The barn is used in the sheaf-based allocation/free path to manage collections of sheaves (batches of objects) across nodes, helping to reduce contention and improve scalability. If the node structure doesn't exist (e.g., on systems with memoryless nodes without proper configuration), it returns NULL. This function is critical for the fastpath allocation and free operations to locate the appropriate barn for sheaf management.
  */
 static inline struct node_barn *get_barn(struct kmem_cache *s)
 {
@@ -458,7 +513,7 @@ static inline struct node_barn *get_barn(struct kmem_cache *s)
 	return n->barn;
 }
 
-/*
+/**
  * Iterator over all nodes. The body will be executed for each node that has
  * a kmem_cache_node structure allocated (which is true for all online nodes)
  */
@@ -466,7 +521,7 @@ static inline struct node_barn *get_barn(struct kmem_cache *s)
 	for (__node = 0; __node < nr_node_ids; __node++) \
 		 if ((__n = get_node(__s, __node)))
 
-/*
+/**
  * Tracks for which NUMA nodes we have kmem_cache_nodes allocated.
  * Corresponds to node_state[N_MEMORY], but can temporarily
  * differ during memory hotplug/hotremove operations.
@@ -474,11 +529,14 @@ static inline struct node_barn *get_barn(struct kmem_cache *s)
  */
 static nodemask_t slab_nodes;
 
-/*
+/**
  * Workqueue used for flushing cpu and kfree_rcu sheaves.
  */
 static struct workqueue_struct *flushwq;
 
+/**
+ * struct Description: This structure is used for flushing per-CPU sheaves. It contains a work_struct, a pointer to the kmem_cache, and a skip flag. It is used to flush sheaves on CPU hot-unplug or cache destruction.
+ */
 struct slub_flush_work {
 	struct work_struct work;
 	struct kmem_cache *s;
@@ -492,10 +550,13 @@ static DEFINE_PER_CPU(struct slub_flush_work, slub_flush);
  * 			Core slab cache functions
  *******************************************************************/
 
-/*
+/**
  * Returns freelist pointer (ptr). With hardening, this is obfuscated
  * with an XOR of the address where the pointer is held and a per-cache
  * random number.
+ * 
+ * 
+ * Function Description: Encodes a freelist pointer with obfuscation for security. It XORs the pointer with the cache's random value and swabs the address. Used to harden freelist pointers against attacks.
  */
 static inline freeptr_t freelist_ptr_encode(const struct kmem_cache *s,
 					    void *ptr, unsigned long ptr_addr)
@@ -510,6 +571,9 @@ static inline freeptr_t freelist_ptr_encode(const struct kmem_cache *s,
 	return (freeptr_t){.v = encoded};
 }
 
+/**
+ * Function Description: Decodes an obfuscated freelist pointer. It reverses the encoding done by freeptr_ptr_encode(). Used to get the actual freelist pointer from encoded storage.
+ */
 static inline void *freelist_ptr_decode(const struct kmem_cache *s,
 					freeptr_t ptr, unsigned long ptr_addr)
 {
@@ -523,6 +587,9 @@ static inline void *freelist_ptr_decode(const struct kmem_cache *s,
 	return decoded;
 }
 
+/**
+ * Function Description: Returns the freelist pointer from an object. It reads the encoded pointer from the object's offset and decodes it. Used to traverse the freelist.
+ */
 static inline void *get_freepointer(struct kmem_cache *s, void *object)
 {
 	unsigned long ptr_addr;
@@ -534,6 +601,9 @@ static inline void *get_freepointer(struct kmem_cache *s, void *object)
 	return freelist_ptr_decode(s, p, ptr_addr);
 }
 
+/**
+ * Function Description: Sets the freelist pointer in an object. It encodes the pointer and stores it at the object's offset. Used to build freelists.
+ */
 static inline void set_freepointer(struct kmem_cache *s, void *object, void *fp)
 {
 	unsigned long freeptr_addr = (unsigned long)object + s->offset;
@@ -546,17 +616,23 @@ static inline void set_freepointer(struct kmem_cache *s, void *object, void *fp)
 	*(freeptr_t *)freeptr_addr = freelist_ptr_encode(s, fp, freeptr_addr);
 }
 
-/*
+/**
  * See comment in calculate_sizes().
+ * 
+ * 
+ * Function Description: Checks if the freelist pointer is stored outside the object. Returns true if s->offset >= s->inuse. Used to determine if the freepointer overlaps the object.
  */
 static inline bool freeptr_outside_object(struct kmem_cache *s)
 {
 	return s->offset >= s->inuse;
 }
 
-/*
+/**
  * Return offset of the end of info block which is inuse + free pointer if
  * not overlapping with object.
+ * 
+ * 
+ * Function Description: Returns the offset of the end of the info block (object + metadata). It accounts for the free pointer if stored outside the object. Used for debug metadata placement.
  */
 static inline unsigned int get_info_end(struct kmem_cache *s)
 {
@@ -566,17 +642,23 @@ static inline unsigned int get_info_end(struct kmem_cache *s)
 		return s->inuse;
 }
 
-/* Loop over all objects in a slab */
+/** Loop over all objects in a slab */
 #define for_each_object(__p, __s, __addr, __objects) \
 	for (__p = fixup_red_left(__s, __addr); \
 		__p < (__addr) + (__objects) * (__s)->size; \
 		__p += (__s)->size)
 
+/**
+ * Function Description: Calculates the number of objects that fit in a slab of a given order. It divides the slab size by the object size. Used for size calculations.
+ */
 static inline unsigned int order_objects(unsigned int order, unsigned int size)
 {
 	return ((unsigned int)PAGE_SIZE << order) / size;
 }
 
+/**
+ * Function Description: Creates a kmem_cache_order_objects value from order and object count. It packs the order and objects into a single unsigned int. Used to store slab size information.
+ */
 static inline struct kmem_cache_order_objects oo_make(unsigned int order,
 		unsigned int size)
 {
@@ -587,48 +669,72 @@ static inline struct kmem_cache_order_objects oo_make(unsigned int order,
 	return x;
 }
 
+/**
+ * Function Description: Extracts the order from a kmem_cache_order_objects value. Used to get the page order of a slab.
+ */
 static inline unsigned int oo_order(struct kmem_cache_order_objects x)
 {
 	return x.x >> OO_SHIFT;
 }
 
+/**
+ * Function Description: Extracts the object count from a kmem_cache_order_objects value. Used to get the number of objects per slab.
+ */
 static inline unsigned int oo_objects(struct kmem_cache_order_objects x)
 {
 	return x.x & OO_MASK;
 }
 
-/*
+/**
  * If network-based swap is enabled, slub must keep track of whether memory
  * were allocated from pfmemalloc reserves.
+ * 
+ * 
+ * Function Description: Tests if a slab was allocated from PFMEMALLOC reserves. Returns true if the SL_pfmemalloc flag is set. Used to handle pfmemalloc allocations.
  */
 static inline bool slab_test_pfmemalloc(const struct slab *slab)
 {
 	return test_bit(SL_pfmemalloc, &slab->flags.f);
 }
 
+/**
+ * Function Description: Sets the PFMEMALLOC flag on a slab. Used when a slab is allocated from emergency reserves.
+ */
 static inline void slab_set_pfmemalloc(struct slab *slab)
 {
 	set_bit(SL_pfmemalloc, &slab->flags.f);
 }
 
+/**
+ * Function Description: Clears the PFMEMALLOC flag from a slab. Used before freeing a slab.
+ */
 static inline void __slab_clear_pfmemalloc(struct slab *slab)
 {
 	__clear_bit(SL_pfmemalloc, &slab->flags.f);
 }
 
-/*
+/**
  * Per slab locking using the pagelock
+ * 
+ * 
+ * Function Description: Locks a slab using a bit spinlock. Uses bit_spin_lock() on the SL_locked bit. Used for slowpath operations on arches without cmpxchg_double.
  */
 static __always_inline void slab_lock(struct slab *slab)
 {
 	bit_spin_lock(SL_locked, &slab->flags.f);
 }
 
+/**
+ * Function Description: Unlocks a slab using a bit spinlock. Uses bit_spin_unlock() on the SL_locked bit.
+ */
 static __always_inline void slab_unlock(struct slab *slab)
 {
 	bit_spin_unlock(SL_locked, &slab->flags.f);
 }
 
+/**
+ * Function Description: Updates a slab's freelist using cmpxchg_double (fast path). It atomically updates both the freelist and counters. Used on arches with cmpxchg_double support.
+ */
 static inline bool
 __update_freelist_fast(struct slab *slab, struct freelist_counters *old,
 		       struct freelist_counters *new)
@@ -642,6 +748,9 @@ __update_freelist_fast(struct slab *slab, struct freelist_counters *old,
 #endif
 }
 
+/**
+ * Function Description: Updates a slab's freelist using slab_lock (slow path). It acquires the slab lock and updates the freelist and counters. Used on arches without cmpxchg_double support.
+ */
 static inline bool
 __update_freelist_slow(struct slab *slab, struct freelist_counters *old,
 		       struct freelist_counters *new)
@@ -661,12 +770,15 @@ __update_freelist_slow(struct slab *slab, struct freelist_counters *old,
 	return ret;
 }
 
-/*
+/**
  * Interrupts must be disabled (for the fallback code to work right), typically
  * by an _irqsave() lock variant. On PREEMPT_RT the preempt_disable(), which is
  * part of bit_spin_lock(), is sufficient because the policy is not to allow any
  * allocation/ free operation in hardirq context. Therefore nothing can
  * interrupt the operation.
+ * 
+ * 
+ * Function Description: Internal function to update a slab's freelist with retry logic. It calls either the fast or slow update function. Returns true on success.
  */
 static inline bool __slab_update_freelist(struct kmem_cache *s, struct slab *slab,
 		struct freelist_counters *old, struct freelist_counters *new, const char *n)
@@ -694,6 +806,9 @@ static inline bool __slab_update_freelist(struct kmem_cache *s, struct slab *sla
 	return false;
 }
 
+/**
+ * Function Description: Updates a slab's freelist with proper locking. For cmpxchg_double caches, it's lockless; for others, it uses slab_lock with irqsave. Returns true on success.
+ */
 static inline bool slab_update_freelist(struct kmem_cache *s, struct slab *slab,
 		struct freelist_counters *old, struct freelist_counters *new, const char *n)
 {
@@ -721,11 +836,14 @@ static inline bool slab_update_freelist(struct kmem_cache *s, struct slab *slab,
 	return false;
 }
 
-/*
+/**
  * kmalloc caches has fixed sizes (mostly power of 2), and kmalloc() API
  * family will round up the real request size to these fixed ones, so
  * there could be an extra area than what is requested. Save the original
  * request size in the meta data area, for better debug and sanity check.
+ * 
+ * 
+ * Function Description: Stores the original allocation size in debug metadata. Used for kmalloc caches to track the requested size. Used when slub_debug_orig_size() is enabled.
  */
 static inline void set_orig_size(struct kmem_cache *s,
 				void *object, unsigned long orig_size)
@@ -741,6 +859,9 @@ static inline void set_orig_size(struct kmem_cache *s,
 	*(unsigned long *)p = orig_size;
 }
 
+/**
+ * Function Description: Retrieves the original allocation size from debug metadata. Used to get the originally requested size for kmalloc objects.
+ */
 static inline unsigned long get_orig_size(struct kmem_cache *s, void *object)
 {
 	void *p = kasan_reset_tag(object);
@@ -759,7 +880,7 @@ static inline unsigned long get_orig_size(struct kmem_cache *s, void *object)
 
 #ifdef CONFIG_SLAB_OBJ_EXT
 
-/*
+/**
  * Check if memory cgroup or memory allocation profiling is enabled.
  * If enabled, SLUB tries to reduce memory overhead of accounting
  * slab objects. If neither is enabled when this function is called,
@@ -769,6 +890,9 @@ static inline unsigned long get_orig_size(struct kmem_cache *s, void *object)
  * However, this may disable optimization when memory cgroup or memory
  * allocation profiling is used, but slabs are created too early
  * even before those subsystems are initialized.
+ * 
+ * 
+ * Function Description: Checks if a slab cache needs object extensions for memcg or allocation profiling. Returns true if memcg accounting or allocation profiling is enabled for the cache.
  */
 static inline bool need_slab_obj_exts(struct kmem_cache *s)
 {
@@ -784,11 +908,17 @@ static inline bool need_slab_obj_exts(struct kmem_cache *s)
 	return false;
 }
 
+/**
+ * Function Description: Returns the size of object extensions within a slab. Calculates sizeof(struct slabobj_ext) * slab->objects. Used to determine extension layout.
+ */
 static inline unsigned int obj_exts_size_in_slab(struct slab *slab)
 {
 	return sizeof(struct slabobj_ext) * slab->objects;
 }
 
+/**
+ * Function Description: Returns the offset of object extensions within a slab. It aligns the offset after the objects. Used to find where extensions are stored.
+ */
 static inline unsigned long obj_exts_offset_in_slab(struct kmem_cache *s,
 						    struct slab *slab)
 {
@@ -799,6 +929,9 @@ static inline unsigned long obj_exts_offset_in_slab(struct kmem_cache *s,
 	return objext_offset;
 }
 
+/**
+ * Function Description: Checks if object extensions fit within the leftover space at the end of a slab. Returns true if there's enough space for all extensions.
+ */
 static inline bool obj_exts_fit_within_slab_leftover(struct kmem_cache *s,
 						     struct slab *slab)
 {
@@ -808,6 +941,9 @@ static inline bool obj_exts_fit_within_slab_leftover(struct kmem_cache *s,
 	return objext_offset + objext_size <= slab_size(slab);
 }
 
+/**
+ * Function Description: Checks if object extensions are stored within the slab itself (not externally allocated). Returns true if extensions are in-slab.
+ */
 static inline bool obj_exts_in_slab(struct kmem_cache *s, struct slab *slab)
 {
 	unsigned long obj_exts;
@@ -853,9 +989,14 @@ static inline bool obj_exts_in_slab(struct kmem_cache *s, struct slab *slab)
 #endif
 
 #if defined(CONFIG_SLAB_OBJ_EXT) && defined(CONFIG_64BIT)
+
+/**
+ * Function Description: Checks if object extensions are stored within each object (not at the end of the slab). Returns true for 64-bit with SLAB_OBJ_EXT_IN_OBJ.
+ */
 static bool obj_exts_in_object(struct kmem_cache *s, struct slab *slab)
 {
-	/*
+	/**
+	 * 
 	 * Note we cannot rely on the SLAB_OBJ_EXT_IN_OBJ flag here and need to
 	 * check the stride. A cache can have SLAB_OBJ_EXT_IN_OBJ set, but
 	 * allocations within_slab_leftover are preferred. And those may be
@@ -865,6 +1006,9 @@ static bool obj_exts_in_object(struct kmem_cache *s, struct slab *slab)
 	       (slab_get_stride(slab) == s->size);
 }
 
+/**
+ * Function Description: Returns the offset of object extensions within an object. Used when extensions are stored inside each object.
+ */
 static unsigned int obj_exts_offset_in_object(struct kmem_cache *s)
 {
 	unsigned int offset = get_info_end(s);
@@ -893,9 +1037,12 @@ static inline unsigned int obj_exts_offset_in_object(struct kmem_cache *s)
 
 #ifdef CONFIG_SLUB_DEBUG
 
-/*
+/**
  * For debugging context when we want to check if the struct slab pointer
  * appears to be valid.
+ * 
+ * 
+ * Function Description: Validates that a pointer is a valid slab page. Checks if the page has the PageSlab flag set. Used for debugging.
  */
 static inline bool validate_slab_ptr(struct slab *slab)
 {
@@ -905,6 +1052,9 @@ static inline bool validate_slab_ptr(struct slab *slab)
 static unsigned long object_map[BITS_TO_LONGS(MAX_OBJS_PER_PAGE)];
 static DEFINE_SPINLOCK(object_map_lock);
 
+/**
+ * Function Description: Fills an object map for a slab. It sets bits for objects on the freelist. Used for debugging to track allocated/free objects.
+ */
 static void __fill_map(unsigned long *obj_map, struct kmem_cache *s,
 		       struct slab *slab)
 {
@@ -918,6 +1068,10 @@ static void __fill_map(unsigned long *obj_map, struct kmem_cache *s,
 }
 
 #if IS_ENABLED(CONFIG_KUNIT)
+
+/**
+ * Function Description: Adds an error to the current KUnit test if running. Returns true if an error was added. Used for KUnit testing.
+ */
 static bool slab_add_kunit_errors(void)
 {
 	struct kunit_resource *resource;
@@ -934,6 +1088,9 @@ static bool slab_add_kunit_errors(void)
 	return true;
 }
 
+/**
+ * Function Description: Checks if the current code is running inside a KUnit test. Returns true if in a KUnit test context. Used to conditionally avoid panics during tests.
+ */
 bool slab_in_kunit_test(void)
 {
 	struct kunit_resource *resource;
@@ -952,6 +1109,9 @@ bool slab_in_kunit_test(void)
 static inline bool slab_add_kunit_errors(void) { return false; }
 #endif
 
+/**
+ * Function Description: Returns the actual object size including redzone metadata. For redzone caches, it subtracts the left redzone pad. Used for debugging.
+ */
 static inline unsigned int size_from_object(struct kmem_cache *s)
 {
 	if (s->flags & SLAB_RED_ZONE)
@@ -960,6 +1120,9 @@ static inline unsigned int size_from_object(struct kmem_cache *s)
 	return s->size;
 }
 
+/**
+ * Function Description: Restores the original object pointer by subtracting the redzone pad. Used to get the object start address from a pointer that may be redzone-adjusted.
+ */
 static inline void *restore_red_left(struct kmem_cache *s, void *p)
 {
 	if (s->flags & SLAB_RED_ZONE)
@@ -984,7 +1147,11 @@ static int disable_higher_order_debug;
  * Object debugging
  */
 
-/* Verify that a pointer has an address that is valid within a slab page */
+/** Verify that a pointer has an address that is valid within a slab page
+ * 
+ * 
+ * Function Description: Checks if a pointer is valid within a slab. It verifies the object is within the slab bounds and aligned. Used for debugging.
+ */
 static inline int check_valid_pointer(struct kmem_cache *s,
 				struct slab *slab, void *object)
 {
@@ -1004,6 +1171,9 @@ static inline int check_valid_pointer(struct kmem_cache *s,
 	return 1;
 }
 
+/**
+ * Function Description: Prints a hex dump of a memory section for debugging. Uses metadata access enable/disable for KASAN. Used to dump object contents on errors.
+ */
 static void print_section(char *level, char *text, u8 *addr,
 			  unsigned int length)
 {
@@ -1013,6 +1183,9 @@ static void print_section(char *level, char *text, u8 *addr,
 	metadata_access_disable();
 }
 
+/**
+ * Function Description: Returns the tracking structure for an object. It calculates the offset after the object metadata. Used for debug tracking.
+ */
 static struct track *get_track(struct kmem_cache *s, void *object,
 	enum track_item alloc)
 {
@@ -1024,6 +1197,9 @@ static struct track *get_track(struct kmem_cache *s, void *object,
 }
 
 #ifdef CONFIG_STACKDEPOT
+/**
+ * Function Description: Prepares a stack trace for tracking. It saves the stack trace and stores it in depot. Used for SLAB_STORE_USER debugging.
+ */
 static noinline depot_stack_handle_t set_track_prepare(gfp_t gfp_flags)
 {
 	depot_stack_handle_t handle;
@@ -1042,6 +1218,9 @@ static inline depot_stack_handle_t set_track_prepare(gfp_t gfp_flags)
 }
 #endif
 
+/**
+ * Function Description: Updates the tracking information for an object. It sets the address, CPU, PID, and timestamp. Used during allocation and free.
+ */
 static void set_track_update(struct kmem_cache *s, void *object,
 			     enum track_item alloc, unsigned long addr,
 			     depot_stack_handle_t handle)
@@ -1057,6 +1236,9 @@ static void set_track_update(struct kmem_cache *s, void *object,
 	p->when = jiffies;
 }
 
+/**
+ * Function Description: Sets tracking information for an object with prepare and update. Calls set_track_prepare() and set_track_update(). Used for debugging.
+ */
 static __always_inline void set_track(struct kmem_cache *s, void *object,
 				      enum track_item alloc, unsigned long addr, gfp_t gfp_flags)
 {
@@ -1065,6 +1247,9 @@ static __always_inline void set_track(struct kmem_cache *s, void *object,
 	set_track_update(s, object, alloc, addr, handle);
 }
 
+/**
+ * Function Description: Initializes tracking structures for an object. It zeros the alloc and free tracking entries. Used when a slab is allocated.
+ */
 static void init_tracking(struct kmem_cache *s, void *object)
 {
 	struct track *p;
@@ -1076,6 +1261,9 @@ static void init_tracking(struct kmem_cache *s, void *object)
 	memset(p, 0, 2*sizeof(struct track));
 }
 
+/**
+ * Function Description: Prints tracking information for an object. Displays the address, age, CPU, PID, and stack trace. Used for debugging.
+ */
 static void print_track(const char *s, struct track *t, unsigned long pr_time)
 {
 	depot_stack_handle_t handle __maybe_unused;
@@ -1094,6 +1282,9 @@ static void print_track(const char *s, struct track *t, unsigned long pr_time)
 #endif
 }
 
+/**
+ * Function Description: Prints both allocation and free tracking for an object. Used by debugging functions.
+ */
 void print_tracking(struct kmem_cache *s, void *object)
 {
 	unsigned long pr_time = jiffies;
@@ -1104,6 +1295,9 @@ void print_tracking(struct kmem_cache *s, void *object)
 	print_track("Freed", get_track(s, object, TRACK_FREE), pr_time);
 }
 
+/**
+ * Function Description: Prints information about a slab. Displays objects, inuse, freelist, and flags. Used for debugging.
+ */
 static void print_slab_info(const struct slab *slab)
 {
 	pr_err("Slab 0x%p objects=%u used=%u fp=0x%p flags=%pGp\n",
@@ -1111,11 +1305,17 @@ static void print_slab_info(const struct slab *slab)
 	       &slab->flags.f);
 }
 
+/**
+ * Function Description: Skips the original size check for an object. Sets the original size to the object size. Used to avoid false positives.
+ */
 void skip_orig_size_check(struct kmem_cache *s, const void *object)
 {
 	set_orig_size(s, (void *)object, s->object_size);
 }
 
+/**
+ * Function Description: Internal function to report a slab bug. Prints the bug message with formatting. Used by slab_err() and slab_bug().
+ */
 static void __slab_bug(struct kmem_cache *s, const char *fmt, va_list argsp)
 {
 	struct va_format vaf;
@@ -1130,6 +1330,9 @@ static void __slab_bug(struct kmem_cache *s, const char *fmt, va_list argsp)
 	va_end(args);
 }
 
+/**
+ * Function Description: Reports a slab bug with a formatted message. Used for debugging errors.
+ */
 static void slab_bug(struct kmem_cache *s, const char *fmt, ...)
 {
 	va_list args;
@@ -1140,6 +1343,9 @@ static void slab_bug(struct kmem_cache *s, const char *fmt, ...)
 }
 
 __printf(2, 3)
+/**
+ * Function Description: Reports a fix applied to a slab. Used when the allocator corrects a detected problem.
+ */
 static void slab_fix(struct kmem_cache *s, const char *fmt, ...)
 {
 	struct va_format vaf;
@@ -1155,6 +1361,9 @@ static void slab_fix(struct kmem_cache *s, const char *fmt, ...)
 	va_end(args);
 }
 
+/**
+ * Function Description: Prints debug information about an object (trailer). Dumps object data, redzones, and metadata. Used for debugging.
+ */
 static void print_trailer(struct kmem_cache *s, struct slab *slab, u8 *p)
 {
 	unsigned int off;	/* Offset of last byte */
@@ -1198,6 +1407,9 @@ static void print_trailer(struct kmem_cache *s, struct slab *slab, u8 *p)
 			      size_from_object(s) - off);
 }
 
+/**
+ * Function Description: Reports an object error. Prints the object details and adds taint. Used for corrupted objects.
+ */
 static void object_err(struct kmem_cache *s, struct slab *slab,
 			u8 *object, const char *reason)
 {
@@ -1216,6 +1428,9 @@ static void object_err(struct kmem_cache *s, struct slab *slab,
 	WARN_ON(1);
 }
 
+/**
+ * Function Description: Internal function to report a slab error. Adds taint and prints the slab info.
+ */
 static void __slab_err(struct slab *slab)
 {
 	if (slab_in_kunit_test())
@@ -1227,6 +1442,9 @@ static void __slab_err(struct slab *slab)
 	WARN_ON(1);
 }
 
+/**
+ * Function Description: Reports a slab error with a formatted message. Used for slab-level errors.
+ */
 static __printf(3, 4) void slab_err(struct kmem_cache *s, struct slab *slab,
 			const char *fmt, ...)
 {
@@ -1242,6 +1460,9 @@ static __printf(3, 4) void slab_err(struct kmem_cache *s, struct slab *slab,
 	__slab_err(slab);
 }
 
+/**
+ * Function Description: Initializes an object with debugging data. Sets redzones and poisons the object. Used during allocation and free.
+ */
 static void init_object(struct kmem_cache *s, void *object, u8 val)
 {
 	u8 *p = kasan_reset_tag(object);
@@ -1276,6 +1497,9 @@ static void init_object(struct kmem_cache *s, void *object, u8 val)
 					  s->inuse - poison_size);
 }
 
+/**
+ * Function Description: Restores overwritten bytes to their expected value. Used to fix corrupted debug metadata.
+ */
 static void restore_bytes(struct kmem_cache *s, const char *message, u8 data,
 						void *from, void *to)
 {
@@ -1289,6 +1513,9 @@ static void restore_bytes(struct kmem_cache *s, const char *message, u8 data,
 #define pad_check_attributes
 #endif
 
+/**
+ * Function Description: Checks if bytes match an expected value and reports mismatches. Used to detect corruption in redzones and poisons.
+ */
 static pad_check_attributes int
 check_bytes_and_report(struct kmem_cache *s, struct slab *slab,
 		       u8 *object, const char *what, u8 *start, unsigned int value,
@@ -1322,7 +1549,7 @@ skip_bug_print:
 	return 0;
 }
 
-/*
+/**
  * Object field layout:
  *
  * [Left redzone padding] (if SLAB_RED_ZONE)
@@ -1379,6 +1606,9 @@ skip_bug_print:
  * offset, the flag must be included in SLAB_NEVER_MERGE to prevent merging.
  * Otherwise, the cache would misbehave as s->object_size and s->inuse are
  * adjusted during cache merging (see __kmem_cache_alias()).
+ * 
+ * 
+ * Function Description: Checks the padding bytes at the end of an object. Verifies they contain POISON_INUSE. Used for debugging.
  */
 static int check_pad_bytes(struct kmem_cache *s, struct slab *slab, u8 *p)
 {
@@ -1404,7 +1634,11 @@ static int check_pad_bytes(struct kmem_cache *s, struct slab *slab, u8 *p)
 			p + off, POISON_INUSE, size_from_object(s) - off, true);
 }
 
-/* Check the pad bytes at the end of a slab page */
+/** Check the pad bytes at the end of a slab page
+ * 
+ * 
+ * Function Description: Checks the padding at the end of a slab page. Verifies the padding bytes are intact. Used for debugging.
+ */
 static pad_check_attributes void
 slab_pad_check(struct kmem_cache *s, struct slab *slab)
 {
@@ -1450,6 +1684,9 @@ slab_pad_check(struct kmem_cache *s, struct slab *slab)
 	restore_bytes(s, "slab padding", POISON_INUSE, fault, end);
 }
 
+/**
+ * Function Description: Checks an object's debug metadata (redzones, poison, freelist). Returns 1 if valid, 0 if corrupted. Used for debugging.
+ */
 static int check_object(struct kmem_cache *s, struct slab *slab,
 					void *object, u8 val)
 {
@@ -1530,10 +1767,13 @@ static int check_object(struct kmem_cache *s, struct slab *slab,
 	return ret;
 }
 
-/*
+/**
  * Checks if the slab state looks sane. Assumes the struct slab pointer
  * was either obtained in a way that ensures it's valid, or validated
  * by validate_slab_ptr()
+ * 
+ * 
+ * Function Description: Checks if a slab's metadata is sane. Verifies object count and inuse. Used for debugging.
  */
 static int check_slab(struct kmem_cache *s, struct slab *slab)
 {
@@ -1560,9 +1800,12 @@ static int check_slab(struct kmem_cache *s, struct slab *slab)
 	return 1;
 }
 
-/*
+/**
  * Determine if a certain object in a slab is on the freelist. Must hold the
  * slab lock to guarantee that the chains are in a consistent state.
+ * 
+ * 
+ * Function Description: Checks if an object is on the freelist. Used for debugging to detect double frees.
  */
 static bool on_freelist(struct kmem_cache *s, struct slab *slab, void *search)
 {
@@ -1621,6 +1864,9 @@ static bool on_freelist(struct kmem_cache *s, struct slab *slab, void *search)
 	return search == NULL;
 }
 
+/**
+ * Function Description: Traces allocation/free operations if SLAB_TRACE is enabled. Prints debug information.
+ */
 static void trace(struct kmem_cache *s, struct slab *slab, void *object,
 								int alloc)
 {
@@ -1639,8 +1885,11 @@ static void trace(struct kmem_cache *s, struct slab *slab, void *object,
 	}
 }
 
-/*
+/**
  * Tracking of fully allocated slabs for debugging purposes.
+ * 
+ * 
+ * Function Description: Adds a slab to the full list for debugging. Used when SLAB_STORE_USER is enabled.
  */
 static void add_full(struct kmem_cache *s,
 	struct kmem_cache_node *n, struct slab *slab)
@@ -1652,6 +1901,9 @@ static void add_full(struct kmem_cache *s,
 	list_add(&slab->slab_list, &n->full);
 }
 
+/**
+ * Function Description: Removes a slab from the full list for debugging.
+ */
 static void remove_full(struct kmem_cache *s, struct kmem_cache_node *n, struct slab *slab)
 {
 	if (!(s->flags & SLAB_STORE_USER))
@@ -1661,11 +1913,17 @@ static void remove_full(struct kmem_cache *s, struct kmem_cache_node *n, struct 
 	list_del(&slab->slab_list);
 }
 
+/**
+ * Function Description: Returns the number of slabs on a node.
+ */
 static inline unsigned long node_nr_slabs(struct kmem_cache_node *n)
 {
 	return atomic_long_read(&n->nr_slabs);
 }
 
+/**
+ * Function Description: Increments the slab and object counts for a node.
+ */
 static inline void inc_slabs_node(struct kmem_cache *s, int node, int objects)
 {
 	struct kmem_cache_node *n = get_node(s, node);
@@ -1673,6 +1931,10 @@ static inline void inc_slabs_node(struct kmem_cache *s, int node, int objects)
 	atomic_long_inc(&n->nr_slabs);
 	atomic_long_add(objects, &n->total_objects);
 }
+
+/**
+ * Function Description: Decrements the slab and object counts for a node.
+ */
 static inline void dec_slabs_node(struct kmem_cache *s, int node, int objects)
 {
 	struct kmem_cache_node *n = get_node(s, node);
@@ -1681,7 +1943,11 @@ static inline void dec_slabs_node(struct kmem_cache *s, int node, int objects)
 	atomic_long_sub(objects, &n->total_objects);
 }
 
-/* Object debug checks for alloc/free paths */
+/** Object debug checks for alloc/free paths 
+ * 
+ * 
+ * Function Description: Sets up debugging for an object (redzone, poison, tracking). Used when a slab is allocated.
+ */
 static void setup_object_debug(struct kmem_cache *s, void *object)
 {
 	if (!kmem_cache_debug_flags(s, SLAB_STORE_USER|SLAB_RED_ZONE|__OBJECT_POISON))
@@ -1691,6 +1957,9 @@ static void setup_object_debug(struct kmem_cache *s, void *object)
 	init_tracking(s, object);
 }
 
+/**
+ * Function Description: Sets up debugging for a slab (poison fill). Used when a slab is allocated.
+ */
 static
 void setup_slab_debug(struct kmem_cache *s, struct slab *slab, void *addr)
 {
@@ -1702,6 +1971,9 @@ void setup_slab_debug(struct kmem_cache *s, struct slab *slab, void *addr)
 	metadata_access_disable();
 }
 
+/**
+ * Function Description: Performs consistency checks during allocation. Checks slab and object validity. Returns 0 if checks fail. 
+ */
 static inline int alloc_consistency_checks(struct kmem_cache *s,
 					struct slab *slab, void *object)
 {
@@ -1719,6 +1991,9 @@ static inline int alloc_consistency_checks(struct kmem_cache *s,
 	return 1;
 }
 
+/**
+ * Function Description: Processes allocation with debugging enabled. Performs checks and sets tracking. Returns true on success.
+ */
 static noinline bool alloc_debug_processing(struct kmem_cache *s,
 			struct slab *slab, void *object, int orig_size)
 {
@@ -1727,14 +2002,14 @@ static noinline bool alloc_debug_processing(struct kmem_cache *s,
 			goto bad;
 	}
 
-	/* Success. Perform special debug activities for allocs */
+	/** Success. Perform special debug activities for allocs */
 	trace(s, slab, object, 1);
 	set_orig_size(s, object, orig_size);
 	init_object(s, object, SLUB_RED_ACTIVE);
 	return true;
 
 bad:
-	/*
+	/**
 	 * Let's do the best we can to avoid issues in the future. Marking all
 	 * objects as used avoids touching the remaining objects.
 	 */
@@ -1746,6 +2021,9 @@ bad:
 	return false;
 }
 
+/**
+ * Function Description: Performs consistency checks during free. Checks object validity and cache matching. Returns 1 if valid.
+ */
 static inline int free_consistency_checks(struct kmem_cache *s,
 		struct slab *slab, void *object, unsigned long addr)
 {
@@ -1775,7 +2053,7 @@ static inline int free_consistency_checks(struct kmem_cache *s,
 	return 1;
 }
 
-/*
+/**
  * Parse a block of slab_debug options. Blocks are delimited by ';'
  *
  * @str:    start of block
@@ -1784,6 +2062,9 @@ static inline int free_consistency_checks(struct kmem_cache *s,
  * @init:   assume this is initial parsing and not per-kmem-create parsing
  *
  * returns the start of next block if there's any, or NULL
+ * 
+ * 
+ * Function Description: Parses a block of slub_debug options. Returns the parsed flags and slab list. Used for boot-time debugging configuration.
  */
 static const char *
 parse_slub_debug_flags(const char *str, slab_flags_t *flags, const char **slabs, bool init)
@@ -1863,6 +2144,9 @@ check_slabs:
 		return NULL;
 }
 
+/**
+ * Function Description: Boot parameter handler for slub_debug. Parses the string and configures debugging. Called during early boot.
+ */
 static int __init setup_slub_debug(const char *str, const struct kernel_param *kp)
 {
 	slab_flags_t flags;
@@ -1920,6 +2204,9 @@ out:
 	return 0;
 }
 
+/**
+ * Variable Description: This is a struct kernel_param_ops that defines the operations for the slab_debug kernel parameter (and its alias slub_debug). It has the KERNEL_PARAM_OPS_FL_NOARG flag set, indicating the parameter takes no argument (it's a boolean flag), and specifies the set function as setup_slub_debug. This allows users to enable or configure SLUB debugging features (such as red zoning, poisoning, tracking, and consistency checks) via the kernel command line, which is essential for diagnosing memory corruption issues, detecting use-after-free bugs, and validating slab allocator behavior during development and testing. 
+ */
 static const struct kernel_param_ops param_ops_slab_debug __initconst = {
 	.flags = KERNEL_PARAM_OPS_FL_NOARG,
 	.set = setup_slub_debug,
@@ -1927,7 +2214,7 @@ static const struct kernel_param_ops param_ops_slab_debug __initconst = {
 __core_param_cb(slab_debug, &param_ops_slab_debug, NULL, 0);
 __core_param_cb(slub_debug, &param_ops_slab_debug, NULL, 0);
 
-/*
+/**
  * kmem_cache_flags - apply debugging options to the cache
  * @flags:		flags to set
  * @name:		name of the cache
@@ -1936,6 +2223,9 @@ __core_param_cb(slub_debug, &param_ops_slab_debug, NULL, 0);
  * option(s), if a slab name (or multiple) is specified i.e.
  * slab_debug=<Debug-Options>,<slab name1>,<slab name2> ...
  * then only the select slabs will receive the debug option(s).
+ * 
+ * 
+ * Function Description: Applies debugging options to a cache's flags. Checks if the cache name matches a debug pattern. Used during cache creation.
  */
 slab_flags_t kmem_cache_flags(slab_flags_t flags, const char *name)
 {
@@ -2029,7 +2319,7 @@ static inline void dec_slabs_node(struct kmem_cache *s, int node,
 							int objects) {}
 #endif /* CONFIG_SLUB_DEBUG */
 
-/*
+/**
  * The allocated objcg pointers array is not accounted directly.
  * Moreover, it should not come from DMA buffer and is not readily
  * reclaimable. So those GFP bits should be masked off.
@@ -2041,6 +2331,9 @@ static inline void dec_slabs_node(struct kmem_cache *s, int node,
 
 #ifdef CONFIG_MEM_ALLOC_PROFILING_DEBUG
 
+/**
+ * Function Description: This function marks the code tag reference for a specific object as empty, which is used when an object is being freed or when its allocation tracking metadata needs to be cleared. It first retrieves the slab containing the object and its object extensions pointer (slab_exts). If extensions exist, it gets the extension vector reference, calculates the object's index within the slab using obj_to_index(), and retrieves the specific slabobj_ext entry for that object. It then checks if the code tag reference is already empty using is_codetag_empty(); if so, it releases the extension reference and returns. Otherwise, it uses WARN_ON() to catch any unexpected non-NULL code tag pointers (which would indicate inconsistent state), sets the reference to empty using set_codetag_empty(), and releases the extension reference. This function is critical for maintaining accurate allocation tracking (e.g., for memory accounting or debugging) when objects are freed, ensuring that stale metadata does not persist and cause false positives in memory leak detection or use-after-free analysis.
+ */
 static inline void mark_obj_codetag_empty(const void *obj)
 {
 	struct slab *obj_slab;
@@ -2067,11 +2360,17 @@ static inline void mark_obj_codetag_empty(const void *obj)
 	}
 }
 
+/**
+ * Function Description: This function atomically marks a slab as having failed to allocate object extensions. It uses cmpxchg() to set the slab->obj_exts field to the special sentinel value OBJEXTS_ALLOC_FAIL only if it is currently 0 (uninitialized). The function returns true if the exchange succeeded (meaning it was the first failure and successfully marked the slab), or false if the field already contained a different value (either a valid pointer or already marked as failed). This allows the slab allocator to track which slabs have encountered extension allocation failures, enabling proper cleanup and handling of objects without metadata.
+ */
 static inline bool mark_failed_objexts_alloc(struct slab *slab)
 {
 	return cmpxchg(&slab->obj_exts, 0, OBJEXTS_ALLOC_FAIL) == 0;
 }
 
+/**
+ * Function Description: This function handles the cleanup for slabs where object extension allocation previously failed. When obj_exts equals the sentinel value OBJEXTS_ALLOC_FAIL, it indicates that the slab was marked as having a failed extension allocation. In this case, the function iterates over all objects in the slab and sets their code tag references to empty using set_codetag_empty(). This prevents false warnings or errors later when the system checks for missing metadata, ensuring that objects without extensions are properly recognized and handled. The function is called after the extension vector is freed to clean up any stale references that might cause incorrect tracking or warnings.
+ */
 static inline void handle_failed_objexts_alloc(unsigned long obj_exts,
 			struct slabobj_ext *vec, unsigned int objects)
 {
@@ -2097,12 +2396,15 @@ static inline void handle_failed_objexts_alloc(unsigned long obj_exts,
 
 #endif /* CONFIG_MEM_ALLOC_PROFILING_DEBUG */
 
+/**
+ * Function Description: This inline function initializes the object extensions pointer for a slab by setting slab->obj_exts to 0 (NULL). The obj_exts field is used to store per-object metadata such as memcg ownership information or allocation tagging data when CONFIG_SLAB_OBJ_EXT is enabled. By setting it to zero during slab initialization (e.g., when a new slab is allocated), it ensures that the slab starts with no extension metadata attached, and any subsequent allocation or freeing operations can determine whether extensions need to be allocated or managed for objects in this slab. This is a simple but critical step in maintaining the integrity of the slab's object extension tracking system.
+ */
 static inline void init_slab_obj_exts(struct slab *slab)
 {
 	slab->obj_exts = 0;
 }
 
-/*
+/**
  * Calculate the allocation size for slabobj_ext array.
  *
  * When memory allocation profiling is enabled, the obj_exts array
@@ -2112,6 +2414,9 @@ static inline void init_slab_obj_exts(struct slab *slab)
  *
  * To avoid this, increase the allocation size when we detect the array
  * may come from the same cache, forcing it to use a different cache.
+ * 
+ * 
+ * Function Description: This helper function calculates the appropriate allocation size for storing slab object extensions (such as memcg or alloc tagging metadata) for objects in a slab. It first computes the required size as sizeof(struct slabobj_ext) * slab->objects. For kmalloc caches (normal), it checks if the calculated size would fit into a standard kmalloc bucket by calling kmalloc_slab() to determine the cache that would serve this allocation. If the calculated size matches the object size of the kmalloc cache (meaning it would be exactly one object per slab), it returns object_size + 1 to force the allocation into a larger bucket, preventing confusion between object data and extension metadata that could lead to memory corruption. If the size is too large for kmalloc or the cache is not a normal kmalloc cache, it returns the original calculated size. This ensures that extension metadata is stored safely without conflicting with object boundaries or causing slab layout issues.
  */
 static inline size_t obj_exts_alloc_size(struct kmem_cache *s,
 					 struct slab *slab, gfp_t gfp)
@@ -2138,6 +2443,9 @@ static inline size_t obj_exts_alloc_size(struct kmem_cache *s,
 	return sz;
 }
 
+/**
+ * Function Description: Allocates object extensions for a slab. Used for memcg and allocation profiling. Returns 0 on success or -ENOMEM.
+ */
 int alloc_slab_obj_exts(struct slab *slab, struct kmem_cache *s,
 		        gfp_t gfp, bool new_slab)
 {
@@ -2219,6 +2527,9 @@ retry:
 	return 0;
 }
 
+/**
+ * Function Description: Frees object extensions for a slab. Used when a slab is freed.
+ */
 static inline void free_slab_obj_exts(struct slab *slab, bool allow_spin)
 {
 	struct slabobj_ext *obj_exts;
@@ -2254,10 +2565,13 @@ static inline void free_slab_obj_exts(struct slab *slab, bool allow_spin)
 	slab->obj_exts = 0;
 }
 
-/*
+/**
  * Try to allocate slabobj_ext array from unused space.
  * This function must be called on a freshly allocated slab to prevent
  * concurrency problems.
+ * 
+ * 
+ * Function Description: Allocates object extensions early during slab allocation. Tries to use leftover space in the slab. Used for early initialization.
  */
 static void alloc_slab_obj_exts_early(struct kmem_cache *s, struct slab *slab)
 {
@@ -2333,6 +2647,9 @@ static inline void alloc_slab_obj_exts_early(struct kmem_cache *s,
 
 #ifdef CONFIG_MEM_ALLOC_PROFILING
 
+/**
+ * Function Description: Prepares object extensions for allocation profiling. Ensures extensions exist before tagging. Returns the extensions pointer.
+ */
 static inline unsigned long
 prepare_slab_obj_exts_hook(struct kmem_cache *s, struct slab *slab,
 			   gfp_t flags, void *p)
@@ -2348,7 +2665,11 @@ prepare_slab_obj_exts_hook(struct kmem_cache *s, struct slab *slab,
 }
 
 
-/* Should be called only if mem_alloc_profiling_enabled() */
+/** Should be called only if mem_alloc_profiling_enabled()
+ * 
+ * 
+ * Function Description: Internal function for allocation profiling hook. Adds an allocation tag to the object. Used for memory allocation profiling.
+ */
 static noinline void
 __alloc_tagging_slab_alloc_hook(struct kmem_cache *s, void *object, gfp_t flags)
 {
@@ -2384,6 +2705,9 @@ __alloc_tagging_slab_alloc_hook(struct kmem_cache *s, void *object, gfp_t flags)
 	}
 }
 
+/**
+ * Function Description: Allocation profiling hook for slab allocations. Tags objects for memory profiling.
+ */
 static inline void
 alloc_tagging_slab_alloc_hook(struct kmem_cache *s, void *object, gfp_t flags)
 {
@@ -2391,7 +2715,11 @@ alloc_tagging_slab_alloc_hook(struct kmem_cache *s, void *object, gfp_t flags)
 		__alloc_tagging_slab_alloc_hook(s, object, flags);
 }
 
-/* Should be called only if mem_alloc_profiling_enabled() */
+/** Should be called only if mem_alloc_profiling_enabled()
+ * 
+ * 
+ * Function Description: Internal function for free profiling hook. Removes allocation tags from objects. Used for memory allocation profiling.
+ */
 static noinline void
 __alloc_tagging_slab_free_hook(struct kmem_cache *s, struct slab *slab, void **p,
 			       int objects)
@@ -2416,6 +2744,9 @@ __alloc_tagging_slab_free_hook(struct kmem_cache *s, struct slab *slab, void **p
 	put_slab_obj_exts(obj_exts);
 }
 
+/**
+ * Function Description: Free profiling hook for slab frees. Removes tags from objects being freed.
+ */
 static inline void
 alloc_tagging_slab_free_hook(struct kmem_cache *s, struct slab *slab, void **p,
 			     int objects)
@@ -2444,6 +2775,9 @@ alloc_tagging_slab_free_hook(struct kmem_cache *s, struct slab *slab, void **p,
 
 static void memcg_alloc_abort_single(struct kmem_cache *s, void *object);
 
+/**
+ * Function Description: Memcg post-allocation hook. Charges objects to memory cgroups. Returns true on success.
+ */
 static __fastpath_inline
 bool memcg_slab_post_alloc_hook(struct kmem_cache *s, struct list_lru *lru,
 				gfp_t flags, size_t size, void **p)
@@ -2467,6 +2801,9 @@ bool memcg_slab_post_alloc_hook(struct kmem_cache *s, struct list_lru *lru,
 	return false;
 }
 
+/**
+ * Function Description: Memcg free hook. Uncharges objects from memory cgroups.
+ */
 static __fastpath_inline
 void memcg_slab_free_hook(struct kmem_cache *s, struct slab *slab, void **p,
 			  int objects)
@@ -2485,6 +2822,9 @@ void memcg_slab_free_hook(struct kmem_cache *s, struct slab *slab, void **p,
 	put_slab_obj_exts(obj_exts);
 }
 
+/**
+ * Function Description: This function handles memcg (memory cgroup) charging for objects that were allocated without memcg charging (e.g., via kmem_cache_charge()). It first checks if the object is a large kmalloc allocation (PageLargeKmalloc). If so, and if the page is not already memcg-charged, it charges the entire page to the memcg using __memcg_kmem_charge_page(), then adjusts the global and memcg statistics by subtracting from global and adding to memcg to avoid double-counting. For normal slab objects, it retrieves the slab and cache, and skips charging for KMALLOC_NORMAL caches to avoid circular dependencies. It then checks if the object already has a memcg extension (obj_exts). If so, and the object is already charged (obj_ext->objcg is non-NULL), it returns true. Otherwise, it calls __memcg_slab_post_alloc_hook() to perform the actual memcg charging. This function is called by kmem_cache_charge() to charge objects in cases where charging at allocation time was not possible (e.g., when the target memcg was not known at allocation time).
+ */
 static __fastpath_inline
 bool memcg_slab_post_charge(void *p, gfp_t flags)
 {
@@ -2568,13 +2908,16 @@ static inline bool memcg_slab_post_charge(void *p, gfp_t flags)
 #ifdef CONFIG_SLUB_RCU_DEBUG
 static void slab_free_after_rcu_debug(struct rcu_head *rcu_head);
 
+/**
+ * struct Description: This structure is used for RCU-delayed freeing with SLAB_TYPESAFE_BY_RCU. It contains an rcu_head and the object pointer. It is used to delay freeing until after an RCU grace period.
+ */
 struct rcu_delayed_free {
 	struct rcu_head head;
 	void *object;
 };
 #endif
 
-/*
+/**
  * Hooks for other subsystems that check memory allocations. In a typical
  * production configuration these hooks all should produce no code at all.
  *
@@ -2599,6 +2942,9 @@ struct rcu_delayed_free {
  * - debug_check_no_locks_freed()
  * - debug_check_no_obj_freed()
  * - __kcsan_check_access()
+ * 
+ * 
+ * Function Description: This is a critical hook called before freeing an object. It performs various checks and cleanup operations to ensure safe freeing. It calls kmemleak_free_recursive() to tell kmemleak to stop tracking the object, kmsan_slab_free() to handle KMSAN shadow state, and debug_check_no_locks_freed() and debug_check_no_obj_freed() to check for lock or object debug issues. If the object is not SLAB_TYPESAFE_BY_RCU (or is being freed after an RCU delay), it uses KCSAN to help debug racy use-after-free. It then checks for KFENCE objects (returning false if handled), and gives KASAN a chance to notice invalid frees via kasan_slab_pre_free(). If SLAB_TYPESAFE_BY_RCU is enabled and the object is still accessible (not after an RCU delay), it attempts to allocate a rcu_delayed_free structure and call call_rcu() to delay freeing, returning false. If initialization on free is requested (init is true), it zeroes the object (using memset) while preserving the original size and redzone information, then restores the original size. Finally, it calls kasan_slab_free() to handle KASAN quarantine, returning true if the object can proceed to the actual free operation. This function returns false if the object's reuse is delayed (by RCU or KASAN quarantine) or if it was returned to KFENCE.
  */
 static __always_inline
 bool slab_free_hook(struct kmem_cache *s, void *x, bool init,
@@ -2685,6 +3031,9 @@ bool slab_free_hook(struct kmem_cache *s, void *x, bool init,
 	return !kasan_slab_free(s, x, init, still_accessible, false);
 }
 
+/**
+ * Function Description: This function processes a freelist of objects being freed in bulk. It takes the head and tail of the list and the count, and applies slab_free_hook() to each object. It first checks if the head is a KFENCE address; if so, it calls slab_free_hook() on it and returns false. It then reconstructs a new freelist by iterating through the objects. For each object, it calls slab_free_hook(); if the hook returns true (meaning the object can be freed immediately), it adds the object to the new freelist using set_freepointer(). If the hook returns false (object's reuse is delayed), it decrements the count. The function then sets the head and tail pointers to the reconstructed freelist and returns true if there are any objects left. This ensures that objects whose freeing is delayed (e.g., by KASAN quarantine or SLUB_RCU_DEBUG) are removed from the batch, while the rest are prepared for the actual __slab_free() operation. 
+ */
 static __fastpath_inline
 bool slab_free_freelist_hook(struct kmem_cache *s, void **head, void **tail,
 			     int *cnt)
@@ -2729,6 +3078,9 @@ bool slab_free_freelist_hook(struct kmem_cache *s, void **head, void **tail,
 	return *head != NULL;
 }
 
+/**
+ * Function Description: Sets up an object after allocation. Initializes debugging metadata, KASAN state, and calls the constructor if present. Returns the object pointer, possibly adjusted by KASAN tagging.
+ */
 static void *setup_object(struct kmem_cache *s, void *object)
 {
 	setup_object_debug(s, object);
@@ -2741,6 +3093,9 @@ static void *setup_object(struct kmem_cache *s, void *object)
 	return object;
 }
 
+/**
+ * Function Description: Allocates an empty sheaf with specified capacity. Handles GFP flags, prevents recursion for kmalloc caches, and increments SHEAF_ALLOC stat. Returns the sheaf or NULL.
+ */
 static struct slab_sheaf *__alloc_empty_sheaf(struct kmem_cache *s, gfp_t gfp,
 					      unsigned int capacity)
 {
@@ -2773,12 +3128,18 @@ static struct slab_sheaf *__alloc_empty_sheaf(struct kmem_cache *s, gfp_t gfp,
 	return sheaf;
 }
 
+/**
+ * Function Description: Wrapper that calls __alloc_empty_sheaf() with the cache's default sheaf capacity. Used to get an empty sheaf for per-CPU caching.
+ */
 static inline struct slab_sheaf *alloc_empty_sheaf(struct kmem_cache *s,
 						   gfp_t gfp)
 {
 	return __alloc_empty_sheaf(s, gfp, s->sheaf_capacity);
 }
 
+/**
+ * Function Description: Frees an empty sheaf. Handles allocation profiling marking, asserts the sheaf is empty, calls kfree(), and increments SHEAF_FREE stat.
+ */
 static void free_empty_sheaf(struct kmem_cache *s, struct slab_sheaf *sheaf)
 {
 	/*
@@ -2800,6 +3161,9 @@ static unsigned int
 refill_objects(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int min,
 	       unsigned int max);
 
+/**
+ * Function Description: Refills a sheaf with objects from slab allocator. Calls refill_objects() and updates sheaf size. Returns 0 on success or -ENOMEM if not enough objects were filled.
+ */
 static int refill_sheaf(struct kmem_cache *s, struct slab_sheaf *sheaf,
 			 gfp_t gfp)
 {
@@ -2824,6 +3188,9 @@ static int refill_sheaf(struct kmem_cache *s, struct slab_sheaf *sheaf,
 
 static void sheaf_flush_unused(struct kmem_cache *s, struct slab_sheaf *sheaf);
 
+/**
+ * Function Description: Allocates a full sheaf by getting an empty one and refilling it to capacity. Flushes and frees the sheaf if refilling fails. Returns the full sheaf or NULL.
+ */
 static struct slab_sheaf *alloc_full_sheaf(struct kmem_cache *s, gfp_t gfp)
 {
 	struct slab_sheaf *sheaf = alloc_empty_sheaf(s, gfp);
@@ -2848,7 +3215,7 @@ static struct slab_sheaf *alloc_full_sheaf(struct kmem_cache *s, gfp_t gfp)
 
 static void __kmem_cache_free_bulk(struct kmem_cache *s, size_t size, void **p);
 
-/*
+/**
  * Free all objects from the main sheaf. In order to perform
  * __kmem_cache_free_bulk() outside of cpu_sheaves->lock, work in batches where
  * object pointers are moved to a on-stack array under the lock. To bound the
@@ -2858,6 +3225,9 @@ static void __kmem_cache_free_bulk(struct kmem_cache *s, size_t size, void **p);
  * unlocked.
  *
  * Returns how many objects are remaining to be flushed
+ * 
+ * 
+ * Function Description: Flushes a batch (up to 32 objects) from the main sheaf. Copies objects to a stack array, releases the lock, and calls bulk free. Returns remaining objects count.
  */
 static unsigned int __sheaf_flush_main_batch(struct kmem_cache *s)
 {
@@ -2887,6 +3257,9 @@ static unsigned int __sheaf_flush_main_batch(struct kmem_cache *s)
 	return remaining;
 }
 
+/**
+ * Function Description: Flushes all objects from the main sheaf by repeatedly calling __sheaf_flush_main_batch() until empty.
+ */
 static void sheaf_flush_main(struct kmem_cache *s)
 {
 	unsigned int remaining;
@@ -2899,8 +3272,11 @@ static void sheaf_flush_main(struct kmem_cache *s)
 	} while (remaining);
 }
 
-/*
+/**
  * Returns true if the main sheaf was at least partially flushed.
+ * 
+ * 
+ * Function Description: Attempts to flush the main sheaf using trylock. Returns true if any flushing was performed. Used in atomic contexts where blocking is not allowed.
  */
 static bool sheaf_try_flush_main(struct kmem_cache *s)
 {
@@ -2919,11 +3295,14 @@ static bool sheaf_try_flush_main(struct kmem_cache *s)
 	return ret;
 }
 
-/*
+/**
  * Free all objects from a sheaf that's unused, i.e. not linked to any
  * cpu_sheaves, so we need no locking and batching. The locking is also not
  * necessary when flushing cpu's sheaves (both spare and main) during cpu
  * hotremove as the cpu is not executing anymore.
+ * 
+ * 
+ * Function Description: Flushes all objects from an unused sheaf without locking. Calls __kmem_cache_free_bulk() and sets size to 0. Used for spare sheaves and cache destruction.
  */
 static void sheaf_flush_unused(struct kmem_cache *s, struct slab_sheaf *sheaf)
 {
@@ -2937,6 +3316,9 @@ static void sheaf_flush_unused(struct kmem_cache *s, struct slab_sheaf *sheaf)
 	sheaf->size = 0;
 }
 
+/**
+ * Function Description: Prepares an RCU sheaf for freeing. Processes each object with memcg, allocation profiling, and slab_free_hook(). Removes objects whose reuse is delayed. Returns true if any object came from a pfmemalloc slab.
+ */
 static bool __rcu_free_sheaf_prepare(struct kmem_cache *s,
 				     struct slab_sheaf *sheaf)
 {
@@ -2965,6 +3347,9 @@ static bool __rcu_free_sheaf_prepare(struct kmem_cache *s,
 	return pfmemalloc;
 }
 
+/**
+ * Function Description: RCU callback for freeing a sheaf not associated with a barn. Processes objects with __rcu_free_sheaf_prepare(), flushes remaining objects, and frees the empty sheaf.
+ */
 static void rcu_free_sheaf_nobarn(struct rcu_head *head)
 {
 	struct slab_sheaf *sheaf;
@@ -2980,7 +3365,7 @@ static void rcu_free_sheaf_nobarn(struct rcu_head *head)
 	free_empty_sheaf(s, sheaf);
 }
 
-/*
+/**
  * Caller needs to make sure migration is disabled in order to fully flush
  * single cpu's sheaves
  *
@@ -2988,6 +3373,9 @@ static void rcu_free_sheaf_nobarn(struct rcu_head *head)
  *
  * flushing operations are rare so let's keep it simple and flush to slabs
  * directly, skipping the barn
+ * 
+ * 
+ * Function Description: Flushes all percpu sheaves (main, spare, rcu_free). Used during cache destruction or CPU hot-unplug. Frees spare sheaves directly and queues rcu_free sheaves for RCU freeing.
  */
 static void pcs_flush_all(struct kmem_cache *s)
 {
@@ -3016,6 +3404,9 @@ static void pcs_flush_all(struct kmem_cache *s)
 	sheaf_flush_main(s);
 }
 
+/**
+ * Function Description: Flushes all sheaves for a specific CPU without locking. Used during CPU hot-unplug when the CPU is not executing anymore.
+ */
 static void __pcs_flush_all_cpu(struct kmem_cache *s, unsigned int cpu)
 {
 	struct slub_percpu_sheaves *pcs;
@@ -3036,6 +3427,9 @@ static void __pcs_flush_all_cpu(struct kmem_cache *s, unsigned int cpu)
 	}
 }
 
+/**
+ * Function Description: Destroys all percpu sheaves for a cache. Frees main sheaves, warns about spare/rcu_free sheaves, and frees the percpu data. Called during cache destruction.
+ */
 static void pcs_destroy(struct kmem_cache *s)
 {
 	int cpu;
@@ -3083,6 +3477,9 @@ free_pcs:
 	s->cpu_sheaves = NULL;
 }
 
+/**
+ * Function Description: Retrieves an empty sheaf from the barn. Acquires the barn lock and removes one from the empty list. Returns the sheaf or NULL.
+ */
 static struct slab_sheaf *barn_get_empty_sheaf(struct node_barn *barn,
 					       bool allow_spin)
 {
@@ -3109,10 +3506,13 @@ static struct slab_sheaf *barn_get_empty_sheaf(struct node_barn *barn,
 	return empty;
 }
 
-/*
+/**
  * The following two functions are used mainly in cases where we have to undo an
  * intended action due to a race or cpu migration. Thus they do not check the
  * empty or full sheaf limits for simplicity.
+ * 
+ * 
+ * Function Description: Puts an empty sheaf into the barn's empty list. Acquires the lock and adds it to the list.
  */
 
 static void barn_put_empty_sheaf(struct node_barn *barn, struct slab_sheaf *sheaf)
@@ -3127,6 +3527,9 @@ static void barn_put_empty_sheaf(struct node_barn *barn, struct slab_sheaf *shea
 	spin_unlock_irqrestore(&barn->lock, flags);
 }
 
+/**
+ * Function Description: Puts a full sheaf into the barn's full list. Acquires the lock and adds it to the list.
+ */
 static void barn_put_full_sheaf(struct node_barn *barn, struct slab_sheaf *sheaf)
 {
 	unsigned long flags;
@@ -3139,6 +3542,9 @@ static void barn_put_full_sheaf(struct node_barn *barn, struct slab_sheaf *sheaf
 	spin_unlock_irqrestore(&barn->lock, flags);
 }
 
+/**
+ * Function Description: Retrieves either a full or empty sheaf from the barn (prefers full). Used when a CPU needs a sheaf for prefilling.
+ */
 static struct slab_sheaf *barn_get_full_or_empty_sheaf(struct node_barn *barn)
 {
 	struct slab_sheaf *sheaf = NULL;
@@ -3166,10 +3572,13 @@ static struct slab_sheaf *barn_get_full_or_empty_sheaf(struct node_barn *barn)
 	return sheaf;
 }
 
-/*
+/**
  * If a full sheaf is available, return it and put the supplied empty one to
  * barn. We ignore the limit on empty sheaves as the number of sheaves doesn't
  * change.
+ * 
+ * 
+ * Function Description: Replaces an empty sheaf with a full one from the barn. Returns the full sheaf or NULL.
  */
 static struct slab_sheaf *
 barn_replace_empty_sheaf(struct node_barn *barn, struct slab_sheaf *empty,
@@ -3200,9 +3609,12 @@ barn_replace_empty_sheaf(struct node_barn *barn, struct slab_sheaf *empty,
 	return full;
 }
 
-/*
+/**
  * If an empty sheaf is available, return it and put the supplied full one to
  * barn. But if there are too many full sheaves, reject this with -E2BIG.
+ * 
+ * 
+ * Function Description: Replaces a full sheaf with an empty one from the barn. Returns the empty sheaf or an error (-E2BIG, -ENOMEM, or -EBUSY).
  */
 static struct slab_sheaf *
 barn_replace_full_sheaf(struct node_barn *barn, struct slab_sheaf *full,
@@ -3238,6 +3650,9 @@ barn_replace_full_sheaf(struct node_barn *barn, struct slab_sheaf *full,
 	return empty;
 }
 
+/**
+ * Function Description: Initializes a barn structure (lock, lists, and counters). Called when creating a new barn for a NUMA node.
+ */
 static void barn_init(struct node_barn *barn)
 {
 	spin_lock_init(&barn->lock);
@@ -3247,6 +3662,9 @@ static void barn_init(struct node_barn *barn)
 	barn->nr_empty = 0;
 }
 
+/**
+ * Function Description: Shrinks a barn by removing and freeing all sheaves. Flushes full sheaves and frees empty ones. Used when shrinking a cache.
+ */
 static void barn_shrink(struct kmem_cache *s, struct node_barn *barn)
 {
 	LIST_HEAD(empty_list);
@@ -3272,8 +3690,11 @@ static void barn_shrink(struct kmem_cache *s, struct node_barn *barn)
 		free_empty_sheaf(s, sheaf);
 }
 
-/*
+/**
  * Slab allocation and freeing
+ * 
+ * 
+ * Function Description: Allocates a slab page from the page allocator. Returns the slab pointer or NULL.
  */
 static inline struct slab *alloc_slab_page(gfp_t flags, int node,
 					   struct kmem_cache_order_objects oo,
@@ -3303,7 +3724,11 @@ static inline struct slab *alloc_slab_page(gfp_t flags, int node,
 }
 
 #ifdef CONFIG_SLAB_FREELIST_RANDOM
-/* Pre-initialize the random sequence cache */
+/** Pre-initialize the random sequence cache
+ * 
+ * 
+ * Function Description: Initializes a random sequence for freelist randomization. Returns 0 on success or a negative error code.
+ */
 static int init_cache_random_seq(struct kmem_cache *s)
 {
 	unsigned int count = oo_objects(s->oo);
@@ -3330,7 +3755,9 @@ static int init_cache_random_seq(struct kmem_cache *s)
 	return 0;
 }
 
-/* Initialize each random sequence freelist per cache */
+/** Initialize each random sequence freelist per cache
+ * Description: Initializes freelist randomization for all slab caches. Called during boot.
+ */
 static void __init init_freelist_randomization(void)
 {
 	struct kmem_cache *s;
@@ -3343,7 +3770,11 @@ static void __init init_freelist_randomization(void)
 	mutex_unlock(&slab_mutex);
 }
 
-/* Get the next entry on the pre-computed freelist randomized */
+/** Get the next entry on the pre-computed freelist randomized
+ * 
+ * 
+ * Function Description: Returns the next entry from a randomized freelist sequence. Skips indices beyond the page limit. Returns a pointer to the object.
+ */
 static void *next_freelist_entry(struct kmem_cache *s,
 				unsigned long *pos, void *start,
 				unsigned long page_limit,
@@ -3367,7 +3798,11 @@ static void *next_freelist_entry(struct kmem_cache *s,
 
 static DEFINE_PER_CPU(struct rnd_state, slab_rnd_state);
 
-/* Shuffle the single linked freelist based on a random pre-computed sequence */
+/** Shuffle the single linked freelist based on a random pre-computed sequence
+ * 
+ * 
+ * Function Description: Shuffles a slab's freelist using a random sequence. Returns true if shuffling was performed.
+ */
 static bool shuffle_freelist(struct kmem_cache *s, struct slab *slab,
 			     bool allow_spin)
 {
@@ -3426,6 +3861,9 @@ static inline bool shuffle_freelist(struct kmem_cache *s, struct slab *slab,
 }
 #endif /* CONFIG_SLAB_FREELIST_RANDOM */
 
+/**
+ * Function Description: Accounts a newly allocated slab for memcg and node statistics.
+ */
 static __always_inline void account_slab(struct slab *slab, int order,
 					 struct kmem_cache *s, gfp_t gfp)
 {
@@ -3438,6 +3876,9 @@ static __always_inline void account_slab(struct slab *slab, int order,
 			    PAGE_SIZE << order);
 }
 
+/**
+ * Function Description: Unaccounts a slab before freeing it. Frees object extensions and updates node statistics.
+ */
 static __always_inline void unaccount_slab(struct slab *slab, int order,
 					   struct kmem_cache *s, bool allow_spin)
 {
@@ -3452,6 +3893,9 @@ static __always_inline void unaccount_slab(struct slab *slab, int order,
 			    -(PAGE_SIZE << order));
 }
 
+/**
+ * Function Description: Allocates a new slab. Handles order selection, page allocation, debugging, and freelist setup. Returns the slab or NULL.
+ */
 static struct slab *allocate_slab(struct kmem_cache *s, gfp_t flags, int node)
 {
 	bool allow_spin = gfpflags_allow_spinning(flags);
@@ -3529,6 +3973,9 @@ static struct slab *allocate_slab(struct kmem_cache *s, gfp_t flags, int node)
 	return slab;
 }
 
+/**
+ * Function Description: Wrapper for allocate_slab() with GFP flag fixing. Returns the slab or NULL.
+ */
 static struct slab *new_slab(struct kmem_cache *s, gfp_t flags, int node)
 {
 	if (unlikely(flags & GFP_SLAB_BUG_MASK))
@@ -3540,6 +3987,9 @@ static struct slab *new_slab(struct kmem_cache *s, gfp_t flags, int node)
 		flags & (GFP_RECLAIM_MASK | GFP_CONSTRAINT_MASK), node);
 }
 
+/**
+ * Function Description: Frees a slab back to the page allocator. Clears pfmemalloc, PageSlab flag, and unaccounts the slab.
+ */
 static void __free_slab(struct kmem_cache *s, struct slab *slab, bool allow_spin)
 {
 	struct page *page = slab_page(slab);
@@ -3557,6 +4007,9 @@ static void __free_slab(struct kmem_cache *s, struct slab *slab, bool allow_spin
 		free_frozen_pages_nolock(page, order);
 }
 
+/**
+ * Function Description: Frees a newly allocated slab without locking. Used when allocation fails and needs quick cleanup.
+ */
 static void free_new_slab_nolock(struct kmem_cache *s, struct slab *slab)
 {
 	/*
@@ -3566,6 +4019,9 @@ static void free_new_slab_nolock(struct kmem_cache *s, struct slab *slab)
 	__free_slab(s, slab, false);
 }
 
+/**
+ * Function Description: RCU callback for freeing a slab with SLAB_TYPESAFE_BY_RCU. Calls __free_slab() after the grace period.
+ */
 static void rcu_free_slab(struct rcu_head *h)
 {
 	struct slab *slab = container_of(h, struct slab, rcu_head);
@@ -3573,6 +4029,9 @@ static void rcu_free_slab(struct rcu_head *h)
 	__free_slab(slab->slab_cache, slab, true);
 }
 
+/**
+ * Function Description: Frees a slab with debug checks. Queues for RCU freeing if SLAB_TYPESAFE_BY_RCU is set.
+ */
 static void free_slab(struct kmem_cache *s, struct slab *slab)
 {
 	if (kmem_cache_debug_flags(s, SLAB_CONSISTENCY_CHECKS)) {
@@ -3589,29 +4048,44 @@ static void free_slab(struct kmem_cache *s, struct slab *slab)
 		__free_slab(s, slab, true);
 }
 
+/**
+ * Function Description: Discards a slab by decrementing node counts and calling free_slab().
+ */
 static void discard_slab(struct kmem_cache *s, struct slab *slab)
 {
 	dec_slabs_node(s, slab_nid(slab), slab->objects);
 	free_slab(s, slab);
 }
 
+/**
+ * Function Description: Tests if a slab is on the node's partial list.
+ */
 static inline bool slab_test_node_partial(const struct slab *slab)
 {
 	return test_bit(SL_partial, &slab->flags.f);
 }
 
+/**
+ * Function Description: Sets the SL_partial flag on a slab.
+ */
 static inline void slab_set_node_partial(struct slab *slab)
 {
 	set_bit(SL_partial, &slab->flags.f);
 }
 
+/**
+ * Function Description: Clears the SL_partial flag on a slab.
+ */
 static inline void slab_clear_node_partial(struct slab *slab)
 {
 	clear_bit(SL_partial, &slab->flags.f);
 }
 
-/*
+/**
  * Management of partially allocated slabs.
+ * 
+ * 
+ * Function Description: Adds a slab to the node's partial list without locking. Caller must hold the list lock.
  */
 static inline void
 __add_partial(struct kmem_cache_node *n, struct slab *slab, enum add_mode mode)
@@ -3624,6 +4098,9 @@ __add_partial(struct kmem_cache_node *n, struct slab *slab, enum add_mode mode)
 	slab_set_node_partial(slab);
 }
 
+/**
+ * Function Description: Adds a slab to the node's partial list. Asserts the list lock is held.
+ */
 static inline void add_partial(struct kmem_cache_node *n,
 				struct slab *slab, enum add_mode mode)
 {
@@ -3631,6 +4108,9 @@ static inline void add_partial(struct kmem_cache_node *n,
 	__add_partial(n, slab, mode);
 }
 
+/**
+ * Function Description: Removes a slab from the node's partial list. Asserts the list lock is held.
+ */
 static inline void remove_partial(struct kmem_cache_node *n,
 					struct slab *slab)
 {
@@ -3640,11 +4120,14 @@ static inline void remove_partial(struct kmem_cache_node *n,
 	n->nr_partial--;
 }
 
-/*
+/**
  * Called only for kmem_cache_debug() caches instead of remove_partial(), with a
  * slab from the n->partial list. Remove only a single object from the slab, do
  * the alloc_debug_processing() checks and leave the slab on the list, or move
  * it to full list if it was the last free object.
+ * 
+ * 
+ * Function Description: Allocates a single object from a partial slab for debug caches. Returns the object or NULL.
  */
 static void *alloc_single_from_partial(struct kmem_cache *s,
 		struct kmem_cache_node *n, struct slab *slab, int orig_size)
@@ -3679,10 +4162,13 @@ static void *alloc_single_from_partial(struct kmem_cache *s,
 	return object;
 }
 
-/*
+/**
  * Called only for kmem_cache_debug() caches to allocate from a freshly
  * allocated slab. Allocate a single object instead of whole freelist
  * and put the slab to the partial (or full) list.
+ * 
+ * 
+ * Function Description: Allocates a single object from a newly allocated slab for debug caches. Returns the object or NULL.
  */
 static void *alloc_single_from_new_slab(struct kmem_cache *s, struct slab *slab,
 					int orig_size, gfp_t gfpflags)
@@ -3731,6 +4217,9 @@ static void *alloc_single_from_new_slab(struct kmem_cache *s, struct slab *slab,
 
 static inline bool pfmemalloc_match(struct slab *slab, gfp_t gfpflags);
 
+/**
+ * Function Description: Retrieves multiple slabs from a node's partial list for bulk allocation. Returns true if any slabs were obtained.
+ */
 static bool get_partial_node_bulk(struct kmem_cache *s,
 				  struct kmem_cache_node *n,
 				  struct partial_bulk_context *pc,
@@ -3786,8 +4275,11 @@ static bool get_partial_node_bulk(struct kmem_cache *s,
 	return total_free > 0;
 }
 
-/*
+/**
  * Try to allocate object from a partial slab on a specific node.
+ * 
+ * 
+ * Function Description: Allocates an object from a partial slab on a specific node. Returns the object or NULL.
  */
 static void *get_from_partial_node(struct kmem_cache *s,
 				   struct kmem_cache_node *n,
@@ -3850,8 +4342,11 @@ static void *get_from_partial_node(struct kmem_cache *s,
 	return object;
 }
 
-/*
+/**
  * Get an object from somewhere. Search in increasing NUMA distances.
+ * 
+ * 
+ * Function Description: Allocates from any node's partial slabs, searching in increasing NUMA distance (CONFIG_NUMA). Returns the object or NULL.
  */
 static void *get_from_any_partial(struct kmem_cache *s, struct partial_context *pc)
 {
@@ -3923,8 +4418,11 @@ static void *get_from_any_partial(struct kmem_cache *s, struct partial_context *
 	return NULL;
 }
 
-/*
+/**
  * Get an object from a partial slab
+ * 
+ * 
+ * Function Description: Allocates an object from a partial slab, trying the preferred node first. Returns the object or NULL.
  */
 static void *get_from_partial(struct kmem_cache *s, int node,
 			      struct partial_context *pc)
@@ -3942,6 +4440,9 @@ static void *get_from_partial(struct kmem_cache *s, int node,
 	return get_from_any_partial(s, pc);
 }
 
+/**
+ * Function Description: Checks if a CPU has any used percpu sheaves for a cache. Returns true if any sheaf is in use.
+ */
 static bool has_pcs_used(int cpu, struct kmem_cache *s)
 {
 	struct slub_percpu_sheaves *pcs;
@@ -3954,10 +4455,13 @@ static bool has_pcs_used(int cpu, struct kmem_cache *s)
 	return (pcs->spare || pcs->rcu_free || pcs->main->size);
 }
 
-/*
+/**
  * Flush percpu sheaves
  *
  * Called from CPU work handler with migration disabled.
+ * 
+ * 
+ * Function Description: Work function that flushes a CPU's percpu sheaves. Called during CPU hot-unplug.
  */
 static void flush_cpu_sheaves(struct work_struct *w)
 {
@@ -3972,6 +4476,9 @@ static void flush_cpu_sheaves(struct work_struct *w)
 		pcs_flush_all(s);
 }
 
+/**
+ * Function Description: Flushes all CPUs' sheaves with CPU hotplug lock held. Queues work on each CPU and waits for completion.
+ */
 static void flush_all_cpus_locked(struct kmem_cache *s)
 {
 	struct slub_flush_work *sfw;
@@ -4002,6 +4509,9 @@ static void flush_all_cpus_locked(struct kmem_cache *s)
 	mutex_unlock(&flush_lock);
 }
 
+/**
+ * Function Description: Flushes all CPUs' sheaves. Acquires CPU hotplug lock and calls flush_all_cpus_locked().
+ */
 static void flush_all(struct kmem_cache *s)
 {
 	cpus_read_lock();
@@ -4009,6 +4519,9 @@ static void flush_all(struct kmem_cache *s)
 	cpus_read_unlock();
 }
 
+/**
+ * Function Description: Work function that flushes the rcu_free sheaf on a CPU. Queues it for RCU freeing.
+ */
 static void flush_rcu_sheaf(struct work_struct *w)
 {
 	struct slub_percpu_sheaves *pcs;
@@ -4032,7 +4545,11 @@ static void flush_rcu_sheaf(struct work_struct *w)
 }
 
 
-/* needed for kvfree_rcu_barrier() */
+/** needed for kvfree_rcu_barrier()
+ * 
+ * 
+ * Function Description: Flushes rcu_free sheaves for a specific cache on all CPUs. Used by kvfree_rcu_barrier_on_cache().
+ */
 void flush_rcu_sheaves_on_cache(struct kmem_cache *s)
 {
 	struct slub_flush_work *sfw;
@@ -4064,6 +4581,9 @@ void flush_rcu_sheaves_on_cache(struct kmem_cache *s)
 	mutex_unlock(&flush_lock);
 }
 
+/**
+ * Function Description: Flushes all rcu_free sheaves for all caches. Used by kvfree_rcu_barrier().
+ */
 void flush_all_rcu_sheaves(void)
 {
 	struct kmem_cache *s;
@@ -4083,9 +4603,12 @@ void flush_all_rcu_sheaves(void)
 	rcu_barrier();
 }
 
-/*
+/**
  * Use the cpu notifier to insure that the cpu slabs are flushed when
  * necessary.
+ * 
+ * 
+ * Function Description: CPU hotplug callback that flushes a CPU's sheaves when it goes offline.
  */
 static int slub_cpu_dead(unsigned int cpu)
 {
@@ -4101,17 +4624,28 @@ static int slub_cpu_dead(unsigned int cpu)
 }
 
 #ifdef CONFIG_SLUB_DEBUG
+
+/**
+ * Function Description: Returns the number of free objects in a slab. Calculated as objects - inuse. Used for statistics and debugging.
+ */
 static int count_free(struct slab *slab)
 {
 	return slab->objects - slab->inuse;
 }
 
+/**
+ * Function Description: Returns the total number of objects on a NUMA node for a cache. Reads the total_objects atomic counter. Used for monitoring and OOM reporting.
+ */
 static inline unsigned long node_nr_objs(struct kmem_cache_node *n)
 {
 	return atomic_long_read(&n->total_objects);
 }
 
-/* Supports checking bulk free of a constructed freelist */
+/** Supports checking bulk free of a constructed freelist
+ * 
+ * 
+ * Function Description: Processes a bulk free with debugging enabled. Validates each object, updates tracking, and poisons objects. Returns true if all checks pass.
+ */
 static inline bool free_debug_processing(struct kmem_cache *s,
 	struct slab *slab, void *head, void *tail, int *bulk_cnt,
 	unsigned long addr, depot_stack_handle_t handle)
@@ -4171,6 +4705,10 @@ out:
 #endif /* CONFIG_SLUB_DEBUG */
 
 #if defined(CONFIG_SLUB_DEBUG) || defined(SLAB_SUPPORTS_SYSFS)
+
+/**
+ * Function Description: Counts partial slabs on a node using a callback function. Acquires the list lock and iterates through the partial list. Used for statistics.
+ */
 static unsigned long count_partial(struct kmem_cache_node *n,
 					int (*get_count)(struct slab *))
 {
@@ -4189,6 +4727,9 @@ static unsigned long count_partial(struct kmem_cache_node *n,
 #ifdef CONFIG_SLUB_DEBUG
 #define MAX_PARTIAL_TO_SCAN 10000
 
+/**
+ * Function Description: Approximates free objects in partial slabs. For long lists, scans from both ends to estimate total free objects. Used for OOM reporting.
+ */
 static unsigned long count_partial_free_approx(struct kmem_cache_node *n)
 {
 	unsigned long flags;
@@ -4224,6 +4765,9 @@ static unsigned long count_partial_free_approx(struct kmem_cache_node *n)
 	return x;
 }
 
+/**
+ * Function Description: Prints OOM information when slab allocation fails. Displays cache details and per-node statistics. Rate-limited to avoid spam.
+ */
 static noinline void
 slab_out_of_memory(struct kmem_cache *s, gfp_t gfpflags, int nid)
 {
@@ -4264,6 +4808,9 @@ static inline void
 slab_out_of_memory(struct kmem_cache *s, gfp_t gfpflags, int nid) { }
 #endif
 
+/**
+ * Function Description: Checks if a slab's pfmemalloc state matches GFP flags. Returns true if the slab can be used for the allocation.
+ */
 static inline bool pfmemalloc_match(struct slab *slab, gfp_t gfpflags)
 {
 	if (unlikely(slab_test_pfmemalloc(slab)))
@@ -4272,13 +4819,16 @@ static inline bool pfmemalloc_match(struct slab *slab, gfp_t gfpflags)
 	return true;
 }
 
-/*
+/**
  * Get the slab's freelist and do not freeze it.
  *
  * Assumes the slab is isolated from node partial list and not frozen.
  *
  * Assumes this is performed only for caches without debugging so we
  * don't need to worry about adding the slab to the full list.
+ * 
+ * 
+ * Function Description: Gets a slab's freelist without freezing it. Used for bulk allocation from isolated slabs. Returns the freelist pointer.
  */
 static inline void *get_freelist_nofreeze(struct kmem_cache *s, struct slab *slab)
 {
@@ -4299,11 +4849,14 @@ static inline void *get_freelist_nofreeze(struct kmem_cache *s, struct slab *sla
 	return old.freelist;
 }
 
-/*
+/**
  * If the object has been wiped upon free, make sure it's fully initialized by
  * zeroing out freelist pointer.
  *
  * Note that we also wipe custom freelist pointers.
+ * 
+ * 
+ * Function Description: Wipes the freelist pointer from an object when init_on_free is enabled. Helps prevent information leaks.
  */
 static __always_inline void maybe_wipe_obj_freeptr(struct kmem_cache *s,
 						   void *obj)
@@ -4314,6 +4867,9 @@ static __always_inline void maybe_wipe_obj_freeptr(struct kmem_cache *s,
 			0, sizeof(void *));
 }
 
+/**
+ * Function Description: Allocates objects from a newly allocated slab. Handles partial list addition if the slab isn't fully consumed. Returns the number allocated.
+ */
 static unsigned int alloc_from_new_slab(struct kmem_cache *s, struct slab *slab,
 		void **p, unsigned int count, bool allow_spin)
 {
@@ -4365,12 +4921,15 @@ static unsigned int alloc_from_new_slab(struct kmem_cache *s, struct slab *slab,
 	return allocated;
 }
 
-/*
+/**
  * Slow path. We failed to allocate via percpu sheaves or they are not available
  * due to bootstrap or debugging enabled or SLUB_TINY.
  *
  * We try to allocate from partial slab lists and fall back to allocating a new
  * slab.
+ * 
+ * 
+ * Function Description: Slow path allocation function. Tries partial slabs first, then allocates a new slab. Handles NUMA node preferences and retries. Returns the object or NULL.
  */
 static void *___slab_alloc(struct kmem_cache *s, gfp_t gfpflags, int node,
 			   unsigned long addr, unsigned int orig_size)
@@ -4451,6 +5010,9 @@ success:
 	return object;
 }
 
+/**
+ * Function Description: Node-aware slow path allocation. Handles strict NUMA policy and calls ___slab_alloc(). Returns the object or NULL.
+ */
 static __always_inline void *__slab_alloc_node(struct kmem_cache *s,
 		gfp_t gfpflags, int node, unsigned long addr, size_t orig_size)
 {
@@ -4482,6 +5044,9 @@ static __always_inline void *__slab_alloc_node(struct kmem_cache *s,
 	return object;
 }
 
+/**
+ * Function Description: Pre-allocation hook that checks GFP flags and fault injection. Returns the cache or NULL if allocation should fail.
+ */
 static __fastpath_inline
 struct kmem_cache *slab_pre_alloc_hook(struct kmem_cache *s, gfp_t flags)
 {
@@ -4495,6 +5060,9 @@ struct kmem_cache *slab_pre_alloc_hook(struct kmem_cache *s, gfp_t flags)
 	return s;
 }
 
+/**
+ * Function Description: Post-allocation hook that handles KASAN, KMSAN, zeroing, memcg, and profiling. Returns true on success.
+ */
 static __fastpath_inline
 bool slab_post_alloc_hook(struct kmem_cache *s, struct list_lru *lru,
 			  gfp_t flags, size_t size, void **p, bool init,
@@ -4550,13 +5118,16 @@ bool slab_post_alloc_hook(struct kmem_cache *s, struct list_lru *lru,
 	return memcg_slab_post_alloc_hook(s, lru, flags, size, p);
 }
 
-/*
+/**
  * Replace the empty main sheaf with a (at least partially) full sheaf.
  *
  * Must be called with the cpu_sheaves local lock locked. If successful, returns
  * the pcs pointer and the local lock locked (possibly on a different cpu than
  * initially called). If not successful, returns NULL and the local lock
  * unlocked.
+ * 
+ * 
+ * Function Description: Replaces an empty main sheaf with a full one. Tries spare, barn, or allocates a new sheaf. Returns the pcs pointer or NULL.
  */
 static struct slub_percpu_sheaves *
 __pcs_replace_empty_main(struct kmem_cache *s, struct slub_percpu_sheaves *pcs, gfp_t gfp)
@@ -4669,6 +5240,9 @@ barn_put:
 	return pcs;
 }
 
+/**
+ * Function Description: Fast path allocation from percpu sheaves. Handles node verification and empty sheaf replacement. Returns the object or NULL.
+ */
 static __fastpath_inline
 void *alloc_from_pcs(struct kmem_cache *s, gfp_t gfp, int node)
 {
@@ -4744,6 +5318,9 @@ void *alloc_from_pcs(struct kmem_cache *s, gfp_t gfp, int node)
 	return object;
 }
 
+/**
+ * Function Description: Bulk allocation from percpu sheaves. Allocates objects in batches from the main sheaf. Returns the number allocated.
+ */
 static __fastpath_inline
 unsigned int alloc_from_pcs_bulk(struct kmem_cache *s, gfp_t gfp, size_t size,
 				 void **p)
@@ -4825,7 +5402,7 @@ do_alloc:
 }
 
 
-/*
+/**
  * Inlined fastpath so that allocation functions (kmalloc, kmem_cache_alloc)
  * have the fastpath folded into their functions. So no function call
  * overhead for requests that can be satisfied on the fastpath.
@@ -4834,6 +5411,9 @@ do_alloc:
  * If not then __slab_alloc is called for slow processing.
  *
  * Otherwise we can simply pick the next object from the lockless free list.
+ * 
+ * 
+ * Function Description: Main allocation function with fast/slow path selection. Handles KFENCE and post-allocation hooks. Returns the object or NULL.
  */
 static __fastpath_inline void *slab_alloc_node(struct kmem_cache *s, struct list_lru *lru,
 		gfp_t gfpflags, int node, unsigned long addr, size_t orig_size)
@@ -4869,6 +5449,9 @@ out:
 	return object;
 }
 
+/**
+ * Function Description: Allocates an object from a kmem_cache without profiling. Main API for slab allocation.
+ */
 void *kmem_cache_alloc_noprof(struct kmem_cache *s, gfp_t gfpflags)
 {
 	void *ret = slab_alloc_node(s, NULL, gfpflags, NUMA_NO_NODE, _RET_IP_,
@@ -4880,6 +5463,9 @@ void *kmem_cache_alloc_noprof(struct kmem_cache *s, gfp_t gfpflags)
 }
 EXPORT_SYMBOL(kmem_cache_alloc_noprof);
 
+/**
+ * Function Description: Allocates an object with LRU tracking for reclaimable caches. Used for caches that participate in LRU reclaim.
+ */
 void *kmem_cache_alloc_lru_noprof(struct kmem_cache *s, struct list_lru *lru,
 			   gfp_t gfpflags)
 {
@@ -4892,6 +5478,9 @@ void *kmem_cache_alloc_lru_noprof(struct kmem_cache *s, struct list_lru *lru,
 }
 EXPORT_SYMBOL(kmem_cache_alloc_lru_noprof);
 
+/**
+ * Function Description: Charges an already allocated slab object to memcg. Used for late charging when allocation-time charging wasn't possible.
+ */
 bool kmem_cache_charge(void *objp, gfp_t gfpflags)
 {
 	if (!memcg_kmem_online())
@@ -4913,6 +5502,9 @@ EXPORT_SYMBOL(kmem_cache_charge);
  * Fallback to other node is possible if __GFP_THISNODE is not set.
  *
  * Return: pointer to the new object or %NULL in case of error
+ * 
+ * 
+ * Function Description: Allocates an object from a specific NUMA node. Returns the object or NULL.
  */
 void *kmem_cache_alloc_node_noprof(struct kmem_cache *s, gfp_t gfpflags, int node)
 {
@@ -4924,6 +5516,9 @@ void *kmem_cache_alloc_node_noprof(struct kmem_cache *s, gfp_t gfpflags, int nod
 }
 EXPORT_SYMBOL(kmem_cache_alloc_node_noprof);
 
+/**
+ * Function Description: Prefills a sheaf with pfmemalloc handling. Tries non-pfmemalloc first, then falls back to pfmemalloc if allowed.
+ */
 static int __prefill_sheaf_pfmemalloc(struct kmem_cache *s,
 				      struct slab_sheaf *sheaf, gfp_t gfp)
 {
@@ -4957,6 +5552,9 @@ static int __kmem_cache_alloc_bulk(struct kmem_cache *s, gfp_t flags,
  * when prefilling is needed, do so with given gfp flags
  *
  * return NULL if sheaf allocation or prefilling failed
+ * 
+ * 
+ * Function Description: Returns a sheaf with at least the requested size. Handles oversize sheaf allocation and prefilling. Returns the sheaf or NULL.
  */
 struct slab_sheaf *
 kmem_cache_prefill_sheaf(struct kmem_cache *s, gfp_t gfp, unsigned int size)
@@ -5033,7 +5631,7 @@ kmem_cache_prefill_sheaf(struct kmem_cache *s, gfp_t gfp, unsigned int size)
 	return sheaf;
 }
 
-/*
+/**
  * Use this to return a sheaf obtained by kmem_cache_prefill_sheaf()
  *
  * If the sheaf cannot simply become the percpu spare sheaf, but there's space
@@ -5042,6 +5640,9 @@ kmem_cache_prefill_sheaf(struct kmem_cache *s, gfp_t gfp, unsigned int size)
  *
  * If the refill fails because gfp is e.g. GFP_NOWAIT, or the barn is full, the
  * sheaf is instead flushed and freed.
+ * 
+ * 
+ * Function Description: Returns a sheaf to the cache (spare or barn). Refills the sheaf if possible, otherwise flushes and frees it.
  */
 void kmem_cache_return_sheaf(struct kmem_cache *s, gfp_t gfp,
 			     struct slab_sheaf *sheaf)
@@ -5088,7 +5689,7 @@ void kmem_cache_return_sheaf(struct kmem_cache *s, gfp_t gfp,
 	stat(s, BARN_PUT);
 }
 
-/*
+/**
  * refill a sheaf previously returned by kmem_cache_prefill_sheaf to at least
  * the given size
  *
@@ -5097,6 +5698,9 @@ void kmem_cache_return_sheaf(struct kmem_cache *s, gfp_t gfp,
  * fails (returning -ENOMEM), the existing sheaf is left intact
  *
  * In practice we always refill to full sheaf's capacity.
+ * 
+ * 
+ * Function Description: Refills a sheaf to a given size. Handles both regular and oversize sheafs. Returns 0 on success or -ENOMEM.
  */
 int kmem_cache_refill_sheaf(struct kmem_cache *s, gfp_t gfp,
 			    struct slab_sheaf **sheafp, unsigned int size)
@@ -5141,7 +5745,7 @@ int kmem_cache_refill_sheaf(struct kmem_cache *s, gfp_t gfp,
 	return 0;
 }
 
-/*
+/**
  * Allocate from a sheaf obtained by kmem_cache_prefill_sheaf()
  *
  * Guaranteed not to fail as many allocations as was the requested size.
@@ -5152,6 +5756,9 @@ int kmem_cache_refill_sheaf(struct kmem_cache *s, gfp_t gfp,
  *
  * It is possible that the allocation comes from kfence and then the sheaf
  * size is not decreased.
+ * 
+ * 
+ * Function Description: Allocates from a pre-filled sheaf. Guaranteed not to fail up to the sheaf's size. Returns the object or NULL.
  */
 void *
 kmem_cache_alloc_from_sheaf_noprof(struct kmem_cache *s, gfp_t gfp,
@@ -5178,14 +5785,20 @@ out:
 	return ret;
 }
 
+/**
+ * Function Description: Returns the number of objects currently in a sheaf. Used to check available objects.
+ */
 unsigned int kmem_cache_sheaf_size(struct slab_sheaf *sheaf)
 {
 	return sheaf->size;
 }
-/*
+/**
  * To avoid unnecessary overhead, we pass through large allocation requests
  * directly to the page allocator. We use __GFP_COMP, because we will need to
  * know the allocation order to free the pages properly in kfree.
+ * 
+ * 
+ * Function Description: Allocates large kmalloc memory (beyond cache size) using the page allocator. Returns the virtual address or NULL.
  */
 static void *___kmalloc_large_node(size_t size, gfp_t flags, int node)
 {
@@ -5218,6 +5831,9 @@ static void *___kmalloc_large_node(size_t size, gfp_t flags, int node)
 	return ptr;
 }
 
+/**
+ * Function Description: Large kmalloc allocation without profiling. Wrapper for ___kmalloc_large_node().
+ */
 void *__kmalloc_large_noprof(size_t size, gfp_t flags)
 {
 	void *ret = ___kmalloc_large_node(size, flags, NUMA_NO_NODE);
@@ -5228,6 +5844,9 @@ void *__kmalloc_large_noprof(size_t size, gfp_t flags)
 }
 EXPORT_SYMBOL(__kmalloc_large_noprof);
 
+/**
+ * Function Description: Large kmalloc allocation on a specific node without profiling.
+ */
 void *__kmalloc_large_node_noprof(size_t size, gfp_t flags, int node)
 {
 	void *ret = ___kmalloc_large_node(size, flags, node);
@@ -5238,6 +5857,9 @@ void *__kmalloc_large_node_noprof(size_t size, gfp_t flags, int node)
 }
 EXPORT_SYMBOL(__kmalloc_large_node_noprof);
 
+/**
+ * Function Description: Internal kmalloc implementation. Handles size selection, cache lookup, and slab allocation. Returns the object or NULL.
+ */
 static __always_inline
 void *__do_kmalloc_node(size_t size, kmem_buckets *b, gfp_t flags, int node,
 			unsigned long caller)
@@ -5262,12 +5884,19 @@ void *__do_kmalloc_node(size_t size, kmem_buckets *b, gfp_t flags, int node,
 	trace_kmalloc(caller, ret, size, s->size, flags, node);
 	return ret;
 }
+
+/**
+ * Function Description: kmalloc on a specific node without profiling.
+ */
 void *__kmalloc_node_noprof(DECL_BUCKET_PARAMS(size, b), gfp_t flags, int node)
 {
 	return __do_kmalloc_node(size, PASS_BUCKET_PARAM(b), flags, node, _RET_IP_);
 }
 EXPORT_SYMBOL(__kmalloc_node_noprof);
 
+/**
+ * Function Description: kmalloc without profiling. The internal implementation for kmalloc().
+ */
 void *__kmalloc_noprof(size_t size, gfp_t flags)
 {
 	return __do_kmalloc_node(size, NULL, flags, NUMA_NO_NODE, _RET_IP_);
@@ -5284,6 +5913,9 @@ EXPORT_SYMBOL(__kmalloc_noprof);
  * Return: pointer to the new object or NULL in case of error.
  * NULL does not mean EBUSY or EAGAIN. It means ENOMEM.
  * There is no reason to call it again and expect !NULL.
+ * 
+ * 
+ * Function Description: kmalloc that can be called from NMI/atomic contexts. Only supports cmpxchg_double architectures. Returns the object or NULL.
  */
 void *kmalloc_nolock_noprof(size_t size, gfp_t gfp_flags, int node)
 {
@@ -5367,6 +5999,9 @@ success:
 }
 EXPORT_SYMBOL_GPL(kmalloc_nolock_noprof);
 
+/**
+ * Function Description: kmalloc with caller tracking for debugging.
+ */
 void *__kmalloc_node_track_caller_noprof(DECL_BUCKET_PARAMS(size, b), gfp_t flags,
 					 int node, unsigned long caller)
 {
@@ -5375,6 +6010,9 @@ void *__kmalloc_node_track_caller_noprof(DECL_BUCKET_PARAMS(size, b), gfp_t flag
 }
 EXPORT_SYMBOL(__kmalloc_node_track_caller_noprof);
 
+/**
+ * Function Description: kmalloc from a specific cache without profiling.
+ */
 void *__kmalloc_cache_noprof(struct kmem_cache *s, gfp_t gfpflags, size_t size)
 {
 	void *ret = slab_alloc_node(s, NULL, gfpflags, NUMA_NO_NODE,
@@ -5387,6 +6025,9 @@ void *__kmalloc_cache_noprof(struct kmem_cache *s, gfp_t gfpflags, size_t size)
 }
 EXPORT_SYMBOL(__kmalloc_cache_noprof);
 
+/**
+ * Function Description: kmalloc from a specific cache on a specific node without profiling.
+ */
 void *__kmalloc_cache_node_noprof(struct kmem_cache *s, gfp_t gfpflags,
 				  int node, size_t size)
 {
@@ -5399,6 +6040,9 @@ void *__kmalloc_cache_node_noprof(struct kmem_cache *s, gfp_t gfpflags,
 }
 EXPORT_SYMBOL(__kmalloc_cache_node_noprof);
 
+/**
+ * Function Description: Frees objects directly to a node's partial list. Used for debug caches and slow path. Handles slab discard if empty.
+ */
 static noinline void free_to_partial_list(
 	struct kmem_cache *s, struct slab *slab,
 	void *head, void *tail, int bulk_cnt,
@@ -5464,13 +6108,16 @@ static noinline void free_to_partial_list(
 	}
 }
 
-/*
+/**
  * Slow path handling. This may still be called frequently since objects
  * have a longer lifetime than the cpu slabs in most processing loads.
  *
  * So we still attempt to reduce cache line usage. Just take the slab
  * lock and free the item. If there is no additional partial slab
  * handling required then we can return immediately.
+ * 
+ * 
+ * Function Description: This is the slow path handler for freeing an object from a slab. It attempts to update the slab's freelist in a loop using a cmpxchg operation. If the slab becomes empty or was previously full, it might need to be added to or removed from the per-node partial list, which requires taking the node's list_lock. The function handles these complex list management operations and, if the slab becomes completely empty and the node already has enough partial slabs, it will discard the slab back to the page allocator.
  */
 static void __slab_free(struct kmem_cache *s, struct slab *slab,
 			void *head, void *tail, int cnt,
@@ -5578,7 +6225,7 @@ slab_empty:
 	discard_slab(s, slab);
 }
 
-/*
+/**
  * pcs is locked. We should have get rid of the spare sheaf and obtained an
  * empty sheaf, while the main sheaf is full. We want to install the empty sheaf
  * as a main sheaf, and make the current main sheaf a spare sheaf.
@@ -5595,6 +6242,9 @@ slab_empty:
  * barn, so we had to allocate it by alloc_empty_sheaf(). But because we saw the
  * limit on full sheaves was not exceeded, we assume it didn't change and just
  * put the full sheaf there.
+ * 
+ * 
+ * Function Description: This function installs an empty sheaf as the new main sheaf for a CPU's percpu sheaf cache. It expects the CPU's sheaf lock to be held. In the common case where there is no spare sheaf, it makes the current main sheaf the spare and sets the empty sheaf as the new main. It also handles unlikely scenarios, such as a spare already existing or the main sheaf having space, by putting the empty sheaf back into the barn or swapping the main and spare sheaves.
  */
 static void __pcs_install_empty_sheaf(struct kmem_cache *s,
 		struct slub_percpu_sheaves *pcs, struct slab_sheaf *empty,
@@ -5634,13 +6284,16 @@ static void __pcs_install_empty_sheaf(struct kmem_cache *s,
 	pcs->main = empty;
 }
 
-/*
+/**
  * Replace the full main sheaf with a (at least partially) empty sheaf.
  *
  * Must be called with the cpu_sheaves local lock locked. If successful, returns
  * the pcs pointer and the local lock locked (possibly on a different cpu than
  * initially called). If not successful, returns NULL and the local lock
  * unlocked.
+ * 
+ * 
+ * Function Description: This function is called when a CPU's main sheaf is full and needs to be replaced with an empty or partially empty sheaf. It first attempts to get an empty sheaf from the barn. If no empty sheaf is available, it tries to allocate a new one. If the barn is full of full sheaves, it may flush one. The function handles lock contention and fallback scenarios, returning a pointer to the updated percpu sheaf structure or NULL if it cannot complete the replacement.
  */
 static struct slub_percpu_sheaves *
 __pcs_replace_full_main(struct kmem_cache *s, struct slub_percpu_sheaves *pcs,
@@ -5761,9 +6414,12 @@ got_empty:
 	return pcs;
 }
 
-/*
+/**
  * Free an object to the percpu sheaves.
  * The object is expected to have passed slab_free_hook() already.
+ * 
+ * 
+ * Function Description: This is the fastpath for freeing an object to the per-CPU sheaves. It acquires the CPU's sheaf lock and checks if the main sheaf is full. If it is, it calls __pcs_replace_full_main() to get a sheaf with space. It then adds the object to the main sheaf, increments its size, and releases the lock. The function returns true on success, and false if it cannot acquire the lock or find space.
  */
 static __fastpath_inline
 bool free_to_pcs(struct kmem_cache *s, void *object, bool allow_spin)
@@ -5791,6 +6447,9 @@ bool free_to_pcs(struct kmem_cache *s, void *object, bool allow_spin)
 	return true;
 }
 
+/**
+ * Function Description: This function is the RCU callback for freeing a sheaf that was queued for deferred freeing. It prepares the sheaf by potentially removing objects that shouldn't be freed (e.g., due to debugging hooks). It then attempts to put the sheaf back into the barn as a full sheaf. If the barn is at its full capacity, it flushes the sheaf, discarding its objects. If the sheaf becomes empty and the barn has room for empty sheaves, it is placed there; otherwise, it is completely freed.
+ */
 static void rcu_free_sheaf(struct rcu_head *head)
 {
 	struct kmem_cache_node *n;
@@ -5851,7 +6510,7 @@ empty:
 	free_empty_sheaf(s, sheaf);
 }
 
-/*
+/**
  * kvfree_call_rcu() can be called while holding a raw_spinlock_t. Since
  * __kfree_rcu_sheaf() may acquire a spinlock_t (sleeping lock on PREEMPT_RT),
  * this would violate lock nesting rules. Therefore, kvfree_call_rcu() avoids
@@ -5864,6 +6523,9 @@ empty:
  */
 static DEFINE_WAIT_OVERRIDE_MAP(kfree_rcu_sheaf_map, LD_WAIT_CONFIG);
 
+/**
+ * Function Description: This function handles deferred freeing of an object via RCU, specifically targeting the percpu sheaf layer. It attempts to place the object into a dedicated rcu_free sheaf for the current CPU. If no such sheaf exists, it tries to get an empty one from the spare, the barn, or by allocating a new one. Once the sheaf is full, it is queued for an RCU callback (rcu_free_sheaf) to be freed later. The function returns true on success, and false if it cannot find or allocate a sheaf. It is not supported on PREEMPT_RT kernels.
+ */
 bool __kfree_rcu_sheaf(struct kmem_cache *s, void *obj)
 {
 	struct slub_percpu_sheaves *pcs;
@@ -5965,10 +6627,13 @@ fail:
 	return false;
 }
 
-/*
+/**
  * Bulk free objects to the percpu sheaves.
  * Unlike free_to_pcs() this includes the calls to all necessary hooks
  * and the fallback to freeing to slab pages.
+ * 
+ * 
+ * Function Description: This function is the bulk version of free_to_pcs(). It frees an array of objects to the percpu sheaves, handling necessary hooks (memcg, alloc tagging, slab free hook) and NUMA considerations. It batches objects that belong to the same node and non-pfmemalloc slabs. It then attempts to free them to the per-CPU sheaves in batches. If it cannot get space in the sheaves, it falls back to the slow path (__kmem_cache_free_bulk). Objects that are remote or pfmemalloc are handled separately in the slow path.
  */
 static void free_to_pcs_bulk(struct kmem_cache *s, size_t size, void **p)
 {
@@ -6089,6 +6754,9 @@ flush_remote:
 	}
 }
 
+/**
+ * struct Description: This structure is used for deferred freeing of objects from NMI/atomic contexts. It contains a lockless list of objects and an irq_work for processing. It is used by kfree_nolock() to defer frees when direct freeing is not possible. 
+ */
 struct defer_free {
 	struct llist_head objects;
 	struct irq_work work;
@@ -6101,10 +6769,13 @@ static DEFINE_PER_CPU(struct defer_free, defer_free_objects) = {
 	.work = IRQ_WORK_INIT(free_deferred_objects),
 };
 
-/*
+/**
  * In PREEMPT_RT irq_work runs in per-cpu kthread, so it's safe
  * to take sleeping spin_locks from __slab_free().
  * In !PREEMPT_RT irq_work will run after local_unlock_irqrestore().
+ * 
+ * 
+ * Function Description: This function is the irq_work callback for processing objects that were deferred for freeing from atomic or NMI contexts. It retrieves the linked list of deferred objects, iterates through them, and calls __slab_free() for each one. Before freeing, it clears the freepointer to avoid false corruption reports. This allows kfree_nolock() to be used in contexts where direct freeing is not safe.
  */
 static void free_deferred_objects(struct irq_work *work)
 {
@@ -6139,6 +6810,9 @@ static void free_deferred_objects(struct irq_work *work)
 	}
 }
 
+/**
+ * Function Description: This function defers the freeing of an object to a later, safer context. It is used by kfree_nolock() when direct freeing (even via the sheaves) is not possible, such as from an NMI or with interrupts disabled. It adds the object to a per-CPU lockless list of deferred objects and schedules an irq_work to process the list. The function uses guard(preempt) to safely access per-CPU data.
+ */
 static void defer_free(struct kmem_cache *s, void *head)
 {
 	struct defer_free *df;
@@ -6152,6 +6826,9 @@ static void defer_free(struct kmem_cache *s, void *head)
 		irq_work_queue(&df->work);
 }
 
+/**
+ * Function Description: This function is a barrier for deferred frees. It synchronously waits for all pending irq_work on all CPUs that process deferred objects to complete. This is used to ensure all deferred frees are processed before, for example, a cache is destroyed or a module is unloaded.
+ */
 void defer_free_barrier(void)
 {
 	int cpu;
@@ -6160,6 +6837,9 @@ void defer_free_barrier(void)
 		irq_work_sync(&per_cpu_ptr(&defer_free_objects, cpu)->work);
 }
 
+/**
+ * Function Description: This is the primary function for freeing a single object from a slab. It calls the necessary memcg, alloc_tagging, and slab_free_hook functions. If the object is local to the current NUMA node and not from a pfmemalloc slab, it attempts the fastpath free_to_pcs(). If that fails, it falls back to the slow path __slab_free().
+ */
 static __fastpath_inline
 void slab_free(struct kmem_cache *s, struct slab *slab, void *object,
 	       unsigned long addr)
@@ -6181,7 +6861,11 @@ void slab_free(struct kmem_cache *s, struct slab *slab, void *object,
 }
 
 #ifdef CONFIG_MEMCG
-/* Do not inline the rare memcg charging failed path into the allocation path */
+/** Do not inline the rare memcg charging failed path into the allocation path
+ * 
+ * 
+ * Function Description: This is a noinline function to handle the rare failure path for memcg charging after an object has been allocated. It frees the object by calling alloc_tagging_slab_free_hook, slab_free_hook, and then __slab_free(). This is a slow path to abort the allocation if the memcg charge fails.
+ */
 static noinline
 void memcg_alloc_abort_single(struct kmem_cache *s, void *object)
 {
@@ -6194,6 +6878,9 @@ void memcg_alloc_abort_single(struct kmem_cache *s, void *object)
 }
 #endif
 
+/**
+ * Function Description: This function is the bulk version of slab_free(). It calls the memcg, alloc_tagging, and slab_free_freelist_hook functions on the list of objects. The hook may modify the freelist. It then calls __slab_free() to free the entire batch of objects in one operation.
+ */
 static __fastpath_inline
 void slab_free_bulk(struct kmem_cache *s, struct slab *slab, void *head,
 		    void *tail, void **p, int cnt, unsigned long addr)
@@ -6211,6 +6898,9 @@ void slab_free_bulk(struct kmem_cache *s, struct slab *slab, void *head,
 }
 
 #ifdef CONFIG_SLUB_RCU_DEBUG
+/**
+ * Function Description: This function is an RCU callback for the SLAB_TYPESAFE_BY_RCU debug path. It resumes the freeing of an object after an RCU grace period has elapsed. It allocates a rcu_delayed_free structure to store the object pointer, schedules RCU, and then in the callback, it finds the object and its cache again before calling slab_free_hook and __slab_free().
+ */
 static void slab_free_after_rcu_debug(struct rcu_head *rcu_head)
 {
 	struct rcu_delayed_free *delayed_free =
@@ -6240,6 +6930,9 @@ static void slab_free_after_rcu_debug(struct rcu_head *rcu_head)
 #endif /* CONFIG_SLUB_RCU_DEBUG */
 
 #ifdef CONFIG_KASAN_GENERIC
+/**
+ * Function Description: This function is a wrapper for __slab_free used specifically by KASAN. It directly frees an object by calling __slab_free and increments the FREE_SLOWPATH statistic. It is a low-level function for KASAN to handle object frees when redzones are involved.
+ */
 void ___cache_free(struct kmem_cache *cache, void *x, unsigned long addr)
 {
 	__slab_free(cache, virt_to_slab(x), x, x, 1, addr);
@@ -6247,6 +6940,9 @@ void ___cache_free(struct kmem_cache *cache, void *x, unsigned long addr)
 }
 #endif
 
+/**
+ * Function Description: This function is called when kmem_cache_free detects a possible bug (e.g., freeing an object to the wrong cache or an object that is not from a slab). It prints a warning with details about the object, the slab it belongs to, and the expected cache. It is a debugging aid to catch memory corruption.
+ */
 static noinline void warn_free_bad_obj(struct kmem_cache *s, void *obj)
 {
 	struct kmem_cache *cachep;
@@ -6276,6 +6972,9 @@ static noinline void warn_free_bad_obj(struct kmem_cache *s, void *obj)
  *
  * Free an object which was previously allocated from this
  * cache.
+ * 
+ * 
+ * Function Description: This is the exported function for freeing an object from a kmem_cache. It performs basic validation (if debugging is enabled), records a trace event, and then calls slab_free() to perform the actual freeing. It is the public API for freeing objects allocated with kmem_cache_alloc().
  */
 void kmem_cache_free(struct kmem_cache *s, void *x)
 {
@@ -6301,6 +7000,9 @@ void kmem_cache_free(struct kmem_cache *s, void *x)
 }
 EXPORT_SYMBOL(kmem_cache_free);
 
+/**
+ * Function Description: This function returns the usable size of an object within a slab, accounting for debugging features (red zones, poisoning) and special flags (e.g., SLAB_TYPESAFE_BY_RCU). The usable size might be less than the full size of the object due to metadata. It is used internally by ksize().
+ */
 static inline size_t slab_ksize(struct slab *slab)
 {
 	struct kmem_cache *s = slab->slab_cache;
@@ -6330,6 +7032,9 @@ static inline size_t slab_ksize(struct slab *slab)
 	return s->size;
 }
 
+/**
+ * Function Description: This is the internal function used by ksize() to determine the full size of an underlying allocation. It handles both large kmalloc allocations (via compound pages) and regular slab allocations. It calls slab_ksize() to get the size for slab objects. It also skips the orig size check for debugging.
+ */
 static size_t __ksize(const void *object)
 {
 	struct page *page;
@@ -6366,6 +7071,9 @@ static size_t __ksize(const void *object)
  * and/or FORTIFY_SOURCE.
  *
  * Return: size of the actual memory used by @objp in bytes
+ * 
+ * 
+ * Function Description: This is the exported function to report the full size of an underlying allocation. It first validates the pointer with KASAN. It then returns the size, handling the special case of zero-size or NULL pointers, and KFENCE allocations. It calls __ksize() to get the size. This function should not be used to discover usable size; use kmalloc_size_roundup() instead.
  */
 size_t ksize(const void *objp)
 {
@@ -6391,6 +7099,9 @@ size_t ksize(const void *objp)
 }
 EXPORT_SYMBOL(ksize);
 
+/**
+ * Function Description: This function is for freeing large kmalloc allocations (order > 0) that are not backed by a slab. It clears the PageLargeKmalloc flag, updates memory statistics, and frees the compound pages to the page allocator. It is called by kfree() when it encounters a non-slab page.
+ */
 static void free_large_kmalloc(struct page *page, void *object)
 {
 	unsigned int order = compound_order(page);
@@ -6413,9 +7124,12 @@ static void free_large_kmalloc(struct page *page, void *object)
 	free_frozen_pages(page, order);
 }
 
-/*
+/**
  * Given an rcu_head embedded within an object obtained from kvmalloc at an
  * offset < 4k, free the object in question.
+ * 
+ * 
+ * Function Description: This is the RCU callback for kvfree_rcu(). It determines the type of memory (vmalloc or slab) and frees it appropriately. For vmalloc memory, it calls vfree(). For slab memory, it finds the object, corrects the pointer to the start of the object (handling red zones), and calls slab_free().
  */
 void kvfree_rcu_cb(struct rcu_head *head)
 {
@@ -6463,6 +7177,9 @@ void kvfree_rcu_cb(struct rcu_head *head)
  * @object: pointer returned by kmalloc(), kmalloc_nolock(), or kmem_cache_alloc()
  *
  * If @object is NULL, no operation is performed.
+ * 
+ * 
+ * Function Description: This is the exported function for freeing memory allocated with kmalloc(), kvmalloc(), or kmem_cache_alloc(). It handles NULL pointers gracefully. It determines if the object is large (non-slab) and calls free_large_kmalloc(). Otherwise, it finds the slab and cache and calls slab_free().
  */
 void kfree(const void *object)
 {
@@ -6489,7 +7206,7 @@ void kfree(const void *object)
 }
 EXPORT_SYMBOL(kfree);
 
-/*
+/**
  * Can be called while holding raw_spinlock_t or from IRQ and NMI,
  * but ONLY for objects allocated by kmalloc_nolock().
  * Debug checks (like kmemleak and kfence) were skipped on allocation,
@@ -6497,6 +7214,9 @@ EXPORT_SYMBOL(kfree);
  * obj = kmalloc(); kfree_nolock(obj);
  * will miss kmemleak/kfence book keeping and will cause false positives.
  * large_kmalloc is not supported either.
+ * 
+ * 
+ * Function Description: This function is a special variant of kfree() for objects allocated with kmalloc_nolock(). It can be called from atomic, interrupt, or NMI contexts. It skips many of the usual debugging checks (like kmemleak) that take locks. It attempts to use the fastpath free_to_pcs() (without spinning) and if that fails, it defers the free via defer_free(). It does not support large kmalloc allocations.
  */
 void kfree_nolock(const void *object)
 {
@@ -6559,6 +7279,9 @@ void kfree_nolock(const void *object)
 }
 EXPORT_SYMBOL_GPL(kfree_nolock);
 
+/**
+ * Function Description: This is the internal function for krealloc(). It checks if the existing allocation is large enough for the new size and if the alignment matches. If so, it reuses the existing memory, optionally zeroing the new space. If not, it allocates new memory, copies the old data, and returns the new pointer. It handles both slab and large kmalloc allocations. The caller is responsible for freeing the old pointer if a new one is returned.
+ */
 static __always_inline __realloc_size(2) void *
 __do_krealloc(const void *p, size_t new_size, unsigned long align, gfp_t flags, int nid)
 {
@@ -6680,6 +7403,9 @@ alloc_new:
  * lesser of the new and old sizes.
  *
  * Return: pointer to the allocated memory or %NULL in case of error
+ * 
+ * 
+ * Function Description: This is the exported function for reallocating memory, with the ability to specify a NUMA node and alignment. It handles the case where new_size is 0 by freeing the old pointer and returning ZERO_SIZE_PTR. It calls __do_krealloc() to perform the reallocation and frees the old pointer if a new one is allocated. This is the no-profile version of the function.
  */
 void *krealloc_node_align_noprof(const void *p, size_t new_size, unsigned long align,
 				 gfp_t flags, int nid)
@@ -6699,6 +7425,9 @@ void *krealloc_node_align_noprof(const void *p, size_t new_size, unsigned long a
 }
 EXPORT_SYMBOL(krealloc_node_align_noprof);
 
+/**
+ * Function Description: This function adjusts GFP flags for large kmalloc allocations (size > PAGE_SIZE). It adds __GFP_NOWARN, removes __GFP_DIRECT_RECLAIM unless __GFP_RETRY_MAYFAIL is set, and removes __GFP_NOFAIL (as the vmalloc fallback handles this). This is used by kvmalloc() to make the kmalloc attempt less disruptive before falling back to vmalloc.
+ */
 static gfp_t kmalloc_gfp_adjust(gfp_t flags, size_t size)
 {
 	/*
@@ -6743,6 +7472,9 @@ static gfp_t kmalloc_gfp_adjust(gfp_t flags, size_t size)
  * preferable to the vmalloc fallback, due to visible performance drawbacks.
  *
  * Return: pointer to the allocated memory of %NULL in case of failure
+ * 
+ * 
+ * Function Description: This is the exported kvmalloc_node() function. It first attempts to allocate physically contiguous memory using kmalloc(). If that fails and the size is larger than a page, it falls back to vmalloc(). It adjusts the GFP flags via kmalloc_gfp_adjust() and supports various flags. The VM_ALLOW_HUGE_VMAP flag is used to allow huge page mappings for the vmalloc fallback.
  */
 void *__kvmalloc_node_noprof(DECL_BUCKET_PARAMS(size, b), unsigned long align,
 			     gfp_t flags, int node)
@@ -6797,6 +7529,9 @@ EXPORT_SYMBOL(__kvmalloc_node_noprof);
  * that you know which one to use.
  *
  * Context: Either preemptible task context or not-NMI interrupt.
+ * 
+ * 
+ * Function Description: This is the exported function for freeing memory allocated with kvmalloc(). It checks if the address is from vmalloc or slab and calls vfree() or kfree() respectively. It is more efficient to use kfree() or vfree() directly if the allocation type is known.
  */
 void kvfree(const void *addr)
 {
@@ -6815,6 +7550,9 @@ EXPORT_SYMBOL(kvfree);
  * Use the special memzero_explicit() function to clear the content of a
  * kvmalloc'ed object containing sensitive data to make sure that the
  * compiler won't optimize out the data clearing.
+ * 
+ * 
+ * Function Description: This function is used to free sensitive data (like cryptographic keys) allocated with kvmalloc(). It first zeroes out the memory using memzero_explicit() to prevent the compiler from optimizing away the clear, and then calls kvfree() to free the memory.
  */
 void kvfree_sensitive(const void *addr, size_t len)
 {
@@ -6851,6 +7589,9 @@ EXPORT_SYMBOL(kvfree_sensitive);
  * same memory allocation.
  *
  * Return: pointer to the allocated memory or %NULL in case of error
+ * 
+ * 
+ * Function Description: This is the exported function for reallocating memory, similar to krealloc_node_align_noprof(), but it can also handle vmalloc-allocated memory. If the existing pointer is from vmalloc, it calls vrealloc_node_align_noprof(). Otherwise, it calls krealloc_node_align_noprof(). If the krealloc fails, it falls back to kvmalloc_node_align_noprof() and copies the old data.
  */
 void *kvrealloc_node_align_noprof(const void *p, size_t size, unsigned long align,
 				  gfp_t flags, int nid)
@@ -6881,6 +7622,9 @@ void *kvrealloc_node_align_noprof(const void *p, size_t size, unsigned long alig
 }
 EXPORT_SYMBOL(kvrealloc_node_align_noprof);
 
+/**
+ * struct Description: This structure represents a detached freelist built during bulk free. It contains the slab pointer, tail pointer, freelist head, count, and kmem_cache. It is used to batch free operations for objects from the same slab. 
+ */
 struct detached_freelist {
 	struct slab *slab;
 	void *tail;
@@ -6889,7 +7633,7 @@ struct detached_freelist {
 	struct kmem_cache *s;
 };
 
-/*
+/**
  * This function progressively scans the array with free objects (with
  * a limited look ahead) and extract objects belonging to the same
  * slab.  It builds a detached freelist directly within the given
@@ -6900,6 +7644,9 @@ struct detached_freelist {
  * transferred to the real freelist(s), but only requiring a single
  * synchronization primitive.  Look ahead in the array is limited due
  * to performance reasons.
+ * 
+ * 
+ * Function Description: This function builds a detached freelist from an array of objects to be freed. It looks for objects belonging to the same slab (or same kmem_cache) and links them together using the object's freepointer. It takes a limited "lookahead" for performance. The result is a freelist that can be bulk-freed with a single lock operation. It also handles large kmalloc objects.
  */
 static inline
 int build_detached_freelist(struct kmem_cache *s, size_t size,
@@ -6962,9 +7709,12 @@ int build_detached_freelist(struct kmem_cache *s, size_t size,
 	return same;
 }
 
-/*
+/**
  * Internal bulk free of objects that were not initialised by the post alloc
  * hooks and thus should not be processed by the free hooks
+ * 
+ * 
+ * Function Description: This is an internal function for bulk freeing objects that have already been processed by the post-alloc hooks and should not be processed again. It repeatedly calls build_detached_freelist() to build freelists of objects from the same slab and then calls __slab_free() to free each batch. This is used by the error path in kmem_cache_alloc_bulk() and for freeing KFENCE objects.
  */
 static void __kmem_cache_free_bulk(struct kmem_cache *s, size_t size, void **p)
 {
@@ -6986,7 +7736,11 @@ static void __kmem_cache_free_bulk(struct kmem_cache *s, size_t size, void **p)
 	} while (likely(size));
 }
 
-/* Note that interrupts must be enabled when calling this function. */
+/** Note that interrupts must be enabled when calling this function.
+ * 
+ * 
+ * Function Description: This is the exported function for bulk freeing objects from a kmem_cache. If the cache supports sheaves, it calls free_to_pcs_bulk(). Otherwise, it repeatedly builds detached freelists and calls slab_free_bulk() to free them.
+ */
 void kmem_cache_free_bulk(struct kmem_cache *s, size_t size, void **p)
 {
 	if (!size)
@@ -7014,6 +7768,9 @@ void kmem_cache_free_bulk(struct kmem_cache *s, size_t size, void **p)
 }
 EXPORT_SYMBOL(kmem_cache_free_bulk);
 
+/**
+ * Function Description: This function refills an array of objects from a specific NUMA node's partial list. It takes a list of slabs from the node's partial list and, for each slab, extracts objects from its freelist into the provided array. If a slab has more objects than needed, the remaining objects are freed back to the slab. Any slabs that were partially used are put back on the node's partial list, and empty slabs that exceed the minimum partial limit are discarded.
+ */
 static unsigned int
 __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int min,
 		      unsigned int max, struct kmem_cache_node *n,
@@ -7094,6 +7851,9 @@ __refill_objects_node(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int mi
 }
 
 #ifdef CONFIG_NUMA
+/**
+ * Function Description: This function attempts to refill objects from any remote NUMA node that has partial slabs. It is used as a fallback when the local node is empty. It respects the remote_node_defrag_ratio to avoid excessive remote allocations. It iterates over zones and nodes allowed by cpuset and calls __refill_objects_node() for each node.
+ */
 static unsigned int
 __refill_objects_any(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int min,
 		     unsigned int max)
@@ -7153,6 +7913,9 @@ __refill_objects_any(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int min
 }
 #endif
 
+/**
+ * Function Description: This is the main function for refilling an array of objects from the slab allocator's slow path. It first tries to get objects from the local node's partial list. If that doesn't fill the minimum required, it tries remote nodes. If still not enough, it allocates new slabs using new_slab() and fills objects from them. This is used by kmem_cache_alloc_bulk() and the refill functions.
+ */
 static unsigned int
 refill_objects(struct kmem_cache *s, void **p, gfp_t gfp, unsigned int min,
 	       unsigned int max)
@@ -7197,6 +7960,9 @@ out:
 	return refilled;
 }
 
+/**
+ * Function Description: This is the internal bulk allocation function for the slow path. It either falls back to allocating objects one-by-one (for debug or tiny caches) or calls refill_objects() to get a batch of objects. If allocation fails, it frees any successfully allocated objects using __kmem_cache_free_bulk() and returns 0.
+ */
 static inline
 int __kmem_cache_alloc_bulk(struct kmem_cache *s, gfp_t flags, size_t size,
 			    void **p)
@@ -7228,9 +7994,12 @@ error:
 
 }
 
-/*
+/**
  * Note that interrupts must be enabled when calling this function and gfp
  * flags must allow spinning.
+ * 
+ * 
+ * Function Description: This is the exported function for allocating multiple objects from a cache. It handles the KFENCE allocation (at most one per batch), attempts to get objects from the percpu sheaves using alloc_from_pcs_bulk(), and fills the rest using __kmem_cache_alloc_bulk(). It then applies post-alloc hooks and memory initialization. It returns the number of successfully allocated objects.
  */
 int kmem_cache_alloc_bulk_noprof(struct kmem_cache *s, gfp_t flags, size_t size,
 				 void **p)
@@ -7312,7 +8081,7 @@ EXPORT_SYMBOL(kmem_cache_alloc_bulk_noprof);
  * locking overhead.
  */
 
-/*
+/**
  * Minimum / Maximum order of slab pages. This influences locking overhead
  * and slab fragmentation. A higher order reduces the number of partial slabs
  * and increases the number of allocations possible without having to
@@ -7323,7 +8092,7 @@ static unsigned int slub_max_order =
 	IS_ENABLED(CONFIG_SLUB_TINY) ? 1 : PAGE_ALLOC_COSTLY_ORDER;
 static unsigned int slub_min_objects;
 
-/*
+/**
  * Calculate the order of allocation given an slab object size.
  *
  * The order of allocation has significant impact on performance and other
@@ -7347,6 +8116,9 @@ static unsigned int slub_min_objects;
  * slab and thereby reduce object handling overhead. If the user has
  * requested a higher minimum order then we start with that one instead of
  * the smallest order which will fit the object.
+ * 
+ * 
+ * Function Description: This function calculates the order (page size) for a slab given an object size, a minimum and maximum order, and a fractional leftover limit. It iterates from min_order to max_order and selects the first order where the wasted space (remainder) is less than or equal to 1/fract_leftover of the slab size. This is used to determine the optimal order for a slab cache.
  */
 static inline unsigned int calc_slab_order(unsigned int size,
 		unsigned int min_order, unsigned int max_order,
@@ -7368,6 +8140,9 @@ static inline unsigned int calc_slab_order(unsigned int size,
 	return order;
 }
 
+/**
+ * Function Description: This function determines the final order for a slab cache. It calculates a min_objects based on the number of CPUs, then a minimum order to fit min_objects * size. It then tries to find the best order by iteratively relaxing the acceptable waste fraction (from 1/16 to 1/2). If no order is found, it falls back to the order that fits a single object. This function is key to balancing performance (locking overhead) and memory fragmentation.
+ */
 static inline int calculate_order(unsigned int size)
 {
 	unsigned int order;
@@ -7431,6 +8206,9 @@ static inline int calculate_order(unsigned int size)
 	return -ENOSYS;
 }
 
+/**
+ * Function Description: This function initializes the per-node structure for a kmem_cache. It sets nr_partial to 0, initializes the list_lock spinlock, and initializes the partial slab list. It also initializes the node's barn (if sheaves are enabled) and other debugging-related fields. This is called when a new node is added or a cache is created.
+ */
 static void
 init_kmem_cache_node(struct kmem_cache_node *n, struct node_barn *barn)
 {
@@ -7448,6 +8226,9 @@ init_kmem_cache_node(struct kmem_cache_node *n, struct node_barn *barn)
 }
 
 #ifdef CONFIG_SLUB_STATS
+/**
+ * Function Description: This function allocates per-CPU statistics storage for a kmem_cache when CONFIG_SLUB_STATS is enabled. It first uses BUILD_BUG_ON() to ensure at compile time that the early dynamic percpu area is large enough to accommodate statistics for all kmalloc cache types and sizes, preventing runtime allocation failures during early boot. It then calls alloc_percpu() to allocate a struct kmem_cache_stats for each CPU, which stores various performance counters (allocations, frees, partial list operations, sheaf operations, etc.) for the cache. If the allocation succeeds, it returns 1; otherwise, it returns 0 to indicate failure. This function is called during cache creation to enable statistics collection, which can be accessed via sysfs for performance monitoring and debugging purposes.
+ */
 static inline int alloc_kmem_cache_stats(struct kmem_cache *s)
 {
 	BUILD_BUG_ON(PERCPU_DYNAMIC_EARLY_SIZE <
@@ -7463,6 +8244,9 @@ static inline int alloc_kmem_cache_stats(struct kmem_cache *s)
 }
 #endif
 
+/**
+ * Function Description: This function initializes the per-CPU sheaves for a kmem_cache. For each possible CPU, it allocates and initializes a slub_percpu_sheaves structure. If the cache has a sheaf capacity (i.e., it's not a debug cache or tiny), it allocates an initial empty sheaf. Otherwise, it uses a static bootstrap sheaf to allow fast paths to function without null pointers.
+ */
 static int init_percpu_sheaves(struct kmem_cache *s)
 {
 	static struct slab_sheaf bootstrap_sheaf = {};
@@ -7507,7 +8291,7 @@ static int init_percpu_sheaves(struct kmem_cache *s)
 
 static struct kmem_cache *kmem_cache_node;
 
-/*
+/**
  * No kmalloc_node yet so do it by hand. We know that this is the first
  * slab on the node for this slabcache. There are no concurrent accesses
  * possible.
@@ -7515,6 +8299,9 @@ static struct kmem_cache *kmem_cache_node;
  * Note that this function only works on the kmem_cache_node
  * when allocating for the kmem_cache_node. This is used for bootstrapping
  * memory on a fresh node that has no slab structures yet.
+ * 
+ * 
+ * Function Description: This function is used during boot to allocate and initialize a kmem_cache_node structure for a specific node before the full kmalloc infrastructure is available. It uses new_slab() directly on the kmem_cache_node cache and manually sets up the slab and its freelist. This allows the slab allocator to bootstrap itself on new nodes.
  */
 static void early_kmem_cache_node_alloc(int node)
 {
@@ -7550,6 +8337,9 @@ static void early_kmem_cache_node_alloc(int node)
 	__add_partial(n, slab, ADD_TO_HEAD);
 }
 
+/**
+ * Function Description: This function frees all per-node kmem_cache_node structures associated with a cache during cache destruction. It also frees the node's barn if it exists. It is called from __kmem_cache_release().
+ */
 static void free_kmem_cache_nodes(struct kmem_cache *s)
 {
 	int node;
@@ -7568,6 +8358,9 @@ static void free_kmem_cache_nodes(struct kmem_cache *s)
 	}
 }
 
+/**
+ * Function Description: This function releases all resources associated with a kmem_cache when it is being destroyed. It calls functions to destroy the random sequence, destroy the percpu sheaves, free the stats, and free the per-node structures. It is the main cleanup function for a cache.
+ */
 void __kmem_cache_release(struct kmem_cache *s)
 {
 	cache_random_seq_destroy(s);
@@ -7578,6 +8371,9 @@ void __kmem_cache_release(struct kmem_cache *s)
 	free_kmem_cache_nodes(s);
 }
 
+/**
+ * Function Description: This function allocates and initializes the per-node structures for all nodes in the slab_nodes mask. If the slab state is DOWN (early boot), it uses early_kmem_cache_node_alloc(). Otherwise, it allocates the structures using kmem_cache_alloc_node(). It also allocates a barn for each node if the cache has sheaves.
+ */
 static int init_kmem_cache_nodes(struct kmem_cache *s)
 {
 	int node;
@@ -7612,6 +8408,9 @@ static int init_kmem_cache_nodes(struct kmem_cache *s)
 	return 1;
 }
 
+/**
+ * Function Description: This function determines the capacity (maximum number of objects) for a per-CPU sheaf for a given cache. The capacity is based on the object size, aiming for a sheaf size that is a power-of-two or a common kmalloc bucket size. It also respects a user-provided minimum capacity and disables sheaves for debug, tiny, or certain special caches.
+ */
 static unsigned int calculate_sheaf_capacity(struct kmem_cache *s,
 					     struct kmem_cache_args *args)
 
@@ -7659,9 +8458,12 @@ static unsigned int calculate_sheaf_capacity(struct kmem_cache *s,
 	return max(capacity, args->sheaf_capacity);
 }
 
-/*
+/**
  * calculate_sizes() determines the order and the distribution of data within
  * a slab object.
+ * 
+ * 
+ * Function Description: This is a core function that calculates the final layout of a slab cache. It determines the object size, alignment, inuse size, free pointer offset, red zone padding, and other metadata. It calculates the slab order and the number of objects per slab. It also sets the sheaf capacity if the cache is not a debug cache. This function is essential for creating a new kmem_cache.
  */
 static int calculate_sizes(struct kmem_cache_args *args, struct kmem_cache *s)
 {
@@ -7819,6 +8621,9 @@ static int calculate_sizes(struct kmem_cache_args *args, struct kmem_cache *s)
 	return !!oo_objects(s->oo);
 }
 
+/**
+ * Function Description: This debug function lists all objects still allocated in a slab that is being destroyed. It uses an object map to track which objects are in use and prints information about each object, including the allocation and free tracking information. It is used by free_partial() to report leaks.
+ */
 static void list_slab_objects(struct kmem_cache *s, struct slab *slab)
 {
 #ifdef CONFIG_SLUB_DEBUG
@@ -7846,10 +8651,13 @@ static void list_slab_objects(struct kmem_cache *s, struct slab *slab)
 #endif
 }
 
-/*
+/**
  * Attempt to free all partial slabs on a node.
  * This is called from __kmem_cache_shutdown(). We must take list_lock
  * because sysfs file might still access partial list after the shutdowning.
+ * 
+ * 
+ * Function Description: This function attempts to free all partial slabs on a node for a given cache. It takes the list_lock, iterates over the partial list, and moves completely empty slabs to a discard list. Any non-empty slabs are reported as leaks via list_slab_objects(). The empty slabs are then discarded using discard_slab(). This is called during cache shutdown.
  */
 static void free_partial(struct kmem_cache *s, struct kmem_cache_node *n)
 {
@@ -7872,6 +8680,9 @@ static void free_partial(struct kmem_cache *s, struct kmem_cache_node *n)
 		discard_slab(s, slab);
 }
 
+/**
+ * Function Description: This function checks if a kmem_cache is completely empty, meaning it has no partial slabs and no slabs in use on any node. It iterates over all nodes and checks nr_partial and node_nr_slabs. It is used to verify that a cache has been fully freed.
+ */
 bool __kmem_cache_empty(struct kmem_cache *s)
 {
 	int node;
@@ -7883,8 +8694,11 @@ bool __kmem_cache_empty(struct kmem_cache *s)
 	return true;
 }
 
-/*
+/**
  * Release all resources used by a slab cache.
+ * 
+ * 
+ * Function Description: This is the main function for shutting down a kmem_cache. It flushes all per-CPU caches, waits for any pending RCU sheaves, and then attempts to free all partial slabs on every node. If any slabs are still in use, it returns 1 (indicating the cache is not empty). Otherwise, it returns 0. This function must be called before the cache is destroyed.
  */
 int __kmem_cache_shutdown(struct kmem_cache *s)
 {
@@ -7909,6 +8723,9 @@ int __kmem_cache_shutdown(struct kmem_cache *s)
 }
 
 #ifdef CONFIG_PRINTK
+/**
+ * Function Description: This function fills a kmem_obj_info structure with information about an object, such as the slab, cache, object pointer, allocation and free stack traces, and tracking information. It is used for debugging purposes, such as providing information for show_mem() or slabinfo.
+ */
 void __kmem_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *slab)
 {
 	void *base;
@@ -7971,6 +8788,9 @@ void __kmem_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *slab)
  *		Kmalloc subsystem
  *******************************************************************/
 
+/**
+ * Function Description: This function is a kernel parameter handler for slab_min_order and slub_min_order. It parses the input, sets the slub_min_order variable, and ensures it doesn't exceed slub_max_order. This allows users to control the minimum page order for slabs.
+ */
 static int __init setup_slub_min_order(const char *str, const struct kernel_param *kp)
 {
 	int ret;
@@ -7985,12 +8805,18 @@ static int __init setup_slub_min_order(const char *str, const struct kernel_para
 	return 0;
 }
 
+/**
+ * Variable Description: This is a struct kernel_param_ops that defines the operations for the slab_min_order and slub_min_order kernel parameters. It specifies the set function as setup_slub_min_order, which is called when the parameter is set at boot time or via the kernel command line. This allows users to control the minimum page order (allocation size) for slab caches.
+ */
 static const struct kernel_param_ops param_ops_slab_min_order __initconst = {
 	.set = setup_slub_min_order,
 };
 __core_param_cb(slab_min_order, &param_ops_slab_min_order, &slub_min_order, 0);
 __core_param_cb(slub_min_order, &param_ops_slab_min_order, &slub_min_order, 0);
 
+/**
+ * Function Description: This function is a kernel parameter handler for slab_max_order and slub_max_order. It parses the input, sets the slub_max_order variable, caps it at MAX_PAGE_ORDER, and ensures slub_min_order doesn't exceed it. This allows users to control the maximum page order for slabs.
+ */
 static int __init setup_slub_max_order(const char *str, const struct kernel_param *kp)
 {
 	int ret;
@@ -8007,6 +8833,9 @@ static int __init setup_slub_max_order(const char *str, const struct kernel_para
 	return 0;
 }
 
+/**
+ * Variable Description: This is a struct kernel_param_ops that defines the operations for the slab_max_order and slub_max_order kernel parameters. It specifies the set function as setup_slub_max_order, which is called when the parameter is set. This allows users to control the maximum page order for slab allocations, with the handler ensuring the value does not exceed MAX_PAGE_ORDER and adjusting slub_min_order if necessary to maintain consistency.
+ */
 static const struct kernel_param_ops param_ops_slab_max_order __initconst = {
 	.set = setup_slub_max_order,
 };
@@ -8017,6 +8846,9 @@ core_param(slab_min_objects, slub_min_objects, uint, 0);
 core_param(slub_min_objects, slub_min_objects, uint, 0);
 
 #ifdef CONFIG_NUMA
+/**
+ * Function Description: This function is a kernel parameter handler for slab_max_order and slub_max_order. It parses the input string into an unsigned integer, sets the slub_max_order variable, caps it at MAX_PAGE_ORDER to prevent excessive allocation sizes, and ensures slub_min_order does not exceed it by adjusting it downward if needed. This allows system administrators and developers to control the maximum page order for slab allocations, balancing performance against memory fragmentation concerns.
+ */
 static int __init setup_slab_strict_numa(const char *str, const struct kernel_param *kp)
 {
 	if (nr_node_ids > 1) {
@@ -8029,6 +8861,9 @@ static int __init setup_slab_strict_numa(const char *str, const struct kernel_pa
 	return 0;
 }
 
+/**
+ * Variable Description: This is a struct kernel_param_ops that defines the operations for the slab_strict_numa kernel parameter. It has the KERNEL_PARAM_OPS_FL_NOARG flag set, indicating it takes no argument, and specifies the set function as setup_slab_strict_numa. This allows enabling strict NUMA allocation behavior for the slab allocator via a kernel command line option, which helps enforce local node allocations and reduce remote memory accesses.
+ */
 static const struct kernel_param_ops param_ops_slab_strict_numa __initconst = {
 	.flags = KERNEL_PARAM_OPS_FL_NOARG,
 	.set = setup_slab_strict_numa,
@@ -8038,13 +8873,16 @@ __core_param_cb(slab_strict_numa, &param_ops_slab_strict_numa, NULL, 0);
 
 
 #ifdef CONFIG_HARDENED_USERCOPY
-/*
+/**
  * Rejects incorrectly sized objects and objects that are to be copied
  * to/from userspace but do not fall entirely within the containing slab
  * cache's usercopy region.
  *
  * Returns NULL if check passes, otherwise const char * to name of cache
  * to indicate an error.
+ * 
+ * 
+ * Function Description: This function is used by hardened_usercopy to check if a user-space copy operation is accessing a valid range within a slab object. It verifies the pointer is within the slab, calculates the offset within the object, and checks that the copy falls entirely within the object's usercopy region. If not, it aborts the copy with an error message.
  */
 void __check_heap_object(const void *ptr, unsigned long n,
 			 const struct slab *slab, bool to_user)
@@ -8089,7 +8927,7 @@ void __check_heap_object(const void *ptr, unsigned long n,
 
 #define SHRINK_PROMOTE_MAX 32
 
-/*
+/**
  * kmem_cache_shrink discards empty slabs and promotes the slabs filled
  * up most to the head of the partial lists. New allocations will then
  * fill those up and thus they can be removed from the partial lists.
@@ -8097,6 +8935,9 @@ void __check_heap_object(const void *ptr, unsigned long n,
  * The slabs with the least items are placed last. This results in them
  * being allocated from last increasing the chance that the last objects
  * are freed in them.
+ * 
+ * 
+ * Function Description: This function is the internal implementation of kmem_cache_shrink(). It iterates over all nodes and, for each node, it promotes slabs with fewer free objects to the head of the partial list. It also discards completely empty slabs. The goal is to reduce fragmentation and free up unused memory. It returns 1 if any slabs remain on any node, and 0 otherwise.
  */
 static int __kmem_cache_do_shrink(struct kmem_cache *s)
 {
@@ -8164,12 +9005,18 @@ static int __kmem_cache_do_shrink(struct kmem_cache *s)
 	return ret;
 }
 
+/**
+ * Function Description: This is the exported function for shrinking a kmem_cache. It flushes all per-CPU caches and then calls __kmem_cache_do_shrink() to perform the actual shrinking operation. This can help reduce memory usage by freeing empty slabs and compacting partial lists.
+ */
 int __kmem_cache_shrink(struct kmem_cache *s)
 {
 	flush_all(s);
 	return __kmem_cache_do_shrink(s);
 }
 
+/**
+ * Function Description: This function is a memory hotplug callback for when a node is going offline. It iterates over all caches, flushes their per-CPU caches, and calls __kmem_cache_do_shrink() for each cache to free memory on the node being removed. This helps ensure that no slab objects are left on a node that is going away.
+ */
 static int slab_mem_going_offline_callback(void)
 {
 	struct kmem_cache *s;
@@ -8184,6 +9031,9 @@ static int slab_mem_going_offline_callback(void)
 	return 0;
 }
 
+/**
+ * Function Description: This function is a memory hotplug callback for when a node is coming online. It allocates and initializes a kmem_cache_node structure for each existing cache on the new node. This allows the slab allocator to use memory from the newly online node. It handles the case where the node was previously offlined and may already have a structure.
+ */
 static int slab_mem_going_online_callback(int nid)
 {
 	struct kmem_cache_node *n;
@@ -8241,6 +9091,9 @@ out:
 	return ret;
 }
 
+/**
+ * Function Description: This is a memory hotplug notifier callback that handles node online and offline events for the slab allocator. When a node is being brought online (with NODE_ADDING_FIRST_MEMORY action), it calls slab_mem_going_online_callback() to allocate and initialize per-node structures for all existing caches on the new node. When a node is being taken offline (with NODE_REMOVING_LAST_MEMORY action), it calls slab_mem_going_offline_callback() to flush caches and shrink slabs on the node being removed. The function converts any error return value to a notifier error code using notifier_from_errno(), or returns NOTIFY_OK on success. This ensures that the slab allocator properly manages its per-node data structures as the system's memory topology changes during hotplug operations.
+ */
 static int slab_memory_callback(struct notifier_block *self,
 				unsigned long action, void *arg)
 {
@@ -8267,12 +9120,14 @@ static int slab_memory_callback(struct notifier_block *self,
  *			Basic setup of slabs
  *******************************************************************/
 
-/*
+/**
  * Used for early kmem_cache structures that were allocated using
  * the page allocator. Allocate them properly then fix up the pointers
  * that may be pointing to the wrong kmem_cache structure.
+ * 
+ * 
+ * Function Description: This function is used during early boot to "bootstrap" a static kmem_cache structure into a dynamically allocated one. It copies the static cache's data into a new allocation, fixes up the slab_cache pointers on all its slabs, and adds the new cache to the list of caches. This allows the slab allocator to be initialized from static data.
  */
-
 static struct kmem_cache * __init bootstrap(struct kmem_cache *static_cache)
 {
 	int node;
@@ -8296,10 +9151,13 @@ static struct kmem_cache * __init bootstrap(struct kmem_cache *static_cache)
 	return s;
 }
 
-/*
+/**
  * Finish the sheaves initialization done normally by init_percpu_sheaves() and
  * init_kmem_cache_nodes(). For normal kmalloc caches we have to bootstrap it
  * since sheaves and barns are allocated by kmalloc.
+ * 
+ * 
+ * Function Description: This function is called during boot to initialize the sheaves and barns for kmalloc caches after the kmalloc infrastructure itself is available. It calculates the sheaf capacity, allocates barns for each node, and allocates an initial empty sheaf for each CPU. If any allocation fails, it panics.
  */
 static void __init bootstrap_cache_sheaves(struct kmem_cache *s)
 {
@@ -8352,6 +9210,9 @@ out:
 	s->sheaf_capacity = capacity;
 }
 
+/**
+ * Function Description: This function is the entry point for bootstrapping sheaves for all kmalloc caches. It iterates over all kmalloc cache types and indices and calls bootstrap_cache_sheaves() for each cache that exists. This completes the sheaf initialization for the kmalloc caches.
+ */
 static void __init bootstrap_kmalloc_sheaves(void)
 {
 	enum kmalloc_cache_type type;
@@ -8364,6 +9225,9 @@ static void __init bootstrap_kmalloc_sheaves(void)
 	}
 }
 
+/**
+ * Function Description: This is the main initialization function for the SLUB allocator. It initializes the kmem_cache_node and kmem_cache bootstrap caches, creates the kmalloc caches, bootstraps the sheaves for them, sets up freelist randomization, and registers a CPU hotplug handler. This function is called during the kernel's init process.
+ */
 void __init kmem_cache_init(void)
 {
 	static __initdata struct kmem_cache boot_kmem_cache,
@@ -8421,6 +9285,9 @@ void __init kmem_cache_init(void)
 		nr_cpu_ids, nr_node_ids);
 }
 
+/**
+ * Function Description: This function is called after the rest of the kernel is initialized to perform any late initialization. It allocates a workqueue for flushing sheaves (slub_flushwq) and initializes the random state for freelist randomization. This is the final step in SLUB initialization.
+ */
 void __init kmem_cache_init_late(void)
 {
 	flushwq = alloc_workqueue("slub_flushwq", WQ_MEM_RECLAIM | WQ_PERCPU,
@@ -8431,6 +9298,9 @@ void __init kmem_cache_init_late(void)
 #endif
 }
 
+/**
+ * Function Description: This is the main function for creating a new kmem_cache. It takes a name, size, and various arguments and flags. It calculates the sizes and order, initializes the per-node structures, allocates percpu sheaves, and adds the cache to sysfs. It handles early boot and normal operation. This is called by kmem_cache_create() and other cache creation functions.
+ */
 int do_kmem_cache_create(struct kmem_cache *s, const char *name,
 			 unsigned int size, struct kmem_cache_args *args,
 			 slab_flags_t flags)
@@ -8531,11 +9401,17 @@ out:
 }
 
 #ifdef SLAB_SUPPORTS_SYSFS
+/**
+ * Function Description: This is a helper function used for counting statistics on slabs. It simply returns the inuse field of a slab, which represents the number of objects currently allocated (in use) within that slab. This function is typically passed as a callback to count_partial() when counting the number of allocated objects across partial slabs, allowing the caller to aggregate the in-use object counts from multiple slabs.
+ */
 static int count_inuse(struct slab *slab)
 {
 	return slab->inuse;
 }
 
+/**
+ * Function Description: This is a helper function used for counting statistics on slabs. It returns the objects field of a slab, which represents the total number of objects that the slab can hold (its capacity). This function is typically passed as a callback to count_partial() when counting the total object capacity across partial slabs, allowing the caller to aggregate the total object counts from multiple slabs to determine overall slab capacity.
+ */
 static int count_total(struct slab *slab)
 {
 	return slab->objects;
@@ -8543,6 +9419,9 @@ static int count_total(struct slab *slab)
 #endif
 
 #ifdef CONFIG_SLUB_DEBUG
+/**
+ * Function Description: This debug function validates a single slab. It checks the slab's magic number and freelist integrity. It then iterates over all objects in the slab and checks each object's consistency (red zone, poison, etc.) against the object map. It is used by validate_slab_cache() to find corruption.
+ */
 static void validate_slab(struct kmem_cache *s, struct slab *slab,
 			  unsigned long *obj_map)
 {
@@ -8568,6 +9447,9 @@ static void validate_slab(struct kmem_cache *s, struct slab *slab,
 	}
 }
 
+/**
+ * Function Description: This debug function validates all slabs on a node. It iterates over both the partial and full slab lists, calling validate_slab() for each slab. It also checks that the number of slabs counted matches the node's counters. It is used by validate_slab_cache().
+ */
 static int validate_slab_node(struct kmem_cache *s,
 		struct kmem_cache_node *n, unsigned long *obj_map)
 {
@@ -8605,6 +9487,9 @@ out:
 	return count;
 }
 
+/**
+ * Function Description: This is the exported function for validating a whole kmem_cache. It flushes all per-CPU caches, allocates an object map, and then iterates over all nodes, calling validate_slab_node() for each. It returns the total number of slabs validated, or -ENOMEM if the object map could not be allocated. This is a debugging function to check for slab corruption.
+ */
 long validate_slab_cache(struct kmem_cache *s)
 {
 	int node;
@@ -8627,11 +9512,13 @@ long validate_slab_cache(struct kmem_cache *s)
 EXPORT_SYMBOL(validate_slab_cache);
 
 #ifdef CONFIG_DEBUG_FS
-/*
+/**
  * Generate lists of code addresses where slabcache objects are allocated
  * and freed.
+ * 
+ * 
+ * struct 
  */
-
 struct location {
 	depot_stack_handle_t handle;
 	unsigned long count;
@@ -8655,6 +9542,9 @@ struct loc_track {
 
 static struct dentry *slab_debugfs_root;
 
+/**
+ * Function Description: Frees the memory allocated for a location tracking structure. It checks if the track has any allocated locations and, if so, uses free_pages() to release the pages that were allocated for the location array based on its maximum size. This is used to clean up debug tracking data.
+ */
 static void free_loc_track(struct loc_track *t)
 {
 	if (t->max)
@@ -8662,6 +9552,9 @@ static void free_loc_track(struct loc_track *t)
 			get_order(sizeof(struct location) * t->max));
 }
 
+/**
+ * Function Description: Allocates memory for a location tracking structure with a specified maximum number of entries. It calculates the required order of pages based on the size of the location struct and uses __get_free_pages() to allocate them. If the track already contains data, it copies the existing data to the new allocation before freeing the old one. This is used to expand the tracking capacity.
+ */
 static int alloc_loc_track(struct loc_track *t, unsigned long max, gfp_t flags)
 {
 	struct location *l;
@@ -8682,6 +9575,9 @@ static int alloc_loc_track(struct loc_track *t, unsigned long max, gfp_t flags)
 	return 1;
 }
 
+/**
+ * Function Description: Adds a new allocation or free location to the tracking structure. It performs a binary search to find if the location (based on address, stack handle, and waste) already exists. If found, it updates the statistics (count, timing, PID, CPU, node). If not found, it inserts a new location entry, expanding the tracking array if necessary. This collects debugging data for tracking object allocations/frees.
+ */
 static int add_location(struct loc_track *t, struct kmem_cache *s,
 				const struct track *track,
 				unsigned int orig_size)
@@ -8774,6 +9670,9 @@ static int add_location(struct loc_track *t, struct kmem_cache *s,
 	return 1;
 }
 
+/**
+ * Function Description: Processes all objects in a slab to track their allocation or free locations. It uses a bitmap to identify which objects are currently allocated. For each allocated object, it retrieves the tracking information (track) and calls add_location() to add that location to the tracking structure. This is used to build lists of allocation or free locations for debugging.
+ */
 static void process_slab(struct loc_track *t, struct kmem_cache *s,
 		struct slab *slab, enum track_item alloc,
 		unsigned long *obj_map)
@@ -8794,12 +9693,15 @@ static void process_slab(struct loc_track *t, struct kmem_cache *s,
 #endif	/* CONFIG_SLUB_DEBUG */
 
 #ifdef SLAB_SUPPORTS_SYSFS
+/**
+ * Enumeration Description: This enumeration defines the various types of slab statistics that can be queried for a cache, serving as flags to control what information show_slab_objects() collects and displays. SL_ALL indicates that all slabs should be considered regardless of their state; SL_PARTIAL restricts the count to only partially allocated slabs (those with some free objects); SL_CPU refers to slabs currently being used for per-CPU caches (though with the sheaf system this may be less relevant); SL_OBJECTS specifies that the count should be of allocated objects rather than the number of slabs; and SL_TOTAL indicates that the total object capacity of the slabs should be counted rather than the active objects. These enum values are combined via bitwise OR to form the flags parameter passed to show_slab_objects(), allowing flexible aggregation of slab statistics for the various sysfs attribute show functions.
+ */
 enum slab_stat_type {
-	SL_ALL,			/* All slabs */
-	SL_PARTIAL,		/* Only partially allocated slabs */
-	SL_CPU,			/* Only slabs used for cpu caches */
-	SL_OBJECTS,		/* Determine allocated objects not slabs */
-	SL_TOTAL		/* Determine object capacity not slabs */
+	SL_ALL,			/** All slabs */
+	SL_PARTIAL,		/** Only partially allocated slabs */
+	SL_CPU,			/** Only slabs used for cpu caches */
+	SL_OBJECTS,		/** Determine allocated objects not slabs */
+	SL_TOTAL		/** Determine object capacity not slabs */
 };
 
 #define SO_ALL		(1 << SL_ALL)
@@ -8808,6 +9710,9 @@ enum slab_stat_type {
 #define SO_OBJECTS	(1 << SL_OBJECTS)
 #define SO_TOTAL	(1 << SL_TOTAL)
 
+/**
+ * Function Description: Generates a string representation of slab object statistics for sysfs files. It counts the number of slabs or objects based on the provided flags (e.g., total, partial, CPU). It sums the totals across all nodes and prints the overall total, along with per-node breakdowns if NUMA is enabled. This is used by various sysfs attribute show functions.
+ */
 static ssize_t show_slab_objects(struct kmem_cache *s,
 				 char *buf, unsigned long flags)
 {
@@ -8894,47 +9799,71 @@ struct slab_attribute {
 #define SLAB_ATTR(_name) \
 	static struct slab_attribute _name##_attr = __ATTR_RW_MODE(_name, 0600)
 
+/**
+ * Function Description: Sysfs show function for the slab_size attribute. It returns the total size (including metadata) of an object in the cache by printing s->size. This shows the full allocation size per object.
+ */
 static ssize_t slab_size_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%u\n", s->size);
 }
 SLAB_ATTR_RO(slab_size);
 
+/**
+ * Function Description: Sysfs show function for the align attribute. It prints the alignment requirement for objects in the cache (s->align), showing the byte alignment that objects are allocated with.
+ */
 static ssize_t align_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%u\n", s->align);
 }
 SLAB_ATTR_RO(align);
 
+/**
+ * Function Description: Sysfs show function for the object_size attribute. It returns the user-requested object size (s->object_size), which is the size that was originally requested when the cache was created, before adding any metadata.
+ */
 static ssize_t object_size_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%u\n", s->object_size);
 }
 SLAB_ATTR_RO(object_size);
 
+/**
+ * Function Description: Sysfs show function for the objs_per_slab attribute. It prints the number of objects that can fit in a single slab page (or pages) for this cache, determined by oo_objects(s->oo). This shows the capacity of each slab.
+ */
 static ssize_t objs_per_slab_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%u\n", oo_objects(s->oo));
 }
 SLAB_ATTR_RO(objs_per_slab);
 
+/**
+ * Function Description: Sysfs show function for the order attribute. It prints the allocation order (page order) for slabs of this cache, showing how many pages (2^order) are used for each slab.
+ */
 static ssize_t order_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%u\n", oo_order(s->oo));
 }
 SLAB_ATTR_RO(order);
 
+/**
+ * Function Description: Sysfs show function for the sheaf_capacity attribute. It returns the maximum number of objects that can be stored in a per-CPU sheaf for this cache (s->sheaf_capacity), which is used for the sheaf-based fast allocation/free path.
+ */
 static ssize_t sheaf_capacity_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%u\n", s->sheaf_capacity);
 }
 SLAB_ATTR_RO(sheaf_capacity);
 
+/**
+ * Function Description: Sysfs show function for the min_partial attribute. It prints the minimum number of partial slabs that should be kept on the per-node partial list (s->min_partial) to avoid excessive page allocation/free operations.
+ */
 static ssize_t min_partial_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%lu\n", s->min_partial);
 }
 
+/**
+ * Function Description: Sysfs store function for the min_partial attribute. It allows changing the minimum number of partial slabs by parsing the input string into an unsigned long and updating s->min_partial. This provides runtime tuning of slab caching behavior.
+ */
 static ssize_t min_partial_store(struct kmem_cache *s, const char *buf,
 				 size_t length)
 {
@@ -8950,11 +9879,17 @@ static ssize_t min_partial_store(struct kmem_cache *s, const char *buf,
 }
 SLAB_ATTR(min_partial);
 
+/**
+ * Function Description: Sysfs show function for the cpu_partial attribute. It always returns "0" as this version of SLUB (with sheaves) no longer uses per-CPU partial lists; the functionality is replaced by the sheaf system.
+ */
 static ssize_t cpu_partial_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "0\n");
 }
 
+/**
+ * Function Description: Sysfs store function for the cpu_partial attribute. It only accepts "0" as input; any other value returns -EINVAL. This is because the per-CPU partial list feature is deprecated in favor of sheaves.
+ */
 static ssize_t cpu_partial_store(struct kmem_cache *s, const char *buf,
 				 size_t length)
 {
@@ -8971,6 +9906,9 @@ static ssize_t cpu_partial_store(struct kmem_cache *s, const char *buf,
 }
 SLAB_ATTR(cpu_partial);
 
+/**
+ * Function Description: Sysfs show function for the ctor attribute. If the cache has a constructor function (s->ctor), it prints the function pointer as a symbol. Otherwise, it returns an empty string. This shows whether a constructor is registered for the cache.
+ */
 static ssize_t ctor_show(struct kmem_cache *s, char *buf)
 {
 	if (!s->ctor)
@@ -8979,42 +9917,63 @@ static ssize_t ctor_show(struct kmem_cache *s, char *buf)
 }
 SLAB_ATTR_RO(ctor);
 
+/**
+ * Function Description: Sysfs show function for the aliases attribute. It calculates and prints the number of aliases for the cache by taking s->refcount - 1 (or 0 if refcount is negative). This shows how many other names refer to the same cache (merged caches).
+ */
 static ssize_t aliases_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", s->refcount < 0 ? 0 : s->refcount - 1);
 }
 SLAB_ATTR_RO(aliases);
 
+/**
+ * Function Description: Sysfs show function for the partial attribute. It calls show_slab_objects() with the SO_PARTIAL flag to display the number of partial slabs on all nodes, along with per-node breakdowns if NUMA is enabled.
+ */
 static ssize_t partial_show(struct kmem_cache *s, char *buf)
 {
 	return show_slab_objects(s, buf, SO_PARTIAL);
 }
 SLAB_ATTR_RO(partial);
 
+/**
+ * Function Description: Sysfs show function for the cpu_slabs attribute. It calls show_slab_objects() with the SO_CPU flag to display slab information related to CPU caches (though with sheaves, this may not show meaningful data and is kept for compatibility).
+ */
 static ssize_t cpu_slabs_show(struct kmem_cache *s, char *buf)
 {
 	return show_slab_objects(s, buf, SO_CPU);
 }
 SLAB_ATTR_RO(cpu_slabs);
 
+/**
+ * Function Description: Sysfs show function for the objects_partial attribute. It calls show_slab_objects() with SO_PARTIAL|SO_OBJECTS flags to display the number of objects that are in partial slabs, rather than the number of slabs themselves.
+ */
 static ssize_t objects_partial_show(struct kmem_cache *s, char *buf)
 {
 	return show_slab_objects(s, buf, SO_PARTIAL|SO_OBJECTS);
 }
 SLAB_ATTR_RO(objects_partial);
 
+/**
+ * Function Description: Sysfs show function for the slabs_cpu_partial attribute. It always returns "0(0)" as the per-CPU partial list feature is not used; this is kept for compatibility with older kernel interfaces.
+ */
 static ssize_t slabs_cpu_partial_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "0(0)\n");
 }
 SLAB_ATTR_RO(slabs_cpu_partial);
 
+/**
+ * Function Description: Sysfs show function for the reclaim_account attribute. It prints "1" if the cache has the SLAB_RECLAIM_ACCOUNT flag set (indicating its memory can be reclaimed), and "0" otherwise.
+ */
 static ssize_t reclaim_account_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_RECLAIM_ACCOUNT));
 }
 SLAB_ATTR_RO(reclaim_account);
 
+/**
+ * Function Description: Sysfs show function for the hwcache_align attribute. It prints "1" if the cache has the SLAB_HWCACHE_ALIGN flag set (indicating objects are aligned to hardware cache lines), and "0" otherwise.
+ */
 static ssize_t hwcache_align_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_HWCACHE_ALIGN));
@@ -9022,6 +9981,9 @@ static ssize_t hwcache_align_show(struct kmem_cache *s, char *buf)
 SLAB_ATTR_RO(hwcache_align);
 
 #ifdef CONFIG_ZONE_DMA
+/**
+ * Function Description: Sysfs show function (CONFIG_ZONE_DMA) for the cache_dma attribute. It prints "1" if the cache has the SLAB_CACHE_DMA flag set (indicating it allocates from DMA zone memory), and "0" otherwise.
+ */
 static ssize_t cache_dma_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_CACHE_DMA));
@@ -9030,6 +9992,9 @@ SLAB_ATTR_RO(cache_dma);
 #endif
 
 #ifdef CONFIG_HARDENED_USERCOPY
+/**
+ * Function Description: Sysfs show function (CONFIG_HARDENED_USERCOPY) for the usersize attribute. It prints the s->usersize value, which is the portion of the object that is safe to copy to/from userspace (used for hardened usercopy).
+ */
 static ssize_t usersize_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%u\n", s->usersize);
@@ -9037,6 +10002,9 @@ static ssize_t usersize_show(struct kmem_cache *s, char *buf)
 SLAB_ATTR_RO(usersize);
 #endif
 
+/**
+ * Function Description: Sysfs show function for the destroy_by_rcu attribute. It prints "1" if the cache has the SLAB_TYPESAFE_BY_RCU flag set (objects can be accessed after free until RCU grace period ends), and "0" otherwise.
+ */
 static ssize_t destroy_by_rcu_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_TYPESAFE_BY_RCU));
@@ -9044,36 +10012,54 @@ static ssize_t destroy_by_rcu_show(struct kmem_cache *s, char *buf)
 SLAB_ATTR_RO(destroy_by_rcu);
 
 #ifdef CONFIG_SLUB_DEBUG
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_DEBUG) for the slabs attribute. It calls show_slab_objects() with the SO_ALL flag to display the total number of slabs (including full, partial, and empty) across all nodes.
+ */
 static ssize_t slabs_show(struct kmem_cache *s, char *buf)
 {
 	return show_slab_objects(s, buf, SO_ALL);
 }
 SLAB_ATTR_RO(slabs);
 
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_DEBUG) for the total_objects attribute. It calls show_slab_objects() with SO_ALL|SO_TOTAL flags to display the total capacity (number of objects that could be stored) of all slabs across all nodes.
+ */
 static ssize_t total_objects_show(struct kmem_cache *s, char *buf)
 {
 	return show_slab_objects(s, buf, SO_ALL|SO_TOTAL);
 }
 SLAB_ATTR_RO(total_objects);
 
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_DEBUG) for the objects attribute. It calls show_slab_objects() with SO_ALL|SO_OBJECTS flags to display the total number of objects currently allocated from all slabs across all nodes.
+ */
 static ssize_t objects_show(struct kmem_cache *s, char *buf)
 {
 	return show_slab_objects(s, buf, SO_ALL|SO_OBJECTS);
 }
 SLAB_ATTR_RO(objects);
 
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_DEBUG) for the sanity_checks attribute. It prints "1" if the cache has the SLAB_CONSISTENCY_CHECKS flag set (enables extra consistency checks), and "0" otherwise.
+ */
 static ssize_t sanity_checks_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_CONSISTENCY_CHECKS));
 }
 SLAB_ATTR_RO(sanity_checks);
 
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_DEBUG) for the trace attribute. It prints "1" if the cache has the SLAB_TRACE flag set (enables tracing of alloc/free operations), and "0" otherwise.
+ */
 static ssize_t trace_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_TRACE));
 }
 SLAB_ATTR_RO(trace);
 
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_DEBUG) for the red_zone attribute. It prints "1" if the cache has the SLAB_RED_ZONE flag set (enables red zone checking for buffer overflows), and "0" otherwise.
+ */
 static ssize_t red_zone_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_RED_ZONE));
@@ -9081,6 +10067,9 @@ static ssize_t red_zone_show(struct kmem_cache *s, char *buf)
 
 SLAB_ATTR_RO(red_zone);
 
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_DEBUG) for the poison attribute. It prints "1" if the cache has the SLAB_POISON flag set (enables poisoning of freed objects to detect use-after-free), and "0" otherwise.
+ */
 static ssize_t poison_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_POISON));
@@ -9088,6 +10077,9 @@ static ssize_t poison_show(struct kmem_cache *s, char *buf)
 
 SLAB_ATTR_RO(poison);
 
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_DEBUG) for the store_user attribute. It prints "1" if the cache has the SLAB_STORE_USER flag set (enables storing allocation/free tracking information), and "0" otherwise.
+ */
 static ssize_t store_user_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_STORE_USER));
@@ -9095,11 +10087,17 @@ static ssize_t store_user_show(struct kmem_cache *s, char *buf)
 
 SLAB_ATTR_RO(store_user);
 
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_DEBUG) for the validate attribute. It simply returns 0 as this attribute is write-only; it's used to trigger validation rather than display information.
+ */
 static ssize_t validate_show(struct kmem_cache *s, char *buf)
 {
 	return 0;
 }
 
+/**
+ * Function Description: Sysfs store function (CONFIG_SLUB_DEBUG) for the validate attribute. If the input is "1" and the cache has debugging enabled, it calls validate_slab_cache() to check for corruption. Returns the length on success or an error code on failure.
+ */
 static ssize_t validate_store(struct kmem_cache *s,
 			const char *buf, size_t length)
 {
@@ -9117,11 +10115,17 @@ SLAB_ATTR(validate);
 #endif /* CONFIG_SLUB_DEBUG */
 
 #ifdef CONFIG_FAILSLAB
+/**
+ * Function Description: Sysfs show function (CONFIG_FAILSLAB) for the failslab attribute. It prints "1" if the cache has the SLAB_FAILSLAB flag set (enables simulated allocation failures for testing), and "0" otherwise.
+ */
 static ssize_t failslab_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_FAILSLAB));
 }
 
+/**
+ * Function Description: Sysfs store function (CONFIG_FAILSLAB) for the failslab attribute. It allows enabling or disabling fail slab injection for the cache, but only if the cache has a reference count of 1 (no existing users). It updates the SLAB_FAILSLAB flag accordingly.
+ */
 static ssize_t failslab_store(struct kmem_cache *s, const char *buf,
 				size_t length)
 {
@@ -9138,11 +10142,17 @@ static ssize_t failslab_store(struct kmem_cache *s, const char *buf,
 SLAB_ATTR(failslab);
 #endif
 
+/**
+ * Function Description: Sysfs show function for the shrink attribute. It returns 0 as this is a write-only attribute used to trigger shrinking rather than display information.
+ */
 static ssize_t shrink_show(struct kmem_cache *s, char *buf)
 {
 	return 0;
 }
 
+/**
+ * Function Description: Sysfs store function for the shrink attribute. If the input is "1", it calls kmem_cache_shrink() to attempt to free unused slabs and reduce memory usage. Returns the length on success or -EINVAL on invalid input.
+ */
 static ssize_t shrink_store(struct kmem_cache *s,
 			const char *buf, size_t length)
 {
@@ -9155,11 +10165,17 @@ static ssize_t shrink_store(struct kmem_cache *s,
 SLAB_ATTR(shrink);
 
 #ifdef CONFIG_NUMA
+/**
+ * Function Description: Sysfs show function (CONFIG_NUMA) for the remote_node_defrag_ratio attribute. It prints the remote node defragmentation ratio divided by 10 (to present it as a percentage from 0-100) to show how likely the allocator is to use remote nodes.
+ */
 static ssize_t remote_node_defrag_ratio_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%u\n", s->remote_node_defrag_ratio / 10);
 }
 
+/**
+ * Function Description: Sysfs store function (CONFIG_NUMA) for the remote_node_defrag_ratio attribute. It parses a percentage (0-100) and stores it multiplied by 10 in s->remote_node_defrag_ratio. This allows tuning how aggressively the allocator uses remote NUMA nodes for allocations.
+ */
 static ssize_t remote_node_defrag_ratio_store(struct kmem_cache *s,
 				const char *buf, size_t length)
 {
@@ -9180,6 +10196,9 @@ SLAB_ATTR(remote_node_defrag_ratio);
 #endif
 
 #ifdef CONFIG_SLUB_STATS
+/**
+ * Function Description: Sysfs show function (CONFIG_SLUB_STATS) for displaying statistics. It iterates over all online CPUs, sums the specified statistic from each CPU's statistics structure, and prints the total along with per-CPU breakdowns if SMP is enabled. This provides visibility into allocator performance metrics.
+ */
 static int show_stat(struct kmem_cache *s, char *buf, enum stat_item si)
 {
 	unsigned long sum  = 0;
@@ -9212,6 +10231,9 @@ static int show_stat(struct kmem_cache *s, char *buf, enum stat_item si)
 	return len;
 }
 
+/**
+ * Function Description: Clears a specific statistic counter for a cache across all CPUs. It iterates over online CPUs and sets the specified statistic to 0. This is used by the store function of stat attributes to reset counters.
+ */
 static void clear_stat(struct kmem_cache *s, enum stat_item si)
 {
 	int cpu;
@@ -9264,11 +10286,17 @@ STAT_ATTR(SHEAF_RETURN_SLOW, sheaf_return_slow);
 #endif	/* CONFIG_SLUB_STATS */
 
 #ifdef CONFIG_KFENCE
+/**
+ * Function Description: Sysfs show function (CONFIG_KFENCE) for the skip_kfence attribute. It prints "1" if the cache has the SLAB_SKIP_KFENCE flag set (KFENCE allocations are skipped for this cache), and "0" otherwise.
+ */
 static ssize_t skip_kfence_show(struct kmem_cache *s, char *buf)
 {
 	return sysfs_emit(buf, "%d\n", !!(s->flags & SLAB_SKIP_KFENCE));
 }
 
+/**
+ * Function Description: Sysfs store function (CONFIG_KFENCE) for the skip_kfence attribute. It allows enabling or disabling KFENCE skipping for the cache by setting or clearing the SLAB_SKIP_KFENCE flag based on "1" or "0" input.
+ */
 static ssize_t skip_kfence_store(struct kmem_cache *s,
 			const char *buf, size_t length)
 {
@@ -9286,6 +10314,9 @@ static ssize_t skip_kfence_store(struct kmem_cache *s,
 SLAB_ATTR(skip_kfence);
 #endif
 
+/**
+ * Variable Description: This is a NULL-terminated array of pointers to struct attribute that defines the complete set of sysfs files exposed for each slab cache under /sys/kernel/slab/<cache_name>/. It includes core attributes that are always present such as slab_size, object_size, objs_per_slab, order, sheaf_capacity, min_partial, cpu_partial, objects_partial, partial, cpu_slabs, ctor, aliases, align, hwcache_align, reclaim_account, destroy_by_rcu, shrink, and slabs_cpu_partial. The array also conditionally includes additional attributes based on kernel configuration options: debugging attributes (total_objects, objects, slabs, sanity_checks, trace, red_zone, poison, store_user, validate) when CONFIG_SLUB_DEBUG is enabled; cache_dma for CONFIG_ZONE_DMA; remote_node_defrag_ratio for CONFIG_NUMA; a comprehensive set of performance statistics attributes (alloc/fastpath/slowpath, free operations, sheaf and barn operations, etc.) when CONFIG_SLUB_STATS is enabled; failslab for CONFIG_FAILSLAB; usersize for CONFIG_HARDENED_USERCOPY; and skip_kfence for CONFIG_KFENCE. This array is used by slab_attr_group to create all the sysfs files for a cache in a single operation, providing comprehensive runtime visibility and tunability of the slab allocator's behavior for debugging, performance tuning, and system administration purposes.
+ */
 static struct attribute *slab_attrs[] = {
 	&slab_size_attr.attr,
 	&object_size_attr.attr,
@@ -9363,10 +10394,16 @@ static struct attribute *slab_attrs[] = {
 	NULL
 };
 
+/**
+ * Variable Description: This is a struct attribute_group that defines a group of sysfs attributes for a slab cache. It contains a pointer to the slab_attrs array, which is a list of all the sysfs attribute structures (e.g., slab_size, object_size, objs_per_slab, order, etc.) that are exposed under each slab cache's sysfs directory (e.g., /sys/kernel/slab/<cache_name>/). This attribute group is used when creating the sysfs entries for a cache via sysfs_create_group(), allowing all the slab cache attributes to be created together as a group. This simplifies the sysfs registration process and ensures consistent attribute management across all slab caches. 
+ */
 static const struct attribute_group slab_attr_group = {
 	.attrs = slab_attrs,
 };
 
+/**
+ * Function Description: Generic sysfs show function for slab attributes. It retrieves the slab_attribute structure and the kmem_cache from the kobject, then calls the attribute's show function. This is the handler for reading sysfs files associated with a slab cache.
+ */
 static ssize_t slab_attr_show(struct kobject *kobj,
 				struct attribute *attr,
 				char *buf)
@@ -9383,6 +10420,9 @@ static ssize_t slab_attr_show(struct kobject *kobj,
 	return attribute->show(s, buf);
 }
 
+/**
+ * Function Description: Generic sysfs store function for slab attributes. It retrieves the slab_attribute structure and the kmem_cache from the kobject, then calls the attribute's store function. This is the handler for writing to sysfs files associated with a slab cache.
+ */
 static ssize_t slab_attr_store(struct kobject *kobj,
 				struct attribute *attr,
 				const char *buf, size_t len)
@@ -9399,6 +10439,9 @@ static ssize_t slab_attr_store(struct kobject *kobj,
 	return attribute->store(s, buf, len);
 }
 
+/**
+ * Function Description: Release function for a slab cache's kobject. When the kobject reference count reaches zero, this function calls slab_kmem_cache_release() to perform the actual cleanup of the kmem_cache structure. This is used by the sysfs kobject release mechanism.
+ */
 static void kmem_cache_release(struct kobject *k)
 {
 	slab_kmem_cache_release(to_slab(k));
@@ -9416,6 +10459,9 @@ static const struct kobj_type slab_ktype = {
 
 static struct kset *slab_kset;
 
+/**
+ * Function Description: Inline function that returns the slab kset. In this implementation, it simply returns slab_kset, which is the kset representing the "/sys/kernel/slab/" directory. This provides the kset for all slab cache sysfs entries.
+ */
 static inline struct kset *cache_kset(struct kmem_cache *s)
 {
 	return slab_kset;
@@ -9423,9 +10469,12 @@ static inline struct kset *cache_kset(struct kmem_cache *s)
 
 #define ID_STR_LENGTH 32
 
-/* Create a unique string id for a slab cache:
+/** Create a unique string id for a slab cache:
  *
  * Format	:[flags-]size
+ * 
+ * 
+ * Function Description: Creates a unique identifier string for a slab cache that is used for sysfs naming when caches cannot be merged. The ID format is ":flags-size" where flags are single-character codes for various cache properties. This ensures each unmergeable cache gets a unique sysfs name.
  */
 static char *create_unique_id(struct kmem_cache *s)
 {
@@ -9465,6 +10514,9 @@ static char *create_unique_id(struct kmem_cache *s)
 	return name;
 }
 
+/**
+ * Function Description: Adds a slab cache to sysfs by creating a kobject and directory under /sys/kernel/slab/. It determines if the cache is mergeable and uses either the original name or a unique ID as the directory name. It creates sysfs attributes and handles alias creation. This is used for both boot-time and runtime cache creation.
+ */
 static int sysfs_slab_add(struct kmem_cache *s)
 {
 	int err;
@@ -9516,20 +10568,29 @@ out_del_kobj:
 	goto out;
 }
 
+/**
+ * Function Description: Removes a slab cache's sysfs directory by calling kobject_del() on the cache's kobject. This is used during cache destruction or when a cache is removed from sysfs to clean up its directory and symlinks.
+ */
 void sysfs_slab_unlink(struct kmem_cache *s)
 {
 	if (s->kobj.state_in_sysfs)
 		kobject_del(&s->kobj);
 }
 
+/**
+ * Function Description: Decrements the reference count on a slab cache's kobject. This is typically called when a cache is being destroyed to release its sysfs representation. It calls kobject_put(), which may trigger the release callback.
+ */
 void sysfs_slab_release(struct kmem_cache *s)
 {
 	kobject_put(&s->kobj);
 }
 
-/*
+/**
  * Need to buffer aliases during bootup until sysfs becomes
  * available lest we lose that information.
+ * 
+ * 
+ * struct Description: This structure is used to buffer alias information for slab caches during the early boot phase before the sysfs filesystem is available. It stores a pointer to the kmem_cache (s), the alias name (name), and a pointer to the next saved alias in the list (next). This allows the kernel to remember all requested aliases and create them later once sysfs is fully initialized, ensuring that cache merging and alias functionality works correctly across the boot process.
  */
 struct saved_alias {
 	struct kmem_cache *s;
@@ -9539,6 +10600,9 @@ struct saved_alias {
 
 static struct saved_alias *alias_list;
 
+/**
+ * Function Description: Creates a symlink alias for a slab cache in sysfs. If the slab subsystem is fully initialized (FULL state), it creates the link directly. During boot (before sysfs is ready), it stores the alias in a list to be created later. This allows multiple names to point to the same cache (for merged caches).
+ */
 int sysfs_slab_alias(struct kmem_cache *s, const char *name)
 {
 	struct saved_alias *al;
@@ -9568,6 +10632,9 @@ int sysfs_slab_alias(struct kmem_cache *s, const char *name)
 	return 0;
 }
 
+/**
+ * Function Description: Late initialization function for the slab sysfs interface. It creates the /sys/kernel/slab/ directory and sets up kset. It then iterates over all existing caches and adds them to sysfs, and processes any aliases that were saved during boot. This is called as a late_initcall after the base kernel has booted.
+ */
 static int __init slab_sysfs_init(void)
 {
 	struct kmem_cache *s;
@@ -9609,6 +10676,9 @@ late_initcall(slab_sysfs_init);
 #endif /* SLAB_SUPPORTS_SYSFS */
 
 #if defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS)
+/**
+ * Function Description: This function is the show method for the alloc_traces and free_traces debugfs files. It prints information from a loc_track structure, which contains a sorted list of allocation/free locations. It prints the count, address, waste, age, pid, cpus, nodes, and stack trace (if available) for each location.
+ */
 static int slab_debugfs_show(struct seq_file *seq, void *v)
 {
 	struct loc_track *t = seq->private;
@@ -9679,6 +10749,9 @@ static void slab_debugfs_stop(struct seq_file *seq, void *v)
 {
 }
 
+/**
+ * Function Description: This is the next method for the debugfs seq_file operations. It advances the iterator to the next location entry in the loc_track. It increments the index pointer (ppos), updates the loc_track's idx field, and returns the pointer to the new position if it is within the valid range (less than or equal to the total count). If the end is reached, it returns NULL to signal the end of iteration.
+ */
 static void *slab_debugfs_next(struct seq_file *seq, void *v, loff_t *ppos)
 {
 	struct loc_track *t = seq->private;
@@ -9690,6 +10763,9 @@ static void *slab_debugfs_next(struct seq_file *seq, void *v, loff_t *ppos)
 	return NULL;
 }
 
+/**
+ * Function Description: This is a comparison function used for sorting location entries in the loc_track. It compares two location structures by their count field in descending order (larger counts first). This is used with the sort() function to order the allocation/free locations by frequency, making the most common locations appear first in the debugfs output. The cmp_int() function returns a negative value if loc2->count is greater than loc1->count, resulting in descending sort order.
+ */
 static int cmp_loc_by_count(const void *a, const void *b)
 {
 	struct location *loc1 = (struct location *)a;
@@ -9698,6 +10774,9 @@ static int cmp_loc_by_count(const void *a, const void *b)
 	return cmp_int(loc2->count, loc1->count);
 }
 
+/**
+ * Function Description: This is the start method for the debugfs seq_file operations. It is called at the beginning of a read operation to initialize the iterator. It sets the loc_track's idx field to the current position (*ppos) and returns the pointer to that position. This prepares the seq_file iteration to start from the specified offset.
+ */
 static void *slab_debugfs_start(struct seq_file *seq, loff_t *ppos)
 {
 	struct loc_track *t = seq->private;
@@ -9706,6 +10785,9 @@ static void *slab_debugfs_start(struct seq_file *seq, loff_t *ppos)
 	return ppos;
 }
 
+/**
+ * Variable Description: This is a struct seq_operations structure that defines the low-level operations for the seq_file interface used by the slab debugfs files. It provides the start, next, stop, and show methods that control how the allocation/free location data is iterated and displayed. This structure is used when opening the trace files to enable the standard seq_file read functionality, which handles buffering and iteration automatically in the kernel.
+ */
 static const struct seq_operations slab_debugfs_sops = {
 	.start  = slab_debugfs_start,
 	.next   = slab_debugfs_next,
@@ -9713,6 +10795,9 @@ static const struct seq_operations slab_debugfs_sops = {
 	.show   = slab_debugfs_show,
 };
 
+/**
+ * Function Description: This function is the open method for the debugfs trace files. It allocates a loc_track structure, iterates over all slabs on all nodes, and processes each slab's objects to build a list of allocation or free locations. It then sorts the locations by count and stores them in the loc_track. This is used to generate the allocation/free trace reports.
+ */
 static int slab_debug_trace_open(struct inode *inode, struct file *filep)
 {
 
@@ -9764,6 +10849,9 @@ static int slab_debug_trace_open(struct inode *inode, struct file *filep)
 	return 0;
 }
 
+/**
+ * Variable Description: This is the release function for the debugfs trace files (alloc_traces and free_traces). It is called when the file is closed. It retrieves the loc_track structure from the seq_file's private data, frees its allocated memory using free_loc_track() to prevent memory leaks, and then calls seq_release_private() to release the seq_file resources. This ensures proper cleanup of the location tracking data that was collected when the file was opened. 
+ */
 static int slab_debug_trace_release(struct inode *inode, struct file *file)
 {
 	struct seq_file *seq = file->private_data;
@@ -9773,6 +10861,9 @@ static int slab_debug_trace_release(struct inode *inode, struct file *file)
 	return seq_release_private(inode, file);
 }
 
+/**
+ * Variable Description: This is a struct file_operations structure that defines the operations for the slab debugfs trace files. It specifies the handler functions for opening (slab_debug_trace_open), reading (seq_read - the standard seq_file read handler), seeking (seq_lseek - standard seq_file seek handler), and releasing (slab_debug_trace_release) the file. This structure is used when creating the alloc_traces and free_traces debugfs files, allowing userspace to read allocation/free tracking information from the kernel through a simple file interface using the seq_file API for convenient sequential reading.
+ */
 static const struct file_operations slab_debugfs_fops = {
 	.open    = slab_debug_trace_open,
 	.read    = seq_read,
@@ -9780,6 +10871,9 @@ static const struct file_operations slab_debugfs_fops = {
 	.release = slab_debug_trace_release,
 };
 
+/**
+ * Function Description: This function creates debugfs files for a kmem_cache. It creates a directory for the cache and creates two files: alloc_traces and free_traces. These files can be read to see a breakdown of allocation and free locations for the cache, which is useful for debugging memory leaks.
+ */
 static void debugfs_slab_add(struct kmem_cache *s)
 {
 	struct dentry *slab_cache_dir;
@@ -9796,11 +10890,17 @@ static void debugfs_slab_add(struct kmem_cache *s)
 					TRACK_FREE, &slab_debugfs_fops);
 }
 
+/**
+ * Function Description: This function removes the debugfs directory and files associated with a slab cache when the cache is being destroyed. It uses debugfs_lookup_and_remove() to find and remove the directory named after the cache (s->name) under the root slab debugfs directory (slab_debugfs_root). This ensures that debugfs entries are cleaned up properly to prevent stale file references and memory leaks when a cache is unloaded or destroyed.
+ */
 void debugfs_slab_release(struct kmem_cache *s)
 {
 	debugfs_lookup_and_remove(s->name, slab_debugfs_root);
 }
 
+/**
+ * Function Description: This is the initialization function for the SLUB debugfs interface, called at boot time via an __initcall. It creates the root debugfs directory /sys/kernel/debug/slab by calling debugfs_create_dir(). It then iterates over all existing slab caches in the system and, for each cache that has the SLAB_STORE_USER flag enabled (indicating it stores allocation/free tracking information), calls debugfs_slab_add() to create per-cache debugfs files (typically alloc_traces and free_traces). These debugfs files provide detailed tracking information about object allocations and frees, which is invaluable for debugging memory leaks and use-after-free issues.
+ */
 static int __init slab_debugfs_init(void)
 {
 	struct kmem_cache *s;
@@ -9820,6 +10920,9 @@ __initcall(slab_debugfs_init);
  * The /proc/slabinfo ABI
  */
 #ifdef CONFIG_SLUB_DEBUG
+/**
+ * Function Description: This function populates a struct slabinfo with statistics for a given kmem_cache. It iterates over all NUMA nodes associated with the cache, accumulating the total number of slabs, total objects, and an approximate count of free objects (using count_partial_free_approx() which provides a fast but potentially inexact count). It then calculates active objects as total objects minus free objects. The function also fills in the number of objects per slab and the cache's page order from the cache's oo (order/objects) field. This is used by the /proc/slabinfo interface to provide detailed memory usage statistics for each slab cache.
+ */
 void get_slabinfo(struct kmem_cache *s, struct slabinfo *sinfo)
 {
 	unsigned long nr_slabs = 0;

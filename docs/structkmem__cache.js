@@ -3,9 +3,12 @@ var structkmem__cache =
     [ "align", "structkmem__cache.html#a770d4702e0b609eef63d90a8e682d7ae", null ],
     [ "allocflags", "structkmem__cache.html#a0a8ea9ac1d984e078ec4ed337dbb62b6", null ],
     [ "cpu_sheaves", "structkmem__cache.html#ab29ce6f2b07929339c8505d1e95b5d70", null ],
+    [ "cpu_stats", "structkmem__cache.html#a79affe8c9f634a883c755da65bc83822", null ],
     [ "ctor", "structkmem__cache.html#a313ed5a8786accb070ebfe0dfb34351f", null ],
     [ "flags", "structkmem__cache.html#a9dfd0efce4d2a009f4b5ea43940620cb", null ],
     [ "inuse", "structkmem__cache.html#a7ee89624adf5e714011ade7d3ca7ff6c", null ],
+    [ "kasan_info", "structkmem__cache.html#a915969a7a77d8160527a4531ff388000", null ],
+    [ "kobj", "structkmem__cache.html#afee3367eb2b65dd116524d8c49d269d0", null ],
     [ "list", "structkmem__cache.html#abe14a9a6989e3c7f529a09d8c28d19b7", null ],
     [ "min", "structkmem__cache.html#a81ebe383896bafe80199260db1dd0f5c", null ],
     [ "min_partial", "structkmem__cache.html#aded0003970d86868ca966ac715b38bc6", null ],
@@ -14,9 +17,14 @@ var structkmem__cache =
     [ "object_size", "structkmem__cache.html#ab07319d983cb6152b3793d5685147cb3", null ],
     [ "offset", "structkmem__cache.html#a653f0778e6a0586624fb4156aee92996", null ],
     [ "oo", "structkmem__cache.html#ae0a4ad62d2a40ca09cbf10790bdaf53e", null ],
+    [ "random", "structkmem__cache.html#a69bb6b1c3f1ab5db49cd9b0728777724", null ],
+    [ "random_seq", "structkmem__cache.html#a2a6debe0b6fb2fdd2bc5e46dd2b2d901", null ],
     [ "reciprocal_size", "structkmem__cache.html#a0c55bbf9466495138f58e2898772b8ba", null ],
     [ "red_left_pad", "structkmem__cache.html#a03a3372359ea34511dc96149a20e7625", null ],
     [ "refcount", "structkmem__cache.html#a3d27babbb3fee8d7f8671bec9c747d92", null ],
+    [ "remote_node_defrag_ratio", "structkmem__cache.html#a97ad69de4df8dd9b6c602d8720779416", null ],
     [ "sheaf_capacity", "structkmem__cache.html#add420611af9697e8f7ae87d0844cefef", null ],
-    [ "size", "structkmem__cache.html#a493a23641ce86d3f00f3dbdfffc717b2", null ]
+    [ "size", "structkmem__cache.html#a493a23641ce86d3f00f3dbdfffc717b2", null ],
+    [ "useroffset", "structkmem__cache.html#adb5601740b6d0359fddb146eff9b753d", null ],
+    [ "usersize", "structkmem__cache.html#a20f77ca7c96d9bb7d19da84274a842d4", null ]
 ];

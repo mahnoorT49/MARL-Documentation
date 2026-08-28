@@ -30,6 +30,8 @@ var mempool_8h =
     [ "mempool_free_slab", "mempool_8h.html#abc58c5b3d5a6bbe1af665a6ee234e2b5", null ],
     [ "mempool_init_node", "mempool_8h.html#a03170c149901214d66e5e365b1ef13e4", null ],
     [ "mempool_init_noprof", "mempool_8h.html#aa9829e7618eb6d16f2da5cfbceefa621", null ],
+    [ "mempool_initialized", "mempool_8h.html#ab35c6ab28421659ff8dcdb8604c9919b", null ],
+    [ "mempool_is_saturated", "mempool_8h.html#a56da6e09413f68afc6f39b9533d0e5de", null ],
     [ "mempool_kfree", "mempool_8h.html#a91f3a618909353ee778baf7e2a2b4eb4", null ],
     [ "mempool_kmalloc", "mempool_8h.html#a1dde6440353fb1a40e222fb2895febf8", null ],
     [ "mempool_resize", "mempool_8h.html#a0db246f41fb8e7fb744228150cc3508c", null ]

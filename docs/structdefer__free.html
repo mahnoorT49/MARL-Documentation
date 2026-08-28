@@ -124,7 +124,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:acb810245eb48976d87fc5a001242e1b7" id="r_acb810245eb48976d87fc5a001242e1b7"><td class="memItemLeft">struct llist_head&#160;</td><td class="memItemRight"><a class="el" href="#acb810245eb48976d87fc5a001242e1b7">objects</a></td></tr>
 <tr class="memitem:a5d267ba7629b43826cc6f64c3242cf97" id="r_a5d267ba7629b43826cc6f64c3242cf97"><td class="memItemLeft">struct irq_work&#160;</td><td class="memItemRight"><a class="el" href="#a5d267ba7629b43826cc6f64c3242cf97">work</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>struct Description: This structure is used for deferred freeing of objects from NMI/atomic contexts. It contains a lockless list of objects and an irq_work for processing. It is used by <a class="el" href="include_2linux_2slab_8h.html#affd7b1731ba1bd64a6f83006e12692c6">kfree_nolock()</a> to defer frees when direct freeing is not possible. </p>
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l06760">6760</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="acb810245eb48976d87fc5a001242e1b7" name="acb810245eb48976d87fc5a001242e1b7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acb810245eb48976d87fc5a001242e1b7">&#9670;&#160;</a></span>objects</h2>
 
@@ -136,6 +140,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l06761">6761</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
 
 </div>
 </div>
@@ -151,10 +157,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l06762">6762</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="slub_8c.html">slub.c</a></li>
+<li>mm/<a class="el" href="slub_8c_source.html">slub.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

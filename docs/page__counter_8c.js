@@ -7,5 +7,7 @@ var page__counter_8c =
     [ "page_counter_set_max", "page__counter_8c.html#aa3c8b2fcb6dd3db3dd8652bd3f05b7cb", null ],
     [ "page_counter_set_min", "page__counter_8c.html#ae85fee3a7bef0173f7baed1df9d9d286", null ],
     [ "page_counter_try_charge", "page__counter_8c.html#a9e38feb04d9f65d77180c8ade9f35dd4", null ],
-    [ "page_counter_uncharge", "page__counter_8c.html#af42e32e2d8e8dbc58e8e0a6b5a71f3ea", null ]
+    [ "page_counter_uncharge", "page__counter_8c.html#af42e32e2d8e8dbc58e8e0a6b5a71f3ea", null ],
+    [ "propagate_protected_usage", "page__counter_8c.html#a8aab5fc11db6fc9c7bcfc1a45ad7f77e", null ],
+    [ "track_protection", "page__counter_8c.html#a2cc2855018050d0fb2f3e5e0ba211d64", null ]
 ];

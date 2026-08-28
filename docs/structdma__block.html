@@ -129,7 +129,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a75a81efa68d24784162a077bec3b684c" id="r_a75a81efa68d24784162a077bec3b684c"><td class="memItemLeft">struct <a class="el" href="structdma__block.html">dma_block</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a75a81efa68d24784162a077bec3b684c">next_block</a></td></tr>
 <tr class="memitem:afe91b012eb920e4fce3b8630702caaf9" id="r_afe91b012eb920e4fce3b8630702caaf9"><td class="memItemLeft">dma_addr_t&#160;</td><td class="memItemRight"><a class="el" href="#afe91b012eb920e4fce3b8630702caaf9">dma</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>struct Description: This structure represents a single block of memory within a DMA pool. It contains a pointer to the next free block (forming a singly-linked list of free blocks) and the DMA address of the block. It is embedded at the start of each free block to track availability. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00045">45</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="afe91b012eb920e4fce3b8630702caaf9" name="afe91b012eb920e4fce3b8630702caaf9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe91b012eb920e4fce3b8630702caaf9">&#9670;&#160;</a></span>dma</h2>
 
@@ -141,6 +145,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00047">47</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
 
 </div>
 </div>
@@ -156,10 +162,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00046">46</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="dmapool_8c.html">dmapool.c</a></li>
+<li>mm/<a class="el" href="dmapool_8c_source.html">dmapool.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

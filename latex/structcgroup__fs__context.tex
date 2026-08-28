@@ -1,0 +1,158 @@
+\doxysection{cgroup\+\_\+fs\+\_\+context Struct Reference}
+\hypertarget{structcgroup__fs__context}{}\label{structcgroup__fs__context}\index{cgroup\_fs\_context@{cgroup\_fs\_context}}
+
+
+{\ttfamily \+\#include $<$cgroup-\/internal.\+h$>$}
+
+
+
+Collaboration diagram for cgroup\+\_\+fs\+\_\+context:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcgroup__fs__context__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct kernfs\+\_\+fs\+\_\+context \doxymbox{\hyperlink{structcgroup__fs__context_aa46d44126567dcd46d34d461f4ba7898}{kfc}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__root}{cgroup\+\_\+root}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__fs__context_ad00343ca8f285549977f513d0f07dda1}{root}}
+\item 
+struct cgroup\+\_\+namespace \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__fs__context_a972bb976effcd1caefed4e12848d69a4}{ns}}
+\item 
+unsigned int \doxymbox{\hyperlink{structcgroup__fs__context_aac4a000134257176684ac7450be454d9}{flags}}
+\item 
+bool \doxymbox{\hyperlink{structcgroup__fs__context_a07c7ad4143d774c16f746d76b17d4cca}{cpuset\+\_\+clone\+\_\+children}}
+\item 
+bool \doxymbox{\hyperlink{structcgroup__fs__context_a97c176dc6c9cb884ac19fffeba8fae96}{none}}
+\item 
+bool \doxymbox{\hyperlink{structcgroup__fs__context_a9e379ff3ea9dab272101e890ac4295f3}{all\+\_\+ss}}
+\item 
+u32 \doxymbox{\hyperlink{structcgroup__fs__context_a71ee947e3a97119549806f9159113682}{subsys\+\_\+mask}}
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__fs__context_a4f69988ca577a545d9aed6d8e5478053}{name}}
+\item 
+char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__fs__context_ad415ae22b75d2864463b5bb5bc520292}{release\+\_\+agent}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The cgroup filesystem superblock creation/\+mount context.
+
+struct Description:\+ This structure holds the filesystem context for cgroup mounts. It contains the cgroup root, namespace, flags, and cgroup1-\/specific options like cpuset\+\_\+clone\+\_\+children, subsystem mask, name, and release agent path. It is used during cgroup filesystem mounting and remounting. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00052}{52}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+
+
+\label{structcgroup__fs__context_doc-variable-members}
+\Hypertarget{structcgroup__fs__context_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcgroup__fs__context_a9e379ff3ea9dab272101e890ac4295f3}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!all\_ss@{all\_ss}}
+\index{all\_ss@{all\_ss}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{all\_ss}{all\_ss}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_a9e379ff3ea9dab272101e890ac4295f3} 
+bool cgroup\+\_\+fs\+\_\+context::\+all\+\_\+ss}
+
+User explicitly requested empty subsystem 
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00061}{61}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+\Hypertarget{structcgroup__fs__context_a07c7ad4143d774c16f746d76b17d4cca}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!cpuset\_clone\_children@{cpuset\_clone\_children}}
+\index{cpuset\_clone\_children@{cpuset\_clone\_children}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{cpuset\_clone\_children}{cpuset\_clone\_children}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_a07c7ad4143d774c16f746d76b17d4cca} 
+bool cgroup\+\_\+fs\+\_\+context::\+cpuset\+\_\+clone\+\_\+children}
+
+CGRP\+\_\+\+ROOT\+\_\+\texorpdfstring{$\ast$}{*} flags cgroup1 bits 
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00059}{59}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+\Hypertarget{structcgroup__fs__context_aac4a000134257176684ac7450be454d9}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!flags@{flags}}
+\index{flags@{flags}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_aac4a000134257176684ac7450be454d9} 
+unsigned int cgroup\+\_\+fs\+\_\+context::\+flags}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00056}{56}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+\Hypertarget{structcgroup__fs__context_aa46d44126567dcd46d34d461f4ba7898}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!kfc@{kfc}}
+\index{kfc@{kfc}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{kfc}{kfc}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_aa46d44126567dcd46d34d461f4ba7898} 
+struct kernfs\+\_\+fs\+\_\+context cgroup\+\_\+fs\+\_\+context::\+kfc}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00053}{53}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+\Hypertarget{structcgroup__fs__context_a4f69988ca577a545d9aed6d8e5478053}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!name@{name}}
+\index{name@{name}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_a4f69988ca577a545d9aed6d8e5478053} 
+char\texorpdfstring{$\ast$}{*} cgroup\+\_\+fs\+\_\+context::\+name}
+
+Selected subsystems 
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00063}{63}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+\Hypertarget{structcgroup__fs__context_a97c176dc6c9cb884ac19fffeba8fae96}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!none@{none}}
+\index{none@{none}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{none}{none}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_a97c176dc6c9cb884ac19fffeba8fae96} 
+bool cgroup\+\_\+fs\+\_\+context::\+none}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00060}{60}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+\Hypertarget{structcgroup__fs__context_a972bb976effcd1caefed4e12848d69a4}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!ns@{ns}}
+\index{ns@{ns}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{ns}{ns}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_a972bb976effcd1caefed4e12848d69a4} 
+struct cgroup\+\_\+namespace\texorpdfstring{$\ast$}{*} cgroup\+\_\+fs\+\_\+context::\+ns}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00055}{55}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+\Hypertarget{structcgroup__fs__context_ad415ae22b75d2864463b5bb5bc520292}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!release\_agent@{release\_agent}}
+\index{release\_agent@{release\_agent}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{release\_agent}{release\_agent}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_ad415ae22b75d2864463b5bb5bc520292} 
+char\texorpdfstring{$\ast$}{*} cgroup\+\_\+fs\+\_\+context::\+release\+\_\+agent}
+
+Hierarchy name 
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00064}{64}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+\Hypertarget{structcgroup__fs__context_ad00343ca8f285549977f513d0f07dda1}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!root@{root}}
+\index{root@{root}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{root}{root}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_ad00343ca8f285549977f513d0f07dda1} 
+struct \doxymbox{\hyperlink{structcgroup__root}{cgroup\+\_\+root}}\texorpdfstring{$\ast$}{*} cgroup\+\_\+fs\+\_\+context::\+root}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00054}{54}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+\Hypertarget{structcgroup__fs__context_a71ee947e3a97119549806f9159113682}\index{cgroup\_fs\_context@{cgroup\_fs\_context}!subsys\_mask@{subsys\_mask}}
+\index{subsys\_mask@{subsys\_mask}!cgroup\_fs\_context@{cgroup\_fs\_context}}
+\doxysubsubsection{\texorpdfstring{subsys\_mask}{subsys\_mask}}
+{\footnotesize\ttfamily \label{structcgroup__fs__context_a71ee947e3a97119549806f9159113682} 
+u32 cgroup\+\_\+fs\+\_\+context::\+subsys\+\_\+mask}
+
+Seen \textquotesingle{}all\textquotesingle{} option 
+
+Definition at line \doxymbox{\hyperlink{cgroup-internal_8h_source_l00062}{62}} of file \doxymbox{\hyperlink{cgroup-internal_8h_source}{cgroup-\/internal.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+kernel/\+cgroup/\+\doxymbox{\hyperlink{cgroup-internal_8h}{cgroup-\/internal.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,704 @@
+\doxysection{include/\+linux/\+cgroup-\/defs.h File Reference}
+\hypertarget{cgroup-defs_8h}{}\label{cgroup-defs_8h}\index{include/linux/cgroup-\/defs.h@{include/linux/cgroup-\/defs.h}}
+{\ttfamily \+\#include $<$linux/\+limits.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+list.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+idr.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+wait.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+mutex.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+rcupdate.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+refcount.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+percpu-\/refcount.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+percpu-\/rwsem.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+u64\+\_\+stats\+\_\+sync.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+workqueue.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+bpf-\/cgroup-\/defs.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+psi\+\_\+types.\+h$>$}\newline
+{\ttfamily \+\#include $<$linux/\+cgroup\+\_\+subsys.\+h$>$}\newline
+Include dependency graph for cgroup-\/defs.h:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cgroup-defs_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{cgroup-defs_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__file}{cgroup\+\_\+file}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}}
+\item 
+struct \doxymbox{\hyperlink{structcss__set}{css\+\_\+set}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__base__stat}{cgroup\+\_\+base\+\_\+stat}}
+\item 
+struct \doxymbox{\hyperlink{structcss__rstat__cpu}{css\+\_\+rstat\+\_\+cpu}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__rstat__base__cpu}{cgroup\+\_\+rstat\+\_\+base\+\_\+cpu}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__freezer__state}{cgroup\+\_\+freezer\+\_\+state}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup}{cgroup}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__root}{cgroup\+\_\+root}}
+\item 
+struct \doxymbox{\hyperlink{structcftype}{cftype}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__subsys}{cgroup\+\_\+subsys}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__of__peak}{cgroup\+\_\+of\+\_\+peak}}
+\item 
+struct \doxymbox{\hyperlink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{cgroup-defs_8h_af8edc83112d4fc405d4cb5ae15182389}{MAX\+\_\+\+CGROUP\+\_\+\+TYPE\+\_\+\+NAMELEN}}~32
+\item 
+\+\#define \doxymbox{\hyperlink{cgroup-defs_8h_ae322fa6bdd657418f4f011f562343700}{MAX\+\_\+\+CGROUP\+\_\+\+ROOT\+\_\+\+NAMELEN}}~64
+\item 
+\+\#define \doxymbox{\hyperlink{cgroup-defs_8h_a12fbf010cdec51fd2e068efb94f61864}{MAX\+\_\+\+CFTYPE\+\_\+\+NAME}}~64
+\item 
+\+\#define \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(\+\_\+x)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{cgroup-defs_8h_ab973e45b7b369efe6a8dabe48ed4016a}{cgroup\+\_\+subsys\+\_\+id}} \{ \doxymbox{\hyperlink{cgroup-defs_8h_ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59}{CGROUP\+\_\+\+SUBSYS\+\_\+\+COUNT}}
+ \}
+\item 
+enum \{ \newline
+\doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0}{CSS\+\_\+\+NO\+\_\+\+REF}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0)
+, \doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050}{CSS\+\_\+\+ONLINE}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1)
+, \doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523}{CSS\+\_\+\+RELEASED}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2)
+, \doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d}{CSS\+\_\+\+VISIBLE}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3)
+, \newline
+\doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8}{CSS\+\_\+\+DYING}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4)
+ \}
+\item 
+enum \{ \doxymbox{\hyperlink{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642}{CGRP\+\_\+\+NOTIFY\+\_\+\+ON\+\_\+\+RELEASE}}
+, \doxymbox{\hyperlink{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639}{CGRP\+\_\+\+CPUSET\+\_\+\+CLONE\+\_\+\+CHILDREN}}
+, \doxymbox{\hyperlink{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357}{CGRP\+\_\+\+FREEZE}}
+, \doxymbox{\hyperlink{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37}{CGRP\+\_\+\+FROZEN}}
+ \}
+\item 
+enum \{ \newline
+\doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be}{CGRP\+\_\+\+ROOT\+\_\+\+NOPREFIX}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1)
+, \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e}{CGRP\+\_\+\+ROOT\+\_\+\+XATTR}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2)
+, \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41}{CGRP\+\_\+\+ROOT\+\_\+\+NS\+\_\+\+DELEGATE}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3)
+, \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea}{CGRP\+\_\+\+ROOT\+\_\+\+FAVOR\+\_\+\+DYNMODS}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4)
+, \newline
+\doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b}{CGRP\+\_\+\+ROOT\+\_\+\+CPUSET\+\_\+\+V2\+\_\+\+MODE}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16)
+, \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b}{CGRP\+\_\+\+ROOT\+\_\+\+MEMORY\+\_\+\+LOCAL\+\_\+\+EVENTS}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17)
+, \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e}{CGRP\+\_\+\+ROOT\+\_\+\+MEMORY\+\_\+\+RECURSIVE\+\_\+\+PROT}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18)
+, \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c}{CGRP\+\_\+\+ROOT\+\_\+\+MEMORY\+\_\+\+HUGETLB\+\_\+\+ACCOUNTING}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 19)
+, \newline
+\doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87}{CGRP\+\_\+\+ROOT\+\_\+\+PIDS\+\_\+\+LOCAL\+\_\+\+EVENTS}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 20)
+ \}
+\item 
+enum \{ \newline
+\doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89}{CFTYPE\+\_\+\+ONLY\+\_\+\+ON\+\_\+\+ROOT}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 0)
+, \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d}{CFTYPE\+\_\+\+NOT\+\_\+\+ON\+\_\+\+ROOT}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 1)
+, \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3}{CFTYPE\+\_\+\+NS\+\_\+\+DELEGATABLE}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 2)
+, \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc}{CFTYPE\+\_\+\+NO\+\_\+\+PREFIX}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 3)
+, \newline
+\doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e}{CFTYPE\+\_\+\+WORLD\+\_\+\+WRITABLE}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 4)
+, \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca}{CFTYPE\+\_\+\+DEBUG}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 5)
+, \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf}{\+\_\+\+\_\+\+CFTYPE\+\_\+\+ONLY\+\_\+\+ON\+\_\+\+DFL}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 16)
+, \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18}{\+\_\+\+\_\+\+CFTYPE\+\_\+\+NOT\+\_\+\+ON\+\_\+\+DFL}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 17)
+, \newline
+\doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035}{\+\_\+\+\_\+\+CFTYPE\+\_\+\+ADDED}} = (1 \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} 18)
+ \}
+\item 
+enum \doxymbox{\hyperlink{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4a}{cgroup\+\_\+attach\+\_\+lock\+\_\+mode}} \{ \doxymbox{\hyperlink{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c}{CGRP\+\_\+\+ATTACH\+\_\+\+LOCK\+\_\+\+GLOBAL}}
+, \doxymbox{\hyperlink{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5}{CGRP\+\_\+\+ATTACH\+\_\+\+LOCK\+\_\+\+NONE}}
+, \doxymbox{\hyperlink{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f}{CGRP\+\_\+\+ATTACH\+\_\+\+LOCK\+\_\+\+PER\+\_\+\+THREADGROUP}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{cgroup-defs_8h_aec642643e6eff3731ee6072a3d5e1a05}{cgroup\+\_\+threadgroup\+\_\+change\+\_\+begin}} (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}tsk)
+\item 
+static void \doxymbox{\hyperlink{cgroup-defs_8h_aa9142157ca6510e79e7931de6e70d547}{cgroup\+\_\+threadgroup\+\_\+change\+\_\+end}} (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}tsk)
+\item 
+static u16 \doxymbox{\hyperlink{cgroup-defs_8h_a07a90bca90e12c1e4c73056a2ac1ac9a}{sock\+\_\+cgroup\+\_\+prioidx}} (const struct \doxymbox{\hyperlink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data}} \texorpdfstring{$\ast$}{*}skcd)
+\item 
+static u32 \doxymbox{\hyperlink{cgroup-defs_8h_a0073a047e09cace7686bbb0ae1dba77a}{sock\+\_\+cgroup\+\_\+classid}} (const struct \doxymbox{\hyperlink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data}} \texorpdfstring{$\ast$}{*}skcd)
+\item 
+static void \doxymbox{\hyperlink{cgroup-defs_8h_a1fb3c413df18d4275a21ec784c400808}{sock\+\_\+cgroup\+\_\+set\+\_\+prioidx}} (struct \doxymbox{\hyperlink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data}} \texorpdfstring{$\ast$}{*}skcd, u16 prioidx)
+\item 
+static void \doxymbox{\hyperlink{cgroup-defs_8h_ace3174b5d6c11894278acb4f3d4361b8}{sock\+\_\+cgroup\+\_\+set\+\_\+classid}} (struct \doxymbox{\hyperlink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data}} \texorpdfstring{$\ast$}{*}skcd, u32 classid)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct percpu\+\_\+rw\+\_\+semaphore \doxymbox{\hyperlink{cgroup-defs_8h_a4ae532c1eac15a6effcdc964dbf2e636}{cgroup\+\_\+threadgroup\+\_\+rwsem}}
+\item 
+bool \doxymbox{\hyperlink{cgroup-defs_8h_acdd761f7b3bd3a2d3569f375035d4b86}{cgroup\+\_\+enable\+\_\+per\+\_\+threadgroup\+\_\+rwsem}}
+\end{DoxyCompactItemize}
+
+
+\label{cgroup-defs_8h_doc-define-members}
+\Hypertarget{cgroup-defs_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{cgroup-defs_8h_a12fbf010cdec51fd2e068efb94f61864}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!MAX\_CFTYPE\_NAME@{MAX\_CFTYPE\_NAME}}
+\index{MAX\_CFTYPE\_NAME@{MAX\_CFTYPE\_NAME}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_CFTYPE\_NAME}{MAX\_CFTYPE\_NAME}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_a12fbf010cdec51fd2e068efb94f61864} 
+\+\#define MAX\+\_\+\+CFTYPE\+\_\+\+NAME~64}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{cgroup-defs_8h_ae322fa6bdd657418f4f011f562343700}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!MAX\_CGROUP\_ROOT\_NAMELEN@{MAX\_CGROUP\_ROOT\_NAMELEN}}
+\index{MAX\_CGROUP\_ROOT\_NAMELEN@{MAX\_CGROUP\_ROOT\_NAMELEN}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_CGROUP\_ROOT\_NAMELEN}{MAX\_CGROUP\_ROOT\_NAMELEN}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_ae322fa6bdd657418f4f011f562343700} 
+\+\#define MAX\+\_\+\+CGROUP\+\_\+\+ROOT\+\_\+\+NAMELEN~64}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{cgroup-defs_8h_af8edc83112d4fc405d4cb5ae15182389}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!MAX\_CGROUP\_TYPE\_NAMELEN@{MAX\_CGROUP\_TYPE\_NAMELEN}}
+\index{MAX\_CGROUP\_TYPE\_NAMELEN@{MAX\_CGROUP\_TYPE\_NAMELEN}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_CGROUP\_TYPE\_NAMELEN}{MAX\_CGROUP\_TYPE\_NAMELEN}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_af8edc83112d4fc405d4cb5ae15182389} 
+\+\#define MAX\+\_\+\+CGROUP\+\_\+\+TYPE\+\_\+\+NAMELEN~32}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!SUBSYS@{SUBSYS}}
+\index{SUBSYS@{SUBSYS}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{SUBSYS}{SUBSYS}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936} 
+\+\#define SUBSYS(\begin{DoxyParamCaption}\item[{}]{\+\_\+x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\_x\ \#\#\ \_cgrp\_id,}
+
+\end{DoxyCode}
+define the enumeration of all cgroup subsystems Enumeration Description:\+ This enumeration lists all the cgroup subsystem IDs. Each subsystem (like cpuset, cpu, memory, io, etc.) gets a unique ID. The CGROUP\+\_\+\+SUBSYS\+\_\+\+COUNT value at the end indicates the total number of subsystems. This is used to index arrays of subsystem states. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00044}{44}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+\label{cgroup-defs_8h_doc-enum-members}
+\Hypertarget{cgroup-defs_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234}\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234} 
+anonymous enum}
+
+bits in struct \doxylink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state} flags field
+
+Enumeration Description:\+ These flags represent the state of a cgroup subsystem state (css). \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CSS\_NO\_REF@{CSS\_NO\_REF}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CSS\_NO\_REF@{CSS\_NO\_REF}}
+}\Hypertarget{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0}\label{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0} 
+CSS\+\_\+\+NO\+\_\+\+REF&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CSS\_ONLINE@{CSS\_ONLINE}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CSS\_ONLINE@{CSS\_ONLINE}}
+}\Hypertarget{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050}\label{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050} 
+CSS\+\_\+\+ONLINE&no reference counting for this css \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CSS\_RELEASED@{CSS\_RELEASED}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CSS\_RELEASED@{CSS\_RELEASED}}
+}\Hypertarget{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523}\label{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523} 
+CSS\+\_\+\+RELEASED&between -\/\texorpdfstring{$>$}{>}css\+\_\+online() and -\/\texorpdfstring{$>$}{>}css\+\_\+offline() \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CSS\_VISIBLE@{CSS\_VISIBLE}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CSS\_VISIBLE@{CSS\_VISIBLE}}
+}\Hypertarget{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d}\label{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d} 
+CSS\+\_\+\+VISIBLE&refcnt reached zero, released \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CSS\_DYING@{CSS\_DYING}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CSS\_DYING@{CSS\_DYING}}
+}\Hypertarget{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8}\label{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8} 
+CSS\+\_\+\+DYING&css is visible to userland \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00056}{56}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056\ \ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ac0416a33877ef18527b87c9a2af5f4b0}{CSS\_NO\_REF}}\ \ =\ (1\ <<\ 0),\ }
+\DoxyCodeLine{00058\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ab7fbbb798d9baac9a12b5e90f188e050}{CSS\_ONLINE}}\ \ =\ (1\ <<\ 1),\ }
+\DoxyCodeLine{00059\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234ac390427498878a515748760722ed4523}{CSS\_RELEASED}}\ \ \ \ =\ (1\ <<\ 2),\ }
+\DoxyCodeLine{00060\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234a22bdc6303db50a9503f3a5ba8b5d401d}{CSS\_VISIBLE}}\ =\ (1\ <<\ 3),\ }
+\DoxyCodeLine{00061\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae147c4422c3dfa61eed61b2e830db234a87523262def51925519f823983e3b4c8}{CSS\_DYING}}\ \ \ =\ (1\ <<\ 4),\ }
+\DoxyCodeLine{00062\ \};}
+
+\end{DoxyCode}
+\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8}\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8} 
+anonymous enum}
+
+cftype-\/\texorpdfstring{$>$}{>}flags
+
+Enumeration Description:\+ These flags control how cgroup files (cftype) are created and behave. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CFTYPE\_ONLY\_ON\_ROOT@{CFTYPE\_ONLY\_ON\_ROOT}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CFTYPE\_ONLY\_ON\_ROOT@{CFTYPE\_ONLY\_ON\_ROOT}}
+}\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89}\label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89} 
+CFTYPE\+\_\+\+ONLY\+\_\+\+ON\+\_\+\+ROOT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CFTYPE\_NOT\_ON\_ROOT@{CFTYPE\_NOT\_ON\_ROOT}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CFTYPE\_NOT\_ON\_ROOT@{CFTYPE\_NOT\_ON\_ROOT}}
+}\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d}\label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d} 
+CFTYPE\+\_\+\+NOT\+\_\+\+ON\+\_\+\+ROOT&only create on root cgrp \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CFTYPE\_NS\_DELEGATABLE@{CFTYPE\_NS\_DELEGATABLE}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CFTYPE\_NS\_DELEGATABLE@{CFTYPE\_NS\_DELEGATABLE}}
+}\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3}\label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3} 
+CFTYPE\+\_\+\+NS\+\_\+\+DELEGATABLE&don\textquotesingle{}t create on root cgrp \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CFTYPE\_NO\_PREFIX@{CFTYPE\_NO\_PREFIX}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CFTYPE\_NO\_PREFIX@{CFTYPE\_NO\_PREFIX}}
+}\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc}\label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc} 
+CFTYPE\+\_\+\+NO\+\_\+\+PREFIX&writeable beyond delegation boundaries \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CFTYPE\_WORLD\_WRITABLE@{CFTYPE\_WORLD\_WRITABLE}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CFTYPE\_WORLD\_WRITABLE@{CFTYPE\_WORLD\_WRITABLE}}
+}\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e}\label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e} 
+CFTYPE\+\_\+\+WORLD\+\_\+\+WRITABLE&(DON\textquotesingle{}T USE FOR NEW FILES) no subsys prefix \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CFTYPE\_DEBUG@{CFTYPE\_DEBUG}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CFTYPE\_DEBUG@{CFTYPE\_DEBUG}}
+}\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca}\label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca} 
+CFTYPE\+\_\+\+DEBUG&(DON\textquotesingle{}T USE FOR NEW FILES) S\+\_\+\+IWUGO \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_\_CFTYPE\_ONLY\_ON\_DFL@{\_\_CFTYPE\_ONLY\_ON\_DFL}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!\_\_CFTYPE\_ONLY\_ON\_DFL@{\_\_CFTYPE\_ONLY\_ON\_DFL}}
+}\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf}\label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf} 
+\+\_\+\+\_\+\+CFTYPE\+\_\+\+ONLY\+\_\+\+ON\+\_\+\+DFL&create when cgroup\+\_\+debug internal flags, do not use outside cgroup core proper \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_\_CFTYPE\_NOT\_ON\_DFL@{\_\_CFTYPE\_NOT\_ON\_DFL}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!\_\_CFTYPE\_NOT\_ON\_DFL@{\_\_CFTYPE\_NOT\_ON\_DFL}}
+}\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18}\label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18} 
+\+\_\+\+\_\+\+CFTYPE\+\_\+\+NOT\+\_\+\+ON\+\_\+\+DFL&only on default hierarchy \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_\_CFTYPE\_ADDED@{\_\_CFTYPE\_ADDED}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!\_\_CFTYPE\_ADDED@{\_\_CFTYPE\_ADDED}}
+}\Hypertarget{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035}\label{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035} 
+\+\_\+\+\_\+\+CFTYPE\+\_\+\+ADDED&not on default hierarchy \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00152}{152}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00152\ \ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a3d909cf86e3a14bd59274bcb3ee6aa89}{CFTYPE\_ONLY\_ON\_ROOT}}\ =\ (1\ <<\ 0),\ }
+\DoxyCodeLine{00154\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8aa5ef95ce96ed4bf7e6805ac5e0341e4d}{CFTYPE\_NOT\_ON\_ROOT}}\ \ =\ (1\ <<\ 1),\ }
+\DoxyCodeLine{00155\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a2c19716c724c101cdf1a78997f5d49f3}{CFTYPE\_NS\_DELEGATABLE}}\ \ \ =\ (1\ <<\ 2),\ }
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a8f0a400490e8d65496aa1ee8a82960cc}{CFTYPE\_NO\_PREFIX}}\ \ \ \ =\ (1\ <<\ 3),\ }
+\DoxyCodeLine{00158\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a7dede6929f937ac63f37c51dd97ad26e}{CFTYPE\_WORLD\_WRITABLE}}\ \ \ =\ (1\ <<\ 4),\ }
+\DoxyCodeLine{00159\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a335f9d42429c09b2e867cd7498b568ca}{CFTYPE\_DEBUG}}\ \ \ \ \ \ \ \ =\ (1\ <<\ 5),\ }
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00162\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8ac39c8a5144d53b48829ae1843dc2dddf}{\_\_CFTYPE\_ONLY\_ON\_DFL}}\ \ \ \ =\ (1\ <<\ 16),\ \ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8ae9e739d693614f38c315481d99f1bb18}{\_\_CFTYPE\_NOT\_ON\_DFL}}\ =\ (1\ <<\ 17),\ \ \ \ }
+\DoxyCodeLine{00164\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a0e42c7bf03e98a0870177fc816a019f8a45122e46abe3b846cc8571b0e4d61035}{\_\_CFTYPE\_ADDED}}\ \ \ \ \ \ =\ (1\ <<\ 18),}
+\DoxyCodeLine{00165\ \};}
+
+\end{DoxyCode}
+\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24}\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24} 
+anonymous enum}
+
+cgroup\+\_\+root-\/\texorpdfstring{$>$}{>}flags
+
+Enumeration Description:\+ These flags control cgroup root behavior. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ROOT\_NOPREFIX@{CGRP\_ROOT\_NOPREFIX}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ROOT\_NOPREFIX@{CGRP\_ROOT\_NOPREFIX}}
+}\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be}\label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be} 
+CGRP\+\_\+\+ROOT\+\_\+\+NOPREFIX&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ROOT\_XATTR@{CGRP\_ROOT\_XATTR}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ROOT\_XATTR@{CGRP\_ROOT\_XATTR}}
+}\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e}\label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e} 
+CGRP\+\_\+\+ROOT\+\_\+\+XATTR&mounted subsystems have no named prefix \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ROOT\_NS\_DELEGATE@{CGRP\_ROOT\_NS\_DELEGATE}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ROOT\_NS\_DELEGATE@{CGRP\_ROOT\_NS\_DELEGATE}}
+}\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41}\label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41} 
+CGRP\+\_\+\+ROOT\+\_\+\+NS\+\_\+\+DELEGATE&supports extended attributes Consider namespaces as delegation boundaries. If this flag is set, controller specific interface files in a namespace root aren\textquotesingle{}t writeable from inside the namespace. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ROOT\_FAVOR\_DYNMODS@{CGRP\_ROOT\_FAVOR\_DYNMODS}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ROOT\_FAVOR\_DYNMODS@{CGRP\_ROOT\_FAVOR\_DYNMODS}}
+}\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea}\label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea} 
+CGRP\+\_\+\+ROOT\+\_\+\+FAVOR\+\_\+\+DYNMODS&Reduce latencies on dynamic cgroup modifications such as task migrations and controller on/\+offs by disabling percpu operation on cgroup\+\_\+threadgroup\+\_\+rwsem. This makes hot path operations such as forks and exits into the slow path and more expensive.
+
+Alleviate the contention between fork, exec, exit operations and writing to cgroup.\+procs by taking a per threadgroup rwsem instead of the global cgroup\+\_\+threadgroup\+\_\+rwsem. Fork and other operations from threads in different thread groups no longer contend with writing to cgroup.\+procs.
+
+The static usage pattern of creating a cgroup, enabling controllers, and then seeding it with CLONE\+\_\+\+INTO\+\_\+\+CGROUP doesn\textquotesingle{}t require write locking cgroup\+\_\+threadgroup\+\_\+rwsem and thus doesn\textquotesingle{}t benefit from favordynmod. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ROOT\_CPUSET\_V2\_MODE@{CGRP\_ROOT\_CPUSET\_V2\_MODE}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ROOT\_CPUSET\_V2\_MODE@{CGRP\_ROOT\_CPUSET\_V2\_MODE}}
+}\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b}\label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b} 
+CGRP\+\_\+\+ROOT\+\_\+\+CPUSET\+\_\+\+V2\+\_\+\+MODE&Enable cpuset controller in v1 cgroup to use v2 behavior. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ROOT\_MEMORY\_LOCAL\_EVENTS@{CGRP\_ROOT\_MEMORY\_LOCAL\_EVENTS}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ROOT\_MEMORY\_LOCAL\_EVENTS@{CGRP\_ROOT\_MEMORY\_LOCAL\_EVENTS}}
+}\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b}\label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b} 
+CGRP\+\_\+\+ROOT\+\_\+\+MEMORY\+\_\+\+LOCAL\+\_\+\+EVENTS&Enable legacy local memory.\+events. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ROOT\_MEMORY\_RECURSIVE\_PROT@{CGRP\_ROOT\_MEMORY\_RECURSIVE\_PROT}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ROOT\_MEMORY\_RECURSIVE\_PROT@{CGRP\_ROOT\_MEMORY\_RECURSIVE\_PROT}}
+}\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e}\label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e} 
+CGRP\+\_\+\+ROOT\+\_\+\+MEMORY\+\_\+\+RECURSIVE\+\_\+\+PROT&Enable recursive subtree protection \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ROOT\_MEMORY\_HUGETLB\_ACCOUNTING@{CGRP\_ROOT\_MEMORY\_HUGETLB\_ACCOUNTING}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ROOT\_MEMORY\_HUGETLB\_ACCOUNTING@{CGRP\_ROOT\_MEMORY\_HUGETLB\_ACCOUNTING}}
+}\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c}\label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c} 
+CGRP\+\_\+\+ROOT\+\_\+\+MEMORY\+\_\+\+HUGETLB\+\_\+\+ACCOUNTING&Enable hugetlb accounting for the memory controller. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ROOT\_PIDS\_LOCAL\_EVENTS@{CGRP\_ROOT\_PIDS\_LOCAL\_EVENTS}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ROOT\_PIDS\_LOCAL\_EVENTS@{CGRP\_ROOT\_PIDS\_LOCAL\_EVENTS}}
+}\Hypertarget{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87}\label{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87} 
+CGRP\+\_\+\+ROOT\+\_\+\+PIDS\+\_\+\+LOCAL\+\_\+\+EVENTS&Enable legacy local pids.\+events. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00091}{91}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00091\ \ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a0cec6fc22e7f48d657a86c2ce26012be}{CGRP\_ROOT\_NOPREFIX}}\ \ =\ (1\ <<\ 1),\ }
+\DoxyCodeLine{00093\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24afab881151dc88d63b66938574dec796e}{CGRP\_ROOT\_XATTR}}\ \ \ \ \ =\ (1\ <<\ 2),\ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00100\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a69536d8013af2018ce91e10e4b666f41}{CGRP\_ROOT\_NS\_DELEGATE}}\ \ \ =\ (1\ <<\ 3),}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00119\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a55bd511b36670384d4db85d82a4fe2ea}{CGRP\_ROOT\_FAVOR\_DYNMODS}}\ =\ (1\ <<\ 4),}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00124\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a4c2690f63ebddafde0485d50bf3ac12b}{CGRP\_ROOT\_CPUSET\_V2\_MODE}}\ =\ (1\ <<\ 16),}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00129\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24aa23769c133b2277488ba0ab5551aa88b}{CGRP\_ROOT\_MEMORY\_LOCAL\_EVENTS}}\ =\ (1\ <<\ 17),}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00134\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a38a34b9766ab999c1db051079892467e}{CGRP\_ROOT\_MEMORY\_RECURSIVE\_PROT}}\ =\ (1\ <<\ 18),}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00139\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a02f3e7b01b984a88fcdccbde75603a3c}{CGRP\_ROOT\_MEMORY\_HUGETLB\_ACCOUNTING}}\ =\ (1\ <<\ 19),}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00144\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ae02a93d3bf4fd3f670068c90ce045f24a1d0e0a801ffe17307c7ca331bb322e87}{CGRP\_ROOT\_PIDS\_LOCAL\_EVENTS}}\ =\ (1\ <<\ 20),}
+\DoxyCodeLine{00145\ \};}
+
+\end{DoxyCode}
+\Hypertarget{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cc}\doxysubsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cc} 
+anonymous enum}
+
+bits in struct cgroup flags field
+
+Enumeration Description:\+ These flags represent the state of a cgroup. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_NOTIFY\_ON\_RELEASE@{CGRP\_NOTIFY\_ON\_RELEASE}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_NOTIFY\_ON\_RELEASE@{CGRP\_NOTIFY\_ON\_RELEASE}}
+}\Hypertarget{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642}\label{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642} 
+CGRP\+\_\+\+NOTIFY\+\_\+\+ON\+\_\+\+RELEASE&Control Group requires release notifications to userspace \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_CPUSET\_CLONE\_CHILDREN@{CGRP\_CPUSET\_CLONE\_CHILDREN}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_CPUSET\_CLONE\_CHILDREN@{CGRP\_CPUSET\_CLONE\_CHILDREN}}
+}\Hypertarget{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639}\label{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639} 
+CGRP\+\_\+\+CPUSET\+\_\+\+CLONE\+\_\+\+CHILDREN&Clone the parent\textquotesingle{}s configuration when creating a new child cpuset cgroup. For historical reasons, this option can be specified at mount time and thus is implemented here. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_FREEZE@{CGRP\_FREEZE}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_FREEZE@{CGRP\_FREEZE}}
+}\Hypertarget{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357}\label{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357} 
+CGRP\+\_\+\+FREEZE&Control group has to be frozen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_FROZEN@{CGRP\_FROZEN}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_FROZEN@{CGRP\_FROZEN}}
+}\Hypertarget{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37}\label{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37} 
+CGRP\+\_\+\+FROZEN&Cgroup is frozen. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00069}{69}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248ccaf7bf70caf44ddbdaf81ae782e7516642}{CGRP\_NOTIFY\_ON\_RELEASE}},}
+\DoxyCodeLine{00077\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca09073a7e5e5cb3967eb6a83bcd72b639}{CGRP\_CPUSET\_CLONE\_CHILDREN}},}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00080\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca5be07b54ab4e7d0b1445b492ec073357}{CGRP\_FREEZE}},}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00083\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_aa9feed9941e224f538a5b37d9c2248cca94f91d6150c57f9640d21c3894296d37}{CGRP\_FROZEN}},}
+\DoxyCodeLine{00084\ \};}
+
+\end{DoxyCode}
+\Hypertarget{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4a}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!cgroup\_attach\_lock\_mode@{cgroup\_attach\_lock\_mode}}
+\index{cgroup\_attach\_lock\_mode@{cgroup\_attach\_lock\_mode}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{cgroup\_attach\_lock\_mode}{cgroup\_attach\_lock\_mode}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4a} 
+enum \doxymbox{\hyperlink{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4a}{cgroup\+\_\+attach\+\_\+lock\+\_\+mode}}}
+
+Enumeration Description:\+ This enum defines the locking mode used during cgroup attach operations. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ATTACH\_LOCK\_GLOBAL@{CGRP\_ATTACH\_LOCK\_GLOBAL}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ATTACH\_LOCK\_GLOBAL@{CGRP\_ATTACH\_LOCK\_GLOBAL}}
+}\Hypertarget{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c}\label{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c} 
+CGRP\+\_\+\+ATTACH\+\_\+\+LOCK\+\_\+\+GLOBAL&Default \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ATTACH\_LOCK\_NONE@{CGRP\_ATTACH\_LOCK\_NONE}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ATTACH\_LOCK\_NONE@{CGRP\_ATTACH\_LOCK\_NONE}}
+}\Hypertarget{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5}\label{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5} 
+CGRP\+\_\+\+ATTACH\+\_\+\+LOCK\+\_\+\+NONE&When pid=0 \&\& threadgroup=false, see comments in cgroup\+\_\+procs\+\_\+write\+\_\+start \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGRP\_ATTACH\_LOCK\_PER\_THREADGROUP@{CGRP\_ATTACH\_LOCK\_PER\_THREADGROUP}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGRP\_ATTACH\_LOCK\_PER\_THREADGROUP@{CGRP\_ATTACH\_LOCK\_PER\_THREADGROUP}}
+}\Hypertarget{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f}\label{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f} 
+CGRP\+\_\+\+ATTACH\+\_\+\+LOCK\+\_\+\+PER\+\_\+\+THREADGROUP&When favordynmods is on, see comments above CGRP\+\_\+\+ROOT\+\_\+\+FAVOR\+\_\+\+DYNMODS \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00170}{170}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aaf9b8391a16a9c019a7c4b9f696ea1f4c}{CGRP\_ATTACH\_LOCK\_GLOBAL}},}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00175\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aad6b646542143676e0a1b9ac0b95ed4d5}{CGRP\_ATTACH\_LOCK\_NONE}},}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00178\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_a6f88470278a2f9e2137cf0f8b6672f4aa23ee9a6825602e772200e3618dc4618f}{CGRP\_ATTACH\_LOCK\_PER\_THREADGROUP}},}
+\DoxyCodeLine{00179\ \};}
+
+\end{DoxyCode}
+\Hypertarget{cgroup-defs_8h_ab973e45b7b369efe6a8dabe48ed4016a}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!cgroup\_subsys\_id@{cgroup\_subsys\_id}}
+\index{cgroup\_subsys\_id@{cgroup\_subsys\_id}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{cgroup\_subsys\_id}{cgroup\_subsys\_id}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_ab973e45b7b369efe6a8dabe48ed4016a} 
+enum \doxymbox{\hyperlink{cgroup-defs_8h_ab973e45b7b369efe6a8dabe48ed4016a}{cgroup\+\_\+subsys\+\_\+id}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CGROUP\_SUBSYS\_COUNT@{CGROUP\_SUBSYS\_COUNT}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\index{cgroup-\/defs.h@{cgroup-\/defs.h}!CGROUP\_SUBSYS\_COUNT@{CGROUP\_SUBSYS\_COUNT}}
+}\Hypertarget{cgroup-defs_8h_ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59}\label{cgroup-defs_8h_ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59} 
+CGROUP\+\_\+\+SUBSYS\+\_\+\+COUNT&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00045}{45}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{cgroup__subsys_8h}{linux/cgroup\_subsys.h}}>}}
+\DoxyCodeLine{00047\ \ \ \ \ \doxymbox{\hyperlink{cgroup-defs_8h_ab973e45b7b369efe6a8dabe48ed4016aae0d1e7017100233674b199541a2b0d59}{CGROUP\_SUBSYS\_COUNT}},}
+\DoxyCodeLine{00048\ \};}
+
+\end{DoxyCode}
+
+
+\label{cgroup-defs_8h_doc-func-members}
+\Hypertarget{cgroup-defs_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{cgroup-defs_8h_aec642643e6eff3731ee6072a3d5e1a05}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!cgroup\_threadgroup\_change\_begin@{cgroup\_threadgroup\_change\_begin}}
+\index{cgroup\_threadgroup\_change\_begin@{cgroup\_threadgroup\_change\_begin}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{cgroup\_threadgroup\_change\_begin()}{cgroup\_threadgroup\_change\_begin()}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_aec642643e6eff3731ee6072a3d5e1a05} 
+void cgroup\+\_\+threadgroup\+\_\+change\+\_\+begin (\begin{DoxyParamCaption}\item[{struct task\+\_\+struct \texorpdfstring{$\ast$}{*}}]{tsk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+cgroup\+\_\+threadgroup\+\_\+change\+\_\+begin -\/ threadgroup exclusion for cgroups @tsk:\+ target task
+
+Allows cgroup operations to synchronize against threadgroup changes using a global percpu\+\_\+rw\+\_\+semaphore and a per threadgroup rw\+\_\+semaphore when favordynmods is on. See the comment above CGRP\+\_\+\+ROOT\+\_\+\+FAVOR\+\_\+\+DYNMODS definition.
+
+Function Description:\+ Starts a read-\/side critical section for threadgroup changes. It acquires a global lock to prevent threadgroup modifications during cgroup operations. If the favordynmods feature is enabled, it also acquires a per-\/threadgroup lock to reduce contention and improve performance. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00939}{939}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00940\ \{}
+\DoxyCodeLine{00941\ \ \ \ \ percpu\_down\_read(\&\doxymbox{\hyperlink{cgroup-defs_8h_a4ae532c1eac15a6effcdc964dbf2e636}{cgroup\_threadgroup\_rwsem}});}
+\DoxyCodeLine{00942\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{cgroup-defs_8h_acdd761f7b3bd3a2d3569f375035d4b86}{cgroup\_enable\_per\_threadgroup\_rwsem}})}
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ down\_read(\&tsk-\/>signal-\/>cgroup\_threadgroup\_rwsem);}
+\DoxyCodeLine{00944\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cgroup-defs_8h_aec642643e6eff3731ee6072a3d5e1a05_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cgroup-defs_8h_aa9142157ca6510e79e7931de6e70d547}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!cgroup\_threadgroup\_change\_end@{cgroup\_threadgroup\_change\_end}}
+\index{cgroup\_threadgroup\_change\_end@{cgroup\_threadgroup\_change\_end}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{cgroup\_threadgroup\_change\_end()}{cgroup\_threadgroup\_change\_end()}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_aa9142157ca6510e79e7931de6e70d547} 
+void cgroup\+\_\+threadgroup\+\_\+change\+\_\+end (\begin{DoxyParamCaption}\item[{struct task\+\_\+struct \texorpdfstring{$\ast$}{*}}]{tsk}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+cgroup\+\_\+threadgroup\+\_\+change\+\_\+end -\/ threadgroup exclusion for cgroups @tsk:\+ target task
+
+Counterpart of cgroup\+\_\+threadcgroup\+\_\+change\+\_\+begin().
+
+Function Description:\+ Ends a read-\/side critical section for threadgroup changes. It releases the per-\/threadgroup lock if favordynmods is enabled, then releases the global lock. This is the counterpart to \doxylink{cgroup-defs_8h_aec642643e6eff3731ee6072a3d5e1a05}{cgroup\+\_\+threadgroup\+\_\+change\+\_\+begin()} and must be called after completing cgroup operations. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00955}{955}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00956\ \{}
+\DoxyCodeLine{00957\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{cgroup-defs_8h_acdd761f7b3bd3a2d3569f375035d4b86}{cgroup\_enable\_per\_threadgroup\_rwsem}})}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ up\_read(\&tsk-\/>signal-\/>cgroup\_threadgroup\_rwsem);}
+\DoxyCodeLine{00959\ \ \ \ \ percpu\_up\_read(\&\doxymbox{\hyperlink{cgroup-defs_8h_a4ae532c1eac15a6effcdc964dbf2e636}{cgroup\_threadgroup\_rwsem}});}
+\DoxyCodeLine{00960\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cgroup-defs_8h_aa9142157ca6510e79e7931de6e70d547_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{cgroup-defs_8h_a0073a047e09cace7686bbb0ae1dba77a}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!sock\_cgroup\_classid@{sock\_cgroup\_classid}}
+\index{sock\_cgroup\_classid@{sock\_cgroup\_classid}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{sock\_cgroup\_classid()}{sock\_cgroup\_classid()}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_a0073a047e09cace7686bbb0ae1dba77a} 
+u32 sock\+\_\+cgroup\+\_\+classid (\begin{DoxyParamCaption}\item[{const struct \doxymbox{\hyperlink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data}} \texorpdfstring{$\ast$}{*}}]{skcd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Function Description:\+ Returns the network class identifier for a socket\textquotesingle{}s cgroup data. It reads the classid field from the socket\textquotesingle{}s cgroup data structure. This is used by the network layer to classify network traffic from sockets in cgroups. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l01016}{1016}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01017\ \{}
+\DoxyCodeLine{01018\ \ \ \ \ \textcolor{keywordflow}{return}\ READ\_ONCE(skcd-\/>\doxymbox{\hyperlink{structsock__cgroup__data_a064e377721d87be017509957fe68f5b0}{classid}});}
+\DoxyCodeLine{01019\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cgroup-defs_8h_a07a90bca90e12c1e4c73056a2ac1ac9a}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!sock\_cgroup\_prioidx@{sock\_cgroup\_prioidx}}
+\index{sock\_cgroup\_prioidx@{sock\_cgroup\_prioidx}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{sock\_cgroup\_prioidx()}{sock\_cgroup\_prioidx()}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_a07a90bca90e12c1e4c73056a2ac1ac9a} 
+u16 sock\+\_\+cgroup\+\_\+prioidx (\begin{DoxyParamCaption}\item[{const struct \doxymbox{\hyperlink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data}} \texorpdfstring{$\ast$}{*}}]{skcd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Function Description:\+ Returns the network priority index for a socket\textquotesingle{}s cgroup data. It reads the prioidx field from the socket\textquotesingle{}s cgroup data structure. This is used by the network layer to determine packet priority for sockets in cgroups. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l01003}{1003}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01004\ \{}
+\DoxyCodeLine{01005\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_CGROUP\_NET\_PRIO }}
+\DoxyCodeLine{01006\ \ \ \ \ \textcolor{keywordflow}{return}\ READ\_ONCE(skcd-\/>\doxymbox{\hyperlink{structsock__cgroup__data_a31cef0b343333add56b168fe6ae16a1b}{prioidx}});}
+\DoxyCodeLine{01007\ \textcolor{preprocessor}{\#else }}
+\DoxyCodeLine{01008\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{01009\ \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{01010\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cgroup-defs_8h_ace3174b5d6c11894278acb4f3d4361b8}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!sock\_cgroup\_set\_classid@{sock\_cgroup\_set\_classid}}
+\index{sock\_cgroup\_set\_classid@{sock\_cgroup\_set\_classid}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{sock\_cgroup\_set\_classid()}{sock\_cgroup\_set\_classid()}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_ace3174b5d6c11894278acb4f3d4361b8} 
+void sock\+\_\+cgroup\+\_\+set\+\_\+classid (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data}} \texorpdfstring{$\ast$}{*}}]{skcd}{, }\item[{u32}]{classid}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Function Description:\+ Sets the network class identifier for a socket\textquotesingle{}s cgroup data. It writes the class identifier value to the socket\textquotesingle{}s cgroup data structure. This allows the net\+\_\+cls controller to assign class IDs to sockets for traffic classification. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l01038}{1038}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01040\ \{}
+\DoxyCodeLine{01041\ \ \ \ \ WRITE\_ONCE(skcd-\/>\doxymbox{\hyperlink{structsock__cgroup__data_a064e377721d87be017509957fe68f5b0}{classid}},\ classid);}
+\DoxyCodeLine{01042\ \}}
+
+\end{DoxyCode}
+\Hypertarget{cgroup-defs_8h_a1fb3c413df18d4275a21ec784c400808}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!sock\_cgroup\_set\_prioidx@{sock\_cgroup\_set\_prioidx}}
+\index{sock\_cgroup\_set\_prioidx@{sock\_cgroup\_set\_prioidx}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{sock\_cgroup\_set\_prioidx()}{sock\_cgroup\_set\_prioidx()}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_a1fb3c413df18d4275a21ec784c400808} 
+void sock\+\_\+cgroup\+\_\+set\+\_\+prioidx (\begin{DoxyParamCaption}\item[{struct \doxymbox{\hyperlink{structsock__cgroup__data}{sock\+\_\+cgroup\+\_\+data}} \texorpdfstring{$\ast$}{*}}]{skcd}{, }\item[{u16}]{prioidx}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Function Description:\+ Sets the network priority index for a socket\textquotesingle{}s cgroup data. It writes the priority index value to the socket\textquotesingle{}s cgroup data structure. This allows the net\+\_\+prio controller to assign priority levels to sockets. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l01025}{1025}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01027\ \{}
+\DoxyCodeLine{01028\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_CGROUP\_NET\_PRIO }}
+\DoxyCodeLine{01029\ \ \ \ \ WRITE\_ONCE(skcd-\/>\doxymbox{\hyperlink{structsock__cgroup__data_a31cef0b343333add56b168fe6ae16a1b}{prioidx}},\ prioidx);}
+\DoxyCodeLine{01030\ \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{01031\ \}}
+
+\end{DoxyCode}
+
+
+\label{cgroup-defs_8h_doc-var-members}
+\Hypertarget{cgroup-defs_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{cgroup-defs_8h_acdd761f7b3bd3a2d3569f375035d4b86}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!cgroup\_enable\_per\_threadgroup\_rwsem@{cgroup\_enable\_per\_threadgroup\_rwsem}}
+\index{cgroup\_enable\_per\_threadgroup\_rwsem@{cgroup\_enable\_per\_threadgroup\_rwsem}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{cgroup\_enable\_per\_threadgroup\_rwsem}{cgroup\_enable\_per\_threadgroup\_rwsem}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_acdd761f7b3bd3a2d3569f375035d4b86} 
+bool cgroup\+\_\+enable\+\_\+per\+\_\+threadgroup\+\_\+rwsem\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{cgroup-defs_8h_a4ae532c1eac15a6effcdc964dbf2e636}\index{cgroup-\/defs.h@{cgroup-\/defs.h}!cgroup\_threadgroup\_rwsem@{cgroup\_threadgroup\_rwsem}}
+\index{cgroup\_threadgroup\_rwsem@{cgroup\_threadgroup\_rwsem}!cgroup-\/defs.h@{cgroup-\/defs.h}}
+\doxysubsubsection{\texorpdfstring{cgroup\_threadgroup\_rwsem}{cgroup\_threadgroup\_rwsem}}
+{\footnotesize\ttfamily \label{cgroup-defs_8h_a4ae532c1eac15a6effcdc964dbf2e636} 
+struct percpu\+\_\+rw\+\_\+semaphore cgroup\+\_\+threadgroup\+\_\+rwsem\hspace{0.3cm}{\ttfamily [extern]}}
+

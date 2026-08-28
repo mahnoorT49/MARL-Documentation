@@ -1,0 +1,483 @@
+\doxysection{swap.\+h}
+\hypertarget{swap_8h_source}{}\label{swap_8h_source}\index{include/linux/swap.h@{include/linux/swap.h}}
+\doxymbox{\hyperlink{swap_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00001}00001\ \textcolor{comment}{/*\ SPDX-\/License-\/Identifier:\ GPL-\/2.0\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00002}00002\ \textcolor{preprocessor}{\#ifndef\ \_MM\_SWAP\_H}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00003}00003\ \textcolor{preprocessor}{\#define\ \_MM\_SWAP\_H}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <linux/atomic.h>}\ \textcolor{comment}{/*\ for\ atomic\_long\_t\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00006}00006\ \textcolor{keyword}{struct\ }mempolicy;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00007}00007\ \textcolor{keyword}{struct\ }swap\_iocb;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00009}00009\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_afe6446ed43e97033afbee53032a572dc}{page\_cluster}};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00011}00011\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_THP\_SWAP}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00012}00012\ \textcolor{preprocessor}{\#define\ SWAPFILE\_CLUSTER\ \ \ \ HPAGE\_PMD\_NR}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00013}00013\ \textcolor{preprocessor}{\#define\ swap\_entry\_order(order)\ (order)}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00014}00014\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00015}\doxymbox{\hyperlink{swap_8h_a982cd09e49261d3ef936c241e1dd66a4}{00015}}\ \textcolor{preprocessor}{\#define\ SWAPFILE\_CLUSTER\ \ \ \ 256}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00016}\doxymbox{\hyperlink{swap_8h_aed29f15be2c6b48e11c80779bb104868}{00016}}\ \textcolor{preprocessor}{\#define\ swap\_entry\_order(order)\ 0}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00017}00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00019}00019\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }swap\_info\_struct\ *\doxymbox{\hyperlink{swap_8h_a8dfa59321607633f84d1cdfa1b7b29c3}{swap\_info}}[];}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00021}00021\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00022}00022\ \textcolor{comment}{\ *\ We\ use\ this\ to\ track\ usage\ of\ a\ cluster.\ A\ cluster\ is\ a\ block\ of\ swap\ disk}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00023}00023\ \textcolor{comment}{\ *\ space\ with\ SWAPFILE\_CLUSTER\ pages\ long\ and\ naturally\ aligns\ in\ disk.\ All}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00024}00024\ \textcolor{comment}{\ *\ free\ clusters\ are\ organized\ into\ a\ list.\ We\ fetch\ an\ entry\ from\ the\ list\ to}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00025}00025\ \textcolor{comment}{\ *\ get\ a\ free\ cluster.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00026}00026\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00027}00027\ \textcolor{comment}{\ *\ The\ flags\ field\ determines\ if\ a\ cluster\ is\ free.\ This\ is}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00028}00028\ \textcolor{comment}{\ *\ protected\ by\ cluster\ lock.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00029}00029\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00030}\doxymbox{\hyperlink{structswap__cluster__info}{00030}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00031}\doxymbox{\hyperlink{structswap__cluster__info_a1cca77e496af5075ce8a2955acd8a3d9}{00031}}\ \ \ \ \ spinlock\_t\ \doxymbox{\hyperlink{structswap__cluster__info_a1cca77e496af5075ce8a2955acd8a3d9}{lock}};\ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00032}00032\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ Protect\ swap\_cluster\_info\ fields}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00033}00033\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ other\ than\ list,\ and\ swap\_info\_struct-\/>swap\_map}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00034}00034\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ elements\ corresponding\ to\ the\ swap\ cluster.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00035}00035\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00036}\doxymbox{\hyperlink{structswap__cluster__info_a5c68b18a57b157cb62496738606e7a6f}{00036}}\ \ \ \ \ u16\ \doxymbox{\hyperlink{structswap__cluster__info_a5c68b18a57b157cb62496738606e7a6f}{count}};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00037}\doxymbox{\hyperlink{structswap__cluster__info_a3d5c6a6f6ef013d1d54103d7d23fdd5f}{00037}}\ \ \ \ \ u8\ \doxymbox{\hyperlink{structswap__cluster__info_a3d5c6a6f6ef013d1d54103d7d23fdd5f}{flags}};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00038}\doxymbox{\hyperlink{structswap__cluster__info_a10284a00e688f484eb582b5c757dab46}{00038}}\ \ \ \ \ u8\ \doxymbox{\hyperlink{structswap__cluster__info_a10284a00e688f484eb582b5c757dab46}{order}};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00039}\doxymbox{\hyperlink{structswap__cluster__info_a51d215168b067fc450ff66435848176d}{00039}}\ \ \ \ \ atomic\_long\_t\ \_\_rcu\ *\doxymbox{\hyperlink{structswap__cluster__info_a51d215168b067fc450ff66435848176d}{table}};\ \textcolor{comment}{/*\ Swap\ table\ entries,\ see\ mm/swap\_table.h\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00040}\doxymbox{\hyperlink{structswap__cluster__info_af226d2e15cffabd10e91beed2b70ebc9}{00040}}\ \ \ \ \ \textcolor{keyword}{struct\ }list\_head\ \doxymbox{\hyperlink{structswap__cluster__info_af226d2e15cffabd10e91beed2b70ebc9}{list}};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00041}00041\ \};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00043}00043\ \textcolor{comment}{/*\ All\ on-\/list\ cluster\ must\ have\ a\ non-\/zero\ flag.\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00044}\doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46}{00044}}\ \textcolor{keyword}{enum}\ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46}{swap\_cluster\_flags}}\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00045}\doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a454ed18711132cbe9419818e079cc356}{00045}}\ \ \ \ \ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a454ed18711132cbe9419818e079cc356}{CLUSTER\_FLAG\_NONE}}\ =\ 0,\ \textcolor{comment}{/*\ For\ temporary\ off-\/list\ cluster\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00046}\doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a6f0b4a315f8439d0d33f65f109cc710e}{00046}}\ \ \ \ \ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a6f0b4a315f8439d0d33f65f109cc710e}{CLUSTER\_FLAG\_FREE}},}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00047}\doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a50d044df37b04e05476f6b700d90cc29}{00047}}\ \ \ \ \ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a50d044df37b04e05476f6b700d90cc29}{CLUSTER\_FLAG\_NONFULL}},}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00048}\doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46ab5b17bd366984087888181de06418c47}{00048}}\ \ \ \ \ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46ab5b17bd366984087888181de06418c47}{CLUSTER\_FLAG\_FRAG}},}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00049}00049\ \ \ \ \ \textcolor{comment}{/*\ Clusters\ with\ flags\ above\ are\ allocatable\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00050}\doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a4ff9a7fc56d2467ed0d9c93b3d7b0a23}{00050}}\ \ \ \ \ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a4ff9a7fc56d2467ed0d9c93b3d7b0a23}{CLUSTER\_FLAG\_USABLE}}\ =\ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46ab5b17bd366984087888181de06418c47}{CLUSTER\_FLAG\_FRAG}},}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00051}\doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46ab459a9c03fc240e11e1e55d3fab71e63}{00051}}\ \ \ \ \ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46ab459a9c03fc240e11e1e55d3fab71e63}{CLUSTER\_FLAG\_FULL}},}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00052}\doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a497d4fd9705703e6035c2e88ce3d16b2}{00052}}\ \ \ \ \ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a497d4fd9705703e6035c2e88ce3d16b2}{CLUSTER\_FLAG\_DISCARD}},}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00053}\doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a2e284cb9518f0e7aaa787f9b332420a0}{00053}}\ \ \ \ \ \doxymbox{\hyperlink{swap_8h_ace24bc63617314bc2350f70ff32ddf46a2e284cb9518f0e7aaa787f9b332420a0}{CLUSTER\_FLAG\_MAX}},}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00054}00054\ \};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00056}00056\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_SWAP}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00057}00057\ \textcolor{preprocessor}{\#include\ <linux/swapops.h>}\ \textcolor{comment}{/*\ for\ swp\_offset\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00058}00058\ \textcolor{preprocessor}{\#include\ <linux/blk\_types.h>}\ \textcolor{comment}{/*\ for\ bio\_end\_io\_t\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00060}\doxymbox{\hyperlink{swap_8h_a5d03c33edbcb4a7752b9c710fa4775fe}{00060}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a5d03c33edbcb4a7752b9c710fa4775fe}{swp\_cluster\_offset}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00061}00061\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{return}\ swp\_offset(entry)\ \%\ \doxymbox{\hyperlink{swap_8h_a982cd09e49261d3ef936c241e1dd66a4}{SWAPFILE\_CLUSTER}};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00063}00063\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00065}00065\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00066}00066\ \textcolor{comment}{\ *\ Callers\ of\ all\ helpers\ below\ must\ ensure\ the\ entry,\ type,\ or\ offset\ is}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00067}00067\ \textcolor{comment}{\ *\ valid,\ and\ protect\ the\ swap\ device\ with\ reference\ count\ or\ locks.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00068}00068\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00069}\doxymbox{\hyperlink{swap_8h_a20d9f1322009dea712da59c95b2bdaed}{00069}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }swap\_info\_struct\ *\doxymbox{\hyperlink{swap_8h_a20d9f1322009dea712da59c95b2bdaed}{\_\_swap\_type\_to\_info}}(\textcolor{keywordtype}{int}\ type)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00070}00070\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00071}00071\ \ \ \ \ \textcolor{keyword}{struct\ }swap\_info\_struct\ *si;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00073}00073\ \ \ \ \ si\ =\ READ\_ONCE(\doxymbox{\hyperlink{swap_8h_a8dfa59321607633f84d1cdfa1b7b29c3}{swap\_info}}[type]);\ \textcolor{comment}{/*\ rcu\_dereference()\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00074}00074\ \ \ \ \ VM\_WARN\_ON\_ONCE(percpu\_ref\_is\_zero(\&si-\/>users));\ \textcolor{comment}{/*\ race\ with\ swapoff\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{return}\ si;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00076}00076\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00078}\doxymbox{\hyperlink{swap_8h_a423d9b69aac4ecff5ceac951cb14573a}{00078}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }swap\_info\_struct\ *\doxymbox{\hyperlink{swap_8h_a423d9b69aac4ecff5ceac951cb14573a}{\_\_swap\_entry\_to\_info}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00079}00079\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{swap_8h_a20d9f1322009dea712da59c95b2bdaed}{\_\_swap\_type\_to\_info}}(swp\_type(entry));}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00081}00081\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00083}\doxymbox{\hyperlink{swap_8h_a9b2318917f63a40b745c3fc381e456bb}{00083}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_a9b2318917f63a40b745c3fc381e456bb}{\_\_swap\_offset\_to\_cluster}}(}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ swap\_info\_struct\ *si,\ pgoff\_t\ offset)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00085}00085\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00086}00086\ \ \ \ \ VM\_WARN\_ON\_ONCE(percpu\_ref\_is\_zero(\&si-\/>users));\ \textcolor{comment}{/*\ race\ with\ swapoff\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00087}00087\ \ \ \ \ VM\_WARN\_ON\_ONCE(offset\ >=\ si-\/>max);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{return}\ \&si-\/>cluster\_info[offset\ /\ \doxymbox{\hyperlink{swap_8h_a982cd09e49261d3ef936c241e1dd66a4}{SWAPFILE\_CLUSTER}}];}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00089}00089\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00091}\doxymbox{\hyperlink{swap_8h_a08d2f552cef3da2a696f3d65940fd432}{00091}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_a08d2f552cef3da2a696f3d65940fd432}{\_\_swap\_entry\_to\_cluster}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00092}00092\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{swap_8h_a9b2318917f63a40b745c3fc381e456bb}{\_\_swap\_offset\_to\_cluster}}(\doxymbox{\hyperlink{swap_8h_a423d9b69aac4ecff5ceac951cb14573a}{\_\_swap\_entry\_to\_info}}(entry),}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ swp\_offset(entry));}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00097}\doxymbox{\hyperlink{swap_8h_a84cec68212fa073368c256d418e12ce0}{00097}}\ \textcolor{keyword}{static}\ \_\_always\_inline\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_a84cec68212fa073368c256d418e12ce0}{\_\_swap\_cluster\_lock}}(}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ swap\_info\_struct\ *si,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ offset,\ \textcolor{keywordtype}{bool}\ irq)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00099}00099\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00100}00100\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci\ =\ \doxymbox{\hyperlink{swap_8h_a9b2318917f63a40b745c3fc381e456bb}{\_\_swap\_offset\_to\_cluster}}(si,\ offset);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00102}00102\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00103}00103\ \textcolor{comment}{\ \ \ \ \ *\ Nothing\ modifies\ swap\ cache\ in\ an\ IRQ\ context.\ All\ access\ to}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00104}00104\ \textcolor{comment}{\ \ \ \ \ *\ swap\ cache\ is\ wrapped\ by\ swap\_cache\_*\ helpers,\ and\ swap\ cache}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00105}00105\ \textcolor{comment}{\ \ \ \ \ *\ writeback\ is\ handled\ outside\ of\ IRQs.\ Swapin\ or\ swapout\ never}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00106}00106\ \textcolor{comment}{\ \ \ \ \ *\ occurs\ in\ IRQ,\ and\ neither\ does\ in-\/place\ split\ or\ replace.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00107}00107\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00108}00108\ \textcolor{comment}{\ \ \ \ \ *\ Besides,\ modifying\ swap\ cache\ requires\ synchronization\ with}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00109}00109\ \textcolor{comment}{\ \ \ \ \ *\ swap\_map,\ which\ was\ never\ IRQ\ safe.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00110}00110\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00111}00111\ \ \ \ \ VM\_WARN\_ON\_ONCE(!in\_task());}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00112}00112\ \ \ \ \ VM\_WARN\_ON\_ONCE(percpu\_ref\_is\_zero(\&si-\/>users));\ \textcolor{comment}{/*\ race\ with\ swapoff\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{if}\ (irq)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00114}00114\ \ \ \ \ \ \ \ \ spin\_lock\_irq(\&ci-\/>\doxymbox{\hyperlink{structswap__cluster__info_a1cca77e496af5075ce8a2955acd8a3d9}{lock}});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00116}00116\ \ \ \ \ \ \ \ \ spin\_lock(\&ci-\/>\doxymbox{\hyperlink{structswap__cluster__info_a1cca77e496af5075ce8a2955acd8a3d9}{lock}});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00117}00117\ \ \ \ \ \textcolor{keywordflow}{return}\ ci;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00118}00118\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00128}\doxymbox{\hyperlink{swap_8h_a074b060542dd23eea18115458cc8e988}{00128}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_a074b060542dd23eea18115458cc8e988}{swap\_cluster\_lock}}(}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ swap\_info\_struct\ *si,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ offset)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00130}00130\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00131}00131\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{swap_8h_a84cec68212fa073368c256d418e12ce0}{\_\_swap\_cluster\_lock}}(si,\ offset,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00132}00132\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00134}\doxymbox{\hyperlink{swap_8h_afb895af180a2cbee8334f11ef60c23c0}{00134}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_afb895af180a2cbee8334f11ef60c23c0}{\_\_swap\_cluster\_get\_and\_lock}}(}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keywordtype}{bool}\ irq)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00136}00136\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00137}00137\ \ \ \ \ VM\_WARN\_ON\_ONCE\_FOLIO(!folio\_test\_locked(folio),\ folio);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00138}00138\ \ \ \ \ VM\_WARN\_ON\_ONCE\_FOLIO(!folio\_test\_swapcache(folio),\ folio);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00139}00139\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{swap_8h_a84cec68212fa073368c256d418e12ce0}{\_\_swap\_cluster\_lock}}(\doxymbox{\hyperlink{swap_8h_a423d9b69aac4ecff5ceac951cb14573a}{\_\_swap\_entry\_to\_info}}(folio-\/>swap),}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ swp\_offset(folio-\/>swap),\ irq);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00141}00141\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00143}00143\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00144}00144\ \textcolor{comment}{\ *\ swap\_cluster\_get\_and\_lock\ -\/\ Locks\ the\ cluster\ that\ holds\ a\ folio's\ entries.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00145}00145\ \textcolor{comment}{\ *\ @folio:\ The\ folio.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00146}00146\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00147}00147\ \textcolor{comment}{\ *\ This\ locks\ and\ returns\ the\ swap\ cluster\ that\ contains\ a\ folio's\ swap}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00148}00148\ \textcolor{comment}{\ *\ entries.\ The\ swap\ entries\ of\ a\ folio\ are\ always\ in\ one\ single\ cluster.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00149}00149\ \textcolor{comment}{\ *\ The\ folio\ has\ to\ be\ locked\ so\ its\ swap\ entries\ won't\ change\ and\ the}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00150}00150\ \textcolor{comment}{\ *\ cluster\ won't\ be\ freed.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00151}00151\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00152}00152\ \textcolor{comment}{\ *\ Context:\ Caller\ must\ ensure\ the\ folio\ is\ locked\ and\ in\ the\ swap\ cache.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00153}00153\ \textcolor{comment}{\ *\ Return:\ Pointer\ to\ the\ swap\ cluster.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00154}00154\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00155}\doxymbox{\hyperlink{swap_8h_a5de0d8a14fb93d0dc94a73b2a7fdc839}{00155}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_a5de0d8a14fb93d0dc94a73b2a7fdc839}{swap\_cluster\_get\_and\_lock}}(}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ folio\ *folio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00157}00157\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00158}00158\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{swap_8h_afb895af180a2cbee8334f11ef60c23c0}{\_\_swap\_cluster\_get\_and\_lock}}(folio,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00159}00159\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00161}00161\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00162}00162\ \textcolor{comment}{\ *\ swap\_cluster\_get\_and\_lock\_irq\ -\/\ Locks\ the\ cluster\ that\ holds\ a\ folio's\ entries.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00163}00163\ \textcolor{comment}{\ *\ @folio:\ The\ folio.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00164}00164\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00165}00165\ \textcolor{comment}{\ *\ Same\ as\ swap\_cluster\_get\_and\_lock\ but\ also\ disable\ IRQ.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00166}00166\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00167}00167\ \textcolor{comment}{\ *\ Context:\ Caller\ must\ ensure\ the\ folio\ is\ locked\ and\ in\ the\ swap\ cache.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00168}00168\ \textcolor{comment}{\ *\ Return:\ Pointer\ to\ the\ swap\ cluster.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00169}00169\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00170}\doxymbox{\hyperlink{swap_8h_ab3746ac838b327ea1f7ee867ec46b856}{00170}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_ab3746ac838b327ea1f7ee867ec46b856}{swap\_cluster\_get\_and\_lock\_irq}}(}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ folio\ *folio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00172}00172\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00173}00173\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{swap_8h_afb895af180a2cbee8334f11ef60c23c0}{\_\_swap\_cluster\_get\_and\_lock}}(folio,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00174}00174\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00176}\doxymbox{\hyperlink{swap_8h_a9df95245a7fe23d590d481c424c40abb}{00176}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a9df95245a7fe23d590d481c424c40abb}{swap\_cluster\_unlock}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00177}00177\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00178}00178\ \ \ \ \ spin\_unlock(\&ci-\/>\doxymbox{\hyperlink{structswap__cluster__info_a1cca77e496af5075ce8a2955acd8a3d9}{lock}});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00179}00179\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00181}\doxymbox{\hyperlink{swap_8h_afc92154a658fdaf6587eb1b59acbb335}{00181}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_afc92154a658fdaf6587eb1b59acbb335}{swap\_cluster\_unlock\_irq}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00182}00182\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00183}00183\ \ \ \ \ spin\_unlock\_irq(\&ci-\/>\doxymbox{\hyperlink{structswap__cluster__info_a1cca77e496af5075ce8a2955acd8a3d9}{lock}});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00184}00184\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00186}00186\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00187}00187\ \textcolor{comment}{\ *\ Below\ are\ the\ core\ routines\ for\ doing\ swap\ for\ a\ folio.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00188}00188\ \textcolor{comment}{\ *\ All\ helpers\ requires\ the\ folio\ to\ be\ locked,\ and\ a\ locked\ folio}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00189}00189\ \textcolor{comment}{\ *\ in\ the\ swap\ cache\ pins\ the\ swap\ entries\ /\ slots\ allocated\ to\ the}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00190}00190\ \textcolor{comment}{\ *\ folio,\ swap\ relies\ heavily\ on\ the\ swap\ cache\ and\ folio\ lock\ for}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00191}00191\ \textcolor{comment}{\ *\ synchronization.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00192}00192\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00193}00193\ \textcolor{comment}{\ *\ folio\_alloc\_swap():\ the\ entry\ point\ for\ a\ folio\ to\ be\ swapped}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00194}00194\ \textcolor{comment}{\ *\ out.\ It\ allocates\ swap\ slots\ and\ pins\ the\ slots\ with\ swap\ cache.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00195}00195\ \textcolor{comment}{\ *\ The\ slots\ start\ with\ a\ swap\ count\ of\ zero.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00196}00196\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00197}00197\ \textcolor{comment}{\ *\ folio\_dup\_swap():\ increases\ the\ swap\ count\ of\ a\ folio,\ usually}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00198}00198\ \textcolor{comment}{\ *\ during\ it\ gets\ unmapped\ and\ a\ swap\ entry\ is\ installed\ to\ replace}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00199}00199\ \textcolor{comment}{\ *\ it\ (e.g.,\ swap\ entry\ in\ page\ table).\ A\ swap\ slot\ with\ swap}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00200}00200\ \textcolor{comment}{\ *\ count\ ==\ 0\ should\ only\ be\ increasd\ by\ this\ helper.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00201}00201\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00202}00202\ \textcolor{comment}{\ *\ folio\_put\_swap():\ does\ the\ opposite\ thing\ of\ folio\_dup\_swap().}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00203}00203\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00204}00204\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a4f016f41b8d218e843962ded4dad348e}{folio\_alloc\_swap}}(\textcolor{keyword}{struct}\ folio\ *folio);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00205}00205\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_abd8cba2dabc02410e4c4fcf595c9d712}{folio\_dup\_swap}}(\textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keyword}{struct}\ page\ *subpage);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00206}00206\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a1e378a4dc95994290a80f625d481ad0f}{folio\_put\_swap}}(\textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keyword}{struct}\ page\ *subpage);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00208}00208\ \textcolor{comment}{/*\ For\ internal\ use\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00209}00209\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_aaef639ee4ac647d24e473bd0a77e91c0}{swap\_entries\_free}}(\textcolor{keyword}{struct}\ swap\_info\_struct\ *si,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ offset,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nr\_pages);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00213}00213\ \textcolor{comment}{/*\ linux/mm/page\_io.c\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00214}\doxymbox{\hyperlink{swap_8h_afe1f966b5b17d8ae1bf81adf9f330299}{00214}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_afe1f966b5b17d8ae1bf81adf9f330299}{sio\_pool\_init}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00215}00215\ \textcolor{keyword}{struct\ }swap\_iocb;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00216}\doxymbox{\hyperlink{swap_8h_a57179a8e98f8f5e98537cb986f5ea997}{00216}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a57179a8e98f8f5e98537cb986f5ea997}{swap\_read\_folio}}(\textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keyword}{struct}\ swap\_iocb\ **plug);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00217}\doxymbox{\hyperlink{swap_8h_acfe917466ebc3c96b38664378771b6c9}{00217}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_acfe917466ebc3c96b38664378771b6c9}{\_\_swap\_read\_unplug}}(\textcolor{keyword}{struct}\ swap\_iocb\ *plug);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00218}\doxymbox{\hyperlink{swap_8h_aeed14101401ef51386101e7ddf2840e2}{00218}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_aeed14101401ef51386101e7ddf2840e2}{swap\_read\_unplug}}(\textcolor{keyword}{struct}\ swap\_iocb\ *plug)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00219}00219\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00220}00220\ \ \ \ \ \textcolor{keywordflow}{if}\ (unlikely(plug))}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00221}00221\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{swap_8h_acfe917466ebc3c96b38664378771b6c9}{\_\_swap\_read\_unplug}}(plug);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00222}00222\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00223}\doxymbox{\hyperlink{swap_8h_a0c065f14f83899476864ddaccbb4af74}{00223}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a0c065f14f83899476864ddaccbb4af74}{swap\_write\_unplug}}(\textcolor{keyword}{struct}\ swap\_iocb\ *sio);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00224}\doxymbox{\hyperlink{swap_8h_a12b5e02cc4ee73e27cccf5256dc7b61e}{00224}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a12b5e02cc4ee73e27cccf5256dc7b61e}{swap\_writeout}}(\textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keyword}{struct}\ swap\_iocb\ **swap\_plug);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00225}\doxymbox{\hyperlink{swap_8h_aad9c8e50597e02475095ed126f711bb6}{00225}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_aad9c8e50597e02475095ed126f711bb6}{\_\_swap\_writepage}}(\textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keyword}{struct}\ swap\_iocb\ **swap\_plug);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00227}00227\ \textcolor{comment}{/*\ linux/mm/swap\_state.c\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00228}00228\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }address\_space\ swap\_space\ \doxymbox{\hyperlink{swap_8h_abed09f8ebbc1c690292697172e88a813}{\_\_read\_mostly}};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00229}\doxymbox{\hyperlink{swap_8h_a22896e845bf9933dc95cb24cd1756fc9}{00229}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }address\_space\ *\doxymbox{\hyperlink{swap_8h_a22896e845bf9933dc95cb24cd1756fc9}{swap\_address\_space}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00230}00230\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00231}00231\ \ \ \ \ \textcolor{keywordflow}{return}\ \&swap\_space;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00232}00232\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00234}00234\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00235}00235\ \textcolor{comment}{\ *\ Return\ the\ swap\ device\ position\ of\ the\ swap\ entry.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00236}00236\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00237}\doxymbox{\hyperlink{swap_8h_a99c4f629715fb95b5ace366975a762fc}{00237}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ loff\_t\ \doxymbox{\hyperlink{swap_8h_a99c4f629715fb95b5ace366975a762fc}{swap\_dev\_pos}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00238}00238\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00239}00239\ \ \ \ \ \textcolor{keywordflow}{return}\ ((loff\_t)swp\_offset(entry))\ <<\ PAGE\_SHIFT;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00240}00240\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00251}\doxymbox{\hyperlink{swap_8h_aa8096753e307e50d875c1fbd14e29977}{00251}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{swap_8h_aa8096753e307e50d875c1fbd14e29977}{folio\_matches\_swap\_entry}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ folio\ *folio,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00253}00253\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00254}00254\ \ \ \ \ swp\_entry\_t\ folio\_entry\ =\ folio-\/>swap;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00255}00255\ \ \ \ \ \textcolor{keywordtype}{long}\ nr\_pages\ =\ folio\_nr\_pages(folio);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00257}00257\ \ \ \ \ VM\_WARN\_ON\_ONCE\_FOLIO(!folio\_test\_locked(folio),\ folio);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00258}00258\ \ \ \ \ \textcolor{keywordflow}{if}\ (!folio\_test\_swapcache(folio))}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00259}00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00260}00260\ \ \ \ \ VM\_WARN\_ON\_ONCE\_FOLIO(!IS\_ALIGNED(folio\_entry.val,\ nr\_pages),\ folio);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00261}00261\ \ \ \ \ \textcolor{keywordflow}{return}\ folio\_entry.val\ ==\ round\_down(entry.val,\ nr\_pages);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00262}00262\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00264}00264\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00265}00265\ \textcolor{comment}{\ *\ All\ swap\ cache\ helpers\ below\ require\ the\ caller\ to\ ensure\ the\ swap\ entries}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00266}00266\ \textcolor{comment}{\ *\ used\ are\ valid\ and\ stabilize\ the\ device\ by\ any\ of\ the\ following\ ways:}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00267}00267\ \textcolor{comment}{\ *\ -\/\ Hold\ a\ reference\ by\ get\_swap\_device():\ this\ ensures\ a\ single\ entry\ is}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00268}00268\ \textcolor{comment}{\ *\ \ \ valid\ and\ increases\ the\ swap\ device's\ refcount.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00269}00269\ \textcolor{comment}{\ *\ -\/\ Locking\ a\ folio\ in\ the\ swap\ cache:\ this\ ensures\ the\ folio's\ swap\ entries}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00270}00270\ \textcolor{comment}{\ *\ \ \ are\ valid\ and\ pinned,\ also\ implies\ reference\ to\ the\ device.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00271}00271\ \textcolor{comment}{\ *\ -\/\ Locking\ anything\ referencing\ the\ swap\ entry:\ e.g.\ PTL\ that\ protects}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00272}00272\ \textcolor{comment}{\ *\ \ \ swap\ entries\ in\ the\ page\ table,\ similar\ to\ locking\ swap\ cache\ folio.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00273}00273\ \textcolor{comment}{\ *\ -\/\ See\ the\ comment\ of\ get\_swap\_device()\ for\ more\ complex\ usage.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00274}00274\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00275}\doxymbox{\hyperlink{swap_8h_ad3a4a32d56a920f5ed49beefbbd4e558}{00275}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{swap_8h_ad3a4a32d56a920f5ed49beefbbd4e558}{swap\_cache\_has\_folio}}(swp\_entry\_t\ entry);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00276}\doxymbox{\hyperlink{swap_8h_af1c86ec8fd51b395cce7768da7423631}{00276}}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_af1c86ec8fd51b395cce7768da7423631}{swap\_cache\_get\_folio}}(swp\_entry\_t\ entry);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00277}\doxymbox{\hyperlink{swap_8h_a3bb497d958494a1ce3f77146fe46b008}{00277}}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{swap_8h_a3bb497d958494a1ce3f77146fe46b008}{swap\_cache\_get\_shadow}}(swp\_entry\_t\ entry);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00278}\doxymbox{\hyperlink{swap_8h_a1ccc548e73ca1abe906b47f1aea2b5df}{00278}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a1ccc548e73ca1abe906b47f1aea2b5df}{swap\_cache\_del\_folio}}(\textcolor{keyword}{struct}\ folio\ *folio);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00279}\doxymbox{\hyperlink{swap_8h_a7ee313d755ae0f2e8e911a88453bfd93}{00279}}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_a7ee313d755ae0f2e8e911a88453bfd93}{swap\_cache\_alloc\_folio}}(swp\_entry\_t\ entry,\ gfp\_t\ gfp\_flags,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ mempolicy\ *mpol,\ pgoff\_t\ ilx,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ *alloced);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00282}00282\ \textcolor{comment}{/*\ Below\ helpers\ require\ the\ caller\ to\ lock\ and\ pass\ in\ the\ swap\ cluster.\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00283}\doxymbox{\hyperlink{swap_8h_a5bd5e7b4f3c0198a324989eea11e4a43}{00283}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a5bd5e7b4f3c0198a324989eea11e4a43}{\_\_swap\_cache\_add\_folio}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ folio\ *folio,\ swp\_entry\_t\ entry);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00285}\doxymbox{\hyperlink{swap_8h_ae7e1adbd873a48daa11a49cbc78cb3d8}{00285}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_ae7e1adbd873a48daa11a49cbc78cb3d8}{\_\_swap\_cache\_del\_folio}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ folio\ *folio,\ swp\_entry\_t\ entry,\ \textcolor{keywordtype}{void}\ *shadow);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00287}\doxymbox{\hyperlink{swap_8h_a39106290ebc73af613155e6e26ba1d14}{00287}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a39106290ebc73af613155e6e26ba1d14}{\_\_swap\_cache\_replace\_folio}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ folio\ *old,\ \textcolor{keyword}{struct}\ folio\ *\textcolor{keyword}{new});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00289}\doxymbox{\hyperlink{swap_8h_aecf0724e9d23fd18dab3652bd4b15f31}{00289}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_aecf0724e9d23fd18dab3652bd4b15f31}{\_\_swap\_cache\_clear\_shadow}}(swp\_entry\_t\ entry,\ \textcolor{keywordtype}{int}\ nr\_ents);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00291}\doxymbox{\hyperlink{swap_8h_a72b7402254f964fbd5e7693910d22106}{00291}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a72b7402254f964fbd5e7693910d22106}{show\_swap\_cache\_info}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00292}\doxymbox{\hyperlink{swap_8h_a3c86fae5e345eedd493df9688d17d114}{00292}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a3c86fae5e345eedd493df9688d17d114}{swapcache\_clear}}(\textcolor{keyword}{struct}\ swap\_info\_struct\ *si,\ swp\_entry\_t\ entry,\ \textcolor{keywordtype}{int}\ nr);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00293}\doxymbox{\hyperlink{swap_8h_a2e9e893dee409a3cc7c81a5e585da347}{00293}}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_a2e9e893dee409a3cc7c81a5e585da347}{read\_swap\_cache\_async}}(swp\_entry\_t\ entry,\ gfp\_t\ gfp\_mask,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00294}00294\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ vm\_area\_struct\ *vma,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ addr,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00295}00295\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ swap\_iocb\ **plug);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00296}\doxymbox{\hyperlink{swap_8h_aceca59cbeae940aa9770e6fd372ffcfa}{00296}}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_aceca59cbeae940aa9770e6fd372ffcfa}{swap\_cluster\_readahead}}(swp\_entry\_t\ entry,\ gfp\_t\ flag,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00297}00297\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ mempolicy\ *mpol,\ pgoff\_t\ ilx);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00298}\doxymbox{\hyperlink{swap_8h_a3ef1cce3c219bfeab24f3d73e1846067}{00298}}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_a3ef1cce3c219bfeab24f3d73e1846067}{swapin\_readahead}}(swp\_entry\_t\ entry,\ gfp\_t\ flag,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00299}00299\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ vm\_fault\ *vmf);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00300}\doxymbox{\hyperlink{swap_8h_a081c1567f5b118b8d406cff8233ff80b}{00300}}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_a081c1567f5b118b8d406cff8233ff80b}{swapin\_folio}}(swp\_entry\_t\ entry,\ \textcolor{keyword}{struct}\ folio\ *folio);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00301}\doxymbox{\hyperlink{swap_8h_a587cd9f94e1a8595caa2a6e6989f0b09}{00301}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a587cd9f94e1a8595caa2a6e6989f0b09}{swap\_update\_readahead}}(\textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keyword}{struct}\ vm\_area\_struct\ *vma,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ addr);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00303}00303\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00304}\doxymbox{\hyperlink{swap_8h_a0038ab15760d74e599ffc39684e400c9}{00304}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a0038ab15760d74e599ffc39684e400c9}{folio\_swap\_flags}}(\textcolor{keyword}{struct}\ folio\ *folio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00305}00305\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00306}00306\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{swap_8h_a423d9b69aac4ecff5ceac951cb14573a}{\_\_swap\_entry\_to\_info}}(folio-\/>swap)-\/>flags;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00307}00307\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00309}00309\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00310}00310\ \textcolor{comment}{\ *\ Return\ the\ count\ of\ contiguous\ swap\ entries\ that\ share\ the\ same}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00311}00311\ \textcolor{comment}{\ *\ zeromap\ status\ as\ the\ starting\ entry.\ If\ is\_zeromap\ is\ not\ NULL,}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00312}00312\ \textcolor{comment}{\ *\ it\ will\ return\ the\ zeromap\ status\ of\ the\ starting\ entry.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00313}00313\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00314}\doxymbox{\hyperlink{swap_8h_a222c21e3de8454551458f2f449ae60d0}{00314}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a222c21e3de8454551458f2f449ae60d0}{swap\_zeromap\_batch}}(swp\_entry\_t\ entry,\ \textcolor{keywordtype}{int}\ max\_nr,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00315}00315\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ *is\_zeromap)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00316}00316\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00317}00317\ \ \ \ \ \textcolor{keyword}{struct\ }swap\_info\_struct\ *sis\ =\ \doxymbox{\hyperlink{swap_8h_a423d9b69aac4ecff5ceac951cb14573a}{\_\_swap\_entry\_to\_info}}(entry);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00318}00318\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start\ =\ swp\_offset(entry);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00319}00319\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end\ =\ start\ +\ max\_nr;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00320}00320\ \ \ \ \ \textcolor{keywordtype}{bool}\ first\_bit;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00322}00322\ \ \ \ \ first\_bit\ =\ test\_bit(start,\ sis-\/>zeromap);}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00323}00323\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_zeromap)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00324}00324\ \ \ \ \ \ \ \ \ *is\_zeromap\ =\ first\_bit;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00326}00326\ \ \ \ \ \textcolor{keywordflow}{if}\ (max\_nr\ <=\ 1)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00327}00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ max\_nr;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00328}00328\ \ \ \ \ \textcolor{keywordflow}{if}\ (first\_bit)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00329}00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ find\_next\_zero\_bit(sis-\/>zeromap,\ end,\ start)\ -\/\ start;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00330}00330\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00331}00331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ find\_next\_bit(sis-\/>zeromap,\ end,\ start)\ -\/\ start;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00332}00332\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00334}\doxymbox{\hyperlink{swap_8h_a60b3795b4ec7e8cdc252c64dabebc132}{00334}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a60b3795b4ec7e8cdc252c64dabebc132}{non\_swapcache\_batch}}(swp\_entry\_t\ entry,\ \textcolor{keywordtype}{int}\ max\_nr)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00335}00335\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00336}00336\ \ \ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00338}00338\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00339}00339\ \textcolor{comment}{\ \ \ \ \ *\ While\ allocating\ a\ large\ folio\ and\ doing\ mTHP\ swapin,\ we\ need\ to}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00340}00340\ \textcolor{comment}{\ \ \ \ \ *\ ensure\ all\ entries\ are\ not\ cached,\ otherwise,\ the\ mTHP\ folio\ will}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00341}00341\ \textcolor{comment}{\ \ \ \ \ *\ be\ in\ conflict\ with\ the\ folio\ in\ swap\ cache.}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00342}00342\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00343}00343\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ max\_nr;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00344}00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{swap_8h_ad3a4a32d56a920f5ed49beefbbd4e558}{swap\_cache\_has\_folio}}(entry))}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00346}00346\ \ \ \ \ \ \ \ \ entry.val++;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00347}00347\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00348}00348\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00349}00349\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00350}00350\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00351}00351\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00352}00352\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ CONFIG\_SWAP\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00353}00353\ \textcolor{keyword}{struct\ }swap\_iocb;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00354}00354\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_a074b060542dd23eea18115458cc8e988}{swap\_cluster\_lock}}(}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00355}00355\ \ \ \ \ \textcolor{keyword}{struct}\ swap\_info\_struct\ *si,\ pgoff\_t\ offset,\ \textcolor{keywordtype}{bool}\ irq)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00356}00356\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00357}00357\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00358}00358\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00359}00359\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00360}00360\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_a5de0d8a14fb93d0dc94a73b2a7fdc839}{swap\_cluster\_get\_and\_lock}}(}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00361}00361\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ folio\ *folio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00362}00362\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00363}00363\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00364}00364\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00365}00365\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00366}00366\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *\doxymbox{\hyperlink{swap_8h_ab3746ac838b327ea1f7ee867ec46b856}{swap\_cluster\_get\_and\_lock\_irq}}(}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00367}00367\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ folio\ *folio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00368}00368\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00369}00369\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00370}00370\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00371}00371\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00372}00372\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a9df95245a7fe23d590d481c424c40abb}{swap\_cluster\_unlock}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00373}00373\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00374}00374\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00376}00376\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_afc92154a658fdaf6587eb1b59acbb335}{swap\_cluster\_unlock\_irq}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00377}00377\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00378}00378\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00379}00379\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00380}00380\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }swap\_info\_struct\ *\doxymbox{\hyperlink{swap_8h_a423d9b69aac4ecff5ceac951cb14573a}{\_\_swap\_entry\_to\_info}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00381}00381\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00382}00382\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00383}00383\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00385}00385\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a4f016f41b8d218e843962ded4dad348e}{folio\_alloc\_swap}}(\textcolor{keyword}{struct}\ folio\ *folio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00386}00386\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00387}00387\ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00388}00388\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00389}00389\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00390}00390\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_abd8cba2dabc02410e4c4fcf595c9d712}{folio\_dup\_swap}}(\textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keyword}{struct}\ page\ *page)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00391}00391\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00392}00392\ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00393}00393\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00394}00394\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00395}00395\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a1e378a4dc95994290a80f625d481ad0f}{folio\_put\_swap}}(\textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keyword}{struct}\ page\ *page)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00396}00396\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00397}00397\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00398}00398\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00399}00399\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a57179a8e98f8f5e98537cb986f5ea997}{swap\_read\_folio}}(\textcolor{keyword}{struct}\ folio\ *folio,\ \textcolor{keyword}{struct}\ swap\_iocb\ **plug)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00400}00400\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00401}00401\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00403}00403\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a0c065f14f83899476864ddaccbb4af74}{swap\_write\_unplug}}(\textcolor{keyword}{struct}\ swap\_iocb\ *sio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00404}00404\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00405}00405\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00406}00406\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00407}00407\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }address\_space\ *\doxymbox{\hyperlink{swap_8h_a22896e845bf9933dc95cb24cd1756fc9}{swap\_address\_space}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00408}00408\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00409}00409\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00410}00410\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00411}00411\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00412}00412\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{swap_8h_aa8096753e307e50d875c1fbd14e29977}{folio\_matches\_swap\_entry}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ folio\ *folio,\ swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00413}00413\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00414}00414\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00415}00415\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00416}00416\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00417}00417\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a72b7402254f964fbd5e7693910d22106}{show\_swap\_cache\_info}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00418}00418\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00419}00419\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00420}00420\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00421}00421\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_aceca59cbeae940aa9770e6fd372ffcfa}{swap\_cluster\_readahead}}(swp\_entry\_t\ entry,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00422}00422\ \ \ \ \ \ \ \ \ \ \ \ \ gfp\_t\ gfp\_mask,\ \textcolor{keyword}{struct}\ mempolicy\ *mpol,\ pgoff\_t\ ilx)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00423}00423\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00424}00424\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00425}00425\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00426}00426\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00427}00427\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_a3ef1cce3c219bfeab24f3d73e1846067}{swapin\_readahead}}(swp\_entry\_t\ swp,\ gfp\_t\ gfp\_mask,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ vm\_fault\ *vmf)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00429}00429\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00430}00430\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00431}00431\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00432}00432\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00433}00433\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_a081c1567f5b118b8d406cff8233ff80b}{swapin\_folio}}(swp\_entry\_t\ entry,\ \textcolor{keyword}{struct}\ folio\ *folio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00434}00434\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00435}00435\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00436}00436\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00437}00437\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00438}00438\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a587cd9f94e1a8595caa2a6e6989f0b09}{swap\_update\_readahead}}(\textcolor{keyword}{struct}\ folio\ *folio,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00439}00439\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ vm\_area\_struct\ *vma,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ addr)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00440}00440\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00441}00441\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00442}00442\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00443}00443\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a12b5e02cc4ee73e27cccf5256dc7b61e}{swap\_writeout}}(\textcolor{keyword}{struct}\ folio\ *folio,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00444}00444\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ swap\_iocb\ **swap\_plug)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00445}00445\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00446}00446\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00447}00447\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00448}00448\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00449}00449\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{swap_8h_ad3a4a32d56a920f5ed49beefbbd4e558}{swap\_cache\_has\_folio}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00450}00450\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00451}00451\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00452}00452\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00453}00453\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00454}00454\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{swap_8h_af1c86ec8fd51b395cce7768da7423631}{swap\_cache\_get\_folio}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00455}00455\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00456}00456\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00457}00457\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00458}00458\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00459}00459\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{swap_8h_a3bb497d958494a1ce3f77146fe46b008}{swap\_cache\_get\_shadow}}(swp\_entry\_t\ entry)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00460}00460\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00461}00461\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00462}00462\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00463}00463\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00464}00464\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a1ccc548e73ca1abe906b47f1aea2b5df}{swap\_cache\_del\_folio}}(\textcolor{keyword}{struct}\ folio\ *folio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00465}00465\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00466}00466\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00467}00467\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00468}00468\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_ae7e1adbd873a48daa11a49cbc78cb3d8}{\_\_swap\_cache\_del\_folio}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00469}00469\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ folio\ *folio,\ swp\_entry\_t\ entry,\ \textcolor{keywordtype}{void}\ *shadow)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00470}00470\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00471}00471\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00472}00472\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00473}00473\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{swap_8h_a39106290ebc73af613155e6e26ba1d14}{\_\_swap\_cache\_replace\_folio}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structswap__cluster__info}{swap\_cluster\_info}}\ *ci,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00474}00474\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ folio\ *old,\ \textcolor{keyword}{struct}\ folio\ *\textcolor{keyword}{new})}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00475}00475\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00476}00476\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00477}00477\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00478}00478\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a0038ab15760d74e599ffc39684e400c9}{folio\_swap\_flags}}(\textcolor{keyword}{struct}\ folio\ *folio)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00479}00479\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00480}00480\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00481}00481\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00482}00482\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00483}00483\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a222c21e3de8454551458f2f449ae60d0}{swap\_zeromap\_batch}}(swp\_entry\_t\ entry,\ \textcolor{keywordtype}{int}\ max\_nr,}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00484}00484\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ *has\_zeromap)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00485}00485\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00486}00486\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00487}00487\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00488}00488\ }
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00489}00489\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{swap_8h_a60b3795b4ec7e8cdc252c64dabebc132}{non\_swapcache\_batch}}(swp\_entry\_t\ entry,\ \textcolor{keywordtype}{int}\ max\_nr)}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00490}00490\ \{}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00491}00491\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00492}00492\ \}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00493}00493\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_SWAP\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{swap_8h_source_l00494}00494\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_MM\_SWAP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

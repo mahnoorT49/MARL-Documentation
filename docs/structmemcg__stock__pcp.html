@@ -118,27 +118,37 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structmemcg__s
   <div class="headertitle"><div class="title">memcg_stock_pcp Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Collaboration diagram for memcg_stock_pcp:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structmemcg__stock__pcp__coll__graph.svg" width="1696" height="1727"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:adb5854cfb1a166323dddd691ecb097ae" id="r_adb5854cfb1a166323dddd691ecb097ae"><td class="memItemLeft">local_trylock_t&#160;</td><td class="memItemRight"><a class="el" href="#adb5854cfb1a166323dddd691ecb097ae">lock</a></td></tr>
-<tr class="memitem:afbea611a1659e66d6e9bf1a6359b4ef8" id="r_afbea611a1659e66d6e9bf1a6359b4ef8"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#afbea611a1659e66d6e9bf1a6359b4ef8">nr_pages</a> [<a class="el" href="memcontrol_8c.html#ae4816c6add3e5fdd77cdcec31421e714">NR_MEMCG_STOCK</a>]</td></tr>
-<tr class="memitem:a17c5bd000f113393d476ced10b89eb3b" id="r_a17c5bd000f113393d476ced10b89eb3b"><td class="memItemLeft">struct mem_cgroup *&#160;</td><td class="memItemRight"><a class="el" href="#a17c5bd000f113393d476ced10b89eb3b">cached</a> [<a class="el" href="memcontrol_8c.html#ae4816c6add3e5fdd77cdcec31421e714">NR_MEMCG_STOCK</a>]</td></tr>
+<tr class="memitem:a3a8d291bef7e9b903c2f90357b81e8fa" id="r_a3a8d291bef7e9b903c2f90357b81e8fa"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a3a8d291bef7e9b903c2f90357b81e8fa">nr_pages</a> [7]</td></tr>
+<tr class="memitem:ae876eca88597334ed8e87f1fea9ecfd3" id="r_ae876eca88597334ed8e87f1fea9ecfd3"><td class="memItemLeft">struct <a class="el" href="structmem__cgroup.html">mem_cgroup</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae876eca88597334ed8e87f1fea9ecfd3">cached</a> [7]</td></tr>
 <tr class="memitem:af8e8c0aca34015000aee00e3f86efd09" id="r_af8e8c0aca34015000aee00e3f86efd09"><td class="memItemLeft">struct work_struct&#160;</td><td class="memItemRight"><a class="el" href="#af8e8c0aca34015000aee00e3f86efd09">work</a></td></tr>
 <tr class="memitem:a448ae31a95f3e82ac66059440b6587e5" id="r_a448ae31a95f3e82ac66059440b6587e5"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a448ae31a95f3e82ac66059440b6587e5">flags</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a17c5bd000f113393d476ced10b89eb3b" name="a17c5bd000f113393d476ced10b89eb3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17c5bd000f113393d476ced10b89eb3b">&#9670;&#160;</a></span>cached</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l01795">1795</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ae876eca88597334ed8e87f1fea9ecfd3" name="ae876eca88597334ed8e87f1fea9ecfd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae876eca88597334ed8e87f1fea9ecfd3">&#9670;&#160;</a></span>cached</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct mem_cgroup* memcg_stock_pcp::cached[<a class="el" href="memcontrol_8c.html#ae4816c6add3e5fdd77cdcec31421e714">NR_MEMCG_STOCK</a>]</td>
+          <td class="memname">struct <a class="el" href="structmem__cgroup.html">mem_cgroup</a>* memcg_stock_pcp::cached[7]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l01798">1798</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
 
 </div>
 </div>
@@ -154,6 +164,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l01801">1801</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
 <a id="adb5854cfb1a166323dddd691ecb097ae" name="adb5854cfb1a166323dddd691ecb097ae"></a>
@@ -168,19 +180,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l01796">1796</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
-<a id="afbea611a1659e66d6e9bf1a6359b4ef8" name="afbea611a1659e66d6e9bf1a6359b4ef8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbea611a1659e66d6e9bf1a6359b4ef8">&#9670;&#160;</a></span>nr_pages</h2>
+<a id="a3a8d291bef7e9b903c2f90357b81e8fa" name="a3a8d291bef7e9b903c2f90357b81e8fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a8d291bef7e9b903c2f90357b81e8fa">&#9670;&#160;</a></span>nr_pages</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t memcg_stock_pcp::nr_pages[<a class="el" href="memcontrol_8c.html#ae4816c6add3e5fdd77cdcec31421e714">NR_MEMCG_STOCK</a>]</td>
+          <td class="memname">uint8_t memcg_stock_pcp::nr_pages[7]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l01797">1797</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
 
 </div>
 </div>
@@ -196,10 +212,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l01800">1800</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="memcontrol_8c.html">memcontrol.c</a></li>
+<li>mm/<a class="el" href="memcontrol_8c_source.html">memcontrol.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

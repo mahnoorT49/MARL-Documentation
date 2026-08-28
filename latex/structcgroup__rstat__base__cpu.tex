@@ -1,0 +1,98 @@
+\doxysection{cgroup\+\_\+rstat\+\_\+base\+\_\+cpu Struct Reference}
+\hypertarget{structcgroup__rstat__base__cpu}{}\label{structcgroup__rstat__base__cpu}\index{cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}}
+
+
+{\ttfamily \+\#include $<$cgroup-\/defs.\+h$>$}
+
+
+
+Collaboration diagram for cgroup\+\_\+rstat\+\_\+base\+\_\+cpu:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{structcgroup__rstat__base__cpu__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct u64\+\_\+stats\+\_\+sync \doxymbox{\hyperlink{structcgroup__rstat__base__cpu_aa91a6896689f010fb6ff4ee7cdf8ff5d}{bsync}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__base__stat}{cgroup\+\_\+base\+\_\+stat}} \doxymbox{\hyperlink{structcgroup__rstat__base__cpu_a021f4d97c9cef41c57cac8490624b335}{bstat}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__base__stat}{cgroup\+\_\+base\+\_\+stat}} \doxymbox{\hyperlink{structcgroup__rstat__base__cpu_a0e760ef4ce70b3f8e677697a909cdeeb}{last\+\_\+bstat}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__base__stat}{cgroup\+\_\+base\+\_\+stat}} \doxymbox{\hyperlink{structcgroup__rstat__base__cpu_a269cf167d55e4568ea257a2779931e07}{subtree\+\_\+bstat}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__base__stat}{cgroup\+\_\+base\+\_\+stat}} \doxymbox{\hyperlink{structcgroup__rstat__base__cpu_a3d452fa6c712e3e17d72a1050e3fd064}{last\+\_\+subtree\+\_\+bstat}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This struct hosts the fields which track basic resource statistics on top of it -\/ bsync, bstat and last\+\_\+bstat.
+
+struct Description:\+ This structure holds per-\/\+CPU basic resource statistics for a cgroup. It includes CPU time statistics, synchronization fields, and snapshots for calculating deltas. These statistics are used for tracking CPU usage of cgroups. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00446}{446}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+\label{structcgroup__rstat__base__cpu_doc-variable-members}
+\Hypertarget{structcgroup__rstat__base__cpu_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcgroup__rstat__base__cpu_a021f4d97c9cef41c57cac8490624b335}\index{cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}!bstat@{bstat}}
+\index{bstat@{bstat}!cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}}
+\doxysubsubsection{\texorpdfstring{bstat}{bstat}}
+{\footnotesize\ttfamily \label{structcgroup__rstat__base__cpu_a021f4d97c9cef41c57cac8490624b335} 
+struct \doxymbox{\hyperlink{structcgroup__base__stat}{cgroup\+\_\+base\+\_\+stat}} cgroup\+\_\+rstat\+\_\+base\+\_\+cpu::\+bstat}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00452}{452}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__rstat__base__cpu_aa91a6896689f010fb6ff4ee7cdf8ff5d}\index{cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}!bsync@{bsync}}
+\index{bsync@{bsync}!cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}}
+\doxysubsubsection{\texorpdfstring{bsync}{bsync}}
+{\footnotesize\ttfamily \label{structcgroup__rstat__base__cpu_aa91a6896689f010fb6ff4ee7cdf8ff5d} 
+struct u64\+\_\+stats\+\_\+sync cgroup\+\_\+rstat\+\_\+base\+\_\+cpu::\+bsync}
+
+-\/\texorpdfstring{$>$}{>}bsync protects -\/\texorpdfstring{$>$}{>}bstat. These are the only fields which get updated in the hot path. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00451}{451}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__rstat__base__cpu_a0e760ef4ce70b3f8e677697a909cdeeb}\index{cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}!last\_bstat@{last\_bstat}}
+\index{last\_bstat@{last\_bstat}!cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}}
+\doxysubsubsection{\texorpdfstring{last\_bstat}{last\_bstat}}
+{\footnotesize\ttfamily \label{structcgroup__rstat__base__cpu_a0e760ef4ce70b3f8e677697a909cdeeb} 
+struct \doxymbox{\hyperlink{structcgroup__base__stat}{cgroup\+\_\+base\+\_\+stat}} cgroup\+\_\+rstat\+\_\+base\+\_\+cpu::\+last\+\_\+bstat}
+
+Snapshots at the last reading. These are used to calculate the deltas to propagate to the global counters. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00458}{458}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__rstat__base__cpu_a3d452fa6c712e3e17d72a1050e3fd064}\index{cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}!last\_subtree\_bstat@{last\_subtree\_bstat}}
+\index{last\_subtree\_bstat@{last\_subtree\_bstat}!cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}}
+\doxysubsubsection{\texorpdfstring{last\_subtree\_bstat}{last\_subtree\_bstat}}
+{\footnotesize\ttfamily \label{structcgroup__rstat__base__cpu_a3d452fa6c712e3e17d72a1050e3fd064} 
+struct \doxymbox{\hyperlink{structcgroup__base__stat}{cgroup\+\_\+base\+\_\+stat}} cgroup\+\_\+rstat\+\_\+base\+\_\+cpu::\+last\+\_\+subtree\+\_\+bstat}
+
+Snapshots at the last reading. These are used to calculate the deltas to propagate to the per-\/cpu subtree\+\_\+bstat. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00472}{472}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__rstat__base__cpu_a269cf167d55e4568ea257a2779931e07}\index{cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}!subtree\_bstat@{subtree\_bstat}}
+\index{subtree\_bstat@{subtree\_bstat}!cgroup\_rstat\_base\_cpu@{cgroup\_rstat\_base\_cpu}}
+\doxysubsubsection{\texorpdfstring{subtree\_bstat}{subtree\_bstat}}
+{\footnotesize\ttfamily \label{structcgroup__rstat__base__cpu_a269cf167d55e4568ea257a2779931e07} 
+struct \doxymbox{\hyperlink{structcgroup__base__stat}{cgroup\+\_\+base\+\_\+stat}} cgroup\+\_\+rstat\+\_\+base\+\_\+cpu::\+subtree\+\_\+bstat}
+
+This field is used to record the cumulative per-\/cpu time of the cgroup and its descendants. Currently it can be read via e\+BPF/\+drgn etc, and we are still trying to determine how to expose it in the cgroupfs interface. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00466}{466}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{cgroup-defs_8h}{cgroup-\/defs.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,120 @@
+\doxysection{oom.\+h}
+\hypertarget{oom_8h_source}{}\label{oom_8h_source}\index{include/linux/oom.h@{include/linux/oom.h}}
+\doxymbox{\hyperlink{oom_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00001}00001\ \textcolor{comment}{/*\ SPDX-\/License-\/Identifier:\ GPL-\/2.0\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00002}00002\ \textcolor{preprocessor}{\#ifndef\ \_\_INCLUDE\_LINUX\_OOM\_H}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00003}00003\ \textcolor{preprocessor}{\#define\ \_\_INCLUDE\_LINUX\_OOM\_H}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <linux/sched/signal.h>}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <linux/types.h>}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <linux/nodemask.h>}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <uapi/linux/oom.h>}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <linux/mm.h>}\ \textcolor{comment}{/*\ VM\_FAULT*\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00012}00012\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structzonelist}{zonelist}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00013}00013\ \textcolor{keyword}{struct\ }notifier\_block;}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00014}00014\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structmem__cgroup}{mem\_cgroup}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00015}00015\ \textcolor{keyword}{struct\ }task\_struct;}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00017}\doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65}{00017}}\ \textcolor{keyword}{enum}\ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65}{oom\_constraint}}\ \{}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00018}\doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e}{00018}}\ \ \ \ \ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65abae59f905f79cd900626a4ec0867974e}{CONSTRAINT\_NONE}},}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00019}\doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba}{00019}}\ \ \ \ \ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a486a57df37bc6fccf1cfba28eccc42ba}{CONSTRAINT\_CPUSET}},}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00020}\doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9}{00020}}\ \ \ \ \ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a5e9c35603bd6e16ac50ca9f6e3d562e9}{CONSTRAINT\_MEMORY\_POLICY}},}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00021}\doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026}{00021}}\ \ \ \ \ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65a10602b4f74322a1c8db6606dda757026}{CONSTRAINT\_MEMCG}},}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00022}00022\ \};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00024}00024\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00025}00025\ \textcolor{comment}{\ *\ Details\ of\ the\ page\ allocation\ that\ triggered\ the\ oom\ killer\ that\ are\ used\ to}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00026}00026\ \textcolor{comment}{\ *\ determine\ what\ should\ be\ killed.}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00027}00027\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00028}\doxymbox{\hyperlink{structoom__control}{00028}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structoom__control}{oom\_control}}\ \{}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00029}00029\ \ \ \ \ \textcolor{comment}{/*\ Used\ to\ determine\ cpuset\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00030}\doxymbox{\hyperlink{structoom__control_a1f0871350d03e641d73585714204c08c}{00030}}\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structoom__control_a1f0871350d03e641d73585714204c08c}{zonelist}}\ *\doxymbox{\hyperlink{structoom__control_a1f0871350d03e641d73585714204c08c}{zonelist}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00032}00032\ \ \ \ \ \textcolor{comment}{/*\ Used\ to\ determine\ mempolicy\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00033}\doxymbox{\hyperlink{structoom__control_a453b14030607f612ad6a08a46725f5c7}{00033}}\ \ \ \ \ nodemask\_t\ *\doxymbox{\hyperlink{structoom__control_a453b14030607f612ad6a08a46725f5c7}{nodemask}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00035}00035\ \ \ \ \ \textcolor{comment}{/*\ Memory\ cgroup\ in\ which\ oom\ is\ invoked,\ or\ NULL\ for\ global\ oom\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00036}\doxymbox{\hyperlink{structoom__control_a076b95f1c96859684dfd9676ff93e606}{00036}}\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structmem__cgroup}{mem\_cgroup}}\ *\doxymbox{\hyperlink{structoom__control_a076b95f1c96859684dfd9676ff93e606}{memcg}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00038}00038\ \ \ \ \ \textcolor{comment}{/*\ Used\ to\ determine\ cpuset\ and\ node\ locality\ requirement\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00039}\doxymbox{\hyperlink{structoom__control_ac0fa696227f3f57c02ee123ae6daa3a8}{00039}}\ \ \ \ \ \textcolor{keyword}{const}\ gfp\_t\ \doxymbox{\hyperlink{structoom__control_ac0fa696227f3f57c02ee123ae6daa3a8}{gfp\_mask}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00041}00041\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00042}00042\ \textcolor{comment}{\ \ \ \ \ *\ order\ ==\ -\/1\ means\ the\ oom\ kill\ is\ required\ by\ sysrq,\ otherwise\ only}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00043}00043\ \textcolor{comment}{\ \ \ \ \ *\ for\ display\ purposes.}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00044}00044\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00045}\doxymbox{\hyperlink{structoom__control_ac6dcee17ba7e32fbe6fa77aefaa7717f}{00045}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{structoom__control_ac6dcee17ba7e32fbe6fa77aefaa7717f}{order}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00047}00047\ \ \ \ \ \textcolor{comment}{/*\ Used\ by\ oom\ implementation,\ do\ not\ set\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00048}\doxymbox{\hyperlink{structoom__control_a9240dcf9b407a777c974ca4433d110ee}{00048}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structoom__control_a9240dcf9b407a777c974ca4433d110ee}{totalpages}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00049}\doxymbox{\hyperlink{structoom__control_a9daccb5f19503408ff6d384c5628361b}{00049}}\ \ \ \ \ \textcolor{keyword}{struct\ }task\_struct\ *\doxymbox{\hyperlink{structoom__control_a9daccb5f19503408ff6d384c5628361b}{chosen}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00050}\doxymbox{\hyperlink{structoom__control_aa014ede205b5a999090ea99fbfde2b72}{00050}}\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structoom__control_aa014ede205b5a999090ea99fbfde2b72}{chosen\_points}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00052}00052\ \ \ \ \ \textcolor{comment}{/*\ Used\ to\ print\ the\ constraint\ info.\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00053}\doxymbox{\hyperlink{structoom__control_a62dbc511b3d2829e824eff2fc510d05b}{00053}}\ \ \ \ \ \textcolor{keyword}{enum}\ \doxymbox{\hyperlink{oom_8h_ad80d2292b0b22cb3f4649dd7152a5f65}{oom\_constraint}}\ \doxymbox{\hyperlink{structoom__control_a62dbc511b3d2829e824eff2fc510d05b}{constraint}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00054}00054\ \};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00056}00056\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }mutex\ \doxymbox{\hyperlink{oom_8h_ab7d77c517a7ca9042d6355010e06982b}{oom\_lock}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00057}00057\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }mutex\ \doxymbox{\hyperlink{oom_8h_a8f24f28738dbd32c02aa07c5eb729f72}{oom\_adj\_mutex}};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00059}\doxymbox{\hyperlink{oom_8h_a7df1d6c0735c0afde6522850eb4c6118}{00059}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{oom_8h_a7df1d6c0735c0afde6522850eb4c6118}{set\_current\_oom\_origin}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00060}00060\ \{}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00061}00061\ \ \ \ \ current-\/>signal-\/>oom\_flag\_origin\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00064}\doxymbox{\hyperlink{oom_8h_a045ed2288edfd9aba0a40d3ecae4f1c7}{00064}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{oom_8h_a045ed2288edfd9aba0a40d3ecae4f1c7}{clear\_current\_oom\_origin}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00065}00065\ \{}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00066}00066\ \ \ \ \ current-\/>signal-\/>oom\_flag\_origin\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00067}00067\ \}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00069}\doxymbox{\hyperlink{oom_8h_a1a638b5613a7e9c2c40c3a39e2e14bd1}{00069}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{oom_8h_a1a638b5613a7e9c2c40c3a39e2e14bd1}{oom\_task\_origin}}(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ task\_struct\ *p)}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00070}00070\ \{}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{return}\ p-\/>signal-\/>oom\_flag\_origin;}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00074}\doxymbox{\hyperlink{oom_8h_ae8d0053df81087f748dfe29c704739a6}{00074}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{oom_8h_ae8d0053df81087f748dfe29c704739a6}{tsk\_is\_oom\_victim}}(\textcolor{keyword}{struct}\ task\_struct\ *\ tsk)}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00075}00075\ \{}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return}\ tsk-\/>signal-\/>oom\_mm;}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00079}00079\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00080}00080\ \textcolor{comment}{\ *\ Checks\ whether\ a\ page\ fault\ on\ the\ given\ mm\ is\ still\ reliable.}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00081}00081\ \textcolor{comment}{\ *\ This\ is\ no\ longer\ true\ if\ the\ oom\ reaper\ started\ to\ reap\ the}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00082}00082\ \textcolor{comment}{\ *\ address\ space\ which\ is\ reflected\ by\ MMF\_UNSTABLE\ flag\ set\ in}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00083}00083\ \textcolor{comment}{\ *\ the\ mm.\ At\ that\ moment\ any\ !shared\ mapping\ would\ lose\ the\ content}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00084}00084\ \textcolor{comment}{\ *\ and\ could\ cause\ a\ memory\ corruption\ (zero\ pages\ instead\ of\ the}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00085}00085\ \textcolor{comment}{\ *\ original\ content).}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00086}00086\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00087}00087\ \textcolor{comment}{\ *\ User\ should\ call\ this\ before\ establishing\ a\ page\ table\ entry\ for}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00088}00088\ \textcolor{comment}{\ *\ a\ !shared\ mapping\ and\ under\ the\ proper\ page\ table\ lock.}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00089}00089\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00090}00090\ \textcolor{comment}{\ *\ Return\ 0\ when\ the\ PF\ is\ safe\ VM\_FAULT\_SIGBUS\ otherwise.}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00091}00091\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00092}\doxymbox{\hyperlink{oom_8h_af859f490d2bf591f85132ba60dc530c7}{00092}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ vm\_fault\_t\ \doxymbox{\hyperlink{oom_8h_af859f490d2bf591f85132ba60dc530c7}{check\_stable\_address\_space}}(\textcolor{keyword}{struct}\ mm\_struct\ *mm)}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00093}00093\ \{}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (unlikely(mm\_flags\_test(MMF\_UNSTABLE,\ mm)))}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VM\_FAULT\_SIGBUS;}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00097}00097\ \}}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00099}00099\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{oom_8h_ae4e11cec487474b4125f554a190216be}{oom\_badness}}(\textcolor{keyword}{struct}\ task\_struct\ *p,}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ totalpages);}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00102}00102\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{oom_8h_ac9d9325ddb79f52e4f7a6006eb42d9af}{out\_of\_memory}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structoom__control}{oom\_control}}\ *oc);}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00104}00104\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{oom_8h_ac9cee488548f07bc19f46df22e914374}{exit\_oom\_victim}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00106}00106\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{oom_8h_a2aead0e1e9e533753e3ce1833078d482}{register\_oom\_notifier}}(\textcolor{keyword}{struct}\ notifier\_block\ *nb);}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00107}00107\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{oom_8h_ae00ee46e52e5e22872a1c9e1e50ce21a}{unregister\_oom\_notifier}}(\textcolor{keyword}{struct}\ notifier\_block\ *nb);}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00109}00109\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{oom_8h_ab628c96ff638a785d9fa8e71ad6d190f}{oom\_killer\_disable}}(\textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{long}\ timeout);}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00110}00110\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{oom_8h_a4f44936c61a212e79f10ca36de616e69}{oom\_killer\_enable}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00112}00112\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }task\_struct\ *\doxymbox{\hyperlink{oom_8h_a63add4ec9a8055221f83d425aae186b3}{find\_lock\_task\_mm}}(\textcolor{keyword}{struct}\ task\_struct\ *p);}
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{oom_8h_source_l00114}00114\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_INCLUDE\_LINUX\_OOM\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

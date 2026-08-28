@@ -1,6 +1,12 @@
 var genalloc_8c =
 [
+    [ "bitmap_clear_ll", "genalloc_8c.html#a7980772fd92ca024173bc874aa1e57b2", null ],
+    [ "bitmap_set_ll", "genalloc_8c.html#a03d24dd11c59191e1ed2d4971903591f", null ],
+    [ "chunk_size", "genalloc_8c.html#a825cdd577934de7258cbece402ea50d4", null ],
+    [ "clear_bits_ll", "genalloc_8c.html#ae4aa9ea8cb8f6c4e170575625ed2a33d", null ],
     [ "devm_gen_pool_create", "genalloc_8c.html#a5c0953e104f4c45ab25e35ae88df4bde", null ],
+    [ "devm_gen_pool_match", "genalloc_8c.html#a1e5611077e275ccd5b82cd7468ebfb8d", null ],
+    [ "devm_gen_pool_release", "genalloc_8c.html#a661ce632cea21daf59885b460acde75b", null ],
     [ "EXPORT_SYMBOL", "genalloc_8c.html#a44449d906a51475fb47a61727b6b2518", null ],
     [ "EXPORT_SYMBOL", "genalloc_8c.html#addb1d23cacff7b59b2a9981cf4674094", null ],
     [ "EXPORT_SYMBOL", "genalloc_8c.html#ab577817b792cd26ea98648d2f48b1c1f", null ],
@@ -25,6 +31,7 @@ var genalloc_8c =
     [ "EXPORT_SYMBOL_GPL", "genalloc_8c.html#a8f80c8c38dfcf3fa4a2a091a58b92f32", null ],
     [ "EXPORT_SYMBOL_GPL", "genalloc_8c.html#a8e9a83e523177a50a5272bd52f1ed6d9", null ],
     [ "EXPORT_SYMBOL_GPL", "genalloc_8c.html#a35767a894404f4a51cb30c7ee478252b", null ],
+    [ "EXPORT_SYMBOL_GPL", "genalloc_8c.html#ad3897987271bd9c4d4d4a71f9ee359e6", null ],
     [ "gen_pool_add_owner", "genalloc_8c.html#af26ca348a95c76b067e1daf93fbf2cb2", null ],
     [ "gen_pool_alloc_algo_owner", "genalloc_8c.html#a82613a35becfc3fe664a8cc55b28d858", null ],
     [ "gen_pool_avail", "genalloc_8c.html#a4f03a30b73c9da35f88852a5f1e8e8cb", null ],
@@ -47,5 +54,7 @@ var genalloc_8c =
     [ "gen_pool_has_addr", "genalloc_8c.html#ab1cda6c64f32b28965c4f0e44b48622b", null ],
     [ "gen_pool_set_algo", "genalloc_8c.html#a01f03aede4b699df122f62d1e75da65f", null ],
     [ "gen_pool_size", "genalloc_8c.html#af996168b8d9fa37a37b837fb65cc8e7f", null ],
-    [ "gen_pool_virt_to_phys", "genalloc_8c.html#ae1e0cbb9c097e2231bdc2b6fb95b72f1", null ]
+    [ "gen_pool_virt_to_phys", "genalloc_8c.html#ae1e0cbb9c097e2231bdc2b6fb95b72f1", null ],
+    [ "of_gen_pool_get", "genalloc_8c.html#a35481ce6de372a867c5cf13756b27245", null ],
+    [ "set_bits_ll", "genalloc_8c.html#a372d29a21bda9d9068fc55ca0a103264", null ]
 ];

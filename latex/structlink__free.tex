@@ -1,0 +1,58 @@
+\doxysection{link\+\_\+free Struct Reference}
+\hypertarget{structlink__free}{}\label{structlink__free}\index{link\_free@{link\_free}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>unsigned long \doxymbox{\hyperlink{structlink__free_a477d6f4f40a3b0f554827c3ae47273b3}{next}}\\
+\>unsigned long \doxymbox{\hyperlink{structlink__free_a4a66f8d1d4be29812c70d70d558dde0b}{handle}}\\
+\}; \\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Placed within free objects to form a singly linked list. For every zspage, zspage-\/\texorpdfstring{$>$}{>}freeobj gives head of this list.
+
+This must be power of 2 and less than or equal to ZS\+\_\+\+ALIGN
+
+struct Description:\+ This structure is placed within free objects to form a singly linked list of free objects in a zspage. It contains either the next free object index (for free objects) or the handle of allocated objects. It is used to maintain the freelist within each zspage. 
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00197}{197}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+
+
+\label{structlink__free_doc-variable-members}
+\Hypertarget{structlink__free_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structlink__free_a30219330895925a4de6e5b4b7648006d}\doxysubsubsection{\texorpdfstring{[union]}{[union]}}
+{\footnotesize\ttfamily \label{structlink__free_a30219330895925a4de6e5b4b7648006d} 
+union  \{ ... \}  \doxymbox{\hyperlink{structlink__free}{link\+\_\+free}}}
+
+\Hypertarget{structlink__free_a4a66f8d1d4be29812c70d70d558dde0b}\index{link\_free@{link\_free}!handle@{handle}}
+\index{handle@{handle}!link\_free@{link\_free}}
+\doxysubsubsection{\texorpdfstring{handle}{handle}}
+{\footnotesize\ttfamily \label{structlink__free_a4a66f8d1d4be29812c70d70d558dde0b} 
+unsigned long link\+\_\+free::\+handle}
+
+Handle of allocated object. 
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00207}{207}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structlink__free_a477d6f4f40a3b0f554827c3ae47273b3}\index{link\_free@{link\_free}!next@{next}}
+\index{next@{next}!link\_free@{link\_free}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily \label{structlink__free_a477d6f4f40a3b0f554827c3ae47273b3} 
+unsigned long link\+\_\+free::\+next}
+
+Free object index; It\textquotesingle{}s valid for non-\/allocated object 
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00203}{203}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{zsmalloc_8c}{zsmalloc.\+c}}\end{DoxyCompactItemize}

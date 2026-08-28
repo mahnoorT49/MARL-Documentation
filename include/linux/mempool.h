@@ -12,13 +12,23 @@
 
 struct kmem_cache;
 
+/**
+ * Typedef Description: This is a function pointer type for allocation functions used by a mempool. It takes a gfp_mask and pool_data as arguments and returns a pointer to the allocated element. This allows mempools to use different allocation strategies (like slab, kmalloc, or page allocator).
+ */
 typedef void * (mempool_alloc_t)(gfp_t gfp_mask, void *pool_data);
+
+/**
+ * Typedef Description: This is a function pointer type for free functions used by a mempool. It takes an element pointer and pool_data as arguments and frees the element back to the system. This pairs with the allocation function to manage element lifecycle.
+ */
 typedef void (mempool_free_t)(void *element, void *pool_data);
 
+/**
+ * struct Description: This is the main structure representing a memory buffer pool. It contains a lock for protection, the minimum and current number of elements, an array of element pointers, pool-specific data, and allocation/free function pointers. It is used to maintain a reserve of preallocated memory elements to guarantee that allocations never fail.  
+ */
 typedef struct mempool {
 	spinlock_t lock;
-	int min_nr;		/* nr of elements at *elements */
-	int curr_nr;		/* Current nr of elements at *elements */
+	int min_nr;		/** nr of elements at *elements */
+	int curr_nr;		/** Current nr of elements at *elements */
 	void **elements;
 
 	void *pool_data;
@@ -27,11 +37,17 @@ typedef struct mempool {
 	wait_queue_head_t wait;
 } mempool_t;
 
+/**
+ * Function Description: Checks if a mempool has been initialized. Returns true if the elements array is not NULL. This is used to verify that a mempool is ready for use.
+ */
 static inline bool mempool_initialized(struct mempool *pool)
 {
 	return pool->elements != NULL;
 }
 
+/**
+ * Function Description: Checks if a mempool is saturated, meaning it has at least the minimum number of elements available. Returns true if current elements count is at least the minimum. This indicates the pool has enough reserve elements.
+ */
 static inline bool mempool_is_saturated(struct mempool *pool)
 {
 	return READ_ONCE(pool->curr_nr) >= pool->min_nr;

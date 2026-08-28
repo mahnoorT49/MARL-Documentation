@@ -120,15 +120,25 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structcgrp__cs
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for cgrp_cset_link:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structcgrp__cset__link__coll__graph.svg" width="1423" height="520"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a4167d94d2a6e355860697ba8b546beb8" id="r_a4167d94d2a6e355860697ba8b546beb8"><td class="memItemLeft">struct cgroup *&#160;</td><td class="memItemRight"><a class="el" href="#a4167d94d2a6e355860697ba8b546beb8">cgrp</a></td></tr>
-<tr class="memitem:a0217cb14a63a2b33cc5c2a0030098789" id="r_a0217cb14a63a2b33cc5c2a0030098789"><td class="memItemLeft">struct css_set *&#160;</td><td class="memItemRight"><a class="el" href="#a0217cb14a63a2b33cc5c2a0030098789">cset</a></td></tr>
+<tr class="memitem:a4167d94d2a6e355860697ba8b546beb8" id="r_a4167d94d2a6e355860697ba8b546beb8"><td class="memItemLeft">struct <a class="el" href="structcgroup.html">cgroup</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a4167d94d2a6e355860697ba8b546beb8">cgrp</a></td></tr>
+<tr class="memitem:a0217cb14a63a2b33cc5c2a0030098789" id="r_a0217cb14a63a2b33cc5c2a0030098789"><td class="memItemLeft">struct <a class="el" href="structcss__set.html">css_set</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0217cb14a63a2b33cc5c2a0030098789">cset</a></td></tr>
 <tr class="memitem:afaeef19a7009e6ab415ab73ff74e053a" id="r_afaeef19a7009e6ab415ab73ff74e053a"><td class="memItemLeft">struct list_head&#160;</td><td class="memItemRight"><a class="el" href="#afaeef19a7009e6ab415ab73ff74e053a">cset_link</a></td></tr>
 <tr class="memitem:a9a56080d7f5d0e66061ab3a20b42f0d2" id="r_a9a56080d7f5d0e66061ab3a20b42f0d2"><td class="memItemLeft">struct list_head&#160;</td><td class="memItemRight"><a class="el" href="#a9a56080d7f5d0e66061ab3a20b42f0d2">cgrp_link</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A cgroup can be associated with multiple css_sets as different tasks may belong to different cgroups on different hierarchies. In the other direction, a <a class="el" href="structcss__set.html">css_set</a> is naturally associated with multiple cgroups. This M:N relationship is represented by the following link structure which exists for each association and allows traversing the associations from both sides.</p>
+<p>struct Description: This structure represents the association between a cgroup and a <a class="el" href="structcss__set.html">css_set</a>. It contains pointers to both the cgroup and <a class="el" href="structcss__set.html">css_set</a>, and links into both the cgroup's cset_links list and the <a class="el" href="structcss__set.html">css_set</a>'s cgrp_links list. This enables traversal of the M:N relationship between cgroups and css_sets. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00109">109</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a4167d94d2a6e355860697ba8b546beb8" name="a4167d94d2a6e355860697ba8b546beb8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4167d94d2a6e355860697ba8b546beb8">&#9670;&#160;</a></span>cgrp</h2>
 
@@ -136,10 +146,13 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct cgroup* cgrp_cset_link::cgrp</td>
+          <td class="memname">struct <a class="el" href="structcgroup.html">cgroup</a>* cgrp_cset_link::cgrp</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>the cgroup and <a class="el" href="structcss__set.html">css_set</a> this link associates </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00111">111</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -154,6 +167,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>list of cgrp_cset_links anchored at css_set-&gt;cgrp_links </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00118">118</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -164,10 +180,12 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct css_set* cgrp_cset_link::cset</td>
+          <td class="memname">struct <a class="el" href="structcss__set.html">css_set</a>* cgrp_cset_link::cset</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00112">112</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -182,6 +200,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>list of cgrp_cset_links anchored at cgrp-&gt;cset_links </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00115">115</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>

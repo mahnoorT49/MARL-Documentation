@@ -121,55 +121,64 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structlruvec__
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa65f824f084657470811a2c05e181565" id="r_aa65f824f084657470811a2c05e181565"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#aa65f824f084657470811a2c05e181565">state</a> [<a class="el" href="memcontrol_8c.html#a538f58edf1ed90503cdff090ca60a8c3">NR_MEMCG_NODE_STAT_ITEMS</a>]</td></tr>
-<tr class="memitem:a0a71b6d59c7b97fa491b5e7661b1878b" id="r_a0a71b6d59c7b97fa491b5e7661b1878b"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#a0a71b6d59c7b97fa491b5e7661b1878b">state_local</a> [<a class="el" href="memcontrol_8c.html#a538f58edf1ed90503cdff090ca60a8c3">NR_MEMCG_NODE_STAT_ITEMS</a>]</td></tr>
-<tr class="memitem:ae5eebfc342f1cc068d722e5f670cd28e" id="r_ae5eebfc342f1cc068d722e5f670cd28e"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#ae5eebfc342f1cc068d722e5f670cd28e">state_pending</a> [<a class="el" href="memcontrol_8c.html#a538f58edf1ed90503cdff090ca60a8c3">NR_MEMCG_NODE_STAT_ITEMS</a>]</td></tr>
+<tr class="memitem:aefa2d53591b0201a5b4402524443c739" id="r_aefa2d53591b0201a5b4402524443c739"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#aefa2d53591b0201a5b4402524443c739">state</a> [ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)]</td></tr>
+<tr class="memitem:a870a369fe3feb4dbe110587f26df04c5" id="r_a870a369fe3feb4dbe110587f26df04c5"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#a870a369fe3feb4dbe110587f26df04c5">state_local</a> [ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)]</td></tr>
+<tr class="memitem:a33f819a62b0ee90e865753547799d8f1" id="r_a33f819a62b0ee90e865753547799d8f1"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#a33f819a62b0ee90e865753547799d8f1">state_pending</a> [ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)]</td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="aa65f824f084657470811a2c05e181565" name="aa65f824f084657470811a2c05e181565"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa65f824f084657470811a2c05e181565">&#9670;&#160;</a></span>state</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00382">382</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="aefa2d53591b0201a5b4402524443c739" name="aefa2d53591b0201a5b4402524443c739"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefa2d53591b0201a5b4402524443c739">&#9670;&#160;</a></span>state</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long lruvec_stats::state[<a class="el" href="memcontrol_8c.html#a538f58edf1ed90503cdff090ca60a8c3">NR_MEMCG_NODE_STAT_ITEMS</a>]</td>
+          <td class="memname">long lruvec_stats::state[ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00384">384</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
-<a id="a0a71b6d59c7b97fa491b5e7661b1878b" name="a0a71b6d59c7b97fa491b5e7661b1878b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a71b6d59c7b97fa491b5e7661b1878b">&#9670;&#160;</a></span>state_local</h2>
+<a id="a870a369fe3feb4dbe110587f26df04c5" name="a870a369fe3feb4dbe110587f26df04c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a870a369fe3feb4dbe110587f26df04c5">&#9670;&#160;</a></span>state_local</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long lruvec_stats::state_local[<a class="el" href="memcontrol_8c.html#a538f58edf1ed90503cdff090ca60a8c3">NR_MEMCG_NODE_STAT_ITEMS</a>]</td>
+          <td class="memname">long lruvec_stats::state_local[ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00387">387</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
-<a id="ae5eebfc342f1cc068d722e5f670cd28e" name="ae5eebfc342f1cc068d722e5f670cd28e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5eebfc342f1cc068d722e5f670cd28e">&#9670;&#160;</a></span>state_pending</h2>
+<a id="a33f819a62b0ee90e865753547799d8f1" name="a33f819a62b0ee90e865753547799d8f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f819a62b0ee90e865753547799d8f1">&#9670;&#160;</a></span>state_pending</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long lruvec_stats::state_pending[<a class="el" href="memcontrol_8c.html#a538f58edf1ed90503cdff090ca60a8c3">NR_MEMCG_NODE_STAT_ITEMS</a>]</td>
+          <td class="memname">long lruvec_stats::state_pending[ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00390">390</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="memcontrol_8c.html">memcontrol.c</a></li>
+<li>mm/<a class="el" href="memcontrol_8c_source.html">memcontrol.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,0 +1,128 @@
+\doxysection{cgroup\+\_\+pidlist Struct Reference}
+\hypertarget{structcgroup__pidlist}{}\label{structcgroup__pidlist}\index{cgroup\_pidlist@{cgroup\_pidlist}}
+
+
+Collaboration diagram for cgroup\+\_\+pidlist:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcgroup__pidlist__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>enum \doxymbox{\hyperlink{cgroup-v1_8c_aa47db798b80e12173425c215f563e05c}{cgroup\_filetype}} \doxymbox{\hyperlink{structcgroup__pidlist_a2732f4d180392492aedcf40e10a10b47}{type}}\\
+\>struct pid\_namespace \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__pidlist_a94d62a28e06f26486f43ba3d9e07305d}{ns}}\\
+\} \doxymbox{\hyperlink{structcgroup__pidlist_a09fe7208d7a4cea44c0e8dc3b9033851}{key}}\\
+
+\end{tabbing}\item 
+pid\+\_\+t \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__pidlist_ab0771a2b05310f80cbad0dc1448fe710}{list}}
+\item 
+int \doxymbox{\hyperlink{structcgroup__pidlist_adb52462ce67473a76d3f822043459cc0}{length}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structcgroup__pidlist_ad7adb66d2789c727cc67ae64254cb12b}{links}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup}{cgroup}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__pidlist_ade4ad136cb50283e3f32b0bb37d6134b}{owner}}
+\item 
+struct delayed\+\_\+work \doxymbox{\hyperlink{structcgroup__pidlist_ae1e532f854d5773f0241f16fce511671}{destroy\+\_\+dwork}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A pidlist is a list of pids that virtually represents the contents of one of the cgroup files ("{}procs"{} or "{}tasks"{}). We keep a list of such pidlists, a pair (one each for procs, tasks) for each pid namespace that\textquotesingle{}s relevant to the cgroup.
+
+struct Description:\+ This structure holds a list of PIDs for a cgroup\textquotesingle{}s "{}tasks"{} or "{}procs"{} file. It contains the key (type and namespace), the array of PIDs, length, links for list management, owner cgroup, and a delayed work for destruction. It is used to cache the list of processes in a cgroup for efficient reading. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-v1_8c_source_l00203}{203}} of file \doxymbox{\hyperlink{cgroup-v1_8c_source}{cgroup-\/v1.\+c}}.
+
+
+
+\label{structcgroup__pidlist_doc-variable-members}
+\Hypertarget{structcgroup__pidlist_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcgroup__pidlist_ae1e532f854d5773f0241f16fce511671}\index{cgroup\_pidlist@{cgroup\_pidlist}!destroy\_dwork@{destroy\_dwork}}
+\index{destroy\_dwork@{destroy\_dwork}!cgroup\_pidlist@{cgroup\_pidlist}}
+\doxysubsubsection{\texorpdfstring{destroy\_dwork}{destroy\_dwork}}
+{\footnotesize\ttfamily \label{structcgroup__pidlist_ae1e532f854d5773f0241f16fce511671} 
+struct delayed\+\_\+work cgroup\+\_\+pidlist::\+destroy\+\_\+dwork}
+
+for delayed destruction 
+
+Definition at line \doxymbox{\hyperlink{cgroup-v1_8c_source_l00218}{218}} of file \doxymbox{\hyperlink{cgroup-v1_8c_source}{cgroup-\/v1.\+c}}.
+
+\Hypertarget{structcgroup__pidlist_a09fe7208d7a4cea44c0e8dc3b9033851}\index{cgroup\_pidlist@{cgroup\_pidlist}!key@{key}}
+\index{key@{key}!cgroup\_pidlist@{cgroup\_pidlist}}
+\doxysubsubsection{\texorpdfstring{[struct]}{[struct]}}
+{\footnotesize\ttfamily \label{structcgroup__pidlist_a09fe7208d7a4cea44c0e8dc3b9033851} 
+struct  \{ ... \}  cgroup\+\_\+pidlist::\+key}
+
+used to find which pidlist is wanted. doesn\textquotesingle{}t change as long as this particular list stays in the list. \Hypertarget{structcgroup__pidlist_adb52462ce67473a76d3f822043459cc0}\index{cgroup\_pidlist@{cgroup\_pidlist}!length@{length}}
+\index{length@{length}!cgroup\_pidlist@{cgroup\_pidlist}}
+\doxysubsubsection{\texorpdfstring{length}{length}}
+{\footnotesize\ttfamily \label{structcgroup__pidlist_adb52462ce67473a76d3f822043459cc0} 
+int cgroup\+\_\+pidlist::\+length}
+
+how many elements the above list has 
+
+Definition at line \doxymbox{\hyperlink{cgroup-v1_8c_source_l00212}{212}} of file \doxymbox{\hyperlink{cgroup-v1_8c_source}{cgroup-\/v1.\+c}}.
+
+\Hypertarget{structcgroup__pidlist_ad7adb66d2789c727cc67ae64254cb12b}\index{cgroup\_pidlist@{cgroup\_pidlist}!links@{links}}
+\index{links@{links}!cgroup\_pidlist@{cgroup\_pidlist}}
+\doxysubsubsection{\texorpdfstring{links}{links}}
+{\footnotesize\ttfamily \label{structcgroup__pidlist_ad7adb66d2789c727cc67ae64254cb12b} 
+struct list\+\_\+head cgroup\+\_\+pidlist::\+links}
+
+each of these stored in a list by its cgroup 
+
+Definition at line \doxymbox{\hyperlink{cgroup-v1_8c_source_l00214}{214}} of file \doxymbox{\hyperlink{cgroup-v1_8c_source}{cgroup-\/v1.\+c}}.
+
+\Hypertarget{structcgroup__pidlist_ab0771a2b05310f80cbad0dc1448fe710}\index{cgroup\_pidlist@{cgroup\_pidlist}!list@{list}}
+\index{list@{list}!cgroup\_pidlist@{cgroup\_pidlist}}
+\doxysubsubsection{\texorpdfstring{list}{list}}
+{\footnotesize\ttfamily \label{structcgroup__pidlist_ab0771a2b05310f80cbad0dc1448fe710} 
+pid\+\_\+t\texorpdfstring{$\ast$}{*} cgroup\+\_\+pidlist::\+list}
+
+array of xids 
+
+Definition at line \doxymbox{\hyperlink{cgroup-v1_8c_source_l00210}{210}} of file \doxymbox{\hyperlink{cgroup-v1_8c_source}{cgroup-\/v1.\+c}}.
+
+\Hypertarget{structcgroup__pidlist_a94d62a28e06f26486f43ba3d9e07305d}\index{cgroup\_pidlist@{cgroup\_pidlist}!ns@{ns}}
+\index{ns@{ns}!cgroup\_pidlist@{cgroup\_pidlist}}
+\doxysubsubsection{\texorpdfstring{ns}{ns}}
+{\footnotesize\ttfamily \label{structcgroup__pidlist_a94d62a28e06f26486f43ba3d9e07305d} 
+struct pid\+\_\+namespace\texorpdfstring{$\ast$}{*} cgroup\+\_\+pidlist::\+ns}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-v1_8c_source_l00208}{208}} of file \doxymbox{\hyperlink{cgroup-v1_8c_source}{cgroup-\/v1.\+c}}.
+
+\Hypertarget{structcgroup__pidlist_ade4ad136cb50283e3f32b0bb37d6134b}\index{cgroup\_pidlist@{cgroup\_pidlist}!owner@{owner}}
+\index{owner@{owner}!cgroup\_pidlist@{cgroup\_pidlist}}
+\doxysubsubsection{\texorpdfstring{owner}{owner}}
+{\footnotesize\ttfamily \label{structcgroup__pidlist_ade4ad136cb50283e3f32b0bb37d6134b} 
+struct \doxymbox{\hyperlink{structcgroup}{cgroup}}\texorpdfstring{$\ast$}{*} cgroup\+\_\+pidlist::\+owner}
+
+pointer to the cgroup we belong to, for list removal purposes 
+
+Definition at line \doxymbox{\hyperlink{cgroup-v1_8c_source_l00216}{216}} of file \doxymbox{\hyperlink{cgroup-v1_8c_source}{cgroup-\/v1.\+c}}.
+
+\Hypertarget{structcgroup__pidlist_a2732f4d180392492aedcf40e10a10b47}\index{cgroup\_pidlist@{cgroup\_pidlist}!type@{type}}
+\index{type@{type}!cgroup\_pidlist@{cgroup\_pidlist}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily \label{structcgroup__pidlist_a2732f4d180392492aedcf40e10a10b47} 
+enum \doxymbox{\hyperlink{cgroup-v1_8c_aa47db798b80e12173425c215f563e05c}{cgroup\+\_\+filetype}} cgroup\+\_\+pidlist::\+type}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-v1_8c_source_l00208}{208}} of file \doxymbox{\hyperlink{cgroup-v1_8c_source}{cgroup-\/v1.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+kernel/\+cgroup/\+\doxymbox{\hyperlink{cgroup-v1_8c}{cgroup-\/v1.\+c}}\end{DoxyCompactItemize}

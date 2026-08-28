@@ -39,12 +39,17 @@
 #ifdef CONFIG_SLUB_DEBUG_ON
 #define DMAPOOL_DEBUG 1
 #endif
-
+/**
+ * struct Description: This structure represents a single block of memory within a DMA pool. It contains a pointer to the next free block (forming a singly-linked list of free blocks) and the DMA address of the block. It is embedded at the start of each free block to track availability.
+ */
 struct dma_block {
 	struct dma_block *next_block;
 	dma_addr_t dma;
 };
 
+/**
+ * struct Description: This is the main structure representing a DMA pool. It contains the list of pages, a spinlock for protection, the free block list, counters for blocks and active allocations, the device pointer, block size, allocation size, boundary, NUMA node, pool name, and list linkage. It manages a set of DMA-coherent memory blocks of a fixed size.
+ */
 struct dma_pool {		/* the pool */
 	struct list_head page_list;
 	spinlock_t lock;
@@ -61,6 +66,9 @@ struct dma_pool {		/* the pool */
 	struct list_head pools;
 };
 
+/**
+ * struct Description: This structure represents a page of memory allocated for a DMA pool. It contains the page list linkage, the virtual address of the page, and the DMA address. Each page is split into multiple blocks of the pool's size.
+ */
 struct dma_page {		/* cacheable header for 'allocation' bytes */
 	struct list_head page_list;
 	void *vaddr;
@@ -70,6 +78,9 @@ struct dma_page {		/* cacheable header for 'allocation' bytes */
 static DEFINE_MUTEX(pools_lock);
 static DEFINE_MUTEX(pools_reg_lock);
 
+/**
+ * Function Description: Show handler for the pools sysfs file. It iterates through all DMA pools associated with a device and prints pool information including name, active blocks, total blocks, block size, and number of pages. Returns the size of the output buffer.
+ */
 static ssize_t pools_show(struct device *dev, struct device_attribute *attr, char *buf)
 {
 	struct dma_pool *pool;
@@ -93,6 +104,10 @@ static ssize_t pools_show(struct device *dev, struct device_attribute *attr, cha
 static DEVICE_ATTR_RO(pools);
 
 #ifdef DMAPOOL_DEBUG
+
+/**
+ * Function Description: Debug function that checks a block for corruption. It scans the block's data area (after the dma_block header) for the POOL_POISON_FREED pattern. If any byte is not poisoned, it prints a corruption error and dumps the block's contents. Used when DMAPOOL_DEBUG is enabled.
+ */
 static void pool_check_block(struct dma_pool *pool, struct dma_block *block,
 			     gfp_t mem_flags)
 {
@@ -118,6 +133,9 @@ static void pool_check_block(struct dma_pool *pool, struct dma_block *block,
 		memset(block, POOL_POISON_ALLOCATED, pool->size);
 }
 
+/**
+ * Function Description: Finds the dma_page structure that contains a given DMA address. It searches through the pool's page list and returns the page if the address falls within its range. Used for debugging to validate free operations.
+ */
 static struct dma_page *pool_find_page(struct dma_pool *pool, dma_addr_t dma)
 {
 	struct dma_page *page;
@@ -131,6 +149,9 @@ static struct dma_page *pool_find_page(struct dma_pool *pool, dma_addr_t dma)
 	return NULL;
 }
 
+/**
+ * Function Description: Debug function that validates a block before freeing. It checks that the DMA address corresponds to a valid page and that the block is not already in the free list. If any error is found, it prints an error message and returns true. Otherwise, it poisons the block and returns false.
+ */
 static bool pool_block_err(struct dma_pool *pool, void *vaddr, dma_addr_t dma)
 {
 	struct dma_block *block = pool->next_block;
@@ -157,6 +178,9 @@ static bool pool_block_err(struct dma_pool *pool, void *vaddr, dma_addr_t dma)
 	return false;
 }
 
+/**
+ * Function Description: Initializes a new page by filling it with the POOL_POISON_FREED pattern. Used for debugging to detect use-after-free errors. When DMAPOOL_DEBUG is disabled, this function does nothing.
+ */
 static void pool_init_page(struct dma_pool *pool, struct dma_page *page)
 {
 	memset(page->vaddr, POOL_POISON_FREED, pool->allocation);
@@ -167,6 +191,9 @@ static void pool_check_block(struct dma_pool *pool, struct dma_block *block,
 {
 }
 
+/**
+ * Function Description: Pops a block from the pool's free list. It removes the first block from pool->next_block, increments the active count, and returns the block. Returns NULL if no free blocks are available.
+ */
 static bool pool_block_err(struct dma_pool *pool, void *vaddr, dma_addr_t dma)
 {
 	if (want_init_on_free())
@@ -190,6 +217,10 @@ static struct dma_block *pool_block_pop(struct dma_pool *pool)
 	return block;
 }
 
+
+/**
+ * Function Description: Pushes a block onto the pool's free list. It sets the block's DMA address, links it to the current free list head, and updates pool->next_block to point to this block.
+ */
 static void pool_block_push(struct dma_pool *pool, struct dma_block *block,
 			    dma_addr_t dma)
 {
@@ -222,6 +253,9 @@ static void pool_block_push(struct dma_pool *pool, struct dma_block *block,
  *
  * Return: a dma allocation pool with the requested characteristics, or
  * %NULL if one can't be created.
+ * 
+ * 
+ * Function Description: Creates a new DMA pool on a specific NUMA node. It allocates and initializes the pool structure, validates parameters (size, align, boundary), and adds the pool to the device's list. If this is the first pool for the device, it creates the pools sysfs file. Returns the pool or NULL on failure.
  */
 struct dma_pool *dma_pool_create_node(const char *name, struct device *dev,
 		size_t size, size_t align, size_t boundary, int node)
@@ -300,6 +334,9 @@ struct dma_pool *dma_pool_create_node(const char *name, struct device *dev,
 }
 EXPORT_SYMBOL(dma_pool_create_node);
 
+/**
+ * Function Description: Initializes a newly allocated page by splitting it into blocks of the pool's size. It walks through the page, creates dma_block structures for each block, links them into the free list, and adds the page to the pool's page list. Handles boundary alignment by skipping regions that would cross boundaries.
+ */
 static void pool_initialise_page(struct dma_pool *pool, struct dma_page *page)
 {
 	unsigned int next_boundary = pool->boundary, offset = 0;
@@ -334,6 +371,9 @@ static void pool_initialise_page(struct dma_pool *pool, struct dma_page *page)
 	pool->nr_pages++;
 }
 
+/**
+ * Function Description: Allocates a new page for a DMA pool. It allocates a dma_page structure and uses dma_alloc_coherent() to get DMA-coherent memory. Returns the page structure or NULL on failure.
+ */
 static struct dma_page *pool_alloc_page(struct dma_pool *pool, gfp_t mem_flags)
 {
 	struct dma_page *page;
@@ -359,6 +399,9 @@ static struct dma_page *pool_alloc_page(struct dma_pool *pool, gfp_t mem_flags)
  *
  * Caller guarantees that no more memory from the pool is in use,
  * and that nothing will try to use the pool after this call.
+ * 
+ * 
+ * Function Description: Destroys a DMA pool and frees all associated memory. It removes the pool from the device's list, removes the sysfs file if this was the last pool, and frees all pages. If there are active allocations, it prints a warning but still frees the pages.
  */
 void dma_pool_destroy(struct dma_pool *pool)
 {
@@ -403,6 +446,9 @@ EXPORT_SYMBOL(dma_pool_destroy);
  * Return: the kernel virtual address of a currently unused block,
  * and reports its dma address through the handle.
  * If such a memory block can't be allocated, %NULL is returned.
+ * 
+ * 
+ * Function Description: Allocates a block of DMA-coherent memory from the pool. It pops a block from the free list. If no free blocks are available, it allocates a new page and initializes it. Returns the virtual address of the block and sets the DMA handle. The block may be zeroed if __GFP_ZERO is set.
  */
 void *dma_pool_alloc(struct dma_pool *pool, gfp_t mem_flags,
 		     dma_addr_t *handle)
@@ -449,6 +495,9 @@ EXPORT_SYMBOL(dma_pool_alloc);
  *
  * Caller promises neither device nor driver will again touch this block
  * unless it is first re-allocated.
+ * 
+ * 
+ * Function Description: Frees a block back to the DMA pool. It validates the block (if debugging is enabled), pushes it onto the free list, and decrements the active count. The caller must ensure the block is not used after freeing.
  */
 void dma_pool_free(struct dma_pool *pool, void *vaddr, dma_addr_t dma)
 {
@@ -464,8 +513,11 @@ void dma_pool_free(struct dma_pool *pool, void *vaddr, dma_addr_t dma)
 }
 EXPORT_SYMBOL(dma_pool_free);
 
-/*
+/**
  * Managed DMA pool
+ * 
+ * 
+ * Function Description: Release function for managed DMA pools. It is called automatically when a device is removed and destroys the DMA pool. This is the cleanup callback for devres-managed pools.
  */
 static void dmam_pool_release(struct device *dev, void *res)
 {
@@ -474,6 +526,10 @@ static void dmam_pool_release(struct device *dev, void *res)
 	dma_pool_destroy(pool);
 }
 
+
+/**
+ * Function Description: Match function for managed DMA pools. It compares the pool pointer in the resource with the match data. Used by devres_release() to find the correct resource.
+ */
 static int dmam_pool_match(struct device *dev, void *res, void *match_data)
 {
 	return *(struct dma_pool **)res == match_data;
@@ -492,6 +548,9 @@ static int dmam_pool_match(struct device *dev, void *res, void *match_data)
  *
  * Return: a managed dma allocation pool with the requested
  * characteristics, or %NULL if one can't be created.
+ * 
+ * 
+ * Function Description: Creates a managed DMA pool that is automatically destroyed when the device is removed. It allocates devres storage, creates the pool, and adds it to the device's managed resources. Returns the pool or NULL on failure.
  */
 struct dma_pool *dmam_pool_create(const char *name, struct device *dev,
 				  size_t size, size_t align, size_t allocation)
@@ -517,6 +576,9 @@ EXPORT_SYMBOL(dmam_pool_create);
  * @pool: dma pool that will be destroyed
  *
  * Managed dma_pool_destroy().
+ * 
+ * 
+ * Function Description: Destroys a managed DMA pool. It calls devres_release() to find and remove the pool from the device's managed resources, which triggers dmam_pool_release(). This is the managed version of dma_pool_destroy().
  */
 void dmam_pool_destroy(struct dma_pool *pool)
 {

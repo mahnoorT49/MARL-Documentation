@@ -1,5 +1,11 @@
 var mempool_8c =
 [
+    [ "__check_element", "mempool_8c.html#aaba50111932d250e46af485d19cc8625", null ],
+    [ "__poison_element", "mempool_8c.html#abef0c2217b1c2f8bdffaf7db152abf5d", null ],
+    [ "add_element", "mempool_8c.html#a4a1b57cae550260c8ac3befd8b48a110", null ],
+    [ "check_element", "mempool_8c.html#a9fe8f33977873f446b5091eccef06a08", null ],
+    [ "DECLARE_FAULT_ATTR", "mempool_8c.html#a737ee0945d0a8ee123462585ee1ade48", null ],
+    [ "DECLARE_FAULT_ATTR", "mempool_8c.html#abc4062b51d63b227c322db6e8bf46613", null ],
     [ "EXPORT_SYMBOL", "mempool_8c.html#a50c3ff951c1b54c5e1941f54c245b227", null ],
     [ "EXPORT_SYMBOL", "mempool_8c.html#a46565bd38bd7d7ab2dae1d07014c7a13", null ],
     [ "EXPORT_SYMBOL", "mempool_8c.html#a4ea96aba7289031e1bcded7007c0511f", null ],
@@ -17,8 +23,12 @@ var mempool_8c =
     [ "EXPORT_SYMBOL", "mempool_8c.html#aff9d4db7ecc3b85617a4e5ed9c8afc53", null ],
     [ "EXPORT_SYMBOL_GPL", "mempool_8c.html#aeda6ca236c140e3bec12e3b25a0b2562", null ],
     [ "EXPORT_SYMBOL_GPL", "mempool_8c.html#a9308d6fa24c80a6acb8ca633b88f0c77", null ],
+    [ "kasan_poison_element", "mempool_8c.html#a64b5bb2c5abfb7415be5ff76d941a488", null ],
+    [ "kasan_unpoison_element", "mempool_8c.html#a8a88fd9f9b179ba299372d0f9768681b", null ],
     [ "late_initcall", "mempool_8c.html#a2c740462a9bd7a37fa11d735dd5d1d6c", null ],
+    [ "mempool_adjust_gfp", "mempool_8c.html#a4f6f4f8d58fa261bf03f1a18c9d4de28", null ],
     [ "mempool_alloc_bulk_noprof", "mempool_8c.html#ab91918127d1346b26a4c30532ed301c7", null ],
+    [ "mempool_alloc_from_pool", "mempool_8c.html#ad9be3af9fd8a3da2af7aaa4725e03a1e", null ],
     [ "mempool_alloc_noprof", "mempool_8c.html#a0e528e21ec0656babff777288807492c", null ],
     [ "mempool_alloc_pages", "mempool_8c.html#a429600afff4cc4bcc682e14eedb2bccf", null ],
     [ "mempool_alloc_preallocated", "mempool_8c.html#a4c91ee4d8df718b92e9c9a4af8944116", null ],
@@ -26,6 +36,7 @@ var mempool_8c =
     [ "mempool_create_node_noprof", "mempool_8c.html#a5ffadb7c298647b14cb7b369ac6f691d", null ],
     [ "mempool_destroy", "mempool_8c.html#a3bfa9a64f3c754b37893558557cff1b6", null ],
     [ "mempool_exit", "mempool_8c.html#a1d6224bf46b653c88d09a1348ddd04de", null ],
+    [ "mempool_faul_inject_init", "mempool_8c.html#ae1a8dbc7a58c05bd64a2a202b8e8e70c", null ],
     [ "mempool_free", "mempool_8c.html#ac11eb5ca59dae86c648177220cbd9d0c", null ],
     [ "mempool_free_bulk", "mempool_8c.html#af5b80d438fd43127837f2f76d07a5be5", null ],
     [ "mempool_free_pages", "mempool_8c.html#a56d32531c2bfb573fea2bb6188e9e57f", null ],
@@ -34,5 +45,8 @@ var mempool_8c =
     [ "mempool_init_noprof", "mempool_8c.html#aa9829e7618eb6d16f2da5cfbceefa621", null ],
     [ "mempool_kfree", "mempool_8c.html#a91f3a618909353ee778baf7e2a2b4eb4", null ],
     [ "mempool_kmalloc", "mempool_8c.html#a1dde6440353fb1a40e222fb2895febf8", null ],
-    [ "mempool_resize", "mempool_8c.html#a0db246f41fb8e7fb744228150cc3508c", null ]
+    [ "mempool_resize", "mempool_8c.html#a0db246f41fb8e7fb744228150cc3508c", null ],
+    [ "poison_element", "mempool_8c.html#a2af16b8e16b4c15fe92c6e56fb4f7a00", null ],
+    [ "poison_error", "mempool_8c.html#aa520a2278ded99704da7bdec9a3b4466", null ],
+    [ "remove_element", "mempool_8c.html#a303e777d614bff642012b94f447c4c9e", null ]
 ];

@@ -1,0 +1,158 @@
+\doxysection{cgroup\+\_\+root Struct Reference}
+\hypertarget{structcgroup__root}{}\label{structcgroup__root}\index{cgroup\_root@{cgroup\_root}}
+
+
+{\ttfamily \+\#include $<$cgroup-\/defs.\+h$>$}
+
+
+
+Collaboration diagram for cgroup\+\_\+root:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcgroup__root__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct kernfs\+\_\+root \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__root_a28a444925a297592ee852d797eee23ee}{kf\+\_\+root}}
+\item 
+unsigned int \doxymbox{\hyperlink{structcgroup__root_ae1624a526da061bf566764fdb787c5c2}{subsys\+\_\+mask}}
+\item 
+int \doxymbox{\hyperlink{structcgroup__root_a1d36ee59066b421f1c0ac26da7ff61ea}{hierarchy\+\_\+id}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structcgroup__root_ab0de3b8b00dfa95df33476a11e3217b5}{root\+\_\+list}}
+\item 
+struct rcu\+\_\+head \doxymbox{\hyperlink{structcgroup__root_ac53018d745ad439b02372c8a5545aee7}{rcu}}
+\item 
+atomic\+\_\+t \doxymbox{\hyperlink{structcgroup__root_a18e548bfb0b60c7a5e60349da9e260b6}{nr\+\_\+cgrps}}
+\item 
+unsigned int \doxymbox{\hyperlink{structcgroup__root_a2783fc2f71876bda42b03abefe900e35}{flags}}
+\item 
+char \doxymbox{\hyperlink{structcgroup__root_a7942282788393e0c425ac695ff890069}{release\+\_\+agent\+\_\+path}} \+[PATH\+\_\+\+MAX]\+
+\item 
+char \doxymbox{\hyperlink{structcgroup__root_a93f00c6d99124eb49d30347d8233bc43}{name}} \+[64]\+
+\item 
+struct \doxymbox{\hyperlink{structcgroup}{cgroup}} \doxymbox{\hyperlink{structcgroup__root_a66846517d450e3d0742e56e652ba62cf}{cgrp}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \doxylink{structcgroup__root}{cgroup\+\_\+root} represents the root of a cgroup hierarchy, and may be associated with a kernfs\+\_\+root to form an active hierarchy. This is internal to cgroup core. Don\textquotesingle{}t access directly from controllers.
+
+struct Description:\+ This structure represents the root of a cgroup hierarchy. It contains the subsystem mask, hierarchy ID, flags, release agent path, name, and the root cgroup. Each mounted cgroup filesystem has one \doxylink{structcgroup__root}{cgroup\+\_\+root}. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00694}{694}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+\label{structcgroup__root_doc-variable-members}
+\Hypertarget{structcgroup__root_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcgroup__root_a66846517d450e3d0742e56e652ba62cf}\index{cgroup\_root@{cgroup\_root}!cgrp@{cgrp}}
+\index{cgrp@{cgrp}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{cgrp}{cgrp}}
+{\footnotesize\ttfamily \label{structcgroup__root_a66846517d450e3d0742e56e652ba62cf} 
+struct \doxymbox{\hyperlink{structcgroup}{cgroup}} cgroup\+\_\+root::\+cgrp}
+
+The root cgroup. The containing \doxylink{structcgroup__root}{cgroup\+\_\+root} will be destroyed on its release. This must be embedded last due to flexible array at the end of struct cgroup. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00724}{724}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__root_a2783fc2f71876bda42b03abefe900e35}\index{cgroup\_root@{cgroup\_root}!flags@{flags}}
+\index{flags@{flags}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structcgroup__root_a2783fc2f71876bda42b03abefe900e35} 
+unsigned int cgroup\+\_\+root::\+flags}
+
+Hierarchy-\/specific flags 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00711}{711}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__root_a1d36ee59066b421f1c0ac26da7ff61ea}\index{cgroup\_root@{cgroup\_root}!hierarchy\_id@{hierarchy\_id}}
+\index{hierarchy\_id@{hierarchy\_id}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{hierarchy\_id}{hierarchy\_id}}
+{\footnotesize\ttfamily \label{structcgroup__root_a1d36ee59066b421f1c0ac26da7ff61ea} 
+int cgroup\+\_\+root::\+hierarchy\+\_\+id}
+
+Unique id for this hierarchy. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00701}{701}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__root_a28a444925a297592ee852d797eee23ee}\index{cgroup\_root@{cgroup\_root}!kf\_root@{kf\_root}}
+\index{kf\_root@{kf\_root}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{kf\_root}{kf\_root}}
+{\footnotesize\ttfamily \label{structcgroup__root_a28a444925a297592ee852d797eee23ee} 
+struct kernfs\+\_\+root\texorpdfstring{$\ast$}{*} cgroup\+\_\+root::\+kf\+\_\+root}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00695}{695}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__root_a93f00c6d99124eb49d30347d8233bc43}\index{cgroup\_root@{cgroup\_root}!name@{name}}
+\index{name@{name}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{structcgroup__root_a93f00c6d99124eb49d30347d8233bc43} 
+char cgroup\+\_\+root::\+name\+[64]\+}
+
+The name for this hierarchy -\/ may be empty 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00717}{717}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__root_a18e548bfb0b60c7a5e60349da9e260b6}\index{cgroup\_root@{cgroup\_root}!nr\_cgrps@{nr\_cgrps}}
+\index{nr\_cgrps@{nr\_cgrps}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{nr\_cgrps}{nr\_cgrps}}
+{\footnotesize\ttfamily \label{structcgroup__root_a18e548bfb0b60c7a5e60349da9e260b6} 
+atomic\+\_\+t cgroup\+\_\+root::\+nr\+\_\+cgrps}
+
+Must be near the top Number of cgroups in the hierarchy, used only for /\+proc/\+cgroups 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00708}{708}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__root_ac53018d745ad439b02372c8a5545aee7}\index{cgroup\_root@{cgroup\_root}!rcu@{rcu}}
+\index{rcu@{rcu}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{rcu}{rcu}}
+{\footnotesize\ttfamily \label{structcgroup__root_ac53018d745ad439b02372c8a5545aee7} 
+struct rcu\+\_\+head cgroup\+\_\+root::\+rcu}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00705}{705}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__root_a7942282788393e0c425ac695ff890069}\index{cgroup\_root@{cgroup\_root}!release\_agent\_path@{release\_agent\_path}}
+\index{release\_agent\_path@{release\_agent\_path}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{release\_agent\_path}{release\_agent\_path}}
+{\footnotesize\ttfamily \label{structcgroup__root_a7942282788393e0c425ac695ff890069} 
+char cgroup\+\_\+root::\+release\+\_\+agent\+\_\+path\+[PATH\+\_\+\+MAX]\+}
+
+The path to use for release notifications. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00714}{714}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__root_ab0de3b8b00dfa95df33476a11e3217b5}\index{cgroup\_root@{cgroup\_root}!root\_list@{root\_list}}
+\index{root\_list@{root\_list}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{root\_list}{root\_list}}
+{\footnotesize\ttfamily \label{structcgroup__root_ab0de3b8b00dfa95df33476a11e3217b5} 
+struct list\+\_\+head cgroup\+\_\+root::\+root\+\_\+list}
+
+A list running through the active hierarchies 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00704}{704}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__root_ae1624a526da061bf566764fdb787c5c2}\index{cgroup\_root@{cgroup\_root}!subsys\_mask@{subsys\_mask}}
+\index{subsys\_mask@{subsys\_mask}!cgroup\_root@{cgroup\_root}}
+\doxysubsubsection{\texorpdfstring{subsys\_mask}{subsys\_mask}}
+{\footnotesize\ttfamily \label{structcgroup__root_ae1624a526da061bf566764fdb787c5c2} 
+unsigned int cgroup\+\_\+root::\+subsys\+\_\+mask}
+
+The bitmask of subsystems attached to this hierarchy 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00698}{698}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{cgroup-defs_8h}{cgroup-\/defs.\+h}}\end{DoxyCompactItemize}

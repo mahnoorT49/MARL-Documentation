@@ -208,8 +208,8 @@ Macros</h2></td></tr>
 <tr class="memitem:ac483ed7d24b75245478a2e20926d319f" id="r_ac483ed7d24b75245478a2e20926d319f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac483ed7d24b75245478a2e20926d319f">task_is_stopped</a>(task)</td></tr>
 <tr class="memitem:a1cd9b834cdfc5fac4f0411020b103528" id="r_a1cd9b834cdfc5fac4f0411020b103528"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1cd9b834cdfc5fac4f0411020b103528">task_is_stopped_or_traced</a>(task)</td></tr>
 <tr class="memitem:a1569d86fc8f3212da2010b28ed12ac07" id="r_a1569d86fc8f3212da2010b28ed12ac07"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1569d86fc8f3212da2010b28ed12ac07">is_special_task_state</a>(state)</td></tr>
-<tr class="memitem:aba12b69727b04f36eb8432b54a16540f" id="r_aba12b69727b04f36eb8432b54a16540f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aba12b69727b04f36eb8432b54a16540f">debug_normal_state_change</a>(cond)</td></tr>
-<tr class="memitem:af5798411f93fe055f692a90df2eb0e4c" id="r_af5798411f93fe055f692a90df2eb0e4c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af5798411f93fe055f692a90df2eb0e4c">debug_special_state_change</a>(cond)</td></tr>
+<tr class="memitem:ae6d9356500d024597d1f4fd226b490b8" id="r_ae6d9356500d024597d1f4fd226b490b8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae6d9356500d024597d1f4fd226b490b8">debug_normal_state_change</a>(state_value)</td></tr>
+<tr class="memitem:a1d853247fb63588e5951caa7fd2930a1" id="r_a1d853247fb63588e5951caa7fd2930a1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1d853247fb63588e5951caa7fd2930a1">debug_special_state_change</a>(state_value)</td></tr>
 <tr class="memitem:ad1de2deed0fb1c9ff0479449f45c51fd" id="r_ad1de2deed0fb1c9ff0479449f45c51fd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad1de2deed0fb1c9ff0479449f45c51fd">debug_rtlock_wait_set_state</a>()</td></tr>
 <tr class="memitem:a35140505a4dff0c0435fd8cc8fabeb0d" id="r_a35140505a4dff0c0435fd8cc8fabeb0d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a35140505a4dff0c0435fd8cc8fabeb0d">debug_rtlock_wait_restore_state</a>()</td></tr>
 <tr class="memitem:af952f69286ccd8cf4e121b7de9a31036" id="r_af952f69286ccd8cf4e121b7de9a31036"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af952f69286ccd8cf4e121b7de9a31036">trace_set_current_state</a>(state_value)</td></tr>
@@ -227,6 +227,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00125">125</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="aa3342a50f1d16f18f3949bce696459f4" name="aa3342a50f1d16f18f3949bce696459f4"></a>
@@ -240,6 +242,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00110">110</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -255,10 +259,12 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00111">111</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
-<a id="aba12b69727b04f36eb8432b54a16540f" name="aba12b69727b04f36eb8432b54a16540f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba12b69727b04f36eb8432b54a16540f">&#9670;&#160;</a></span>debug_normal_state_change</h2>
+<a id="ae6d9356500d024597d1f4fd226b490b8" name="ae6d9356500d024597d1f4fd226b490b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6d9356500d024597d1f4fd226b490b8">&#9670;&#160;</a></span>debug_normal_state_change</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,12 +272,23 @@ Macros</h2></td></tr>
         <tr>
           <td class="memname">#define debug_normal_state_change</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>cond</em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>state_value</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { } <span class="keywordflow">while</span> (0)</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                \</div>
+<div class="line">    WARN_ON_ONCE(<a class="code hl_define" href="#a1569d86fc8f3212da2010b28ed12ac07">is_special_task_state</a>(state_value));   \</div>
+<div class="line">    current-&gt;task_state_change = _THIS_IP_;         \</div>
+<div class="line">} <span class="keywordflow">while</span> (0)</div>
+<div class="ttc" id="asched_8h_html_a1569d86fc8f3212da2010b28ed12ac07"><div class="ttname"><a href="#a1569d86fc8f3212da2010b28ed12ac07">is_special_task_state</a></div><div class="ttdeci">#define is_special_task_state(state)</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00162">sched.h:162</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00167">167</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  167</span><span class="preprocessor"># define debug_normal_state_change(state_value)             \</span></div>
+<div class="line"><span class="lineno">  168</span><span class="preprocessor">    do {                                \</span></div>
+<div class="line"><span class="lineno">  169</span><span class="preprocessor">        WARN_ON_ONCE(is_special_task_state(state_value));   \</span></div>
+<div class="line"><span class="lineno">  170</span><span class="preprocessor">        current-&gt;task_state_change = _THIS_IP_;         \</span></div>
+<div class="line"><span class="lineno">  171</span><span class="preprocessor">    } while (0)</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -289,7 +306,15 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { } <span class="keywordflow">while</span> (0)</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                 \</div>
+<div class="line">    current-&gt;task_state_change = current-&gt;saved_state_change;\</div>
+<div class="line">} <span class="keywordflow">while</span> (0)</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00185">185</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  185</span><span class="preprocessor"># define debug_rtlock_wait_restore_state()              \</span></div>
+<div class="line"><span class="lineno">  186</span><span class="preprocessor">    do {                                 \</span></div>
+<div class="line"><span class="lineno">  187</span><span class="preprocessor">        current-&gt;task_state_change = current-&gt;saved_state_change;\</span></div>
+<div class="line"><span class="lineno">  188</span><span class="preprocessor">    } while (0)</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -307,12 +332,22 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { } <span class="keywordflow">while</span> (0)</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                 \</div>
+<div class="line">    current-&gt;saved_state_change = current-&gt;task_state_change;\</div>
+<div class="line">    current-&gt;task_state_change = _THIS_IP_;          \</div>
+<div class="line">} <span class="keywordflow">while</span> (0)</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00179">179</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  179</span><span class="preprocessor"># define debug_rtlock_wait_set_state()                  \</span></div>
+<div class="line"><span class="lineno">  180</span><span class="preprocessor">    do {                                 \</span></div>
+<div class="line"><span class="lineno">  181</span><span class="preprocessor">        current-&gt;saved_state_change = current-&gt;task_state_change;\</span></div>
+<div class="line"><span class="lineno">  182</span><span class="preprocessor">        current-&gt;task_state_change = _THIS_IP_;          \</span></div>
+<div class="line"><span class="lineno">  183</span><span class="preprocessor">    } while (0)</span></div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="af5798411f93fe055f692a90df2eb0e4c" name="af5798411f93fe055f692a90df2eb0e4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5798411f93fe055f692a90df2eb0e4c">&#9670;&#160;</a></span>debug_special_state_change</h2>
+<a id="a1d853247fb63588e5951caa7fd2930a1" name="a1d853247fb63588e5951caa7fd2930a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d853247fb63588e5951caa7fd2930a1">&#9670;&#160;</a></span>debug_special_state_change</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,12 +355,22 @@ Macros</h2></td></tr>
         <tr>
           <td class="memname">#define debug_special_state_change</td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>cond</em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>state_value</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { } <span class="keywordflow">while</span> (0)</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                \</div>
+<div class="line">    WARN_ON_ONCE(!<a class="code hl_define" href="#a1569d86fc8f3212da2010b28ed12ac07">is_special_task_state</a>(state_value));  \</div>
+<div class="line">    current-&gt;task_state_change = _THIS_IP_;         \</div>
+<div class="line">} <span class="keywordflow">while</span> (0)</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00173">173</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  173</span><span class="preprocessor"># define debug_special_state_change(state_value)            \</span></div>
+<div class="line"><span class="lineno">  174</span><span class="preprocessor">    do {                                \</span></div>
+<div class="line"><span class="lineno">  175</span><span class="preprocessor">        WARN_ON_ONCE(!is_special_task_state(state_value));  \</span></div>
+<div class="line"><span class="lineno">  176</span><span class="preprocessor">        current-&gt;task_state_change = _THIS_IP_;         \</span></div>
+<div class="line"><span class="lineno">  177</span><span class="preprocessor">    } while (0)</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -341,6 +386,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00113">113</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a34b60eda5b55fb248b23ba4f26ea64e6" name="a34b60eda5b55fb248b23ba4f26ea64e6"></a>
@@ -355,6 +402,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00115">115</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a82ac04d89a4bc14a2fc6cc964c5dcc69" name="a82ac04d89a4bc14a2fc6cc964c5dcc69"></a>
@@ -368,6 +417,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00114">114</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -387,11 +438,16 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((state) &amp; (<a class="code hl_define" href="#aa3342a50f1d16f18f3949bce696459f4">__TASK_STOPPED</a> | <a class="code hl_define" href="#ae97dc49eb6600c4d6bfa3d5ae7f2db4c">__TASK_TRACED</a> | <a class="code hl_define" href="#a7cf435b38b227881ab80f9d72f78d83a">TASK_PARKED</a> |  \</div>
 <div class="line">        <a class="code hl_define" href="#a13a05b7bdcbd07423a04bfb4cc6759b3">TASK_DEAD</a> | <a class="code hl_define" href="#a484c8ea1bf2a1fbe6fcd28c7617166ae">TASK_FROZEN</a>))</div>
-<div class="ttc" id="asched_8h_html_a13a05b7bdcbd07423a04bfb4cc6759b3"><div class="ttname"><a href="#a13a05b7bdcbd07423a04bfb4cc6759b3">TASK_DEAD</a></div><div class="ttdeci">#define TASK_DEAD</div><div class="ttdef"><b>Definition</b> sched.h:118</div></div>
-<div class="ttc" id="asched_8h_html_a484c8ea1bf2a1fbe6fcd28c7617166ae"><div class="ttname"><a href="#a484c8ea1bf2a1fbe6fcd28c7617166ae">TASK_FROZEN</a></div><div class="ttdeci">#define TASK_FROZEN</div><div class="ttdef"><b>Definition</b> sched.h:126</div></div>
-<div class="ttc" id="asched_8h_html_a7cf435b38b227881ab80f9d72f78d83a"><div class="ttname"><a href="#a7cf435b38b227881ab80f9d72f78d83a">TASK_PARKED</a></div><div class="ttdeci">#define TASK_PARKED</div><div class="ttdef"><b>Definition</b> sched.h:117</div></div>
-<div class="ttc" id="asched_8h_html_aa3342a50f1d16f18f3949bce696459f4"><div class="ttname"><a href="#aa3342a50f1d16f18f3949bce696459f4">__TASK_STOPPED</a></div><div class="ttdeci">#define __TASK_STOPPED</div><div class="ttdef"><b>Definition</b> sched.h:110</div></div>
-<div class="ttc" id="asched_8h_html_ae97dc49eb6600c4d6bfa3d5ae7f2db4c"><div class="ttname"><a href="#ae97dc49eb6600c4d6bfa3d5ae7f2db4c">__TASK_TRACED</a></div><div class="ttdeci">#define __TASK_TRACED</div><div class="ttdef"><b>Definition</b> sched.h:111</div></div>
+<div class="ttc" id="asched_8h_html_a13a05b7bdcbd07423a04bfb4cc6759b3"><div class="ttname"><a href="#a13a05b7bdcbd07423a04bfb4cc6759b3">TASK_DEAD</a></div><div class="ttdeci">#define TASK_DEAD</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00118">sched.h:118</a></div></div>
+<div class="ttc" id="asched_8h_html_a484c8ea1bf2a1fbe6fcd28c7617166ae"><div class="ttname"><a href="#a484c8ea1bf2a1fbe6fcd28c7617166ae">TASK_FROZEN</a></div><div class="ttdeci">#define TASK_FROZEN</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00126">sched.h:126</a></div></div>
+<div class="ttc" id="asched_8h_html_a7cf435b38b227881ab80f9d72f78d83a"><div class="ttname"><a href="#a7cf435b38b227881ab80f9d72f78d83a">TASK_PARKED</a></div><div class="ttdeci">#define TASK_PARKED</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00117">sched.h:117</a></div></div>
+<div class="ttc" id="asched_8h_html_aa3342a50f1d16f18f3949bce696459f4"><div class="ttname"><a href="#aa3342a50f1d16f18f3949bce696459f4">__TASK_STOPPED</a></div><div class="ttdeci">#define __TASK_STOPPED</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00110">sched.h:110</a></div></div>
+<div class="ttc" id="asched_8h_html_ae97dc49eb6600c4d6bfa3d5ae7f2db4c"><div class="ttname"><a href="#ae97dc49eb6600c4d6bfa3d5ae7f2db4c">__TASK_TRACED</a></div><div class="ttdeci">#define __TASK_TRACED</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00111">sched.h:111</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00162">162</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  162</span><span class="preprocessor">#define is_special_task_state(state)                    \</span></div>
+<div class="line"><span class="lineno">  163</span><span class="preprocessor">    ((state) &amp; (__TASK_STOPPED | __TASK_TRACED | TASK_PARKED |  \</span></div>
+<div class="line"><span class="lineno">  164</span><span class="preprocessor">            TASK_DEAD | TASK_FROZEN))</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -407,6 +463,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00129">129</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a13a05b7bdcbd07423a04bfb4cc6759b3" name="a13a05b7bdcbd07423a04bfb4cc6759b3"></a>
@@ -420,6 +478,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00118">118</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -435,6 +495,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00124">124</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a8a34ab24bdb4bef9b820716cd1dbb23e" name="a8a34ab24bdb4bef9b820716cd1dbb23e"></a>
@@ -448,6 +510,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00134">134</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -463,6 +527,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00126">126</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="aa56ba1aed5aa073e789fd485da6202f0" name="aa56ba1aed5aa073e789fd485da6202f0"></a>
@@ -477,6 +543,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00141">141</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a8f52c913830b57c112a0d33a1daf587d" name="a8f52c913830b57c112a0d33a1daf587d"></a>
@@ -490,6 +558,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00108">108</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -508,8 +578,10 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(READ_ONCE((task)-&gt;__state) == <a class="code hl_define" href="#a17e3f99a030e5dfefb8f9815600e3fed">TASK_RUNNING</a>)</div>
-<div class="ttc" id="asched_8h_html_a17e3f99a030e5dfefb8f9815600e3fed"><div class="ttname"><a href="#a17e3f99a030e5dfefb8f9815600e3fed">TASK_RUNNING</a></div><div class="ttdeci">#define TASK_RUNNING</div><div class="ttdef"><b>Definition</b> sched.h:107</div></div>
+<div class="ttc" id="asched_8h_html_a17e3f99a030e5dfefb8f9815600e3fed"><div class="ttname"><a href="#a17e3f99a030e5dfefb8f9815600e3fed">TASK_RUNNING</a></div><div class="ttdeci">#define TASK_RUNNING</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00107">sched.h:107</a></div></div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00152">152</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="ac483ed7d24b75245478a2e20926d319f" name="ac483ed7d24b75245478a2e20926d319f"></a>
@@ -528,6 +600,8 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((READ_ONCE(task-&gt;jobctl) &amp; JOBCTL_STOPPED) != 0)</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00155">155</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a1cd9b834cdfc5fac4f0411020b103528" name="a1cd9b834cdfc5fac4f0411020b103528"></a>
@@ -546,6 +620,8 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((READ_ONCE(task-&gt;jobctl) &amp; (JOBCTL_STOPPED | JOBCTL_TRACED)) != 0)</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00156">156</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a90ec93c9085dacaf3c22ec7187d3def7" name="a90ec93c9085dacaf3c22ec7187d3def7"></a>
@@ -564,6 +640,8 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((READ_ONCE(task-&gt;jobctl) &amp; JOBCTL_TRACED) != 0)</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00154">154</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a86571fd0d89c59e9bca4fb782bac2f5b" name="a86571fd0d89c59e9bca4fb782bac2f5b"></a>
@@ -577,6 +655,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00137">137</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -592,6 +672,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00122">122</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="adf6743c68d7f6506b7d219a04580af74" name="adf6743c68d7f6506b7d219a04580af74"></a>
@@ -605,6 +687,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00121">121</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -620,6 +704,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00144">144</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a7cf435b38b227881ab80f9d72f78d83a" name="a7cf435b38b227881ab80f9d72f78d83a"></a>
@@ -633,6 +719,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00117">117</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -651,10 +739,16 @@ Macros</h2></td></tr>
 <div class="line"><a class="code hl_define" href="#a797095919d5e24e5dc00c4d0bbc7ec31">TASK_UNINTERRUPTIBLE</a> | <a class="code hl_define" href="#aa3342a50f1d16f18f3949bce696459f4">__TASK_STOPPED</a> | \</div>
 <div class="line"><a class="code hl_define" href="#ae97dc49eb6600c4d6bfa3d5ae7f2db4c">__TASK_TRACED</a> | <a class="code hl_define" href="#a2bbb3e2b96f870eb081efcc7376aa561">EXIT_DEAD</a> | <a class="code hl_define" href="#a82ac04d89a4bc14a2fc6cc964c5dcc69">EXIT_ZOMBIE</a> | \</div>
 <div class="line"><a class="code hl_define" href="#a7cf435b38b227881ab80f9d72f78d83a">TASK_PARKED</a>)</div>
-<div class="ttc" id="asched_8h_html_a2bbb3e2b96f870eb081efcc7376aa561"><div class="ttname"><a href="#a2bbb3e2b96f870eb081efcc7376aa561">EXIT_DEAD</a></div><div class="ttdeci">#define EXIT_DEAD</div><div class="ttdef"><b>Definition</b> sched.h:113</div></div>
-<div class="ttc" id="asched_8h_html_a797095919d5e24e5dc00c4d0bbc7ec31"><div class="ttname"><a href="#a797095919d5e24e5dc00c4d0bbc7ec31">TASK_UNINTERRUPTIBLE</a></div><div class="ttdeci">#define TASK_UNINTERRUPTIBLE</div><div class="ttdef"><b>Definition</b> sched.h:109</div></div>
-<div class="ttc" id="asched_8h_html_a82ac04d89a4bc14a2fc6cc964c5dcc69"><div class="ttname"><a href="#a82ac04d89a4bc14a2fc6cc964c5dcc69">EXIT_ZOMBIE</a></div><div class="ttdeci">#define EXIT_ZOMBIE</div><div class="ttdef"><b>Definition</b> sched.h:114</div></div>
-<div class="ttc" id="asched_8h_html_a8f52c913830b57c112a0d33a1daf587d"><div class="ttname"><a href="#a8f52c913830b57c112a0d33a1daf587d">TASK_INTERRUPTIBLE</a></div><div class="ttdeci">#define TASK_INTERRUPTIBLE</div><div class="ttdef"><b>Definition</b> sched.h:108</div></div>
+<div class="ttc" id="asched_8h_html_a2bbb3e2b96f870eb081efcc7376aa561"><div class="ttname"><a href="#a2bbb3e2b96f870eb081efcc7376aa561">EXIT_DEAD</a></div><div class="ttdeci">#define EXIT_DEAD</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00113">sched.h:113</a></div></div>
+<div class="ttc" id="asched_8h_html_a797095919d5e24e5dc00c4d0bbc7ec31"><div class="ttname"><a href="#a797095919d5e24e5dc00c4d0bbc7ec31">TASK_UNINTERRUPTIBLE</a></div><div class="ttdeci">#define TASK_UNINTERRUPTIBLE</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00109">sched.h:109</a></div></div>
+<div class="ttc" id="asched_8h_html_a82ac04d89a4bc14a2fc6cc964c5dcc69"><div class="ttname"><a href="#a82ac04d89a4bc14a2fc6cc964c5dcc69">EXIT_ZOMBIE</a></div><div class="ttdeci">#define EXIT_ZOMBIE</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00114">sched.h:114</a></div></div>
+<div class="ttc" id="asched_8h_html_a8f52c913830b57c112a0d33a1daf587d"><div class="ttname"><a href="#a8f52c913830b57c112a0d33a1daf587d">TASK_INTERRUPTIBLE</a></div><div class="ttdeci">#define TASK_INTERRUPTIBLE</div><div class="ttdef"><b>Definition</b> <a href="sched_8h_source.html#l00108">sched.h:108</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00147">147</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  147</span><span class="preprocessor">#define TASK_REPORT         (TASK_RUNNING | TASK_INTERRUPTIBLE | \</span></div>
+<div class="line"><span class="lineno">  148</span><span class="preprocessor">                     TASK_UNINTERRUPTIBLE | __TASK_STOPPED | \</span></div>
+<div class="line"><span class="lineno">  149</span><span class="preprocessor">                     __TASK_TRACED | EXIT_DEAD | EXIT_ZOMBIE | \</span></div>
+<div class="line"><span class="lineno">  150</span><span class="preprocessor">                     TASK_PARKED)</span></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -670,6 +764,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00123">123</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a17e3f99a030e5dfefb8f9815600e3fed" name="a17e3f99a030e5dfefb8f9815600e3fed"></a>
@@ -683,6 +779,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00107">107</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -698,6 +796,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00127">127</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a7d2e4edf473fed254987a9a07c72a680" name="a7d2e4edf473fed254987a9a07c72a680"></a>
@@ -711,6 +811,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00138">138</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -726,6 +828,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00139">139</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a797095919d5e24e5dc00c4d0bbc7ec31" name="a797095919d5e24e5dc00c4d0bbc7ec31"></a>
@@ -739,6 +843,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00109">109</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -754,6 +860,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00119">119</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+
 </div>
 </div>
 <a id="a5ce1d7ffd46198df9a6ae61019740515" name="a5ce1d7ffd46198df9a6ae61019740515"></a>
@@ -767,6 +875,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00120">120</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
 
 </div>
 </div>
@@ -788,6 +898,13 @@ Macros</h2></td></tr>
 <div class="line">    if (tracepoint_enabled(sched_set_state_tp))      \</div>
 <div class="line">        __trace_set_current_state(state_value); \</div>
 <div class="line">} <span class="keywordflow">while</span> (0)</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="sched_8h_source.html#l00197">197</a> of file <a class="el" href="sched_8h_source.html">sched.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  197</span><span class="preprocessor">#define trace_set_current_state(state_value)                     \</span></div>
+<div class="line"><span class="lineno">  198</span><span class="preprocessor">    do {                                                     \</span></div>
+<div class="line"><span class="lineno">  199</span><span class="preprocessor">        if (tracepoint_enabled(sched_set_state_tp))      \</span></div>
+<div class="line"><span class="lineno">  200</span><span class="preprocessor">            __trace_set_current_state(state_value); \</span></div>
+<div class="line"><span class="lineno">  201</span><span class="preprocessor">    } while (0)</span></div>
 </div><!-- fragment -->
 </div>
 </div>

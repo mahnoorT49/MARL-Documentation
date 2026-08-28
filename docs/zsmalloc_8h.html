@@ -172,10 +172,49 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Compacts a zsmalloc pool to reduce fragmentation. It iterates through all size classes and compacts each one. Returns the total number of pages freed. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l02226">2226</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2227</span>{</div>
+<div class="line"><span class="lineno"> 2228</span>    <span class="keywordtype">int</span> i;</div>
+<div class="line"><span class="lineno"> 2229</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 2230</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> pages_freed = 0;</div>
+<div class="line"><span class="lineno"> 2231</span> </div>
+<div class="line"><span class="lineno"> 2232</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 2233</span><span class="comment">     * Pool compaction is performed under pool-&gt;lock so it is basically</span></div>
+<div class="line"><span class="lineno"> 2234</span><span class="comment">     * single-threaded. Having more than one thread in __zs_compact()</span></div>
+<div class="line"><span class="lineno"> 2235</span><span class="comment">     * will increase pool-&gt;lock contention, which will impact other</span></div>
+<div class="line"><span class="lineno"> 2236</span><span class="comment">     * zsmalloc operations that need pool-&gt;lock.</span></div>
+<div class="line"><span class="lineno"> 2237</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno"> 2238</span>    <span class="keywordflow">if</span> (atomic_xchg(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#ad612ee92724289ed95f7d20364273462">compaction_in_progress</a>, 1))</div>
+<div class="line"><span class="lineno"> 2239</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno"> 2240</span> </div>
+<div class="line"><span class="lineno"> 2241</span>    <span class="keywordflow">for</span> (i = <a class="code hl_define" href="zsmalloc_8c.html#a4864db1fc833cab58b5f01cbacaaf594">ZS_SIZE_CLASSES</a> - 1; i &gt;= 0; i--) {</div>
+<div class="line"><span class="lineno"> 2242</span>        <span class="keyword">class </span>= pool-&gt;<a class="code hl_struct" href="structsize__class.html">size_class</a>[i];</div>
+<div class="line"><span class="lineno"> 2243</span>        <span class="keywordflow">if</span> (class-&gt;index != i)</div>
+<div class="line"><span class="lineno"> 2244</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno"> 2245</span>        pages_freed += <a class="code hl_function" href="zsmalloc_8c.html#a47076abd4b76775fcdb27ffbc4f220b9">__zs_compact</a>(pool, <span class="keyword">class</span>);</div>
+<div class="line"><span class="lineno"> 2246</span>    }</div>
+<div class="line"><span class="lineno"> 2247</span>    atomic_long_add(pages_freed, &amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a6a116e95b42d020b779ca4a5888bdc71">stats</a>.<a class="code hl_variable" href="structzs__pool__stats.html#af5fda4bb8262990d26dc5c7968e23653">pages_compacted</a>);</div>
+<div class="line"><span class="lineno"> 2248</span>    atomic_set(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#ad612ee92724289ed95f7d20364273462">compaction_in_progress</a>, 0);</div>
+<div class="line"><span class="lineno"> 2249</span> </div>
+<div class="line"><span class="lineno"> 2250</span>    <span class="keywordflow">return</span> pages_freed;</div>
+<div class="line"><span class="lineno"> 2251</span>}</div>
+<div class="ttc" id="astructsize__class_html"><div class="ttname"><a href="structsize__class.html">size_class</a></div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00172">zsmalloc.c:172</a></div></div>
+<div class="ttc" id="astructzs__pool__stats_html_af5fda4bb8262990d26dc5c7968e23653"><div class="ttname"><a href="structzs__pool__stats.html#af5fda4bb8262990d26dc5c7968e23653">zs_pool_stats::pages_compacted</a></div><div class="ttdeci">atomic_long_t pages_compacted</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8h_source.html#l00024">zsmalloc.h:24</a></div></div>
+<div class="ttc" id="astructzs__pool_html_a6a116e95b42d020b779ca4a5888bdc71"><div class="ttname"><a href="structzs__pool.html#a6a116e95b42d020b779ca4a5888bdc71">zs_pool::stats</a></div><div class="ttdeci">struct zs_pool_stats stats</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00224">zsmalloc.c:224</a></div></div>
+<div class="ttc" id="astructzs__pool_html_ad612ee92724289ed95f7d20364273462"><div class="ttname"><a href="structzs__pool.html#ad612ee92724289ed95f7d20364273462">zs_pool::compaction_in_progress</a></div><div class="ttdeci">atomic_t compaction_in_progress</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00237">zsmalloc.c:237</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a47076abd4b76775fcdb27ffbc4f220b9"><div class="ttname"><a href="zsmalloc_8c.html#a47076abd4b76775fcdb27ffbc4f220b9">__zs_compact</a></div><div class="ttdeci">static unsigned long __zs_compact(struct zs_pool *pool, struct size_class *class)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l02159">zsmalloc.c:2159</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a4864db1fc833cab58b5f01cbacaaf594"><div class="ttname"><a href="zsmalloc_8c.html#a4864db1fc833cab58b5f01cbacaaf594">ZS_SIZE_CLASSES</a></div><div class="ttdeci">#define ZS_SIZE_CLASSES</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00121">zsmalloc.c:121</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a179a42df0e56320cc600f8c2f310d5d3_cgraph.svg" width="1440" height="1084"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a179a42df0e56320cc600f8c2f310d5d3_icgraph.svg" width="322" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a179a42df0e56320cc600f8c2f310d5d3_icgraph.svg" width="884" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -194,10 +233,142 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l02368">2368</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2369</span>{</div>
+<div class="line"><span class="lineno"> 2370</span>    <span class="keywordtype">int</span> i;</div>
+<div class="line"><span class="lineno"> 2371</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structzs__pool.html">zs_pool</a> *pool;</div>
+<div class="line"><span class="lineno"> 2372</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *prev_class = NULL;</div>
+<div class="line"><span class="lineno"> 2373</span> </div>
+<div class="line"><span class="lineno"> 2374</span>    pool = <a class="code hl_define" href="include_2linux_2slab_8h.html#a1720bcc69d017b5c1bda66d5711cb6c6">kzalloc_obj</a>(*pool);</div>
+<div class="line"><span class="lineno"> 2375</span>    <span class="keywordflow">if</span> (!pool)</div>
+<div class="line"><span class="lineno"> 2376</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno"> 2377</span> </div>
+<div class="line"><span class="lineno"> 2378</span>    <a class="code hl_function" href="zsmalloc_8c.html#a4c0a58f8b5ad497e02270821c7ec2a25">init_deferred_free</a>(pool);</div>
+<div class="line"><span class="lineno"> 2379</span>    rwlock_init(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">lock</a>);</div>
+<div class="line"><span class="lineno"> 2380</span>    atomic_set(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#ad612ee92724289ed95f7d20364273462">compaction_in_progress</a>, 0);</div>
+<div class="line"><span class="lineno"> 2381</span> </div>
+<div class="line"><span class="lineno"> 2382</span>    pool-&gt;<a class="code hl_variable" href="structzs__pool.html#ab9a9dbe441765655228cfd28b49fc203">name</a> = kstrdup(name, <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno"> 2383</span>    <span class="keywordflow">if</span> (!pool-&gt;<a class="code hl_variable" href="structzs__pool.html#ab9a9dbe441765655228cfd28b49fc203">name</a>)</div>
+<div class="line"><span class="lineno"> 2384</span>        <span class="keywordflow">goto</span> err;</div>
+<div class="line"><span class="lineno"> 2385</span> </div>
+<div class="line"><span class="lineno"> 2386</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 2387</span><span class="comment">     * Iterate reversely, because, size of size_class that we want to use</span></div>
+<div class="line"><span class="lineno"> 2388</span><span class="comment">     * for merging should be larger or equal to current size.</span></div>
+<div class="line"><span class="lineno"> 2389</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno"> 2390</span>    <span class="keywordflow">for</span> (i = <a class="code hl_define" href="zsmalloc_8c.html#a4864db1fc833cab58b5f01cbacaaf594">ZS_SIZE_CLASSES</a> - 1; i &gt;= 0; i--) {</div>
+<div class="line"><span class="lineno"> 2391</span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno"> 2392</span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structsize__class.html#a01d33efdbf1914fc3ad408058d172aea">pages_per_zspage</a>;</div>
+<div class="line"><span class="lineno"> 2393</span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="structsize__class.html#ad4c332d057feda0618b9cccf4fd21956">objs_per_zspage</a>;</div>
+<div class="line"><span class="lineno"> 2394</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 2395</span>        <span class="keywordtype">int</span> fullness;</div>
+<div class="line"><span class="lineno"> 2396</span> </div>
+<div class="line"><span class="lineno"> 2397</span>        <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = <a class="code hl_define" href="zsmalloc_8c.html#a5bbaec5e8d179fe92c80f8400083d57e">ZS_MIN_ALLOC_SIZE</a> + i * <a class="code hl_define" href="zsmalloc_8c.html#a6dffdc9a5deb8dfdbf4359962e99e39c">ZS_SIZE_CLASS_DELTA</a>;</div>
+<div class="line"><span class="lineno"> 2398</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> &gt; <a class="code hl_define" href="zsmalloc_8c.html#a6dcedf09799171e72aed9d85fc1c0be1">ZS_MAX_ALLOC_SIZE</a>)</div>
+<div class="line"><span class="lineno"> 2399</span>            <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = <a class="code hl_define" href="zsmalloc_8c.html#a6dcedf09799171e72aed9d85fc1c0be1">ZS_MAX_ALLOC_SIZE</a>;</div>
+<div class="line"><span class="lineno"> 2400</span>        <a class="code hl_variable" href="structsize__class.html#a01d33efdbf1914fc3ad408058d172aea">pages_per_zspage</a> = <a class="code hl_function" href="zsmalloc_8c.html#a49073b935d77bfabad51166436408cb6">calculate_zspage_chain_size</a>(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno"> 2401</span>        <a class="code hl_variable" href="structsize__class.html#ad4c332d057feda0618b9cccf4fd21956">objs_per_zspage</a> = <a class="code hl_variable" href="structsize__class.html#a01d33efdbf1914fc3ad408058d172aea">pages_per_zspage</a> * PAGE_SIZE / <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno"> 2402</span> </div>
+<div class="line"><span class="lineno"> 2403</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 2404</span><span class="comment">         * We iterate from biggest down to smallest classes,</span></div>
+<div class="line"><span class="lineno"> 2405</span><span class="comment">         * so huge_class_size holds the size of the first huge</span></div>
+<div class="line"><span class="lineno"> 2406</span><span class="comment">         * class. Any object bigger than or equal to that will</span></div>
+<div class="line"><span class="lineno"> 2407</span><span class="comment">         * endup in the huge class.</span></div>
+<div class="line"><span class="lineno"> 2408</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno"> 2409</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structsize__class.html#a01d33efdbf1914fc3ad408058d172aea">pages_per_zspage</a> != 1 &amp;&amp; <a class="code hl_variable" href="structsize__class.html#ad4c332d057feda0618b9cccf4fd21956">objs_per_zspage</a> != 1 &amp;&amp;</div>
+<div class="line"><span class="lineno"> 2410</span>                !<a class="code hl_variable" href="zsmalloc_8c.html#a9b97249d5202bc77c9cc9a53b4bfce57">huge_class_size</a>) {</div>
+<div class="line"><span class="lineno"> 2411</span>            <a class="code hl_variable" href="zsmalloc_8c.html#a9b97249d5202bc77c9cc9a53b4bfce57">huge_class_size</a> = <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno"> 2412</span>            <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 2413</span><span class="comment">             * The object uses ZS_HANDLE_SIZE bytes to store the</span></div>
+<div class="line"><span class="lineno"> 2414</span><span class="comment">             * handle. We need to subtract it, because zs_malloc()</span></div>
+<div class="line"><span class="lineno"> 2415</span><span class="comment">             * unconditionally adds handle size before it performs</span></div>
+<div class="line"><span class="lineno"> 2416</span><span class="comment">             * size class search - so object may be smaller than</span></div>
+<div class="line"><span class="lineno"> 2417</span><span class="comment">             * huge class size, yet it still can end up in the huge</span></div>
+<div class="line"><span class="lineno"> 2418</span><span class="comment">             * class because it grows by ZS_HANDLE_SIZE extra bytes</span></div>
+<div class="line"><span class="lineno"> 2419</span><span class="comment">             * right before class lookup.</span></div>
+<div class="line"><span class="lineno"> 2420</span><span class="comment">             */</span></div>
+<div class="line"><span class="lineno"> 2421</span>            <a class="code hl_variable" href="zsmalloc_8c.html#a9b97249d5202bc77c9cc9a53b4bfce57">huge_class_size</a> -= (<a class="code hl_define" href="zsmalloc_8c.html#a526c4397e22f2d955c85e54f3800a575">ZS_HANDLE_SIZE</a> - 1);</div>
+<div class="line"><span class="lineno"> 2422</span>        }</div>
+<div class="line"><span class="lineno"> 2423</span> </div>
+<div class="line"><span class="lineno"> 2424</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 2425</span><span class="comment">         * size_class is used for normal zsmalloc operation such</span></div>
+<div class="line"><span class="lineno"> 2426</span><span class="comment">         * as alloc/free for that size. Although it is natural that we</span></div>
+<div class="line"><span class="lineno"> 2427</span><span class="comment">         * have one size_class for each size, there is a chance that we</span></div>
+<div class="line"><span class="lineno"> 2428</span><span class="comment">         * can get more memory utilization if we use one size_class for</span></div>
+<div class="line"><span class="lineno"> 2429</span><span class="comment">         * many different sizes whose size_class have same</span></div>
+<div class="line"><span class="lineno"> 2430</span><span class="comment">         * characteristics. So, we makes size_class point to</span></div>
+<div class="line"><span class="lineno"> 2431</span><span class="comment">         * previous size_class if possible.</span></div>
+<div class="line"><span class="lineno"> 2432</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno"> 2433</span>        <span class="keywordflow">if</span> (prev_class) {</div>
+<div class="line"><span class="lineno"> 2434</span>            <span class="keywordflow">if</span> (<a class="code hl_function" href="zsmalloc_8c.html#aba5164b59ea1e4be21157687792f08f7">can_merge</a>(prev_class, <a class="code hl_variable" href="structsize__class.html#a01d33efdbf1914fc3ad408058d172aea">pages_per_zspage</a>, <a class="code hl_variable" href="structsize__class.html#ad4c332d057feda0618b9cccf4fd21956">objs_per_zspage</a>)) {</div>
+<div class="line"><span class="lineno"> 2435</span>                pool-&gt;<a class="code hl_variable" href="structzs__pool.html#adccaa0c5cd0b9797facfb9051a025ade">size_class</a>[i] = prev_class;</div>
+<div class="line"><span class="lineno"> 2436</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno"> 2437</span>            }</div>
+<div class="line"><span class="lineno"> 2438</span>        }</div>
+<div class="line"><span class="lineno"> 2439</span> </div>
+<div class="line"><span class="lineno"> 2440</span>        <span class="keyword">class </span>= <a class="code hl_define" href="include_2linux_2slab_8h.html#a1720bcc69d017b5c1bda66d5711cb6c6">kzalloc_obj</a>(struct <a class="code hl_struct" href="structsize__class.html">size_class</a>);</div>
+<div class="line"><span class="lineno"> 2441</span>        <span class="keywordflow">if</span> (!<span class="keyword">class</span>)</div>
+<div class="line"><span class="lineno"> 2442</span>            <span class="keywordflow">goto</span> err;</div>
+<div class="line"><span class="lineno"> 2443</span> </div>
+<div class="line"><span class="lineno"> 2444</span>        <span class="keyword">class</span>-&gt;size = <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno"> 2445</span>        <span class="keyword">class</span>-&gt;index = i;</div>
+<div class="line"><span class="lineno"> 2446</span>        <span class="keyword">class</span>-&gt;pages_per_zspage = pages_per_zspage;</div>
+<div class="line"><span class="lineno"> 2447</span>        <span class="keyword">class</span>-&gt;objs_per_zspage = objs_per_zspage;</div>
+<div class="line"><span class="lineno"> 2448</span>        spin_lock_init(&amp;class-&gt;lock);</div>
+<div class="line"><span class="lineno"> 2449</span>        pool-&gt;<a class="code hl_variable" href="structzs__pool.html#adccaa0c5cd0b9797facfb9051a025ade">size_class</a>[i] = <span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 2450</span> </div>
+<div class="line"><span class="lineno"> 2451</span>        fullness = <a class="code hl_enumvalue" href="zsmalloc_8c.html#ad49ab2576a238ebefe966398e04fc07ca4af6142bdad14c6db278879401f51554">ZS_INUSE_RATIO_0</a>;</div>
+<div class="line"><span class="lineno"> 2452</span>        <span class="keywordflow">while</span> (fullness &lt; <a class="code hl_enumvalue" href="zsmalloc_8c.html#ad49ab2576a238ebefe966398e04fc07cad078e8aa2a9b8c18b51c46ca503755de">NR_FULLNESS_GROUPS</a>) {</div>
+<div class="line"><span class="lineno"> 2453</span>            INIT_LIST_HEAD(&amp;class-&gt;fullness_list[fullness]);</div>
+<div class="line"><span class="lineno"> 2454</span>            fullness++;</div>
+<div class="line"><span class="lineno"> 2455</span>        }</div>
+<div class="line"><span class="lineno"> 2456</span> </div>
+<div class="line"><span class="lineno"> 2457</span>        prev_class = <span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 2458</span>    }</div>
+<div class="line"><span class="lineno"> 2459</span> </div>
+<div class="line"><span class="lineno"> 2460</span>    <span class="comment">/* debug only, don&#39;t abort if it fails */</span></div>
+<div class="line"><span class="lineno"> 2461</span>    <a class="code hl_function" href="zsmalloc_8c.html#a169bd41a2e790656f3572ac0d3f98e6f">zs_pool_stat_create</a>(pool, name);</div>
+<div class="line"><span class="lineno"> 2462</span> </div>
+<div class="line"><span class="lineno"> 2463</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 2464</span><span class="comment">     * Not critical since shrinker is only used to trigger internal</span></div>
+<div class="line"><span class="lineno"> 2465</span><span class="comment">     * defragmentation of the pool which is pretty optional thing.  If</span></div>
+<div class="line"><span class="lineno"> 2466</span><span class="comment">     * registration fails we still can use the pool normally and user can</span></div>
+<div class="line"><span class="lineno"> 2467</span><span class="comment">     * trigger compaction manually. Thus, ignore return code.</span></div>
+<div class="line"><span class="lineno"> 2468</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno"> 2469</span>    <a class="code hl_function" href="zsmalloc_8c.html#a93bff9dc0eac88f4d78efaeb3df92421">zs_register_shrinker</a>(pool);</div>
+<div class="line"><span class="lineno"> 2470</span> </div>
+<div class="line"><span class="lineno"> 2471</span>    <span class="keywordflow">return</span> pool;</div>
+<div class="line"><span class="lineno"> 2472</span> </div>
+<div class="line"><span class="lineno"> 2473</span>err:</div>
+<div class="line"><span class="lineno"> 2474</span>    <a class="code hl_function" href="zsmalloc_8c.html#ab9d3268726e0e93c2ced98aa79c2f015">zs_destroy_pool</a>(pool);</div>
+<div class="line"><span class="lineno"> 2475</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno"> 2476</span>}</div>
+<div class="ttc" id="agfp__types_8h_html_a44b9e863fd60efc9018a5524b77532ee"><div class="ttname"><a href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a></div><div class="ttdeci">#define GFP_KERNEL</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00377">gfp_types.h:377</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a1720bcc69d017b5c1bda66d5711cb6c6"><div class="ttname"><a href="include_2linux_2slab_8h.html#a1720bcc69d017b5c1bda66d5711cb6c6">kzalloc_obj</a></div><div class="ttdeci">#define kzalloc_obj(P,...)</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01131">slab.h:1131</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_af6ef73962e335cb2dfc15144f11215ba"><div class="ttname"><a href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a></div><div class="ttdeci">static size_t size</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01189">slab.h:1189</a></div></div>
+<div class="ttc" id="astructsize__class_html_a01d33efdbf1914fc3ad408058d172aea"><div class="ttname"><a href="structsize__class.html#a01d33efdbf1914fc3ad408058d172aea">size_class::pages_per_zspage</a></div><div class="ttdeci">int pages_per_zspage</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00182">zsmalloc.c:182</a></div></div>
+<div class="ttc" id="astructsize__class_html_ad4c332d057feda0618b9cccf4fd21956"><div class="ttname"><a href="structsize__class.html#ad4c332d057feda0618b9cccf4fd21956">size_class::objs_per_zspage</a></div><div class="ttdeci">int objs_per_zspage</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00180">zsmalloc.c:180</a></div></div>
+<div class="ttc" id="astructzs__pool_html"><div class="ttname"><a href="structzs__pool.html">zs_pool</a></div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00217">zsmalloc.c:217</a></div></div>
+<div class="ttc" id="astructzs__pool_html_a7d315ed171712cfc3712f26b2bc0332d"><div class="ttname"><a href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">zs_pool::lock</a></div><div class="ttdeci">rwlock_t lock</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00236">zsmalloc.c:236</a></div></div>
+<div class="ttc" id="astructzs__pool_html_ab9a9dbe441765655228cfd28b49fc203"><div class="ttname"><a href="structzs__pool.html#ab9a9dbe441765655228cfd28b49fc203">zs_pool::name</a></div><div class="ttdeci">const char * name</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00218">zsmalloc.c:218</a></div></div>
+<div class="ttc" id="astructzs__pool_html_adccaa0c5cd0b9797facfb9051a025ade"><div class="ttname"><a href="structzs__pool.html#adccaa0c5cd0b9797facfb9051a025ade">zs_pool::size_class</a></div><div class="ttdeci">struct size_class * size_class[(DIV_ROUND_UP(PAGE_SIZE - MAX(32,((_AC(CONFIG_ZSMALLOC_CHAIN_SIZE, UL))&lt;&lt; PAGE_SHIFT &gt; &gt;(BITS_PER_LONG -(BITS_PER_LONG - PAGE_SHIFT)))),(PAGE_SIZE &gt; &gt; 8))+1)]</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00220">zsmalloc.c:220</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a169bd41a2e790656f3572ac0d3f98e6f"><div class="ttname"><a href="zsmalloc_8c.html#a169bd41a2e790656f3572ac0d3f98e6f">zs_pool_stat_create</a></div><div class="ttdeci">static void zs_pool_stat_create(struct zs_pool *pool, const char *name)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00736">zsmalloc.c:736</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a49073b935d77bfabad51166436408cb6"><div class="ttname"><a href="zsmalloc_8c.html#a49073b935d77bfabad51166436408cb6">calculate_zspage_chain_size</a></div><div class="ttdeci">static int calculate_zspage_chain_size(int class_size)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l02334">zsmalloc.c:2334</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a4c0a58f8b5ad497e02270821c7ec2a25"><div class="ttname"><a href="zsmalloc_8c.html#a4c0a58f8b5ad497e02270821c7ec2a25">init_deferred_free</a></div><div class="ttdeci">static void init_deferred_free(struct zs_pool *pool)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l02112">zsmalloc.c:2112</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a526c4397e22f2d955c85e54f3800a575"><div class="ttname"><a href="zsmalloc_8c.html#a526c4397e22f2d955c85e54f3800a575">ZS_HANDLE_SIZE</a></div><div class="ttdeci">#define ZS_HANDLE_SIZE</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00054">zsmalloc.c:54</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a5bbaec5e8d179fe92c80f8400083d57e"><div class="ttname"><a href="zsmalloc_8c.html#a5bbaec5e8d179fe92c80f8400083d57e">ZS_MIN_ALLOC_SIZE</a></div><div class="ttdeci">#define ZS_MIN_ALLOC_SIZE</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00102">zsmalloc.c:102</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a6dcedf09799171e72aed9d85fc1c0be1"><div class="ttname"><a href="zsmalloc_8c.html#a6dcedf09799171e72aed9d85fc1c0be1">ZS_MAX_ALLOC_SIZE</a></div><div class="ttdeci">#define ZS_MAX_ALLOC_SIZE</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00105">zsmalloc.c:105</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a6dffdc9a5deb8dfdbf4359962e99e39c"><div class="ttname"><a href="zsmalloc_8c.html#a6dffdc9a5deb8dfdbf4359962e99e39c">ZS_SIZE_CLASS_DELTA</a></div><div class="ttdeci">#define ZS_SIZE_CLASS_DELTA</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00120">zsmalloc.c:120</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a93bff9dc0eac88f4d78efaeb3df92421"><div class="ttname"><a href="zsmalloc_8c.html#a93bff9dc0eac88f4d78efaeb3df92421">zs_register_shrinker</a></div><div class="ttdeci">static int zs_register_shrinker(struct zs_pool *pool)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l02315">zsmalloc.c:2315</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a9b97249d5202bc77c9cc9a53b4bfce57"><div class="ttname"><a href="zsmalloc_8c.html#a9b97249d5202bc77c9cc9a53b4bfce57">huge_class_size</a></div><div class="ttdeci">static size_t huge_class_size</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00167">zsmalloc.c:167</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_ab9d3268726e0e93c2ced98aa79c2f015"><div class="ttname"><a href="zsmalloc_8c.html#ab9d3268726e0e93c2ced98aa79c2f015">zs_destroy_pool</a></div><div class="ttdeci">void zs_destroy_pool(struct zs_pool *pool)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l02482">zsmalloc.c:2482</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_aba5164b59ea1e4be21157687792f08f7"><div class="ttname"><a href="zsmalloc_8c.html#aba5164b59ea1e4be21157687792f08f7">can_merge</a></div><div class="ttdeci">static bool can_merge(struct size_class *prev, int pages_per_zspage, int objs_per_zspage)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l01178">zsmalloc.c:1178</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_ad49ab2576a238ebefe966398e04fc07ca4af6142bdad14c6db278879401f51554"><div class="ttname"><a href="zsmalloc_8c.html#ad49ab2576a238ebefe966398e04fc07ca4af6142bdad14c6db278879401f51554">ZS_INUSE_RATIO_0</a></div><div class="ttdeci">@ ZS_INUSE_RATIO_0</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00138">zsmalloc.c:138</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_ad49ab2576a238ebefe966398e04fc07cad078e8aa2a9b8c18b51c46ca503755de"><div class="ttname"><a href="zsmalloc_8c.html#ad49ab2576a238ebefe966398e04fc07cad078e8aa2a9b8c18b51c46ca503755de">NR_FULLNESS_GROUPS</a></div><div class="ttdeci">@ NR_FULLNESS_GROUPS</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00143">zsmalloc.c:143</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_aa40d41c6f83d3655a064ad89d101a8dc_cgraph.svg" width="383" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_aa40d41c6f83d3655a064ad89d101a8dc_cgraph.svg" width="1610" height="788"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -221,10 +392,47 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+<p>Function Description: Destroys a zsmalloc pool and frees all associated memory. It unregisters the shrinker, flushes deferred work, and frees all size classes and the pool structure. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l02482">2482</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2483</span>{</div>
+<div class="line"><span class="lineno"> 2484</span>    <span class="keywordtype">int</span> i;</div>
+<div class="line"><span class="lineno"> 2485</span> </div>
+<div class="line"><span class="lineno"> 2486</span>    <a class="code hl_function" href="zsmalloc_8c.html#a807fa531541f27f8c50ab50874fad7e2">zs_unregister_shrinker</a>(pool);</div>
+<div class="line"><span class="lineno"> 2487</span>    <a class="code hl_function" href="zsmalloc_8c.html#a3ab9afd27f57d1b352c14b22569c0bf7">zs_flush_migration</a>(pool);</div>
+<div class="line"><span class="lineno"> 2488</span>    <a class="code hl_function" href="zsmalloc_8c.html#a9311875e6296f9a27a2f33b1d2fbe2ed">zs_pool_stat_destroy</a>(pool);</div>
+<div class="line"><span class="lineno"> 2489</span> </div>
+<div class="line"><span class="lineno"> 2490</span>    <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code hl_define" href="zsmalloc_8c.html#a4864db1fc833cab58b5f01cbacaaf594">ZS_SIZE_CLASSES</a>; i++) {</div>
+<div class="line"><span class="lineno"> 2491</span>        <span class="keywordtype">int</span> fg;</div>
+<div class="line"><span class="lineno"> 2492</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class </span>= pool-&gt;<a class="code hl_struct" href="structsize__class.html">size_class</a>[i];</div>
+<div class="line"><span class="lineno"> 2493</span> </div>
+<div class="line"><span class="lineno"> 2494</span>        <span class="keywordflow">if</span> (!<span class="keyword">class</span>)</div>
+<div class="line"><span class="lineno"> 2495</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno"> 2496</span> </div>
+<div class="line"><span class="lineno"> 2497</span>        <span class="keywordflow">if</span> (class-&gt;index != i)</div>
+<div class="line"><span class="lineno"> 2498</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno"> 2499</span> </div>
+<div class="line"><span class="lineno"> 2500</span>        <span class="keywordflow">for</span> (fg = <a class="code hl_enumvalue" href="zsmalloc_8c.html#ad49ab2576a238ebefe966398e04fc07ca4af6142bdad14c6db278879401f51554">ZS_INUSE_RATIO_0</a>; fg &lt; <a class="code hl_enumvalue" href="zsmalloc_8c.html#ad49ab2576a238ebefe966398e04fc07cad078e8aa2a9b8c18b51c46ca503755de">NR_FULLNESS_GROUPS</a>; fg++) {</div>
+<div class="line"><span class="lineno"> 2501</span>            <span class="keywordflow">if</span> (list_empty(&amp;class-&gt;fullness_list[fg]))</div>
+<div class="line"><span class="lineno"> 2502</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno"> 2503</span> </div>
+<div class="line"><span class="lineno"> 2504</span>            pr_err(<span class="stringliteral">&quot;Class-%d fullness group %d is not empty\n&quot;</span>,</div>
+<div class="line"><span class="lineno"> 2505</span>                   class-&gt;size, fg);</div>
+<div class="line"><span class="lineno"> 2506</span>        }</div>
+<div class="line"><span class="lineno"> 2507</span>        <a class="code hl_function" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>(<span class="keyword">class</span>);</div>
+<div class="line"><span class="lineno"> 2508</span>    }</div>
+<div class="line"><span class="lineno"> 2509</span> </div>
+<div class="line"><span class="lineno"> 2510</span>    <a class="code hl_function" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>(pool-&gt;<a class="code hl_variable" href="structzs__pool.html#ab9a9dbe441765655228cfd28b49fc203">name</a>);</div>
+<div class="line"><span class="lineno"> 2511</span>    <a class="code hl_function" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>(pool);</div>
+<div class="line"><span class="lineno"> 2512</span>}</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a5273884a01705283d2b9e4262a8e6da3"><div class="ttname"><a href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a></div><div class="ttdeci">void kfree(const void *objp)</div><div class="ttdef"><b>Definition</b> <a href="slub_8c_source.html#l07184">slub.c:7184</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a3ab9afd27f57d1b352c14b22569c0bf7"><div class="ttname"><a href="zsmalloc_8c.html#a3ab9afd27f57d1b352c14b22569c0bf7">zs_flush_migration</a></div><div class="ttdeci">static void zs_flush_migration(struct zs_pool *pool)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l02104">zsmalloc.c:2104</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a807fa531541f27f8c50ab50874fad7e2"><div class="ttname"><a href="zsmalloc_8c.html#a807fa531541f27f8c50ab50874fad7e2">zs_unregister_shrinker</a></div><div class="ttdeci">static void zs_unregister_shrinker(struct zs_pool *pool)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l02307">zsmalloc.c:2307</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a9311875e6296f9a27a2f33b1d2fbe2ed"><div class="ttname"><a href="zsmalloc_8c.html#a9311875e6296f9a27a2f33b1d2fbe2ed">zs_pool_stat_destroy</a></div><div class="ttdeci">static void zs_pool_stat_destroy(struct zs_pool *pool)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00740">zsmalloc.c:740</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_ab9d3268726e0e93c2ced98aa79c2f015_cgraph.svg" width="226" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_ab9d3268726e0e93c2ced98aa79c2f015_cgraph.svg" width="1695" height="1358"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -248,10 +456,61 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>obj</em></span>&#160;)</td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>handle</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Frees a previously allocated object from a zsmalloc pool. It returns the object to its zspage and potentially frees the zspage if it becomes empty. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01614">1614</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1615</span>{</div>
+<div class="line"><span class="lineno"> 1616</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structzspage.html">zspage</a> *<a class="code hl_struct" href="structzspage.html">zspage</a>;</div>
+<div class="line"><span class="lineno"> 1617</span>    <span class="keyword">struct </span>zpdesc *f_zpdesc;</div>
+<div class="line"><span class="lineno"> 1618</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> obj;</div>
+<div class="line"><span class="lineno"> 1619</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 1620</span>    <span class="keywordtype">int</span> fullness;</div>
+<div class="line"><span class="lineno"> 1621</span> </div>
+<div class="line"><span class="lineno"> 1622</span>    <span class="keywordflow">if</span> (IS_ERR_OR_NULL((<span class="keywordtype">void</span> *)handle))</div>
+<div class="line"><span class="lineno"> 1623</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno"> 1624</span> </div>
+<div class="line"><span class="lineno"> 1625</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 1626</span><span class="comment">     * The pool-&gt;lock protects the race with zpage&#39;s migration</span></div>
+<div class="line"><span class="lineno"> 1627</span><span class="comment">     * so it&#39;s safe to get the page from handle.</span></div>
+<div class="line"><span class="lineno"> 1628</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno"> 1629</span>    read_lock(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">lock</a>);</div>
+<div class="line"><span class="lineno"> 1630</span>    obj = <a class="code hl_function" href="zsmalloc_8c.html#a3fda6ed97e68b9385372de9b7b523e4c">handle_to_obj</a>(handle);</div>
+<div class="line"><span class="lineno"> 1631</span>    <a class="code hl_function" href="zsmalloc_8c.html#a325ff373ed9f378cf65b527db5165684">obj_to_zpdesc</a>(obj, &amp;f_zpdesc);</div>
+<div class="line"><span class="lineno"> 1632</span>    <a class="code hl_struct" href="structzspage.html">zspage</a> = <a class="code hl_function" href="zsmalloc_8c.html#ab531fdd5c8b745266163b3845bb0090d">get_zspage</a>(f_zpdesc);</div>
+<div class="line"><span class="lineno"> 1633</span>    <span class="keyword">class </span>= <a class="code hl_function" href="zsmalloc_8c.html#a64fcf89370cdff725d28151555a47499">zspage_class</a>(pool, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1634</span>    spin_lock(&amp;class-&gt;lock);</div>
+<div class="line"><span class="lineno"> 1635</span>    read_unlock(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">lock</a>);</div>
+<div class="line"><span class="lineno"> 1636</span> </div>
+<div class="line"><span class="lineno"> 1637</span>    <a class="code hl_function" href="zsmalloc_8c.html#a476c45815be58d4ad9c3b284ba4266b1">class_stat_sub</a>(<span class="keyword">class</span>, <a class="code hl_enumvalue" href="zsmalloc_8c.html#a8312726d62abe6eac9b2c617b46d83c8a8445dfd1452287423788a1a9b5944da3">ZS_OBJS_INUSE</a>, 1);</div>
+<div class="line"><span class="lineno"> 1638</span>    <a class="code hl_function" href="zsmalloc_8c.html#af2879e522a0640612834f95881d2ff71">obj_free</a>(class-&gt;size, obj);</div>
+<div class="line"><span class="lineno"> 1639</span> </div>
+<div class="line"><span class="lineno"> 1640</span>    fullness = <a class="code hl_function" href="zsmalloc_8c.html#a84d6cd29e0dd6514d4b73e190c84d4ae">fix_fullness_group</a>(<span class="keyword">class</span>, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1641</span>    <span class="keywordflow">if</span> (fullness == <a class="code hl_enumvalue" href="zsmalloc_8c.html#ad49ab2576a238ebefe966398e04fc07ca4af6142bdad14c6db278879401f51554">ZS_INUSE_RATIO_0</a>)</div>
+<div class="line"><span class="lineno"> 1642</span>        <a class="code hl_function" href="zsmalloc_8c.html#a913d677777bc8d7b7a2100d52ca61eed">free_zspage</a>(pool, <span class="keyword">class</span>, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1643</span> </div>
+<div class="line"><span class="lineno"> 1644</span>    spin_unlock(&amp;class-&gt;lock);</div>
+<div class="line"><span class="lineno"> 1645</span>    <a class="code hl_function" href="zsmalloc_8c.html#a9373d9b3b9c075e97637f5b8c6035e93">cache_free_handle</a>(handle);</div>
+<div class="line"><span class="lineno"> 1646</span>}</div>
+<div class="ttc" id="astructzspage_html"><div class="ttname"><a href="structzspage.html">zspage</a></div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00300">zsmalloc.c:300</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a325ff373ed9f378cf65b527db5165684"><div class="ttname"><a href="zsmalloc_8c.html#a325ff373ed9f378cf65b527db5165684">obj_to_zpdesc</a></div><div class="ttdeci">static void obj_to_zpdesc(unsigned long obj, struct zpdesc **zpdesc)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00879">zsmalloc.c:879</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a3fda6ed97e68b9385372de9b7b523e4c"><div class="ttname"><a href="zsmalloc_8c.html#a3fda6ed97e68b9385372de9b7b523e4c">handle_to_obj</a></div><div class="ttdeci">static unsigned long handle_to_obj(unsigned long handle)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00905">zsmalloc.c:905</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a476c45815be58d4ad9c3b284ba4266b1"><div class="ttname"><a href="zsmalloc_8c.html#a476c45815be58d4ad9c3b284ba4266b1">class_stat_sub</a></div><div class="ttdeci">static void class_stat_sub(struct size_class *class, int type, unsigned long cnt)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00601">zsmalloc.c:601</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a64fcf89370cdff725d28151555a47499"><div class="ttname"><a href="zsmalloc_8c.html#a64fcf89370cdff725d28151555a47499">zspage_class</a></div><div class="ttdeci">static struct size_class * zspage_class(struct zs_pool *pool, struct zspage *zspage)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00562">zsmalloc.c:562</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a8312726d62abe6eac9b2c617b46d83c8a8445dfd1452287423788a1a9b5944da3"><div class="ttname"><a href="zsmalloc_8c.html#a8312726d62abe6eac9b2c617b46d83c8a8445dfd1452287423788a1a9b5944da3">ZS_OBJS_INUSE</a></div><div class="ttdeci">@ ZS_OBJS_INUSE</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00152">zsmalloc.c:152</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a84d6cd29e0dd6514d4b73e190c84d4ae"><div class="ttname"><a href="zsmalloc_8c.html#a84d6cd29e0dd6514d4b73e190c84d4ae">fix_fullness_group</a></div><div class="ttdeci">static int fix_fullness_group(struct size_class *class, struct zspage *zspage)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00822">zsmalloc.c:822</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a913d677777bc8d7b7a2100d52ca61eed"><div class="ttname"><a href="zsmalloc_8c.html#a913d677777bc8d7b7a2100d52ca61eed">free_zspage</a></div><div class="ttdeci">static void free_zspage(struct zs_pool *pool, struct size_class *class, struct zspage *zspage)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l01003">zsmalloc.c:1003</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a9373d9b3b9c075e97637f5b8c6035e93"><div class="ttname"><a href="zsmalloc_8c.html#a9373d9b3b9c075e97637f5b8c6035e93">cache_free_handle</a></div><div class="ttdeci">static void cache_free_handle(unsigned long handle)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00449">zsmalloc.c:449</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_ab531fdd5c8b745266163b3845bb0090d"><div class="ttname"><a href="zsmalloc_8c.html#ab531fdd5c8b745266163b3845bb0090d">get_zspage</a></div><div class="ttdeci">static struct zspage * get_zspage(struct zpdesc *zpdesc)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00839">zsmalloc.c:839</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_af2879e522a0640612834f95881d2ff71"><div class="ttname"><a href="zsmalloc_8c.html#af2879e522a0640612834f95881d2ff71">obj_free</a></div><div class="ttdeci">static void obj_free(int class_size, unsigned long obj)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l01583">zsmalloc.c:1583</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a3dea3a64f75a3e9772b62fe644703675_cgraph.svg" width="1562" height="943"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -274,7 +533,14 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+<p>Function Description: Returns the total number of pages allocated by a zsmalloc pool. This includes all pages used for storing objects. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01231">1231</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1232</span>{</div>
+<div class="line"><span class="lineno"> 1233</span>    <span class="keywordflow">return</span> atomic_long_read(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a1bd63d6003671d2ef1e704bd9ab74bd7">pages_allocated</a>);</div>
+<div class="line"><span class="lineno"> 1234</span>}</div>
+<div class="ttc" id="astructzs__pool_html_a1bd63d6003671d2ef1e704bd9ab74bd7"><div class="ttname"><a href="structzs__pool.html#a1bd63d6003671d2ef1e704bd9ab74bd7">zs_pool::pages_allocated</a></div><div class="ttdeci">atomic_long_t pages_allocated</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00222">zsmalloc.c:222</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_aaa9a967ad4413854987410eaf5f477b8_icgraph.svg" width="364" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -299,8 +565,14 @@ Here is the caller graph for this function:</div>
 <p><a class="el" href="zsmalloc_8c.html#a4952e5e499cea723cfaba6595841737f">zs_huge_class_size()</a> - Returns the size (in bytes) of the first huge zsmalloc &amp;<a class="el" href="structsize__class.html">size_class</a>. @pool: zsmalloc pool to use</p>
 <p>The function returns the size of the first huge class - any object of equal or bigger size will be stored in zspage consisting of a single physical page.</p>
 <p>Context: Any context.</p>
-<p>Return: the size (in bytes) of the first huge zsmalloc &amp;<a class="el" href="structsize__class.html">size_class</a>. </p>
-<div class="dynheader">
+<p>Return: the size (in bytes) of the first huge zsmalloc &amp;<a class="el" href="structsize__class.html">size_class</a>.</p>
+<p>Function Description: Returns the size of the first huge class. Objects equal to or larger than this size are stored in huge zspages (single page, single object). </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01456">1456</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1457</span>{</div>
+<div class="line"><span class="lineno"> 1458</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="zsmalloc_8c.html#a9b97249d5202bc77c9cc9a53b4bfce57">huge_class_size</a>;</div>
+<div class="line"><span class="lineno"> 1459</span>}</div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a4952e5e499cea723cfaba6595841737f_icgraph.svg" width="368" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
@@ -328,7 +600,24 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p><a class="el" href="zsmalloc_8c.html#a7827b90e916126327c28f9ec964f4131">zs_lookup_class_index()</a> - Returns index of the zsmalloc &amp;<a class="el" href="structsize__class.html">size_class</a> that hold objects of the provided size. @pool: zsmalloc pool to use @size: object size</p>
 <p>Context: Any context.</p>
-<p>Return: the index of the zsmalloc &amp;<a class="el" href="structsize__class.html">size_class</a> that hold objects of the provided size. </p>
+<p>Return: the index of the zsmalloc &amp;<a class="el" href="structsize__class.html">size_class</a> that hold objects of the provided size.</p>
+<p>Function Description: Returns the index of the size class that holds objects of a given size. Used to determine which class a size belongs to. This is exported for external users. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01218">1218</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1219</span>{</div>
+<div class="line"><span class="lineno"> 1220</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 1221</span> </div>
+<div class="line"><span class="lineno"> 1222</span>    <span class="keyword">class </span>= pool-&gt;<a class="code hl_struct" href="structsize__class.html">size_class</a>[<a class="code hl_function" href="zsmalloc_8c.html#a75690d394cd5c2ee80262715c41999ad">get_size_class_index</a>(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>)];</div>
+<div class="line"><span class="lineno"> 1223</span> </div>
+<div class="line"><span class="lineno"> 1224</span>    <span class="keywordflow">return</span> <span class="keyword">class</span>-&gt;<a class="code hl_variable" href="structsize__class.html#a8d1d716292d7c5d5ec62240185b4074c">index</a>;</div>
+<div class="line"><span class="lineno"> 1225</span>}</div>
+<div class="ttc" id="astructsize__class_html_a8d1d716292d7c5d5ec62240185b4074c"><div class="ttname"><a href="structsize__class.html#a8d1d716292d7c5d5ec62240185b4074c">size_class::index</a></div><div class="ttdeci">unsigned int index</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00184">zsmalloc.c:184</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a75690d394cd5c2ee80262715c41999ad"><div class="ttname"><a href="zsmalloc_8c.html#a75690d394cd5c2ee80262715c41999ad">get_size_class_index</a></div><div class="ttdeci">static int get_size_class_index(int size)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00578">zsmalloc.c:578</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a7827b90e916126327c28f9ec964f4131_cgraph.svg" width="362" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -366,7 +655,79 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>zs_malloc - Allocate block of given size from pool. @pool: pool to allocate from @size: size of block to allocate @gfp: gfp flags when allocating object @nid: The preferred node id to allocate new zspage (if needed)</p>
-<p>On success, handle to the allocated object is returned, otherwise an ERR_PTR(). Allocation requests with size &gt; ZS_MAX_ALLOC_SIZE will fail. </p>
+<p>On success, handle to the allocated object is returned, otherwise an ERR_PTR(). Allocation requests with size &gt; ZS_MAX_ALLOC_SIZE will fail.</p>
+<p>Function Description: Allocates a block of memory from a zsmalloc pool. It finds or creates a zspage of the appropriate size class and allocates an object. Returns a handle on success or an ERR_PTR on failure. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01521">1521</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1523</span>{</div>
+<div class="line"><span class="lineno"> 1524</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> handle;</div>
+<div class="line"><span class="lineno"> 1525</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 1526</span>    <span class="keywordtype">int</span> newfg;</div>
+<div class="line"><span class="lineno"> 1527</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structzspage.html">zspage</a> *<a class="code hl_struct" href="structzspage.html">zspage</a>;</div>
+<div class="line"><span class="lineno"> 1528</span> </div>
+<div class="line"><span class="lineno"> 1529</span>    <span class="keywordflow">if</span> (unlikely(!<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>))</div>
+<div class="line"><span class="lineno"> 1530</span>        <span class="keywordflow">return</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)ERR_PTR(-EINVAL);</div>
+<div class="line"><span class="lineno"> 1531</span> </div>
+<div class="line"><span class="lineno"> 1532</span>    <span class="keywordflow">if</span> (unlikely(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> &gt; <a class="code hl_define" href="zsmalloc_8c.html#a6dcedf09799171e72aed9d85fc1c0be1">ZS_MAX_ALLOC_SIZE</a>))</div>
+<div class="line"><span class="lineno"> 1533</span>        <span class="keywordflow">return</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)ERR_PTR(-ENOSPC);</div>
+<div class="line"><span class="lineno"> 1534</span> </div>
+<div class="line"><span class="lineno"> 1535</span>    handle = <a class="code hl_function" href="zsmalloc_8c.html#aba50860ff5f4c30c40bf5e816db0ce0c">cache_alloc_handle</a>(gfp);</div>
+<div class="line"><span class="lineno"> 1536</span>    <span class="keywordflow">if</span> (!handle)</div>
+<div class="line"><span class="lineno"> 1537</span>        <span class="keywordflow">return</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)ERR_PTR(-ENOMEM);</div>
+<div class="line"><span class="lineno"> 1538</span> </div>
+<div class="line"><span class="lineno"> 1539</span>    <span class="comment">/* extra space in chunk to keep the handle */</span></div>
+<div class="line"><span class="lineno"> 1540</span>    <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> += <a class="code hl_define" href="zsmalloc_8c.html#a526c4397e22f2d955c85e54f3800a575">ZS_HANDLE_SIZE</a>;</div>
+<div class="line"><span class="lineno"> 1541</span>    <span class="keyword">class </span>= pool-&gt;<a class="code hl_struct" href="structsize__class.html">size_class</a>[<a class="code hl_function" href="zsmalloc_8c.html#a75690d394cd5c2ee80262715c41999ad">get_size_class_index</a>(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>)];</div>
+<div class="line"><span class="lineno"> 1542</span> </div>
+<div class="line"><span class="lineno"> 1543</span>    <span class="comment">/* class-&gt;lock effectively protects the zpage migration */</span></div>
+<div class="line"><span class="lineno"> 1544</span>    spin_lock(&amp;class-&gt;lock);</div>
+<div class="line"><span class="lineno"> 1545</span>    <a class="code hl_struct" href="structzspage.html">zspage</a> = <a class="code hl_function" href="zsmalloc_8c.html#a1a49fc9681deea2af1f17faf78805f5a">find_get_zspage</a>(<span class="keyword">class</span>);</div>
+<div class="line"><span class="lineno"> 1546</span>    <span class="keywordflow">if</span> (likely(<a class="code hl_struct" href="structzspage.html">zspage</a>)) {</div>
+<div class="line"><span class="lineno"> 1547</span>        <a class="code hl_function" href="zsmalloc_8c.html#a8ae8085c859af86b1285e36d51c74274">obj_malloc</a>(pool, <a class="code hl_struct" href="structzspage.html">zspage</a>, handle);</div>
+<div class="line"><span class="lineno"> 1548</span>        <span class="comment">/* Now move the zspage to another fullness group, if required */</span></div>
+<div class="line"><span class="lineno"> 1549</span>        <a class="code hl_function" href="zsmalloc_8c.html#a84d6cd29e0dd6514d4b73e190c84d4ae">fix_fullness_group</a>(<span class="keyword">class</span>, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1550</span>        <a class="code hl_function" href="zsmalloc_8c.html#ac5ebd26d6a34dbaa6ceeccc108b2494d">class_stat_add</a>(<span class="keyword">class</span>, <a class="code hl_enumvalue" href="zsmalloc_8c.html#a8312726d62abe6eac9b2c617b46d83c8a8445dfd1452287423788a1a9b5944da3">ZS_OBJS_INUSE</a>, 1);</div>
+<div class="line"><span class="lineno"> 1551</span> </div>
+<div class="line"><span class="lineno"> 1552</span>        <span class="keywordflow">goto</span> out;</div>
+<div class="line"><span class="lineno"> 1553</span>    }</div>
+<div class="line"><span class="lineno"> 1554</span> </div>
+<div class="line"><span class="lineno"> 1555</span>    spin_unlock(&amp;class-&gt;lock);</div>
+<div class="line"><span class="lineno"> 1556</span> </div>
+<div class="line"><span class="lineno"> 1557</span>    <a class="code hl_struct" href="structzspage.html">zspage</a> = <a class="code hl_function" href="zsmalloc_8c.html#a426b8e1a74b597a1c0b645478276c623">alloc_zspage</a>(pool, <span class="keyword">class</span>, gfp, nid);</div>
+<div class="line"><span class="lineno"> 1558</span>    <span class="keywordflow">if</span> (!<a class="code hl_struct" href="structzspage.html">zspage</a>) {</div>
+<div class="line"><span class="lineno"> 1559</span>        <a class="code hl_function" href="zsmalloc_8c.html#a9373d9b3b9c075e97637f5b8c6035e93">cache_free_handle</a>(handle);</div>
+<div class="line"><span class="lineno"> 1560</span>        <span class="keywordflow">return</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)ERR_PTR(-ENOMEM);</div>
+<div class="line"><span class="lineno"> 1561</span>    }</div>
+<div class="line"><span class="lineno"> 1562</span> </div>
+<div class="line"><span class="lineno"> 1563</span>    spin_lock(&amp;class-&gt;lock);</div>
+<div class="line"><span class="lineno"> 1564</span>    <a class="code hl_function" href="zsmalloc_8c.html#a8ae8085c859af86b1285e36d51c74274">obj_malloc</a>(pool, <a class="code hl_struct" href="structzspage.html">zspage</a>, handle);</div>
+<div class="line"><span class="lineno"> 1565</span>    newfg = <a class="code hl_function" href="zsmalloc_8c.html#a27bf76327262c5c7b45908242d1a4573">get_fullness_group</a>(<span class="keyword">class</span>, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1566</span>    <a class="code hl_function" href="zsmalloc_8c.html#a636e876ba470a89d3450a5e46e099a0e">insert_zspage</a>(<span class="keyword">class</span>, <a class="code hl_struct" href="structzspage.html">zspage</a>, newfg);</div>
+<div class="line"><span class="lineno"> 1567</span>    atomic_long_add(class-&gt;pages_per_zspage, &amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a1bd63d6003671d2ef1e704bd9ab74bd7">pages_allocated</a>);</div>
+<div class="line"><span class="lineno"> 1568</span>    <a class="code hl_function" href="zsmalloc_8c.html#ac5ebd26d6a34dbaa6ceeccc108b2494d">class_stat_add</a>(<span class="keyword">class</span>, <a class="code hl_enumvalue" href="zsmalloc_8c.html#a8312726d62abe6eac9b2c617b46d83c8a9367c44b04ce597d1dd0a7bd749650ae">ZS_OBJS_ALLOCATED</a>, class-&gt;objs_per_zspage);</div>
+<div class="line"><span class="lineno"> 1569</span>    <a class="code hl_function" href="zsmalloc_8c.html#ac5ebd26d6a34dbaa6ceeccc108b2494d">class_stat_add</a>(<span class="keyword">class</span>, <a class="code hl_enumvalue" href="zsmalloc_8c.html#a8312726d62abe6eac9b2c617b46d83c8a8445dfd1452287423788a1a9b5944da3">ZS_OBJS_INUSE</a>, 1);</div>
+<div class="line"><span class="lineno"> 1570</span> </div>
+<div class="line"><span class="lineno"> 1571</span>    <span class="comment">/* We completely set up zspage so mark them as movable */</span></div>
+<div class="line"><span class="lineno"> 1572</span>    <a class="code hl_function" href="zsmalloc_8c.html#a94f06e0f1e251d9e5bd0d13e277b4cdd">SetZsPageMovable</a>(pool, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1573</span>out:</div>
+<div class="line"><span class="lineno"> 1574</span>    spin_unlock(&amp;class-&gt;lock);</div>
+<div class="line"><span class="lineno"> 1575</span> </div>
+<div class="line"><span class="lineno"> 1576</span>    <span class="keywordflow">return</span> handle;</div>
+<div class="line"><span class="lineno"> 1577</span>}</div>
+<div class="ttc" id="azsmalloc_8c_html_a1a49fc9681deea2af1f17faf78805f5a"><div class="ttname"><a href="zsmalloc_8c.html#a1a49fc9681deea2af1f17faf78805f5a">find_get_zspage</a></div><div class="ttdeci">static struct zspage * find_get_zspage(struct size_class *class)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l01160">zsmalloc.c:1160</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a27bf76327262c5c7b45908242d1a4573"><div class="ttname"><a href="zsmalloc_8c.html#a27bf76327262c5c7b45908242d1a4573">get_fullness_group</a></div><div class="ttdeci">static int get_fullness_group(struct size_class *class, struct zspage *zspage)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00754">zsmalloc.c:754</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a426b8e1a74b597a1c0b645478276c623"><div class="ttname"><a href="zsmalloc_8c.html#a426b8e1a74b597a1c0b645478276c623">alloc_zspage</a></div><div class="ttdeci">static struct zspage * alloc_zspage(struct zs_pool *pool, struct size_class *class, gfp_t gfp, const int nid)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l01114">zsmalloc.c:1114</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a636e876ba470a89d3450a5e46e099a0e"><div class="ttname"><a href="zsmalloc_8c.html#a636e876ba470a89d3450a5e46e099a0e">insert_zspage</a></div><div class="ttdeci">static void insert_zspage(struct size_class *class, struct zspage *zspage, int fullness)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00784">zsmalloc.c:784</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a8312726d62abe6eac9b2c617b46d83c8a9367c44b04ce597d1dd0a7bd749650ae"><div class="ttname"><a href="zsmalloc_8c.html#a8312726d62abe6eac9b2c617b46d83c8a9367c44b04ce597d1dd0a7bd749650ae">ZS_OBJS_ALLOCATED</a></div><div class="ttdeci">@ ZS_OBJS_ALLOCATED</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00151">zsmalloc.c:151</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a8ae8085c859af86b1285e36d51c74274"><div class="ttname"><a href="zsmalloc_8c.html#a8ae8085c859af86b1285e36d51c74274">obj_malloc</a></div><div class="ttdeci">static unsigned long obj_malloc(struct zs_pool *pool, struct zspage *zspage, unsigned long handle)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l01465">zsmalloc.c:1465</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a94f06e0f1e251d9e5bd0d13e277b4cdd"><div class="ttname"><a href="zsmalloc_8c.html#a94f06e0f1e251d9e5bd0d13e277b4cdd">SetZsPageMovable</a></div><div class="ttdeci">static void SetZsPageMovable(struct zs_pool *pool, struct zspage *zspage)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l02120">zsmalloc.c:2120</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_aba50860ff5f4c30c40bf5e816db0ce0c"><div class="ttname"><a href="zsmalloc_8c.html#aba50860ff5f4c30c40bf5e816db0ce0c">cache_alloc_handle</a></div><div class="ttdeci">static unsigned long cache_alloc_handle(gfp_t gfp)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00439">zsmalloc.c:439</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_ac5ebd26d6a34dbaa6ceeccc108b2494d"><div class="ttname"><a href="zsmalloc_8c.html#ac5ebd26d6a34dbaa6ceeccc108b2494d">class_stat_add</a></div><div class="ttdeci">static void class_stat_add(struct size_class *class, int type, unsigned long cnt)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00592">zsmalloc.c:592</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a3d45970cc6ae3a0492dc3b0c5fadd16e_cgraph.svg" width="1226" height="1084"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -403,6 +764,64 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Begins a read operation on a zsmalloc object. It maps the object into memory for reading and handles objects that span two pages. Returns a pointer to the object data or a local copy. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01240">1240</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1242</span>{</div>
+<div class="line"><span class="lineno"> 1243</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structzspage.html">zspage</a> *<a class="code hl_struct" href="structzspage.html">zspage</a>;</div>
+<div class="line"><span class="lineno"> 1244</span>    <span class="keyword">struct </span>zpdesc *zpdesc;</div>
+<div class="line"><span class="lineno"> 1245</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> obj, off;</div>
+<div class="line"><span class="lineno"> 1246</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> obj_idx;</div>
+<div class="line"><span class="lineno"> 1247</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 1248</span>    <span class="keywordtype">void</span> *addr;</div>
+<div class="line"><span class="lineno"> 1249</span> </div>
+<div class="line"><span class="lineno"> 1250</span>    <span class="comment">/* Guarantee we can get zspage from handle safely */</span></div>
+<div class="line"><span class="lineno"> 1251</span>    read_lock(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">lock</a>);</div>
+<div class="line"><span class="lineno"> 1252</span>    obj = <a class="code hl_function" href="zsmalloc_8c.html#a3fda6ed97e68b9385372de9b7b523e4c">handle_to_obj</a>(handle);</div>
+<div class="line"><span class="lineno"> 1253</span>    <a class="code hl_function" href="zsmalloc_8c.html#ac6e1bfbbbbb3bd090443aaef5c09a96a">obj_to_location</a>(obj, &amp;zpdesc, &amp;obj_idx);</div>
+<div class="line"><span class="lineno"> 1254</span>    <a class="code hl_struct" href="structzspage.html">zspage</a> = <a class="code hl_function" href="zsmalloc_8c.html#ab531fdd5c8b745266163b3845bb0090d">get_zspage</a>(zpdesc);</div>
+<div class="line"><span class="lineno"> 1255</span> </div>
+<div class="line"><span class="lineno"> 1256</span>    <span class="comment">/* Make sure migration doesn&#39;t move any pages in this zspage */</span></div>
+<div class="line"><span class="lineno"> 1257</span>    <a class="code hl_function" href="zsmalloc_8c.html#ad14f3b69b27d2372f9e4d48b4f8e311f">zspage_read_lock</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1258</span>    read_unlock(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">lock</a>);</div>
+<div class="line"><span class="lineno"> 1259</span> </div>
+<div class="line"><span class="lineno"> 1260</span>    <span class="keyword">class </span>= <a class="code hl_function" href="zsmalloc_8c.html#a64fcf89370cdff725d28151555a47499">zspage_class</a>(pool, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1261</span>    off = offset_in_page(class-&gt;size * obj_idx);</div>
+<div class="line"><span class="lineno"> 1262</span> </div>
+<div class="line"><span class="lineno"> 1263</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="zsmalloc_8c.html#a925ebcf9948c8a7c73aad716b1da3e19">ZsHugePage</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>))</div>
+<div class="line"><span class="lineno"> 1264</span>        off += <a class="code hl_define" href="zsmalloc_8c.html#a526c4397e22f2d955c85e54f3800a575">ZS_HANDLE_SIZE</a>;</div>
+<div class="line"><span class="lineno"> 1265</span> </div>
+<div class="line"><span class="lineno"> 1266</span>    <span class="keywordflow">if</span> (off + mem_len &lt;= PAGE_SIZE) {</div>
+<div class="line"><span class="lineno"> 1267</span>        <span class="comment">/* this object is contained entirely within a page */</span></div>
+<div class="line"><span class="lineno"> 1268</span>        addr = kmap_local_zpdesc(zpdesc);</div>
+<div class="line"><span class="lineno"> 1269</span>        addr += off;</div>
+<div class="line"><span class="lineno"> 1270</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1271</span>        <span class="keywordtype">size_t</span> sizes[2];</div>
+<div class="line"><span class="lineno"> 1272</span> </div>
+<div class="line"><span class="lineno"> 1273</span>        <span class="comment">/* this object spans two pages */</span></div>
+<div class="line"><span class="lineno"> 1274</span>        sizes[0] = PAGE_SIZE - off;</div>
+<div class="line"><span class="lineno"> 1275</span>        sizes[1] = mem_len - sizes[0];</div>
+<div class="line"><span class="lineno"> 1276</span>        addr = local_copy;</div>
+<div class="line"><span class="lineno"> 1277</span> </div>
+<div class="line"><span class="lineno"> 1278</span>        memcpy_from_page(addr, zpdesc_page(zpdesc),</div>
+<div class="line"><span class="lineno"> 1279</span>                 off, sizes[0]);</div>
+<div class="line"><span class="lineno"> 1280</span>        zpdesc = <a class="code hl_function" href="zsmalloc_8c.html#ad5c599988dfa4217069c9dee37fcad81">get_next_zpdesc</a>(zpdesc);</div>
+<div class="line"><span class="lineno"> 1281</span>        memcpy_from_page(addr + sizes[0],</div>
+<div class="line"><span class="lineno"> 1282</span>                 zpdesc_page(zpdesc),</div>
+<div class="line"><span class="lineno"> 1283</span>                 0, sizes[1]);</div>
+<div class="line"><span class="lineno"> 1284</span>    }</div>
+<div class="line"><span class="lineno"> 1285</span> </div>
+<div class="line"><span class="lineno"> 1286</span>    <span class="keywordflow">return</span> addr;</div>
+<div class="line"><span class="lineno"> 1287</span>}</div>
+<div class="ttc" id="azsmalloc_8c_html_a925ebcf9948c8a7c73aad716b1da3e19"><div class="ttname"><a href="zsmalloc_8c.html#a925ebcf9948c8a7c73aad716b1da3e19">ZsHugePage</a></div><div class="ttdeci">static bool ZsHugePage(struct zspage *zspage)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00421">zsmalloc.c:421</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_ac6e1bfbbbbb3bd090443aaef5c09a96a"><div class="ttname"><a href="zsmalloc_8c.html#ac6e1bfbbbbb3bd090443aaef5c09a96a">obj_to_location</a></div><div class="ttdeci">static void obj_to_location(unsigned long obj, struct zpdesc **zpdesc, unsigned int *obj_idx)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00869">zsmalloc.c:869</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_ad14f3b69b27d2372f9e4d48b4f8e311f"><div class="ttname"><a href="zsmalloc_8c.html#ad14f3b69b27d2372f9e4d48b4f8e311f">zspage_read_lock</a></div><div class="ttdeci">static void zspage_read_lock(struct zspage *zspage)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00349">zsmalloc.c:349</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_ad5c599988dfa4217069c9dee37fcad81"><div class="ttname"><a href="zsmalloc_8c.html#ad5c599988dfa4217069c9dee37fcad81">get_next_zpdesc</a></div><div class="ttdeci">static struct zpdesc * get_next_zpdesc(struct zpdesc *zpdesc)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00850">zsmalloc.c:850</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_aa910c2a7bcdc82d67484e2ba57713d6b_cgraph.svg" width="460" height="322"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -439,6 +858,38 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Ends a read operation on a zsmalloc object. It unmaps the object and releases the read lock. Must be called after <a class="el" href="zsmalloc_8c.html#aa910c2a7bcdc82d67484e2ba57713d6b">zs_obj_read_begin()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01293">1293</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1295</span>{</div>
+<div class="line"><span class="lineno"> 1296</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structzspage.html">zspage</a> *<a class="code hl_struct" href="structzspage.html">zspage</a>;</div>
+<div class="line"><span class="lineno"> 1297</span>    <span class="keyword">struct </span>zpdesc *zpdesc;</div>
+<div class="line"><span class="lineno"> 1298</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> obj, off;</div>
+<div class="line"><span class="lineno"> 1299</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> obj_idx;</div>
+<div class="line"><span class="lineno"> 1300</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 1301</span> </div>
+<div class="line"><span class="lineno"> 1302</span>    obj = <a class="code hl_function" href="zsmalloc_8c.html#a3fda6ed97e68b9385372de9b7b523e4c">handle_to_obj</a>(handle);</div>
+<div class="line"><span class="lineno"> 1303</span>    <a class="code hl_function" href="zsmalloc_8c.html#ac6e1bfbbbbb3bd090443aaef5c09a96a">obj_to_location</a>(obj, &amp;zpdesc, &amp;obj_idx);</div>
+<div class="line"><span class="lineno"> 1304</span>    <a class="code hl_struct" href="structzspage.html">zspage</a> = <a class="code hl_function" href="zsmalloc_8c.html#ab531fdd5c8b745266163b3845bb0090d">get_zspage</a>(zpdesc);</div>
+<div class="line"><span class="lineno"> 1305</span>    <span class="keyword">class </span>= <a class="code hl_function" href="zsmalloc_8c.html#a64fcf89370cdff725d28151555a47499">zspage_class</a>(pool, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1306</span>    off = offset_in_page(class-&gt;size * obj_idx);</div>
+<div class="line"><span class="lineno"> 1307</span> </div>
+<div class="line"><span class="lineno"> 1308</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="zsmalloc_8c.html#a925ebcf9948c8a7c73aad716b1da3e19">ZsHugePage</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>))</div>
+<div class="line"><span class="lineno"> 1309</span>        off += <a class="code hl_define" href="zsmalloc_8c.html#a526c4397e22f2d955c85e54f3800a575">ZS_HANDLE_SIZE</a>;</div>
+<div class="line"><span class="lineno"> 1310</span> </div>
+<div class="line"><span class="lineno"> 1311</span>    <span class="keywordflow">if</span> (off + mem_len &lt;= PAGE_SIZE) {</div>
+<div class="line"><span class="lineno"> 1312</span>        handle_mem -= off;</div>
+<div class="line"><span class="lineno"> 1313</span>        kunmap_local(handle_mem);</div>
+<div class="line"><span class="lineno"> 1314</span>    }</div>
+<div class="line"><span class="lineno"> 1315</span> </div>
+<div class="line"><span class="lineno"> 1316</span>    <a class="code hl_function" href="zsmalloc_8c.html#a51759e735bbc2c285026de48b5ea5236">zspage_read_unlock</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1317</span>}</div>
+<div class="ttc" id="azsmalloc_8c_html_a51759e735bbc2c285026de48b5ea5236"><div class="ttname"><a href="zsmalloc_8c.html#a51759e735bbc2c285026de48b5ea5236">zspage_read_unlock</a></div><div class="ttdeci">static void zspage_read_unlock(struct zspage *zspage)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l00365">zsmalloc.c:365</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a436a8d2565c882d95d5dfa92f28c8230_cgraph.svg" width="319" height="291"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -475,6 +926,57 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Begins a scatter-gather read operation on a zsmalloc object. It sets up a scatterlist for the object's pages, handling objects that span two pages. Used for efficient I/O operations. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01323">1323</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1325</span>{</div>
+<div class="line"><span class="lineno"> 1326</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structzspage.html">zspage</a> *<a class="code hl_struct" href="structzspage.html">zspage</a>;</div>
+<div class="line"><span class="lineno"> 1327</span>    <span class="keyword">struct </span>zpdesc *zpdesc;</div>
+<div class="line"><span class="lineno"> 1328</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> obj, off;</div>
+<div class="line"><span class="lineno"> 1329</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> obj_idx;</div>
+<div class="line"><span class="lineno"> 1330</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 1331</span> </div>
+<div class="line"><span class="lineno"> 1332</span>    <span class="comment">/* Guarantee we can get zspage from handle safely */</span></div>
+<div class="line"><span class="lineno"> 1333</span>    read_lock(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">lock</a>);</div>
+<div class="line"><span class="lineno"> 1334</span>    obj = <a class="code hl_function" href="zsmalloc_8c.html#a3fda6ed97e68b9385372de9b7b523e4c">handle_to_obj</a>(handle);</div>
+<div class="line"><span class="lineno"> 1335</span>    <a class="code hl_function" href="zsmalloc_8c.html#ac6e1bfbbbbb3bd090443aaef5c09a96a">obj_to_location</a>(obj, &amp;zpdesc, &amp;obj_idx);</div>
+<div class="line"><span class="lineno"> 1336</span>    <a class="code hl_struct" href="structzspage.html">zspage</a> = <a class="code hl_function" href="zsmalloc_8c.html#ab531fdd5c8b745266163b3845bb0090d">get_zspage</a>(zpdesc);</div>
+<div class="line"><span class="lineno"> 1337</span> </div>
+<div class="line"><span class="lineno"> 1338</span>    <span class="comment">/* Make sure migration doesn&#39;t move any pages in this zspage */</span></div>
+<div class="line"><span class="lineno"> 1339</span>    <a class="code hl_function" href="zsmalloc_8c.html#ad14f3b69b27d2372f9e4d48b4f8e311f">zspage_read_lock</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1340</span>    read_unlock(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">lock</a>);</div>
+<div class="line"><span class="lineno"> 1341</span> </div>
+<div class="line"><span class="lineno"> 1342</span>    <span class="keyword">class </span>= <a class="code hl_function" href="zsmalloc_8c.html#a64fcf89370cdff725d28151555a47499">zspage_class</a>(pool, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1343</span>    off = offset_in_page(class-&gt;size * obj_idx);</div>
+<div class="line"><span class="lineno"> 1344</span> </div>
+<div class="line"><span class="lineno"> 1345</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="zsmalloc_8c.html#a925ebcf9948c8a7c73aad716b1da3e19">ZsHugePage</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>))</div>
+<div class="line"><span class="lineno"> 1346</span>        off += <a class="code hl_define" href="zsmalloc_8c.html#a526c4397e22f2d955c85e54f3800a575">ZS_HANDLE_SIZE</a>;</div>
+<div class="line"><span class="lineno"> 1347</span> </div>
+<div class="line"><span class="lineno"> 1348</span>    <span class="keywordflow">if</span> (off + mem_len &lt;= PAGE_SIZE) {</div>
+<div class="line"><span class="lineno"> 1349</span>        <span class="comment">/* this object is contained entirely within a page */</span></div>
+<div class="line"><span class="lineno"> 1350</span>        sg_init_table(sg, 1);</div>
+<div class="line"><span class="lineno"> 1351</span>        sg_set_page(sg, zpdesc_page(zpdesc), mem_len, off);</div>
+<div class="line"><span class="lineno"> 1352</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1353</span>        <span class="keywordtype">size_t</span> sizes[2];</div>
+<div class="line"><span class="lineno"> 1354</span> </div>
+<div class="line"><span class="lineno"> 1355</span>        <span class="comment">/* this object spans two pages */</span></div>
+<div class="line"><span class="lineno"> 1356</span>        sizes[0] = PAGE_SIZE - off;</div>
+<div class="line"><span class="lineno"> 1357</span>        sizes[1] = mem_len - sizes[0];</div>
+<div class="line"><span class="lineno"> 1358</span> </div>
+<div class="line"><span class="lineno"> 1359</span>        sg_init_table(sg, 2);</div>
+<div class="line"><span class="lineno"> 1360</span>        sg_set_page(sg, zpdesc_page(zpdesc), sizes[0], off);</div>
+<div class="line"><span class="lineno"> 1361</span> </div>
+<div class="line"><span class="lineno"> 1362</span>        zpdesc = <a class="code hl_function" href="zsmalloc_8c.html#ad5c599988dfa4217069c9dee37fcad81">get_next_zpdesc</a>(zpdesc);</div>
+<div class="line"><span class="lineno"> 1363</span>        sg = sg_next(sg);</div>
+<div class="line"><span class="lineno"> 1364</span> </div>
+<div class="line"><span class="lineno"> 1365</span>        sg_set_page(sg, zpdesc_page(zpdesc), sizes[1], 0);</div>
+<div class="line"><span class="lineno"> 1366</span>    }</div>
+<div class="line"><span class="lineno"> 1367</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a3cd5932b03cb3e6d4e4bee095da047ee_cgraph.svg" width="482" height="320"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -501,6 +1003,26 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Ends a scatter-gather read operation on a zsmalloc object. It releases the read lock. Must be called after <a class="el" href="zsmalloc_8c.html#a3cd5932b03cb3e6d4e4bee095da047ee">zs_obj_read_sg_begin()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01373">1373</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1374</span>{</div>
+<div class="line"><span class="lineno"> 1375</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structzspage.html">zspage</a> *<a class="code hl_struct" href="structzspage.html">zspage</a>;</div>
+<div class="line"><span class="lineno"> 1376</span>    <span class="keyword">struct </span>zpdesc *zpdesc;</div>
+<div class="line"><span class="lineno"> 1377</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> obj;</div>
+<div class="line"><span class="lineno"> 1378</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> obj_idx;</div>
+<div class="line"><span class="lineno"> 1379</span> </div>
+<div class="line"><span class="lineno"> 1380</span>    obj = <a class="code hl_function" href="zsmalloc_8c.html#a3fda6ed97e68b9385372de9b7b523e4c">handle_to_obj</a>(handle);</div>
+<div class="line"><span class="lineno"> 1381</span>    <a class="code hl_function" href="zsmalloc_8c.html#ac6e1bfbbbbb3bd090443aaef5c09a96a">obj_to_location</a>(obj, &amp;zpdesc, &amp;obj_idx);</div>
+<div class="line"><span class="lineno"> 1382</span>    <a class="code hl_struct" href="structzspage.html">zspage</a> = <a class="code hl_function" href="zsmalloc_8c.html#ab531fdd5c8b745266163b3845bb0090d">get_zspage</a>(zpdesc);</div>
+<div class="line"><span class="lineno"> 1383</span> </div>
+<div class="line"><span class="lineno"> 1384</span>    <a class="code hl_function" href="zsmalloc_8c.html#a51759e735bbc2c285026de48b5ea5236">zspage_read_unlock</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1385</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_a863475e975d5b3e3cdee760e6fdf0093_cgraph.svg" width="340" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -537,6 +1059,59 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Writes data to a zsmalloc object. It maps the object into memory and copies the provided data, handling objects that span two pages. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l01391">1391</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1393</span>{</div>
+<div class="line"><span class="lineno"> 1394</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structzspage.html">zspage</a> *<a class="code hl_struct" href="structzspage.html">zspage</a>;</div>
+<div class="line"><span class="lineno"> 1395</span>    <span class="keyword">struct </span>zpdesc *zpdesc;</div>
+<div class="line"><span class="lineno"> 1396</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> obj, off;</div>
+<div class="line"><span class="lineno"> 1397</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> obj_idx;</div>
+<div class="line"><span class="lineno"> 1398</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsize__class.html">size_class</a> *<span class="keyword">class</span>;</div>
+<div class="line"><span class="lineno"> 1399</span> </div>
+<div class="line"><span class="lineno"> 1400</span>    <span class="comment">/* Guarantee we can get zspage from handle safely */</span></div>
+<div class="line"><span class="lineno"> 1401</span>    read_lock(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">lock</a>);</div>
+<div class="line"><span class="lineno"> 1402</span>    obj = <a class="code hl_function" href="zsmalloc_8c.html#a3fda6ed97e68b9385372de9b7b523e4c">handle_to_obj</a>(handle);</div>
+<div class="line"><span class="lineno"> 1403</span>    <a class="code hl_function" href="zsmalloc_8c.html#ac6e1bfbbbbb3bd090443aaef5c09a96a">obj_to_location</a>(obj, &amp;zpdesc, &amp;obj_idx);</div>
+<div class="line"><span class="lineno"> 1404</span>    <a class="code hl_struct" href="structzspage.html">zspage</a> = <a class="code hl_function" href="zsmalloc_8c.html#ab531fdd5c8b745266163b3845bb0090d">get_zspage</a>(zpdesc);</div>
+<div class="line"><span class="lineno"> 1405</span> </div>
+<div class="line"><span class="lineno"> 1406</span>    <span class="comment">/* Make sure migration doesn&#39;t move any pages in this zspage */</span></div>
+<div class="line"><span class="lineno"> 1407</span>    <a class="code hl_function" href="zsmalloc_8c.html#ad14f3b69b27d2372f9e4d48b4f8e311f">zspage_read_lock</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1408</span>    read_unlock(&amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a7d315ed171712cfc3712f26b2bc0332d">lock</a>);</div>
+<div class="line"><span class="lineno"> 1409</span> </div>
+<div class="line"><span class="lineno"> 1410</span>    <span class="keyword">class </span>= <a class="code hl_function" href="zsmalloc_8c.html#a64fcf89370cdff725d28151555a47499">zspage_class</a>(pool, <a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1411</span>    off = offset_in_page(class-&gt;size * obj_idx);</div>
+<div class="line"><span class="lineno"> 1412</span> </div>
+<div class="line"><span class="lineno"> 1413</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="zsmalloc_8c.html#a925ebcf9948c8a7c73aad716b1da3e19">ZsHugePage</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>))</div>
+<div class="line"><span class="lineno"> 1414</span>        off += <a class="code hl_define" href="zsmalloc_8c.html#a526c4397e22f2d955c85e54f3800a575">ZS_HANDLE_SIZE</a>;</div>
+<div class="line"><span class="lineno"> 1415</span> </div>
+<div class="line"><span class="lineno"> 1416</span>    <span class="keywordflow">if</span> (off + mem_len &lt;= PAGE_SIZE) {</div>
+<div class="line"><span class="lineno"> 1417</span>        <span class="comment">/* this object is contained entirely within a page */</span></div>
+<div class="line"><span class="lineno"> 1418</span>        <span class="keywordtype">void</span> *dst = kmap_local_zpdesc(zpdesc);</div>
+<div class="line"><span class="lineno"> 1419</span> </div>
+<div class="line"><span class="lineno"> 1420</span>        memcpy(dst + off, handle_mem, mem_len);</div>
+<div class="line"><span class="lineno"> 1421</span>        kunmap_local(dst);</div>
+<div class="line"><span class="lineno"> 1422</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno"> 1423</span>        <span class="comment">/* this object spans two pages */</span></div>
+<div class="line"><span class="lineno"> 1424</span>        <span class="keywordtype">size_t</span> sizes[2];</div>
+<div class="line"><span class="lineno"> 1425</span> </div>
+<div class="line"><span class="lineno"> 1426</span>        sizes[0] = PAGE_SIZE - off;</div>
+<div class="line"><span class="lineno"> 1427</span>        sizes[1] = mem_len - sizes[0];</div>
+<div class="line"><span class="lineno"> 1428</span> </div>
+<div class="line"><span class="lineno"> 1429</span>        memcpy_to_page(zpdesc_page(zpdesc), off,</div>
+<div class="line"><span class="lineno"> 1430</span>                   handle_mem, sizes[0]);</div>
+<div class="line"><span class="lineno"> 1431</span>        zpdesc = <a class="code hl_function" href="zsmalloc_8c.html#ad5c599988dfa4217069c9dee37fcad81">get_next_zpdesc</a>(zpdesc);</div>
+<div class="line"><span class="lineno"> 1432</span>        memcpy_to_page(zpdesc_page(zpdesc), 0,</div>
+<div class="line"><span class="lineno"> 1433</span>                   handle_mem + sizes[0], sizes[1]);</div>
+<div class="line"><span class="lineno"> 1434</span>    }</div>
+<div class="line"><span class="lineno"> 1435</span> </div>
+<div class="line"><span class="lineno"> 1436</span>    <a class="code hl_function" href="zsmalloc_8c.html#a51759e735bbc2c285026de48b5ea5236">zspage_read_unlock</a>(<a class="code hl_struct" href="structzspage.html">zspage</a>);</div>
+<div class="line"><span class="lineno"> 1437</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="zsmalloc_8h_ae3f8f84ce947361a6510f7d558b7a6c3_cgraph.svg" width="439" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -563,7 +1138,14 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Copies pool statistics to a user-provided stats structure. Used to retrieve compaction statistics. </p>
 
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l02257">2257</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2258</span>{</div>
+<div class="line"><span class="lineno"> 2259</span>    memcpy(stats, &amp;pool-&gt;<a class="code hl_variable" href="structzs__pool.html#a6a116e95b42d020b779ca4a5888bdc71">stats</a>, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structzs__pool__stats.html">zs_pool_stats</a>));</div>
+<div class="line"><span class="lineno"> 2260</span>}</div>
+<div class="ttc" id="astructzs__pool__stats_html"><div class="ttname"><a href="structzs__pool__stats.html">zs_pool_stats</a></div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8h_source.html#l00022">zsmalloc.h:22</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
@@ -586,7 +1168,18 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Variable Description: The movable operations structure for zsmalloc. It provides callbacks for page isolation, migration, and putback, enabling zsmalloc pages to be migrated by the memory management subsystem. </p>
 
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l02048">2048</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 2048</span>                                              {</div>
+<div class="line"><span class="lineno"> 2049</span>    .isolate_page = <a class="code hl_function" href="zsmalloc_8c.html#a4174d2f097f4baff5176e27e1d400890">zs_page_isolate</a>,</div>
+<div class="line"><span class="lineno"> 2050</span>    .migrate_page = <a class="code hl_function" href="zsmalloc_8c.html#aa4e40122e0c49ec6fc6ed859b0c9d919">zs_page_migrate</a>,</div>
+<div class="line"><span class="lineno"> 2051</span>    .putback_page = <a class="code hl_function" href="zsmalloc_8c.html#a51c48de81ab2fec45d8b6b0ff70d0d6b">zs_page_putback</a>,</div>
+<div class="line"><span class="lineno"> 2052</span>};</div>
+<div class="ttc" id="azsmalloc_8c_html_a4174d2f097f4baff5176e27e1d400890"><div class="ttname"><a href="zsmalloc_8c.html#a4174d2f097f4baff5176e27e1d400890">zs_page_isolate</a></div><div class="ttdeci">static bool zs_page_isolate(struct page *page, isolate_mode_t mode)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l01932">zsmalloc.c:1932</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_a51c48de81ab2fec45d8b6b0ff70d0d6b"><div class="ttname"><a href="zsmalloc_8c.html#a51c48de81ab2fec45d8b6b0ff70d0d6b">zs_page_putback</a></div><div class="ttdeci">static void zs_page_putback(struct page *page)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l02041">zsmalloc.c:2041</a></div></div>
+<div class="ttc" id="azsmalloc_8c_html_aa4e40122e0c49ec6fc6ed859b0c9d919"><div class="ttname"><a href="zsmalloc_8c.html#aa4e40122e0c49ec6fc6ed859b0c9d919">zs_page_migrate</a></div><div class="ttdeci">static int zs_page_migrate(struct page *newpage, struct page *page, enum migrate_mode mode)</div><div class="ttdef"><b>Definition</b> <a href="zsmalloc_8c_source.html#l01945">zsmalloc.c:1945</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

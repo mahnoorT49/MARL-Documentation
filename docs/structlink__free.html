@@ -126,7 +126,13 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8233551e5035be33595df51a7f03f411" id="r_a8233551e5035be33595df51a7f03f411"><td class="memItemLeft anon">&#160;&#160;&#160;unsigned long&#160;&#160;&#160;<a class="el" href="#a4a66f8d1d4be29812c70d70d558dde0b">handle</a>&#160;</td><td class="memItemRight"></td></tr>
 <tr class="memitem:a30219330895925a4de6e5b4b7648006d" id="r_a30219330895925a4de6e5b4b7648006d"><td class="memItemLeft anonEnd">};&#160;</td><td class="memItemRight"></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Placed within free objects to form a singly linked list. For every zspage, zspage-&gt;freeobj gives head of this list.</p>
+<p>This must be power of 2 and less than or equal to ZS_ALIGN</p>
+<p>struct Description: This structure is placed within free objects to form a singly linked list of free objects in a zspage. It contains either the next free object index (for free objects) or the handle of allocated objects. It is used to maintain the freelist within each zspage. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00197">197</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a30219330895925a4de6e5b4b7648006d" name="a30219330895925a4de6e5b4b7648006d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a30219330895925a4de6e5b4b7648006d">&#9670;&#160;</a></span>[union]</h2>
 
@@ -152,6 +158,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Handle of allocated object. </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00207">207</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
@@ -166,11 +175,14 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Free object index; It's valid for non-allocated object </p>
+
+<p class="definition">Definition at line <a class="el" href="zsmalloc_8c_source.html#l00203">203</a> of file <a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="zsmalloc_8c.html">zsmalloc.c</a></li>
+<li>mm/<a class="el" href="zsmalloc_8c_source.html">zsmalloc.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

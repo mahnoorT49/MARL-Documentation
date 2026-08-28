@@ -139,35 +139,148 @@ Include dependency graph for dmapool.c:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c__incl.svg" width="5316" height="203"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-</div><table class="memberdecls">
+</div>
+<p><a href="dmapool_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:dma_5Fblock" id="r_dma_5Fblock"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structdma__block.html">dma_block</a></td></tr>
 <tr class="memitem:dma_5Fpool" id="r_dma_5Fpool"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structdma__pool.html">dma_pool</a></td></tr>
 <tr class="memitem:dma_5Fpage" id="r_dma_5Fpage"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structdma__page.html">dma_page</a></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ae946b4bea732c59c72678c9416bc1771" id="r_ae946b4bea732c59c72678c9416bc1771"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae946b4bea732c59c72678c9416bc1771">DMAPOOL_DEBUG</a>&#160;&#160;&#160;1</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a9200041a7dd1ab0e0ec9d3d797f24e15" id="r_a9200041a7dd1ab0e0ec9d3d797f24e15"><td class="memItemLeft">static&#160;</td><td class="memItemRight"><a class="el" href="#a9200041a7dd1ab0e0ec9d3d797f24e15">DEFINE_MUTEX</a> (pools_lock)</td></tr>
+<tr class="memitem:a38e30064f407677144981b974062af1d" id="r_a38e30064f407677144981b974062af1d"><td class="memItemLeft">static&#160;</td><td class="memItemRight"><a class="el" href="#a38e30064f407677144981b974062af1d">DEFINE_MUTEX</a> (pools_reg_lock)</td></tr>
+<tr class="memitem:a47151837920ebc9db60df4ca9fc2929c" id="r_a47151837920ebc9db60df4ca9fc2929c"><td class="memItemLeft">static ssize_t&#160;</td><td class="memItemRight"><a class="el" href="#a47151837920ebc9db60df4ca9fc2929c">pools_show</a> (struct device *dev, struct device_attribute *attr, char *buf)</td></tr>
+<tr class="memitem:a0884b872fb51034cbf2ab8927019c642" id="r_a0884b872fb51034cbf2ab8927019c642"><td class="memItemLeft">static&#160;</td><td class="memItemRight"><a class="el" href="#a0884b872fb51034cbf2ab8927019c642">DEVICE_ATTR_RO</a> (pools)</td></tr>
+<tr class="memitem:a71a9a97e44a3b70e3399751c1514d154" id="r_a71a9a97e44a3b70e3399751c1514d154"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a71a9a97e44a3b70e3399751c1514d154">pool_check_block</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool, struct <a class="el" href="structdma__block.html">dma_block</a> *block, gfp_t mem_flags)</td></tr>
+<tr class="memitem:a855ee762a5c91e20b7837a2ebc6000d2" id="r_a855ee762a5c91e20b7837a2ebc6000d2"><td class="memItemLeft">static struct <a class="el" href="structdma__page.html">dma_page</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a855ee762a5c91e20b7837a2ebc6000d2">pool_find_page</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool, dma_addr_t dma)</td></tr>
+<tr class="memitem:a55432d0b5a0dbff31893b7802ed3290f" id="r_a55432d0b5a0dbff31893b7802ed3290f"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a55432d0b5a0dbff31893b7802ed3290f">pool_block_err</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool, void *vaddr, dma_addr_t dma)</td></tr>
+<tr class="memitem:af61fe59e618e3ae478246541c9ce9bfc" id="r_af61fe59e618e3ae478246541c9ce9bfc"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#af61fe59e618e3ae478246541c9ce9bfc">pool_init_page</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool, struct <a class="el" href="structdma__page.html">dma_page</a> *page)</td></tr>
+<tr class="memitem:a849c8755c26ff871f7ed36bd205ec905" id="r_a849c8755c26ff871f7ed36bd205ec905"><td class="memItemLeft">static struct <a class="el" href="structdma__block.html">dma_block</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a849c8755c26ff871f7ed36bd205ec905">pool_block_pop</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool)</td></tr>
+<tr class="memitem:a292948685b32f5c89c0cc889c71d4ad6" id="r_a292948685b32f5c89c0cc889c71d4ad6"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a292948685b32f5c89c0cc889c71d4ad6">pool_block_push</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool, struct <a class="el" href="structdma__block.html">dma_block</a> *block, dma_addr_t dma)</td></tr>
 <tr id="func-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">: name of pool, for diagnostics</div></td></tr>
-<tr><td colspan="2" class="ititle"><div class="groupText"><p>dmam_pool_create - Managed dma_pool_create()</p>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>dmam_pool_create - Managed <a class="el" href="dmapool_8h.html#ac7dce455c91645e1f314107329c7f7ba">dma_pool_create()</a></p>
 <p>@dev: device that will be doing the DMA @size: size of the blocks in this pool. @align: alignment requirement for blocks; must be a power of two @allocation: returned blocks won't cross this boundary (or zero)</p>
-<p>Managed dma_pool_create(). DMA pool created with this function is automatically destroyed on driver detach.</p>
-<p>Return: a managed dma allocation pool with the requested characteristics, or NULL if one can't be created. </p>
+<p>Managed <a class="el" href="dmapool_8h.html#ac7dce455c91645e1f314107329c7f7ba">dma_pool_create()</a>. DMA pool created with this function is automatically destroyed on driver detach.</p>
+<p>Return: a managed dma allocation pool with the requested characteristics, or NULL if one can't be created.</p>
+<p>Function Description: Creates a managed DMA pool that is automatically destroyed when the device is removed. It allocates devres storage, creates the pool, and adds it to the device's managed resources. Returns the pool or NULL on failure. </p>
 </div></td></tr>
 <tr class="memitem:a3fe0e2584dac6b572250696b9d670dc4" id="r_a3fe0e2584dac6b572250696b9d670dc4"><td class="memItemLeft">struct <a class="el" href="structdma__pool.html">dma_pool</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a3fe0e2584dac6b572250696b9d670dc4">dma_pool_create_node</a> (const char *name, struct device *dev, size_t size, size_t align, size_t boundary, int node)</td></tr>
 <tr class="memitem:a04d37c9258b3fac701f0619fd787befb" id="r_a04d37c9258b3fac701f0619fd787befb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a04d37c9258b3fac701f0619fd787befb">EXPORT_SYMBOL</a> (<a class="el" href="#a3fe0e2584dac6b572250696b9d670dc4">dma_pool_create_node</a>)</td></tr>
+<tr class="memitem:aa0d35b88ababf13ff6f59ca92115b7f1" id="r_aa0d35b88ababf13ff6f59ca92115b7f1"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#aa0d35b88ababf13ff6f59ca92115b7f1">pool_initialise_page</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool, struct <a class="el" href="structdma__page.html">dma_page</a> *page)</td></tr>
+<tr class="memitem:a56c584c13ba7db481bfedb8d1c470212" id="r_a56c584c13ba7db481bfedb8d1c470212"><td class="memItemLeft">static struct <a class="el" href="structdma__page.html">dma_page</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a56c584c13ba7db481bfedb8d1c470212">pool_alloc_page</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool, gfp_t mem_flags)</td></tr>
 <tr class="memitem:ad86d3e56e606d50c24c42026097dd323" id="r_ad86d3e56e606d50c24c42026097dd323"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad86d3e56e606d50c24c42026097dd323">dma_pool_destroy</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool)</td></tr>
 <tr class="memitem:a0eb8b2855f32b253bcfa1f2394c9bc22" id="r_a0eb8b2855f32b253bcfa1f2394c9bc22"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0eb8b2855f32b253bcfa1f2394c9bc22">EXPORT_SYMBOL</a> (<a class="el" href="#ad86d3e56e606d50c24c42026097dd323">dma_pool_destroy</a>)</td></tr>
 <tr class="memitem:a0e4b1c6cc66f9cfcd39cc3cb7250efeb" id="r_a0e4b1c6cc66f9cfcd39cc3cb7250efeb"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a0e4b1c6cc66f9cfcd39cc3cb7250efeb">dma_pool_alloc</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool, gfp_t mem_flags, dma_addr_t *handle)</td></tr>
 <tr class="memitem:afffd209ceffa1bf77fe4cdb86462d891" id="r_afffd209ceffa1bf77fe4cdb86462d891"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afffd209ceffa1bf77fe4cdb86462d891">EXPORT_SYMBOL</a> (<a class="el" href="#a0e4b1c6cc66f9cfcd39cc3cb7250efeb">dma_pool_alloc</a>)</td></tr>
 <tr class="memitem:a982551494f659f563bf2feb838a8ffcd" id="r_a982551494f659f563bf2feb838a8ffcd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a982551494f659f563bf2feb838a8ffcd">dma_pool_free</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool, void *vaddr, dma_addr_t dma)</td></tr>
 <tr class="memitem:a9b083c106b4580225238a99dd9b94ea8" id="r_a9b083c106b4580225238a99dd9b94ea8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9b083c106b4580225238a99dd9b94ea8">EXPORT_SYMBOL</a> (<a class="el" href="#a982551494f659f563bf2feb838a8ffcd">dma_pool_free</a>)</td></tr>
+<tr class="memitem:a51c0f8e0c0c3bc4f025b5fbc25c68b88" id="r_a51c0f8e0c0c3bc4f025b5fbc25c68b88"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a51c0f8e0c0c3bc4f025b5fbc25c68b88">dmam_pool_release</a> (struct device *dev, void *res)</td></tr>
+<tr class="memitem:ae31716e72a2a70fbbb153b4cda23c113" id="r_ae31716e72a2a70fbbb153b4cda23c113"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#ae31716e72a2a70fbbb153b4cda23c113">dmam_pool_match</a> (struct device *dev, void *res, void *match_data)</td></tr>
 <tr class="memitem:a7418341bfbcf04ee0eeea9a53d46f79f" id="r_a7418341bfbcf04ee0eeea9a53d46f79f"><td class="memItemLeft">struct <a class="el" href="structdma__pool.html">dma_pool</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7418341bfbcf04ee0eeea9a53d46f79f">dmam_pool_create</a> (const char *name, struct device *dev, size_t size, size_t align, size_t allocation)</td></tr>
 <tr class="memitem:a73a6af815410d64048032e0ed52741c0" id="r_a73a6af815410d64048032e0ed52741c0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a73a6af815410d64048032e0ed52741c0">EXPORT_SYMBOL</a> (<a class="el" href="#a7418341bfbcf04ee0eeea9a53d46f79f">dmam_pool_create</a>)</td></tr>
 <tr class="memitem:a9b71c5232808ea9520769723678d8dc3" id="r_a9b71c5232808ea9520769723678d8dc3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9b71c5232808ea9520769723678d8dc3">dmam_pool_destroy</a> (struct <a class="el" href="structdma__pool.html">dma_pool</a> *pool)</td></tr>
 <tr class="memitem:ad18d86aadc5d3892d163632165a29975" id="r_ad18d86aadc5d3892d163632165a29975"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad18d86aadc5d3892d163632165a29975">EXPORT_SYMBOL</a> (<a class="el" href="#a9b71c5232808ea9520769723678d8dc3">dmam_pool_destroy</a>)</td></tr>
 </table>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="ae946b4bea732c59c72678c9416bc1771" name="ae946b4bea732c59c72678c9416bc1771"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae946b4bea732c59c72678c9416bc1771">&#9670;&#160;</a></span>DMAPOOL_DEBUG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DMAPOOL_DEBUG&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00040">40</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+
+</div>
+</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a9200041a7dd1ab0e0ec9d3d797f24e15" name="a9200041a7dd1ab0e0ec9d3d797f24e15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9200041a7dd1ab0e0ec9d3d797f24e15">&#9670;&#160;</a></span>DEFINE_MUTEX() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_MUTEX </td>
+          <td>(</td>
+          <td class="paramtype">pools_lock</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38e30064f407677144981b974062af1d" name="a38e30064f407677144981b974062af1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38e30064f407677144981b974062af1d">&#9670;&#160;</a></span>DEFINE_MUTEX() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEFINE_MUTEX </td>
+          <td>(</td>
+          <td class="paramtype">pools_reg_lock</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0884b872fb51034cbf2ab8927019c642" name="a0884b872fb51034cbf2ab8927019c642"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0884b872fb51034cbf2ab8927019c642">&#9670;&#160;</a></span>DEVICE_ATTR_RO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DEVICE_ATTR_RO </td>
+          <td>(</td>
+          <td class="paramtype">pools</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0e4b1c6cc66f9cfcd39cc3cb7250efeb" name="a0e4b1c6cc66f9cfcd39cc3cb7250efeb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0e4b1c6cc66f9cfcd39cc3cb7250efeb">&#9670;&#160;</a></span>dma_pool_alloc()</h2>
 
@@ -192,7 +305,64 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>dma_pool_alloc - get a block of coherent memory @pool: dma pool that will produce the block @mem_flags: GFP_* bitmask @handle: pointer to dma address of block</p>
-<p>Return: the kernel virtual address of a currently unused block, and reports its dma address through the handle. If such a memory block can't be allocated, NULL is returned. </p>
+<p>Return: the kernel virtual address of a currently unused block, and reports its dma address through the handle. If such a memory block can't be allocated, NULL is returned.</p>
+<p>Function Description: Allocates a block of DMA-coherent memory from the pool. It pops a block from the free list. If no free blocks are available, it allocates a new page and initializes it. Returns the virtual address of the block and sets the DMA handle. The block may be zeroed if __GFP_ZERO is set. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00453">453</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  455</span>{</div>
+<div class="line"><span class="lineno">  456</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__block.html">dma_block</a> *block;</div>
+<div class="line"><span class="lineno">  457</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__page.html">dma_page</a> *page;</div>
+<div class="line"><span class="lineno">  458</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>;</div>
+<div class="line"><span class="lineno">  459</span> </div>
+<div class="line"><span class="lineno">  460</span>    might_alloc(mem_flags);</div>
+<div class="line"><span class="lineno">  461</span> </div>
+<div class="line"><span class="lineno">  462</span>    spin_lock_irqsave(&amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a263d81e2fc522f09f8a2893c9b0b121c">lock</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  463</span>    block = <a class="code hl_function" href="#a849c8755c26ff871f7ed36bd205ec905">pool_block_pop</a>(pool);</div>
+<div class="line"><span class="lineno">  464</span>    <span class="keywordflow">if</span> (!block) {</div>
+<div class="line"><span class="lineno">  465</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  466</span><span class="comment">         * pool_alloc_page() might sleep, so temporarily drop</span></div>
+<div class="line"><span class="lineno">  467</span><span class="comment">         * &amp;pool-&gt;lock</span></div>
+<div class="line"><span class="lineno">  468</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  469</span>        spin_unlock_irqrestore(&amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a263d81e2fc522f09f8a2893c9b0b121c">lock</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  470</span> </div>
+<div class="line"><span class="lineno">  471</span>        page = <a class="code hl_function" href="#a56c584c13ba7db481bfedb8d1c470212">pool_alloc_page</a>(pool, mem_flags &amp; (~<a class="code hl_define" href="gfp__types_8h.html#a4f8b1c2d9b67cd332e7420150128bcad">__GFP_ZERO</a>));</div>
+<div class="line"><span class="lineno">  472</span>        <span class="keywordflow">if</span> (!page)</div>
+<div class="line"><span class="lineno">  473</span>            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  474</span> </div>
+<div class="line"><span class="lineno">  475</span>        spin_lock_irqsave(&amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a263d81e2fc522f09f8a2893c9b0b121c">lock</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  476</span>        <a class="code hl_function" href="#aa0d35b88ababf13ff6f59ca92115b7f1">pool_initialise_page</a>(pool, page);</div>
+<div class="line"><span class="lineno">  477</span>        block = <a class="code hl_function" href="#a849c8755c26ff871f7ed36bd205ec905">pool_block_pop</a>(pool);</div>
+<div class="line"><span class="lineno">  478</span>    }</div>
+<div class="line"><span class="lineno">  479</span>    spin_unlock_irqrestore(&amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a263d81e2fc522f09f8a2893c9b0b121c">lock</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  480</span> </div>
+<div class="line"><span class="lineno">  481</span>    *handle = block-&gt;<a class="code hl_variable" href="structdma__block.html#afe91b012eb920e4fce3b8630702caaf9">dma</a>;</div>
+<div class="line"><span class="lineno">  482</span>    <a class="code hl_function" href="#a71a9a97e44a3b70e3399751c1514d154">pool_check_block</a>(pool, block, mem_flags);</div>
+<div class="line"><span class="lineno">  483</span>    <span class="keywordflow">if</span> (want_init_on_alloc(mem_flags))</div>
+<div class="line"><span class="lineno">  484</span>        memset(block, 0, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a>);</div>
+<div class="line"><span class="lineno">  485</span> </div>
+<div class="line"><span class="lineno">  486</span>    <span class="keywordflow">return</span> block;</div>
+<div class="line"><span class="lineno">  487</span>}</div>
+<div class="ttc" id="admapool_8c_html_a56c584c13ba7db481bfedb8d1c470212"><div class="ttname"><a href="#a56c584c13ba7db481bfedb8d1c470212">pool_alloc_page</a></div><div class="ttdeci">static struct dma_page * pool_alloc_page(struct dma_pool *pool, gfp_t mem_flags)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00377">dmapool.c:377</a></div></div>
+<div class="ttc" id="admapool_8c_html_a71a9a97e44a3b70e3399751c1514d154"><div class="ttname"><a href="#a71a9a97e44a3b70e3399751c1514d154">pool_check_block</a></div><div class="ttdeci">static void pool_check_block(struct dma_pool *pool, struct dma_block *block, gfp_t mem_flags)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00111">dmapool.c:111</a></div></div>
+<div class="ttc" id="admapool_8c_html_a849c8755c26ff871f7ed36bd205ec905"><div class="ttname"><a href="#a849c8755c26ff871f7ed36bd205ec905">pool_block_pop</a></div><div class="ttdeci">static struct dma_block * pool_block_pop(struct dma_pool *pool)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00209">dmapool.c:209</a></div></div>
+<div class="ttc" id="admapool_8c_html_aa0d35b88ababf13ff6f59ca92115b7f1"><div class="ttname"><a href="#aa0d35b88ababf13ff6f59ca92115b7f1">pool_initialise_page</a></div><div class="ttdeci">static void pool_initialise_page(struct dma_pool *pool, struct dma_page *page)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00340">dmapool.c:340</a></div></div>
+<div class="ttc" id="agfp__types_8h_html_a4f8b1c2d9b67cd332e7420150128bcad"><div class="ttname"><a href="gfp__types_8h.html#a4f8b1c2d9b67cd332e7420150128bcad">__GFP_ZERO</a></div><div class="ttdeci">#define __GFP_ZERO</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00290">gfp_types.h:290</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a87339f115a0975a129ebf95946fe26d6"><div class="ttname"><a href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a></div><div class="ttdeci">static __always_inline gfp_t flags</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01021">slab.h:1022</a></div></div>
+<div class="ttc" id="astructdma__block_html"><div class="ttname"><a href="structdma__block.html">dma_block</a></div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00045">dmapool.c:45</a></div></div>
+<div class="ttc" id="astructdma__block_html_afe91b012eb920e4fce3b8630702caaf9"><div class="ttname"><a href="structdma__block.html#afe91b012eb920e4fce3b8630702caaf9">dma_block::dma</a></div><div class="ttdeci">dma_addr_t dma</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00047">dmapool.c:47</a></div></div>
+<div class="ttc" id="astructdma__page_html"><div class="ttname"><a href="structdma__page.html">dma_page</a></div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00072">dmapool.c:72</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a263d81e2fc522f09f8a2893c9b0b121c"><div class="ttname"><a href="structdma__pool.html#a263d81e2fc522f09f8a2893c9b0b121c">dma_pool::lock</a></div><div class="ttdeci">spinlock_t lock</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00055">dmapool.c:55</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a8ccb111f464b1caa2604918d0d582f21"><div class="ttname"><a href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">dma_pool::size</a></div><div class="ttdeci">unsigned int size</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00061">dmapool.c:61</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a0e4b1c6cc66f9cfcd39cc3cb7250efeb_cgraph.svg" width="1711" height="1036"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a0e4b1c6cc66f9cfcd39cc3cb7250efeb_icgraph.svg" width="308" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -234,10 +404,103 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00260">260</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  262</span>{</div>
+<div class="line"><span class="lineno">  263</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__pool.html">dma_pool</a> *retval;</div>
+<div class="line"><span class="lineno">  264</span>    <span class="keywordtype">size_t</span> <a class="code hl_variable" href="structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc">allocation</a>;</div>
+<div class="line"><span class="lineno">  265</span>    <span class="keywordtype">bool</span> empty;</div>
+<div class="line"><span class="lineno">  266</span> </div>
+<div class="line"><span class="lineno">  267</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>)</div>
+<div class="line"><span class="lineno">  268</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  269</span> </div>
+<div class="line"><span class="lineno">  270</span>    <span class="keywordflow">if</span> (align == 0)</div>
+<div class="line"><span class="lineno">  271</span>        align = 1;</div>
+<div class="line"><span class="lineno">  272</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (align &amp; (align - 1))</div>
+<div class="line"><span class="lineno">  273</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  274</span> </div>
+<div class="line"><span class="lineno">  275</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> == 0 || <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> &gt; INT_MAX)</div>
+<div class="line"><span class="lineno">  276</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  277</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> &lt; <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structdma__block.html">dma_block</a>))</div>
+<div class="line"><span class="lineno">  278</span>        <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structdma__block.html">dma_block</a>);</div>
+<div class="line"><span class="lineno">  279</span> </div>
+<div class="line"><span class="lineno">  280</span>    <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = ALIGN(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, align);</div>
+<div class="line"><span class="lineno">  281</span>    allocation = max_t(<span class="keywordtype">size_t</span>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, PAGE_SIZE);</div>
+<div class="line"><span class="lineno">  282</span> </div>
+<div class="line"><span class="lineno">  283</span>    <span class="keywordflow">if</span> (!boundary)</div>
+<div class="line"><span class="lineno">  284</span>        boundary = allocation;</div>
+<div class="line"><span class="lineno">  285</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((boundary &lt; <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>) || (boundary &amp; (boundary - 1)))</div>
+<div class="line"><span class="lineno">  286</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  287</span> </div>
+<div class="line"><span class="lineno">  288</span>    boundary = min(boundary, allocation);</div>
+<div class="line"><span class="lineno">  289</span> </div>
+<div class="line"><span class="lineno">  290</span>    retval = <a class="code hl_define" href="include_2linux_2slab_8h.html#a9e64b087a75b95378d78b4ca406eb981">kzalloc_node</a>(<span class="keyword">sizeof</span>(*retval), <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a3d472d9e3a45410122d89f40f6301c0d">node</a>);</div>
+<div class="line"><span class="lineno">  291</span>    <span class="keywordflow">if</span> (!retval)</div>
+<div class="line"><span class="lineno">  292</span>        <span class="keywordflow">return</span> retval;</div>
+<div class="line"><span class="lineno">  293</span> </div>
+<div class="line"><span class="lineno">  294</span>    strscpy(retval-&gt;<a class="code hl_variable" href="structdma__pool.html#a01289d9f7ae98d1899af9adfc1fffe79">name</a>, name, <span class="keyword">sizeof</span>(retval-&gt;<a class="code hl_variable" href="structdma__pool.html#a01289d9f7ae98d1899af9adfc1fffe79">name</a>));</div>
+<div class="line"><span class="lineno">  295</span> </div>
+<div class="line"><span class="lineno">  296</span>    retval-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a> = dev;</div>
+<div class="line"><span class="lineno">  297</span> </div>
+<div class="line"><span class="lineno">  298</span>    INIT_LIST_HEAD(&amp;retval-&gt;<a class="code hl_variable" href="structdma__pool.html#a121e8ad3ce90eb6237296c8cd509a938">page_list</a>);</div>
+<div class="line"><span class="lineno">  299</span>    spin_lock_init(&amp;retval-&gt;<a class="code hl_variable" href="structdma__pool.html#a263d81e2fc522f09f8a2893c9b0b121c">lock</a>);</div>
+<div class="line"><span class="lineno">  300</span>    retval-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a> = <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno">  301</span>    retval-&gt;<a class="code hl_variable" href="structdma__pool.html#a5680ca83e72d0f646bd6e7dd263cce03">boundary</a> = boundary;</div>
+<div class="line"><span class="lineno">  302</span>    retval-&gt;<a class="code hl_variable" href="structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc">allocation</a> = allocation;</div>
+<div class="line"><span class="lineno">  303</span>    retval-&gt;<a class="code hl_variable" href="structdma__pool.html#ac37ac15c940e3db5b1368d5cfa6249b0">node</a> = <a class="code hl_variable" href="include_2linux_2slab_8h.html#a3d472d9e3a45410122d89f40f6301c0d">node</a>;</div>
+<div class="line"><span class="lineno">  304</span>    INIT_LIST_HEAD(&amp;retval-&gt;<a class="code hl_variable" href="structdma__pool.html#a6e25f116f0ce72b84ac92aafb3b7d844">pools</a>);</div>
+<div class="line"><span class="lineno">  305</span> </div>
+<div class="line"><span class="lineno">  306</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  307</span><span class="comment">     * pools_lock ensures that the -&gt;dma_pools list does not get corrupted.</span></div>
+<div class="line"><span class="lineno">  308</span><span class="comment">     * pools_reg_lock ensures that there is not a race between</span></div>
+<div class="line"><span class="lineno">  309</span><span class="comment">     * dma_pool_create() and dma_pool_destroy() or within dma_pool_create()</span></div>
+<div class="line"><span class="lineno">  310</span><span class="comment">     * when the first invocation of dma_pool_create() failed on</span></div>
+<div class="line"><span class="lineno">  311</span><span class="comment">     * device_create_file() and the second assumes that it has been done (I</span></div>
+<div class="line"><span class="lineno">  312</span><span class="comment">     * know it is a short window).</span></div>
+<div class="line"><span class="lineno">  313</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  314</span>    mutex_lock(&amp;pools_reg_lock);</div>
+<div class="line"><span class="lineno">  315</span>    mutex_lock(&amp;pools_lock);</div>
+<div class="line"><span class="lineno">  316</span>    empty = list_empty(&amp;dev-&gt;dma_pools);</div>
+<div class="line"><span class="lineno">  317</span>    list_add(&amp;retval-&gt;<a class="code hl_variable" href="structdma__pool.html#a6e25f116f0ce72b84ac92aafb3b7d844">pools</a>, &amp;dev-&gt;dma_pools);</div>
+<div class="line"><span class="lineno">  318</span>    mutex_unlock(&amp;pools_lock);</div>
+<div class="line"><span class="lineno">  319</span>    <span class="keywordflow">if</span> (empty) {</div>
+<div class="line"><span class="lineno">  320</span>        <span class="keywordtype">int</span> err;</div>
+<div class="line"><span class="lineno">  321</span> </div>
+<div class="line"><span class="lineno">  322</span>        err = device_create_file(dev, &amp;dev_attr_pools);</div>
+<div class="line"><span class="lineno">  323</span>        <span class="keywordflow">if</span> (err) {</div>
+<div class="line"><span class="lineno">  324</span>            mutex_lock(&amp;pools_lock);</div>
+<div class="line"><span class="lineno">  325</span>            list_del(&amp;retval-&gt;<a class="code hl_variable" href="structdma__pool.html#a6e25f116f0ce72b84ac92aafb3b7d844">pools</a>);</div>
+<div class="line"><span class="lineno">  326</span>            mutex_unlock(&amp;pools_lock);</div>
+<div class="line"><span class="lineno">  327</span>            mutex_unlock(&amp;pools_reg_lock);</div>
+<div class="line"><span class="lineno">  328</span>            <a class="code hl_function" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>(retval);</div>
+<div class="line"><span class="lineno">  329</span>            <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  330</span>        }</div>
+<div class="line"><span class="lineno">  331</span>    }</div>
+<div class="line"><span class="lineno">  332</span>    mutex_unlock(&amp;pools_reg_lock);</div>
+<div class="line"><span class="lineno">  333</span>    <span class="keywordflow">return</span> retval;</div>
+<div class="line"><span class="lineno">  334</span>}</div>
+<div class="ttc" id="agfp__types_8h_html_a44b9e863fd60efc9018a5524b77532ee"><div class="ttname"><a href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a></div><div class="ttdeci">#define GFP_KERNEL</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00377">gfp_types.h:377</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a3d472d9e3a45410122d89f40f6301c0d"><div class="ttname"><a href="include_2linux_2slab_8h.html#a3d472d9e3a45410122d89f40f6301c0d">node</a></div><div class="ttdeci">static __always_inline gfp_t int node</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01163">slab.h:1164</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a5273884a01705283d2b9e4262a8e6da3"><div class="ttname"><a href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a></div><div class="ttdeci">void kfree(const void *objp)</div><div class="ttdef"><b>Definition</b> <a href="slub_8c_source.html#l07184">slub.c:7184</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a9e64b087a75b95378d78b4ca406eb981"><div class="ttname"><a href="include_2linux_2slab_8h.html#a9e64b087a75b95378d78b4ca406eb981">kzalloc_node</a></div><div class="ttdeci">#define kzalloc_node(_size, _flags, _node)</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01301">slab.h:1301</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_af6ef73962e335cb2dfc15144f11215ba"><div class="ttname"><a href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a></div><div class="ttdeci">static size_t size</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01189">slab.h:1189</a></div></div>
+<div class="ttc" id="astructdma__pool_html"><div class="ttname"><a href="structdma__pool.html">dma_pool</a></div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00053">dmapool.c:53</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a01289d9f7ae98d1899af9adfc1fffe79"><div class="ttname"><a href="structdma__pool.html#a01289d9f7ae98d1899af9adfc1fffe79">dma_pool::name</a></div><div class="ttdeci">char name[32]</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00065">dmapool.c:65</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a121e8ad3ce90eb6237296c8cd509a938"><div class="ttname"><a href="structdma__pool.html#a121e8ad3ce90eb6237296c8cd509a938">dma_pool::page_list</a></div><div class="ttdeci">struct list_head page_list</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00054">dmapool.c:54</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a5680ca83e72d0f646bd6e7dd263cce03"><div class="ttname"><a href="structdma__pool.html#a5680ca83e72d0f646bd6e7dd263cce03">dma_pool::boundary</a></div><div class="ttdeci">unsigned int boundary</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00063">dmapool.c:63</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a6e25f116f0ce72b84ac92aafb3b7d844"><div class="ttname"><a href="structdma__pool.html#a6e25f116f0ce72b84ac92aafb3b7d844">dma_pool::pools</a></div><div class="ttdeci">struct list_head pools</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00066">dmapool.c:66</a></div></div>
+<div class="ttc" id="astructdma__pool_html_ab6deeb127988191cf9ada9a5f385f4bc"><div class="ttname"><a href="structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc">dma_pool::allocation</a></div><div class="ttdeci">unsigned int allocation</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00062">dmapool.c:62</a></div></div>
+<div class="ttc" id="astructdma__pool_html_abfab38d7ed358d3e177fef54f9f48dfa"><div class="ttname"><a href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dma_pool::dev</a></div><div class="ttdeci">struct device * dev</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00060">dmapool.c:60</a></div></div>
+<div class="ttc" id="astructdma__pool_html_ac37ac15c940e3db5b1368d5cfa6249b0"><div class="ttname"><a href="structdma__pool.html#ac37ac15c940e3db5b1368d5cfa6249b0">dma_pool::node</a></div><div class="ttdeci">int node</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00064">dmapool.c:64</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a3fe0e2584dac6b572250696b9d670dc4_cgraph.svg" width="264" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a3fe0e2584dac6b572250696b9d670dc4_cgraph.svg" width="1710" height="1203"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a3fe0e2584dac6b572250696b9d670dc4_icgraph.svg" width="716" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -257,11 +520,55 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>dma_pool_destroy - destroys a pool of dma memory blocks. @pool: dma pool that will be destroyed Context: !in_interrupt()</p>
-<p>Caller guarantees that no more memory from the pool is in use, and that nothing will try to use the pool after this call. </p>
-<div class="dynheader">
+<p>Caller guarantees that no more memory from the pool is in use, and that nothing will try to use the pool after this call.</p>
+<p>Function Description: Destroys a DMA pool and frees all associated memory. It removes the pool from the device's list, removes the sysfs file if this was the last pool, and frees all pages. If there are active allocations, it prints a warning but still frees the pages. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00406">406</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  407</span>{</div>
+<div class="line"><span class="lineno">  408</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__page.html">dma_page</a> *page, *tmp;</div>
+<div class="line"><span class="lineno">  409</span>    <span class="keywordtype">bool</span> empty, busy = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  410</span> </div>
+<div class="line"><span class="lineno">  411</span>    <span class="keywordflow">if</span> (unlikely(!pool))</div>
+<div class="line"><span class="lineno">  412</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  413</span> </div>
+<div class="line"><span class="lineno">  414</span>    mutex_lock(&amp;pools_reg_lock);</div>
+<div class="line"><span class="lineno">  415</span>    mutex_lock(&amp;pools_lock);</div>
+<div class="line"><span class="lineno">  416</span>    list_del(&amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a6e25f116f0ce72b84ac92aafb3b7d844">pools</a>);</div>
+<div class="line"><span class="lineno">  417</span>    empty = list_empty(&amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>-&gt;dma_pools);</div>
+<div class="line"><span class="lineno">  418</span>    mutex_unlock(&amp;pools_lock);</div>
+<div class="line"><span class="lineno">  419</span>    <span class="keywordflow">if</span> (empty)</div>
+<div class="line"><span class="lineno">  420</span>        device_remove_file(pool-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>, &amp;dev_attr_pools);</div>
+<div class="line"><span class="lineno">  421</span>    mutex_unlock(&amp;pools_reg_lock);</div>
+<div class="line"><span class="lineno">  422</span> </div>
+<div class="line"><span class="lineno">  423</span>    <span class="keywordflow">if</span> (pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a976c03eacb331b51d8a73255c40c25ee">nr_active</a>) {</div>
+<div class="line"><span class="lineno">  424</span>        dev_err(pool-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>, <span class="stringliteral">&quot;%s %s busy\n&quot;</span>, __func__, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a01289d9f7ae98d1899af9adfc1fffe79">name</a>);</div>
+<div class="line"><span class="lineno">  425</span>        busy = <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  426</span>    }</div>
+<div class="line"><span class="lineno">  427</span> </div>
+<div class="line"><span class="lineno">  428</span>    list_for_each_entry_safe(page, tmp, &amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a121e8ad3ce90eb6237296c8cd509a938">page_list</a>, <a class="code hl_variable" href="structdma__page.html#a3122bccce212917084b790b102c1971b">page_list</a>) {</div>
+<div class="line"><span class="lineno">  429</span>        <span class="keywordflow">if</span> (!busy)</div>
+<div class="line"><span class="lineno">  430</span>            <a class="code hl_function" href="dma-mapping_8h.html#a3ca748a9d15a4212495daec6caea3a92">dma_free_coherent</a>(pool-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc">allocation</a>,</div>
+<div class="line"><span class="lineno">  431</span>                      page-&gt;<a class="code hl_variable" href="structdma__page.html#af495d2389daf99be8f6657bd2f83ebff">vaddr</a>, page-&gt;<a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma</a>);</div>
+<div class="line"><span class="lineno">  432</span>        list_del(&amp;page-&gt;<a class="code hl_variable" href="structdma__page.html#a3122bccce212917084b790b102c1971b">page_list</a>);</div>
+<div class="line"><span class="lineno">  433</span>        <a class="code hl_function" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>(page);</div>
+<div class="line"><span class="lineno">  434</span>    }</div>
+<div class="line"><span class="lineno">  435</span> </div>
+<div class="line"><span class="lineno">  436</span>    <a class="code hl_function" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>(pool);</div>
+<div class="line"><span class="lineno">  437</span>}</div>
+<div class="ttc" id="adma-mapping_8h_html_a3ca748a9d15a4212495daec6caea3a92"><div class="ttname"><a href="dma-mapping_8h.html#a3ca748a9d15a4212495daec6caea3a92">dma_free_coherent</a></div><div class="ttdeci">static void dma_free_coherent(struct device *dev, size_t size, void *cpu_addr, dma_addr_t dma_handle)</div><div class="ttdef"><b>Definition</b> <a href="dma-mapping_8h_source.html#l00685">dma-mapping.h:685</a></div></div>
+<div class="ttc" id="astructdma__page_html_a1e14a528b716ad513c352bb92088df34"><div class="ttname"><a href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma_page::dma</a></div><div class="ttdeci">dma_addr_t dma</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00075">dmapool.c:75</a></div></div>
+<div class="ttc" id="astructdma__page_html_a3122bccce212917084b790b102c1971b"><div class="ttname"><a href="structdma__page.html#a3122bccce212917084b790b102c1971b">dma_page::page_list</a></div><div class="ttdeci">struct list_head page_list</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00073">dmapool.c:73</a></div></div>
+<div class="ttc" id="astructdma__page_html_af495d2389daf99be8f6657bd2f83ebff"><div class="ttname"><a href="structdma__page.html#af495d2389daf99be8f6657bd2f83ebff">dma_page::vaddr</a></div><div class="ttdeci">void * vaddr</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00074">dmapool.c:74</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a976c03eacb331b51d8a73255c40c25ee"><div class="ttname"><a href="structdma__pool.html#a976c03eacb331b51d8a73255c40c25ee">dma_pool::nr_active</a></div><div class="ttdeci">size_t nr_active</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00058">dmapool.c:58</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_ad86d3e56e606d50c24c42026097dd323_cgraph.svg" width="236" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_ad86d3e56e606d50c24c42026097dd323_cgraph.svg" width="1686" height="1415"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_ad86d3e56e606d50c24c42026097dd323_icgraph.svg" width="695" height="114"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -290,7 +597,33 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>dma_pool_free - put block back into dma pool @pool: the dma pool holding the block @vaddr: virtual address of block @dma: dma address of block</p>
-<p>Caller promises neither device nor driver will again touch this block unless it is first re-allocated. </p>
+<p>Caller promises neither device nor driver will again touch this block unless it is first re-allocated.</p>
+<p>Function Description: Frees a block back to the DMA pool. It validates the block (if debugging is enabled), pushes it onto the free list, and decrements the active count. The caller must ensure the block is not used after freeing. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00502">502</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  503</span>{</div>
+<div class="line"><span class="lineno">  504</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__block.html">dma_block</a> *block = vaddr;</div>
+<div class="line"><span class="lineno">  505</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>;</div>
+<div class="line"><span class="lineno">  506</span> </div>
+<div class="line"><span class="lineno">  507</span>    spin_lock_irqsave(&amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a263d81e2fc522f09f8a2893c9b0b121c">lock</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  508</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="#a55432d0b5a0dbff31893b7802ed3290f">pool_block_err</a>(pool, vaddr, <a class="code hl_variable" href="structdma__block.html#afe91b012eb920e4fce3b8630702caaf9">dma</a>)) {</div>
+<div class="line"><span class="lineno">  509</span>        <a class="code hl_function" href="#a292948685b32f5c89c0cc889c71d4ad6">pool_block_push</a>(pool, block, <a class="code hl_variable" href="structdma__block.html#afe91b012eb920e4fce3b8630702caaf9">dma</a>);</div>
+<div class="line"><span class="lineno">  510</span>        pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a976c03eacb331b51d8a73255c40c25ee">nr_active</a>--;</div>
+<div class="line"><span class="lineno">  511</span>    }</div>
+<div class="line"><span class="lineno">  512</span>    spin_unlock_irqrestore(&amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a263d81e2fc522f09f8a2893c9b0b121c">lock</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#a87339f115a0975a129ebf95946fe26d6">flags</a>);</div>
+<div class="line"><span class="lineno">  513</span>}</div>
+<div class="ttc" id="admapool_8c_html_a292948685b32f5c89c0cc889c71d4ad6"><div class="ttname"><a href="#a292948685b32f5c89c0cc889c71d4ad6">pool_block_push</a></div><div class="ttdeci">static void pool_block_push(struct dma_pool *pool, struct dma_block *block, dma_addr_t dma)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00224">dmapool.c:224</a></div></div>
+<div class="ttc" id="admapool_8c_html_a55432d0b5a0dbff31893b7802ed3290f"><div class="ttname"><a href="#a55432d0b5a0dbff31893b7802ed3290f">pool_block_err</a></div><div class="ttdeci">static bool pool_block_err(struct dma_pool *pool, void *vaddr, dma_addr_t dma)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00155">dmapool.c:155</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a982551494f659f563bf2feb838a8ffcd_cgraph.svg" width="440" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a982551494f659f563bf2feb838a8ffcd_icgraph.svg" width="303" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -328,6 +661,35 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00555">555</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  557</span>{</div>
+<div class="line"><span class="lineno">  558</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__pool.html">dma_pool</a> **ptr, *pool;</div>
+<div class="line"><span class="lineno">  559</span> </div>
+<div class="line"><span class="lineno">  560</span>    ptr = devres_alloc(<a class="code hl_function" href="#a51c0f8e0c0c3bc4f025b5fbc25c68b88">dmam_pool_release</a>, <span class="keyword">sizeof</span>(*ptr), <a class="code hl_define" href="gfp__types_8h.html#a44b9e863fd60efc9018a5524b77532ee">GFP_KERNEL</a>);</div>
+<div class="line"><span class="lineno">  561</span>    <span class="keywordflow">if</span> (!ptr)</div>
+<div class="line"><span class="lineno">  562</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  563</span> </div>
+<div class="line"><span class="lineno">  564</span>    pool = *ptr = <a class="code hl_function" href="dmapool_8h.html#ac7dce455c91645e1f314107329c7f7ba">dma_pool_create</a>(<a class="code hl_variable" href="structdma__pool.html#a01289d9f7ae98d1899af9adfc1fffe79">name</a>, <a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, align, <a class="code hl_variable" href="structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc">allocation</a>);</div>
+<div class="line"><span class="lineno">  565</span>    <span class="keywordflow">if</span> (pool)</div>
+<div class="line"><span class="lineno">  566</span>        devres_add(<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>, ptr);</div>
+<div class="line"><span class="lineno">  567</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  568</span>        devres_free(ptr);</div>
+<div class="line"><span class="lineno">  569</span> </div>
+<div class="line"><span class="lineno">  570</span>    <span class="keywordflow">return</span> pool;</div>
+<div class="line"><span class="lineno">  571</span>}</div>
+<div class="ttc" id="admapool_8c_html_a51c0f8e0c0c3bc4f025b5fbc25c68b88"><div class="ttname"><a href="#a51c0f8e0c0c3bc4f025b5fbc25c68b88">dmam_pool_release</a></div><div class="ttdeci">static void dmam_pool_release(struct device *dev, void *res)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00522">dmapool.c:522</a></div></div>
+<div class="ttc" id="admapool_8h_html_ac7dce455c91645e1f314107329c7f7ba"><div class="ttname"><a href="dmapool_8h.html#ac7dce455c91645e1f314107329c7f7ba">dma_pool_create</a></div><div class="ttdeci">static struct dma_pool * dma_pool_create(const char *name, struct device *dev, size_t size, size_t align, size_t boundary)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8h_source.html#l00060">dmapool.h:60</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a7418341bfbcf04ee0eeea9a53d46f79f_cgraph.svg" width="1932" height="1288"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a7418341bfbcf04ee0eeea9a53d46f79f_icgraph.svg" width="328" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a9b71c5232808ea9520769723678d8dc3" name="a9b71c5232808ea9520769723678d8dc3"></a>
@@ -345,7 +707,120 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>dmam_pool_destroy - Managed <a class="el" href="#ad86d3e56e606d50c24c42026097dd323">dma_pool_destroy()</a> @pool: dma pool that will be destroyed</p>
-<p>Managed <a class="el" href="#ad86d3e56e606d50c24c42026097dd323">dma_pool_destroy()</a>. </p>
+<p>Managed <a class="el" href="#ad86d3e56e606d50c24c42026097dd323">dma_pool_destroy()</a>.</p>
+<p>Function Description: Destroys a managed DMA pool. It calls devres_release() to find and remove the pool from the device's managed resources, which triggers <a class="el" href="#a51c0f8e0c0c3bc4f025b5fbc25c68b88">dmam_pool_release()</a>. This is the managed version of <a class="el" href="#ad86d3e56e606d50c24c42026097dd323">dma_pool_destroy()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00583">583</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  584</span>{</div>
+<div class="line"><span class="lineno">  585</span>    <span class="keyword">struct </span>device *dev = pool-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>;</div>
+<div class="line"><span class="lineno">  586</span> </div>
+<div class="line"><span class="lineno">  587</span>    WARN_ON(devres_release(dev, <a class="code hl_function" href="#a51c0f8e0c0c3bc4f025b5fbc25c68b88">dmam_pool_release</a>, <a class="code hl_function" href="#ae31716e72a2a70fbbb153b4cda23c113">dmam_pool_match</a>, pool));</div>
+<div class="line"><span class="lineno">  588</span>}</div>
+<div class="ttc" id="admapool_8c_html_ae31716e72a2a70fbbb153b4cda23c113"><div class="ttname"><a href="#ae31716e72a2a70fbbb153b4cda23c113">dmam_pool_match</a></div><div class="ttdeci">static int dmam_pool_match(struct device *dev, void *res, void *match_data)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00533">dmapool.c:533</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a9b71c5232808ea9520769723678d8dc3_cgraph.svg" width="1911" height="1226"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a9b71c5232808ea9520769723678d8dc3_icgraph.svg" width="335" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae31716e72a2a70fbbb153b4cda23c113" name="ae31716e72a2a70fbbb153b4cda23c113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae31716e72a2a70fbbb153b4cda23c113">&#9670;&#160;</a></span>dmam_pool_match()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int dmam_pool_match </td>
+          <td>(</td>
+          <td class="paramtype">struct device *</td>          <td class="paramname"><span class="paramname"><em>dev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>res</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>match_data</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Match function for managed DMA pools. It compares the pool pointer in the resource with the match data. Used by devres_release() to find the correct resource. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00533">533</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  534</span>{</div>
+<div class="line"><span class="lineno">  535</span>    <span class="keywordflow">return</span> *(<span class="keyword">struct </span><a class="code hl_struct" href="structdma__pool.html">dma_pool</a> **)res == match_data;</div>
+<div class="line"><span class="lineno">  536</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_ae31716e72a2a70fbbb153b4cda23c113_icgraph.svg" width="514" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a51c0f8e0c0c3bc4f025b5fbc25c68b88" name="a51c0f8e0c0c3bc4f025b5fbc25c68b88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c0f8e0c0c3bc4f025b5fbc25c68b88">&#9670;&#160;</a></span>dmam_pool_release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dmam_pool_release </td>
+          <td>(</td>
+          <td class="paramtype">struct device *</td>          <td class="paramname"><span class="paramname"><em>dev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>res</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Managed DMA pool</p>
+<p>Function Description: Release function for managed DMA pools. It is called automatically when a device is removed and destroys the DMA pool. This is the cleanup callback for devres-managed pools. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00522">522</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  523</span>{</div>
+<div class="line"><span class="lineno">  524</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__pool.html">dma_pool</a> *pool = *(<span class="keyword">struct </span><a class="code hl_struct" href="structdma__pool.html">dma_pool</a> **)res;</div>
+<div class="line"><span class="lineno">  525</span> </div>
+<div class="line"><span class="lineno">  526</span>    <a class="code hl_function" href="#ad86d3e56e606d50c24c42026097dd323">dma_pool_destroy</a>(pool);</div>
+<div class="line"><span class="lineno">  527</span>}</div>
+<div class="ttc" id="admapool_8c_html_ad86d3e56e606d50c24c42026097dd323"><div class="ttname"><a href="#ad86d3e56e606d50c24c42026097dd323">dma_pool_destroy</a></div><div class="ttdeci">void dma_pool_destroy(struct dma_pool *pool)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00406">dmapool.c:406</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a51c0f8e0c0c3bc4f025b5fbc25c68b88_cgraph.svg" width="1871" height="1392"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a51c0f8e0c0c3bc4f025b5fbc25c68b88_icgraph.svg" width="520" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -358,11 +833,16 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype">dma_pool_alloc</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="dmapool_8h.html#a0e4b1c6cc66f9cfcd39cc3cb7250efeb">dma_pool_alloc</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_afffd209ceffa1bf77fe4cdb86462d891_cgraph.svg" width="1887" height="1000"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -375,11 +855,16 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype">dma_pool_create_node</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="dmapool_8h.html#a3fe0e2584dac6b572250696b9d670dc4">dma_pool_create_node</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a04d37c9258b3fac701f0619fd787befb_cgraph.svg" width="1818" height="1347"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -392,11 +877,16 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype">dma_pool_destroy</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="dmapool_8h.html#ad86d3e56e606d50c24c42026097dd323">dma_pool_destroy</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a0eb8b2855f32b253bcfa1f2394c9bc22_cgraph.svg" width="1871" height="1392"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -409,11 +899,16 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype">dma_pool_free</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="dmapool_8h.html#a60d0b5e29a0a5f90b65c6db17e8c73fb">dma_pool_free</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a9b083c106b4580225238a99dd9b94ea8_cgraph.svg" width="626" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -426,11 +921,16 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype">dmam_pool_create</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="dmapool_8h.html#a7418341bfbcf04ee0eeea9a53d46f79f">dmam_pool_create</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a73a6af815410d64048032e0ed52741c0_cgraph.svg" width="2118" height="1174"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -443,12 +943,523 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">EXPORT_SYMBOL </td>
           <td>(</td>
-          <td class="paramtype">dmam_pool_destroy</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="dmapool_8h.html#a9b71c5232808ea9520769723678d8dc3">dmam_pool_destroy</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_ad18d86aadc5d3892d163632165a29975_cgraph.svg" width="2096" height="1238"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
+</div>
+</div>
+<a id="a56c584c13ba7db481bfedb8d1c470212" name="a56c584c13ba7db481bfedb8d1c470212"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56c584c13ba7db481bfedb8d1c470212">&#9670;&#160;</a></span>pool_alloc_page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structdma__page.html">dma_page</a> * pool_alloc_page </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structdma__pool.html">dma_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfp_t</td>          <td class="paramname"><span class="paramname"><em>mem_flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Allocates a new page for a DMA pool. It allocates a <a class="el" href="structdma__page.html">dma_page</a> structure and uses <a class="el" href="dma-mapping_8h.html#a29aabc47dfce61d6a481ff4ea46340ec">dma_alloc_coherent()</a> to get DMA-coherent memory. Returns the page structure or NULL on failure. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00377">377</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  378</span>{</div>
+<div class="line"><span class="lineno">  379</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__page.html">dma_page</a> *page;</div>
+<div class="line"><span class="lineno">  380</span> </div>
+<div class="line"><span class="lineno">  381</span>    page = <a class="code hl_define" href="include_2linux_2slab_8h.html#a54e25ef96b7c67f1ac00e8e9d5bca0d7">kmalloc_node</a>(<span class="keyword">sizeof</span>(*page), mem_flags, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#ac37ac15c940e3db5b1368d5cfa6249b0">node</a>);</div>
+<div class="line"><span class="lineno">  382</span>    <span class="keywordflow">if</span> (!page)</div>
+<div class="line"><span class="lineno">  383</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  384</span> </div>
+<div class="line"><span class="lineno">  385</span>    page-&gt;<a class="code hl_variable" href="structdma__page.html#af495d2389daf99be8f6657bd2f83ebff">vaddr</a> = <a class="code hl_function" href="dma-mapping_8h.html#a29aabc47dfce61d6a481ff4ea46340ec">dma_alloc_coherent</a>(pool-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc">allocation</a>,</div>
+<div class="line"><span class="lineno">  386</span>                     &amp;page-&gt;<a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma</a>, mem_flags);</div>
+<div class="line"><span class="lineno">  387</span>    <span class="keywordflow">if</span> (!page-&gt;<a class="code hl_variable" href="structdma__page.html#af495d2389daf99be8f6657bd2f83ebff">vaddr</a>) {</div>
+<div class="line"><span class="lineno">  388</span>        <a class="code hl_function" href="include_2linux_2slab_8h.html#a5273884a01705283d2b9e4262a8e6da3">kfree</a>(page);</div>
+<div class="line"><span class="lineno">  389</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  390</span>    }</div>
+<div class="line"><span class="lineno">  391</span> </div>
+<div class="line"><span class="lineno">  392</span>    <span class="keywordflow">return</span> page;</div>
+<div class="line"><span class="lineno">  393</span>}</div>
+<div class="ttc" id="adma-mapping_8h_html_a29aabc47dfce61d6a481ff4ea46340ec"><div class="ttname"><a href="dma-mapping_8h.html#a29aabc47dfce61d6a481ff4ea46340ec">dma_alloc_coherent</a></div><div class="ttdeci">static void * dma_alloc_coherent(struct device *dev, size_t size, dma_addr_t *dma_handle, gfp_t gfp)</div><div class="ttdef"><b>Definition</b> <a href="dma-mapping_8h_source.html#l00675">dma-mapping.h:675</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_a54e25ef96b7c67f1ac00e8e9d5bca0d7"><div class="ttname"><a href="include_2linux_2slab_8h.html#a54e25ef96b7c67f1ac00e8e9d5bca0d7">kmalloc_node</a></div><div class="ttdeci">#define kmalloc_node(...)</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01178">slab.h:1178</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a56c584c13ba7db481bfedb8d1c470212_cgraph.svg" width="1678" height="1415"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a56c584c13ba7db481bfedb8d1c470212_icgraph.svg" width="470" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a55432d0b5a0dbff31893b7802ed3290f" name="a55432d0b5a0dbff31893b7802ed3290f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55432d0b5a0dbff31893b7802ed3290f">&#9670;&#160;</a></span>pool_block_err()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pool_block_err </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structdma__pool.html">dma_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>vaddr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">dma_addr_t</td>          <td class="paramname"><span class="paramname"><em>dma</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Debug function that validates a block before freeing. It checks that the DMA address corresponds to a valid page and that the block is not already in the free list. If any error is found, it prints an error message and returns true. Otherwise, it poisons the block and returns false. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00155">155</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  156</span>{</div>
+<div class="line"><span class="lineno">  157</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__block.html">dma_block</a> *block = pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a0d265eb6200864102db5e320e3d7f3ec">next_block</a>;</div>
+<div class="line"><span class="lineno">  158</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__page.html">dma_page</a> *page;</div>
+<div class="line"><span class="lineno">  159</span> </div>
+<div class="line"><span class="lineno">  160</span>    page = <a class="code hl_function" href="#a855ee762a5c91e20b7837a2ebc6000d2">pool_find_page</a>(pool, <a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma</a>);</div>
+<div class="line"><span class="lineno">  161</span>    <span class="keywordflow">if</span> (!page) {</div>
+<div class="line"><span class="lineno">  162</span>        dev_err(pool-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>, <span class="stringliteral">&quot;%s %s, %p/%pad (bad dma)\n&quot;</span>,</div>
+<div class="line"><span class="lineno">  163</span>            __func__, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a01289d9f7ae98d1899af9adfc1fffe79">name</a>, <a class="code hl_variable" href="structdma__page.html#af495d2389daf99be8f6657bd2f83ebff">vaddr</a>, &amp;<a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma</a>);</div>
+<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  165</span>    }</div>
+<div class="line"><span class="lineno">  166</span> </div>
+<div class="line"><span class="lineno">  167</span>    <span class="keywordflow">while</span> (block) {</div>
+<div class="line"><span class="lineno">  168</span>        <span class="keywordflow">if</span> (block != <a class="code hl_variable" href="structdma__page.html#af495d2389daf99be8f6657bd2f83ebff">vaddr</a>) {</div>
+<div class="line"><span class="lineno">  169</span>            block = block-&gt;<a class="code hl_variable" href="structdma__block.html#a75a81efa68d24784162a077bec3b684c">next_block</a>;</div>
+<div class="line"><span class="lineno">  170</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  171</span>        }</div>
+<div class="line"><span class="lineno">  172</span>        dev_err(pool-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>, <span class="stringliteral">&quot;%s %s, dma %pad already free\n&quot;</span>,</div>
+<div class="line"><span class="lineno">  173</span>            __func__, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a01289d9f7ae98d1899af9adfc1fffe79">name</a>, &amp;<a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma</a>);</div>
+<div class="line"><span class="lineno">  174</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  175</span>    }</div>
+<div class="line"><span class="lineno">  176</span> </div>
+<div class="line"><span class="lineno">  177</span>    memset(<a class="code hl_variable" href="structdma__page.html#af495d2389daf99be8f6657bd2f83ebff">vaddr</a>, POOL_POISON_FREED, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a>);</div>
+<div class="line"><span class="lineno">  178</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  179</span>}</div>
+<div class="ttc" id="admapool_8c_html_a855ee762a5c91e20b7837a2ebc6000d2"><div class="ttname"><a href="#a855ee762a5c91e20b7837a2ebc6000d2">pool_find_page</a></div><div class="ttdeci">static struct dma_page * pool_find_page(struct dma_pool *pool, dma_addr_t dma)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00139">dmapool.c:139</a></div></div>
+<div class="ttc" id="astructdma__block_html_a75a81efa68d24784162a077bec3b684c"><div class="ttname"><a href="structdma__block.html#a75a81efa68d24784162a077bec3b684c">dma_block::next_block</a></div><div class="ttdeci">struct dma_block * next_block</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00046">dmapool.c:46</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a0d265eb6200864102db5e320e3d7f3ec"><div class="ttname"><a href="structdma__pool.html#a0d265eb6200864102db5e320e3d7f3ec">dma_pool::next_block</a></div><div class="ttdeci">struct dma_block * next_block</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00056">dmapool.c:56</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a55432d0b5a0dbff31893b7802ed3290f_cgraph.svg" width="272" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a55432d0b5a0dbff31893b7802ed3290f_icgraph.svg" width="456" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a849c8755c26ff871f7ed36bd205ec905" name="a849c8755c26ff871f7ed36bd205ec905"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a849c8755c26ff871f7ed36bd205ec905">&#9670;&#160;</a></span>pool_block_pop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structdma__block.html">dma_block</a> * pool_block_pop </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structdma__pool.html">dma_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00209">209</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  210</span>{</div>
+<div class="line"><span class="lineno">  211</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__block.html">dma_block</a> *block = pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a0d265eb6200864102db5e320e3d7f3ec">next_block</a>;</div>
+<div class="line"><span class="lineno">  212</span> </div>
+<div class="line"><span class="lineno">  213</span>    <span class="keywordflow">if</span> (block) {</div>
+<div class="line"><span class="lineno">  214</span>        pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a0d265eb6200864102db5e320e3d7f3ec">next_block</a> = block-&gt;<a class="code hl_variable" href="structdma__block.html#a75a81efa68d24784162a077bec3b684c">next_block</a>;</div>
+<div class="line"><span class="lineno">  215</span>        pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a976c03eacb331b51d8a73255c40c25ee">nr_active</a>++;</div>
+<div class="line"><span class="lineno">  216</span>    }</div>
+<div class="line"><span class="lineno">  217</span>    <span class="keywordflow">return</span> block;</div>
+<div class="line"><span class="lineno">  218</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a849c8755c26ff871f7ed36bd205ec905_icgraph.svg" width="467" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a292948685b32f5c89c0cc889c71d4ad6" name="a292948685b32f5c89c0cc889c71d4ad6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a292948685b32f5c89c0cc889c71d4ad6">&#9670;&#160;</a></span>pool_block_push()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pool_block_push </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structdma__pool.html">dma_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structdma__block.html">dma_block</a> *</td>          <td class="paramname"><span class="paramname"><em>block</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">dma_addr_t</td>          <td class="paramname"><span class="paramname"><em>dma</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Pushes a block onto the pool's free list. It sets the block's DMA address, links it to the current free list head, and updates pool-&gt;next_block to point to this block. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00224">224</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  226</span>{</div>
+<div class="line"><span class="lineno">  227</span>    block-&gt;<a class="code hl_variable" href="structdma__block.html#afe91b012eb920e4fce3b8630702caaf9">dma</a> = dma;</div>
+<div class="line"><span class="lineno">  228</span>    block-&gt;<a class="code hl_variable" href="structdma__block.html#a75a81efa68d24784162a077bec3b684c">next_block</a> = pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a0d265eb6200864102db5e320e3d7f3ec">next_block</a>;</div>
+<div class="line"><span class="lineno">  229</span>    pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a0d265eb6200864102db5e320e3d7f3ec">next_block</a> = block;</div>
+<div class="line"><span class="lineno">  230</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a292948685b32f5c89c0cc889c71d4ad6_icgraph.svg" width="470" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a71a9a97e44a3b70e3399751c1514d154" name="a71a9a97e44a3b70e3399751c1514d154"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a9a97e44a3b70e3399751c1514d154">&#9670;&#160;</a></span>pool_check_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pool_check_block </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structdma__pool.html">dma_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structdma__block.html">dma_block</a> *</td>          <td class="paramname"><span class="paramname"><em>block</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfp_t</td>          <td class="paramname"><span class="paramname"><em>mem_flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Debug function that checks a block for corruption. It scans the block's data area (after the <a class="el" href="structdma__block.html">dma_block</a> header) for the POOL_POISON_FREED pattern. If any byte is not poisoned, it prints a corruption error and dumps the block's contents. Used when DMAPOOL_DEBUG is enabled. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00111">111</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  113</span>{</div>
+<div class="line"><span class="lineno">  114</span>    u8 *data = (<span class="keywordtype">void</span> *)block;</div>
+<div class="line"><span class="lineno">  115</span>    <span class="keywordtype">int</span> i;</div>
+<div class="line"><span class="lineno">  116</span> </div>
+<div class="line"><span class="lineno">  117</span>    <span class="keywordflow">for</span> (i = <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structdma__block.html">dma_block</a>); i &lt; pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a>; i++) {</div>
+<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">if</span> (data[i] == POOL_POISON_FREED)</div>
+<div class="line"><span class="lineno">  119</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  120</span>        dev_err(pool-&gt;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>, <span class="stringliteral">&quot;%s %s, %p (corrupted)\n&quot;</span>, __func__,</div>
+<div class="line"><span class="lineno">  121</span>            pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a01289d9f7ae98d1899af9adfc1fffe79">name</a>, block);</div>
+<div class="line"><span class="lineno">  122</span> </div>
+<div class="line"><span class="lineno">  123</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  124</span><span class="comment">         * Dump the first 4 bytes even if they are not</span></div>
+<div class="line"><span class="lineno">  125</span><span class="comment">         * POOL_POISON_FREED</span></div>
+<div class="line"><span class="lineno">  126</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno">  127</span>        print_hex_dump(KERN_ERR, <span class="stringliteral">&quot;&quot;</span>, DUMP_PREFIX_OFFSET, 16, 1,</div>
+<div class="line"><span class="lineno">  128</span>                data, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a>, 1);</div>
+<div class="line"><span class="lineno">  129</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">  130</span>    }</div>
+<div class="line"><span class="lineno">  131</span> </div>
+<div class="line"><span class="lineno">  132</span>    <span class="keywordflow">if</span> (!want_init_on_alloc(mem_flags))</div>
+<div class="line"><span class="lineno">  133</span>        memset(block, POOL_POISON_ALLOCATED, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a>);</div>
+<div class="line"><span class="lineno">  134</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a71a9a97e44a3b70e3399751c1514d154_icgraph.svg" width="482" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a855ee762a5c91e20b7837a2ebc6000d2" name="a855ee762a5c91e20b7837a2ebc6000d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a855ee762a5c91e20b7837a2ebc6000d2">&#9670;&#160;</a></span>pool_find_page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structdma__page.html">dma_page</a> * pool_find_page </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structdma__pool.html">dma_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">dma_addr_t</td>          <td class="paramname"><span class="paramname"><em>dma</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Finds the <a class="el" href="structdma__page.html">dma_page</a> structure that contains a given DMA address. It searches through the pool's page list and returns the page if the address falls within its range. Used for debugging to validate free operations. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00139">139</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  140</span>{</div>
+<div class="line"><span class="lineno">  141</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__page.html">dma_page</a> *page;</div>
+<div class="line"><span class="lineno">  142</span> </div>
+<div class="line"><span class="lineno">  143</span>    list_for_each_entry(page, &amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a121e8ad3ce90eb6237296c8cd509a938">page_list</a>, <a class="code hl_variable" href="structdma__page.html#a3122bccce212917084b790b102c1971b">page_list</a>) {</div>
+<div class="line"><span class="lineno">  144</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma &lt; page-&gt;</a><a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma</a>)</div>
+<div class="line"><span class="lineno">  145</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  146</span>        <span class="keywordflow">if</span> ((<a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma</a> - page-&gt;<a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma</a>) &lt; pool-&gt;<a class="code hl_variable" href="structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc">allocation</a>)</div>
+<div class="line"><span class="lineno">  147</span>            <span class="keywordflow">return</span> page;</div>
+<div class="line"><span class="lineno">  148</span>    }</div>
+<div class="line"><span class="lineno">  149</span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  150</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_a855ee762a5c91e20b7837a2ebc6000d2_icgraph.svg" width="612" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af61fe59e618e3ae478246541c9ce9bfc" name="af61fe59e618e3ae478246541c9ce9bfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af61fe59e618e3ae478246541c9ce9bfc">&#9670;&#160;</a></span>pool_init_page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pool_init_page </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structdma__pool.html">dma_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structdma__page.html">dma_page</a> *</td>          <td class="paramname"><span class="paramname"><em>page</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Initializes a new page by filling it with the POOL_POISON_FREED pattern. Used for debugging to detect use-after-free errors. When DMAPOOL_DEBUG is disabled, this function does nothing. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00184">184</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  185</span>{</div>
+<div class="line"><span class="lineno">  186</span>    memset(page-&gt;<a class="code hl_variable" href="structdma__page.html#af495d2389daf99be8f6657bd2f83ebff">vaddr</a>, POOL_POISON_FREED, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc">allocation</a>);</div>
+<div class="line"><span class="lineno">  187</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_af61fe59e618e3ae478246541c9ce9bfc_icgraph.svg" width="643" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa0d35b88ababf13ff6f59ca92115b7f1" name="aa0d35b88ababf13ff6f59ca92115b7f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d35b88ababf13ff6f59ca92115b7f1">&#9670;&#160;</a></span>pool_initialise_page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pool_initialise_page </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structdma__pool.html">dma_pool</a> *</td>          <td class="paramname"><span class="paramname"><em>pool</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structdma__page.html">dma_page</a> *</td>          <td class="paramname"><span class="paramname"><em>page</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Initializes a newly allocated page by splitting it into blocks of the pool's size. It walks through the page, creates <a class="el" href="structdma__block.html">dma_block</a> structures for each block, links them into the free list, and adds the page to the pool's page list. Handles boundary alignment by skipping regions that would cross boundaries. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00340">340</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  341</span>{</div>
+<div class="line"><span class="lineno">  342</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> next_boundary = pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a5680ca83e72d0f646bd6e7dd263cce03">boundary</a>, offset = 0;</div>
+<div class="line"><span class="lineno">  343</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__block.html">dma_block</a> *block, *first = NULL, *last = NULL;</div>
+<div class="line"><span class="lineno">  344</span> </div>
+<div class="line"><span class="lineno">  345</span>    <a class="code hl_function" href="#af61fe59e618e3ae478246541c9ce9bfc">pool_init_page</a>(pool, page);</div>
+<div class="line"><span class="lineno">  346</span>    <span class="keywordflow">while</span> (offset + pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a> &lt;= pool-&gt;<a class="code hl_variable" href="structdma__pool.html#ab6deeb127988191cf9ada9a5f385f4bc">allocation</a>) {</div>
+<div class="line"><span class="lineno">  347</span>        <span class="keywordflow">if</span> (offset + pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a> &gt; next_boundary) {</div>
+<div class="line"><span class="lineno">  348</span>            offset = next_boundary;</div>
+<div class="line"><span class="lineno">  349</span>            next_boundary += pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a5680ca83e72d0f646bd6e7dd263cce03">boundary</a>;</div>
+<div class="line"><span class="lineno">  350</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><span class="lineno">  351</span>        }</div>
+<div class="line"><span class="lineno">  352</span> </div>
+<div class="line"><span class="lineno">  353</span>        block = page-&gt;<a class="code hl_variable" href="structdma__page.html#af495d2389daf99be8f6657bd2f83ebff">vaddr</a> + offset;</div>
+<div class="line"><span class="lineno">  354</span>        block-&gt;<a class="code hl_variable" href="structdma__block.html#afe91b012eb920e4fce3b8630702caaf9">dma</a> = page-&gt;<a class="code hl_variable" href="structdma__page.html#a1e14a528b716ad513c352bb92088df34">dma</a> + offset;</div>
+<div class="line"><span class="lineno">  355</span>        block-&gt;<a class="code hl_variable" href="structdma__block.html#a75a81efa68d24784162a077bec3b684c">next_block</a> = NULL;</div>
+<div class="line"><span class="lineno">  356</span> </div>
+<div class="line"><span class="lineno">  357</span>        <span class="keywordflow">if</span> (last)</div>
+<div class="line"><span class="lineno">  358</span>            last-&gt;<a class="code hl_variable" href="structdma__block.html#a75a81efa68d24784162a077bec3b684c">next_block</a> = block;</div>
+<div class="line"><span class="lineno">  359</span>        <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  360</span>            first = block;</div>
+<div class="line"><span class="lineno">  361</span>        last = block;</div>
+<div class="line"><span class="lineno">  362</span> </div>
+<div class="line"><span class="lineno">  363</span>        offset += pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a>;</div>
+<div class="line"><span class="lineno">  364</span>        pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a137ac1e7c3daeaaa0c55d505eebf3d2d">nr_blocks</a>++;</div>
+<div class="line"><span class="lineno">  365</span>    }</div>
+<div class="line"><span class="lineno">  366</span> </div>
+<div class="line"><span class="lineno">  367</span>    last-&gt;next_block = pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a0d265eb6200864102db5e320e3d7f3ec">next_block</a>;</div>
+<div class="line"><span class="lineno">  368</span>    pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a0d265eb6200864102db5e320e3d7f3ec">next_block</a> = first;</div>
+<div class="line"><span class="lineno">  369</span> </div>
+<div class="line"><span class="lineno">  370</span>    list_add(&amp;page-&gt;<a class="code hl_variable" href="structdma__page.html#a3122bccce212917084b790b102c1971b">page_list</a>, &amp;pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a121e8ad3ce90eb6237296c8cd509a938">page_list</a>);</div>
+<div class="line"><span class="lineno">  371</span>    pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a5ea9374cd60d1843515778f4d4f309f4">nr_pages</a>++;</div>
+<div class="line"><span class="lineno">  372</span>}</div>
+<div class="ttc" id="admapool_8c_html_af61fe59e618e3ae478246541c9ce9bfc"><div class="ttname"><a href="#af61fe59e618e3ae478246541c9ce9bfc">pool_init_page</a></div><div class="ttdeci">static void pool_init_page(struct dma_pool *pool, struct dma_page *page)</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00184">dmapool.c:184</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a137ac1e7c3daeaaa0c55d505eebf3d2d"><div class="ttname"><a href="structdma__pool.html#a137ac1e7c3daeaaa0c55d505eebf3d2d">dma_pool::nr_blocks</a></div><div class="ttdeci">size_t nr_blocks</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00057">dmapool.c:57</a></div></div>
+<div class="ttc" id="astructdma__pool_html_a5ea9374cd60d1843515778f4d4f309f4"><div class="ttname"><a href="structdma__pool.html#a5ea9374cd60d1843515778f4d4f309f4">dma_pool::nr_pages</a></div><div class="ttdeci">size_t nr_pages</div><div class="ttdef"><b>Definition</b> <a href="dmapool_8c_source.html#l00059">dmapool.c:59</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_aa0d35b88ababf13ff6f59ca92115b7f1_cgraph.svg" width="298" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmapool_8c_aa0d35b88ababf13ff6f59ca92115b7f1_icgraph.svg" width="490" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a47151837920ebc9db60df4ca9fc2929c" name="a47151837920ebc9db60df4ca9fc2929c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47151837920ebc9db60df4ca9fc2929c">&#9670;&#160;</a></span>pools_show()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ssize_t pools_show </td>
+          <td>(</td>
+          <td class="paramtype">struct device *</td>          <td class="paramname"><span class="paramname"><em>dev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct device_attribute *</td>          <td class="paramname"><span class="paramname"><em>attr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>buf</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Function Description: Show handler for the pools sysfs file. It iterates through all DMA pools associated with a device and prints pool information including name, active blocks, total blocks, block size, and number of pages. Returns the size of the output buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="dmapool_8c_source.html#l00084">84</a> of file <a class="el" href="dmapool_8c_source.html">dmapool.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   85</span>{</div>
+<div class="line"><span class="lineno">   86</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structdma__pool.html">dma_pool</a> *pool;</div>
+<div class="line"><span class="lineno">   87</span>    <span class="keywordtype">unsigned</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno">   88</span> </div>
+<div class="line"><span class="lineno">   89</span>    <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = sysfs_emit(buf, <span class="stringliteral">&quot;poolinfo - 0.1\n&quot;</span>);</div>
+<div class="line"><span class="lineno">   90</span> </div>
+<div class="line"><span class="lineno">   91</span>    mutex_lock(&amp;pools_lock);</div>
+<div class="line"><span class="lineno">   92</span>    list_for_each_entry(pool, &amp;<a class="code hl_variable" href="structdma__pool.html#abfab38d7ed358d3e177fef54f9f48dfa">dev</a>-&gt;dma_pools, <a class="code hl_variable" href="structdma__pool.html#a6e25f116f0ce72b84ac92aafb3b7d844">pools</a>) {</div>
+<div class="line"><span class="lineno">   93</span>        <span class="comment">/* per-pool info, no real statistics yet */</span></div>
+<div class="line"><span class="lineno">   94</span>        <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> += sysfs_emit_at(buf, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>, <span class="stringliteral">&quot;%-16s %4zu %4zu %4u %2zu\n&quot;</span>,</div>
+<div class="line"><span class="lineno">   95</span>                      pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a01289d9f7ae98d1899af9adfc1fffe79">name</a>, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a976c03eacb331b51d8a73255c40c25ee">nr_active</a>,</div>
+<div class="line"><span class="lineno">   96</span>                      pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a137ac1e7c3daeaaa0c55d505eebf3d2d">nr_blocks</a>, pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a8ccb111f464b1caa2604918d0d582f21">size</a>,</div>
+<div class="line"><span class="lineno">   97</span>                      pool-&gt;<a class="code hl_variable" href="structdma__pool.html#a5ea9374cd60d1843515778f4d4f309f4">nr_pages</a>);</div>
+<div class="line"><span class="lineno">   98</span>    }</div>
+<div class="line"><span class="lineno">   99</span>    mutex_unlock(&amp;pools_lock);</div>
+<div class="line"><span class="lineno">  100</span> </div>
+<div class="line"><span class="lineno">  101</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>;</div>
+<div class="line"><span class="lineno">  102</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

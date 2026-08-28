@@ -76,6 +76,9 @@ early_param("nohugevmalloc", set_nohugevmalloc);
 static const bool vmap_allow_huge = false;
 #endif	/* CONFIG_HAVE_ARCH_HUGE_VMALLOC */
 
+/**
+ * Function Description: Checks if an address is within the vmalloc address range. Returns true if the address falls between VMALLOC_START and VMALLOC_END. Used to identify vmalloc-allocated memory.
+ */
 bool is_vmalloc_addr(const void *x)
 {
 	unsigned long addr = (unsigned long)kasan_reset_tag(x);
@@ -84,13 +87,21 @@ bool is_vmalloc_addr(const void *x)
 }
 EXPORT_SYMBOL(is_vmalloc_addr);
 
+/**
+ * struct Description: This structure is used for deferring vfree() operations from atomic contexts. It contains a lockless list of addresses to free and a work_struct to process them. It is used to safely free vmalloc memory from interrupt context.
+ */
 struct vfree_deferred {
 	struct llist_head list;
 	struct work_struct wq;
 };
 static DEFINE_PER_CPU(struct vfree_deferred, vfree_deferred);
 
-/*** Page table manipulation functions ***/
+/**
+ * Page table manipulation functions
+ * 
+ * 
+ * Function Description: Maps a range of physical addresses to virtual addresses using PTE (page table entry) mappings. It handles both normal and huge page mappings (when CONFIG_HUGETLB_PAGE is enabled). Used by vmap_page_range() for page-level mapping.
+ */
 static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
 			phys_addr_t phys_addr, pgprot_t prot,
 			unsigned int max_page_shift, pgtbl_mod_mask *mask)
@@ -139,6 +150,9 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
 	return 0;
 }
 
+/**
+ * Function Description: Attempts to map a range using a huge PMD (Page Middle Directory) page. It checks if the range is PMD-aligned and PMD-sized, and if the architecture supports PMD huge pages. Returns 1 if successful, 0 otherwise.
+ */
 static int vmap_try_huge_pmd(pmd_t *pmd, unsigned long addr, unsigned long end,
 			phys_addr_t phys_addr, pgprot_t prot,
 			unsigned int max_page_shift)
@@ -164,6 +178,9 @@ static int vmap_try_huge_pmd(pmd_t *pmd, unsigned long addr, unsigned long end,
 	return pmd_set_huge(pmd, phys_addr, prot);
 }
 
+/**
+ * Function Description: Maps a range of physical addresses using PMD-level page tables. It attempts huge PMD mappings first, then falls back to PTE mappings. Used by vmap_pud_range().
+ */
 static int vmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
 			phys_addr_t phys_addr, pgprot_t prot,
 			unsigned int max_page_shift, pgtbl_mod_mask *mask)
@@ -191,6 +208,9 @@ static int vmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
 	return err;
 }
 
+/**
+ * Function Description: Attempts to map a range using a huge PUD (Page Upper Directory) page. It checks if the range is PUD-aligned and PUD-sized, and if the architecture supports PUD huge pages. Returns 1 if successful, 0 otherwise.
+ */
 static int vmap_try_huge_pud(pud_t *pud, unsigned long addr, unsigned long end,
 			phys_addr_t phys_addr, pgprot_t prot,
 			unsigned int max_page_shift)
@@ -216,6 +236,9 @@ static int vmap_try_huge_pud(pud_t *pud, unsigned long addr, unsigned long end,
 	return pud_set_huge(pud, phys_addr, prot);
 }
 
+/**
+ * Function Description: Maps a range of physical addresses using PUD-level page tables. It attempts huge PUD mappings first, then falls back to PMD mappings. Used by vmap_p4d_range().
+ */
 static int vmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
 			phys_addr_t phys_addr, pgprot_t prot,
 			unsigned int max_page_shift, pgtbl_mod_mask *mask)
@@ -243,6 +266,9 @@ static int vmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
 	return err;
 }
 
+/**
+ * Function Description: Attempts to map a range using a huge P4D (Page 4th Directory) page. It checks if the range is P4D-aligned and P4D-sized, and if the architecture supports P4D huge pages. Returns 1 if successful, 0 otherwise.
+ */
 static int vmap_try_huge_p4d(p4d_t *p4d, unsigned long addr, unsigned long end,
 			phys_addr_t phys_addr, pgprot_t prot,
 			unsigned int max_page_shift)
@@ -268,6 +294,9 @@ static int vmap_try_huge_p4d(p4d_t *p4d, unsigned long addr, unsigned long end,
 	return p4d_set_huge(p4d, phys_addr, prot);
 }
 
+/**
+ * Function Description: Maps a range of physical addresses using P4D-level page tables. It attempts huge P4D mappings first, then falls back to PUD mappings. Used by vmap_range_noflush().
+ */
 static int vmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
 			phys_addr_t phys_addr, pgprot_t prot,
 			unsigned int max_page_shift, pgtbl_mod_mask *mask)
@@ -295,6 +324,9 @@ static int vmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
 	return err;
 }
 
+/**
+ * Function Description: Maps a range of physical addresses to virtual addresses without flushing caches. It walks the page table hierarchy from pgd to pte. The caller is responsible for cache flushing.
+ */
 static int vmap_range_noflush(unsigned long addr, unsigned long end,
 			phys_addr_t phys_addr, pgprot_t prot,
 			unsigned int max_page_shift)
@@ -329,6 +361,9 @@ static int vmap_range_noflush(unsigned long addr, unsigned long end,
 	return err;
 }
 
+/**
+ * Function Description: Maps a range of physical addresses to virtual addresses with cache flushing. It calls vmap_range_noflush() and then flushes the vmap cache. Returns 0 on success or a negative error code.
+ */
 int vmap_page_range(unsigned long addr, unsigned long end,
 		    phys_addr_t phys_addr, pgprot_t prot)
 {
@@ -343,6 +378,9 @@ int vmap_page_range(unsigned long addr, unsigned long end,
 	return err;
 }
 
+/**
+ * Function Description: Maps a range of physical addresses for I/O remapping. It validates that the vm_area is marked VM_IOREMAP and the range matches. Calls vmap_page_range() to perform the actual mapping.
+ */
 int ioremap_page_range(unsigned long addr, unsigned long end,
 		phys_addr_t phys_addr, pgprot_t prot)
 {
@@ -363,6 +401,9 @@ int ioremap_page_range(unsigned long addr, unsigned long end,
 	return vmap_page_range(addr, end, phys_addr, prot);
 }
 
+/**
+ * Function Description: Unmaps a range of virtual addresses at the PTE level. It clears PTEs and handles huge page PTEs when CONFIG_HUGETLB_PAGE is enabled. Used by vunmap_pmd_range().
+ */
 static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
 			     pgtbl_mod_mask *mask)
 {
@@ -394,6 +435,9 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
 	*mask |= PGTBL_PTE_MODIFIED;
 }
 
+/**
+ * Function Description: Unmaps a range of virtual addresses at the PMD level. It handles huge PMD pages and falls back to PTE unmapping. Used by vunmap_pud_range().
+ */
 static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
 			     pgtbl_mod_mask *mask)
 {
@@ -421,6 +465,9 @@ static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
 	} while (pmd++, addr = next, addr != end);
 }
 
+/**
+ * Function Description: Unmaps a range of virtual addresses at the PUD level. It handles huge PUD pages and falls back to PMD unmapping. Used by vunmap_p4d_range().
+ */
 static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
 			     pgtbl_mod_mask *mask)
 {
@@ -446,6 +493,9 @@ static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
 	} while (pud++, addr = next, addr != end);
 }
 
+/**
+ * Function Description: Unmaps a range of virtual addresses at the P4D level. It handles huge P4D pages and falls back to PUD unmapping. Used by __vunmap_range_noflush().
+ */
 static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
 			     pgtbl_mod_mask *mask)
 {
@@ -466,7 +516,7 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
 	} while (p4d++, addr = next, addr != end);
 }
 
-/*
+/**
  * vunmap_range_noflush is similar to vunmap_range, but does not
  * flush caches or TLBs.
  *
@@ -477,6 +527,9 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
  * coalesced).
  *
  * This is an internal function only. Do not use outside mm/.
+ * 
+ * 
+ * Function Description: Internal function that unmaps a range of virtual addresses without flushing caches or TLBs. It walks the page table hierarchy and clears mappings. The caller is responsible for cache and TLB flushing.
  */
 void __vunmap_range_noflush(unsigned long start, unsigned long end)
 {
@@ -500,6 +553,9 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
 		arch_sync_kernel_mappings(start, end);
 }
 
+/**
+ * Function Description: Unmaps a range of virtual addresses without flushing caches or TLBs. It calls kmsan_vunmap_range_noflush() and __vunmap_range_noflush(). Used internally by vunmap_range().
+ */
 void vunmap_range_noflush(unsigned long start, unsigned long end)
 {
 	kmsan_vunmap_range_noflush(start, end);
@@ -514,6 +570,9 @@ void vunmap_range_noflush(unsigned long start, unsigned long end)
  * Clears any present PTEs in the virtual address range, flushes TLBs and
  * caches. Any subsequent access to the address before it has been re-mapped
  * is a kernel bug.
+ * 
+ * 
+ * Function Description: Unmaps a range of virtual addresses with cache and TLB flushing. It calls flush_cache_vunmap(), vunmap_range_noflush(), and flush_tlb_kernel_range(). This is the main function for unmapping kernel virtual addresses.
  */
 void vunmap_range(unsigned long addr, unsigned long end)
 {
@@ -522,6 +581,9 @@ void vunmap_range(unsigned long addr, unsigned long end)
 	flush_tlb_kernel_range(addr, end);
 }
 
+/**
+ * Function Description: Maps pages to virtual addresses at the PTE level. It allocates PTEs and sets each pte to map the corresponding page. Used by vmap_pages_pmd_range().
+ */
 static int vmap_pages_pte_range(pmd_t *pmd, unsigned long addr,
 		unsigned long end, pgprot_t prot, struct page **pages, int *nr,
 		pgtbl_mod_mask *mask)
@@ -566,6 +628,9 @@ static int vmap_pages_pte_range(pmd_t *pmd, unsigned long addr,
 	return err;
 }
 
+/**
+ * Function Description: Maps pages to virtual addresses at the PMD level. It allocates PMDs and calls vmap_pages_pte_range() for each PMD. Used by vmap_pages_pud_range().
+ */
 static int vmap_pages_pmd_range(pud_t *pud, unsigned long addr,
 		unsigned long end, pgprot_t prot, struct page **pages, int *nr,
 		pgtbl_mod_mask *mask)
@@ -584,6 +649,9 @@ static int vmap_pages_pmd_range(pud_t *pud, unsigned long addr,
 	return 0;
 }
 
+/**
+ * Function Description: Maps pages to virtual addresses at the PUD level. It allocates PUDs and calls vmap_pages_pmd_range() for each PUD. Used by vmap_pages_p4d_range().
+ */
 static int vmap_pages_pud_range(p4d_t *p4d, unsigned long addr,
 		unsigned long end, pgprot_t prot, struct page **pages, int *nr,
 		pgtbl_mod_mask *mask)
@@ -602,6 +670,9 @@ static int vmap_pages_pud_range(p4d_t *p4d, unsigned long addr,
 	return 0;
 }
 
+/**
+ * Function Description: Maps pages to virtual addresses at the P4D level. It allocates P4Ds and calls vmap_pages_pud_range() for each P4D. Used by vmap_small_pages_range_noflush().
+ */
 static int vmap_pages_p4d_range(pgd_t *pgd, unsigned long addr,
 		unsigned long end, pgprot_t prot, struct page **pages, int *nr,
 		pgtbl_mod_mask *mask)
@@ -620,6 +691,9 @@ static int vmap_pages_p4d_range(pgd_t *pgd, unsigned long addr,
 	return 0;
 }
 
+/**
+ * Function Description: Maps pages to virtual addresses for small (PAGE_SIZE) pages without cache flushing. It walks the page table hierarchy and maps each page. Used by __vmap_pages_range_noflush().
+ */
 static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
 		pgprot_t prot, struct page **pages)
 {
@@ -647,7 +721,7 @@ static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
 	return err;
 }
 
-/*
+/**
  * vmap_pages_range_noflush is similar to vmap_pages_range, but does not
  * flush caches.
  *
@@ -655,6 +729,9 @@ static int vmap_small_pages_range_noflush(unsigned long addr, unsigned long end,
  * function returns successfully and before the addresses are accessed.
  *
  * This is an internal function only. Do not use outside mm/.
+ * 
+ * 
+ * Function Description: Internal function that maps pages to virtual addresses without cache flushing. It handles both small and huge pages based on page_shift. The caller is responsible for cache flushing.
  */
 int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
 		pgprot_t prot, struct page **pages, unsigned int page_shift)
@@ -682,6 +759,9 @@ int __vmap_pages_range_noflush(unsigned long addr, unsigned long end,
 	return 0;
 }
 
+/**
+ * Function Description: Maps pages to virtual addresses without cache flushing. It calls kmsan_vmap_pages_range_noflush() and __vmap_pages_range_noflush(). Used internally by __vmap_pages_range().
+ */
 int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
 		pgprot_t prot, struct page **pages, unsigned int page_shift,
 		gfp_t gfp_mask)
@@ -694,6 +774,9 @@ int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
 	return __vmap_pages_range_noflush(addr, end, prot, pages, page_shift);
 }
 
+/**
+ * Function Description: Internal function that maps pages to virtual addresses with cache flushing. It calls vmap_pages_range_noflush() and flush_cache_vmap(). Used by vmap_pages_range().
+ */
 static int __vmap_pages_range(unsigned long addr, unsigned long end,
 		pgprot_t prot, struct page **pages, unsigned int page_shift,
 		gfp_t gfp_mask)
@@ -716,6 +799,9 @@ static int __vmap_pages_range(unsigned long addr, unsigned long end,
  *
  * RETURNS:
  * 0 on success, -errno on failure.
+ * 
+ * 
+ * Function Description: Maps pages to virtual addresses with cache flushing. This is the main function for mapping pages into kernel virtual address space. Returns 0 on success or a negative error code.
  */
 int vmap_pages_range(unsigned long addr, unsigned long end,
 		pgprot_t prot, struct page **pages, unsigned int page_shift)
@@ -723,6 +809,9 @@ int vmap_pages_range(unsigned long addr, unsigned long end,
 	return __vmap_pages_range(addr, end, prot, pages, page_shift, GFP_KERNEL);
 }
 
+/**
+ * Function Description: Validates a sparse vm_area before mapping or unmapping pages. It checks flags, size limits, and address range. Returns 0 on success or a negative error code.
+ */
 static int check_sparse_vm_area(struct vm_struct *area, unsigned long start,
 				unsigned long end)
 {
@@ -747,6 +836,9 @@ static int check_sparse_vm_area(struct vm_struct *area, unsigned long start,
  * @start: start address inside vm_area
  * @end: end address inside vm_area
  * @pages: pages to map (always PAGE_SIZE pages)
+ * 
+ * 
+ * Function Description: Maps pages inside a sparse vm_area. It validates the area and calls vmap_pages_range(). Used for mapping pages into an existing vm_struct.
  */
 int vm_area_map_pages(struct vm_struct *area, unsigned long start,
 		      unsigned long end, struct page **pages)
@@ -765,6 +857,9 @@ int vm_area_map_pages(struct vm_struct *area, unsigned long start,
  * @area: vm_area
  * @start: start address inside vm_area
  * @end: end address inside vm_area
+ * 
+ * 
+ * Function Description: Unmaps pages inside a sparse vm_area. It validates the area and calls vunmap_range(). Used for unmapping pages from an existing vm_struct.
  */
 void vm_area_unmap_pages(struct vm_struct *area, unsigned long start,
 			 unsigned long end)
@@ -775,6 +870,9 @@ void vm_area_unmap_pages(struct vm_struct *area, unsigned long start,
 	vunmap_range(start, end);
 }
 
+/**
+ * Function Description: Checks if an address is in the vmalloc or module address range. On architectures with special module address space, it checks both. Used to identify vmalloc or module memory.
+ */
 int is_vmalloc_or_module_addr(const void *x)
 {
 	/*
@@ -791,10 +889,13 @@ int is_vmalloc_or_module_addr(const void *x)
 }
 EXPORT_SYMBOL_GPL(is_vmalloc_or_module_addr);
 
-/*
+/**
  * Walk a vmap address to the struct page it maps. Huge vmap mappings will
  * return the tail page that corresponds to the base page address, which
  * matches small vmap mappings.
+ * 
+ * 
+ * Function Description: Converts a vmalloc address to the corresponding struct page. It walks the page table hierarchy and returns the page for the address. Returns the page or NULL if not mapped.
  */
 struct page *vmalloc_to_page(const void *vmalloc_addr)
 {
@@ -852,8 +953,11 @@ struct page *vmalloc_to_page(const void *vmalloc_addr)
 }
 EXPORT_SYMBOL(vmalloc_to_page);
 
-/*
+/**
  * Map a vmalloc()-space virtual address to the physical page frame number.
+ * 
+ * 
+ * Function Description: Converts a vmalloc address to the corresponding physical frame number. It calls vmalloc_to_page() and returns page_to_pfn(). Used to get the PFN of vmalloc memory.
  */
 unsigned long vmalloc_to_pfn(const void *vmalloc_addr)
 {
@@ -871,7 +975,7 @@ EXPORT_SYMBOL(vmalloc_to_pfn);
 static DEFINE_SPINLOCK(free_vmap_area_lock);
 static bool vmap_initialized __read_mostly;
 
-/*
+/**
  * This kmem_cache is used for vmap_area objects. Instead of
  * allocating from slab we reuse an object from this cache to
  * make things faster. Especially in "no edge" splitting of
@@ -879,13 +983,13 @@ static bool vmap_initialized __read_mostly;
  */
 static struct kmem_cache *vmap_area_cachep;
 
-/*
+/**
  * This linked list is used in pair with free_vmap_area_root.
  * It gives O(1) access to prev/next to perform fast coalescing.
  */
 static LIST_HEAD(free_vmap_area_list);
 
-/*
+/**
  * This augment red-black tree represents the free vmap space.
  * All vmap_area objects in this tree are sorted by va->va_start
  * address. It is used for allocation and merging when a vmap
@@ -897,18 +1001,21 @@ static LIST_HEAD(free_vmap_area_list);
  */
 static struct rb_root free_vmap_area_root = RB_ROOT;
 
-/*
+/**
  * Preload a CPU with one object for "no edge" split case. The
  * aim is to get rid of allocations from the atomic context, thus
  * to use more permissive allocation masks.
  */
 static DEFINE_PER_CPU(struct vmap_area *, ne_fit_preload_node);
 
-/*
+/**
  * This structure defines a single, solid model where a list and
  * rb-tree are part of one entity protected by the lock. Nodes are
  * sorted in ascending order, thus for O(1) access to left/right
  * neighbors a list is used as well as for sequential traversal.
+ * 
+ * 
+ * Function Description: This structure combines a red-black tree, a linked list, and a spinlock into a single entity. It contains a rb_root for efficient search operations, a list_head for O(1) access to left/right neighbors and sequential traversal, and a spinlock for protecting both data structures. Nodes are sorted in ascending order by address in both the tree and the list. This design is used in the vmap subsystem to manage busy and lazy vmap areas, enabling both fast lookups (via the tree) and fast neighbor access (via the list).
  */
 struct rb_list {
 	struct rb_root root;
@@ -916,22 +1023,28 @@ struct rb_list {
 	spinlock_t lock;
 };
 
-/*
+/**
  * A fast size storage contains VAs up to 1M size. A pool consists
  * of linked between each other ready to go VAs of certain sizes.
  * An index in the pool-array corresponds to number of pages + 1.
  */
 #define MAX_VA_SIZE_PAGES 256
 
+/**
+ * Function Description: This structure represents a size-segregated pool of free vmap areas. It contains a list head and length counter. It is used to quickly allocate VAs of specific sizes without searching the tree.
+ */
 struct vmap_pool {
 	struct list_head head;
 	unsigned long len;
 };
 
-/*
+/**
  * An effective vmap-node logic. Users make use of nodes instead
  * of a global heap. It allows to balance an access and mitigate
  * contention.
+ * 
+ * 
+ * struct Description: This structure represents a node in the vmap allocation hierarchy. It contains busy and lazy trees, a size-segregated pool, and purge lists. It is used to distribute vmap allocation and reclaim across multiple nodes for scalability.
  */
 static struct vmap_node {
 	/* Simple size segregated storage. */
@@ -951,7 +1064,7 @@ static struct vmap_node {
 	unsigned long nr_purged;
 } single;
 
-/*
+/**
  * Initial setup consists of one single node, i.e. a balancing
  * is fully disabled. Later on, after vmap is initialized these
  * parameters are updated based on a system capacity.
@@ -960,29 +1073,41 @@ static struct vmap_node *vmap_nodes = &single;
 static __read_mostly unsigned int nr_vmap_nodes = 1;
 static __read_mostly unsigned int vmap_zone_size = 1;
 
-/* A simple iterator over all vmap-nodes. */
+/** A simple iterator over all vmap-nodes. */
 #define for_each_vmap_node(vn)	\
 	for ((vn) = &vmap_nodes[0];	\
 		(vn) < &vmap_nodes[nr_vmap_nodes]; (vn)++)
 
+/**
+ * Function Description: Converts a virtual address to a vmap node ID. It divides the address by the zone size and takes modulo the number of nodes. This determines which node manages the given address range.
+ */
 static inline unsigned int
 addr_to_node_id(unsigned long addr)
 {
 	return (addr / vmap_zone_size) % nr_vmap_nodes;
 }
 
+/**
+ * Function Description: Returns the vmap_node that manages a given virtual address. It calls addr_to_node_id() and indexes into the vmap_nodes array. Used to find the node responsible for a specific address.
+ */
 static inline struct vmap_node *
 addr_to_node(unsigned long addr)
 {
 	return &vmap_nodes[addr_to_node_id(addr)];
 }
 
+/**
+ * Function Description: Returns the vmap_node for a given node ID. It takes modulo to handle invalid IDs. Used to convert an encoded node ID back to a node pointer.
+ */
 static inline struct vmap_node *
 id_to_node(unsigned int id)
 {
 	return &vmap_nodes[id % nr_vmap_nodes];
 }
 
+/**
+ * Function Description: Returns the ID of a vmap_node. It uses pointer arithmetic to compute the index. Returns 0 if the node pointer is out of bounds.
+ */
 static inline unsigned int
 node_to_id(struct vmap_node *node)
 {
@@ -996,12 +1121,15 @@ node_to_id(struct vmap_node *node)
 	return 0;
 }
 
-/*
+/**
  * We use the value 0 to represent "no node", that is why
  * an encoded value will be the node-id incremented by 1.
  * It is always greater then 0. A valid node_id which can
  * be encoded is [0:nr_vmap_nodes - 1]. If a passed node_id
  * is not valid 0 is returned.
+ * 
+ * 
+ * Function Description: Encodes a node ID into a value that can be stored in vmap_area flags. It increments the node ID by 1 and shifts it by 8 bits. Returns 0 if the node ID is invalid.
  */
 static unsigned int
 encode_vn_id(unsigned int node_id)
@@ -1015,10 +1143,13 @@ encode_vn_id(unsigned int node_id)
 	return 0;
 }
 
-/*
+/**
  * Returns an encoded node-id, the valid range is within
  * [0:nr_vmap_nodes-1] values. Otherwise nr_vmap_nodes is
  * returned if extracted data is wrong.
+ * 
+ * 
+ * Function Description: Decodes a node ID from a vmap_area's flags. It shifts right by 8 bits and subtracts 1. Returns nr_vmap_nodes if the decoded value is invalid.
  */
 static unsigned int
 decode_vn_id(unsigned int val)
@@ -1036,6 +1167,9 @@ decode_vn_id(unsigned int val)
 	return nr_vmap_nodes;
 }
 
+/**
+ * Function Description: Checks if a decoded node ID is valid. Returns true if the node ID is less than nr_vmap_nodes. Used to validate node IDs before accessing vmap_nodes.
+ */
 static bool
 is_vn_id_valid(unsigned int node_id)
 {
@@ -1045,12 +1179,18 @@ is_vn_id_valid(unsigned int node_id)
 	return false;
 }
 
+/**
+ * Function Description: Returns the size of a vmap_area. It subtracts va_start from va_end. Used for size calculations and augmentation.
+ */
 static __always_inline unsigned long
 va_size(struct vmap_area *va)
 {
 	return (va->va_end - va->va_start);
 }
 
+/**
+ * Function Description: Returns the maximum free block size in a red-black tree subtree. It reads the subtree_max_size field from the vmap_area node. Used for augment tree operations.
+ */
 static __always_inline unsigned long
 get_subtree_max_size(struct rb_node *node)
 {
@@ -1071,11 +1211,17 @@ static DECLARE_WORK(drain_vmap_work, drain_vmap_area_work);
 static __cacheline_aligned_in_smp atomic_long_t nr_vmalloc_pages;
 static __cacheline_aligned_in_smp atomic_long_t vmap_lazy_nr;
 
+/**
+ * Function Description: Returns the total number of pages currently allocated by vmalloc. It reads the nr_vmalloc_pages atomic counter. Used for statistics and monitoring.
+ */
 unsigned long vmalloc_nr_pages(void)
 {
 	return atomic_long_read(&nr_vmalloc_pages);
 }
 
+/**
+ * Function Description: Finds a vmap_area by address in a given rb_root. It searches the red-black tree for the area containing the address. Returns the vmap_area or NULL.
+ */
 static struct vmap_area *__find_vmap_area(unsigned long addr, struct rb_root *root)
 {
 	struct rb_node *n = root->rb_node;
@@ -1097,7 +1243,11 @@ static struct vmap_area *__find_vmap_area(unsigned long addr, struct rb_root *ro
 	return NULL;
 }
 
-/* Look up the first VA which satisfies addr < va_end, NULL if none. */
+/** Look up the first VA which satisfies addr < va_end, NULL if none. 
+ * 
+ * 
+ * Function Description: Finds the first vmap_area whose end address exceeds the given address. It searches the tree and returns the area with the smallest start address that satisfies addr < va_end. Used for iterating over areas.
+*/
 static struct vmap_area *
 __find_vmap_area_exceed_addr(unsigned long addr, struct rb_root *root)
 {
@@ -1123,12 +1273,15 @@ __find_vmap_area_exceed_addr(unsigned long addr, struct rb_root *root)
 	return va;
 }
 
-/*
+/**
  * Returns a node where a first VA, that satisfies addr < va_end, resides.
  * If success, a node is locked. A user is responsible to unlock it when a
  * VA is no longer needed to be accessed.
  *
  * Returns NULL if nothing found.
+ * 
+ * 
+ * Function Description: Finds a vmap_area whose end address exceeds the given address, with locking. It searches all nodes and returns the area with the smallest start address. Used for vread_iter().
  */
 static struct vmap_node *
 find_vmap_area_exceed_addr_lock(unsigned long addr, struct vmap_area **va)
@@ -1170,13 +1323,16 @@ repeat:
 	return NULL;
 }
 
-/*
+/**
  * This function returns back addresses of parent node
  * and its left or right link for further processing.
  *
  * Otherwise NULL is returned. In that case all further
  * steps regarding inserting of conflicting overlap range
  * have to be declined and actually considered as a bug.
+ * 
+ * 
+ * Function Description: Finds the insertion point for a vmap_area in a red-black tree. It searches for the correct position and returns the link pointer and parent. Returns NULL if an overlap is detected.
  */
 static __always_inline struct rb_node **
 find_va_links(struct vmap_area *va,
@@ -1225,6 +1381,9 @@ find_va_links(struct vmap_area *va,
 	return link;
 }
 
+/**
+ * Function Description: Returns the next list_head pointer for a vmap_area based on the parent and link direction. Used for list insertion during merging.
+ */
 static __always_inline struct list_head *
 get_va_next_sibling(struct rb_node *parent, struct rb_node **link)
 {
@@ -1243,6 +1402,9 @@ get_va_next_sibling(struct rb_node *parent, struct rb_node **link)
 	return (&parent->rb_right == link ? list->next : list);
 }
 
+/**
+ * Function Description: Links a vmap_area into a red-black tree and list. It inserts the node and optionally performs augmentation. Used by link_va() and link_va_augment().
+ */
 static __always_inline void
 __link_va(struct vmap_area *va, struct rb_root *root,
 	struct rb_node *parent, struct rb_node **link,
@@ -1283,6 +1445,9 @@ __link_va(struct vmap_area *va, struct rb_root *root,
 	list_add(&va->list, head);
 }
 
+/**
+ * Function Description: Links a vmap_area into a red-black tree without augmentation. It calls __link_va() with augment=false. Used for busy tree insertion.
+ */
 static __always_inline void
 link_va(struct vmap_area *va, struct rb_root *root,
 	struct rb_node *parent, struct rb_node **link,
@@ -1291,6 +1456,9 @@ link_va(struct vmap_area *va, struct rb_root *root,
 	__link_va(va, root, parent, link, head, false);
 }
 
+/**
+ * Function Description: Links a vmap_area into a red-black tree with augmentation. It calls __link_va() with augment=true. Used for free tree insertion.
+ */
 static __always_inline void
 link_va_augment(struct vmap_area *va, struct rb_root *root,
 	struct rb_node *parent, struct rb_node **link,
@@ -1299,6 +1467,9 @@ link_va_augment(struct vmap_area *va, struct rb_root *root,
 	__link_va(va, root, parent, link, head, true);
 }
 
+/**
+ * Function Description: Unlinks a vmap_area from a red-black tree and list. It optionally uses augmentation for removal. Used by unlink_va() and unlink_va_augment().
+ */
 static __always_inline void
 __unlink_va(struct vmap_area *va, struct rb_root *root, bool augment)
 {
@@ -1315,12 +1486,18 @@ __unlink_va(struct vmap_area *va, struct rb_root *root, bool augment)
 	RB_CLEAR_NODE(&va->rb_node);
 }
 
+/**
+ * Function Description: Unlinks a vmap_area from a red-black tree without augmentation. It calls __unlink_va() with augment=false. Used for busy tree removal.
+ */
 static __always_inline void
 unlink_va(struct vmap_area *va, struct rb_root *root)
 {
 	__unlink_va(va, root, false);
 }
 
+/**
+ * Function Description: Unlinks a vmap_area from a red-black tree with augmentation. It calls __unlink_va() with augment=true. Used for free tree removal.
+ */
 static __always_inline void
 unlink_va_augment(struct vmap_area *va, struct rb_root *root)
 {
@@ -1328,8 +1505,11 @@ unlink_va_augment(struct vmap_area *va, struct rb_root *root)
 }
 
 #if DEBUG_AUGMENT_PROPAGATE_CHECK
-/*
+/**
  * Gets called when remove the node and rotate.
+ * 
+ * 
+ * Function Description: Computes the maximum free block size available in the subtree rooted at a given vmap_area node. It takes the maximum of three values: the size of the current vmap_area (va_size(va)), the maximum size in its left subtree, and the maximum size in its right subtree. This is used as the copy callback for the augmented red-black tree (free_vmap_area_rb_augment_cb) to maintain the subtree_max_size field after tree rotations or modifications. The subtree_max_size is then used during allocation to quickly determine if a subtree can satisfy a request without traversing it completely. 
  */
 static __always_inline unsigned long
 compute_subtree_max_size(struct vmap_area *va)
@@ -1339,6 +1519,9 @@ compute_subtree_max_size(struct vmap_area *va)
 		get_subtree_max_size(va->rb_node.rb_right));
 }
 
+/**
+ * Function Description: Debug function that validates the integrity of the free vmap area red-black tree. It iterates through all vmap_area entries in the free list, computes what each node's subtree_max_size should be using compute_subtree_max_size(), and compares it with the actual stored value. If a mismatch is found, it prints an emergency message indicating tree corruption. This function is only compiled when DEBUG_AUGMENT_PROPAGATE_CHECK is set to 1. It is used for debugging and testing the augmented tree propagation logic to ensure that subtree_max_size values are correctly maintained after tree modifications.
+ */
 static void
 augment_tree_propagate_check(void)
 {
@@ -1354,7 +1537,7 @@ augment_tree_propagate_check(void)
 }
 #endif
 
-/*
+/**
  * This function populates subtree_max_size from bottom to upper
  * levels starting from VA point. The propagation must be done
  * when VA size is modified by changing its va_start/va_end. Or
@@ -1380,6 +1563,9 @@ augment_tree_propagate_check(void)
  * its subtree_max_size is updated only, and set to 1. If we shrink
  * the node 8 to 6, then its subtree_max_size is set to 6 and parent
  * node becomes 4--6.
+ * 
+ * 
+ * Function Description: Propagates subtree_max_size values up the red-black tree from a given node. It updates the maximum free block size for all ancestors. Used after modifications to the free tree.
  */
 static __always_inline void
 augment_tree_propagate_from(struct vmap_area *va)
@@ -1396,6 +1582,9 @@ augment_tree_propagate_from(struct vmap_area *va)
 #endif
 }
 
+/**
+ * Function Description: Inserts a vmap_area into a red-black tree and list without augmentation. It calls find_va_links() and link_va(). Used for busy tree insertion.
+ */
 static void
 insert_vmap_area(struct vmap_area *va,
 	struct rb_root *root, struct list_head *head)
@@ -1408,6 +1597,9 @@ insert_vmap_area(struct vmap_area *va,
 		link_va(va, root, parent, link, head);
 }
 
+/**
+ * Function Description: Inserts a vmap_area into a red-black tree and list with augmentation. It calls find_va_links() and link_va_augment(), then propagates. Used for free tree insertion.
+ */
 static void
 insert_vmap_area_augment(struct vmap_area *va,
 	struct rb_node *from, struct rb_root *root,
@@ -1427,7 +1619,7 @@ insert_vmap_area_augment(struct vmap_area *va,
 	}
 }
 
-/*
+/**
  * Merge de-allocated chunk of VA memory with previous
  * and next free blocks. If coalesce is not done a new
  * free area is inserted. If VA has been merged, it is
@@ -1437,6 +1629,9 @@ insert_vmap_area_augment(struct vmap_area *va,
  * ranges, followed by WARN() report. Despite it is a
  * buggy behaviour, a system can be alive and keep
  * ongoing.
+ * 
+ * 
+ * Function Description: Merges a vmap_area with adjacent free areas or inserts it into the free tree. It coalesces with previous and next free blocks. Returns the merged/inserted area or NULL on overlap.
  */
 static __always_inline struct vmap_area *
 __merge_or_add_vmap_area(struct vmap_area *va,
@@ -1522,6 +1717,9 @@ insert:
 	return va;
 }
 
+/**
+ * Function Description: Merges or adds a vmap_area to the free tree without augmentation. It calls __merge_or_add_vmap_area() with augment=false.
+ */
 static __always_inline struct vmap_area *
 merge_or_add_vmap_area(struct vmap_area *va,
 	struct rb_root *root, struct list_head *head)
@@ -1529,6 +1727,9 @@ merge_or_add_vmap_area(struct vmap_area *va,
 	return __merge_or_add_vmap_area(va, root, head, false);
 }
 
+/**
+ * Function Description: Merges or adds a vmap_area to the free tree with augmentation. It calls __merge_or_add_vmap_area() with augment=true and propagates.
+ */
 static __always_inline struct vmap_area *
 merge_or_add_vmap_area_augment(struct vmap_area *va,
 	struct rb_root *root, struct list_head *head)
@@ -1540,6 +1741,9 @@ merge_or_add_vmap_area_augment(struct vmap_area *va,
 	return va;
 }
 
+/**
+ * Function Description: Checks if a requested allocation fits within a vmap_area. It calculates the aligned start address and verifies the range. Returns true if the allocation fits.
+ */
 static __always_inline bool
 is_within_this_va(struct vmap_area *va, unsigned long size,
 	unsigned long align, unsigned long vstart)
@@ -1559,12 +1763,15 @@ is_within_this_va(struct vmap_area *va, unsigned long size,
 	return (nva_start_addr + size <= va->va_end);
 }
 
-/*
+/**
  * Find the first free block(lowest start address) in the tree,
  * that will accomplish the request corresponding to passing
  * parameters. Please note, with an alignment bigger than PAGE_SIZE,
  * a search length is adjusted to account for worst case alignment
  * overhead.
+ * 
+ * 
+ * Function Description: Finds the lowest free vmap_area that can accommodate an allocation. It searches the free tree using subtree_max_size for pruning. Returns the best-fit area or NULL.
  */
 static __always_inline struct vmap_area *
 find_vmap_lowest_match(struct rb_root *root, unsigned long size,
@@ -1633,6 +1840,9 @@ find_vmap_lowest_match(struct rb_root *root, unsigned long size,
 #if DEBUG_AUGMENT_LOWEST_MATCH_CHECK
 #include <linux/random.h>
 
+/**
+ * Function Description: Debug function that performs a linear search through the free vmap area list to find the lowest match for an allocation request. It iterates through all entries in the list and returns the first vmap_area that can accommodate the request (using is_within_this_va()). This is used as a reference for validating the augmented tree-based search in find_vmap_lowest_match_check(). The linear search is O(n) and is only used for debugging purposes.
+ */
 static struct vmap_area *
 find_vmap_lowest_linear_match(struct list_head *head, unsigned long size,
 	unsigned long align, unsigned long vstart)
@@ -1649,6 +1859,9 @@ find_vmap_lowest_linear_match(struct list_head *head, unsigned long size,
 	return NULL;
 }
 
+/**
+ * Function Description: Debug function that validates the correctness of find_vmap_lowest_match() by comparing its result against a linear search. It generates a random start address within the vmalloc space, then calls both find_vmap_lowest_match() (tree-based) and find_vmap_lowest_linear_match() (list-based) with the same parameters. If the results differ, it prints an emergency message indicating a bug in the tree-based search. This function is only compiled when DEBUG_AUGMENT_LOWEST_MATCH_CHECK is set to 1. It is used for testing the augmented tree allocation logic.
+ */
 static void
 find_vmap_lowest_match_check(struct rb_root *root, struct list_head *head,
 			     unsigned long size, unsigned long align)
@@ -1669,6 +1882,9 @@ find_vmap_lowest_match_check(struct rb_root *root, struct list_head *head,
 }
 #endif
 
+/**
+ * Enumeration Description: This enumeration defines how a requested allocation fits within a free vmap_area. NOTHING_FIT means the request does not fit at all. FL_FIT_TYPE (full fit) means the request exactly matches the entire vmap_area. LE_FIT_TYPE (left edge fit) means the request aligns with the left edge of the area, leaving free space on the right. RE_FIT_TYPE (right edge fit) means the request aligns with the right edge, leaving free space on the left. NE_FIT_TYPE (no edge fit) means the request fits entirely within the middle of the area, requiring splitting on both sides. This classification is used during allocation to determine how to clip and split the vmap_area.
+ */
 enum fit_type {
 	NOTHING_FIT = 0,
 	FL_FIT_TYPE = 1,	/* full fit */
@@ -1677,6 +1893,9 @@ enum fit_type {
 	NE_FIT_TYPE = 4		/* no edge fit */
 };
 
+/**
+ * Function Description: Classifies how a requested allocation fits within a vmap_area. Returns FL_FIT_TYPE (full), LE_FIT_TYPE (left edge), RE_FIT_TYPE (right edge), NE_FIT_TYPE (no edge), or NOTHING_FIT.
+ */
 static __always_inline enum fit_type
 classify_va_fit_type(struct vmap_area *va,
 	unsigned long nva_start_addr, unsigned long size)
@@ -1703,6 +1922,9 @@ classify_va_fit_type(struct vmap_area *va,
 	return type;
 }
 
+/**
+ * Function Description: Clips a vmap_area to allocate a region of the requested size. It splits the area as needed and handles NE_FIT_TYPE using a preloaded node. Returns 0 on success or -ENOMEM.
+ */
 static __always_inline int
 va_clip(struct rb_root *root, struct list_head *head,
 		struct vmap_area *va, unsigned long nva_start_addr,
@@ -1803,6 +2025,9 @@ va_clip(struct rb_root *root, struct list_head *head,
 	return 0;
 }
 
+/**
+ * Function Description: Allocates a region from a vmap_area. It calculates the start address, checks alignment and range, and calls va_clip(). Returns the start address or an error value.
+ */
 static unsigned long
 va_alloc(struct vmap_area *va,
 		struct rb_root *root, struct list_head *head,
@@ -1829,9 +2054,12 @@ va_alloc(struct vmap_area *va,
 	return nva_start_addr;
 }
 
-/*
+/**
  * Returns a start address of the newly allocated area, if success.
  * Otherwise an error value is returned that indicates failure.
+ * 
+ * 
+ * Function Description: Internal allocation function that finds and allocates a vmap_area from the free tree. It calls find_vmap_lowest_match() and va_alloc(). Returns the start address or an error value.
  */
 static __always_inline unsigned long
 __alloc_vmap_area(struct rb_root *root, struct list_head *head,
@@ -1868,8 +2096,11 @@ __alloc_vmap_area(struct rb_root *root, struct list_head *head,
 	return nva_start_addr;
 }
 
-/*
+/**
  * Free a region of KVA allocated by alloc_vmap_area
+ * 
+ * 
+ * Function Description: Frees a vmap_area back to the free tree. It removes it from the busy tree and merges it into the free tree. Used when a vmap area is deallocated.
  */
 static void free_vmap_area(struct vmap_area *va)
 {
@@ -1890,6 +2121,9 @@ static void free_vmap_area(struct vmap_area *va)
 	spin_unlock(&free_vmap_area_lock);
 }
 
+/**
+ * Function Description: Preloads the current CPU with a vmap_area object for NE_FIT_TYPE splitting. It allocates a node if needed and stores it in the per-CPU cache. Used to avoid allocation in atomic context.
+ */
 static inline void
 preload_this_cpu_lock(spinlock_t *lock, gfp_t gfp_mask, int node)
 {
@@ -1914,6 +2148,9 @@ preload_this_cpu_lock(spinlock_t *lock, gfp_t gfp_mask, int node)
 		kmem_cache_free(vmap_area_cachep, va);
 }
 
+/**
+ * Function Description: Returns the size pool for a vmap_node based on the area size. It calculates the index from the size and returns the pool. Used for size-segregated VA caching.
+ */
 static struct vmap_pool *
 size_to_va_pool(struct vmap_node *vn, unsigned long size)
 {
@@ -1925,6 +2162,9 @@ size_to_va_pool(struct vmap_node *vn, unsigned long size)
 	return NULL;
 }
 
+/**
+ * Function Description: Adds a vmap_area to a node's size pool. It finds the appropriate pool and adds the area to the list. Returns true if added, false if the size is too large.
+ */
 static bool
 node_pool_add_va(struct vmap_node *n, struct vmap_area *va)
 {
@@ -1942,6 +2182,9 @@ node_pool_add_va(struct vmap_node *n, struct vmap_area *va)
 	return true;
 }
 
+/**
+ * Function Description: Removes a vmap_area from a node's size pool. It finds a VA of the requested size and alignment and removes it. Returns the VA or NULL if none available.
+ */
 static struct vmap_area *
 node_pool_del_va(struct vmap_node *vn, unsigned long size,
 		unsigned long align, unsigned long vstart,
@@ -1984,6 +2227,9 @@ node_pool_del_va(struct vmap_node *vn, unsigned long size,
 	return va;
 }
 
+/**
+ * Function Description: Allocates a vmap_area from a node's pool. It attempts to get a VA from the pool and returns it. Returns the VA or NULL if the pool is empty or the request doesn't fit.
+ */
 static struct vmap_area *
 node_alloc(unsigned long size, unsigned long align,
 		unsigned long vstart, unsigned long vend,
@@ -2012,6 +2258,9 @@ node_alloc(unsigned long size, unsigned long align,
 	return va;
 }
 
+/**
+ * Function Description: Sets up a vm_struct for a vmap_area. It initializes the vm fields and links it to the vmap_area. Used during vmalloc allocation.
+ */
 static inline void setup_vmalloc_vm(struct vm_struct *vm,
 	struct vmap_area *va, unsigned long flags, const void *caller)
 {
@@ -2022,9 +2271,12 @@ static inline void setup_vmalloc_vm(struct vm_struct *vm,
 	va->vm = vm;
 }
 
-/*
+/**
  * Allocate a region of KVA of the specified size and alignment, within the
  * vstart and vend. If vm is passed in, the two will also be bound.
+ * 
+ * 
+ * Function Description: Allocates a vmap_area from the global KVA space. It handles both pool and tree allocation, retries on failure, and supports blocking/non-blocking modes. Returns the vmap_area or an error pointer.
  */
 static struct vmap_area *alloc_vmap_area(unsigned long size,
 				unsigned long align,
@@ -2158,19 +2410,25 @@ out_free_va:
 	return ERR_PTR(-EBUSY);
 }
 
+/**
+ * Function Description: Registers a notifier for vmap purge events. The notifier is called when vmap areas are purged to reclaim memory. Returns 0 on success.
+ */
 int register_vmap_purge_notifier(struct notifier_block *nb)
 {
 	return blocking_notifier_chain_register(&vmap_notify_list, nb);
 }
 EXPORT_SYMBOL_GPL(register_vmap_purge_notifier);
 
+/**
+ * Function Description: Unregisters a vmap purge notifier. Returns 0 on success.
+ */
 int unregister_vmap_purge_notifier(struct notifier_block *nb)
 {
 	return blocking_notifier_chain_unregister(&vmap_notify_list, nb);
 }
 EXPORT_SYMBOL_GPL(unregister_vmap_purge_notifier);
 
-/*
+/**
  * lazy_max_pages is the maximum amount of virtual address space we gather up
  * before attempting to purge with a TLB flush.
  *
@@ -2185,6 +2443,9 @@ EXPORT_SYMBOL_GPL(unregister_vmap_purge_notifier);
  * a less aggressive log scale. It will still be an improvement over the old
  * code, and it will be simple to change the scale factor if we find that it
  * becomes a problem on bigger systems.
+ * 
+ * 
+ * Function Description: Returns the maximum number of pages that can be lazily freed before triggering a purge. It scales with the number of CPUs using a logarithmic factor. Used to amortize TLB flush costs.
  */
 static unsigned long lazy_max_pages(void)
 {
@@ -2195,16 +2456,19 @@ static unsigned long lazy_max_pages(void)
 	return log * (32UL * 1024 * 1024 / PAGE_SIZE);
 }
 
-/*
+/**
  * Serialize vmap purging.  There is no actual critical section protected
  * by this lock, but we want to avoid concurrent calls for performance
  * reasons and to make the pcpu_get_vm_areas more deterministic.
  */
 static DEFINE_MUTEX(vmap_purge_lock);
 
-/* for per-CPU blocks */
+/** for per-CPU blocks */
 static void purge_fragmented_blocks_allcpus(void);
 
+/**
+ * Function Description: Reclaims a list of vmap_areas back to the global free tree. It merges each area into the free tree. Used during purge operations.
+ */
 static void
 reclaim_list_global(struct list_head *head)
 {
@@ -2220,6 +2484,9 @@ reclaim_list_global(struct list_head *head)
 	spin_unlock(&free_vmap_area_lock);
 }
 
+/**
+ * Function Description: Decays a node's VA pools by freeing a portion of cached VAs. It removes up to 25% of the VAs from each pool and returns them to the global tree. Used by the shrinker to reclaim memory.
+ */
 static void
 decay_va_pool_node(struct vmap_node *vn, bool full_decay)
 {
@@ -2275,6 +2542,9 @@ decay_va_pool_node(struct vmap_node *vn, bool full_decay)
 
 #define KASAN_RELEASE_BATCH_SIZE 32
 
+/**
+ * Function Description: Releases KASAN shadow memory for vmalloc areas on a node. It iterates through the purge list and releases shadow memory. Used during vmap purge.
+ */
 static void
 kasan_release_vmalloc_node(struct vmap_node *vn)
 {
@@ -2300,6 +2570,9 @@ kasan_release_vmalloc_node(struct vmap_node *vn)
 	kasan_release_vmalloc(start, end, start, end, KASAN_VMALLOC_TLB_FLUSH);
 }
 
+/**
+ * Function Description: Work function that purges lazily-freed vmap areas for a node. It processes the purge list, frees VAs, and returns them to the global tree. Called from workqueue context.
+ */
 static void purge_vmap_node(struct work_struct *work)
 {
 	struct vmap_node *vn = container_of(work,
@@ -2335,8 +2608,11 @@ static void purge_vmap_node(struct work_struct *work)
 	reclaim_list_global(&local_list);
 }
 
-/*
+/**
  * Purges all lazily-freed vmap areas.
+ * 
+ * 
+ * Function Description: Purges all lazily-freed vmap areas. It processes all nodes, decays pools, and schedules purge work. Returns true if any areas were purged.
  */
 static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
 		bool full_pool_decay)
@@ -2418,8 +2694,11 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
 	return nr_purged_areas > 0;
 }
 
-/*
+/**
  * Reclaim vmap areas by purging fragmented blocks and purge_vmap_area_list.
+ * 
+ * 
+ * Function Description: Reclaims vmap areas by purging fragmented blocks and lazy areas. It triggers the purge process to free memory. Used during allocation failure to recover space.
  */
 static void reclaim_and_purge_vmap_areas(void)
 
@@ -2430,6 +2709,9 @@ static void reclaim_and_purge_vmap_areas(void)
 	mutex_unlock(&vmap_purge_lock);
 }
 
+/**
+ * Function Description: Work function that drains lazily-freed vmap areas. It calls __purge_vmap_area_lazy() to process pending frees. Scheduled when lazy count exceeds the threshold.
+ */
 static void drain_vmap_area_work(struct work_struct *work)
 {
 	mutex_lock(&vmap_purge_lock);
@@ -2437,10 +2719,13 @@ static void drain_vmap_area_work(struct work_struct *work)
 	mutex_unlock(&vmap_purge_lock);
 }
 
-/*
+/**
  * Free a vmap area, caller ensuring that the area has been unmapped,
  * unlinked and flush_cache_vunmap had been called for the correct
  * range previously.
+ * 
+ * 
+ * Function Description: Frees a vmap_area without flushing caches. It adds the area to the lazy list and schedules a drain if the lazy count exceeds the threshold. Used for deferred freeing.
  */
 static void free_vmap_area_noflush(struct vmap_area *va)
 {
@@ -2474,8 +2759,11 @@ static void free_vmap_area_noflush(struct vmap_area *va)
 		schedule_work(&drain_vmap_work);
 }
 
-/*
+/**
  * Free and unmap a vmap area
+ * 
+ * 
+ * Function Description: Frees and unmaps a vmap_area. It flushes caches, unmaps the range, and calls free_vmap_area_noflush(). Used during vfree.
  */
 static void free_unmap_vmap_area(struct vmap_area *va)
 {
@@ -2487,6 +2775,9 @@ static void free_unmap_vmap_area(struct vmap_area *va)
 	free_vmap_area_noflush(va);
 }
 
+/**
+ * Function Description: Finds a vmap_area by address across all nodes. It searches the busy tree of the appropriate node. Returns the vmap_area or NULL.
+ */
 struct vmap_area *find_vmap_area(unsigned long addr)
 {
 	struct vmap_node *vn;
@@ -2524,6 +2815,9 @@ struct vmap_area *find_vmap_area(unsigned long addr)
 	return NULL;
 }
 
+/**
+ * Function Description: Finds and unlinks a vmap_area by address. It removes the area from the busy tree and returns it. Used during vfree.
+ */
 static struct vmap_area *find_unlink_vmap_area(unsigned long addr)
 {
 	struct vmap_node *vn;
@@ -2556,7 +2850,7 @@ static struct vmap_area *find_unlink_vmap_area(unsigned long addr)
  * vmap space is limited especially on 32 bit architectures. Ensure there is
  * room for at least 16 percpu vmap blocks per CPU.
  */
-/*
+/**
  * If we had a constant VMALLOC_START and VMALLOC_END, we'd like to be able
  * to #define VMALLOC_SPACE		(VMALLOC_END-VMALLOC_START). Guess
  * instead (we just need a rough idea)
@@ -2568,11 +2862,11 @@ static struct vmap_area *find_unlink_vmap_area(unsigned long addr)
 #endif
 
 #define VMALLOC_PAGES		(VMALLOC_SPACE / PAGE_SIZE)
-#define VMAP_MAX_ALLOC		BITS_PER_LONG	/* 256K with 4K pages */
-#define VMAP_BBMAP_BITS_MAX	1024	/* 4MB with 4K pages */
+#define VMAP_MAX_ALLOC		BITS_PER_LONG	/** 256K with 4K pages */
+#define VMAP_BBMAP_BITS_MAX	1024	/** 4MB with 4K pages */
 #define VMAP_BBMAP_BITS_MIN	(VMAP_MAX_ALLOC*2)
-#define VMAP_MIN(x, y)		((x) < (y) ? (x) : (y)) /* can't use min() */
-#define VMAP_MAX(x, y)		((x) > (y) ? (x) : (y)) /* can't use max() */
+#define VMAP_MIN(x, y)		((x) < (y) ? (x) : (y)) /** can't use min() */
+#define VMAP_MAX(x, y)		((x) > (y) ? (x) : (y)) /** can't use max() */
 #define VMAP_BBMAP_BITS		\
 		VMAP_MIN(VMAP_BBMAP_BITS_MAX,	\
 		VMAP_MAX(VMAP_BBMAP_BITS_MIN,	\
@@ -2580,16 +2874,19 @@ static struct vmap_area *find_unlink_vmap_area(unsigned long addr)
 
 #define VMAP_BLOCK_SIZE		(VMAP_BBMAP_BITS * PAGE_SIZE)
 
-/*
+/**
  * Purge threshold to prevent overeager purging of fragmented blocks for
  * regular operations: Purge if vb->free is less than 1/4 of the capacity.
  */
 #define VMAP_PURGE_THRESHOLD	(VMAP_BBMAP_BITS / 4)
 
-#define VMAP_RAM		0x1 /* indicates vm_map_ram area*/
-#define VMAP_BLOCK		0x2 /* mark out the vmap_block sub-type*/
+#define VMAP_RAM		0x1 /** indicates vm_map_ram area*/
+#define VMAP_BLOCK		0x2 /** mark out the vmap_block sub-type*/
 #define VMAP_FLAGS_MASK		0x3
 
+/**
+ * struct Description: This structure is the per-CPU queue for vmap blocks. It contains a lock, a list of free blocks, and an xarray of all blocks. It is used to manage vmap blocks for vm_map_ram() allocations and deallocations.
+ */
 struct vmap_block_queue {
 	spinlock_t lock;
 	struct list_head free;
@@ -2602,6 +2899,9 @@ struct vmap_block_queue {
 	struct xarray vmap_blocks;
 };
 
+/**
+ * struct Description: This structure represents a block of virtual memory used by vm_map_ram(). It contains the vmap_area, a bitmap of used pages, free/dirty counters, dirty range, list linkage, and CPU affinity. It is used to manage small allocations within a larger VMAP_BLOCK_SIZE region. 
+ */
 struct vmap_block {
 	spinlock_t lock;
 	struct vmap_area *va;
@@ -2614,10 +2914,10 @@ struct vmap_block {
 	unsigned int cpu;
 };
 
-/* Queue of free and dirty vmap blocks, for allocation and flushing purposes */
+/** Queue of free and dirty vmap blocks, for allocation and flushing purposes */
 static DEFINE_PER_CPU(struct vmap_block_queue, vmap_block_queue);
 
-/*
+/**
  * In order to fast access to any "vmap_block" associated with a
  * specific address, we use a hash.
  *
@@ -2652,6 +2952,9 @@ static DEFINE_PER_CPU(struct vmap_block_queue, vmap_block_queue);
  *
  * This technique almost always avoids lock contention on insert/remove,
  * however xarray spinlocks protect against any contention that remains.
+ * 
+ * 
+ * Function Description: Converts a virtual address to the xarray containing vmap_blocks for that address. It calculates a hash index by dividing the address by VMAP_BLOCK_SIZE and taking modulo nr_cpu_ids. If the resulting index is not a possible CPU, it finds the next possible CPU. This hashing technique distributes vmap_blocks across per-CPU xarrays to reduce lock contention. Returns a pointer to the xarray for the corresponding vmap_block_queue.
  */
 static struct xarray *
 addr_to_vb_xa(unsigned long addr)
@@ -2669,11 +2972,14 @@ addr_to_vb_xa(unsigned long addr)
 	return &per_cpu(vmap_block_queue, index).vmap_blocks;
 }
 
-/*
+/**
  * We should probably have a fallback mechanism to allocate virtual memory
  * out of partially filled vmap blocks. However vmap block sizing should be
  * fairly reasonable according to the vmalloc size, so it shouldn't be a
  * big problem.
+ * 
+ * 
+ * Function Description: Converts a virtual address to a vmap_block index within the VMAP_BLOCK_SIZE-aligned space. It subtracts the VMALLOC_START aligned to VMAP_BLOCK_SIZE, then divides by VMAP_BLOCK_SIZE. This produces a unique index for each block within the vmalloc space. Used as a key for accessing vmap_blocks in the xarray.
  */
 
 static unsigned long addr_to_vb_idx(unsigned long addr)
@@ -2683,6 +2989,9 @@ static unsigned long addr_to_vb_idx(unsigned long addr)
 	return addr;
 }
 
+/**
+ * Function Description: Returns the virtual address of a specific page within a vmap_block. It takes the block's starting virtual address and a page offset, then calculates va_start + (pages_off << PAGE_SHIFT). It asserts that the resulting address belongs to the same vmap_block index as the start address. Used to get the virtual address of a sub-allocation within a vmap_block.
+ */
 static void *vmap_block_vaddr(unsigned long va_start, unsigned long pages_off)
 {
 	unsigned long addr;
@@ -2699,6 +3008,9 @@ static void *vmap_block_vaddr(unsigned long va_start, unsigned long pages_off)
  * @gfp_mask: flags for the page level allocator
  *
  * Return: virtual address in a newly allocated block or ERR_PTR(-errno)
+ * 
+ * 
+ * Function Description: Allocates a new vmap_block for vm_map_ram(). It allocates a VMAP_BLOCK_SIZE area, initializes the block, and adds it to the CPU's free list. Returns the virtual address or an error pointer.
  */
 static void *new_vmap_block(unsigned int order, gfp_t gfp_mask)
 {
@@ -2762,6 +3074,9 @@ static void *new_vmap_block(unsigned int order, gfp_t gfp_mask)
 	return vaddr;
 }
 
+/**
+ * Function Description: Frees a vmap_block. It removes it from the hash, unmaps the area, and frees the block structure. Used when a block becomes completely free.
+ */
 static void free_vmap_block(struct vmap_block *vb)
 {
 	struct vmap_node *vn;
@@ -2781,6 +3096,9 @@ static void free_vmap_block(struct vmap_block *vb)
 	kfree_rcu(vb, rcu_head);
 }
 
+/**
+ * Function Description: Purges a fragmented vmap_block. It checks if the block is fragmented enough and moves it to the purge list. Returns true if the block was purged.
+ */
 static bool purge_fragmented_block(struct vmap_block *vb,
 		struct list_head *purge_list, bool force_purge)
 {
@@ -2807,6 +3125,9 @@ static bool purge_fragmented_block(struct vmap_block *vb,
 	return true;
 }
 
+/**
+ * Function Description: Frees all blocks in a purge list. It iterates through the list and calls free_vmap_block() for each. Used after purging.
+ */
 static void free_purged_blocks(struct list_head *purge_list)
 {
 	struct vmap_block *vb, *n_vb;
@@ -2817,6 +3138,9 @@ static void free_purged_blocks(struct list_head *purge_list)
 	}
 }
 
+/**
+ * Function Description: Purges fragmented vmap_blocks on a specific CPU. It iterates through the free list and purges blocks that are fragmented. Used to reclaim fragmented VMAP_BLOCK_SIZE areas. 
+ */
 static void purge_fragmented_blocks(int cpu)
 {
 	LIST_HEAD(purge);
@@ -2840,6 +3164,9 @@ static void purge_fragmented_blocks(int cpu)
 	free_purged_blocks(&purge);
 }
 
+/**
+ * Function Description: Purges fragmented vmap_blocks on all CPUs. Used during reclaim to free fragmented blocks.
+ */
 static void purge_fragmented_blocks_allcpus(void)
 {
 	int cpu;
@@ -2848,6 +3175,9 @@ static void purge_fragmented_blocks_allcpus(void)
 		purge_fragmented_blocks(cpu);
 }
 
+/**
+ * Function Description: Allocates memory from a vmap_block for vm_map_ram(). It finds a block with enough free space or creates a new block. Returns the virtual address or an error pointer.
+ */
 static void *vb_alloc(unsigned long size, gfp_t gfp_mask)
 {
 	struct vmap_block_queue *vbq;
@@ -2904,6 +3234,9 @@ static void *vb_alloc(unsigned long size, gfp_t gfp_mask)
 	return vaddr;
 }
 
+/**
+ * Function Description: Frees memory from a vmap_block. It clears the used bits, adds to the dirty range, and either frees the block if completely dirty or keeps it. Used by vm_unmap_ram().
+ */
 static void vb_free(unsigned long addr, unsigned long size)
 {
 	unsigned long offset;
@@ -2946,6 +3279,9 @@ static void vb_free(unsigned long addr, unsigned long size)
 		spin_unlock(&vb->lock);
 }
 
+/**
+ * Function Description: Internal function that unmaps lazy aliases in the vmap layer. It purges fragmented blocks and flushes dirty ranges. Used by vm_unmap_aliases().
+ */
 static void _vm_unmap_aliases(unsigned long start, unsigned long end, int flush)
 {
 	LIST_HEAD(purge_list);
@@ -3010,6 +3346,9 @@ static void _vm_unmap_aliases(unsigned long start, unsigned long end, int flush)
  * vm_unmap_aliases flushes all such lazy mappings. After it returns, we can
  * be sure that none of the pages we have control over will have any aliases
  * from the vmap layer.
+ * 
+ * 
+ * Function Description: Unmaps outstanding lazy aliases in the vmap layer. It flushes all pending lazy mappings to ensure no stale TLB entries remain. Used before freeing pages that may have vmap aliases.
  */
 void vm_unmap_aliases(void)
 {
@@ -3021,6 +3360,9 @@ EXPORT_SYMBOL_GPL(vm_unmap_aliases);
  * vm_unmap_ram - unmap linear kernel address space set up by vm_map_ram
  * @mem: the pointer returned by vm_map_ram
  * @count: the count passed to that vm_map_ram call (cannot unmap partial)
+ * 
+ * 
+ * Function Description: Unmaps a linear kernel address space set up by vm_map_ram(). It handles both small (<= VMAP_MAX_ALLOC) and large mappings. Used to free vm_map_ram allocations.
  */
 void vm_unmap_ram(const void *mem, unsigned int count)
 {
@@ -3064,6 +3406,9 @@ EXPORT_SYMBOL(vm_unmap_ram);
  * the end.  Please use this function for short-lived objects.
  *
  * Returns: a pointer to the address that has been mapped, or %NULL on failure
+ * 
+ * 
+ * Function Description: Maps pages linearly into kernel virtual address space (vmalloc space). It uses vmap_blocks for small mappings and alloc_vmap_area for large mappings. Returns the virtual address or NULL.
  */
 void *vm_map_ram(struct page **pages, unsigned int count, int node)
 {
@@ -3108,6 +3453,9 @@ EXPORT_SYMBOL(vm_map_ram);
 
 static struct vm_struct *vmlist __initdata;
 
+/**
+ * Function Description: Returns the page order of a vm_struct, which indicates the size of pages used in the vmalloc area (0 for PAGE_SIZE, >0 for huge pages). When CONFIG_HAVE_ARCH_HUGE_VMALLOC is not enabled, it always returns 0. Used internally to determine the page size for vmalloc mappings.
+ */
 static inline unsigned int vm_area_page_order(struct vm_struct *vm)
 {
 #ifdef CONFIG_HAVE_ARCH_HUGE_VMALLOC
@@ -3117,11 +3465,17 @@ static inline unsigned int vm_area_page_order(struct vm_struct *vm)
 #endif
 }
 
+/**
+ * Function Description: Public wrapper for vm_area_page_order(). Returns the page order of a vm_struct. This is exported for use by other kernel modules to query the page order of vmalloc areas.
+ */
 unsigned int get_vm_area_page_order(struct vm_struct *vm)
 {
 	return vm_area_page_order(vm);
 }
 
+/**
+ * Function Description: Sets the page order of a vm_struct. When CONFIG_HAVE_ARCH_HUGE_VMALLOC is enabled, it stores the order in vm->page_order. Otherwise, it asserts that the order is 0 (no huge pages allowed). Used during vmalloc allocation to configure huge page mappings.
+ */
 static inline void set_vm_area_page_order(struct vm_struct *vm, unsigned int order)
 {
 #ifdef CONFIG_HAVE_ARCH_HUGE_VMALLOC
@@ -3140,6 +3494,9 @@ static inline void set_vm_area_page_order(struct vm_struct *vm, unsigned int ord
  * should contain proper values and the other fields should be zero.
  *
  * DO NOT USE THIS FUNCTION UNLESS YOU KNOW WHAT YOU'RE DOING.
+ * 
+ * 
+ * Function Description: Adds a vmap area early during boot before vmalloc_init(). It inserts the area into the vmlist. Used for early kernel VM areas.
  */
 void __init vm_area_add_early(struct vm_struct *vm)
 {
@@ -3168,6 +3525,9 @@ void __init vm_area_add_early(struct vm_struct *vm)
  * vm->addr contains the allocated address.
  *
  * DO NOT USE THIS FUNCTION UNLESS YOU KNOW WHAT YOU'RE DOING.
+ * 
+ * 
+ * Function Description: Registers a vmap area early during boot. It allocates an address from the vmalloc space and adds it to vmlist. Used for early kernel VM areas.
  */
 void __init vm_area_register_early(struct vm_struct *vm, size_t align)
 {
@@ -3189,6 +3549,9 @@ void __init vm_area_register_early(struct vm_struct *vm, size_t align)
 	kasan_populate_early_vm_area_shadow(vm->addr, vm->size);
 }
 
+/**
+ * Function Description: Clears the VM_UNINITIALIZED flag from a vm_struct after it is fully initialized. It uses a write barrier to ensure visibility. Used during vmalloc allocation.
+ */
 static void clear_vm_uninitialized_flag(struct vm_struct *vm)
 {
 	/*
@@ -3200,6 +3563,9 @@ static void clear_vm_uninitialized_flag(struct vm_struct *vm)
 	vm->flags &= ~VM_UNINITIALIZED;
 }
 
+/**
+ * Function Description: Internal function that reserves a contiguous kernel virtual area. It allocates a vm_struct and vmap_area for the requested size and flags. Returns the vm_struct or NULL.
+ */
 struct vm_struct *__get_vm_area_node(unsigned long size,
 		unsigned long align, unsigned long shift, unsigned long flags,
 		unsigned long start, unsigned long end, int node,
@@ -3250,6 +3616,9 @@ struct vm_struct *__get_vm_area_node(unsigned long size,
 	return area;
 }
 
+/**
+ * Function Description: Internal function that reserves a vm area with caller tracking. It calls __get_vm_area_node() with default parameters. Used by get_vm_area_caller().
+ */
 struct vm_struct *__get_vm_area_caller(unsigned long size, unsigned long flags,
 				       unsigned long start, unsigned long end,
 				       const void *caller)
@@ -3268,6 +3637,9 @@ struct vm_struct *__get_vm_area_caller(unsigned long size, unsigned long flags,
  * on success or %NULL on failure.
  *
  * Return: the area descriptor on success or %NULL on failure.
+ * 
+ * 
+ * Function Description: Reserves a contiguous kernel virtual area. It calls __get_vm_area_node() with default parameters. Returns the vm_struct or NULL.
  */
 struct vm_struct *get_vm_area(unsigned long size, unsigned long flags)
 {
@@ -3278,6 +3650,9 @@ struct vm_struct *get_vm_area(unsigned long size, unsigned long flags)
 }
 EXPORT_SYMBOL(get_vm_area);
 
+/**
+ * Function Description: Reserves a vm area with caller tracking. It calls __get_vm_area_node() with the provided caller address. Used for debugging.
+ */
 struct vm_struct *get_vm_area_caller(unsigned long size, unsigned long flags,
 				const void *caller)
 {
@@ -3295,6 +3670,9 @@ struct vm_struct *get_vm_area_caller(unsigned long size, unsigned long flags,
  * pointer valid.
  *
  * Return: the area descriptor on success or %NULL on failure.
+ * 
+ * 
+ * Function Description: Finds a continuous kernel virtual area by address. It finds the vmap_area and returns its vm_struct. Returns the vm_struct or NULL. 
  */
 struct vm_struct *find_vm_area(const void *addr)
 {
@@ -3316,6 +3694,9 @@ struct vm_struct *find_vm_area(const void *addr)
  * on SMP machines, except for its size or flags.
  *
  * Return: the area descriptor on success or %NULL on failure.
+ * 
+ * 
+ * Function Description: Finds and removes a continuous kernel virtual area by address. It unlinks the vmap_area and returns the vm_struct. Used during vfree.
  */
 struct vm_struct *remove_vm_area(const void *addr)
 {
@@ -3342,6 +3723,9 @@ struct vm_struct *remove_vm_area(const void *addr)
 	return vm;
 }
 
+/**
+ * Function Description: Applies a direct map operation to all pages in a vm_area. It calls the provided function on each page. Used for setting direct map permissions.
+ */
 static inline void set_area_direct_map(const struct vm_struct *area,
 				       int (*set_direct_map)(struct page *page))
 {
@@ -3353,8 +3737,11 @@ static inline void set_area_direct_map(const struct vm_struct *area,
 			set_direct_map(area->pages[i]);
 }
 
-/*
+/**
  * Flush the vm mapping and reset the direct map.
+ * 
+ * 
+ * Function Description: Resets the direct map permissions for a vm_area. It sets the direct map to invalid, flushes TLBs, and restores default permissions. Used for VM_FLUSH_RESET_PERMS.
  */
 static void vm_reset_perms(struct vm_struct *area)
 {
@@ -3390,6 +3777,9 @@ static void vm_reset_perms(struct vm_struct *area)
 	set_area_direct_map(area, set_direct_map_default_noflush);
 }
 
+/**
+ * Function Description: Work function that processes deferred vfree requests. It frees all addresses in the deferred list. Used by vfree_atomic().
+ */
 static void delayed_vfree_work(struct work_struct *w)
 {
 	struct vfree_deferred *p = container_of(w, struct vfree_deferred, wq);
@@ -3405,6 +3795,9 @@ static void delayed_vfree_work(struct work_struct *w)
  *
  * This one is just like vfree() but can be called in any atomic context
  * except NMIs.
+ * 
+ * 
+ * Description: Frees vmalloc memory from atomic context. It adds the address to the deferred list and schedules a work. Must not be called from NMI context.
  */
 void vfree_atomic(const void *addr)
 {
@@ -3439,6 +3832,9 @@ void vfree_atomic(const void *addr)
  * Must not be called in NMI context (strictly speaking, it could be
  * if we have CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG, but making the calling
  * conventions for vfree() arch-dependent would be a really bad idea).
+ * 
+ * 
+ * Function Description: Frees memory allocated by vmalloc() or related functions. It removes the vm_area, frees physical pages, and releases the virtual address space. This is the main deallocation function for vmalloc.
  */
 void vfree(const void *addr)
 {
@@ -3495,6 +3891,9 @@ EXPORT_SYMBOL(vfree);
  * which was created from the page array passed to vmap().
  *
  * Must not be called in interrupt context.
+ * 
+ * 
+ * Function Description: Frees a virtual mapping created by vmap(). It removes the vm_area without freeing pages. Used to unmap pages mapped with vmap().
  */
 void vunmap(const void *addr)
 {
@@ -3529,6 +3928,9 @@ EXPORT_SYMBOL(vunmap);
  * vfree() is called on the return value.
  *
  * Return: the address of the area or %NULL on failure
+ * 
+ * 
+ * Function Description: Maps an array of pages into virtually contiguous space. It creates a vm_area and maps the pages. Returns the virtual address or NULL.
  */
 void *vmap(struct page **pages, unsigned int count,
 	   unsigned long flags, pgprot_t prot)
@@ -3573,12 +3975,19 @@ void *vmap(struct page **pages, unsigned int count,
 EXPORT_SYMBOL(vmap);
 
 #ifdef CONFIG_VMAP_PFN
+
+/**
+ * struct Description: This structure holds private data used by the vmap_pfn() function during page table application. It contains an array of PFNs (physical frame numbers) to map, the page protection flags, and an index tracking the current position in the PFN array. It is passed to the vmap_pfn_apply() callback function when using apply_to_page_range() to map PFNs into virtual address space.
+ */
 struct vmap_pfn_data {
 	unsigned long	*pfns;
 	pgprot_t	prot;
 	unsigned int	idx;
 };
 
+/**
+ * Function Description: Apply function for vmap_pfn(). It sets a PTE to map a PFN. Used by apply_to_page_range().
+ */
 static int vmap_pfn_apply(pte_t *pte, unsigned long addr, void *private)
 {
 	struct vmap_pfn_data *data = private;
@@ -3603,6 +4012,9 @@ static int vmap_pfn_apply(pte_t *pte, unsigned long addr, void *private)
  *
  * Maps @count PFNs from @pfns into contiguous kernel virtual space and returns
  * the start address of the mapping.
+ * 
+ * 
+ * Function Description: Maps an array of PFNs into virtually contiguous space. It creates a vm_area and maps the PFNs. Returns the virtual address or NULL.
  */
 void *vmap_pfn(unsigned long *pfns, unsigned int count, pgprot_t prot)
 {
@@ -3627,8 +4039,11 @@ void *vmap_pfn(unsigned long *pfns, unsigned int count, pgprot_t prot)
 EXPORT_SYMBOL_GPL(vmap_pfn);
 #endif /* CONFIG_VMAP_PFN */
 
-/*
+/**
  * Helper for vmalloc to adjust the gfp flags for certain allocations.
+ * 
+ * 
+ * Function Description: Adjusts GFP flags for vmalloc allocations. It adds __GFP_NOWARN and removes __GFP_NOFAIL for large allocations. Used internally.
  */
 static inline gfp_t vmalloc_gfp_adjust(gfp_t flags, const bool large)
 {
@@ -3638,6 +4053,9 @@ static inline gfp_t vmalloc_gfp_adjust(gfp_t flags, const bool large)
 	return flags;
 }
 
+/**
+ * Function Description: Allocates physical pages for a vm_area. It attempts high-order allocations first, then falls back to order-0 pages using bulk allocator. Returns the number of pages allocated.
+ */
 static inline unsigned int
 vm_area_alloc_pages(gfp_t gfp, int nid,
 		unsigned int order, unsigned int nr_pages, struct page **pages)
@@ -3761,6 +4179,10 @@ vm_area_alloc_pages(gfp_t gfp, int nid,
 }
 
 static LLIST_HEAD(pending_vm_area_cleanup);
+
+/**
+ * Function Description: Work function that cleans up partially allocated vm_areas. It frees or vfree's the area. Used during error recovery.
+ */
 static void cleanup_vm_area_work(struct work_struct *work)
 {
 	struct vm_struct *area, *tmp;
@@ -3778,18 +4200,22 @@ static void cleanup_vm_area_work(struct work_struct *work)
 	}
 }
 
-/*
+/**
  * Helper for __vmalloc_area_node() to defer cleanup
  * of partially initialized vm_struct in error paths.
  */
 static DECLARE_WORK(cleanup_vm_area, cleanup_vm_area_work);
+
+/**
+ * Function Description: Defers cleanup of a partially initialized vm_area. It adds the area to the cleanup list and schedules work. Used during error recovery.
+ */
 static void defer_vm_area_cleanup(struct vm_struct *area)
 {
 	if (llist_add(&area->llnode, &pending_vm_area_cleanup))
 		schedule_work(&cleanup_vm_area);
 }
 
-/*
+/**
  * Page tables allocations ignore external GFP. Enforces it by
  * the memalloc scope API. It is used by vmalloc internals and
  * KASAN shadow population only.
@@ -3801,6 +4227,9 @@ static void defer_vm_area_cleanup(struct vm_struct *area)
  * GFP_NOIO - memalloc_noio_save()
  *
  * Returns a flag cookie to pair with restore.
+ * 
+ * 
+ * Function Description: Applies memory allocation scope based on GFP flags. It saves the current scope and applies the requested scope. Returns a cookie for restoration.
  */
 unsigned int
 memalloc_apply_gfp_scope(gfp_t gfp_mask)
@@ -3818,6 +4247,9 @@ memalloc_apply_gfp_scope(gfp_t gfp_mask)
 	return flags;
 }
 
+/**
+ * Function Description: Restores the previous memory allocation scope. It uses the cookie from memalloc_apply_gfp_scope(). Used to restore scope after allocation.
+ */
 void
 memalloc_restore_scope(unsigned int flags)
 {
@@ -3825,6 +4257,9 @@ memalloc_restore_scope(unsigned int flags)
 		memalloc_flags_restore(flags);
 }
 
+/**
+ * Function Description: Internal function that allocates and maps pages for a vm_area. It allocates page array, allocates pages, and maps them. Returns the virtual address or NULL.
+ */
 static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
 				 pgprot_t prot, unsigned int page_shift,
 				 int node)
@@ -3933,7 +4368,7 @@ fail:
 	return NULL;
 }
 
-/*
+/**
  * See __vmalloc_node_range() for a clear list of supported vmalloc flags.
  * This gfp lists all flags currently passed through vmalloc. Currently,
  * __GFP_ZERO is used by BPF and __GFP_NORETRY is used by percpu. Both drm
@@ -3945,6 +4380,10 @@ fail:
 				GFP_NOFS | GFP_NOIO | GFP_KERNEL_ACCOUNT |\
 				GFP_USER | __GFP_NOLOCKDEP)
 
+
+/**
+ * Function Description: Fixes invalid GFP flags passed to vmalloc functions. It masks out any flags not supported by vmalloc (defined in GFP_VMALLOC_SUPPORTED), and prints a warning once showing both the invalid flags and the corrected ones. This helps developers identify and fix incorrect GFP flag usage in their code. Returns the corrected GFP flags.
+ */
 static gfp_t vmalloc_fix_flags(gfp_t flags)
 {
 	gfp_t invalid_mask = flags & ~GFP_VMALLOC_SUPPORTED;
@@ -3983,6 +4422,9 @@ static gfp_t vmalloc_fix_flags(gfp_t flags)
  *
  * Can not be called from interrupt nor NMI contexts.
  * Return: the address of the area or %NULL on failure
+ * 
+ * 
+ * Function Description: Allocates virtually contiguous memory in a range. It handles alignment, huge pages, KASAN, and retries. This is the core vmalloc allocation function.
  */
 void *__vmalloc_node_range_noprof(unsigned long size, unsigned long align,
 			unsigned long start, unsigned long end, gfp_t gfp_mask,
@@ -4118,6 +4560,9 @@ fail:
  * __GFP_NOFAIL) are the same as in __vmalloc_node_range_noprof().
  *
  * Return: pointer to the allocated memory or %NULL on error
+ * 
+ * 
+ * Function Description: Allocates virtually contiguous memory on a specific node. It calls __vmalloc_node_range_noprof() with VMALLOC_START/END. Returns the address or NULL.
  */
 void *__vmalloc_node_noprof(unsigned long size, unsigned long align,
 			    gfp_t gfp_mask, int node, const void *caller)
@@ -4125,7 +4570,7 @@ void *__vmalloc_node_noprof(unsigned long size, unsigned long align,
 	return __vmalloc_node_range_noprof(size, align, VMALLOC_START, VMALLOC_END,
 				gfp_mask, PAGE_KERNEL, 0, node, caller);
 }
-/*
+/**
  * This is only for performance analysis of vmalloc and stress purpose.
  * It is required by vmalloc test module, therefore do not use it other
  * than that.
@@ -4134,6 +4579,9 @@ void *__vmalloc_node_noprof(unsigned long size, unsigned long align,
 EXPORT_SYMBOL_GPL(__vmalloc_node_noprof);
 #endif
 
+/**
+ * Function Description: Allocates virtually contiguous memory with a gfp mask. It fixes invalid flags and calls __vmalloc_node_noprof(). Returns the address or NULL.
+ */
 void *__vmalloc_noprof(unsigned long size, gfp_t gfp_mask)
 {
 	if (unlikely(gfp_mask & ~GFP_VMALLOC_SUPPORTED))
@@ -4154,6 +4602,9 @@ EXPORT_SYMBOL(__vmalloc_noprof);
  * use __vmalloc() instead.
  *
  * Return: pointer to the allocated memory or %NULL on error
+ * 
+ * 
+ * Function Description: Allocates virtually contiguous memory with GFP_KERNEL. This is the standard vmalloc allocation function. Returns the address or NULL.
  */
 void *vmalloc_noprof(unsigned long size)
 {
@@ -4174,6 +4625,9 @@ EXPORT_SYMBOL(vmalloc_noprof);
  * huge pages for the memory
  *
  * Return: pointer to the allocated memory or %NULL on error
+ * 
+ * 
+ * Function Description: Allocates virtually contiguous memory allowing huge pages on a specific node. It sets VM_ALLOW_HUGE_VMAP flag. Returns the address or NULL.
  */
 void *vmalloc_huge_node_noprof(unsigned long size, gfp_t gfp_mask, int node)
 {
@@ -4197,6 +4651,9 @@ EXPORT_SYMBOL_GPL(vmalloc_huge_node_noprof);
  * use __vmalloc() instead.
  *
  * Return: pointer to the allocated memory or %NULL on error
+ * 
+ * 
+ * Function Description: Allocates zeroed virtually contiguous memory. It calls vmalloc() with __GFP_ZERO. Returns the address or NULL.
  */
 void *vzalloc_noprof(unsigned long size)
 {
@@ -4213,6 +4670,9 @@ EXPORT_SYMBOL(vzalloc_noprof);
  * without leaking data.
  *
  * Return: pointer to the allocated memory or %NULL on error
+ * 
+ * 
+ * Function Description: Allocates zeroed virtually contiguous memory for userspace. It sets VM_USERMAP flag and uses SHMLBA alignment. Returns the address or NULL.
  */
 void *vmalloc_user_noprof(unsigned long size)
 {
@@ -4235,6 +4695,9 @@ EXPORT_SYMBOL(vmalloc_user_noprof);
  * use __vmalloc() instead.
  *
  * Return: pointer to the allocated memory or %NULL on error
+ * 
+ * 
+ * Function Description: Allocates virtually contiguous memory on a specific node. It calls __vmalloc_node_noprof() with GFP_KERNEL. Returns the address or NULL.
  */
 void *vmalloc_node_noprof(unsigned long size, int node)
 {
@@ -4253,6 +4716,9 @@ EXPORT_SYMBOL(vmalloc_node_noprof);
  * The memory allocated is set to zero.
  *
  * Return: pointer to the allocated memory or %NULL on error
+ * 
+ * 
+ * Function Description: Allocates zeroed virtually contiguous memory on a specific node. It calls vmalloc_node() with __GFP_ZERO. Returns the address or NULL.
  */
 void *vzalloc_node_noprof(unsigned long size, int node)
 {
@@ -4293,6 +4759,9 @@ EXPORT_SYMBOL(vzalloc_node_noprof);
  *
  * Return: pointer to the allocated memory; %NULL if @size is zero or in case of
  *         failure
+ * 
+ * 
+ * Function Description: Reallocates virtually contiguous memory with alignment and node affinity. It preserves existing contents and handles size changes. Returns the new address or NULL.
  */
 void *vrealloc_node_align_noprof(const void *p, size_t size, unsigned long align,
 				 gfp_t flags, int nid)
@@ -4375,7 +4844,7 @@ EXPORT_SYMBOL(vrealloc_node_align_noprof);
 #elif defined(CONFIG_64BIT) && defined(CONFIG_ZONE_DMA)
 #define GFP_VMALLOC32 (GFP_DMA | GFP_KERNEL)
 #else
-/*
+/**
  * 64b systems should always have either DMA or DMA32 zones. For others
  * GFP_DMA32 should do the right thing and use the normal zone.
  */
@@ -4390,6 +4859,9 @@ EXPORT_SYMBOL(vrealloc_node_align_noprof);
  * page level allocator and map them into contiguous kernel virtual space.
  *
  * Return: pointer to the allocated memory or %NULL on error
+ * 
+ * 
+ * Function Description: Allocates virtually contiguous memory addressable by 32-bit devices. It uses GFP_VMALLOC32 flags. Returns the address or NULL.
  */
 void *vmalloc_32_noprof(unsigned long size)
 {
@@ -4406,6 +4878,9 @@ EXPORT_SYMBOL(vmalloc_32_noprof);
  * mapped to userspace without leaking data.
  *
  * Return: pointer to the allocated memory or %NULL on error
+ * 
+ * 
+ * Function Description: Allocates zeroed 32-bit addressable memory for userspace. It uses GFP_VMALLOC32 with __GFP_ZERO and VM_USERMAP. Returns the address or NULL.
  */
 void *vmalloc_32_user_noprof(unsigned long size)
 {
@@ -4416,10 +4891,13 @@ void *vmalloc_32_user_noprof(unsigned long size)
 }
 EXPORT_SYMBOL(vmalloc_32_user_noprof);
 
-/*
+/**
  * Atomically zero bytes in the iterator.
  *
  * Returns the number of zeroed bytes.
+ * 
+ * 
+ * Function Description: Fills an iov_iter with zeros. Used by vread_iter() for memory holes. Returns the number of zeroed bytes.
  */
 static size_t zero_iter(struct iov_iter *iter, size_t count)
 {
@@ -4439,11 +4917,14 @@ static size_t zero_iter(struct iov_iter *iter, size_t count)
 	return count - remains;
 }
 
-/*
+/**
  * small helper routine, copy contents to iter from addr.
  * If the page is not present, fill zero.
  *
  * Returns the number of copied bytes.
+ * 
+ * 
+ * Function Description: Reads from a vmalloc area to an iterator, handling page faults. It copies data from pages or fills zeros for holes. Used by vread_iter().
  */
 static size_t aligned_vread_iter(struct iov_iter *iter,
 				 const char *addr, size_t count)
@@ -4484,10 +4965,13 @@ static size_t aligned_vread_iter(struct iov_iter *iter,
 	return count - remains;
 }
 
-/*
+/**
  * Read from a vm_map_ram region of memory.
  *
  * Returns the number of copied bytes.
+ * 
+ * 
+ * Function Description: Reads from a vm_map_ram region to an iterator. It handles vmap_block regions and zero-fills holes. Used by vread_iter().
  */
 static size_t vmap_ram_vread_iter(struct iov_iter *iter, const char *addr,
 				  size_t count, unsigned long flags)
@@ -4592,6 +5076,9 @@ finished:
  * Return: number of bytes for which addr and buf should be increased
  * (same number as @count) or %0 if [addr...addr+count) doesn't
  * include any intersection with valid vmalloc area
+ * 
+ * 
+ * Function Description: Reads from a vmalloc area to an iterator safely. It handles memory holes, IOREMAP areas, and sparse areas. Returns the number of bytes read.
  */
 long vread_iter(struct iov_iter *iter, const char *addr, size_t count)
 {
@@ -4710,6 +5197,9 @@ finished:
  * met.
  *
  * Similar to remap_pfn_range() (see mm/memory.c)
+ * 
+ * 
+ * Function Description: Maps a portion of a vmalloc area to userspace. It validates the area and inserts pages into the VMA. Returns 0 on success or a negative error code.
  */
 int remap_vmalloc_range_partial(struct vm_area_struct *vma, unsigned long uaddr,
 				void *kaddr, unsigned long pgoff,
@@ -4770,6 +5260,9 @@ int remap_vmalloc_range_partial(struct vm_area_struct *vma, unsigned long uaddr,
  * that criteria isn't met.
  *
  * Similar to remap_pfn_range() (see mm/memory.c)
+ * 
+ * 
+ * Function Description: Maps a vmalloc area to userspace for the full VMA range. It calls remap_vmalloc_range_partial(). Returns 0 on success or a negative error code.
  */
 int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
 						unsigned long pgoff)
@@ -4780,6 +5273,9 @@ int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
 }
 EXPORT_SYMBOL(remap_vmalloc_range);
 
+/**
+ * Function Description: Frees a vm_struct area. It removes the vmap_area and frees the vm_struct. Used to free vm_areas not allocated with vmalloc.
+ */
 void free_vm_area(struct vm_struct *area)
 {
 	struct vm_struct *ret;
@@ -4790,6 +5286,7 @@ void free_vm_area(struct vm_struct *area)
 EXPORT_SYMBOL_GPL(free_vm_area);
 
 #ifdef CONFIG_SMP
+
 static struct vmap_area *node_to_va(struct rb_node *n)
 {
 	return rb_entry_safe(n, struct vmap_area, rb_node);
@@ -4803,6 +5300,8 @@ static struct vmap_area *node_to_va(struct rb_node *n)
  *   the first highest(reverse order) vmap_area is returned
  *   i.e. va->va_start < addr && va->va_end < addr or NULL
  *   if there are no any areas before @addr.
+ * 
+ * Function Description: Finds the vmap_area that encloses or precedes an address in the free tree. Used by pcpu_get_vm_areas() for percpu allocation. 
  */
 static struct vmap_area *
 pvm_find_va_enclose_addr(unsigned long addr)
@@ -4838,6 +5337,9 @@ pvm_find_va_enclose_addr(unsigned long addr)
  * @align: alignment for required highest address
  *
  * Returns: determined end address within vmap_area
+ * 
+ * 
+ * Function Description: Determines the highest aligned end address of a free block below VMALLOC_END. Used by pcpu_get_vm_areas() for top-down allocation.
  */
 static unsigned long
 pvm_determine_end_from_reverse(struct vmap_area **va, unsigned long align)
@@ -4880,6 +5382,9 @@ pvm_determine_end_from_reverse(struct vmap_area **va, unsigned long align)
  * base address is pulled down to fit the area. Scanning is repeated till
  * all the areas fit and then all necessary data structures are inserted
  * and the result is returned.
+ * 
+ * 
+ * Function Description: Allocates multiple congruent vmalloc areas for percpu allocator. It scans from the top of the vmalloc space and allocates aligned areas. Returns an array of vm_structs.
  */
 struct vm_struct **pcpu_get_vm_areas(const unsigned long *offsets,
 				     const size_t *sizes, int nr_vms,
@@ -5126,6 +5631,9 @@ err_free_shadow:
  * @nr_vms: the number of allocated areas
  *
  * Free vm_structs and the array allocated by pcpu_get_vm_areas().
+ * 
+ * 
+ * Function Description: Frees multiple vmalloc areas allocated by pcpu_get_vm_areas(). It frees each vm_struct and the array. Used by percpu allocator.
  */
 void pcpu_free_vm_areas(struct vm_struct **vms, int nr_vms)
 {
@@ -5138,6 +5646,10 @@ void pcpu_free_vm_areas(struct vm_struct **vms, int nr_vms)
 #endif	/* CONFIG_SMP */
 
 #ifdef CONFIG_PRINTK
+
+/**
+ * Function Description: Dumps information about a vmalloc object for debugging. It prints the address, size, and caller. Returns true if the object was found.
+ */
 bool vmalloc_dump_obj(void *object)
 {
 	const void *caller;
@@ -5174,11 +5686,14 @@ bool vmalloc_dump_obj(void *object)
 
 #ifdef CONFIG_PROC_FS
 
-/*
+/**
  * Print number of pages allocated on each memory node.
  *
  * This function can only be called if CONFIG_NUMA is enabled
  * and VM_UNINITIALIZED bit in v->flags is disabled.
+ * 
+ * 
+ * Function Description: Shows NUMA node information for a vm_struct. It counts pages on each node and formats the output. Used by vmalloc_info_show().
  */
 static void show_numa_info(struct seq_file *m, struct vm_struct *v,
 				 unsigned int *counters)
@@ -5198,6 +5713,9 @@ static void show_numa_info(struct seq_file *m, struct vm_struct *v,
 			seq_printf(m, " N%u=%u", nr, counters[nr]);
 }
 
+/**
+ * Function Description: Shows information about unpurged vmap areas. It lists areas in the lazy list. Used by vmalloc_info_show().
+ */
 static void show_purge_info(struct seq_file *m)
 {
 	struct vmap_node *vn;
@@ -5214,6 +5732,9 @@ static void show_purge_info(struct seq_file *m)
 	}
 }
 
+/**
+ * Function Description: Show handler for /proc/vmallocinfo. It lists all vmalloc areas with their attributes. Used for debugging and monitoring.
+ */
 static int vmalloc_info_show(struct seq_file *m, void *p)
 {
 	struct vmap_node *vn;
@@ -5293,6 +5814,9 @@ static int vmalloc_info_show(struct seq_file *m, void *p)
 	return 0;
 }
 
+/**
+ * Function Description: Initializes the /proc/vmallocinfo file. It creates the proc entry for displaying vmalloc information. Called during module init.
+ */
 static int __init proc_vmalloc_init(void)
 {
 	proc_create_single("vmallocinfo", 0400, NULL, vmalloc_info_show);
@@ -5302,6 +5826,9 @@ module_init(proc_vmalloc_init);
 
 #endif
 
+/**
+ * Function Description: Initializes the free vmap space from the vmlist. It creates free vmap_area entries for gaps between busy areas. Called during vmalloc_init().
+ */
 static void __init vmap_init_free_space(void)
 {
 	unsigned long vmap_start = 1;
@@ -5344,6 +5871,9 @@ static void __init vmap_init_free_space(void)
 	}
 }
 
+/**
+ * Function Description: Initializes the vmap nodes for scalable allocation. It creates per-node structures based on the number of CPUs. Called during vmalloc_init().
+ */
 static void vmap_init_nodes(void)
 {
 	struct vmap_node *vn;
@@ -5397,6 +5927,9 @@ static void vmap_init_nodes(void)
 	}
 }
 
+/**
+ * Function Description: Shrinker count callback for vmap nodes. It counts cached VAs in node pools. Used by the shrinker to report reclaimable memory.
+ */
 static unsigned long
 vmap_node_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
 {
@@ -5412,6 +5945,9 @@ vmap_node_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
 	return count ? count : SHRINK_EMPTY;
 }
 
+/**
+ * Function Description: Shrinker scan callback for vmap nodes. It decays VA pools to reclaim memory. Used by the shrinker to free cached VAs.
+ */
 static unsigned long
 vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
 {
@@ -5424,6 +5960,9 @@ vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
 	return SHRINK_STOP;
 }
 
+/**
+ * Function Description: Initializes the vmalloc subsystem. It creates the vmap_area cache, initializes per-CPU structures, sets up nodes, imports vmlist, and registers shrinkers. Called during kernel initialization.
+ */
 void __init vmalloc_init(void)
 {
 	struct shrinker *vmap_node_shrinker;

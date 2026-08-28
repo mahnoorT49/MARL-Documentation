@@ -1,0 +1,265 @@
+\doxysection{cgroup.\+h}
+\hypertarget{cgroup_8h_source}{}\label{cgroup_8h_source}\index{include/trace/events/cgroup.h@{include/trace/events/cgroup.h}}
+\doxymbox{\hyperlink{cgroup_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00001}00001\ \textcolor{comment}{/*\ SPDX-\/License-\/Identifier:\ GPL-\/2.0\ */}}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00002}00002\ \textcolor{preprocessor}{\#undef\ TRACE\_SYSTEM}}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00003}\doxymbox{\hyperlink{cgroup_8h_a975ccf160f8e752c8162e389690b0961}{00003}}\ \textcolor{preprocessor}{\#define\ TRACE\_SYSTEM\ cgroup}}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00005}00005\ \textcolor{preprocessor}{\#if\ !defined(\_TRACE\_CGROUP\_H)\ ||\ defined(TRACE\_HEADER\_MULTI\_READ)}}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00006}\doxymbox{\hyperlink{cgroup_8h_aacc60673fbe161599e0929ed9fc0611f}{00006}}\ \textcolor{preprocessor}{\#define\ \_TRACE\_CGROUP\_H}}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <linux/cgroup.h>}}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <linux/tracepoint.h>}}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00011}\doxymbox{\hyperlink{cgroup_8h_a8ae78cd5b0eb1025224fe44b0bb458ca}{00011}}\ \doxymbox{\hyperlink{cgroup_8h_a8ae78cd5b0eb1025224fe44b0bb458ca}{DECLARE\_EVENT\_CLASS}}(\doxymbox{\hyperlink{structcgroup__root}{cgroup\_root}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00013}00013\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup__root}{cgroup\_root}}\ *root),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00015}00015\ \ \ \ \ TP\_ARGS(root),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00017}00017\ \ \ \ \ TP\_STRUCT\_\_entry(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ root\ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ u32,\ \ \ \ \ \ \ \ ss\_mask\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \_\_string(\ \ \ name,\ \ \ \ \ \ \ root-\/>\doxymbox{\hyperlink{structcgroup__root_a93f00c6d99124eb49d30347d8233bc43}{name}}\ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00021}00021\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00023}00023\ \ \ \ \ TP\_fast\_assign(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \_\_entry-\/>root\ =\ root-\/>\doxymbox{\hyperlink{structcgroup__root_a1d36ee59066b421f1c0ac26da7ff61ea}{hierarchy\_id}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \_\_entry-\/>ss\_mask\ =\ root-\/>\doxymbox{\hyperlink{structcgroup__root_ae1624a526da061bf566764fdb787c5c2}{subsys\_mask}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \_\_assign\_str(name);}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00027}00027\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00029}00029\ \ \ \ \ TP\_printk(\textcolor{stringliteral}{"{}root=\%d\ ss\_mask=\%\#x\ name=\%s"{}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \_\_entry-\/>root,\ \_\_entry-\/>ss\_mask,\ \_\_get\_str(name))}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00031}00031\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00036}\doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{00036}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{structcgroup__root}{cgroup\_root}},\ \doxymbox{\hyperlink{cgroup-internal_8h_a219d70d5ab51e3a7c31e95fc88cf771d}{cgroup\_setup\_root}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00038}00038\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup__root}{cgroup\_root}}\ *root),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00040}00040\ \ \ \ \ TP\_ARGS(root)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00041}00041\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00046}\doxymbox{\hyperlink{cgroup_8h_acb4955ce3fd23bacc5c7c74c3cb5ba1c}{00046}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{structcgroup__root}{cgroup\_root}},\ \doxymbox{\hyperlink{cgroup_8c_ac8694a01fd73d2fd636abde8a103d09d}{cgroup\_destroy\_root}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00048}00048\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup__root}{cgroup\_root}}\ *root),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00050}00050\ \ \ \ \ TP\_ARGS(root)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00051}00051\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00056}\doxymbox{\hyperlink{cgroup_8h_aa8642a3f89cadb64ecca4e486d7742db}{00056}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{structcgroup__root}{cgroup\_root}},\ cgroup\_remount,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00058}00058\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup__root}{cgroup\_root}}\ *root),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00060}00060\ \ \ \ \ TP\_ARGS(root)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00061}00061\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00063}\doxymbox{\hyperlink{cgroup_8h_a34339c7910d3ba7d697382920f4053eb}{00063}}\ \doxymbox{\hyperlink{cgroup_8h_a8ae78cd5b0eb1025224fe44b0bb458ca}{DECLARE\_EVENT\_CLASS}}(\doxymbox{\hyperlink{structcgroup}{cgroup}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00065}00065\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00067}00067\ \ \ \ \ TP\_ARGS(cgrp,\ path),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00069}00069\ \ \ \ \ TP\_STRUCT\_\_entry(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ root\ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ level\ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ u64,\ \ \ \ \ \ \ \ \textcolor{keywordtype}{id}\ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \_\_string(\ \ \ path,\ \ \ \ \ \ \ path\ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00074}00074\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00076}00076\ \ \ \ \ TP\_fast\_assign(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \_\_entry-\/>root\ =\ cgrp-\/>\doxymbox{\hyperlink{structcgroup_ab654ce7c623688ebc5ef112accf70869}{root}}-\/>\doxymbox{\hyperlink{structcgroup__root_a1d36ee59066b421f1c0ac26da7ff61ea}{hierarchy\_id}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \_\_entry-\/>id\ =\ cgroup\_id(cgrp);}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \_\_entry-\/>level\ =\ cgrp-\/>\doxymbox{\hyperlink{structcgroup_a2da899e2028d203a2c302744edd2e089}{level}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \_\_assign\_str(path);}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00081}00081\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00083}00083\ \ \ \ \ TP\_printk(\textcolor{stringliteral}{"{}root=\%d\ id=\%llu\ level=\%d\ path=\%s"{}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \_\_entry-\/>root,\ \_\_entry-\/>id,\ \_\_entry-\/>level,\ \_\_get\_str(path))}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00085}00085\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00090}\doxymbox{\hyperlink{cgroup_8h_a9dd0b89f1eaabbcea6de843219df7ee5}{00090}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{structcgroup}{cgroup}},\ \doxymbox{\hyperlink{cgroup-internal_8h_af47095eeb83b5ed1e88a23e0dedf9bc1}{cgroup\_mkdir}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00092}00092\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00094}00094\ \ \ \ \ TP\_ARGS(cgrp,\ path)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00095}00095\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00100}\doxymbox{\hyperlink{cgroup_8h_a7f98b0abd7607c654659132905861dec}{00100}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{structcgroup}{cgroup}},\ \doxymbox{\hyperlink{cgroup-internal_8h_abed96bdb67eb267dff3c4e0535215a3c}{cgroup\_rmdir}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00102}00102\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00104}00104\ \ \ \ \ TP\_ARGS(cgrp,\ path)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00105}00105\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00110}\doxymbox{\hyperlink{cgroup_8h_a535728b6f87598e0e6acd104093ec631}{00110}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{structcgroup}{cgroup}},\ cgroup\_release,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00112}00112\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00114}00114\ \ \ \ \ TP\_ARGS(cgrp,\ path)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00115}00115\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00120}\doxymbox{\hyperlink{cgroup_8h_a068d9a1074800d0ec7eb9e602a51cbf3}{00120}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{structcgroup}{cgroup}},\ cgroup\_rename,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00122}00122\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00124}00124\ \ \ \ \ TP\_ARGS(cgrp,\ path)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00125}00125\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00130}\doxymbox{\hyperlink{cgroup_8h_a3832917c359d05b5f97b94ea6531850d}{00130}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{structcgroup}{cgroup}},\ cgroup\_freeze,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00132}00132\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00134}00134\ \ \ \ \ TP\_ARGS(cgrp,\ path)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00135}00135\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00140}\doxymbox{\hyperlink{cgroup_8h_abb81cda1f8697fe7e1bae88026e69f9e}{00140}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{structcgroup}{cgroup}},\ cgroup\_unfreeze,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00142}00142\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00144}00144\ \ \ \ \ TP\_ARGS(cgrp,\ path)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00145}00145\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00148}\doxymbox{\hyperlink{cgroup_8h_afb539ae3508719744ab348d8a6e1f4e6}{00148}}\ \doxymbox{\hyperlink{cgroup_8h_a8ae78cd5b0eb1025224fe44b0bb458ca}{DECLARE\_EVENT\_CLASS}}(\doxymbox{\hyperlink{cgroup-internal_8h_a91d7710c20f468bb8371512b15737bc2}{cgroup\_migrate}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00150}00150\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *dst\_cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ task\_struct\ *task,\ \textcolor{keywordtype}{bool}\ threadgroup),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00153}00153\ \ \ \ \ TP\_ARGS(dst\_cgrp,\ path,\ task,\ threadgroup),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00155}00155\ \ \ \ \ TP\_STRUCT\_\_entry(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00156}00156\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ dst\_root\ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00157}00157\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ dst\_level\ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00158}00158\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ u64,\ \ \ \ \ \ \ \ dst\_id\ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00159}00159\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ pid\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00160}00160\ \ \ \ \ \ \ \ \ \_\_string(\ \ \ dst\_path,\ \ \ path\ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00161}00161\ \ \ \ \ \ \ \ \ \_\_string(\ \ \ comm,\ \ \ \ \ \ \ task-\/>comm\ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00162}00162\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00164}00164\ \ \ \ \ TP\_fast\_assign(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00165}00165\ \ \ \ \ \ \ \ \ \_\_entry-\/>dst\_root\ =\ dst\_cgrp-\/>\doxymbox{\hyperlink{structcgroup_ab654ce7c623688ebc5ef112accf70869}{root}}-\/>\doxymbox{\hyperlink{structcgroup__root_a1d36ee59066b421f1c0ac26da7ff61ea}{hierarchy\_id}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00166}00166\ \ \ \ \ \ \ \ \ \_\_entry-\/>dst\_id\ =\ cgroup\_id(dst\_cgrp);}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00167}00167\ \ \ \ \ \ \ \ \ \_\_entry-\/>dst\_level\ =\ dst\_cgrp-\/>\doxymbox{\hyperlink{structcgroup_a2da899e2028d203a2c302744edd2e089}{level}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00168}00168\ \ \ \ \ \ \ \ \ \_\_assign\_str(dst\_path);}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00169}00169\ \ \ \ \ \ \ \ \ \_\_entry-\/>pid\ =\ task-\/>pid;}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00170}00170\ \ \ \ \ \ \ \ \ \_\_assign\_str(comm);}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00171}00171\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00173}00173\ \ \ \ \ TP\_printk(\textcolor{stringliteral}{"{}dst\_root=\%d\ dst\_id=\%llu\ dst\_level=\%d\ dst\_path=\%s\ pid=\%d\ comm=\%s"{}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \_\_entry-\/>dst\_root,\ \_\_entry-\/>dst\_id,\ \_\_entry-\/>dst\_level,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \_\_get\_str(dst\_path),\ \_\_entry-\/>pid,\ \_\_get\_str(comm))}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00176}00176\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00181}\doxymbox{\hyperlink{cgroup_8h_a97999ea005a1e6f525da9956e9e22bd8}{00181}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{cgroup-internal_8h_a91d7710c20f468bb8371512b15737bc2}{cgroup\_migrate}},\ \doxymbox{\hyperlink{cgroup-internal_8h_acdcee710167815f30e8a48d607e160fb}{cgroup\_attach\_task}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00183}00183\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *dst\_cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ task\_struct\ *task,\ \textcolor{keywordtype}{bool}\ threadgroup),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00186}00186\ \ \ \ \ TP\_ARGS(dst\_cgrp,\ path,\ task,\ threadgroup)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00187}00187\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00192}\doxymbox{\hyperlink{cgroup_8h_aea3bac480bc26d5f39526e6b7c07b23f}{00192}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(\doxymbox{\hyperlink{cgroup-internal_8h_a91d7710c20f468bb8371512b15737bc2}{cgroup\_migrate}},\ \doxymbox{\hyperlink{cgroup-v1_8c_ad259388a55bea76edd9f16a93693f9de}{cgroup\_transfer\_tasks}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00194}00194\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *dst\_cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ task\_struct\ *task,\ \textcolor{keywordtype}{bool}\ threadgroup),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00197}00197\ \ \ \ \ TP\_ARGS(dst\_cgrp,\ path,\ task,\ threadgroup)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00198}00198\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00200}\doxymbox{\hyperlink{cgroup_8h_ae24b0776d5efc0398b2385e1946e8f48}{00200}}\ \doxymbox{\hyperlink{cgroup_8h_a8ae78cd5b0eb1025224fe44b0bb458ca}{DECLARE\_EVENT\_CLASS}}(cgroup\_event,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00202}00202\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ val),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00204}00204\ \ \ \ \ TP\_ARGS(cgrp,\ path,\ val),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00206}00206\ \ \ \ \ TP\_STRUCT\_\_entry(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00207}00207\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ root\ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00208}00208\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ level\ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00209}00209\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ u64,\ \ \ \ \ \ \ \ \textcolor{keywordtype}{id}\ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00210}00210\ \ \ \ \ \ \ \ \ \_\_string(\ \ \ path,\ \ \ \ \ \ \ path\ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00211}00211\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ val\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00212}00212\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00214}00214\ \ \ \ \ TP\_fast\_assign(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00215}00215\ \ \ \ \ \ \ \ \ \_\_entry-\/>root\ =\ cgrp-\/>\doxymbox{\hyperlink{structcgroup_ab654ce7c623688ebc5ef112accf70869}{root}}-\/>\doxymbox{\hyperlink{structcgroup__root_a1d36ee59066b421f1c0ac26da7ff61ea}{hierarchy\_id}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00216}00216\ \ \ \ \ \ \ \ \ \_\_entry-\/>id\ =\ cgroup\_id(cgrp);}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00217}00217\ \ \ \ \ \ \ \ \ \_\_entry-\/>level\ =\ cgrp-\/>\doxymbox{\hyperlink{structcgroup_a2da899e2028d203a2c302744edd2e089}{level}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00218}00218\ \ \ \ \ \ \ \ \ \_\_assign\_str(path);}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00219}00219\ \ \ \ \ \ \ \ \ \_\_entry-\/>val\ =\ val;}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00220}00220\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00222}00222\ \ \ \ \ TP\_printk(\textcolor{stringliteral}{"{}root=\%d\ id=\%llu\ level=\%d\ path=\%s\ val=\%d"{}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \_\_entry-\/>root,\ \_\_entry-\/>id,\ \_\_entry-\/>level,\ \_\_get\_str(path),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \_\_entry-\/>val)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00225}00225\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00230}\doxymbox{\hyperlink{cgroup_8h_aa71d49f27e88cbe3c0d23f921b4d23ef}{00230}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(cgroup\_event,\ cgroup\_notify\_populated,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00232}00232\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ val),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00234}00234\ \ \ \ \ TP\_ARGS(cgrp,\ path,\ val)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00235}00235\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00240}\doxymbox{\hyperlink{cgroup_8h_aab380afe96ee20cac1fa27047dd7fda7}{00240}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(cgroup\_event,\ cgroup\_notify\_frozen,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00242}00242\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ val),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00244}00244\ \ \ \ \ TP\_ARGS(cgrp,\ path,\ val)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00245}00245\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00247}\doxymbox{\hyperlink{cgroup_8h_a896c0a188b9d8f4654a39b2a4f34bddc}{00247}}\ \doxymbox{\hyperlink{cgroup_8h_a8ae78cd5b0eb1025224fe44b0bb458ca}{DECLARE\_EVENT\_CLASS}}(cgroup\_rstat,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00249}00249\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keywordtype}{int}\ cpu,\ \textcolor{keywordtype}{bool}\ contended),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00251}00251\ \ \ \ \ TP\_ARGS(cgrp,\ cpu,\ contended),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00253}00253\ \ \ \ \ TP\_STRUCT\_\_entry(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00254}00254\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ root\ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00255}00255\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ level\ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00256}00256\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ u64,\ \ \ \ \ \ \ \ \textcolor{keywordtype}{id}\ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00257}00257\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{int},\ \ \ \ \ \ \ \ cpu\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00258}00258\ \ \ \ \ \ \ \ \ \_\_field(\ \ \ \ \textcolor{keywordtype}{bool},\ \ \ \ \ \ \ contended\ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00259}00259\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00261}00261\ \ \ \ \ TP\_fast\_assign(}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00262}00262\ \ \ \ \ \ \ \ \ \_\_entry-\/>root\ =\ cgrp-\/>\doxymbox{\hyperlink{structcgroup_ab654ce7c623688ebc5ef112accf70869}{root}}-\/>\doxymbox{\hyperlink{structcgroup__root_a1d36ee59066b421f1c0ac26da7ff61ea}{hierarchy\_id}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00263}00263\ \ \ \ \ \ \ \ \ \_\_entry-\/>id\ =\ cgroup\_id(cgrp);}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00264}00264\ \ \ \ \ \ \ \ \ \_\_entry-\/>level\ =\ cgrp-\/>\doxymbox{\hyperlink{structcgroup_a2da899e2028d203a2c302744edd2e089}{level}};}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00265}00265\ \ \ \ \ \ \ \ \ \_\_entry-\/>cpu\ =\ cpu;}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00266}00266\ \ \ \ \ \ \ \ \ \_\_entry-\/>contended\ =\ contended;}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00267}00267\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00269}00269\ \ \ \ \ TP\_printk(\textcolor{stringliteral}{"{}root=\%d\ id=\%llu\ level=\%d\ cpu=\%d\ lock\ contended:\%d"{}},}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \_\_entry-\/>root,\ \_\_entry-\/>id,\ \_\_entry-\/>level,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \_\_entry-\/>cpu,\ \_\_entry-\/>contended)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00272}00272\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00282}\doxymbox{\hyperlink{cgroup_8h_af2074cd93013f03f5b6f55afd0c5e8fd}{00282}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(cgroup\_rstat,\ cgroup\_rstat\_lock\_contended,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00283}00283\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00284}00284\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keywordtype}{int}\ cpu,\ \textcolor{keywordtype}{bool}\ contended),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00286}00286\ \ \ \ \ TP\_ARGS(cgrp,\ cpu,\ contended)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00287}00287\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00292}\doxymbox{\hyperlink{cgroup_8h_a7b7ff50781ce7393dda3aed452bacd72}{00292}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(cgroup\_rstat,\ cgroup\_rstat\_locked,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00294}00294\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keywordtype}{int}\ cpu,\ \textcolor{keywordtype}{bool}\ contended),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00296}00296\ \ \ \ \ TP\_ARGS(cgrp,\ cpu,\ contended)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00297}00297\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00302}\doxymbox{\hyperlink{cgroup_8h_a37320775294e2cfeef6ab6d51f31ec45}{00302}}\ \doxymbox{\hyperlink{cgroup_8h_ac9db9447caa266a64d7f4b7b565fcdcd}{DEFINE\_EVENT}}(cgroup\_rstat,\ cgroup\_rstat\_unlock,}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00303}00303\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00304}00304\ \ \ \ \ TP\_PROTO(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structcgroup}{cgroup}}\ *cgrp,\ \textcolor{keywordtype}{int}\ cpu,\ \textcolor{keywordtype}{bool}\ contended),}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00306}00306\ \ \ \ \ TP\_ARGS(cgrp,\ cpu,\ contended)}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00307}00307\ );}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00309}00309\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_TRACE\_CGROUP\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00311}00311\ \textcolor{comment}{/*\ This\ part\ must\ be\ outside\ protection\ */}}
+\DoxyCodeLine{\Hypertarget{cgroup_8h_source_l00312}00312\ \textcolor{preprocessor}{\#include\ <trace/define\_trace.h>}}
+
+\end{DoxyCode}

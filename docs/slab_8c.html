@@ -127,9 +127,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('slab_8c.html',
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for slab.c:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slab_8c__incl.svg" width="4024" height="336"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="slab_8c__incl.svg" width="3994" height="336"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-</div><table class="memberdecls">
+</div>
+<p><a href="slab_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac08a1826ac2025ae94550289a6323268" id="r_ac08a1826ac2025ae94550289a6323268"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#ac08a1826ac2025ae94550289a6323268">kmalloc</a> (size_t size, gfp_t gfp)</td></tr>
@@ -156,7 +158,20 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Frees the memory pointed to by the given pointer using free(). It first checks if the pointer is NULL; if so, it does nothing. Before freeing, it decreases the global allocation counter to keep track of active allocations. If verbose mode is enabled, it prints the address of the memory being freed. </p>
 
+<p class="definition">Definition at line <a class="el" href="slab_8c_source.html#l00036">36</a> of file <a class="el" href="slab_8c_source.html">slab.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   37</span>{</div>
+<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">if</span> (!p)</div>
+<div class="line"><span class="lineno">   39</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">   40</span>    uatomic_dec(&amp;<a class="code hl_variable" href="#a908dca68c09a2d6dd007da9876997320">kmalloc_nr_allocated</a>);</div>
+<div class="line"><span class="lineno">   41</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af8f3995ef8883f37c1c0a6c824953058">kmalloc_verbose</a>)</div>
+<div class="line"><span class="lineno">   42</span>        printf(<span class="stringliteral">&quot;Freeing %p to malloc\n&quot;</span>, p);</div>
+<div class="line"><span class="lineno">   43</span>    free(p);</div>
+<div class="line"><span class="lineno">   44</span>}</div>
+<div class="ttc" id="aslab_8c_html_a908dca68c09a2d6dd007da9876997320"><div class="ttname"><a href="#a908dca68c09a2d6dd007da9876997320">kmalloc_nr_allocated</a></div><div class="ttdeci">int kmalloc_nr_allocated</div><div class="ttdef"><b>Definition</b> <a href="slab_8c_source.html#l00011">slab.c:11</a></div></div>
+<div class="ttc" id="aslab_8c_html_af8f3995ef8883f37c1c0a6c824953058"><div class="ttname"><a href="#af8f3995ef8883f37c1c0a6c824953058">kmalloc_verbose</a></div><div class="ttdeci">int kmalloc_verbose</div><div class="ttdef"><b>Definition</b> <a href="slab_8c_source.html#l00012">slab.c:12</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ac08a1826ac2025ae94550289a6323268" name="ac08a1826ac2025ae94550289a6323268"></a>
@@ -177,7 +192,27 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Allocates memory of the given size using malloc(). It first checks if memory reclaim is allowed; if not, it returns NULL. After allocation, it increases the global counter to track how many allocations are active. If verbose mode is on, it prints the address of the allocated memory. If the __GFP_ZERO flag is set, it fills the memory with zeros before returning the pointer. </p>
 
+<p class="definition">Definition at line <a class="el" href="slab_8c_source.html#l00017">17</a> of file <a class="el" href="slab_8c_source.html">slab.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   18</span>{</div>
+<div class="line"><span class="lineno">   19</span>    <span class="keywordtype">void</span> *ret;</div>
+<div class="line"><span class="lineno">   20</span> </div>
+<div class="line"><span class="lineno">   21</span>    <span class="keywordflow">if</span> (!(gfp &amp; <a class="code hl_define" href="gfp__types_8h.html#ab153fd7013afc4532247a97daa3f10f7">__GFP_DIRECT_RECLAIM</a>))</div>
+<div class="line"><span class="lineno">   22</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   23</span> </div>
+<div class="line"><span class="lineno">   24</span>    ret = malloc(<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">   25</span>    uatomic_inc(&amp;<a class="code hl_variable" href="#a908dca68c09a2d6dd007da9876997320">kmalloc_nr_allocated</a>);</div>
+<div class="line"><span class="lineno">   26</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af8f3995ef8883f37c1c0a6c824953058">kmalloc_verbose</a>)</div>
+<div class="line"><span class="lineno">   27</span>        printf(<span class="stringliteral">&quot;Allocating %p from malloc\n&quot;</span>, ret);</div>
+<div class="line"><span class="lineno">   28</span>    <span class="keywordflow">if</span> (gfp &amp; <a class="code hl_define" href="gfp__types_8h.html#a4f8b1c2d9b67cd332e7420150128bcad">__GFP_ZERO</a>)</div>
+<div class="line"><span class="lineno">   29</span>        memset(ret, 0, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">   30</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">   31</span>}</div>
+<div class="ttc" id="agfp__types_8h_html_a4f8b1c2d9b67cd332e7420150128bcad"><div class="ttname"><a href="gfp__types_8h.html#a4f8b1c2d9b67cd332e7420150128bcad">__GFP_ZERO</a></div><div class="ttdeci">#define __GFP_ZERO</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00290">gfp_types.h:290</a></div></div>
+<div class="ttc" id="agfp__types_8h_html_ab153fd7013afc4532247a97daa3f10f7"><div class="ttname"><a href="gfp__types_8h.html#ab153fd7013afc4532247a97daa3f10f7">__GFP_DIRECT_RECLAIM</a></div><div class="ttdeci">#define __GFP_DIRECT_RECLAIM</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00257">gfp_types.h:257</a></div></div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_af6ef73962e335cb2dfc15144f11215ba"><div class="ttname"><a href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a></div><div class="ttdeci">static size_t size</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01189">slab.h:1189</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a24545cc31c46063a2a628e85715b43c2" name="a24545cc31c46063a2a628e85715b43c2"></a>
@@ -203,7 +238,24 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Function Description: Allocates memory for an array of n items, where each item is size bytes, using calloc() (which also zeroes the memory). It first checks if memory reclaim is allowed; if not, it returns NULL. After allocation, it increases the global counter and prints the address if verbose mode is on. If the __GFP_ZERO flag is set, it explicitly zeroes the memory again to be safe, then returns the pointer. </p>
 
+<p class="definition">Definition at line <a class="el" href="slab_8c_source.html#l00049">49</a> of file <a class="el" href="slab_8c_source.html">slab.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   50</span>{</div>
+<div class="line"><span class="lineno">   51</span>    <span class="keywordtype">void</span> *ret;</div>
+<div class="line"><span class="lineno">   52</span> </div>
+<div class="line"><span class="lineno">   53</span>    <span class="keywordflow">if</span> (!(gfp &amp; <a class="code hl_define" href="gfp__types_8h.html#ab153fd7013afc4532247a97daa3f10f7">__GFP_DIRECT_RECLAIM</a>))</div>
+<div class="line"><span class="lineno">   54</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">   55</span> </div>
+<div class="line"><span class="lineno">   56</span>    ret = calloc(n, <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">   57</span>    uatomic_inc(&amp;<a class="code hl_variable" href="#a908dca68c09a2d6dd007da9876997320">kmalloc_nr_allocated</a>);</div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="#af8f3995ef8883f37c1c0a6c824953058">kmalloc_verbose</a>)</div>
+<div class="line"><span class="lineno">   59</span>        printf(<span class="stringliteral">&quot;Allocating %p from calloc\n&quot;</span>, ret);</div>
+<div class="line"><span class="lineno">   60</span>    <span class="keywordflow">if</span> (gfp &amp; <a class="code hl_define" href="gfp__types_8h.html#a4f8b1c2d9b67cd332e7420150128bcad">__GFP_ZERO</a>)</div>
+<div class="line"><span class="lineno">   61</span>        memset(ret, 0, n * <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a>);</div>
+<div class="line"><span class="lineno">   62</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><span class="lineno">   63</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
@@ -219,6 +271,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="slab_8c_source.html#l00011">11</a> of file <a class="el" href="slab_8c_source.html">slab.c</a>.</p>
+
 </div>
 </div>
 <a id="af8f3995ef8883f37c1c0a6c824953058" name="af8f3995ef8883f37c1c0a6c824953058"></a>
@@ -232,6 +286,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="slab_8c_source.html#l00012">12</a> of file <a class="el" href="slab_8c_source.html">slab.c</a>.</p>
 
 </div>
 </div>

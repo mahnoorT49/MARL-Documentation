@@ -1,0 +1,401 @@
+\doxysection{page\+\_\+counter.\+c}
+\hypertarget{page__counter_8c_source}{}\label{page__counter_8c_source}\index{mm/page\_counter.c@{mm/page\_counter.c}}
+\doxymbox{\hyperlink{page__counter_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00001}00001\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ GPL-\/2.0}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00002}00002\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00003}00003\ \textcolor{comment}{\ *\ Lockless\ hierarchical\ page\ accounting\ \&\ limiting}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00004}00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00005}00005\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2014\ Red\ Hat,\ Inc.,\ Johannes\ Weiner}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{page__counter_8h}{linux/page\_counter.h}}>}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <linux/atomic.h>}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <linux/kernel.h>}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <linux/string.h>}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{sched_8h}{linux/sched.h}}>}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <linux/bug.h>}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <asm/page.h>}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00016}\doxymbox{\hyperlink{page__counter_8c_a2cc2855018050d0fb2f3e5e0ba211d64}{00016}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{page__counter_8c_a2cc2855018050d0fb2f3e5e0ba211d64}{track\_protection}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *c)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00017}00017\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{return}\ c-\/>\doxymbox{\hyperlink{structpage__counter_a96e19452c0392f76c85ef36a9cbec881}{protection\_support}};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00019}00019\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00021}\doxymbox{\hyperlink{page__counter_8c_a8aab5fc11db6fc9c7bcfc1a45ad7f77e}{00021}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__counter_8c_a8aab5fc11db6fc9c7bcfc1a45ad7f77e}{propagate\_protected\_usage}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *c,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ usage)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00023}00023\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00024}00024\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keyword}{protected},\ old\_protected;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{long}\ delta;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{if}\ (!c-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}})}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{protected}\ =\ min(usage,\ READ\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_a7ab26b4bb8412bfa062b0067dee81c19}{min}}));}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00031}00031\ \ \ \ \ old\_protected\ =\ atomic\_long\_read(\&c-\/>\doxymbox{\hyperlink{structpage__counter_a0b5d5235d85fb6d1eaf868130fd605d9}{min\_usage}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{protected}\ !=\ old\_protected)\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ old\_protected\ =\ atomic\_long\_xchg(\&c-\/>\doxymbox{\hyperlink{structpage__counter_a0b5d5235d85fb6d1eaf868130fd605d9}{min\_usage}},\ \textcolor{keyword}{protected});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ delta\ =\ \textcolor{keyword}{protected}\ -\/\ old\_protected;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (delta)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ atomic\_long\_add(delta,\ \&c-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}}-\/>\doxymbox{\hyperlink{structpage__counter_a87f2a0f40922dda224247db41b2b65fd}{children\_min\_usage}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00037}00037\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00039}00039\ \ \ \ \ \textcolor{keyword}{protected}\ =\ min(usage,\ READ\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_aea0abbe53e5f2139f406cd896740612f}{low}}));}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00040}00040\ \ \ \ \ old\_protected\ =\ atomic\_long\_read(\&c-\/>\doxymbox{\hyperlink{structpage__counter_a06d99f93fa13f28dff9d1e0a1e08fdde}{low\_usage}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{protected}\ !=\ old\_protected)\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ old\_protected\ =\ atomic\_long\_xchg(\&c-\/>\doxymbox{\hyperlink{structpage__counter_a06d99f93fa13f28dff9d1e0a1e08fdde}{low\_usage}},\ \textcolor{keyword}{protected});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ delta\ =\ \textcolor{keyword}{protected}\ -\/\ old\_protected;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (delta)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ atomic\_long\_add(delta,\ \&c-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}}-\/>\doxymbox{\hyperlink{structpage__counter_a0dde0d3b8550ffdfdf6ecba962da204e}{children\_low\_usage}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00047}00047\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00054}\doxymbox{\hyperlink{page__counter_8h_a8d1660de964ae6d862d66b8efaf11bc7}{00054}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__counter_8c_a8d1660de964ae6d862d66b8efaf11bc7}{page\_counter\_cancel}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *counter,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00055}00055\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00056}00056\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00058}00058\ \ \ \ \ \textcolor{keyword}{new}\ =\ atomic\_long\_sub\_return(nr\_pages,\ \&counter-\/>\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00059}00059\ \ \ \ \ \textcolor{comment}{/*\ More\ uncharges\ than\ charges?\ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{if}\ (WARN\_ONCE(\textcolor{keyword}{new}\ <\ 0,\ \textcolor{stringliteral}{"{}page\_counter\ underflow:\ \%ld\ nr\_pages=\%lu\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new},\ nr\_pages))\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ atomic\_long\_set(\&counter-\/>\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}},\ \textcolor{keyword}{new});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{page__counter_8c_a2cc2855018050d0fb2f3e5e0ba211d64}{track\_protection}}(counter))}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{page__counter_8c_a8aab5fc11db6fc9c7bcfc1a45ad7f77e}{propagate\_protected\_usage}}(counter,\ \textcolor{keyword}{new});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00067}00067\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00076}\doxymbox{\hyperlink{page__counter_8h_ab33b7be230312ca8dc73040893ef1d46}{00076}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__counter_8c_ab33b7be230312ca8dc73040893ef1d46}{page\_counter\_charge}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *counter,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00077}00077\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00078}00078\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *c;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00079}00079\ \ \ \ \ \textcolor{keywordtype}{bool}\ protection\ =\ \doxymbox{\hyperlink{page__counter_8c_a2cc2855018050d0fb2f3e5e0ba211d64}{track\_protection}}(counter);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{for}\ (c\ =\ counter;\ c;\ c\ =\ c-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}})\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ =\ atomic\_long\_add\_return(nr\_pages,\ \&c-\/>\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (protection)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{page__counter_8c_a8aab5fc11db6fc9c7bcfc1a45ad7f77e}{propagate\_protected\_usage}}(c,\ \textcolor{keyword}{new});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00088}00088\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ This\ is\ indeed\ racy,\ but\ we\ can\ live\ with\ some}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00089}00089\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ inaccuracy\ in\ the\ watermark.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00090}00090\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00091}00091\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Notably,\ we\ have\ two\ watermarks\ to\ allow\ for\ both\ a\ globally}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00092}00092\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ visible\ peak\ and\ one\ that\ can\ be\ reset\ at\ a\ smaller\ scope.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00093}00093\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00094}00094\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Since\ we\ reset\ both\ watermarks\ when\ the\ global\ reset\ occurs,}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00095}00095\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ we\ can\ guarantee\ that\ watermark\ >=\ local\_watermark,\ so\ we}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00096}00096\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ don't\ need\ to\ do\ both\ comparisons\ every\ time.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00097}00097\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00098}00098\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ On\ systems\ with\ branch\ predictors,\ the\ inner\ condition\ should}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00099}00099\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ be\ almost\ free.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00100}00100\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{new}\ >\ READ\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_acb177f8121d9123ac353fcfebfbc4c79}{local\_watermark}}))\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ WRITE\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_acb177f8121d9123ac353fcfebfbc4c79}{local\_watermark}},\ \textcolor{keyword}{new});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{new}\ >\ READ\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_a9304505f0554eabb2e6f2458798d522d}{watermark}}))}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WRITE\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_a9304505f0554eabb2e6f2458798d522d}{watermark}},\ \textcolor{keyword}{new});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00118}\doxymbox{\hyperlink{page__counter_8h_a9e38feb04d9f65d77180c8ade9f35dd4}{00118}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{page__counter_8c_a9e38feb04d9f65d77180c8ade9f35dd4}{page\_counter\_try\_charge}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *counter,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ **fail)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00121}00121\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00122}00122\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *c;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00123}00123\ \ \ \ \ \textcolor{keywordtype}{bool}\ protection\ =\ \doxymbox{\hyperlink{page__counter_8c_a2cc2855018050d0fb2f3e5e0ba211d64}{track\_protection}}(counter);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00124}00124\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{structpage__counter_ae197550c11cc6ec54cda113c2998c1d6}{track\_failcnt}}\ =\ counter-\/>\doxymbox{\hyperlink{structpage__counter_ae197550c11cc6ec54cda113c2998c1d6}{track\_failcnt}};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00126}00126\ \ \ \ \ \textcolor{keywordflow}{for}\ (c\ =\ counter;\ c;\ c\ =\ c-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}})\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keyword}{new};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00129}00129\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Charge\ speculatively\ to\ avoid\ an\ expensive\ CAS.\ \ If}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00130}00130\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ a\ bigger\ charge\ fails,\ it\ might\ falsely\ lock\ out\ a}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00131}00131\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ racing\ smaller\ charge\ and\ send\ it\ into\ reclaim}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00132}00132\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ early,\ but\ the\ error\ is\ limited\ to\ the\ difference}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00133}00133\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ between\ the\ two\ sizes,\ which\ is\ less\ than\ 2M/4M\ in}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00134}00134\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ case\ of\ a\ THP\ locking\ out\ a\ regular\ page\ charge.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00135}00135\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00136}00136\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ The\ atomic\_long\_add\_return()\ implies\ a\ full\ memory}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00137}00137\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ barrier\ between\ incrementing\ the\ count\ and\ reading}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00138}00138\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ the\ limit.\ \ When\ racing\ with\ page\_counter\_set\_max(),}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00139}00139\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ we\ either\ see\ the\ new\ limit\ or\ the\ setter\ sees\ the}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00140}00140\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ counter\ has\ changed\ and\ retries.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00141}00141\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ =\ atomic\_long\_add\_return(nr\_pages,\ \&c-\/>\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{new}\ >\ c-\/>\doxymbox{\hyperlink{structpage__counter_a46c7a60a5def71f346782e747ad2a5e7}{max}})\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ atomic\_long\_sub(nr\_pages,\ \&c-\/>\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00146}00146\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ This\ is\ racy,\ but\ we\ can\ live\ with\ some}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00147}00147\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ inaccuracy\ in\ the\ failcnt\ which\ is\ only\ used}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00148}00148\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ to\ report\ stats.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00149}00149\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structpage__counter_ae197550c11cc6ec54cda113c2998c1d6}{track\_failcnt}})}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data\_race(c-\/>\doxymbox{\hyperlink{structpage__counter_a998c7490a5b7a9c5bf710a908659af9a}{failcnt}}++);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ *fail\ =\ c;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ failed;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (protection)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{page__counter_8c_a8aab5fc11db6fc9c7bcfc1a45ad7f77e}{propagate\_protected\_usage}}(c,\ \textcolor{keyword}{new});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ see\ comment\ on\ page\_counter\_charge\ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{new}\ >\ READ\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_acb177f8121d9123ac353fcfebfbc4c79}{local\_watermark}}))\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ WRITE\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_acb177f8121d9123ac353fcfebfbc4c79}{local\_watermark}},\ \textcolor{keyword}{new});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{new}\ >\ READ\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_a9304505f0554eabb2e6f2458798d522d}{watermark}}))}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WRITE\_ONCE(c-\/>\doxymbox{\hyperlink{structpage__counter_a9304505f0554eabb2e6f2458798d522d}{watermark}},\ \textcolor{keyword}{new});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00164}00164\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00165}00165\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00167}00167\ failed:}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00168}00168\ \ \ \ \ \textcolor{keywordflow}{for}\ (c\ =\ counter;\ c\ !=\ *fail;\ c\ =\ c-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}})}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{page__counter_8c_a8d1660de964ae6d862d66b8efaf11bc7}{page\_counter\_cancel}}(c,\ nr\_pages);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00171}00171\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00172}00172\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00179}\doxymbox{\hyperlink{page__counter_8h_af42e32e2d8e8dbc58e8e0a6b5a71f3ea}{00179}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__counter_8c_af42e32e2d8e8dbc58e8e0a6b5a71f3ea}{page\_counter\_uncharge}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *counter,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00180}00180\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00181}00181\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *c;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00183}00183\ \ \ \ \ \textcolor{keywordflow}{for}\ (c\ =\ counter;\ c;\ c\ =\ c-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}})}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{page__counter_8c_a8d1660de964ae6d862d66b8efaf11bc7}{page\_counter\_cancel}}(c,\ nr\_pages);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00185}00185\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00197}\doxymbox{\hyperlink{page__counter_8h_aa3c8b2fcb6dd3db3dd8652bd3f05b7cb}{00197}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{page__counter_8c_aa3c8b2fcb6dd3db3dd8652bd3f05b7cb}{page\_counter\_set\_max}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *counter,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00198}00198\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{for}\ (;;)\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00200}00200\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ old;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00201}00201\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00204}00204\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ Update\ the\ limit\ while\ making\ sure\ that\ it's\ not}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00205}00205\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ below\ the\ concurrently-\/changing\ counter\ value.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00206}00206\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00207}00207\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ The\ xchg\ implies\ two\ full\ memory\ barriers\ before}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00208}00208\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ and\ after,\ so\ the\ read-\/swap-\/read\ is\ ordered\ and}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00209}00209\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ ensures\ coherency\ with\ page\_counter\_try\_charge():}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00210}00210\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ that\ function\ modifies\ the\ count\ before\ checking}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00211}00211\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ the\ limit,\ so\ if\ it\ sees\ the\ old\ limit,\ we\ see\ the}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00212}00212\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ modified\ counter\ and\ retry.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00213}00213\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}}\ =\ \doxymbox{\hyperlink{page__counter_8h_aeab047e794f1b4789052dbff25e6dc83}{page\_counter\_read}}(counter);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}}\ >\ nr\_pages)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EBUSY;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00219}00219\ \ \ \ \ \ \ \ \ old\ =\ xchg(\&counter-\/>\doxymbox{\hyperlink{structpage__counter_a46c7a60a5def71f346782e747ad2a5e7}{max}},\ nr\_pages);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{page__counter_8h_aeab047e794f1b4789052dbff25e6dc83}{page\_counter\_read}}(counter)\ <=\ \doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}}\ ||\ nr\_pages\ >=\ old)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ counter-\/>\doxymbox{\hyperlink{structpage__counter_a46c7a60a5def71f346782e747ad2a5e7}{max}}\ =\ old;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ cond\_resched();}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00226}00226\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00227}00227\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00236}\doxymbox{\hyperlink{page__counter_8h_ae85fee3a7bef0173f7baed1df9d9d286}{00236}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__counter_8c_ae85fee3a7bef0173f7baed1df9d9d286}{page\_counter\_set\_min}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *counter,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00237}00237\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00238}00238\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *c;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00240}00240\ \ \ \ \ WRITE\_ONCE(counter-\/>\doxymbox{\hyperlink{structpage__counter_a7ab26b4bb8412bfa062b0067dee81c19}{min}},\ nr\_pages);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00242}00242\ \ \ \ \ \textcolor{keywordflow}{for}\ (c\ =\ counter;\ c;\ c\ =\ c-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}})}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00243}00243\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{page__counter_8c_a8aab5fc11db6fc9c7bcfc1a45ad7f77e}{propagate\_protected\_usage}}(c,\ atomic\_long\_read(\&c-\/>\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}}));}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00244}00244\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00253}\doxymbox{\hyperlink{page__counter_8h_a1f4c45e60a32a0abd8ff96c11af95033}{00253}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__counter_8c_a1f4c45e60a32a0abd8ff96c11af95033}{page\_counter\_set\_low}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *counter,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00254}00254\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00255}00255\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *c;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00257}00257\ \ \ \ \ WRITE\_ONCE(counter-\/>\doxymbox{\hyperlink{structpage__counter_aea0abbe53e5f2139f406cd896740612f}{low}},\ nr\_pages);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00258}00258\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00259}00259\ \ \ \ \ \textcolor{keywordflow}{for}\ (c\ =\ counter;\ c;\ c\ =\ c-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}})}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00260}00260\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{page__counter_8c_a8aab5fc11db6fc9c7bcfc1a45ad7f77e}{propagate\_protected\_usage}}(c,\ atomic\_long\_read(\&c-\/>\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}}));}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00261}00261\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00262}00262\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00272}\doxymbox{\hyperlink{page__counter_8h_a6a9a1fb9f5934cc9ceb48f1261047b7a}{00272}}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{page__counter_8c_a6a9a1fb9f5934cc9ceb48f1261047b7a}{page\_counter\_memparse}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{structpage__counter_a46c7a60a5def71f346782e747ad2a5e7}{max}},}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *nr\_pages)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00274}00274\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00275}00275\ \ \ \ \ \textcolor{keywordtype}{char}\ *end;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00276}00276\ \ \ \ \ u64\ bytes;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00278}00278\ \ \ \ \ \textcolor{keywordflow}{if}\ (!strcmp(buf,\ \doxymbox{\hyperlink{structpage__counter_a46c7a60a5def71f346782e747ad2a5e7}{max}}))\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ *nr\_pages\ =\ \doxymbox{\hyperlink{page__counter_8h_a7095311e0ca4511db9f1cabcb9531164}{PAGE\_COUNTER\_MAX}};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00281}00281\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00282}00282\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00283}00283\ \ \ \ \ bytes\ =\ memparse(buf,\ \&end);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00284}00284\ \ \ \ \ \textcolor{keywordflow}{if}\ (*end\ !=\ \textcolor{charliteral}{'\(\backslash\)0'})}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00285}00285\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/EINVAL;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00286}00286\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00287}00287\ \ \ \ \ *nr\_pages\ =\ \doxymbox{\hyperlink{structpage__counter_a7ab26b4bb8412bfa062b0067dee81c19}{min}}(bytes\ /\ PAGE\_SIZE,\ (u64)\doxymbox{\hyperlink{page__counter_8h_a7095311e0ca4511db9f1cabcb9531164}{PAGE\_COUNTER\_MAX}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00289}00289\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00290}00290\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00293}00293\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_MEMCG)\ ||\ IS\_ENABLED(CONFIG\_CGROUP\_DMEM)}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00294}00294\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00295}00295\ \textcolor{comment}{\ *\ This\ function\ calculates\ an\ individual\ page\ counter's\ effective}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00296}00296\ \textcolor{comment}{\ *\ protection\ which\ is\ derived\ from\ its\ own\ memory.min/low,\ its}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00297}00297\ \textcolor{comment}{\ *\ parent's\ and\ siblings'\ settings,\ as\ well\ as\ the\ actual\ memory}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00298}00298\ \textcolor{comment}{\ *\ distribution\ in\ the\ tree.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00299}00299\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00300}00300\ \textcolor{comment}{\ *\ The\ following\ rules\ apply\ to\ the\ effective\ protection\ values:}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00301}00301\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00302}00302\ \textcolor{comment}{\ *\ 1.\ At\ the\ first\ level\ of\ reclaim,\ effective\ protection\ is\ equal\ to}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00303}00303\ \textcolor{comment}{\ *\ \ \ \ the\ declared\ protection\ in\ memory.min\ and\ memory.low.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00304}00304\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00305}00305\ \textcolor{comment}{\ *\ 2.\ To\ enable\ safe\ delegation\ of\ the\ protection\ configuration,\ at}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00306}00306\ \textcolor{comment}{\ *\ \ \ \ subsequent\ levels\ the\ effective\ protection\ is\ capped\ to\ the}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00307}00307\ \textcolor{comment}{\ *\ \ \ \ parent's\ effective\ protection.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00308}00308\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00309}00309\ \textcolor{comment}{\ *\ 3.\ To\ make\ complex\ and\ dynamic\ subtrees\ easier\ to\ configure,\ the}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00310}00310\ \textcolor{comment}{\ *\ \ \ \ user\ is\ allowed\ to\ overcommit\ the\ declared\ protection\ at\ a\ given}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00311}00311\ \textcolor{comment}{\ *\ \ \ \ level.\ If\ that\ is\ the\ case,\ the\ parent's\ effective\ protection\ is}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00312}00312\ \textcolor{comment}{\ *\ \ \ \ distributed\ to\ the\ children\ in\ proportion\ to\ how\ much\ protection}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00313}00313\ \textcolor{comment}{\ *\ \ \ \ they\ have\ declared\ and\ how\ much\ of\ it\ they\ are\ utilizing.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00314}00314\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00315}00315\ \textcolor{comment}{\ *\ \ \ \ This\ makes\ distribution\ proportional,\ but\ also\ work-\/conserving:}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00316}00316\ \textcolor{comment}{\ *\ \ \ \ if\ one\ counter\ claims\ much\ more\ protection\ than\ it\ uses\ memory,}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00317}00317\ \textcolor{comment}{\ *\ \ \ \ the\ unused\ remainder\ is\ available\ to\ its\ siblings.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00318}00318\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00319}00319\ \textcolor{comment}{\ *\ 4.\ Conversely,\ when\ the\ declared\ protection\ is\ undercommitted\ at\ a}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00320}00320\ \textcolor{comment}{\ *\ \ \ \ given\ level,\ the\ distribution\ of\ the\ larger\ parental\ protection}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00321}00321\ \textcolor{comment}{\ *\ \ \ \ budget\ is\ NOT\ proportional.\ A\ counter's\ protection\ from\ a\ sibling}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00322}00322\ \textcolor{comment}{\ *\ \ \ \ is\ capped\ to\ its\ own\ memory.min/low\ setting.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00323}00323\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00324}00324\ \textcolor{comment}{\ *\ 5.\ However,\ to\ allow\ protecting\ recursive\ subtrees\ from\ each\ other}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00325}00325\ \textcolor{comment}{\ *\ \ \ \ without\ having\ to\ declare\ each\ individual\ counter's\ fixed\ share}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00326}00326\ \textcolor{comment}{\ *\ \ \ \ of\ the\ ancestor's\ claim\ to\ protection,\ any\ unutilized\ -\/}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00327}00327\ \textcolor{comment}{\ *\ \ \ \ "{}floating"{}\ -\/\ protection\ from\ up\ the\ tree\ is\ distributed\ in}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00328}00328\ \textcolor{comment}{\ *\ \ \ \ proportion\ to\ each\ counter's\ *usage*.\ This\ makes\ the\ protection}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00329}00329\ \textcolor{comment}{\ *\ \ \ \ neutral\ wrt\ sibling\ cgroups\ and\ lets\ them\ compete\ freely\ over}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00330}00330\ \textcolor{comment}{\ *\ \ \ \ the\ shared\ parental\ protection\ budget,\ but\ it\ protects\ the}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00331}00331\ \textcolor{comment}{\ *\ \ \ \ subtree\ as\ a\ whole\ from\ neighboring\ subtrees.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00332}00332\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00333}00333\ \textcolor{comment}{\ *\ Note\ that\ 4.\ and\ 5.\ are\ not\ in\ conflict:\ 4.\ is\ about\ protecting}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00334}00334\ \textcolor{comment}{\ *\ against\ immediate\ siblings\ whereas\ 5.\ is\ about\ protecting\ against}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00335}00335\ \textcolor{comment}{\ *\ neighboring\ subtrees.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00336}00336\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00337}00337\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ effective\_protection(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}},}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ parent\_usage,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ setting,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ parent\_effective,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ siblings\_protected,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ recursive\_protection)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00343}00343\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00344}00344\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keyword}{protected};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00345}00345\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ ep;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00347}00347\ \ \ \ \ \textcolor{keyword}{protected}\ =\ \doxymbox{\hyperlink{structpage__counter_a7ab26b4bb8412bfa062b0067dee81c19}{min}}(\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}},\ setting);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00348}00348\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00349}00349\ \textcolor{comment}{\ \ \ \ \ *\ If\ all\ cgroups\ at\ this\ level\ combined\ claim\ and\ use\ more}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00350}00350\ \textcolor{comment}{\ \ \ \ \ *\ protection\ than\ what\ the\ parent\ affords\ them,\ distribute}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00351}00351\ \textcolor{comment}{\ \ \ \ \ *\ shares\ in\ proportion\ to\ utilization.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00352}00352\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00353}00353\ \textcolor{comment}{\ \ \ \ \ *\ We\ are\ using\ actual\ utilization\ rather\ than\ the\ statically}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00354}00354\ \textcolor{comment}{\ \ \ \ \ *\ claimed\ protection\ in\ order\ to\ be\ work-\/conserving:\ claimed}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00355}00355\ \textcolor{comment}{\ \ \ \ \ *\ but\ unused\ protection\ is\ available\ to\ siblings\ that\ would}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00356}00356\ \textcolor{comment}{\ \ \ \ \ *\ otherwise\ get\ a\ smaller\ chunk\ than\ what\ they\ claimed.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00357}00357\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00358}00358\ \ \ \ \ \textcolor{keywordflow}{if}\ (siblings\_protected\ >\ parent\_effective)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00359}00359\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{protected}\ *\ parent\_effective\ /\ siblings\_protected;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00360}00360\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00361}00361\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00362}00362\ \textcolor{comment}{\ \ \ \ \ *\ Ok,\ utilized\ protection\ of\ all\ children\ is\ within\ what\ the}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00363}00363\ \textcolor{comment}{\ \ \ \ \ *\ parent\ affords\ them,\ so\ we\ know\ whatever\ this\ child\ claims}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00364}00364\ \textcolor{comment}{\ \ \ \ \ *\ and\ utilizes\ is\ effectively\ protected.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00365}00365\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00366}00366\ \textcolor{comment}{\ \ \ \ \ *\ If\ there\ is\ unprotected\ usage\ beyond\ this\ value,\ reclaim}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00367}00367\ \textcolor{comment}{\ \ \ \ \ *\ will\ apply\ pressure\ in\ proportion\ to\ that\ amount.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00368}00368\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00369}00369\ \textcolor{comment}{\ \ \ \ \ *\ If\ there\ is\ unutilized\ protection,\ the\ cgroup\ will\ be\ fully}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00370}00370\ \textcolor{comment}{\ \ \ \ \ *\ shielded\ from\ reclaim,\ but\ we\ do\ return\ a\ smaller\ value\ for}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00371}00371\ \textcolor{comment}{\ \ \ \ \ *\ protection\ than\ what\ the\ group\ could\ enjoy\ in\ theory.\ This}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00372}00372\ \textcolor{comment}{\ \ \ \ \ *\ is\ okay.\ With\ the\ overcommit\ distribution\ above,\ effective}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00373}00373\ \textcolor{comment}{\ \ \ \ \ *\ protection\ is\ always\ dependent\ on\ how\ memory\ is\ actually}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00374}00374\ \textcolor{comment}{\ \ \ \ \ *\ consumed\ among\ the\ siblings\ anyway.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00375}00375\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00376}00376\ \ \ \ \ ep\ =\ \textcolor{keyword}{protected};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00378}00378\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00379}00379\ \textcolor{comment}{\ \ \ \ \ *\ If\ the\ children\ aren't\ claiming\ (all\ of)\ the\ protection}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00380}00380\ \textcolor{comment}{\ \ \ \ \ *\ afforded\ to\ them\ by\ the\ parent,\ distribute\ the\ remainder\ in}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00381}00381\ \textcolor{comment}{\ \ \ \ \ *\ proportion\ to\ the\ (unprotected)\ memory\ of\ each\ cgroup.\ That}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00382}00382\ \textcolor{comment}{\ \ \ \ \ *\ way,\ cgroups\ that\ aren't\ explicitly\ prioritized\ wrt\ each}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00383}00383\ \textcolor{comment}{\ \ \ \ \ *\ other\ compete\ freely\ over\ the\ allowance,\ but\ they\ are}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00384}00384\ \textcolor{comment}{\ \ \ \ \ *\ collectively\ protected\ from\ neighboring\ trees.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00385}00385\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00386}00386\ \textcolor{comment}{\ \ \ \ \ *\ We're\ using\ unprotected\ memory\ for\ the\ weight\ so\ that\ if}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00387}00387\ \textcolor{comment}{\ \ \ \ \ *\ some\ cgroups\ DO\ claim\ explicit\ protection,\ we\ don't\ protect}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00388}00388\ \textcolor{comment}{\ \ \ \ \ *\ the\ same\ bytes\ twice.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00389}00389\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00390}00390\ \textcolor{comment}{\ \ \ \ \ *\ Check\ both\ usage\ and\ parent\_usage\ against\ the\ respective}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00391}00391\ \textcolor{comment}{\ \ \ \ \ *\ protected\ values.\ One\ should\ imply\ the\ other,\ but\ they}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00392}00392\ \textcolor{comment}{\ \ \ \ \ *\ aren't\ read\ atomically\ -\/\ make\ sure\ the\ division\ is\ sane.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00393}00393\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00394}00394\ \ \ \ \ \textcolor{keywordflow}{if}\ (!recursive\_protection)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00395}00395\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ep;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00396}00396\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00397}00397\ \ \ \ \ \textcolor{keywordflow}{if}\ (parent\_effective\ >\ siblings\_protected\ \&\&}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00398}00398\ \ \ \ \ \ \ \ \ parent\_usage\ >\ siblings\_protected\ \&\&}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00399}00399\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}}\ >\ \textcolor{keyword}{protected})\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00400}00400\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ unclaimed;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00402}00402\ \ \ \ \ \ \ \ \ unclaimed\ =\ parent\_effective\ -\/\ siblings\_protected;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00403}00403\ \ \ \ \ \ \ \ \ unclaimed\ *=\ \doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}}\ -\/\ \textcolor{keyword}{protected};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00404}00404\ \ \ \ \ \ \ \ \ unclaimed\ /=\ parent\_usage\ -\/\ siblings\_protected;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00405}00405\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00406}00406\ \ \ \ \ \ \ \ \ ep\ +=\ unclaimed;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00407}00407\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00408}00408\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00409}00409\ \ \ \ \ \textcolor{keywordflow}{return}\ ep;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00410}00410\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00411}00411\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00412}00412\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00424}00424\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__counter_8h_afa131c970ef44b64477d4cfd3acf5dc3}{page\_counter\_calculate\_protection}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *root,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00425}00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *counter,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00426}00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ recursive\_protection)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00427}00427\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00428}00428\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}},\ parent\_usage;}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00429}00429\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structpage__counter}{page\_counter}}\ *\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}}\ =\ counter-\/>\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00430}00430\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00431}00431\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00432}00432\ \textcolor{comment}{\ \ \ \ \ *\ Effective\ values\ of\ the\ reclaim\ targets\ are\ ignored\ so\ they}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00433}00433\ \textcolor{comment}{\ \ \ \ \ *\ can\ be\ stale.\ Have\ a\ look\ at\ mem\_cgroup\_protection\ for\ more}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00434}00434\ \textcolor{comment}{\ \ \ \ \ *\ details.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00435}00435\ \textcolor{comment}{\ \ \ \ \ *\ TODO:\ calculation\ should\ be\ more\ robust\ so\ that\ we\ do\ not\ need}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00436}00436\ \textcolor{comment}{\ \ \ \ \ *\ that\ special\ casing.}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00437}00437\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00438}00438\ \ \ \ \ \textcolor{keywordflow}{if}\ (root\ ==\ counter)}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00439}00439\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00440}00440\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00441}00441\ \ \ \ \ \doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}}\ =\ \doxymbox{\hyperlink{page__counter_8h_aeab047e794f1b4789052dbff25e6dc83}{page\_counter\_read}}(counter);}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00442}00442\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}})}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00443}00443\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00445}00445\ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}}\ ==\ root)\ \{}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00446}00446\ \ \ \ \ \ \ \ \ counter-\/>\doxymbox{\hyperlink{structpage__counter_aa8a4687d4641235cd274e7bf3d361cbe}{emin}}\ =\ READ\_ONCE(counter-\/>\doxymbox{\hyperlink{structpage__counter_a7ab26b4bb8412bfa062b0067dee81c19}{min}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00447}00447\ \ \ \ \ \ \ \ \ counter-\/>\doxymbox{\hyperlink{structpage__counter_ac2d0221f54401660560ba120c0336e41}{elow}}\ =\ READ\_ONCE(counter-\/>\doxymbox{\hyperlink{structpage__counter_aea0abbe53e5f2139f406cd896740612f}{low}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00448}00448\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00449}00449\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00450}00450\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00451}00451\ \ \ \ \ parent\_usage\ =\ \doxymbox{\hyperlink{page__counter_8h_aeab047e794f1b4789052dbff25e6dc83}{page\_counter\_read}}(\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}});}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00452}00452\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00453}00453\ \ \ \ \ WRITE\_ONCE(counter-\/>\doxymbox{\hyperlink{structpage__counter_aa8a4687d4641235cd274e7bf3d361cbe}{emin}},\ effective\_protection(\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}},\ parent\_usage,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00454}00454\ \ \ \ \ \ \ \ \ \ \ \ \ READ\_ONCE(counter-\/>\doxymbox{\hyperlink{structpage__counter_a7ab26b4bb8412bfa062b0067dee81c19}{min}}),}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00455}00455\ \ \ \ \ \ \ \ \ \ \ \ \ READ\_ONCE(\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}}-\/>\doxymbox{\hyperlink{structpage__counter_aa8a4687d4641235cd274e7bf3d361cbe}{emin}}),}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00456}00456\ \ \ \ \ \ \ \ \ \ \ \ \ atomic\_long\_read(\&\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}}-\/>\doxymbox{\hyperlink{structpage__counter_a87f2a0f40922dda224247db41b2b65fd}{children\_min\_usage}}),}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00457}00457\ \ \ \ \ \ \ \ \ \ \ \ \ recursive\_protection));}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00458}00458\ }
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00459}00459\ \ \ \ \ WRITE\_ONCE(counter-\/>\doxymbox{\hyperlink{structpage__counter_ac2d0221f54401660560ba120c0336e41}{elow}},\ effective\_protection(\doxymbox{\hyperlink{structpage__counter_a395fb5b0272f124bd168cfbc33696e7f}{usage}},\ parent\_usage,}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ READ\_ONCE(counter-\/>\doxymbox{\hyperlink{structpage__counter_aea0abbe53e5f2139f406cd896740612f}{low}}),}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00461}00461\ \ \ \ \ \ \ \ \ \ \ \ \ READ\_ONCE(\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}}-\/>\doxymbox{\hyperlink{structpage__counter_ac2d0221f54401660560ba120c0336e41}{elow}}),}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ \ \ atomic\_long\_read(\&\doxymbox{\hyperlink{structpage__counter_aee53c50c607bddbfbafb7aab9f3ff2f5}{parent}}-\/>\doxymbox{\hyperlink{structpage__counter_a0dde0d3b8550ffdfdf6ecba962da204e}{children\_low\_usage}}),}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00463}00463\ \ \ \ \ \ \ \ \ \ \ \ \ recursive\_protection));}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00464}00464\ \}}
+\DoxyCodeLine{\Hypertarget{page__counter_8c_source_l00465}00465\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_MEMCG\ ||\ CONFIG\_CGROUP\_DMEM\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

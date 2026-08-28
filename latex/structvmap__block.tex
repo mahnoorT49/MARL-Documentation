@@ -1,0 +1,173 @@
+\doxysection{vmap\+\_\+block Struct Reference}
+\hypertarget{structvmap__block}{}\label{structvmap__block}\index{vmap\_block@{vmap\_block}}
+
+
+Collaboration diagram for vmap\+\_\+block:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=187pt]{structvmap__block__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{structvmap__block_a6bab6a383b570193723c039ec67189db}{DECLARE\+\_\+\+BITMAP}} (used\+\_\+map,((1024)$<$((((BITS\+\_\+\+PER\+\_\+\+LONG \texorpdfstring{$\ast$}{*}2)) $>$(((128UL \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024)/\+PAGE\+\_\+\+SIZE)/\+roundup\+\_\+pow\+\_\+of\+\_\+two(NR\+\_\+\+CPUS)/\+16) ?((BITS\+\_\+\+PER\+\_\+\+LONG \texorpdfstring{$\ast$}{*}2)) :\+(((128UL \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024)/\+PAGE\+\_\+\+SIZE)/\+roundup\+\_\+pow\+\_\+of\+\_\+two(NR\+\_\+\+CPUS)/\+16))) ?(1024) :\+((((BITS\+\_\+\+PER\+\_\+\+LONG \texorpdfstring{$\ast$}{*}2)) $>$(((128UL \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024)/\+PAGE\+\_\+\+SIZE)/\+roundup\+\_\+pow\+\_\+of\+\_\+two(NR\+\_\+\+CPUS)/\+16) ?((BITS\+\_\+\+PER\+\_\+\+LONG \texorpdfstring{$\ast$}{*}2)) :\+(((128UL \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024)/\+PAGE\+\_\+\+SIZE)/\+roundup\+\_\+pow\+\_\+of\+\_\+two(NR\+\_\+\+CPUS)/\+16)))))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+spinlock\+\_\+t \doxymbox{\hyperlink{structvmap__block_a91428aaebcb519a082ca1577c653397a}{lock}}
+\item 
+struct \doxymbox{\hyperlink{structvmap__area}{vmap\+\_\+area}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structvmap__block_ae825e6a77a5f542879cb0e46e37145a1}{va}}
+\item 
+unsigned long \doxymbox{\hyperlink{structvmap__block_a951945b79431ea05f4242eebb58188e6}{free}}
+\item 
+unsigned long \doxymbox{\hyperlink{structvmap__block_a809737b5cf3cf30645b10519a53ed31a}{dirty}}
+\item 
+unsigned long \doxymbox{\hyperlink{structvmap__block_ac89330845988da19a4d90ce092a85627}{dirty\+\_\+min}}
+\item 
+unsigned long \doxymbox{\hyperlink{structvmap__block_a359f560bace151dc29576614d8cdad18}{dirty\+\_\+max}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structvmap__block_a4e262e88c0b935f2ee78366b04e041c3}{free\+\_\+list}}
+\item 
+struct rcu\+\_\+head \doxymbox{\hyperlink{structvmap__block_a2fe47fc2011b536044f0c821394b43ff}{rcu\+\_\+head}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structvmap__block_ac1a54cd5950ce62cf4f5e9f33c07b324}{purge}}
+\item 
+unsigned int \doxymbox{\hyperlink{structvmap__block_abb4322ceff63ad53f62b2a7a98eba198}{cpu}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct Description:\+ This structure represents a block of virtual memory used by \doxylink{vmalloc_8h_acd02620225f5b290f8935dbc1e45b18e}{vm\+\_\+map\+\_\+ram()}. It contains the \doxylink{structvmap__area}{vmap\+\_\+area}, a bitmap of used pages, free/\+dirty counters, dirty range, list linkage, and CPU affinity. It is used to manage small allocations within a larger VMAP\+\_\+\+BLOCK\+\_\+\+SIZE region. 
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02905}{2905}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+
+
+\label{structvmap__block_doc-func-members}
+\Hypertarget{structvmap__block_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structvmap__block_a6bab6a383b570193723c039ec67189db}\index{vmap\_block@{vmap\_block}!DECLARE\_BITMAP@{DECLARE\_BITMAP}}
+\index{DECLARE\_BITMAP@{DECLARE\_BITMAP}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{DECLARE\_BITMAP()}{DECLARE\_BITMAP()}}
+{\footnotesize\ttfamily \label{structvmap__block_a6bab6a383b570193723c039ec67189db} 
+vmap\+\_\+block::\+\+DECLARE\+\_\+\+BITMAP (\begin{DoxyParamCaption}\item[{used\+\_\+map}]{}{, }\item[{((1024)$<$((((BITS\+\_\+\+PER\+\_\+\+LONG \texorpdfstring{$\ast$}{*}2)) $>$(((128UL \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024)/\+PAGE\+\_\+\+SIZE)/\+roundup\+\_\+pow\+\_\+of\+\_\+two(NR\+\_\+\+CPUS)/\+16) ?((BITS\+\_\+\+PER\+\_\+\+LONG \texorpdfstring{$\ast$}{*}2)) :\+(((128UL \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024)/\+PAGE\+\_\+\+SIZE)/\+roundup\+\_\+pow\+\_\+of\+\_\+two(NR\+\_\+\+CPUS)/\+16))) ?(1024) :\+((((BITS\+\_\+\+PER\+\_\+\+LONG \texorpdfstring{$\ast$}{*}2)) $>$(((128UL \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024)/\+PAGE\+\_\+\+SIZE)/\+roundup\+\_\+pow\+\_\+of\+\_\+two(NR\+\_\+\+CPUS)/\+16) ?((BITS\+\_\+\+PER\+\_\+\+LONG \texorpdfstring{$\ast$}{*}2)) :\+(((128UL \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024 \texorpdfstring{$\ast$}{*}1024)/\+PAGE\+\_\+\+SIZE)/\+roundup\+\_\+pow\+\_\+of\+\_\+two(NR\+\_\+\+CPUS)/\+16))))}]{}{}\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em -\/} & can\textquotesingle{}t use min() \\
+\hline
+\end{DoxyParams}
+
+
+\label{structvmap__block_doc-variable-members}
+\Hypertarget{structvmap__block_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structvmap__block_abb4322ceff63ad53f62b2a7a98eba198}\index{vmap\_block@{vmap\_block}!cpu@{cpu}}
+\index{cpu@{cpu}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{cpu}{cpu}}
+{\footnotesize\ttfamily \label{structvmap__block_abb4322ceff63ad53f62b2a7a98eba198} 
+unsigned int vmap\+\_\+block::\+cpu}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02914}{2914}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block_a809737b5cf3cf30645b10519a53ed31a}\index{vmap\_block@{vmap\_block}!dirty@{dirty}}
+\index{dirty@{dirty}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{dirty}{dirty}}
+{\footnotesize\ttfamily \label{structvmap__block_a809737b5cf3cf30645b10519a53ed31a} 
+unsigned long vmap\+\_\+block::\+dirty}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02908}{2908}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block_a359f560bace151dc29576614d8cdad18}\index{vmap\_block@{vmap\_block}!dirty\_max@{dirty\_max}}
+\index{dirty\_max@{dirty\_max}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{dirty\_max}{dirty\_max}}
+{\footnotesize\ttfamily \label{structvmap__block_a359f560bace151dc29576614d8cdad18} 
+unsigned long vmap\+\_\+block::\+dirty\+\_\+max}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02910}{2910}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block_ac89330845988da19a4d90ce092a85627}\index{vmap\_block@{vmap\_block}!dirty\_min@{dirty\_min}}
+\index{dirty\_min@{dirty\_min}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{dirty\_min}{dirty\_min}}
+{\footnotesize\ttfamily \label{structvmap__block_ac89330845988da19a4d90ce092a85627} 
+unsigned long vmap\+\_\+block::\+dirty\+\_\+min}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02910}{2910}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block_a951945b79431ea05f4242eebb58188e6}\index{vmap\_block@{vmap\_block}!free@{free}}
+\index{free@{free}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{free}{free}}
+{\footnotesize\ttfamily \label{structvmap__block_a951945b79431ea05f4242eebb58188e6} 
+unsigned long vmap\+\_\+block::\+free}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02908}{2908}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block_a4e262e88c0b935f2ee78366b04e041c3}\index{vmap\_block@{vmap\_block}!free\_list@{free\_list}}
+\index{free\_list@{free\_list}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{free\_list}{free\_list}}
+{\footnotesize\ttfamily \label{structvmap__block_a4e262e88c0b935f2ee78366b04e041c3} 
+struct list\+\_\+head vmap\+\_\+block::\+free\+\_\+list}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02911}{2911}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block_a91428aaebcb519a082ca1577c653397a}\index{vmap\_block@{vmap\_block}!lock@{lock}}
+\index{lock@{lock}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily \label{structvmap__block_a91428aaebcb519a082ca1577c653397a} 
+spinlock\+\_\+t vmap\+\_\+block::\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02906}{2906}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block_ac1a54cd5950ce62cf4f5e9f33c07b324}\index{vmap\_block@{vmap\_block}!purge@{purge}}
+\index{purge@{purge}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{purge}{purge}}
+{\footnotesize\ttfamily \label{structvmap__block_ac1a54cd5950ce62cf4f5e9f33c07b324} 
+struct list\+\_\+head vmap\+\_\+block::\+purge}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02913}{2913}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block_a2fe47fc2011b536044f0c821394b43ff}\index{vmap\_block@{vmap\_block}!rcu\_head@{rcu\_head}}
+\index{rcu\_head@{rcu\_head}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{rcu\_head}{rcu\_head}}
+{\footnotesize\ttfamily \label{structvmap__block_a2fe47fc2011b536044f0c821394b43ff} 
+struct rcu\+\_\+head vmap\+\_\+block::\+rcu\+\_\+head}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02912}{2912}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+\Hypertarget{structvmap__block_ae825e6a77a5f542879cb0e46e37145a1}\index{vmap\_block@{vmap\_block}!va@{va}}
+\index{va@{va}!vmap\_block@{vmap\_block}}
+\doxysubsubsection{\texorpdfstring{va}{va}}
+{\footnotesize\ttfamily \label{structvmap__block_ae825e6a77a5f542879cb0e46e37145a1} 
+struct \doxymbox{\hyperlink{structvmap__area}{vmap\+\_\+area}}\texorpdfstring{$\ast$}{*} vmap\+\_\+block::\+va}
+
+
+
+Definition at line \doxymbox{\hyperlink{vmalloc_8c_source_l02907}{2907}} of file \doxymbox{\hyperlink{vmalloc_8c_source}{vmalloc.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{vmalloc_8c}{vmalloc.\+c}}\end{DoxyCompactItemize}

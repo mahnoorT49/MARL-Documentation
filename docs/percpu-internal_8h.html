@@ -140,6 +140,23 @@ Classes</h2></td></tr>
 <tr class="memitem:pcpuobj_5Fext" id="r_pcpuobj_5Fext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structpcpuobj__ext.html">pcpuobj_ext</a></td></tr>
 <tr class="memitem:pcpu_5Fchunk" id="r_pcpu_5Fchunk"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structpcpu__chunk.html">pcpu_chunk</a></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:acd134ce0ffb13bbc9910d5486ad323f9" id="r_acd134ce0ffb13bbc9910d5486ad323f9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#acd134ce0ffb13bbc9910d5486ad323f9">NEED_PCPUOBJ_EXT</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a8dedeb5db00f0c883e4f3753e4342920" id="r_a8dedeb5db00f0c883e4f3753e4342920"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a8dedeb5db00f0c883e4f3753e4342920">need_pcpuobj_ext</a> (void)</td></tr>
+<tr class="memitem:adafc7ba5a7e9d502ae222b053efeffc0" id="r_adafc7ba5a7e9d502ae222b053efeffc0"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#adafc7ba5a7e9d502ae222b053efeffc0">pcpu_chunk_nr_blocks</a> (struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *chunk)</td></tr>
+<tr class="memitem:a3a3bdb346903f20a8eebbeee7ffc0453" id="r_a3a3bdb346903f20a8eebbeee7ffc0453"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a3a3bdb346903f20a8eebbeee7ffc0453">pcpu_nr_pages_to_map_bits</a> (int pages)</td></tr>
+<tr class="memitem:a17d09274f26c6cc1315b85c3bddef6d4" id="r_a17d09274f26c6cc1315b85c3bddef6d4"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a17d09274f26c6cc1315b85c3bddef6d4">pcpu_chunk_map_bits</a> (struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *chunk)</td></tr>
+<tr class="memitem:a293e01124fc592ddcf8923886d9b7ab7" id="r_a293e01124fc592ddcf8923886d9b7ab7"><td class="memItemLeft">static size_t&#160;</td><td class="memItemRight"><a class="el" href="#a293e01124fc592ddcf8923886d9b7ab7">pcpu_obj_full_size</a> (size_t size)</td></tr>
+<tr class="memitem:a78cc799a02e39ebf601d15b9e06c1b70" id="r_a78cc799a02e39ebf601d15b9e06c1b70"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a78cc799a02e39ebf601d15b9e06c1b70">pcpu_stats_save_ai</a> (const struct pcpu_alloc_info *ai)</td></tr>
+<tr class="memitem:a9d576d4db9874ae2cf02fd03bd45d4d9" id="r_a9d576d4db9874ae2cf02fd03bd45d4d9"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a9d576d4db9874ae2cf02fd03bd45d4d9">pcpu_stats_area_alloc</a> (struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *chunk, size_t size)</td></tr>
+<tr class="memitem:ab5b672bd5f1a3e5872d8aa4381731653" id="r_ab5b672bd5f1a3e5872d8aa4381731653"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ab5b672bd5f1a3e5872d8aa4381731653">pcpu_stats_area_dealloc</a> (struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *chunk)</td></tr>
+<tr class="memitem:af6ef92d0b8e083d78995cfd1c0fe692f" id="r_af6ef92d0b8e083d78995cfd1c0fe692f"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#af6ef92d0b8e083d78995cfd1c0fe692f">pcpu_stats_chunk_alloc</a> (void)</td></tr>
+<tr class="memitem:a7b6c83c8a242310afdfe33acb6a4f840" id="r_a7b6c83c8a242310afdfe33acb6a4f840"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a7b6c83c8a242310afdfe33acb6a4f840">pcpu_stats_chunk_dealloc</a> (void)</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a2a1cf830a7c9565efd0cdf6aec83064b" id="r_a2a1cf830a7c9565efd0cdf6aec83064b"><td class="memItemLeft">spinlock_t&#160;</td><td class="memItemRight"><a class="el" href="#a2a1cf830a7c9565efd0cdf6aec83064b">pcpu_lock</a></td></tr>
@@ -151,6 +168,407 @@ Variables</h2></td></tr>
 <tr class="memitem:aae2bd63bf6f5fc01978a82dbbe6b0dc0" id="r_aae2bd63bf6f5fc01978a82dbbe6b0dc0"><td class="memItemLeft">struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aae2bd63bf6f5fc01978a82dbbe6b0dc0">pcpu_first_chunk</a></td></tr>
 <tr class="memitem:a6c825d62cbaa0b11364dfb342c76c9ad" id="r_a6c825d62cbaa0b11364dfb342c76c9ad"><td class="memItemLeft">struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6c825d62cbaa0b11364dfb342c76c9ad">pcpu_reserved_chunk</a></td></tr>
 </table>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="acd134ce0ffb13bbc9910d5486ad323f9" name="acd134ce0ffb13bbc9910d5486ad323f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd134ce0ffb13bbc9910d5486ad323f9">&#9670;&#160;</a></span>NEED_PCPUOBJ_EXT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NEED_PCPUOBJ_EXT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00045">45</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a8dedeb5db00f0c883e4f3753e4342920" name="a8dedeb5db00f0c883e4f3753e4342920"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dedeb5db00f0c883e4f3753e4342920">&#9670;&#160;</a></span>need_pcpuobj_ext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool need_pcpuobj_ext </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00090">90</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   91</span>{</div>
+<div class="line"><span class="lineno">   92</span>    <span class="keywordflow">if</span> (IS_ENABLED(CONFIG_MEM_ALLOC_PROFILING))</div>
+<div class="line"><span class="lineno">   93</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   94</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="memcontrol_8h.html#a86ddc15eaf30f9ffbef6b15a219a0d93">mem_cgroup_kmem_disabled</a>())</div>
+<div class="line"><span class="lineno">   95</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">   96</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   97</span>}</div>
+<div class="ttc" id="amemcontrol_8h_html_a86ddc15eaf30f9ffbef6b15a219a0d93"><div class="ttname"><a href="memcontrol_8h.html#a86ddc15eaf30f9ffbef6b15a219a0d93">mem_cgroup_kmem_disabled</a></div><div class="ttdeci">bool mem_cgroup_kmem_disabled(void)</div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8c_source.html#l00133">memcontrol.c:133</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_a8dedeb5db00f0c883e4f3753e4342920_cgraph.svg" width="380" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_a8dedeb5db00f0c883e4f3753e4342920_icgraph.svg" width="311" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a17d09274f26c6cc1315b85c3bddef6d4" name="a17d09274f26c6cc1315b85c3bddef6d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17d09274f26c6cc1315b85c3bddef6d4">&#9670;&#160;</a></span>pcpu_chunk_map_bits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pcpu_chunk_map_bits </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>pcpu_chunk_map_bits - helper to convert nr_pages to size of bitmap @chunk: chunk of interest</p>
+<p>This conversion is from the number of physical pages that the chunk serves to the number of bits in the bitmap. </p>
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00141">141</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  142</span>{</div>
+<div class="line"><span class="lineno">  143</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a3a3bdb346903f20a8eebbeee7ffc0453">pcpu_nr_pages_to_map_bits</a>(chunk-&gt;<a class="code hl_variable" href="structpcpu__chunk.html#a8893c6464be390c900839dd6a4158ef6">nr_pages</a>);</div>
+<div class="line"><span class="lineno">  144</span>}</div>
+<div class="ttc" id="apercpu-internal_8h_html_a3a3bdb346903f20a8eebbeee7ffc0453"><div class="ttname"><a href="#a3a3bdb346903f20a8eebbeee7ffc0453">pcpu_nr_pages_to_map_bits</a></div><div class="ttdeci">static int pcpu_nr_pages_to_map_bits(int pages)</div><div class="ttdef"><b>Definition</b> <a href="percpu-internal_8h_source.html#l00129">percpu-internal.h:129</a></div></div>
+<div class="ttc" id="astructpcpu__chunk_html_a8893c6464be390c900839dd6a4158ef6"><div class="ttname"><a href="structpcpu__chunk.html#a8893c6464be390c900839dd6a4158ef6">pcpu_chunk::nr_pages</a></div><div class="ttdeci">int nr_pages</div><div class="ttdef"><b>Definition</b> <a href="percpu-internal_8h_source.html#l00084">percpu-internal.h:84</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_a17d09274f26c6cc1315b85c3bddef6d4_cgraph.svg" width="398" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_a17d09274f26c6cc1315b85c3bddef6d4_icgraph.svg" width="1830" height="632"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="adafc7ba5a7e9d502ae222b053efeffc0" name="adafc7ba5a7e9d502ae222b053efeffc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adafc7ba5a7e9d502ae222b053efeffc0">&#9670;&#160;</a></span>pcpu_chunk_nr_blocks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pcpu_chunk_nr_blocks </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>pcpu_chunk_nr_blocks - converts nr_pages to # of md_blocks @chunk: chunk of interest</p>
+<p>This conversion is from the number of physical pages that the chunk serves to the number of bitmap blocks used. </p>
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00117">117</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  118</span>{</div>
+<div class="line"><span class="lineno">  119</span>    <span class="keywordflow">return</span> chunk-&gt;<a class="code hl_variable" href="structpcpu__chunk.html#a8893c6464be390c900839dd6a4158ef6">nr_pages</a> * PAGE_SIZE / PCPU_BITMAP_BLOCK_SIZE;</div>
+<div class="line"><span class="lineno">  120</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_adafc7ba5a7e9d502ae222b053efeffc0_icgraph.svg" width="1208" height="227"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3a3bdb346903f20a8eebbeee7ffc0453" name="a3a3bdb346903f20a8eebbeee7ffc0453"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a3bdb346903f20a8eebbeee7ffc0453">&#9670;&#160;</a></span>pcpu_nr_pages_to_map_bits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pcpu_nr_pages_to_map_bits </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pages</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>pcpu_nr_pages_to_map_bits - converts the pages to size of bitmap @pages: number of physical pages</p>
+<p>This conversion is from physical pages to the number of bits required in the bitmap. </p>
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00129">129</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  130</span>{</div>
+<div class="line"><span class="lineno">  131</span>    <span class="keywordflow">return</span> pages * PAGE_SIZE / PCPU_MIN_ALLOC_SIZE;</div>
+<div class="line"><span class="lineno">  132</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_a3a3bdb346903f20a8eebbeee7ffc0453_icgraph.svg" width="2066" height="632"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a293e01124fc592ddcf8923886d9b7ab7" name="a293e01124fc592ddcf8923886d9b7ab7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a293e01124fc592ddcf8923886d9b7ab7">&#9670;&#160;</a></span>pcpu_obj_full_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t pcpu_obj_full_size </td>
+          <td>(</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>pcpu_obj_full_size - helper to calculate size of each accounted object @size: size of area to allocate in bytes</p>
+<p>For each accounted object there is an extra space which is used to store <a class="el" href="structobj__cgroup.html">obj_cgroup</a> membership if kmemcg is not disabled. Charge it too. </p>
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00153">153</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  154</span>{</div>
+<div class="line"><span class="lineno">  155</span>    <span class="keywordtype">size_t</span> extra_size = 0;</div>
+<div class="line"><span class="lineno">  156</span> </div>
+<div class="line"><span class="lineno">  157</span><span class="preprocessor">#ifdef CONFIG_MEMCG</span></div>
+<div class="line"><span class="lineno">  158</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="memcontrol_8h.html#a86ddc15eaf30f9ffbef6b15a219a0d93">mem_cgroup_kmem_disabled</a>())</div>
+<div class="line"><span class="lineno">  159</span>        extra_size += <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> / PCPU_MIN_ALLOC_SIZE * <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structobj__cgroup.html">obj_cgroup</a> *);</div>
+<div class="line"><span class="lineno">  160</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  161</span> </div>
+<div class="line"><span class="lineno">  162</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> * num_possible_cpus() + extra_size;</div>
+<div class="line"><span class="lineno">  163</span>}</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_af6ef73962e335cb2dfc15144f11215ba"><div class="ttname"><a href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a></div><div class="ttdeci">static size_t size</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01189">slab.h:1189</a></div></div>
+<div class="ttc" id="astructobj__cgroup_html"><div class="ttname"><a href="structobj__cgroup.html">obj_cgroup</a></div><div class="ttdef"><b>Definition</b> <a href="memcontrol_8h_source.html#l00211">memcontrol.h:211</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_a293e01124fc592ddcf8923886d9b7ab7_cgraph.svg" width="382" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_a293e01124fc592ddcf8923886d9b7ab7_icgraph.svg" width="2275" height="588"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9d576d4db9874ae2cf02fd03bd45d4d9" name="a9d576d4db9874ae2cf02fd03bd45d4d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d576d4db9874ae2cf02fd03bd45d4d9">&#9670;&#160;</a></span>pcpu_stats_area_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pcpu_stats_area_alloc </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00270">270</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  271</span>{</div>
+<div class="line"><span class="lineno">  272</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_a9d576d4db9874ae2cf02fd03bd45d4d9_icgraph.svg" width="555" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab5b672bd5f1a3e5872d8aa4381731653" name="ab5b672bd5f1a3e5872d8aa4381731653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5b672bd5f1a3e5872d8aa4381731653">&#9670;&#160;</a></span>pcpu_stats_area_dealloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pcpu_stats_area_dealloc </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpcpu__chunk.html">pcpu_chunk</a> *</td>          <td class="paramname"><span class="paramname"><em>chunk</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00274">274</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  275</span>{</div>
+<div class="line"><span class="lineno">  276</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_ab5b672bd5f1a3e5872d8aa4381731653_icgraph.svg" width="2231" height="690"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af6ef92d0b8e083d78995cfd1c0fe692f" name="af6ef92d0b8e083d78995cfd1c0fe692f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6ef92d0b8e083d78995cfd1c0fe692f">&#9670;&#160;</a></span>pcpu_stats_chunk_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pcpu_stats_chunk_alloc </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00278">278</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  279</span>{</div>
+<div class="line"><span class="lineno">  280</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_af6ef92d0b8e083d78995cfd1c0fe692f_icgraph.svg" width="787" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a7b6c83c8a242310afdfe33acb6a4f840" name="a7b6c83c8a242310afdfe33acb6a4f840"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b6c83c8a242310afdfe33acb6a4f840">&#9670;&#160;</a></span>pcpu_stats_chunk_dealloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pcpu_stats_chunk_dealloc </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00282">282</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  283</span>{</div>
+<div class="line"><span class="lineno">  284</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a78cc799a02e39ebf601d15b9e06c1b70" name="a78cc799a02e39ebf601d15b9e06c1b70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78cc799a02e39ebf601d15b9e06c1b70">&#9670;&#160;</a></span>pcpu_stats_save_ai()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pcpu_stats_save_ai </td>
+          <td>(</td>
+          <td class="paramtype">const struct pcpu_alloc_info *</td>          <td class="paramname"><span class="paramname"><em>ai</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="percpu-internal_8h_source.html#l00266">266</a> of file <a class="el" href="percpu-internal_8h_source.html">percpu-internal.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  267</span>{</div>
+<div class="line"><span class="lineno">  268</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="percpu-internal_8h_a78cc799a02e39ebf601d15b9e06c1b70_icgraph.svg" width="763" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
 <a id="a6ec456c1e9b8592dd8bee3f82c264ebe" name="a6ec456c1e9b8592dd8bee3f82c264ebe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6ec456c1e9b8592dd8bee3f82c264ebe">&#9670;&#160;</a></span>pcpu_chunk_lists</h2>
@@ -237,6 +655,8 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="percpu_8c_source.html#l00180">180</a> of file <a class="el" href="percpu_8c_source.html">percpu.c</a>.</p>
 
 </div>
 </div>

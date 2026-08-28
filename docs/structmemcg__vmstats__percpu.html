@@ -129,37 +129,44 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab72f853abc1d79a2d80194c562b9812c" id="r_ab72f853abc1d79a2d80194c562b9812c"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#ab72f853abc1d79a2d80194c562b9812c">stats_updates</a></td></tr>
 <tr class="memitem:ad017ddbb0b53e759d0ef7cd267b64c95" id="r_ad017ddbb0b53e759d0ef7cd267b64c95"><td class="memItemLeft">struct <a class="el" href="structmemcg__vmstats__percpu.html">memcg_vmstats_percpu</a> __percpu *&#160;</td><td class="memItemRight"><a class="el" href="#ad017ddbb0b53e759d0ef7cd267b64c95">parent_pcpu</a></td></tr>
 <tr class="memitem:acdaa576d6a110c66db01149fb7948075" id="r_acdaa576d6a110c66db01149fb7948075"><td class="memItemLeft">struct <a class="el" href="structmemcg__vmstats.html">memcg_vmstats</a> *&#160;</td><td class="memItemRight"><a class="el" href="#acdaa576d6a110c66db01149fb7948075">vmstats</a></td></tr>
-<tr class="memitem:a55dbdc920ee8d95bf1c46017fc3b0a99" id="r_a55dbdc920ee8d95bf1c46017fc3b0a99"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#a55dbdc920ee8d95bf1c46017fc3b0a99">state</a> [<a class="el" href="memcontrol_8c.html#aa2c77ca1fcfc9bde93d3a61656db7ed0">MEMCG_VMSTAT_SIZE</a>]</td></tr>
-<tr class="memitem:a7a2c7866fed48cdeb200f9f5ec2fa6b6" id="r_a7a2c7866fed48cdeb200f9f5ec2fa6b6"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a7a2c7866fed48cdeb200f9f5ec2fa6b6">events</a> [<a class="el" href="memcontrol_8c.html#af6d63db3e22d730426378dfb0fcc0368">NR_MEMCG_EVENTS</a>]</td></tr>
-<tr class="memitem:a91af4432844493557fd7e6bbfa39d415" id="r_a91af4432844493557fd7e6bbfa39d415"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#a91af4432844493557fd7e6bbfa39d415">state_prev</a> [<a class="el" href="memcontrol_8c.html#aa2c77ca1fcfc9bde93d3a61656db7ed0">MEMCG_VMSTAT_SIZE</a>]</td></tr>
-<tr class="memitem:a58c7f983248a585ac17be38b5f6444eb" id="r_a58c7f983248a585ac17be38b5f6444eb"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a58c7f983248a585ac17be38b5f6444eb">events_prev</a> [<a class="el" href="memcontrol_8c.html#af6d63db3e22d730426378dfb0fcc0368">NR_MEMCG_EVENTS</a>]</td></tr>
+<tr class="memitem:a728cfa3574f678907df58551552bfbed" id="r_a728cfa3574f678907df58551552bfbed"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#a728cfa3574f678907df58551552bfbed">state</a> [(ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)+ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#aba526a339a78aeb7189d08017c6358fb">memcg_stat_items</a>))]</td></tr>
+<tr class="memitem:a82a974745cc1f93645d98a7a73346311" id="r_a82a974745cc1f93645d98a7a73346311"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a82a974745cc1f93645d98a7a73346311">events</a> [ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#ab1626260f52ba84d41f1a7788e386788">memcg_vm_event_stat</a>)]</td></tr>
+<tr class="memitem:a5752f7927efeeb7e944f9f3b8c800f26" id="r_a5752f7927efeeb7e944f9f3b8c800f26"><td class="memItemLeft">long&#160;</td><td class="memItemRight"><a class="el" href="#a5752f7927efeeb7e944f9f3b8c800f26">state_prev</a> [(ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)+ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#aba526a339a78aeb7189d08017c6358fb">memcg_stat_items</a>))]</td></tr>
+<tr class="memitem:a24cf227187edf091fda7abbc638e6ed9" id="r_a24cf227187edf091fda7abbc638e6ed9"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a24cf227187edf091fda7abbc638e6ed9">events_prev</a> [ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#ab1626260f52ba84d41f1a7788e386788">memcg_vm_event_stat</a>)]</td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a7a2c7866fed48cdeb200f9f5ec2fa6b6" name="a7a2c7866fed48cdeb200f9f5ec2fa6b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a2c7866fed48cdeb200f9f5ec2fa6b6">&#9670;&#160;</a></span>events</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00504">504</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a82a974745cc1f93645d98a7a73346311" name="a82a974745cc1f93645d98a7a73346311"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82a974745cc1f93645d98a7a73346311">&#9670;&#160;</a></span>events</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned long memcg_vmstats_percpu::events[<a class="el" href="memcontrol_8c.html#af6d63db3e22d730426378dfb0fcc0368">NR_MEMCG_EVENTS</a>]</td>
+          <td class="memname">unsigned long memcg_vmstats_percpu::events[ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#ab1626260f52ba84d41f1a7788e386788">memcg_vm_event_stat</a>)]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00516">516</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
-<a id="a58c7f983248a585ac17be38b5f6444eb" name="a58c7f983248a585ac17be38b5f6444eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58c7f983248a585ac17be38b5f6444eb">&#9670;&#160;</a></span>events_prev</h2>
+<a id="a24cf227187edf091fda7abbc638e6ed9" name="a24cf227187edf091fda7abbc638e6ed9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24cf227187edf091fda7abbc638e6ed9">&#9670;&#160;</a></span>events_prev</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned long memcg_vmstats_percpu::events_prev[<a class="el" href="memcontrol_8c.html#af6d63db3e22d730426378dfb0fcc0368">NR_MEMCG_EVENTS</a>]</td>
+          <td class="memname">unsigned long memcg_vmstats_percpu::events_prev[ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#ab1626260f52ba84d41f1a7788e386788">memcg_vm_event_stat</a>)]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00520">520</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
 
 </div>
 </div>
@@ -175,33 +182,39 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00509">509</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
-<a id="a55dbdc920ee8d95bf1c46017fc3b0a99" name="a55dbdc920ee8d95bf1c46017fc3b0a99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55dbdc920ee8d95bf1c46017fc3b0a99">&#9670;&#160;</a></span>state</h2>
+<a id="a728cfa3574f678907df58551552bfbed" name="a728cfa3574f678907df58551552bfbed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a728cfa3574f678907df58551552bfbed">&#9670;&#160;</a></span>state</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long memcg_vmstats_percpu::state[<a class="el" href="memcontrol_8c.html#aa2c77ca1fcfc9bde93d3a61656db7ed0">MEMCG_VMSTAT_SIZE</a>]</td>
+          <td class="memname">long memcg_vmstats_percpu::state[(ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)+ ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#aba526a339a78aeb7189d08017c6358fb">memcg_stat_items</a>))]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00515">515</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
-<a id="a91af4432844493557fd7e6bbfa39d415" name="a91af4432844493557fd7e6bbfa39d415"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91af4432844493557fd7e6bbfa39d415">&#9670;&#160;</a></span>state_prev</h2>
+<a id="a5752f7927efeeb7e944f9f3b8c800f26" name="a5752f7927efeeb7e944f9f3b8c800f26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5752f7927efeeb7e944f9f3b8c800f26">&#9670;&#160;</a></span>state_prev</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long memcg_vmstats_percpu::state_prev[<a class="el" href="memcontrol_8c.html#aa2c77ca1fcfc9bde93d3a61656db7ed0">MEMCG_VMSTAT_SIZE</a>]</td>
+          <td class="memname">long memcg_vmstats_percpu::state_prev[(ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#a9ad3b27e5626d7998d049b0f89bb71b3">memcg_node_stat_items</a>)+ ARRAY_SIZE(<a class="el" href="memcontrol_8c.html#aba526a339a78aeb7189d08017c6358fb">memcg_stat_items</a>))]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00519">519</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
 
 </div>
 </div>
@@ -217,6 +230,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00506">506</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
 <a id="acdaa576d6a110c66db01149fb7948075" name="acdaa576d6a110c66db01149fb7948075"></a>
@@ -231,10 +246,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="memcontrol_8c_source.html#l00510">510</a> of file <a class="el" href="memcontrol_8c_source.html">memcontrol.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="memcontrol_8c.html">memcontrol.c</a></li>
+<li>mm/<a class="el" href="memcontrol_8c_source.html">memcontrol.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,0 +1,64 @@
+\doxysection{cgroup\+\_\+file Struct Reference}
+\hypertarget{structcgroup__file}{}\label{structcgroup__file}\index{cgroup\_file@{cgroup\_file}}
+
+
+{\ttfamily \+\#include $<$cgroup-\/defs.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct kernfs\+\_\+node \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__file_a79ed7757569b165e49669d83375c7988}{kn}}
+\item 
+unsigned long \doxymbox{\hyperlink{structcgroup__file_a5db333d70a985894a84ff7b29f68a2d1}{notified\+\_\+at}}
+\item 
+struct timer\+\_\+list \doxymbox{\hyperlink{structcgroup__file_a009ed9761964557149d279fa8ce20218}{notify\+\_\+timer}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{structcgroup__file}{cgroup\+\_\+file} is the handle for a file instance created in a cgroup which is used, for example, to generate file changed notifications. This can be obtained by setting cftype-\/\texorpdfstring{$>$}{>}file\+\_\+offset.
+
+struct Description:\+ This structure is a handle for a file instance created in a cgroup. It contains the kernfs node pointer, notification timestamp, and a timer for generating file changed notifications. It is used to notify userspace when cgroup state changes. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00189}{189}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+\label{structcgroup__file_doc-variable-members}
+\Hypertarget{structcgroup__file_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcgroup__file_a79ed7757569b165e49669d83375c7988}\index{cgroup\_file@{cgroup\_file}!kn@{kn}}
+\index{kn@{kn}!cgroup\_file@{cgroup\_file}}
+\doxysubsubsection{\texorpdfstring{kn}{kn}}
+{\footnotesize\ttfamily \label{structcgroup__file_a79ed7757569b165e49669d83375c7988} 
+struct kernfs\+\_\+node\texorpdfstring{$\ast$}{*} cgroup\+\_\+file::\+kn}
+
+do not access any fields from outside cgroup core 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00191}{191}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__file_a5db333d70a985894a84ff7b29f68a2d1}\index{cgroup\_file@{cgroup\_file}!notified\_at@{notified\_at}}
+\index{notified\_at@{notified\_at}!cgroup\_file@{cgroup\_file}}
+\doxysubsubsection{\texorpdfstring{notified\_at}{notified\_at}}
+{\footnotesize\ttfamily \label{structcgroup__file_a5db333d70a985894a84ff7b29f68a2d1} 
+unsigned long cgroup\+\_\+file::\+notified\+\_\+at}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00192}{192}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__file_a009ed9761964557149d279fa8ce20218}\index{cgroup\_file@{cgroup\_file}!notify\_timer@{notify\_timer}}
+\index{notify\_timer@{notify\_timer}!cgroup\_file@{cgroup\_file}}
+\doxysubsubsection{\texorpdfstring{notify\_timer}{notify\_timer}}
+{\footnotesize\ttfamily \label{structcgroup__file_a009ed9761964557149d279fa8ce20218} 
+struct timer\+\_\+list cgroup\+\_\+file::\+notify\+\_\+timer}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00193}{193}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{cgroup-defs_8h}{cgroup-\/defs.\+h}}\end{DoxyCompactItemize}

@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structslab__sh
 <div class="dynheader">
 Collaboration diagram for slab_sheaf:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structslab__sheaf__coll__graph.svg" width="616" height="299"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structslab__sheaf__coll__graph.svg" width="775" height="299"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -139,7 +139,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:adb5d289c88dfba3aa3c2a046ba659410" id="r_adb5d289c88dfba3aa3c2a046ba659410"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adb5d289c88dfba3aa3c2a046ba659410">node</a></td></tr>
 <tr class="memitem:adc451738a82a9099fb1ae61142152a82" id="r_adc451738a82a9099fb1ae61142152a82"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#adc451738a82a9099fb1ae61142152a82">objects</a> []</td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>struct Description: This structure represents a sheaf (array) of cached slab objects. It contains a union for RCU/list linkage, cache pointer, size (number of objects), and a flexible array of object pointers. It is used for per-CPU caching of allocations and frees. </p>
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00447">447</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a23711b84d16bfdd4e201e716d1492b32" name="a23711b84d16bfdd4e201e716d1492b32"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23711b84d16bfdd4e201e716d1492b32">&#9670;&#160;</a></span>[union]</h2>
 
@@ -166,6 +170,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00450">450</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+
 </div>
 </div>
 <a id="a58d33fd7ab9db62cbb16e5c2e61a255b" name="a58d33fd7ab9db62cbb16e5c2e61a255b"></a>
@@ -179,6 +185,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00457">457</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
 
 </div>
 </div>
@@ -194,6 +202,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00453">453</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+
 </div>
 </div>
 <a id="adb5d289c88dfba3aa3c2a046ba659410" name="adb5d289c88dfba3aa3c2a046ba659410"></a>
@@ -208,6 +218,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00459">459</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+
 </div>
 </div>
 <a id="adc451738a82a9099fb1ae61142152a82" name="adc451738a82a9099fb1ae61142152a82"></a>
@@ -221,6 +233,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>only used for rcu_sheaf </p>
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00460">460</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
 
 </div>
 </div>
@@ -236,6 +251,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00454">454</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+
 </div>
 </div>
 <a id="a47b06ea81d660f29f50bb5c841cef051" name="a47b06ea81d660f29f50bb5c841cef051"></a>
@@ -249,6 +266,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00449">449</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
 
 </div>
 </div>
@@ -264,10 +283,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="slub_8c_source.html#l00458">458</a> of file <a class="el" href="slub_8c_source.html">slub.c</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>mm/<a class="el" href="slub_8c.html">slub.c</a></li>
+<li>mm/<a class="el" href="slub_8c_source.html">slub.c</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

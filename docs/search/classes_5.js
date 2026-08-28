@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['kmalloc_5finfo_5fstruct_0',['kmalloc_info_struct',['../structkmalloc__info__struct.html',1,'']]],
-  ['kmem_5fcache_1',['kmem_cache',['../structkmem__cache.html',1,'']]],
-  ['kmem_5fcache_5fargs_2',['kmem_cache_args',['../structkmem__cache__args.html',1,'']]],
-  ['kmem_5fcache_5fnode_3',['kmem_cache_node',['../structkmem__cache__node.html',1,'']]],
-  ['kmem_5fcache_5forder_5fobjects_4',['kmem_cache_order_objects',['../structkmem__cache__order__objects.html',1,'']]]
+  ['gen_5fpool_0',['gen_pool',['../structgen__pool.html',1,'']]],
+  ['gen_5fpool_5fchunk_1',['gen_pool_chunk',['../structgen__pool__chunk.html',1,'']]],
+  ['genpool_5fdata_5falign_2',['genpool_data_align',['../structgenpool__data__align.html',1,'']]],
+  ['genpool_5fdata_5ffixed_3',['genpool_data_fixed',['../structgenpool__data__fixed.html',1,'']]]
 ];

@@ -20,24 +20,36 @@ static void cgroup_base_stat_flush(struct cgroup *cgrp, int cpu);
  * css's that are cgroup::self use rstat for base stats.
  * Other css's associated with a subsystem use rstat only when
  * they define the ss->css_rstat_flush callback.
+ * 
+ * 
+ * Description: Checks whether a given cgroup subsystem state (css) can participate in rstat. It returns true if the css is the cgroup's self css or if the subsystem has defined a flush callback. This determines if rstat tracking should be enabled for this css.
  */
 static inline bool css_uses_rstat(struct cgroup_subsys_state *css)
 {
 	return css_is_self(css) || css->ss->css_rstat_flush != NULL;
 }
 
+/**
+ * Function Description: Returns the per-CPU rstat data for a given css and CPU. It retrieves the rstat_cpu pointer from the css and returns the data for the specified CPU. This is a helper function used throughout the rstat implementation.
+ */
 static struct css_rstat_cpu *css_rstat_cpu(
 		struct cgroup_subsys_state *css, int cpu)
 {
 	return per_cpu_ptr(css->rstat_cpu, cpu);
 }
 
+/**
+ * Function Description: Returns the per-CPU base rstat data for a given cgroup and CPU. It retrieves the rstat_base_cpu pointer from the cgroup and returns the data for the specified CPU. This is used for tracking basic resource statistics.
+ */
 static struct cgroup_rstat_base_cpu *cgroup_rstat_base_cpu(
 		struct cgroup *cgrp, int cpu)
 {
 	return per_cpu_ptr(cgrp->rstat_base_cpu, cpu);
 }
 
+/**
+ * Function Description: Returns the appropriate spinlock for rstat operations. If a subsystem is provided, it returns the subsystem-specific lock; otherwise, it returns the global base lock. This allows different subsystems to have their own locking for rstat operations.
+ */
 static spinlock_t *ss_rstat_lock(struct cgroup_subsys *ss)
 {
 	if (ss)
@@ -46,6 +58,9 @@ static spinlock_t *ss_rstat_lock(struct cgroup_subsys *ss)
 	return &rstat_base_lock;
 }
 
+/**
+ * Function Description: Returns the per-CPU lockless list head for rstat updates. If a subsystem is provided, it returns the subsystem-specific list head; otherwise, it returns the global backlog list head. This is used for tracking updated rstat nodes.
+ */
 static inline struct llist_head *ss_lhead_cpu(struct cgroup_subsys *ss, int cpu)
 {
 	if (ss)
@@ -67,6 +82,9 @@ static inline struct llist_head *ss_lhead_cpu(struct cgroup_subsys *ss, int cpu)
  * memory barrier is needed before the call to __css_rstat_updated() i.e. a
  * barrier after updating the per-cpu stats and before calling
  * __css_rstat_updated().
+ * 
+ * 
+ * Function Description: Marks a css as updated on a specific CPU by atomically adding it to a lockless list. It prevents duplicate insertion by checking if the node is already on a list. This function can be called from any context including NMI handlers, and uses atomic operations for safety.
  */
 void __css_rstat_updated(struct cgroup_subsys_state *css, int cpu)
 {
@@ -125,6 +143,9 @@ void __css_rstat_updated(struct cgroup_subsys_state *css, int cpu)
 /*
  * BPF-facing wrapper for __css_rstat_updated(). Validate the caller-provided
  * CPU before passing it to the internal rstat updater.
+ * 
+ * 
+ * Function Description: BPF-facing wrapper for __css_rstat_updated(). It validates that the provided CPU is valid and possible, then calls the internal update function. This allows BPF programs to mark cgroup stats as updated.
  */
 __bpf_kfunc void css_rstat_updated(struct cgroup_subsys_state *css, int cpu)
 {
@@ -134,6 +155,9 @@ __bpf_kfunc void css_rstat_updated(struct cgroup_subsys_state *css, int cpu)
 	__css_rstat_updated(css, cpu);
 }
 
+/**
+ * Function Description: Builds the update tree by walking up the css hierarchy and linking each ancestor into the updated tree. It ensures that if a css is updated, all its ancestors are also marked as updated. This creates the tree structure needed for efficient flushing.
+ */
 static void __css_process_update_tree(struct cgroup_subsys_state *css, int cpu)
 {
 	/* put @css and all ancestors on the corresponding updated lists */
@@ -163,6 +187,9 @@ static void __css_process_update_tree(struct cgroup_subsys_state *css, int cpu)
 	}
 }
 
+/**
+ * Function Description: Processes the lockless list of updated css nodes for a specific CPU and subsystem. It removes nodes from the list and calls __css_process_update_tree() for each one to build the full update tree. This is called before flushing stats.
+ */
 static void css_process_update_tree(struct cgroup_subsys *ss, int cpu)
 {
 	struct llist_head *lhead = ss_lhead_cpu(ss, cpu);
@@ -203,6 +230,9 @@ static void css_process_update_tree(struct cgroup_subsys *ss, int cpu)
  * into a singly linked list via the rstat_flush_next pointer built from the
  * tail backward like "pushing" css's into a stack. The root is pushed by
  * the caller.
+ * 
+ * 
+ * Function Description: Builds a list of css nodes to be flushed by traversing the update tree level by level. It pushes parents onto the list before their children, and handles grandchild nodes by processing them in subsequent levels. This creates an ordered list for efficient flushing.
  */
 static struct cgroup_subsys_state *css_rstat_push_children(
 		struct cgroup_subsys_state *head,
@@ -286,6 +316,9 @@ next_level:
  * child css's if not empty. Whereas updated_next is like a sibling link
  * within the children list and terminated by the parent css. An exception
  * here is the css root whose updated_next can be self terminated.
+ * 
+ * 
+ * Function Description: Builds a list of all updated css nodes in a subtree starting from the given root. It calls css_process_update_tree() to build the update tree, then unlinks the root from its parent and pushes all children onto a list. Returns the head of the list to be flushed.
  */
 static struct cgroup_subsys_state *css_rstat_updated_list(
 		struct cgroup_subsys_state *root, int cpu)
@@ -348,6 +381,9 @@ static struct cgroup_subsys_state *css_rstat_updated_list(
 
 __bpf_hook_start();
 
+/**
+ * Function Description: This is a weak function that acts as a hook for BPF programs to attach and flush their own statistics. BPF programs can override this function to collect and flush custom cgroup stats during the rstat flush process. This enables a complete BPF workflow with rstat.
+ */
 __weak noinline void bpf_rstat_flush(struct cgroup *cgrp,
 				     struct cgroup *parent, int cpu)
 {
@@ -363,6 +399,9 @@ __bpf_hook_end();
  * was released and re-taken when collection data from the CPUs. The
  * value -1 is used when obtaining the main lock else this is the CPU
  * number processed last.
+ * 
+ * 
+ * Function Description: Acquires the rstat lock for a given css with tracing and contention detection. It tries to acquire the lock without blocking first, and if contention is detected, it traces the event and then waits for the lock. This helps diagnose locking issues in production.
  */
 static inline void __css_rstat_lock(struct cgroup_subsys_state *css,
 		int cpu_in_loop)
@@ -381,6 +420,9 @@ static inline void __css_rstat_lock(struct cgroup_subsys_state *css,
 	trace_cgroup_rstat_locked(cgrp, cpu_in_loop, contended);
 }
 
+/**
+ * Function Description: Releases the rstat lock for a given css with tracing. It calls trace_cgroup_rstat_unlock() and then releases the spinlock. This is the counterpart to __css_rstat_lock().
+ */
 static inline void __css_rstat_unlock(struct cgroup_subsys_state *css,
 				      int cpu_in_loop)
 	__releases(ss_rstat_lock(css->ss))
@@ -405,6 +447,9 @@ static inline void __css_rstat_unlock(struct cgroup_subsys_state *css,
  * ->updated_children lists.
  *
  * This function may block.
+ * 
+ * 
+ * Function Description: Flushes all pending rstat updates for a given css across all CPUs. It acquires the lock per CPU to avoid disabling interrupts for too long, builds the list of updated nodes, and calls the appropriate flush function for each node. For self css it flushes base stats, and for subsystem css it calls the subsystem's flush callback. This is also callable from BPF programs.
  */
 __bpf_kfunc void css_rstat_flush(struct cgroup_subsys_state *css)
 {
@@ -439,6 +484,9 @@ __bpf_kfunc void css_rstat_flush(struct cgroup_subsys_state *css)
 	}
 }
 
+/**
+ * Function Description: Initializes rstat data structures for a given css. It allocates per-CPU memory for rstat_cpu and, if it's the self css, for rstat_base_cpu as well. It initializes the updated_children lists and lnode for each CPU. Returns 0 on success or -ENOMEM on allocation failure.
+ */
 int css_rstat_init(struct cgroup_subsys_state *css)
 {
 	struct cgroup *cgrp = css->cgroup;
@@ -484,6 +532,9 @@ int css_rstat_init(struct cgroup_subsys_state *css)
 	return 0;
 }
 
+/**
+ * Function Description: Cleans up rstat data structures for a given css. It first flushes all pending stats, performs sanity checks to ensure the rstat lists are empty, then frees the per-CPU memory allocated during initialization. This is called when a css is being destroyed.
+ */
 void css_rstat_exit(struct cgroup_subsys_state *css)
 {
 	int cpu;
@@ -523,6 +574,9 @@ void css_rstat_exit(struct cgroup_subsys_state *css)
  * If @ss is NULL, the static locks associated with the base stats
  * are initialized. If @ss is non-NULL, the subsystem-specific locks
  * are initialized.
+ * 
+ * 
+ * Function Description: Initializes subsystem-specific rstat structures. It allocates a per-CPU llist head and initializes the subsystem's rstat spinlock. If ss is NULL, it initializes the global base stats lock. This is called during subsystem registration.
  */
 int __init ss_rstat_init(struct cgroup_subsys *ss)
 {
@@ -541,9 +595,12 @@ int __init ss_rstat_init(struct cgroup_subsys *ss)
 	return 0;
 }
 
-/*
+/**
  * Functions for cgroup basic resource statistics implemented on top of
  * rstat.
+ * 
+ * 
+ * Function Description: Adds one cgroup_base_stat structure to another. It adds the CPU time statistics (user time, system time, execution runtime, force idle sum, and nice time) from the source to the destination. This is a helper function for accumulating statistics.
  */
 static void cgroup_base_stat_add(struct cgroup_base_stat *dst_bstat,
 				 struct cgroup_base_stat *src_bstat)
@@ -557,6 +614,9 @@ static void cgroup_base_stat_add(struct cgroup_base_stat *dst_bstat,
 	dst_bstat->ntime += src_bstat->ntime;
 }
 
+/**
+ * Function Description: Subtracts one cgroup_base_stat structure from another. It subtracts all CPU time statistics from the source from the destination. This is used for calculating deltas between snapshots.
+ */
 static void cgroup_base_stat_sub(struct cgroup_base_stat *dst_bstat,
 				 struct cgroup_base_stat *src_bstat)
 {
@@ -569,6 +629,9 @@ static void cgroup_base_stat_sub(struct cgroup_base_stat *dst_bstat,
 	dst_bstat->ntime -= src_bstat->ntime;
 }
 
+/**
+ * Function Description: Flushes per-CPU base statistics for a cgroup to its parent. It reads the per-CPU stats, calculates the delta since the last flush, adds it to the cgroup's global stats, and propagates the delta up to the parent. This is called during the rstat flush process.
+ */
 static void cgroup_base_stat_flush(struct cgroup *cgrp, int cpu)
 {
 	struct cgroup_rstat_base_cpu *rstatbc = cgroup_rstat_base_cpu(cgrp, cpu);
@@ -608,6 +671,9 @@ static void cgroup_base_stat_flush(struct cgroup *cgrp, int cpu)
 	}
 }
 
+/**
+ * Function Description: Begins a critical section for updating a cgroup's CPU time statistics. It acquires the per-CPU rstat base data, starts a u64_stats update, and returns the rstat data pointer with flags for the update. This must be paired with cgroup_base_stat_cputime_account_end().
+ */
 static struct cgroup_rstat_base_cpu *
 cgroup_base_stat_cputime_account_begin(struct cgroup *cgrp, unsigned long *flags)
 {
@@ -618,6 +684,9 @@ cgroup_base_stat_cputime_account_begin(struct cgroup *cgrp, unsigned long *flags
 	return rstatbc;
 }
 
+/**
+ * Function Description: Ends a critical section for updating a cgroup's CPU time statistics. It completes the u64_stats update, marks the css as updated, and releases the per-CPU data. This is the counterpart to cgroup_base_stat_cputime_account_begin().
+ */
 static void cgroup_base_stat_cputime_account_end(struct cgroup *cgrp,
 						 struct cgroup_rstat_base_cpu *rstatbc,
 						 unsigned long flags)
@@ -627,6 +696,9 @@ static void cgroup_base_stat_cputime_account_end(struct cgroup *cgrp,
 	put_cpu_ptr(rstatbc);
 }
 
+/**
+ * Function Description: Accounts execution runtime for a cgroup. It calls the account begin function, adds the delta to the sum_exec_runtime field, and then calls the account end function. This is used to track total CPU time consumed by a cgroup.
+ */
 void __cgroup_account_cputime(struct cgroup *cgrp, u64 delta_exec)
 {
 	struct cgroup_rstat_base_cpu *rstatbc;
@@ -637,6 +709,9 @@ void __cgroup_account_cputime(struct cgroup *cgrp, u64 delta_exec)
 	cgroup_base_stat_cputime_account_end(cgrp, rstatbc, flags);
 }
 
+/**
+ * Function Description: Accounts CPU time for a specific field type for a cgroup. It adds the delta to the appropriate field (user time, system time, nice time, or force idle time) based on the index. This provides more detailed CPU time accounting for different types of CPU usage.
+ */
 void __cgroup_account_cputime_field(struct cgroup *cgrp,
 				    enum cpu_usage_stat index, u64 delta_exec)
 {
@@ -674,6 +749,9 @@ void __cgroup_account_cputime_field(struct cgroup *cgrp,
  * at a global level, then categorizing the fields in a manner consistent
  * with how it is done by __cgroup_account_cputime_field for each bit of
  * cpu time attributed to a cgroup.
+ * 
+ * 
+ * Function Description: Computes the CPU time statistics for the root cgroup by aggregating per-CPU kernel cpustat data. It reads the system-wide CPU statistics from all CPUs and combines them into a cgroup_base_stat structure. This is needed because the root cgroup doesn't have a parent to propagate stats from.
  */
 static void root_cgroup_cputime(struct cgroup_base_stat *bstat)
 {
@@ -708,7 +786,9 @@ static void root_cgroup_cputime(struct cgroup_base_stat *bstat)
 	}
 }
 
-
+/**
+ * Function Description: Shows the core scheduler force idle time for a cgroup in a seq_file. It extracts the forceidle_sum from the bstat and prints it in microseconds. This is called when displaying cgroup CPU time statistics through the cgroup interface.
+ */
 static void cgroup_force_idle_show(struct seq_file *seq, struct cgroup_base_stat *bstat)
 {
 #ifdef CONFIG_SCHED_CORE
@@ -719,6 +799,9 @@ static void cgroup_force_idle_show(struct seq_file *seq, struct cgroup_base_stat
 #endif
 }
 
+/**
+ * Function Description: Shows the CPU time statistics for a cgroup in a seq_file. For non-root cgroups, it flushes the stats, acquires the lock, reads the bstat, and adjusts the cputime. For the root cgroup, it calls root_cgroup_cputime(). It then prints usage, user, system, and nice time in microseconds, along with force idle time if configured.
+ */
 void cgroup_base_stat_cputime_show(struct seq_file *seq)
 {
 	struct cgroup *cgrp = seq_css(seq)->cgroup;
@@ -758,11 +841,17 @@ BTF_ID_FLAGS(func, css_rstat_updated)
 BTF_ID_FLAGS(func, css_rstat_flush, KF_SLEEPABLE)
 BTF_KFUNCS_END(bpf_rstat_kfunc_ids)
 
+/**
+ * struct Description: This structure is used to register BPF kfuncs (kernel functions callable from BPF programs) with the kernel's BTF (BPF Type Format) system. It contains the owner module and a set of BTF function IDs. It is used to make the rstat functions available for BPF programs.
+ */
 static const struct btf_kfunc_id_set bpf_rstat_kfunc_set = {
 	.owner          = THIS_MODULE,
 	.set            = &bpf_rstat_kfunc_ids,
 };
 
+/**
+ * Function Description: This is a late initialization function that registers BPF kfuncs for rstat. It registers css_rstat_updated() and css_rstat_flush() as BPF kfuncs, allowing BPF programs to call these functions. This enables BPF-based cgroup statistics collection.
+ */
 static int __init bpf_rstat_kfunc_init(void)
 {
 	return register_btf_kfunc_id_set(BPF_PROG_TYPE_TRACING,

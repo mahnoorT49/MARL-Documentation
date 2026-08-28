@@ -137,6 +137,14 @@ bool cma_validate_zones(struct cma *cma)
 	return true;
 }
 
+
+/*
+ * cma_activate_area - Activates a reserved CMA region during early boot. It
+ * allocates bitmap tracking structures, initializes synchronization locks,
+ * marks pageblocks as MIGRATE_CMA, and sets the CMA_ACTIVATED flag. If
+ * activation fails, it rolls back bitmap allocations and safely releases the
+ * pages back to the main buddy allocator.
+ */
 static void __init cma_activate_area(struct cma *cma)
 {
 	unsigned long pfn, end_pfn, early_pfn[CMA_MAX_RANGES];
@@ -199,6 +207,12 @@ cleanup:
 	pr_err("CMA area %s could not be activated\n", cma->name);
 }
 
+
+/*
+ * cma_init_reserved_areas - A boot routine that iterates through all registered
+ * CMA regions stored in cma_areas[] and calls cma_activate_area() on each one
+ * to bring them fully online once kernel memory infrastructure is available.
+ */
 static int __init cma_init_reserved_areas(void)
 {
 	int i;
@@ -210,11 +224,25 @@ static int __init cma_init_reserved_areas(void)
 }
 core_initcall(cma_init_reserved_areas);
 
+
+/*
+ * cma_reserve_pages_on_error - Sets the CMA_RESERVE_PAGES_ON_ERROR flag on a
+ * target CMA descriptor. This instructs cma_activate_area() to keep the
+ * underlying memory isolated and reserved rather than returning it to the
+ * general buddy allocator if activation fails.
+ */
 void __init cma_reserve_pages_on_error(struct cma *cma)
 {
 	set_bit(CMA_RESERVE_PAGES_ON_ERROR, &cma->flags);
 }
 
+
+/*
+ * cma_new_area - Registers a new CMA region entry in the global cma_areas[]
+ * array early in the boot sequence. It assigns the region a unique name,
+ * converts the requested byte size into page counts, records the bitmap bit
+ * granularity (order_per_bit), and increments global totalcma_pages.
+ */
 static int __init cma_new_area(const char *name, phys_addr_t size,
 			       unsigned int order_per_bit,
 			       struct cma **res_cma)
@@ -246,6 +274,13 @@ static int __init cma_new_area(const char *name, phys_addr_t size,
 	return 0;
 }
 
+
+/*
+ * cma_drop_area - Reverts the creation of the most recently registered region
+ * of the CMA. It subtracts the area's page count from the global totalcma_pages
+ * metric and decrements cma_area_count to safely discard an unneeded or
+ * invalid reservation.
+ */
 static void __init cma_drop_area(struct cma *cma)
 {
 	totalcma_pages -= cma->count;
@@ -354,6 +389,12 @@ static void __init list_insert_sorted(
 	}
 }
 
+
+/*
+ * cma_fixed_reserve - Checks whether a fixed physical address range crosses the
+ * highmem/lowmem boundary under CONFIG_HIGHMEM. If valid, it verifies the range
+ * is unreserved and calls memblock_reserve() to mark the physical memory as reserved.
+ */
 static int __init cma_fixed_reserve(phys_addr_t base, phys_addr_t size)
 {
 	if (IS_ENABLED(CONFIG_HIGHMEM)) {
@@ -378,6 +419,13 @@ static int __init cma_fixed_reserve(phys_addr_t base, phys_addr_t size)
 	return 0;
 }
 
+
+/*
+ * cma_alloc_mem - Allocates physical memory for CMA using memblock. On 64-bit
+ * systems, it attempts bottom-up allocation above 4GB; under CONFIG_HIGHMEM,
+ * it attempts allocation in high memory first; otherwise, it calls
+ * memblock_alloc_range_nid() within the specified base and limit.
+ */
 static phys_addr_t __init cma_alloc_mem(phys_addr_t base, phys_addr_t size,
 			phys_addr_t align, phys_addr_t limit, int nid)
 {
@@ -427,6 +475,14 @@ static phys_addr_t __init cma_alloc_mem(phys_addr_t base, phys_addr_t size,
 	return addr;
 }
 
+
+/*
+ * __cma_declare_contiguous_nid - Validates CMA configuration parameters
+ * including alignment, size, slot availability, and DRAM limits. It reserves
+ * physical memory using either cma_fixed_reserve() or cma_alloc_mem(), excludes
+ * the address range from kmemleak scanning, and registers the region via
+ * cma_init_reserved_mem() with its assigned NUMA node ID.
+ */
 static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
 			phys_addr_t size, phys_addr_t limit,
 			phys_addr_t alignment, unsigned int order_per_bit,
@@ -750,6 +806,13 @@ int __init cma_declare_contiguous_nid(phys_addr_t base,
 	return ret;
 }
 
+
+/*
+ * cma_debug_show_areas - Acquires the CMA spinlock to iterate through clear
+ * bitranges across all memory range bitmaps in a CMA area. It logs free page
+ * offsets, block lengths, and total available versus total capacity to the
+ * kernel print buffer.
+ */
 static void cma_debug_show_areas(struct cma *cma)
 {
 	unsigned long start, end;
@@ -777,6 +840,14 @@ static void cma_debug_show_areas(struct cma *cma)
 	spin_unlock_irq(&cma->lock);
 }
 
+
+/*
+ * cma_range_alloc - Searches a specific memory range bitmap for an aligned
+ * sequence of zero bits matching the requested page count. After marking the
+ * matching bits as allocated and decrementing available_count, it releases the
+ * spinlock and calls alloc_contig_frozen_range() to migrate existing pages out
+ * of the span, clearing the bitmap and retrying if migration fails.
+ */
 static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
 				unsigned long count, unsigned int align,
 				struct page **pagep, gfp_t gfp)
@@ -857,6 +928,14 @@ out:
 	return ret;
 }
 
+
+/*
+ * __cma_alloc_frozen - Iterates through all memory ranges within a CMA area to
+ * allocate contiguous pages via cma_range_alloc(). On success, it resets KASAN
+ * memory tags across the allocated page range and increments success metrics.
+ * On failure, it records failure statistics and invokes cma_debug_show_areas()
+ * if __GFP_NOWARN is absent.
+ */
 static struct page *__cma_alloc_frozen(struct cma *cma,
 		unsigned long count, unsigned int align, gfp_t gfp)
 {
@@ -952,6 +1031,14 @@ struct page *cma_alloc(struct cma *cma, unsigned long count,
 	return page;
 }
 
+
+/*
+ * find_cma_memrange - Maps a physical page range back to its containing
+ * cma_memrange structure within a CMA area. It converts the pages pointer to a
+ * PFN, verifies that the entire span (pfn through pfn + count) falls within a
+ * single range boundary, and returns the corresponding cma_memrange pointer or
+ * NULL if no valid match exists.
+ */
 static struct cma_memrange *find_cma_memrange(struct cma *cma,
 		const struct page *pages, unsigned long count)
 {
@@ -986,6 +1073,14 @@ static struct cma_memrange *find_cma_memrange(struct cma *cma,
 	return cmr;
 }
 
+
+/*
+ * __cma_release_frozen - Releases an allocated range of CMA pages back to the
+ * system and updates tracking metadata. It converts pages to a PFN, calls
+ * free_contig_frozen_range(), clears the corresponding allocation bits in the
+ * cma_memrange bitmap, updates sysfs page-release metrics, and emits a
+ * cma_release tracepoint.
+ */
 static void __cma_release_frozen(struct cma *cma, struct cma_memrange *cmr,
 		const struct page *pages, unsigned long count)
 {
@@ -1031,6 +1126,12 @@ bool cma_release(struct cma *cma, const struct page *pages,
 	return true;
 }
 
+
+/*
+ * cma_release_frozen - Validates that a physical page range belongs to a valid
+ * cma_memrange using find_cma_memrange(). If a match is found, it calls
+ * __cma_release_frozen() to free the pages and returns true; otherwise, it returns false.
+ */
 bool cma_release_frozen(struct cma *cma, const struct page *pages,
 		unsigned long count)
 {
@@ -1045,6 +1146,13 @@ bool cma_release_frozen(struct cma *cma, const struct page *pages,
 	return true;
 }
 
+
+/*
+ * cma_for_each_area - Iterates through all registered CMA areas in cma_areas[]
+ * and executes the provided callback function it on each entry. If the callback
+ * returns a non-zero status code, execution halts immediately and returns that
+ * code. Otherwise, it completes and returns 0.
+ */
 int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
 {
 	int i;
@@ -1059,6 +1167,13 @@ int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
 	return 0;
 }
 
+
+/*
+ * cma_intersects - Checks whether a physical byte range [start, end) overlaps
+ * with any memory range associated with a CMA descriptor. It converts the page
+ * frame numbers (PFNs) of each range into physical addresses and returns true
+ * if an intersection is found, or false if there is no overlap.
+ */
 bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end)
 {
 	int r;

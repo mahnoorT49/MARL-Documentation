@@ -136,12 +136,17 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a07a1b9fdeeb7917a0e95648118877b26" id="r_a07a1b9fdeeb7917a0e95648118877b26"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a07a1b9fdeeb7917a0e95648118877b26">size</a></td></tr>
 <tr class="memitem:a8c456bd222e970dc349ea9a63eef5261" id="r_a8c456bd222e970dc349ea9a63eef5261"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a8c456bd222e970dc349ea9a63eef5261">flags</a></td></tr>
 <tr class="memitem:ae83b89b8ab0beaa44c9f6e9fa257a9ee" id="r_ae83b89b8ab0beaa44c9f6e9fa257a9ee"><td class="memItemLeft">struct page **&#160;</td><td class="memItemRight"><a class="el" href="#ae83b89b8ab0beaa44c9f6e9fa257a9ee">pages</a></td></tr>
+<tr class="memitem:a947986779a54d51ee76081846272ae05" id="r_a947986779a54d51ee76081846272ae05"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a947986779a54d51ee76081846272ae05">page_order</a></td></tr>
 <tr class="memitem:a34c7d5e41f7db43174e97dedc03e1e18" id="r_a34c7d5e41f7db43174e97dedc03e1e18"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a34c7d5e41f7db43174e97dedc03e1e18">nr_pages</a></td></tr>
 <tr class="memitem:acd71f40735dacf45bfa5938eb9f466b1" id="r_acd71f40735dacf45bfa5938eb9f466b1"><td class="memItemLeft">phys_addr_t&#160;</td><td class="memItemRight"><a class="el" href="#acd71f40735dacf45bfa5938eb9f466b1">phys_addr</a></td></tr>
 <tr class="memitem:ab0ced520968bd2f6149efc1ac79e5e18" id="r_ab0ced520968bd2f6149efc1ac79e5e18"><td class="memItemLeft">const void *&#160;</td><td class="memItemRight"><a class="el" href="#ab0ced520968bd2f6149efc1ac79e5e18">caller</a></td></tr>
 <tr class="memitem:a5bc2dc4d068d331e534dea024fd4ca24" id="r_a5bc2dc4d068d331e534dea024fd4ca24"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a5bc2dc4d068d331e534dea024fd4ca24">requested_size</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>struct Description: This structure represents a vmalloc/vmap/vmalloc area. It contains the virtual address, size, flags, page array, number of pages, physical address, caller address, and requested size. It is used to track and manage virtually contiguous memory regions backed by non-contiguous physical pages. </p>
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00055">55</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a9c6109858ed584b59a6631c5fa6ff107" name="a9c6109858ed584b59a6631c5fa6ff107"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9c6109858ed584b59a6631c5fa6ff107">&#9670;&#160;</a></span>[union]</h2>
 
@@ -168,6 +173,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00061">61</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
 </div>
 </div>
 <a id="ab0ced520968bd2f6149efc1ac79e5e18" name="ab0ced520968bd2f6149efc1ac79e5e18"></a>
@@ -181,6 +188,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00070">70</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
 
 </div>
 </div>
@@ -196,6 +205,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00063">63</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
 </div>
 </div>
 <a id="a3293d1fc3f812bff6d2e8f9cabe5bea6" name="a3293d1fc3f812bff6d2e8f9cabe5bea6"></a>
@@ -209,6 +220,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Early registration of vm_areas. </p>
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00058">58</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
 
 </div>
 </div>
@@ -224,6 +238,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00057">57</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
 </div>
 </div>
 <a id="a34c7d5e41f7db43174e97dedc03e1e18" name="a34c7d5e41f7db43174e97dedc03e1e18"></a>
@@ -237,6 +253,24 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00068">68</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
+</div>
+</div>
+<a id="a947986779a54d51ee76081846272ae05" name="a947986779a54d51ee76081846272ae05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a947986779a54d51ee76081846272ae05">&#9670;&#160;</a></span>page_order</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int vm_struct::page_order</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00066">66</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
 
 </div>
 </div>
@@ -252,6 +286,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00064">64</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
 </div>
 </div>
 <a id="acd71f40735dacf45bfa5938eb9f466b1" name="acd71f40735dacf45bfa5938eb9f466b1"></a>
@@ -265,6 +301,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00069">69</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
 
 </div>
 </div>
@@ -280,6 +318,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00071">71</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
 </div>
 </div>
 <a id="a07a1b9fdeeb7917a0e95648118877b26" name="a07a1b9fdeeb7917a0e95648118877b26"></a>
@@ -293,6 +333,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00062">62</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
 
 </div>
 </div>

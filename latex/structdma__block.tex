@@ -1,0 +1,56 @@
+\doxysection{dma\+\_\+block Struct Reference}
+\hypertarget{structdma__block}{}\label{structdma__block}\index{dma\_block@{dma\_block}}
+
+
+Collaboration diagram for dma\+\_\+block:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{structdma__block__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structdma__block}{dma\+\_\+block}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structdma__block_a75a81efa68d24784162a077bec3b684c}{next\+\_\+block}}
+\item 
+dma\+\_\+addr\+\_\+t \doxymbox{\hyperlink{structdma__block_afe91b012eb920e4fce3b8630702caaf9}{dma}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct Description:\+ This structure represents a single block of memory within a DMA pool. It contains a pointer to the next free block (forming a singly-\/linked list of free blocks) and the DMA address of the block. It is embedded at the start of each free block to track availability. 
+
+Definition at line \doxymbox{\hyperlink{dmapool_8c_source_l00045}{45}} of file \doxymbox{\hyperlink{dmapool_8c_source}{dmapool.\+c}}.
+
+
+
+\label{structdma__block_doc-variable-members}
+\Hypertarget{structdma__block_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structdma__block_afe91b012eb920e4fce3b8630702caaf9}\index{dma\_block@{dma\_block}!dma@{dma}}
+\index{dma@{dma}!dma\_block@{dma\_block}}
+\doxysubsubsection{\texorpdfstring{dma}{dma}}
+{\footnotesize\ttfamily \label{structdma__block_afe91b012eb920e4fce3b8630702caaf9} 
+dma\+\_\+addr\+\_\+t dma\+\_\+block::\+dma}
+
+
+
+Definition at line \doxymbox{\hyperlink{dmapool_8c_source_l00047}{47}} of file \doxymbox{\hyperlink{dmapool_8c_source}{dmapool.\+c}}.
+
+\Hypertarget{structdma__block_a75a81efa68d24784162a077bec3b684c}\index{dma\_block@{dma\_block}!next\_block@{next\_block}}
+\index{next\_block@{next\_block}!dma\_block@{dma\_block}}
+\doxysubsubsection{\texorpdfstring{next\_block}{next\_block}}
+{\footnotesize\ttfamily \label{structdma__block_a75a81efa68d24784162a077bec3b684c} 
+struct \doxymbox{\hyperlink{structdma__block}{dma\+\_\+block}}\texorpdfstring{$\ast$}{*} dma\+\_\+block::\+next\+\_\+block}
+
+
+
+Definition at line \doxymbox{\hyperlink{dmapool_8c_source_l00046}{46}} of file \doxymbox{\hyperlink{dmapool_8c_source}{dmapool.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{dmapool_8c}{dmapool.\+c}}\end{DoxyCompactItemize}

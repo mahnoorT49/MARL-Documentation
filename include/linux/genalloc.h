@@ -53,22 +53,28 @@ typedef unsigned long (*genpool_algo_t)(unsigned long *map,
 			void *data, struct gen_pool *pool,
 			unsigned long start_addr);
 
-/*
+/**
  *  General purpose special memory pool descriptor.
+ * 
+ * 
+ * struct Description: This is the main structure representing a general purpose memory pool. It contains a lock for protection, a list of memory chunks, the minimum allocation order, the allocation algorithm function, and private data. It is used to manage special purpose memory (like uncached or device memory) not handled by the regular kmalloc interface.
  */
 struct gen_pool {
 	spinlock_t lock;
-	struct list_head chunks;	/* list of chunks in this pool */
-	int min_alloc_order;		/* minimum allocation order */
+	struct list_head chunks;	/** list of chunks in this pool */
+	int min_alloc_order;		/** minimum allocation order */
 
-	genpool_algo_t algo;		/* allocation function */
+	genpool_algo_t algo;		/** allocation function */
 	void *data;
 
 	const char *name;
 };
 
-/*
+/**
  *  General purpose special memory pool chunk descriptor.
+ * 
+ * 
+ * struct Description: This structure represents a single chunk of memory within a gen_pool. It contains the physical and virtual addresses, available space counter, a bitmap for tracking allocated/free blocks, and private owner data. Each chunk is linked into the pool's list of chunks.
  */
 struct gen_pool_chunk {
 	struct list_head next_chunk;	/* next chunk in pool */
@@ -80,15 +86,21 @@ struct gen_pool_chunk {
 	unsigned long bits[];		/* bitmap for allocating memory chunk */
 };
 
-/*
+/**
  *  gen_pool data descriptor for gen_pool_first_fit_align.
+ * 
+ * 
+ * struct Description: This structure holds alignment data for the aligned allocation algorithm. It contains the alignment value in bytes. It is passed as data to gen_pool_first_fit_align() to specify alignment requirements.
  */
 struct genpool_data_align {
 	int align;		/* alignment by bytes for starting address */
 };
 
-/*
+/**
  *  gen_pool data descriptor for gen_pool_fixed_alloc.
+ * 
+ * 
+ * struct Description: This structure holds fixed offset data for the fixed allocation algorithm. It contains the offset value. It is passed as data to gen_pool_fixed_alloc() to specify a specific region to allocate from.
  */
 struct genpool_data_fixed {
 	unsigned long offset;		/* The offset of the specific region */
@@ -99,6 +111,9 @@ extern phys_addr_t gen_pool_virt_to_phys(struct gen_pool *pool, unsigned long);
 extern int gen_pool_add_owner(struct gen_pool *, unsigned long, phys_addr_t,
 			     size_t, int, void *);
 
+/**
+ * Function Description: Converts a virtual address to its corresponding physical address for a given pool. It searches through all chunks in the pool to find which chunk contains the address, then calculates and returns the physical address.
+ */
 static inline int gen_pool_add_virt(struct gen_pool *pool, unsigned long addr,
 		phys_addr_t phys, size_t size, int nid)
 {
@@ -116,6 +131,9 @@ static inline int gen_pool_add_virt(struct gen_pool *pool, unsigned long addr,
  * Add a new chunk of special memory to the specified pool.
  *
  * Returns 0 on success or a -ve errno on failure.
+ * 
+ * 
+ * Function Description: Adds a new memory chunk to a pool with optional owner data. It allocates the chunk structure and bitmap, stores the virtual and physical addresses, and links the chunk into the pool's list. The owner data can be retrieved later during allocation.
  */
 static inline int gen_pool_add(struct gen_pool *pool, unsigned long addr,
 			       size_t size, int nid)
@@ -126,6 +144,9 @@ extern void gen_pool_destroy(struct gen_pool *);
 unsigned long gen_pool_alloc_algo_owner(struct gen_pool *pool, size_t size,
 		genpool_algo_t algo, void *data, void **owner);
 
+/**
+ * Function Description: Allocates memory from a pool using the pool's default algorithm and optionally returns the chunk owner. It calls gen_pool_alloc_algo_owner() with the pool's algorithm and data.
+ */
 static inline unsigned long gen_pool_alloc_owner(struct gen_pool *pool,
 		size_t size, void **owner)
 {
@@ -133,6 +154,9 @@ static inline unsigned long gen_pool_alloc_owner(struct gen_pool *pool,
 			owner);
 }
 
+/**
+ * Function Description: Allocates memory from a pool using a specified algorithm without returning the owner. It calls gen_pool_alloc_algo_owner() with NULL for the owner pointer.
+ */
 static inline unsigned long gen_pool_alloc_algo(struct gen_pool *pool,
 		size_t size, genpool_algo_t algo, void *data)
 {
@@ -148,6 +172,9 @@ static inline unsigned long gen_pool_alloc_algo(struct gen_pool *pool,
  * Uses the pool allocation function (with first-fit algorithm by default).
  * Can not be used in NMI handler on architectures without
  * NMI-safe cmpxchg implementation.
+ * 
+ * 
+ * Function Description: Allocates memory from a pool using the default algorithm. This is the simplest allocation function that uses the pool's configured algorithm and data. Returns the allocated address or 0 on failure.
  */
 static inline unsigned long gen_pool_alloc(struct gen_pool *pool, size_t size)
 {
@@ -167,6 +194,10 @@ extern void *gen_pool_dma_zalloc_align(struct gen_pool *pool, size_t size,
 		dma_addr_t *dma, int align);
 extern void gen_pool_free_owner(struct gen_pool *pool, unsigned long addr,
 		size_t size, void **owner);
+
+/**
+ * Function Description: Frees previously allocated memory back to the pool. This is the simpler version that doesn't return the chunk owner. It calls gen_pool_free_owner() with NULL for the owner pointer.
+ */
 static inline void gen_pool_free(struct gen_pool *pool, unsigned long addr,
                 size_t size)
 {

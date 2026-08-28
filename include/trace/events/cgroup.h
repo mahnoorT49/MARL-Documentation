@@ -30,6 +30,9 @@ DECLARE_EVENT_CLASS(cgroup_root,
 		  __entry->root, __entry->ss_mask, __get_str(name))
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a new cgroup root is set up. It logs the root ID, subsystem mask, and root name. This helps in debugging and monitoring cgroup hierarchy creation.
+ */
 DEFINE_EVENT(cgroup_root, cgroup_setup_root,
 
 	TP_PROTO(struct cgroup_root *root),
@@ -37,6 +40,9 @@ DEFINE_EVENT(cgroup_root, cgroup_setup_root,
 	TP_ARGS(root)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a cgroup root is destroyed. It logs the root ID, subsystem mask, and root name. This helps track when cgroup hierarchies are removed.
+ */
 DEFINE_EVENT(cgroup_root, cgroup_destroy_root,
 
 	TP_PROTO(struct cgroup_root *root),
@@ -44,6 +50,9 @@ DEFINE_EVENT(cgroup_root, cgroup_destroy_root,
 	TP_ARGS(root)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a cgroup root is remounted. It logs the root ID, subsystem mask, and root name. This helps track changes to cgroup mount options.
+ */
 DEFINE_EVENT(cgroup_root, cgroup_remount,
 
 	TP_PROTO(struct cgroup_root *root),
@@ -75,6 +84,9 @@ DECLARE_EVENT_CLASS(cgroup,
 		  __entry->root, __entry->id, __entry->level, __get_str(path))
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a new cgroup directory is created. It logs the root ID, cgroup ID, level, and path. This helps track cgroup creation events.
+ */
 DEFINE_EVENT(cgroup, cgroup_mkdir,
 
 	TP_PROTO(struct cgroup *cgrp, const char *path),
@@ -82,6 +94,9 @@ DEFINE_EVENT(cgroup, cgroup_mkdir,
 	TP_ARGS(cgrp, path)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a cgroup directory is removed. It logs the root ID, cgroup ID, level, and path. This helps track cgroup deletion events.
+ */
 DEFINE_EVENT(cgroup, cgroup_rmdir,
 
 	TP_PROTO(struct cgroup *cgrp, const char *path),
@@ -89,6 +104,9 @@ DEFINE_EVENT(cgroup, cgroup_rmdir,
 	TP_ARGS(cgrp, path)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a cgroup is released. It logs the root ID, cgroup ID, level, and path. This helps track when cgroups are freed and no longer in use.
+ */
 DEFINE_EVENT(cgroup, cgroup_release,
 
 	TP_PROTO(struct cgroup *cgrp, const char *path),
@@ -96,6 +114,9 @@ DEFINE_EVENT(cgroup, cgroup_release,
 	TP_ARGS(cgrp, path)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a cgroup is renamed. It logs the root ID, cgroup ID, level, and new path. This helps track cgroup name changes.
+ */
 DEFINE_EVENT(cgroup, cgroup_rename,
 
 	TP_PROTO(struct cgroup *cgrp, const char *path),
@@ -103,6 +124,9 @@ DEFINE_EVENT(cgroup, cgroup_rename,
 	TP_ARGS(cgrp, path)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a cgroup is frozen. It logs the root ID, cgroup ID, level, and path. This helps track when cgroups are paused or frozen.
+ */
 DEFINE_EVENT(cgroup, cgroup_freeze,
 
 	TP_PROTO(struct cgroup *cgrp, const char *path),
@@ -110,12 +134,16 @@ DEFINE_EVENT(cgroup, cgroup_freeze,
 	TP_ARGS(cgrp, path)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a cgroup is unfrozen. It logs the root ID, cgroup ID, level, and path. This helps track when cgroups are resumed from a frozen state.
+*/
 DEFINE_EVENT(cgroup, cgroup_unfreeze,
 
 	TP_PROTO(struct cgroup *cgrp, const char *path),
 
 	TP_ARGS(cgrp, path)
 );
+
 
 DECLARE_EVENT_CLASS(cgroup_migrate,
 
@@ -147,6 +175,9 @@ DECLARE_EVENT_CLASS(cgroup_migrate,
 		  __get_str(dst_path), __entry->pid, __get_str(comm))
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a task is attached to a cgroup. It logs the destination root, cgroup ID, level, path, process ID, and command name. This helps track process migration between cgroups.
+ */
 DEFINE_EVENT(cgroup_migrate, cgroup_attach_task,
 
 	TP_PROTO(struct cgroup *dst_cgrp, const char *path,
@@ -155,6 +186,9 @@ DEFINE_EVENT(cgroup_migrate, cgroup_attach_task,
 	TP_ARGS(dst_cgrp, path, task, threadgroup)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when tasks are transferred to a new cgroup. It logs the destination root, cgroup ID, level, path, process ID, and command name. This helps track bulk task migrations.
+ */
 DEFINE_EVENT(cgroup_migrate, cgroup_transfer_tasks,
 
 	TP_PROTO(struct cgroup *dst_cgrp, const char *path,
@@ -190,6 +224,9 @@ DECLARE_EVENT_CLASS(cgroup_event,
 		  __entry->val)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a cgroup's populated state changes. It logs the root ID, cgroup ID, level, path, and the new populated value. This helps track when cgroups become empty or non-empty.
+ */
 DEFINE_EVENT(cgroup_event, cgroup_notify_populated,
 
 	TP_PROTO(struct cgroup *cgrp, const char *path, int val),
@@ -197,6 +234,9 @@ DEFINE_EVENT(cgroup_event, cgroup_notify_populated,
 	TP_ARGS(cgrp, path, val)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when a cgroup's frozen state changes. It logs the root ID, cgroup ID, level, path, and the new frozen value. This helps track cgroup freeze state transitions.
+ */
 DEFINE_EVENT(cgroup_event, cgroup_notify_frozen,
 
 	TP_PROTO(struct cgroup *cgrp, const char *path, int val),
@@ -231,10 +271,13 @@ DECLARE_EVENT_CLASS(cgroup_rstat,
 		  __entry->cpu, __entry->contended)
 );
 
-/*
+/**
  * Related to locks:
  * global rstat_base_lock for base stats
  * cgroup_subsys::rstat_ss_lock for subsystem stats
+ * 
+ * 
+ * Event Description: This is a tracepoint that records when the cgroup rstat lock is contended. It logs the root ID, cgroup ID, level, CPU number, and whether the lock was contended. This helps debug performance issues with cgroup statistics.
  */
 DEFINE_EVENT(cgroup_rstat, cgroup_rstat_lock_contended,
 
@@ -243,6 +286,9 @@ DEFINE_EVENT(cgroup_rstat, cgroup_rstat_lock_contended,
 	TP_ARGS(cgrp, cpu, contended)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when the cgroup rstat lock is acquired. It logs the root ID, cgroup ID, level, CPU number, and contention status. This helps track lock acquisition for cgroup statistics.
+ */
 DEFINE_EVENT(cgroup_rstat, cgroup_rstat_locked,
 
 	TP_PROTO(struct cgroup *cgrp, int cpu, bool contended),
@@ -250,6 +296,9 @@ DEFINE_EVENT(cgroup_rstat, cgroup_rstat_locked,
 	TP_ARGS(cgrp, cpu, contended)
 );
 
+/**
+ * Event Description: This is a tracepoint that records when the cgroup rstat lock is released. It logs the root ID, cgroup ID, level, CPU number, and contention status. This helps track lock release for cgroup statistics.
+ */
 DEFINE_EVENT(cgroup_rstat, cgroup_rstat_unlock,
 
 	TP_PROTO(struct cgroup *cgrp, int cpu, bool contended),

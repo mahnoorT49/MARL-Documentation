@@ -21,6 +21,9 @@
 static DECLARE_FAULT_ATTR(fail_mempool_alloc);
 static DECLARE_FAULT_ATTR(fail_mempool_alloc_bulk);
 
+/**
+ * Function Description: Initializes fault injection debugfs entries for mempool allocation failures. It creates fail_mempool_alloc and fail_mempool_alloc_bulk files in debugfs to allow injecting failures for testing. Called during late initialization.
+ */
 static int __init mempool_faul_inject_init(void)
 {
 	int error;
@@ -38,6 +41,10 @@ static int __init mempool_faul_inject_init(void)
 late_initcall(mempool_faul_inject_init);
 
 #ifdef CONFIG_SLUB_DEBUG_ON
+
+/**
+ * Function Description: Debug function that prints error information when a poisoned mempool element is detected. It displays the pool address, size, current count, and the bytes surrounding the mismatch location. Used when CONFIG_SLUB_DEBUG_ON is enabled.
+ */
 static void poison_error(struct mempool *pool, void *element, size_t size,
 			 size_t byte)
 {
@@ -55,6 +62,9 @@ static void poison_error(struct mempool *pool, void *element, size_t size,
 	dump_stack();
 }
 
+/**
+ * Function Description: Debug function that checks if a mempool element's poison pattern is intact. It verifies that all bytes (except the last) contain POISON_FREE and the last byte contains POISON_END. If a mismatch is found, it calls poison_error(). Used when CONFIG_SLUB_DEBUG_ON is enabled.
+ */
 static void __check_element(struct mempool *pool, void *element, size_t size)
 {
 	u8 *obj = element;
@@ -71,6 +81,9 @@ static void __check_element(struct mempool *pool, void *element, size_t size)
 	memset(obj, POISON_INUSE, size);
 }
 
+/**
+ * Function Description: Wrapper function that checks a mempool element for poisoning. It handles different pool types (slab, kmalloc, page) and calls __check_element() accordingly. Skips checking when KASAN is enabled to avoid interfering with KASAN metadata.
+ */
 static void check_element(struct mempool *pool, void *element)
 {
 	/* Skip checking: KASAN might save its metadata in the element. */
@@ -102,6 +115,9 @@ static void check_element(struct mempool *pool, void *element)
 	}
 }
 
+/**
+ * Function Description: Internal function that poisons a mempool element by filling it with POISON_FREE and setting the last byte to POISON_END. This helps detect use-after-free errors.
+ */
 static void __poison_element(void *element, size_t size)
 {
 	u8 *obj = element;
@@ -110,6 +126,9 @@ static void __poison_element(void *element, size_t size)
 	obj[size - 1] = POISON_END;
 }
 
+/**
+ * Function Description: Wrapper function that poisons a mempool element. It handles different pool types (slab, kmalloc, page) and calls __poison_element() accordingly. Skips poisoning when KASAN is enabled.
+ */
 static void poison_element(struct mempool *pool, void *element)
 {
 	/* Skip poisoning: KASAN might save its metadata in the element. */
@@ -149,6 +168,9 @@ static inline void poison_element(struct mempool *pool, void *element)
 }
 #endif /* CONFIG_SLUB_DEBUG_ON */
 
+/**
+ * Function Description: Poisons a mempool element for KASAN (Kernel Address Sanitizer). It handles different pool types and calls the appropriate KASAN function. Returns true if poisoning was successful.
+ */
 static __always_inline bool kasan_poison_element(struct mempool *pool,
 		void *element)
 {
@@ -160,6 +182,9 @@ static __always_inline bool kasan_poison_element(struct mempool *pool,
 	return true;
 }
 
+/**
+ * Function Description: Unpoisons a mempool element for KASAN. It handles different pool types and calls the appropriate KASAN function. Called before returning an element to the caller.
+ */
 static void kasan_unpoison_element(struct mempool *pool, void *element)
 {
 	if (pool->alloc == mempool_kmalloc)
@@ -172,6 +197,9 @@ static void kasan_unpoison_element(struct mempool *pool, void *element)
 					     (unsigned long)pool->pool_data);
 }
 
+/**
+ * Function Description: Adds an element to the mempool's reserved pool. It poisons the element, calls KASAN poisoning, and stores it in the elements array. Asserts that the pool is not already full.
+ */
 static __always_inline void add_element(struct mempool *pool, void *element)
 {
 	BUG_ON(pool->min_nr != 0 && pool->curr_nr >= pool->min_nr);
@@ -180,6 +208,9 @@ static __always_inline void add_element(struct mempool *pool, void *element)
 		pool->elements[pool->curr_nr++] = element;
 }
 
+/**
+ * Function Description: Removes an element from the mempool's reserved pool. It decrements the current count, unpoisons the element for KASAN, and checks the poisoning pattern. Returns the element pointer.
+ */
 static void *remove_element(struct mempool *pool)
 {
 	void *element = pool->elements[--pool->curr_nr];
@@ -200,6 +231,9 @@ static void *remove_element(struct mempool *pool)
  *
  * May be called on a zeroed but uninitialized mempool (i.e. allocated with
  * kzalloc()).
+ * 
+ * 
+ * Function Description: Exits a mempool initialized with mempool_init(). It frees all reserved elements back to the system and frees the elements array. Can be called on an uninitialized mempool.
  */
 void mempool_exit(struct mempool *pool)
 {
@@ -219,6 +253,10 @@ EXPORT_SYMBOL(mempool_exit);
  *
  * Free all reserved elements in @pool and @pool itself.  This function
  * only sleeps if the free_fn() function sleeps.
+ * 
+ * 
+ * 
+ * Function Description: Destroys a mempool created with mempool_create(). It calls mempool_exit() and frees the pool structure itself. Returns immediately if the pool pointer is NULL.
  */
 void mempool_destroy(struct mempool *pool)
 {
@@ -230,6 +268,9 @@ void mempool_destroy(struct mempool *pool)
 }
 EXPORT_SYMBOL(mempool_destroy);
 
+/**
+ * Function Description: Initializes a mempool on a specific NUMA node. It allocates the elements array, pre-allocates the minimum number of elements, and initializes the pool's spinlock and waitqueue. Returns 0 on success or -ENOMEM.
+ */
 int mempool_init_node(struct mempool *pool, int min_nr,
 		mempool_alloc_t *alloc_fn, mempool_free_t *free_fn,
 		void *pool_data, gfp_t gfp_mask, int node_id)
@@ -281,6 +322,9 @@ EXPORT_SYMBOL(mempool_init_node);
  * structure).
  *
  * Return: %0 on success, negative error code otherwise.
+ * 
+ * 
+ * Function Description: Initializes a mempool without allocation profiling. It calls mempool_init_node() with GFP_KERNEL and NUMA_NO_NODE. This is the non-profiling version used internally.
  */
 int mempool_init_noprof(struct mempool *pool, int min_nr,
 		mempool_alloc_t *alloc_fn, mempool_free_t *free_fn,
@@ -309,6 +353,9 @@ EXPORT_SYMBOL(mempool_init_noprof);
  * from IRQ contexts.
  *
  * Return: pointer to the created memory pool object or %NULL on error.
+ * 
+ * 
+ * Function Description: Creates a mempool on a specific NUMA node without allocation profiling. It allocates the pool structure, initializes it with mempool_init_node(), and returns the pool. Returns NULL on failure.
  */
 struct mempool *mempool_create_node_noprof(int min_nr,
 		mempool_alloc_t *alloc_fn, mempool_free_t *free_fn,
@@ -347,6 +394,9 @@ EXPORT_SYMBOL(mempool_create_node_noprof);
  * might be called (eg. from IRQ contexts) while this function executes.
  *
  * Return: %0 on success, negative error code otherwise.
+ * 
+ * 
+ * Function Description: Resizes a mempool to a new minimum count. It can shrink the pool by freeing excess elements or grow it by allocating new elements. Handles race conditions and can be called while other operations are in progress. Returns 0 on success or -ENOMEM.
  */
 int mempool_resize(struct mempool *pool, int new_min_nr)
 {
@@ -409,6 +459,9 @@ out:
 }
 EXPORT_SYMBOL(mempool_resize);
 
+/**
+ * Function Description: Internal function that allocates elements from the mempool's reserved pool. It removes elements from the pool and updates the allocated count. If the pool is empty and __GFP_DIRECT_RECLAIM is set, it waits for elements to become available. Returns the updated allocated count.
+ */
 static unsigned int mempool_alloc_from_pool(struct mempool *pool, void **elems,
 		unsigned int count, unsigned int allocated,
 		gfp_t gfp_mask)
@@ -461,12 +514,15 @@ fail:
 	return allocated;
 }
 
-/*
+/**
  * Adjust the gfp flags for mempool allocations, as we never want to dip into
  * the global emergency reserves or retry in the page allocator.
  *
  * The first pass also doesn't want to go reclaim, but the next passes do, so
  * return a separate subset for that first iteration.
+ * 
+ * 
+ * Function Description: Adjusts GFP flags for mempool allocations. It adds __GFP_NOMEMALLOC, __GFP_NORETRY, and __GFP_NOWARN to prevent dipping into emergency reserves. On the first pass, it also removes __GFP_DIRECT_RECLAIM and __GFP_IO to avoid reclaim.
  */
 static inline gfp_t mempool_adjust_gfp(gfp_t *gfp_mask)
 {
@@ -488,6 +544,9 @@ static inline gfp_t mempool_adjust_gfp(gfp_t *gfp_mask)
  * On return all @count elements in @elems will be populated.
  *
  * Return: Always 0.  If it wasn't for %$#^$ alloc tags, it would return void.
+ * 
+ * 
+ * Function Description: Allocates multiple elements from a mempool without allocation profiling. It first tries the allocation callback, then dips into the reserved pool if needed. Handles fault injection for testing. Returns 0 on success (always returns 0 as it populates all elements).
  */
 int mempool_alloc_bulk_noprof(struct mempool *pool, void **elems,
 		unsigned int count, unsigned int allocated)
@@ -548,6 +607,9 @@ EXPORT_SYMBOL_GPL(mempool_alloc_bulk_noprof);
  * Return: pointer to the allocated element or %NULL when failing to allocate
  * an element.  Allocation failure can only happen when @gfp_mask does not
  * include %__GFP_DIRECT_RECLAIM.
+ * 
+ * 
+ * Function Description: Allocates a single element from a mempool without allocation profiling. It tries the allocation callback first, then dips into the reserved pool. Supports fault injection and retries with different GFP flags. Returns the element or NULL on failure.
  */
 void *mempool_alloc_noprof(struct mempool *pool, gfp_t gfp_mask)
 {
@@ -600,6 +662,9 @@ EXPORT_SYMBOL(mempool_alloc_noprof);
  *
  * Return: pointer to the allocated element or %NULL if no elements are
  * available.
+ * 
+ * 
+ * Function Description: Allocates an element from the mempool's preallocated pool only. It does not call the allocation callback and returns immediately if no elements are available. This is useful when allocation cannot be done (e.g., in atomic contexts). Returns the element or NULL.
  */
 void *mempool_alloc_preallocated(struct mempool *pool)
 {
@@ -623,6 +688,10 @@ EXPORT_SYMBOL(mempool_alloc_preallocated);
  * Return: number of elements transferred to @pool.  Elements are always
  * transferred from the beginning of @elem, so the return value can be used as
  * an offset into @elem for the freeing the remaining elements in the caller.
+ * 
+ * 
+ * 
+ * Function Description: Frees multiple elements back to a mempool. It returns elements to the pool if the pool needs replenishing (curr_nr < min_nr). Otherwise, the elements are left for the caller to free. Returns the number of elements transferred to the pool.
  */
 unsigned int mempool_free_bulk(struct mempool *pool, void **elems,
 		unsigned int count)
@@ -704,6 +773,9 @@ EXPORT_SYMBOL_GPL(mempool_free_bulk);
  * the free_fn callback in @pool.
  *
  * This function only sleeps if the free_fn callback sleeps.
+ * 
+ * 
+ * Function Description: Frees a single element back to a mempool. It calls mempool_free_bulk() and if the element wasn't added to the pool, it frees it using the pool's free callback.
  */
 void mempool_free(void *element, struct mempool *pool)
 {
@@ -712,8 +784,11 @@ void mempool_free(void *element, struct mempool *pool)
 }
 EXPORT_SYMBOL(mempool_free);
 
-/*
+/**
  * A commonly used alloc and free fn.
+ * 
+ * 
+ * Function Description: Allocates an element from a slab cache. It uses kmem_cache_alloc_noprof() on the cache passed as pool_data. This is a standard allocation function for slab-backed mempools.
  */
 void *mempool_alloc_slab(gfp_t gfp_mask, void *pool_data)
 {
@@ -723,6 +798,9 @@ void *mempool_alloc_slab(gfp_t gfp_mask, void *pool_data)
 }
 EXPORT_SYMBOL(mempool_alloc_slab);
 
+/**
+ * Function Description: Frees an element back to its slab cache. It uses kmem_cache_free() on the cache passed as pool_data. This pairs with mempool_alloc_slab().
+ */
 void mempool_free_slab(void *element, void *pool_data)
 {
 	struct kmem_cache *mem = pool_data;
@@ -730,9 +808,12 @@ void mempool_free_slab(void *element, void *pool_data)
 }
 EXPORT_SYMBOL(mempool_free_slab);
 
-/*
+/**
  * A commonly used alloc and free fn that kmalloc/kfrees the amount of memory
  * specified by pool_data
+ * 
+ * 
+ * Function Description: Allocates memory using kmalloc_noprof(). It allocates the amount of memory specified by pool_data. This is a standard allocation function for kmalloc-backed mempools.
  */
 void *mempool_kmalloc(gfp_t gfp_mask, void *pool_data)
 {
@@ -741,15 +822,21 @@ void *mempool_kmalloc(gfp_t gfp_mask, void *pool_data)
 }
 EXPORT_SYMBOL(mempool_kmalloc);
 
+/**
+ * Function Description: Frees memory using kfree(). It frees the element back to the system. This pairs with mempool_kmalloc().
+ */
 void mempool_kfree(void *element, void *pool_data)
 {
 	kfree(element);
 }
 EXPORT_SYMBOL(mempool_kfree);
 
-/*
+/**
  * A simple mempool-backed page allocator that allocates pages
  * of the order specified by pool_data.
+ * 
+ * 
+ * Function Description: Allocates pages using alloc_pages_noprof(). It allocates pages of the order specified by pool_data. This is a standard allocation function for page-backed mempools.
  */
 void *mempool_alloc_pages(gfp_t gfp_mask, void *pool_data)
 {
@@ -758,6 +845,9 @@ void *mempool_alloc_pages(gfp_t gfp_mask, void *pool_data)
 }
 EXPORT_SYMBOL(mempool_alloc_pages);
 
+/**
+ * Function Description: Frees pages using __free_pages(). It frees the pages of the order specified by pool_data. This pairs with mempool_alloc_pages().
+ */
 void mempool_free_pages(void *element, void *pool_data)
 {
 	int order = (int)(long)pool_data;

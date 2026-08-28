@@ -1,0 +1,128 @@
+\doxysection{zs\+\_\+pool Struct Reference}
+\hypertarget{structzs__pool}{}\label{structzs__pool}\index{zs\_pool@{zs\_pool}}
+
+
+Collaboration diagram for zs\+\_\+pool:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{structzs__pool__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structzs__pool_ab9a9dbe441765655228cfd28b49fc203}{name}}
+\item 
+struct \doxymbox{\hyperlink{structsize__class}{size\+\_\+class}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structzs__pool_adccaa0c5cd0b9797facfb9051a025ade}{size\+\_\+class}} \+[(DIV\+\_\+\+ROUND\+\_\+\+UP(PAGE\+\_\+\+SIZE -\/ MAX(32,((\+\_\+\+AC(CONFIG\+\_\+\+ZSMALLOC\+\_\+\+CHAIN\+\_\+\+SIZE, UL))$<$$<$ PAGE\+\_\+\+SHIFT $>$ $>$(BITS\+\_\+\+PER\+\_\+\+LONG -\/(BITS\+\_\+\+PER\+\_\+\+LONG -\/ PAGE\+\_\+\+SHIFT)))),(PAGE\+\_\+\+SIZE $>$ $>$ 8))+1)]\+
+\item 
+atomic\+\_\+long\+\_\+t \doxymbox{\hyperlink{structzs__pool_a1bd63d6003671d2ef1e704bd9ab74bd7}{pages\+\_\+allocated}}
+\item 
+struct \doxymbox{\hyperlink{structzs__pool__stats}{zs\+\_\+pool\+\_\+stats}} \doxymbox{\hyperlink{structzs__pool_a6a116e95b42d020b779ca4a5888bdc71}{stats}}
+\item 
+struct shrinker \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structzs__pool_a607bedf591043fb2f407537a13ddbc78}{shrinker}}
+\item 
+struct work\+\_\+struct \doxymbox{\hyperlink{structzs__pool_aef7e1b0578674b020d699052e739fe11}{free\+\_\+work}}
+\item 
+rwlock\+\_\+t \doxymbox{\hyperlink{structzs__pool_a7d315ed171712cfc3712f26b2bc0332d}{lock}}
+\item 
+atomic\+\_\+t \doxymbox{\hyperlink{structzs__pool_ad612ee92724289ed95f7d20364273462}{compaction\+\_\+in\+\_\+progress}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Function Description:\+ This is the main structure representing a zsmalloc pool. It contains the pool name, array of size classes, total pages allocated, pool statistics, shrinker, compaction work, and locks. Each pool manages memory allocations for compressed pages (like in zswap). 
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00217}{217}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+
+
+\label{structzs__pool_doc-variable-members}
+\Hypertarget{structzs__pool_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structzs__pool_ad612ee92724289ed95f7d20364273462}\index{zs\_pool@{zs\_pool}!compaction\_in\_progress@{compaction\_in\_progress}}
+\index{compaction\_in\_progress@{compaction\_in\_progress}!zs\_pool@{zs\_pool}}
+\doxysubsubsection{\texorpdfstring{compaction\_in\_progress}{compaction\_in\_progress}}
+{\footnotesize\ttfamily \label{structzs__pool_ad612ee92724289ed95f7d20364273462} 
+atomic\+\_\+t zs\+\_\+pool::\+compaction\+\_\+in\+\_\+progress}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00237}{237}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzs__pool_aef7e1b0578674b020d699052e739fe11}\index{zs\_pool@{zs\_pool}!free\_work@{free\_work}}
+\index{free\_work@{free\_work}!zs\_pool@{zs\_pool}}
+\doxysubsubsection{\texorpdfstring{free\_work}{free\_work}}
+{\footnotesize\ttfamily \label{structzs__pool_aef7e1b0578674b020d699052e739fe11} 
+struct work\+\_\+struct zs\+\_\+pool::\+free\+\_\+work}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00233}{233}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzs__pool_a7d315ed171712cfc3712f26b2bc0332d}\index{zs\_pool@{zs\_pool}!lock@{lock}}
+\index{lock@{lock}!zs\_pool@{zs\_pool}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily \label{structzs__pool_a7d315ed171712cfc3712f26b2bc0332d} 
+rwlock\+\_\+t zs\+\_\+pool::\+lock}
+
+protect zspage migration/\+compaction 
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00236}{236}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzs__pool_ab9a9dbe441765655228cfd28b49fc203}\index{zs\_pool@{zs\_pool}!name@{name}}
+\index{name@{name}!zs\_pool@{zs\_pool}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{structzs__pool_ab9a9dbe441765655228cfd28b49fc203} 
+const char\texorpdfstring{$\ast$}{*} zs\+\_\+pool::\+name}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00218}{218}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzs__pool_a1bd63d6003671d2ef1e704bd9ab74bd7}\index{zs\_pool@{zs\_pool}!pages\_allocated@{pages\_allocated}}
+\index{pages\_allocated@{pages\_allocated}!zs\_pool@{zs\_pool}}
+\doxysubsubsection{\texorpdfstring{pages\_allocated}{pages\_allocated}}
+{\footnotesize\ttfamily \label{structzs__pool_a1bd63d6003671d2ef1e704bd9ab74bd7} 
+atomic\+\_\+long\+\_\+t zs\+\_\+pool::\+pages\+\_\+allocated}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00222}{222}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzs__pool_a607bedf591043fb2f407537a13ddbc78}\index{zs\_pool@{zs\_pool}!shrinker@{shrinker}}
+\index{shrinker@{shrinker}!zs\_pool@{zs\_pool}}
+\doxysubsubsection{\texorpdfstring{shrinker}{shrinker}}
+{\footnotesize\ttfamily \label{structzs__pool_a607bedf591043fb2f407537a13ddbc78} 
+struct shrinker\texorpdfstring{$\ast$}{*} zs\+\_\+pool::\+shrinker}
+
+Compact classes 
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00227}{227}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzs__pool_adccaa0c5cd0b9797facfb9051a025ade}\index{zs\_pool@{zs\_pool}!size\_class@{size\_class}}
+\index{size\_class@{size\_class}!zs\_pool@{zs\_pool}}
+\doxysubsubsection{\texorpdfstring{size\_class}{size\_class}}
+{\footnotesize\ttfamily \label{structzs__pool_adccaa0c5cd0b9797facfb9051a025ade} 
+struct \doxymbox{\hyperlink{structsize__class}{size\+\_\+class}}\texorpdfstring{$\ast$}{*} zs\+\_\+pool::\+size\+\_\+class\+[(DIV\+\_\+\+ROUND\+\_\+\+UP(PAGE\+\_\+\+SIZE -\/ MAX(32,((\+\_\+\+AC(CONFIG\+\_\+\+ZSMALLOC\+\_\+\+CHAIN\+\_\+\+SIZE, UL))$<$$<$ PAGE\+\_\+\+SHIFT $>$ $>$(BITS\+\_\+\+PER\+\_\+\+LONG -\/(BITS\+\_\+\+PER\+\_\+\+LONG -\/ PAGE\+\_\+\+SHIFT)))),(PAGE\+\_\+\+SIZE $>$ $>$ 8))+1)]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00220}{220}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+\Hypertarget{structzs__pool_a6a116e95b42d020b779ca4a5888bdc71}\index{zs\_pool@{zs\_pool}!stats@{stats}}
+\index{stats@{stats}!zs\_pool@{zs\_pool}}
+\doxysubsubsection{\texorpdfstring{stats}{stats}}
+{\footnotesize\ttfamily \label{structzs__pool_a6a116e95b42d020b779ca4a5888bdc71} 
+struct \doxymbox{\hyperlink{structzs__pool__stats}{zs\+\_\+pool\+\_\+stats}} zs\+\_\+pool::\+stats}
+
+
+
+Definition at line \doxymbox{\hyperlink{zsmalloc_8c_source_l00224}{224}} of file \doxymbox{\hyperlink{zsmalloc_8c_source}{zsmalloc.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{zsmalloc_8c}{zsmalloc.\+c}}\end{DoxyCompactItemize}

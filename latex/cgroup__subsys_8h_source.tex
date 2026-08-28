@@ -1,0 +1,87 @@
+\doxysection{cgroup\+\_\+subsys.\+h}
+\hypertarget{cgroup__subsys_8h_source}{}\label{cgroup__subsys_8h_source}\index{include/linux/cgroup\_subsys.h@{include/linux/cgroup\_subsys.h}}
+\doxymbox{\hyperlink{cgroup__subsys_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00001}00001\ \textcolor{comment}{/*\ SPDX-\/License-\/Identifier:\ GPL-\/2.0\ */}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00002}00002\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00003}00003\ \textcolor{comment}{\ *\ List\ of\ cgroup\ subsystems.}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00004}00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00005}00005\ \textcolor{comment}{\ *\ DO\ NOT\ ADD\ ANY\ SUBSYSTEM\ WITHOUT\ EXPLICIT\ ACKS\ FROM\ CGROUP\ MAINTAINERS.}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00008}00008\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00009}00009\ \textcolor{comment}{\ *\ This\ file\ *must*\ be\ included\ with\ SUBSYS()\ defined.}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00010}00010\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00012}00012\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CPUSETS)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00013}00013\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(cpuset)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00014}00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00016}00016\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_SCHED)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00017}00017\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(cpu)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00018}00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00020}00020\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_CPUACCT)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00021}00021\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(cpuacct)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00022}00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00024}00024\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_BLK\_CGROUP)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00025}00025\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(io)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00026}00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00028}00028\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_MEMCG)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00029}00029\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(memory)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00030}00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00032}00032\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_DEVICE)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00033}00033\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(devices)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00034}00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00036}00036\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_FREEZER)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00037}00037\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(freezer)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00038}00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00040}00040\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_NET\_CLASSID)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00041}00041\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(net\_cls)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00042}00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00044}00044\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_PERF)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00045}00045\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(perf\_event)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00046}00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00048}00048\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_NET\_PRIO)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00049}00049\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(net\_prio)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00050}00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00052}00052\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_HUGETLB)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00053}00053\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(hugetlb)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00054}00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00056}00056\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_PIDS)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00057}00057\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(pids)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00058}00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00060}00060\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_RDMA)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00061}00061\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(rdma)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00062}00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00064}00064\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_MISC)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00065}00065\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(misc)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00066}00066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00068}00068\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_DMEM)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00069}00069\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(dmem)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00070}00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00072}00072\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00073}00073\ \textcolor{comment}{\ *\ The\ following\ subsystems\ are\ not\ supported\ on\ the\ default\ hierarchy.}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00074}00074\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00075}00075\ \textcolor{preprocessor}{\#if\ IS\_ENABLED(CONFIG\_CGROUP\_DEBUG)}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00076}00076\ \doxymbox{\hyperlink{cgroup-defs_8h_a3ebcb2f103577578af500979b2be8936}{SUBSYS}}(debug)}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00077}00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00079}00079\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00080}00080\ \textcolor{comment}{\ *\ DO\ NOT\ ADD\ ANY\ SUBSYSTEM\ WITHOUT\ EXPLICIT\ ACKS\ FROM\ CGROUP\ MAINTAINERS.}}
+\DoxyCodeLine{\Hypertarget{cgroup__subsys_8h_source_l00081}00081\ \textcolor{comment}{\ */}}
+
+\end{DoxyCode}

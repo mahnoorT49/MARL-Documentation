@@ -1,0 +1,94 @@
+\doxysection{kfree\+\_\+rcu\+\_\+cpu\+\_\+work Struct Reference}
+\hypertarget{structkfree__rcu__cpu__work}{}\label{structkfree__rcu__cpu__work}\index{kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}}
+
+
+Collaboration diagram for kfree\+\_\+rcu\+\_\+cpu\+\_\+work:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{structkfree__rcu__cpu__work__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct rcu\+\_\+work \doxymbox{\hyperlink{structkfree__rcu__cpu__work_afe7bbc7892773b31ee4d9214bdb277fe}{rcu\+\_\+work}}
+\item 
+struct rcu\+\_\+head \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structkfree__rcu__cpu__work_ac760d1f2221a40ffa0ed8054c726ccc6}{head\+\_\+free}}
+\item 
+struct rcu\+\_\+gp\+\_\+oldstate \doxymbox{\hyperlink{structkfree__rcu__cpu__work_a6ee5b30f8a07255e30aada9f80ae9fc1}{head\+\_\+free\+\_\+gp\+\_\+snap}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structkfree__rcu__cpu__work_aa5e1181f27f219ae436a73dc1907dcb0}{bulk\+\_\+head\+\_\+free}} \+[2]\+
+\item 
+struct \doxymbox{\hyperlink{structkfree__rcu__cpu}{kfree\+\_\+rcu\+\_\+cpu}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structkfree__rcu__cpu__work_ab32f2f22f03ca6d829484880843fb6b3}{krcp}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct \doxylink{structkfree__rcu__cpu__work}{kfree\+\_\+rcu\+\_\+cpu\+\_\+work} -\/ single batch of kfree\+\_\+rcu() requests @rcu\+\_\+work:\+ Let queue\+\_\+rcu\+\_\+work() invoke workqueue handler after grace period @head\+\_\+free:\+ List of kfree\+\_\+rcu() objects waiting for a grace period @head\+\_\+free\+\_\+gp\+\_\+snap:\+ Grace-\/period snapshot to check for attempted premature frees. @bulk\+\_\+head\+\_\+free:\+ Bulk-\/\+List of kvfree\+\_\+rcu() objects waiting for a grace period @krcp:\+ Pointer to @kfree\+\_\+rcu\+\_\+cpu structure
+
+struct Description:\+ This structure represents a single batch of kfree\+\_\+rcu() requests waiting for a grace period. It contains an RCU work item, a linked list of rcu\+\_\+head objects, a grace period snapshot, bulk list heads for kvfree\+\_\+rcu() objects, and a pointer back to the per-\/\+CPU \doxylink{structkfree__rcu__cpu}{kfree\+\_\+rcu\+\_\+cpu} structure. It is used to process deferred frees after a grace period. 
+
+Definition at line \doxymbox{\hyperlink{slab__common_8c_source_l01510}{1510}} of file \doxymbox{\hyperlink{slab__common_8c_source}{slab\+\_\+common.\+c}}.
+
+
+
+\label{structkfree__rcu__cpu__work_doc-variable-members}
+\Hypertarget{structkfree__rcu__cpu__work_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structkfree__rcu__cpu__work_aa5e1181f27f219ae436a73dc1907dcb0}\index{kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}!bulk\_head\_free@{bulk\_head\_free}}
+\index{bulk\_head\_free@{bulk\_head\_free}!kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}}
+\doxysubsubsection{\texorpdfstring{bulk\_head\_free}{bulk\_head\_free}}
+{\footnotesize\ttfamily \label{structkfree__rcu__cpu__work_aa5e1181f27f219ae436a73dc1907dcb0} 
+struct list\+\_\+head kfree\+\_\+rcu\+\_\+cpu\+\_\+work::\+bulk\+\_\+head\+\_\+free\+[2]\+}
+
+
+
+Definition at line \doxymbox{\hyperlink{slab__common_8c_source_l01514}{1514}} of file \doxymbox{\hyperlink{slab__common_8c_source}{slab\+\_\+common.\+c}}.
+
+\Hypertarget{structkfree__rcu__cpu__work_ac760d1f2221a40ffa0ed8054c726ccc6}\index{kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}!head\_free@{head\_free}}
+\index{head\_free@{head\_free}!kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}}
+\doxysubsubsection{\texorpdfstring{head\_free}{head\_free}}
+{\footnotesize\ttfamily \label{structkfree__rcu__cpu__work_ac760d1f2221a40ffa0ed8054c726ccc6} 
+struct rcu\+\_\+head\texorpdfstring{$\ast$}{*} kfree\+\_\+rcu\+\_\+cpu\+\_\+work::\+head\+\_\+free}
+
+
+
+Definition at line \doxymbox{\hyperlink{slab__common_8c_source_l01512}{1512}} of file \doxymbox{\hyperlink{slab__common_8c_source}{slab\+\_\+common.\+c}}.
+
+\Hypertarget{structkfree__rcu__cpu__work_a6ee5b30f8a07255e30aada9f80ae9fc1}\index{kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}!head\_free\_gp\_snap@{head\_free\_gp\_snap}}
+\index{head\_free\_gp\_snap@{head\_free\_gp\_snap}!kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}}
+\doxysubsubsection{\texorpdfstring{head\_free\_gp\_snap}{head\_free\_gp\_snap}}
+{\footnotesize\ttfamily \label{structkfree__rcu__cpu__work_a6ee5b30f8a07255e30aada9f80ae9fc1} 
+struct rcu\+\_\+gp\+\_\+oldstate kfree\+\_\+rcu\+\_\+cpu\+\_\+work::\+head\+\_\+free\+\_\+gp\+\_\+snap}
+
+
+
+Definition at line \doxymbox{\hyperlink{slab__common_8c_source_l01513}{1513}} of file \doxymbox{\hyperlink{slab__common_8c_source}{slab\+\_\+common.\+c}}.
+
+\Hypertarget{structkfree__rcu__cpu__work_ab32f2f22f03ca6d829484880843fb6b3}\index{kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}!krcp@{krcp}}
+\index{krcp@{krcp}!kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}}
+\doxysubsubsection{\texorpdfstring{krcp}{krcp}}
+{\footnotesize\ttfamily \label{structkfree__rcu__cpu__work_ab32f2f22f03ca6d829484880843fb6b3} 
+struct \doxymbox{\hyperlink{structkfree__rcu__cpu}{kfree\+\_\+rcu\+\_\+cpu}}\texorpdfstring{$\ast$}{*} kfree\+\_\+rcu\+\_\+cpu\+\_\+work::\+krcp}
+
+
+
+Definition at line \doxymbox{\hyperlink{slab__common_8c_source_l01515}{1515}} of file \doxymbox{\hyperlink{slab__common_8c_source}{slab\+\_\+common.\+c}}.
+
+\Hypertarget{structkfree__rcu__cpu__work_afe7bbc7892773b31ee4d9214bdb277fe}\index{kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}!rcu\_work@{rcu\_work}}
+\index{rcu\_work@{rcu\_work}!kfree\_rcu\_cpu\_work@{kfree\_rcu\_cpu\_work}}
+\doxysubsubsection{\texorpdfstring{rcu\_work}{rcu\_work}}
+{\footnotesize\ttfamily \label{structkfree__rcu__cpu__work_afe7bbc7892773b31ee4d9214bdb277fe} 
+struct rcu\+\_\+work kfree\+\_\+rcu\+\_\+cpu\+\_\+work::\+rcu\+\_\+work}
+
+
+
+Definition at line \doxymbox{\hyperlink{slab__common_8c_source_l01511}{1511}} of file \doxymbox{\hyperlink{slab__common_8c_source}{slab\+\_\+common.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{slab__common_8c}{slab\+\_\+common.\+c}}\end{DoxyCompactItemize}

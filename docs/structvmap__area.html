@@ -138,7 +138,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a2bebfa4e9806205e2c62c4c07ed32b38" id="r_a2bebfa4e9806205e2c62c4c07ed32b38"><td class="memItemLeft anonEnd">};&#160;</td><td class="memItemRight"></td></tr>
 <tr class="memitem:a919b570a07b248fc93c0c305ee6bb499" id="r_a919b570a07b248fc93c0c305ee6bb499"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a919b570a07b248fc93c0c305ee6bb499">flags</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>struct Description: This structure represents a virtual memory area in the vmalloc space. It contains the start and end addresses, rb_tree and list nodes for tracking, and either subtree_max_size (when free) or <a class="el" href="structvm__struct.html">vm_struct</a> pointer (when busy). It is used internally by the vmalloc subsystem to manage the virtual address space. </p>
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00077">77</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a2bebfa4e9806205e2c62c4c07ed32b38" name="a2bebfa4e9806205e2c62c4c07ed32b38"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2bebfa4e9806205e2c62c4c07ed32b38">&#9670;&#160;</a></span>[union]</h2>
 
@@ -150,6 +154,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>address sorted list The following two variables can be packed, because a <a class="el" href="structvmap__area.html">vmap_area</a> object can be either: 1) in "free" tree (root is free_vmap_area_root) 2) or "busy" tree (root is vmap_area_root) </p>
 
 </div>
 </div>
@@ -165,6 +170,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00094">94</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
 </div>
 </div>
 <a id="a903cbd8aea1ac57ab7d1adba73725cf6" name="a903cbd8aea1ac57ab7d1adba73725cf6"></a>
@@ -178,6 +185,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>address sorted rbtree </p>
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00082">82</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
 
 </div>
 </div>
@@ -193,6 +203,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00081">81</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
 </div>
 </div>
 <a id="a7f3ff0a4d1f4ebf09f110ee120e24acd" name="a7f3ff0a4d1f4ebf09f110ee120e24acd"></a>
@@ -206,6 +218,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00091">91</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
 
 </div>
 </div>
@@ -221,6 +235,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00079">79</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
 </div>
 </div>
 <a id="aaafb988ede17b89efe873f73958a52c4" name="aaafb988ede17b89efe873f73958a52c4"></a>
@@ -235,6 +251,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00078">78</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
+
 </div>
 </div>
 <a id="a62cce77852f241a18638bc69f60972d9" name="a62cce77852f241a18638bc69f60972d9"></a>
@@ -248,6 +266,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>in "free" tree </p>
+
+<p class="definition">Definition at line <a class="el" href="vmalloc_8h_source.html#l00092">92</a> of file <a class="el" href="vmalloc_8h_source.html">vmalloc.h</a>.</p>
 
 </div>
 </div>

@@ -1,0 +1,61 @@
+\doxysection{zsmalloc.\+h}
+\hypertarget{zsmalloc_8h_source}{}\label{zsmalloc_8h_source}\index{include/linux/zsmalloc.h@{include/linux/zsmalloc.h}}
+\doxymbox{\hyperlink{zsmalloc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00002}00002\ \textcolor{comment}{\ *\ zsmalloc\ memory\ allocator}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00003}00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00004}00004\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2011\ \ Nitin\ Gupta}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00005}00005\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2012,\ 2013\ Minchan\ Kim}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00006}00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00007}00007\ \textcolor{comment}{\ *\ This\ code\ is\ released\ using\ a\ dual\ license\ strategy:\ BSD/GPL}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00008}00008\ \textcolor{comment}{\ *\ You\ can\ choose\ the\ license\ that\ better\ fits\ your\ requirements.}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00009}00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00010}00010\ \textcolor{comment}{\ *\ Released\ under\ the\ terms\ of\ 3-\/clause\ BSD\ License}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00011}00011\ \textcolor{comment}{\ *\ Released\ under\ the\ terms\ of\ GNU\ General\ Public\ License\ Version\ 2.0}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00012}00012\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00014}00014\ \textcolor{preprocessor}{\#ifndef\ \_ZS\_MALLOC\_H\_}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00015}00015\ \textcolor{preprocessor}{\#define\ \_ZS\_MALLOC\_H\_}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <linux/types.h>}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00022}\doxymbox{\hyperlink{structzs__pool__stats}{00022}}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structzs__pool__stats}{zs\_pool\_stats}}\ \{}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00023}00023\ \ \ \ \ \textcolor{comment}{/*\ How\ many\ pages\ were\ migrated\ (freed)\ */}}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00024}\doxymbox{\hyperlink{structzs__pool__stats_af5fda4bb8262990d26dc5c7968e23653}{00024}}\ \ \ \ \ atomic\_long\_t\ \doxymbox{\hyperlink{structzs__pool__stats_af5fda4bb8262990d26dc5c7968e23653}{pages\_compacted}};}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00025}00025\ \};}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00027}00027\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structzs__pool}{zs\_pool}};}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00028}00028\ \textcolor{keyword}{struct\ }scatterlist;}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00030}00030\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *\doxymbox{\hyperlink{zsmalloc_8h_aa40d41c6f83d3655a064ad89d101a8dc}{zs\_create\_pool}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\doxymbox{\hyperlink{structzs__pool_ab9a9dbe441765655228cfd28b49fc203}{name}});}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00031}00031\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{zsmalloc_8h_ab9d3268726e0e93c2ced98aa79c2f015}{zs\_destroy\_pool}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00033}00033\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{zsmalloc_8h_a3d45970cc6ae3a0492dc3b0c5fadd16e}{zs\_malloc}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool,\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ gfp\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}},}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nid);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00035}00035\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{zsmalloc_8h_a3dea3a64f75a3e9772b62fe644703675}{zs\_free}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ obj);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00037}00037\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{zsmalloc_8h_a4952e5e499cea723cfaba6595841737f}{zs\_huge\_class\_size}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00039}00039\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{zsmalloc_8h_aaa9a967ad4413854987410eaf5f477b8}{zs\_get\_total\_pages}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00040}00040\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{zsmalloc_8h_a179a42df0e56320cc600f8c2f310d5d3}{zs\_compact}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00042}00042\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{zsmalloc_8h_a7827b90e916126327c28f9ec964f4131}{zs\_lookup\_class\_index}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00044}00044\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{zsmalloc_8h_a3607ff89120c42dcb0736c6d8790bd40}{zs\_pool\_stats}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool__stats}{zs\_pool\_stats}}\ *\doxymbox{\hyperlink{structzs__pool_a6a116e95b42d020b779ca4a5888bdc71}{stats}});}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00046}00046\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{zsmalloc_8h_aa910c2a7bcdc82d67484e2ba57713d6b}{zs\_obj\_read\_begin}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ handle,}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ mem\_len,\ \textcolor{keywordtype}{void}\ *local\_copy);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00048}00048\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{zsmalloc_8h_a436a8d2565c882d95d5dfa92f28c8230}{zs\_obj\_read\_end}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ handle,}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ mem\_len,\ \textcolor{keywordtype}{void}\ *handle\_mem);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00050}00050\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{zsmalloc_8h_a3cd5932b03cb3e6d4e4bee095da047ee}{zs\_obj\_read\_sg\_begin}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ handle,}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ scatterlist\ *sg,\ \textcolor{keywordtype}{size\_t}\ mem\_len);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00052}00052\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{zsmalloc_8h_a863475e975d5b3e3cdee760e6fdf0093}{zs\_obj\_read\_sg\_end}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ handle);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00053}00053\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{zsmalloc_8h_ae3f8f84ce947361a6510f7d558b7a6c3}{zs\_obj\_write}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzs__pool}{zs\_pool}}\ *pool,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ handle,}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *handle\_mem,\ \textcolor{keywordtype}{size\_t}\ mem\_len);}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00056}00056\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }movable\_operations\ \doxymbox{\hyperlink{zsmalloc_8h_a9d9bc8eb1fd54e531cae84d358c0c32c}{zsmalloc\_mops}};}
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{zsmalloc_8h_source_l00058}00058\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

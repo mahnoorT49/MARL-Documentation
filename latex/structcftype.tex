@@ -1,0 +1,296 @@
+\doxysection{cftype Struct Reference}
+\hypertarget{structcftype}{}\label{structcftype}\index{cftype@{cftype}}
+
+
+{\ttfamily \+\#include $<$cgroup-\/defs.\+h$>$}
+
+
+
+Collaboration diagram for cftype:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcftype__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char \doxymbox{\hyperlink{structcftype_a4d05cb0744b8e74736881fb83992b1df}{name}} \+[64]\+
+\item 
+unsigned long \doxymbox{\hyperlink{structcftype_a4bc9d8591511628ba9163b14d1a1a8ac}{private}}
+\item 
+size\+\_\+t \doxymbox{\hyperlink{structcftype_a6678d9dfdc80862957995ca55e24f5b2}{max\+\_\+write\+\_\+len}}
+\item 
+unsigned int \doxymbox{\hyperlink{structcftype_aa4e3e91d6160950020605d0e984a7527}{flags}}
+\item 
+unsigned int \doxymbox{\hyperlink{structcftype_a644b90f4fab25b823727999143be8cef}{file\+\_\+offset}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__subsys}{cgroup\+\_\+subsys}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_a3b0986e1ddaa5e9b94c6c6a577a34329}{ss}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structcftype_a52117bacca614c38b30e4ef46edb1cd3}{node}}
+\item 
+struct kernfs\+\_\+ops \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_a43c884900ae329ee8c8ec0b255376b7b}{kf\+\_\+ops}}
+\item 
+int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_a232ad03ac46ae6c67e154f594df4ef6f}{open}} )(struct kernfs\+\_\+open\+\_\+file \texorpdfstring{$\ast$}{*}of)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_accf45665e01000590fa4c5e635b42854}{release}} )(struct kernfs\+\_\+open\+\_\+file \texorpdfstring{$\ast$}{*}of)
+\item 
+u64(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_a8156c538d7184b0481ecd6a05fe3f9a5}{read\+\_\+u64}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*}cft)
+\item 
+s64(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_a50fd9ab0a6ebbc0dd5dad244a44ba4e5}{read\+\_\+s64}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*}cft)
+\item 
+int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_a0f2b9292ecb81b87cbe9bf1003d90ff0}{seq\+\_\+show}} )(struct seq\+\_\+file \texorpdfstring{$\ast$}{*}sf, void \texorpdfstring{$\ast$}{*}v)
+\item 
+void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_ae824a38f9b9c77e9a5579b0f49dc2369}{seq\+\_\+start}} )(struct seq\+\_\+file \texorpdfstring{$\ast$}{*}sf, loff\+\_\+t \texorpdfstring{$\ast$}{*}ppos)
+\item 
+void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_ab85db73867fba2dba6ff056eae024d2f}{seq\+\_\+next}} )(struct seq\+\_\+file \texorpdfstring{$\ast$}{*}sf, void \texorpdfstring{$\ast$}{*}v, loff\+\_\+t \texorpdfstring{$\ast$}{*}ppos)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_ab7d26c3f3302483109e1567e095c7b40}{seq\+\_\+stop}} )(struct seq\+\_\+file \texorpdfstring{$\ast$}{*}sf, void \texorpdfstring{$\ast$}{*}v)
+\item 
+int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_aabe9528ecc6bc5f2477d46b22fafd879}{write\+\_\+u64}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*}cft, u64 val)
+\item 
+int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_a0d9670d4ab5f5c21c31ba54268a08a2f}{write\+\_\+s64}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*}cft, s64 val)
+\item 
+ssize\+\_\+t(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_a3dff2446bbd99975153058717ee0af4e}{write}} )(struct kernfs\+\_\+open\+\_\+file \texorpdfstring{$\ast$}{*}of, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t nbytes, loff\+\_\+t off)
+\item 
+\+\_\+\+\_\+poll\+\_\+t(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcftype_a5e8f051beb0035ddbc5949720625992c}{poll}} )(struct kernfs\+\_\+open\+\_\+file \texorpdfstring{$\ast$}{*}of, struct poll\+\_\+table\+\_\+struct \texorpdfstring{$\ast$}{*}pt)
+\item 
+struct lock\+\_\+class\+\_\+key \doxymbox{\hyperlink{structcftype_a4e331cff6a441b5d948a43f531a449b4}{lockdep\+\_\+key}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct cftype:\+ handler definitions for cgroup control files
+
+When reading/\+writing to a file:\+
+\begin{DoxyItemize}
+\item the cgroup to use is file-\/\texorpdfstring{$>$}{>}f\+\_\+path.\+dentry-\/\texorpdfstring{$>$}{>}d\+\_\+parent-\/\texorpdfstring{$>$}{>}d\+\_\+fsdata
+\item the \textquotesingle{}cftype\textquotesingle{} of the file is file-\/\texorpdfstring{$>$}{>}f\+\_\+path.\+dentry-\/\texorpdfstring{$>$}{>}d\+\_\+fsdata
+\end{DoxyItemize}
+
+struct Description:\+ This structure defines handler functions for cgroup control files. It contains the file name, flags, and callback functions for read/\+write operations. Controllers use this to create interface files in cgroup directories. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00737}{737}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+\label{structcftype_doc-variable-members}
+\Hypertarget{structcftype_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcftype_a644b90f4fab25b823727999143be8cef}\index{cftype@{cftype}!file\_offset@{file\_offset}}
+\index{file\_offset@{file\_offset}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{file\_offset}{file\_offset}}
+{\footnotesize\ttfamily \label{structcftype_a644b90f4fab25b823727999143be8cef} 
+unsigned int cftype::\+file\+\_\+offset}
+
+If non-\/zero, should contain the offset from the start of css to a struct \doxylink{structcgroup__file}{cgroup\+\_\+file} field. cgroup will record the handle of the created file into it. The recorded handle can be used as long as the containing css remains accessible. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00760}{760}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_aa4e3e91d6160950020605d0e984a7527}\index{cftype@{cftype}!flags@{flags}}
+\index{flags@{flags}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily \label{structcftype_aa4e3e91d6160950020605d0e984a7527} 
+unsigned int cftype::\+flags}
+
+CFTYPE\+\_\+\texorpdfstring{$\ast$}{*} flags 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00752}{752}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a43c884900ae329ee8c8ec0b255376b7b}\index{cftype@{cftype}!kf\_ops@{kf\_ops}}
+\index{kf\_ops@{kf\_ops}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{kf\_ops}{kf\_ops}}
+{\footnotesize\ttfamily \label{structcftype_a43c884900ae329ee8c8ec0b255376b7b} 
+struct kernfs\+\_\+ops\texorpdfstring{$\ast$}{*} cftype::\+kf\+\_\+ops}
+
+anchored at ss-\/\texorpdfstring{$>$}{>}cfts 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00768}{768}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a4e331cff6a441b5d948a43f531a449b4}\index{cftype@{cftype}!lockdep\_key@{lockdep\_key}}
+\index{lockdep\_key@{lockdep\_key}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{lockdep\_key}{lockdep\_key}}
+{\footnotesize\ttfamily \label{structcftype_a4e331cff6a441b5d948a43f531a449b4} 
+struct lock\+\_\+class\+\_\+key cftype::\+lockdep\+\_\+key}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00816}{816}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a6678d9dfdc80862957995ca55e24f5b2}\index{cftype@{cftype}!max\_write\_len@{max\_write\_len}}
+\index{max\_write\_len@{max\_write\_len}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{max\_write\_len}{max\_write\_len}}
+{\footnotesize\ttfamily \label{structcftype_a6678d9dfdc80862957995ca55e24f5b2} 
+size\+\_\+t cftype::\+max\+\_\+write\+\_\+len}
+
+The maximum length of string, excluding trailing nul, that can be passed to write. If \texorpdfstring{$<$}{<} PAGE\+\_\+\+SIZE-\/1, PAGE\+\_\+\+SIZE-\/1 is assumed. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00749}{749}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a4d05cb0744b8e74736881fb83992b1df}\index{cftype@{cftype}!name@{name}}
+\index{name@{name}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{structcftype_a4d05cb0744b8e74736881fb83992b1df} 
+char cftype::\+name\+[64]\+}
+
+Name of the subsystem is prepended in \doxylink{cgroup_8c_aceffc0ff10a077438992d3507dfb4843}{cgroup\+\_\+file\+\_\+name()}. Zero length string indicates end of cftype array. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00742}{742}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a52117bacca614c38b30e4ef46edb1cd3}\index{cftype@{cftype}!node@{node}}
+\index{node@{node}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{node}{node}}
+{\footnotesize\ttfamily \label{structcftype_a52117bacca614c38b30e4ef46edb1cd3} 
+struct list\+\_\+head cftype::\+node}
+
+NULL for cgroup core files 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00767}{767}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a232ad03ac46ae6c67e154f594df4ef6f}\index{cftype@{cftype}!open@{open}}
+\index{open@{open}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{open}{open}}
+{\footnotesize\ttfamily \label{structcftype_a232ad03ac46ae6c67e154f594df4ef6f} 
+int(\texorpdfstring{$\ast$}{*} cftype::\+open) (struct kernfs\+\_\+open\+\_\+file \texorpdfstring{$\ast$}{*}of)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00770}{770}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a5e8f051beb0035ddbc5949720625992c}\index{cftype@{cftype}!poll@{poll}}
+\index{poll@{poll}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{poll}{poll}}
+{\footnotesize\ttfamily \label{structcftype_a5e8f051beb0035ddbc5949720625992c} 
+\+\_\+\+\_\+poll\+\_\+t(\texorpdfstring{$\ast$}{*} cftype::\+poll) (struct kernfs\+\_\+open\+\_\+file \texorpdfstring{$\ast$}{*}of, struct poll\+\_\+table\+\_\+struct \texorpdfstring{$\ast$}{*}pt)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00813}{813}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a4bc9d8591511628ba9163b14d1a1a8ac}\index{cftype@{cftype}!private@{private}}
+\index{private@{private}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{private}{private}}
+{\footnotesize\ttfamily \label{structcftype_a4bc9d8591511628ba9163b14d1a1a8ac} 
+unsigned long cftype::\+private}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00743}{743}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a50fd9ab0a6ebbc0dd5dad244a44ba4e5}\index{cftype@{cftype}!read\_s64@{read\_s64}}
+\index{read\_s64@{read\_s64}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{read\_s64}{read\_s64}}
+{\footnotesize\ttfamily \label{structcftype_a50fd9ab0a6ebbc0dd5dad244a44ba4e5} 
+s64(\texorpdfstring{$\ast$}{*} cftype::\+read\+\_\+s64) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*}cft)}
+
+\doxylink{structcftype_a50fd9ab0a6ebbc0dd5dad244a44ba4e5}{read\+\_\+s64()} is a signed version of \doxylink{structcftype_a8156c538d7184b0481ecd6a05fe3f9a5}{read\+\_\+u64()} 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00781}{781}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a8156c538d7184b0481ecd6a05fe3f9a5}\index{cftype@{cftype}!read\_u64@{read\_u64}}
+\index{read\_u64@{read\_u64}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{read\_u64}{read\_u64}}
+{\footnotesize\ttfamily \label{structcftype_a8156c538d7184b0481ecd6a05fe3f9a5} 
+u64(\texorpdfstring{$\ast$}{*} cftype::\+read\+\_\+u64) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*}cft)}
+
+\doxylink{structcftype_a8156c538d7184b0481ecd6a05fe3f9a5}{read\+\_\+u64()} is a shortcut for the common case of returning a single integer. Use it in place of read() 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00777}{777}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_accf45665e01000590fa4c5e635b42854}\index{cftype@{cftype}!release@{release}}
+\index{release@{release}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{release}{release}}
+{\footnotesize\ttfamily \label{structcftype_accf45665e01000590fa4c5e635b42854} 
+void(\texorpdfstring{$\ast$}{*} cftype::\+release) (struct kernfs\+\_\+open\+\_\+file \texorpdfstring{$\ast$}{*}of)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00771}{771}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_ab85db73867fba2dba6ff056eae024d2f}\index{cftype@{cftype}!seq\_next@{seq\_next}}
+\index{seq\_next@{seq\_next}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{seq\_next}{seq\_next}}
+{\footnotesize\ttfamily \label{structcftype_ab85db73867fba2dba6ff056eae024d2f} 
+void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} cftype::\+seq\+\_\+next) (struct seq\+\_\+file \texorpdfstring{$\ast$}{*}sf, void \texorpdfstring{$\ast$}{*}v, loff\+\_\+t \texorpdfstring{$\ast$}{*}ppos)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00788}{788}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a0f2b9292ecb81b87cbe9bf1003d90ff0}\index{cftype@{cftype}!seq\_show@{seq\_show}}
+\index{seq\_show@{seq\_show}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{seq\_show}{seq\_show}}
+{\footnotesize\ttfamily \label{structcftype_a0f2b9292ecb81b87cbe9bf1003d90ff0} 
+int(\texorpdfstring{$\ast$}{*} cftype::\+seq\+\_\+show) (struct seq\+\_\+file \texorpdfstring{$\ast$}{*}sf, void \texorpdfstring{$\ast$}{*}v)}
+
+generic seq\+\_\+file read interface 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00784}{784}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_ae824a38f9b9c77e9a5579b0f49dc2369}\index{cftype@{cftype}!seq\_start@{seq\_start}}
+\index{seq\_start@{seq\_start}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{seq\_start}{seq\_start}}
+{\footnotesize\ttfamily \label{structcftype_ae824a38f9b9c77e9a5579b0f49dc2369} 
+void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} cftype::\+seq\+\_\+start) (struct seq\+\_\+file \texorpdfstring{$\ast$}{*}sf, loff\+\_\+t \texorpdfstring{$\ast$}{*}ppos)}
+
+optional ops, implement all or none 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00787}{787}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_ab7d26c3f3302483109e1567e095c7b40}\index{cftype@{cftype}!seq\_stop@{seq\_stop}}
+\index{seq\_stop@{seq\_stop}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{seq\_stop}{seq\_stop}}
+{\footnotesize\ttfamily \label{structcftype_ab7d26c3f3302483109e1567e095c7b40} 
+void(\texorpdfstring{$\ast$}{*} cftype::\+seq\+\_\+stop) (struct seq\+\_\+file \texorpdfstring{$\ast$}{*}sf, void \texorpdfstring{$\ast$}{*}v)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00789}{789}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a3b0986e1ddaa5e9b94c6c6a577a34329}\index{cftype@{cftype}!ss@{ss}}
+\index{ss@{ss}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{ss}{ss}}
+{\footnotesize\ttfamily \label{structcftype_a3b0986e1ddaa5e9b94c6c6a577a34329} 
+struct \doxymbox{\hyperlink{structcgroup__subsys}{cgroup\+\_\+subsys}}\texorpdfstring{$\ast$}{*} cftype::\+ss}
+
+Fields used for internal bookkeeping. Initialized automatically during registration. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00766}{766}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a3dff2446bbd99975153058717ee0af4e}\index{cftype@{cftype}!write@{write}}
+\index{write@{write}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{write}{write}}
+{\footnotesize\ttfamily \label{structcftype_a3dff2446bbd99975153058717ee0af4e} 
+ssize\+\_\+t(\texorpdfstring{$\ast$}{*} cftype::\+write) (struct kernfs\+\_\+open\+\_\+file \texorpdfstring{$\ast$}{*}of, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t nbytes, loff\+\_\+t off)}
+
+\doxylink{structcftype_a3dff2446bbd99975153058717ee0af4e}{write()} is the generic write callback which maps directly to kernfs write operation and overrides all other operations. Maximum write size is determined by -\/\texorpdfstring{$>$}{>}max\+\_\+write\+\_\+len. Use of\+\_\+css/\+cft() to access the associated css and cft. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00810}{810}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_a0d9670d4ab5f5c21c31ba54268a08a2f}\index{cftype@{cftype}!write\_s64@{write\_s64}}
+\index{write\_s64@{write\_s64}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{write\_s64}{write\_s64}}
+{\footnotesize\ttfamily \label{structcftype_a0d9670d4ab5f5c21c31ba54268a08a2f} 
+int(\texorpdfstring{$\ast$}{*} cftype::\+write\+\_\+s64) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*}cft, s64 val)}
+
+\doxylink{structcftype_a0d9670d4ab5f5c21c31ba54268a08a2f}{write\+\_\+s64()} is a signed version of \doxylink{structcftype_aabe9528ecc6bc5f2477d46b22fafd879}{write\+\_\+u64()} 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00801}{801}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcftype_aabe9528ecc6bc5f2477d46b22fafd879}\index{cftype@{cftype}!write\_u64@{write\_u64}}
+\index{write\_u64@{write\_u64}!cftype@{cftype}}
+\doxysubsubsection{\texorpdfstring{write\_u64}{write\_u64}}
+{\footnotesize\ttfamily \label{structcftype_aabe9528ecc6bc5f2477d46b22fafd879} 
+int(\texorpdfstring{$\ast$}{*} cftype::\+write\+\_\+u64) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*}cft, u64 val)}
+
+\doxylink{structcftype_aabe9528ecc6bc5f2477d46b22fafd879}{write\+\_\+u64()} is a shortcut for the common case of accepting a single integer (as parsed by simple\+\_\+strtoull) from userspace. Use in place of \doxylink{structcftype_a3dff2446bbd99975153058717ee0af4e}{write()}; return 0 or error. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00796}{796}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{cgroup-defs_8h}{cgroup-\/defs.\+h}}\end{DoxyCompactItemize}

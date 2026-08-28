@@ -572,7 +572,7 @@ EXTRACT_PACKAGE        = NO
 # included in the documentation.
 # The default value is: NO.
 
-EXTRACT_STATIC         = NO
+EXTRACT_STATIC         = YES
 
 # If the EXTRACT_LOCAL_CLASSES tag is set to YES, classes (and structs) defined
 # locally in source files will be included in the documentation. If set to NO,
@@ -1272,14 +1272,14 @@ FORTRAN_COMMENT_AFTER  = 72
 # also VERBATIM_HEADERS is set to NO.
 # The default value is: NO.
 
-SOURCE_BROWSER         = NO
+SOURCE_BROWSER         = YES
 
 # Setting the INLINE_SOURCES tag to YES will include the body of functions,
 # multi-line macros, enums or list initialized variables directly into the
 # documentation.
 # The default value is: NO.
 
-INLINE_SOURCES         = NO
+INLINE_SOURCES         = YES
 
 # Setting the STRIP_CODE_COMMENTS tag to YES will instruct Doxygen to hide any
 # special comment blocks from generated source code fragments. Normal C, C++ and
@@ -2548,7 +2548,7 @@ MACRO_EXPANSION        = YES
 # The default value is: NO.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-EXPAND_ONLY_PREDEF     = YES
+EXPAND_ONLY_PREDEF     = NO
 
 # If the SEARCH_INCLUDES tag is set to YES, the include files in the
 # INCLUDE_PATH will be searched if a #include is found.
@@ -2581,7 +2581,182 @@ INCLUDE_FILE_PATTERNS  =
 # recursively expanded use the := operator instead of the = operator.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-PREDEFINED             =
+PREDEFINED             = CONFIG_HAS_DMA=1 \
+                         CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG=1 \
+                         CONFIG_HIGHMEM=1 \
+                         CONFIG_ZONE_DMA=1 \
+                         CONFIG_ZONE_DMA32=1 \
+                         CONFIG_NUMA=1 \
+                         CONFIG_ZONE_DEVICE=1 \
+                         CONFIG_MEM_ALLOC_PROFILING=1 \
+                         CONFIG_KASAN_HW_TAGS=1 \
+                         CONFIG_LOCKDEP=1 \
+                         CONFIG_COMPACTION=1 \
+                         CONFIG_CONTIG_ALLOC=1 \
+                         CONFIG_ZSMALLOC=1 \
+                         CONFIG_UNACCEPTED_MEMORY=1 \
+                         CONFIG_TRANSPARENT_HUGEPAGE=1 \
+                         CONFIG_ZSWAP=1 \
+                         CONFIG_HUGETLB_PAGE=1 \
+                         CONFIG_IOMMU_SUPPORT=1 \
+                         CONFIG_SWAP=1 \
+                         CONFIG_CMA=1 \
+                         CONFIG_MEMORY_ISOLATION=1 \
+                         CONFIG_SPARSEMEM=1 \
+                         CONFIG_SPARSEMEM_EXTREME=1 \
+                         CONFIG_SPARSEMEM_VMEMMAP=1 \
+                         CONFIG_SPARSEMEM_VMEMMAP_PREINIT=1 \
+                         CONFIG_HAVE_ARCH_PFN_VALID=1 \
+                         CONFIG_ARCH_FORCE_MAX_ORDER=1 \
+                         CONFIG_PAGE_BLOCK_MAX_ORDER=1 \
+                         CONFIG_MEMORY_HOTPLUG=1 \
+                         CONFIG_DEFERRED_STRUCT_PAGE_INIT=1 \
+                         CONFIG_FLATMEM=1 \
+                         CONFIG_HAVE_MEMORYLESS_NODES=1 \
+                         CONFIG_CMA_DEBUGFS=1 \
+                         CONFIG_CMA_SYSFS=1 \
+                         CONFIG_MEMCG=1 \
+                         CONFIG_MEMCG_V1=1 \
+                         CONFIG_MEMCG_NMI_SAFETY_REQUIRES_ATOMIC=1 \
+                         CONFIG_CGROUP_WRITEBACK=1 \
+                         CONFIG_CGROUP_SCHED=1 \
+                         CONFIG_CPUSETS=1 \
+                         CONFIG_CPUSETS_V1=1 \
+                         CONFIG_BLK_CGROUP=1 \
+                         CONFIG_CGROUP_CPUACCT=1 \
+                         CONFIG_CGROUP_DEVICE=1 \
+                         CONFIG_CGROUP_FREEZER=1 \
+                         CONFIG_CGROUP_HUGETLB=1 \
+                         CONFIG_CGROUP_PIDS=1 \
+                         CONFIG_CGROUP_RDMA=1 \
+                         CONFIG_CGROUP_MISC=1 \
+                         CONFIG_CGROUP_DMEM=1 \
+                         CONFIG_CGROUP_DEBUG=1 \
+                         CONFIG_CGROUP_FAVOR_DYNMODS=1 \
+                         CONFIG_CGROUP_BPF=1 \
+                         CONFIG_CFS_BANDWIDTH=1 \
+                         CONFIG_RT_GROUP_SCHED=1 \
+                         CONFIG_FAIR_GROUP_SCHED=1 \
+                         CONFIG_UCLAMP_TASK=1 \
+                         CONFIG_UCLAMP_BUCKETS_COUNT=1 \
+                         CONFIG_SCHED_CLASS_EXT=1 \
+                         CONFIG_SCHED_CORE=1 \
+                         CONFIG_SCHED_INFO=1 \
+                         CONFIG_SCHEDSTATS=1 \
+                         CONFIG_SCHED_MM_CID=1 \
+                         CONFIG_SCHED_PROXY_EXEC=1 \
+                         CONFIG_PREEMPT_RT=1 \
+                         CONFIG_PREEMPT_NOTIFIERS=1 \
+                         CONFIG_PREEMPT_RCU=1 \
+                         CONFIG_TASKS_RCU=1 \
+                         CONFIG_TASKS_TRACE_RCU=1 \
+                         CONFIG_NO_HZ_FULL=1 \
+                         CONFIG_SYSVIPC=1 \
+                         CONFIG_DETECT_HUNG_TASK=1 \
+                         CONFIG_DETECT_HUNG_TASK_BLOCKER=1 \
+                         CONFIG_IO_URING=1 \
+                         CONFIG_AUDIT=1 \
+                         CONFIG_AUDITSYSCALL=1 \
+                         CONFIG_SECURITY=1 \
+                         CONFIG_BPF_SYSCALL=1 \
+                         CONFIG_CGROUPS=1 \
+                         CONFIG_CGROUP_NET_CLASSID=1 \
+                         CONFIG_CGROUP_NET_PRIO=1 \
+                         CONFIG_SOCK_CGROUP_DATA=1 \
+                         CONFIG_DEBUG_ATOMIC_SLEEP=1 \
+                         CONFIG_TRACE_IRQFLAGS=1 \
+                         CONFIG_UBSAN=1 \
+                         CONFIG_DEBUG_OBJECTS=1 \
+                         CONFIG_DEBUG_PREEMPT=1 \
+                         CONFIG_FAULT_INJECTION=1 \
+                         CONFIG_LATENCYTOP=1 \
+                         CONFIG_KASAN_GENERIC=1 \
+                         CONFIG_KASAN_SW_TAGS=1 \
+                         CONFIG_KCSAN=1 \
+                         CONFIG_KCSAN_WEAK_MEMORY=1 \
+                         CONFIG_KMSAN=1 \
+                         CONFIG_KUNIT=1 \
+                         CONFIG_FUNCTION_GRAPH_TRACER=1 \
+                         CONFIG_TRACING=1 \
+                         CONFIG_KCOV=1 \
+                         CONFIG_UPROBES=1 \
+                         CONFIG_BCACHE=1 \
+                         CONFIG_MMU=1 \
+                         CONFIG_VMAP_STACK=1 \
+                         CONFIG_LIVEPATCH=1 \
+                         CONFIG_KSTACK_ERASE=1 \
+                         CONFIG_KSTACK_ERASE_METRICS=1 \
+                         CONFIG_RANDOMIZE_KSTACK_OFFSET=1 \
+                         CONFIG_X86_MCE=1 \
+                         CONFIG_KRETPROBES=1 \
+                         CONFIG_RETHOOK=1 \
+                         CONFIG_RV=1 \
+                         CONFIG_RV_PER_TASK_MONITORS=1 \
+                         CONFIG_USER_EVENTS=1 \
+                         CONFIG_UNWIND_USER=1 \
+                         CONFIG_THREAD_INFO_IN_TASK=1 \
+                         CONFIG_SMP=1 \
+                         CONFIG_PREEMPT_DYNAMIC=1 \
+                         CONFIG_HAVE_PREEMPT_DYNAMIC_CALL=1 \
+                         CONFIG_HAVE_PREEMPT_DYNAMIC_KEY=1 \
+                         CONFIG_ARCH_HAS_CPU_PASID=1 \
+                         CONFIG_X86_BUS_LOCK_DETECT=1 \
+                         CONFIG_TASK_DELAY_ACCT=1 \
+                         CONFIG_PAGE_OWNER=1 \
+                         CONFIG_EVENTFD=1 \
+                         CONFIG_PSI=1 \
+                         CONFIG_BLK_DEV_IO_TRACE=1 \
+                         CONFIG_COMPAT_BRK=1 \
+                         CONFIG_MEM_ALLOC_PROFILING_DEBUG=1 \
+                         CONFIG_SLAB_OBJ_EXT=1 \
+                         CONFIG_SLAB_BUCKETS=1 \
+                         CONFIG_RANDOM_KMALLOC_CACHES=1 \
+                         CONFIG_SLUB_TINY=1 \
+                         CONFIG_SLUB_DEBUG=1 \
+                         CONFIG_KFENCE=1 \
+                         CONFIG_FAILSLAB=1 \
+                         CONFIG_KMEMLEAK=1 \
+                         CONFIG_ARCH_HAS_DMA_MINALIGN=1 \
+                         CONFIG_NEED_DMA_MAP_STATE=1 \
+                         CONFIG_DMA_API_DEBUG=1 \
+                         CONFIG_DMA_NEED_SYNC=1 \
+                         CONFIG_IOMMU_DMA=1 \
+                         CONFIG_ARCH_KMALLOC_MINALIGN=1 \
+                         CONFIG_ARCH_SLAB_MINALIGN=1 \
+                         CONFIG_PROVE_RCU=1 \
+                         CONFIG_DEBUG_CGROUP_REF=1 \
+                         CONFIG_IRQ_TIME_ACCOUNTING=1 \
+                         CONFIG_SYSFS=1 \
+                         CONFIG_ARCH_HAS_SYNC_DMA_FOR_DEVICE=1 \
+                         CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU=1 \
+                         CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU_ALL=1 \
+                         CONFIG_ARCH_DMA_DEFAULT_COHERENT=1 \
+                         CONFIG_DMA_OPS_BYPASS=1 \
+                         CONFIG_ARCH_HAS_DMA_WRITE_COMBINE=1 \
+                         CONFIG_OF=1 \
+                         CONFIG_SLUB_RCU_DEBUG=1 \
+                         CONFIG_HAVE_ALIGNED_STRUCT_PAGE=1 \
+                         CONFIG_SLAB_FREELIST_HARDENED=1 \
+                         CONFIG_SLAB_FREELIST_RANDOM=1 \
+                         CONFIG_64BIT=1 \
+                         CONFIG_SLUB_STATS=1 \
+                         CONFIG_SLUB_DEBUG_ON=1 \
+                         CONFIG_SLAB_MERGE_DEFAULT=1 \
+                         CONFIG_STACKDEPOT=1 \
+                         CONFIG_HARDENED_USERCOPY=1 \
+                         CONFIG_INIT_ON_ALLOC_DEFAULT_ON=1 \
+                         CONFIG_INIT_ON_FREE_DEFAULT_ON=1 \
+                         CONFIG_KVFREE_RCU_BATCHED=1 \
+                         CONFIG_ARCH_HAS_EXECMEM_ROX=1 \
+                         CONFIG_HAVE_MEMBLOCK_PHYS_MAP=1 \
+                         CONFIG_ARCH_KEEP_MEMBLOCK=1 \
+                         CONFIG_ARCH_USE_MEMBLOCK=1 \
+                         CONFIG_KEXEC_HANDOVER=1 \
+                         CONFIG_DEBUG_FS=1 \
+                         CONFIG_PHYS_ADDR_T_64BIT=1 \
+                         CONFIG_HAVE_ARCH_HUGE_VMAP=1 \
+                         CONFIG_HAVE_ARCH_HUGE_VMALLOC=1 \
+                         CONFIG_ARCH_HAVE_NMI_SAFE_CMPXCHG=1
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The

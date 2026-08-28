@@ -1,0 +1,438 @@
+\doxysection{cgroup\+\_\+subsys Struct Reference}
+\hypertarget{structcgroup__subsys}{}\label{structcgroup__subsys}\index{cgroup\_subsys@{cgroup\_subsys}}
+
+
+{\ttfamily \+\#include $<$cgroup-\/defs.\+h$>$}
+
+
+
+Collaboration diagram for cgroup\+\_\+subsys:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcgroup__subsys__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a0bff01189257227df4bb1f28451abaf2}{css\+\_\+alloc}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}parent\+\_\+css)
+\item 
+int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_af69ad45c6fb0a70b7f9a663c032c81cc}{css\+\_\+online}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a0abd996dd21df20e56cc222a31256c8a}{css\+\_\+offline}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a475bcfecb73c521b657eaf6111a8b0a1}{css\+\_\+released}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a177c8a5431af91dcd64ef72dfd765a02}{css\+\_\+free}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_aacde9afb2c0d46f45ac7cf5e3a5dc606}{css\+\_\+reset}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a6391c5716be747a7d93d7b3ad53704ac}{css\+\_\+killed}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a7c54f9f8bec3ea3ea813ad56bde5cc75}{css\+\_\+rstat\+\_\+flush}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, int cpu)
+\item 
+int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a740121809afed9a7fb4a849d435113f3}{css\+\_\+extra\+\_\+stat\+\_\+show}} )(struct seq\+\_\+file \texorpdfstring{$\ast$}{*}seq, struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)
+\item 
+int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a4ee0a480f7d5b7d09d750a4160861112}{css\+\_\+local\+\_\+stat\+\_\+show}} )(struct seq\+\_\+file \texorpdfstring{$\ast$}{*}seq, struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)
+\item 
+int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_ae9abfaac92fd99af46a13562b42c6f78}{can\+\_\+attach}} )(struct \doxymbox{\hyperlink{structcgroup__taskset}{cgroup\+\_\+taskset}} \texorpdfstring{$\ast$}{*}tset)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a8831c5359e8a8381e52e29b7b4bf01d1}{cancel\+\_\+attach}} )(struct \doxymbox{\hyperlink{structcgroup__taskset}{cgroup\+\_\+taskset}} \texorpdfstring{$\ast$}{*}tset)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a3ba78db829b257bd9418e6e2eb580c1f}{attach}} )(struct \doxymbox{\hyperlink{structcgroup__taskset}{cgroup\+\_\+taskset}} \texorpdfstring{$\ast$}{*}tset)
+\item 
+int(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_ae3e640260496d2163244ee204d610d55}{can\+\_\+fork}} )(struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task, struct \doxymbox{\hyperlink{structcss__set}{css\+\_\+set}} \texorpdfstring{$\ast$}{*}cset)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a41d6e18a23b28ebe6d13e0cdb81273f6}{cancel\+\_\+fork}} )(struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task, struct \doxymbox{\hyperlink{structcss__set}{css\+\_\+set}} \texorpdfstring{$\ast$}{*}cset)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a0ae8cb806ab7c9dea8ee6e6856c62c2c}{fork}} )(struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_af3184430d3e76517631b6524b1cd7fe0}{exit}} )(struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a0df71a5177e79bd0c9ba35a64d33d5cc}{release}} )(struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task)
+\item 
+void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a00fb13c8ccfe637aed301ff7e31068c4}{bind}} )(struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}root\+\_\+css)
+\item 
+bool \doxymbox{\hyperlink{structcgroup__subsys_a6c3751b63e2d7bf2fe7a3f047a49fe70}{early\+\_\+init}}:\+1
+\item 
+bool \doxymbox{\hyperlink{structcgroup__subsys_acd8b3b0d3ed78c4edbfdf8f1604fbcf1}{implicit\+\_\+on\+\_\+dfl}}:\+1
+\item 
+bool \doxymbox{\hyperlink{structcgroup__subsys_ae10008ab7728424f46863ac334b1ae49}{threaded}}:\+1
+\item 
+int \doxymbox{\hyperlink{structcgroup__subsys_af7d4cd7f30d0c8ab9e696646ad9895bb}{id}}
+\item 
+const char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_abe4e13a434178274b8ae5c91aff6ddbf}{name}}
+\item 
+const char \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a47156db590715f2570b0ed9b60b147e8}{legacy\+\_\+name}}
+\item 
+struct \doxymbox{\hyperlink{structcgroup__root}{cgroup\+\_\+root}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a3484b9e12a9d9db681374db52e490436}{root}}
+\item 
+struct idr \doxymbox{\hyperlink{structcgroup__subsys_a8052cbc779e7c11c07095f1ed5396d29}{css\+\_\+idr}}
+\item 
+struct list\+\_\+head \doxymbox{\hyperlink{structcgroup__subsys_aa3fb3dfa2f057df83197e79dc67e25d0}{cfts}}
+\item 
+struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_ade639b9a74f4f7ca2a5f59518b68324f}{dfl\+\_\+cftypes}}
+\item 
+struct \doxymbox{\hyperlink{structcftype}{cftype}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a80f8e070e789c21c32cf72fb29e8886f}{legacy\+\_\+cftypes}}
+\item 
+unsigned int \doxymbox{\hyperlink{structcgroup__subsys_abcb3bb02d191c32ab5eaedbad857e42e}{depends\+\_\+on}}
+\item 
+spinlock\+\_\+t \doxymbox{\hyperlink{structcgroup__subsys_a64d0c5b8f0ad413c8c6670da9144c6c6}{rstat\+\_\+ss\+\_\+lock}}
+\item 
+struct llist\+\_\+head \+\_\+\+\_\+percpu \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structcgroup__subsys_a79f9e06224c72036fec374558d513594}{lhead}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Control Group subsystem type. See Documentation/\+admin-\/guide/\+cgroup-\/v1/\+cgroups.\+rst for details
+
+struct Description:\+ This structure represents a cgroup subsystem/\+controller. It contains lifecycle callbacks (alloc, online, offline, free), attach/\+detach callbacks, and various flags. Each controller (like memory, cpu, io) registers one of these. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00826}{826}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+\label{structcgroup__subsys_doc-variable-members}
+\Hypertarget{structcgroup__subsys_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcgroup__subsys_a3ba78db829b257bd9418e6e2eb580c1f}\index{cgroup\_subsys@{cgroup\_subsys}!attach@{attach}}
+\index{attach@{attach}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{attach}{attach}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a3ba78db829b257bd9418e6e2eb580c1f} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+attach) (struct \doxymbox{\hyperlink{structcgroup__taskset}{cgroup\+\_\+taskset}} \texorpdfstring{$\ast$}{*}tset)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00842}{842}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a00fb13c8ccfe637aed301ff7e31068c4}\index{cgroup\_subsys@{cgroup\_subsys}!bind@{bind}}
+\index{bind@{bind}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{bind}{bind}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a00fb13c8ccfe637aed301ff7e31068c4} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+bind) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}root\+\_\+css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00849}{849}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_ae9abfaac92fd99af46a13562b42c6f78}\index{cgroup\_subsys@{cgroup\_subsys}!can\_attach@{can\_attach}}
+\index{can\_attach@{can\_attach}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{can\_attach}{can\_attach}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_ae9abfaac92fd99af46a13562b42c6f78} 
+int(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+can\+\_\+attach) (struct \doxymbox{\hyperlink{structcgroup__taskset}{cgroup\+\_\+taskset}} \texorpdfstring{$\ast$}{*}tset)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00840}{840}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_ae3e640260496d2163244ee204d610d55}\index{cgroup\_subsys@{cgroup\_subsys}!can\_fork@{can\_fork}}
+\index{can\_fork@{can\_fork}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{can\_fork}{can\_fork}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_ae3e640260496d2163244ee204d610d55} 
+int(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+can\+\_\+fork) (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task, struct \doxymbox{\hyperlink{structcss__set}{css\+\_\+set}} \texorpdfstring{$\ast$}{*}cset)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00843}{843}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a8831c5359e8a8381e52e29b7b4bf01d1}\index{cgroup\_subsys@{cgroup\_subsys}!cancel\_attach@{cancel\_attach}}
+\index{cancel\_attach@{cancel\_attach}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{cancel\_attach}{cancel\_attach}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a8831c5359e8a8381e52e29b7b4bf01d1} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+cancel\+\_\+attach) (struct \doxymbox{\hyperlink{structcgroup__taskset}{cgroup\+\_\+taskset}} \texorpdfstring{$\ast$}{*}tset)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00841}{841}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a41d6e18a23b28ebe6d13e0cdb81273f6}\index{cgroup\_subsys@{cgroup\_subsys}!cancel\_fork@{cancel\_fork}}
+\index{cancel\_fork@{cancel\_fork}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{cancel\_fork}{cancel\_fork}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a41d6e18a23b28ebe6d13e0cdb81273f6} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+cancel\+\_\+fork) (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task, struct \doxymbox{\hyperlink{structcss__set}{css\+\_\+set}} \texorpdfstring{$\ast$}{*}cset)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00845}{845}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_aa3fb3dfa2f057df83197e79dc67e25d0}\index{cgroup\_subsys@{cgroup\_subsys}!cfts@{cfts}}
+\index{cfts@{cfts}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{cfts}{cfts}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_aa3fb3dfa2f057df83197e79dc67e25d0} 
+struct list\+\_\+head cgroup\+\_\+subsys::\+cfts}
+
+List of cftypes. Each entry is the first entry of an array terminated by zero length name. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00895}{895}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a0bff01189257227df4bb1f28451abaf2}\index{cgroup\_subsys@{cgroup\_subsys}!css\_alloc@{css\_alloc}}
+\index{css\_alloc@{css\_alloc}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_alloc}{css\_alloc}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a0bff01189257227df4bb1f28451abaf2} 
+struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+alloc) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}parent\+\_\+css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00816}{816}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a740121809afed9a7fb4a849d435113f3}\index{cgroup\_subsys@{cgroup\_subsys}!css\_extra\_stat\_show@{css\_extra\_stat\_show}}
+\index{css\_extra\_stat\_show@{css\_extra\_stat\_show}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_extra\_stat\_show}{css\_extra\_stat\_show}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a740121809afed9a7fb4a849d435113f3} 
+int(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+extra\+\_\+stat\+\_\+show) (struct seq\+\_\+file \texorpdfstring{$\ast$}{*}seq, struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00835}{835}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a177c8a5431af91dcd64ef72dfd765a02}\index{cgroup\_subsys@{cgroup\_subsys}!css\_free@{css\_free}}
+\index{css\_free@{css\_free}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_free}{css\_free}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a177c8a5431af91dcd64ef72dfd765a02} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+free) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00831}{831}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a8052cbc779e7c11c07095f1ed5396d29}\index{cgroup\_subsys@{cgroup\_subsys}!css\_idr@{css\_idr}}
+\index{css\_idr@{css\_idr}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_idr}{css\_idr}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a8052cbc779e7c11c07095f1ed5396d29} 
+struct idr cgroup\+\_\+subsys::\+css\+\_\+idr}
+
+idr for css-\/\texorpdfstring{$>$}{>}id 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00889}{889}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a6391c5716be747a7d93d7b3ad53704ac}\index{cgroup\_subsys@{cgroup\_subsys}!css\_killed@{css\_killed}}
+\index{css\_killed@{css\_killed}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_killed}{css\_killed}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a6391c5716be747a7d93d7b3ad53704ac} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+killed) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00833}{833}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a4ee0a480f7d5b7d09d750a4160861112}\index{cgroup\_subsys@{cgroup\_subsys}!css\_local\_stat\_show@{css\_local\_stat\_show}}
+\index{css\_local\_stat\_show@{css\_local\_stat\_show}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_local\_stat\_show}{css\_local\_stat\_show}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a4ee0a480f7d5b7d09d750a4160861112} 
+int(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+local\+\_\+stat\+\_\+show) (struct seq\+\_\+file \texorpdfstring{$\ast$}{*}seq, struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00837}{837}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a0abd996dd21df20e56cc222a31256c8a}\index{cgroup\_subsys@{cgroup\_subsys}!css\_offline@{css\_offline}}
+\index{css\_offline@{css\_offline}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_offline}{css\_offline}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a0abd996dd21df20e56cc222a31256c8a} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+offline) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00829}{829}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_af69ad45c6fb0a70b7f9a663c032c81cc}\index{cgroup\_subsys@{cgroup\_subsys}!css\_online@{css\_online}}
+\index{css\_online@{css\_online}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_online}{css\_online}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_af69ad45c6fb0a70b7f9a663c032c81cc} 
+int(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+online) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00828}{828}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a475bcfecb73c521b657eaf6111a8b0a1}\index{cgroup\_subsys@{cgroup\_subsys}!css\_released@{css\_released}}
+\index{css\_released@{css\_released}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_released}{css\_released}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a475bcfecb73c521b657eaf6111a8b0a1} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+released) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00830}{830}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_aacde9afb2c0d46f45ac7cf5e3a5dc606}\index{cgroup\_subsys@{cgroup\_subsys}!css\_reset@{css\_reset}}
+\index{css\_reset@{css\_reset}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_reset}{css\_reset}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_aacde9afb2c0d46f45ac7cf5e3a5dc606} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+reset) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00832}{832}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a7c54f9f8bec3ea3ea813ad56bde5cc75}\index{cgroup\_subsys@{cgroup\_subsys}!css\_rstat\_flush@{css\_rstat\_flush}}
+\index{css\_rstat\_flush@{css\_rstat\_flush}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{css\_rstat\_flush}{css\_rstat\_flush}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a7c54f9f8bec3ea3ea813ad56bde5cc75} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+css\+\_\+rstat\+\_\+flush) (struct \doxymbox{\hyperlink{structcgroup__subsys__state}{cgroup\+\_\+subsys\+\_\+state}} \texorpdfstring{$\ast$}{*}css, int cpu)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00834}{834}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_abcb3bb02d191c32ab5eaedbad857e42e}\index{cgroup\_subsys@{cgroup\_subsys}!depends\_on@{depends\_on}}
+\index{depends\_on@{depends\_on}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{depends\_on}{depends\_on}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_abcb3bb02d191c32ab5eaedbad857e42e} 
+unsigned int cgroup\+\_\+subsys::\+depends\+\_\+on}
+
+for the legacy hierarchies A subsystem may depend on other subsystems. When such subsystem is enabled on a cgroup, the depended-\/upon subsystems are enabled together if available. Subsystems enabled due to dependency are not visible to userland until explicitly enabled. The following specifies the mask of subsystems that this one depends on. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00911}{911}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_ade639b9a74f4f7ca2a5f59518b68324f}\index{cgroup\_subsys@{cgroup\_subsys}!dfl\_cftypes@{dfl\_cftypes}}
+\index{dfl\_cftypes@{dfl\_cftypes}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{dfl\_cftypes}{dfl\_cftypes}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_ade639b9a74f4f7ca2a5f59518b68324f} 
+struct \doxymbox{\hyperlink{structcftype}{cftype}}\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+dfl\+\_\+cftypes}
+
+Base cftypes which are automatically registered. The two can point to the same array. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00901}{901}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a6c3751b63e2d7bf2fe7a3f047a49fe70}\index{cgroup\_subsys@{cgroup\_subsys}!early\_init@{early\_init}}
+\index{early\_init@{early\_init}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{early\_init}{early\_init}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a6c3751b63e2d7bf2fe7a3f047a49fe70} 
+bool cgroup\+\_\+subsys::\+early\+\_\+init}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00851}{851}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_af3184430d3e76517631b6524b1cd7fe0}\index{cgroup\_subsys@{cgroup\_subsys}!exit@{exit}}
+\index{exit@{exit}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{exit}{exit}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_af3184430d3e76517631b6524b1cd7fe0} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+exit) (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00847}{847}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a0ae8cb806ab7c9dea8ee6e6856c62c2c}\index{cgroup\_subsys@{cgroup\_subsys}!fork@{fork}}
+\index{fork@{fork}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{fork}{fork}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a0ae8cb806ab7c9dea8ee6e6856c62c2c} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+fork) (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00846}{846}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_af7d4cd7f30d0c8ab9e696646ad9895bb}\index{cgroup\_subsys@{cgroup\_subsys}!id@{id}}
+\index{id@{id}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_af7d4cd7f30d0c8ab9e696646ad9895bb} 
+int cgroup\+\_\+subsys::\+id}
+
+the following two fields are initialized automatically during boot 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00879}{879}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_acd8b3b0d3ed78c4edbfdf8f1604fbcf1}\index{cgroup\_subsys@{cgroup\_subsys}!implicit\_on\_dfl@{implicit\_on\_dfl}}
+\index{implicit\_on\_dfl@{implicit\_on\_dfl}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{implicit\_on\_dfl}{implicit\_on\_dfl}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_acd8b3b0d3ed78c4edbfdf8f1604fbcf1} 
+bool cgroup\+\_\+subsys::\+implicit\+\_\+on\+\_\+dfl}
+
+If true, the controller, on the default hierarchy, doesn\textquotesingle{}t show up in "{}cgroup.\+controllers"{} or "{}cgroup.\+subtree\+\_\+control"{}, is implicitly enabled on all cgroups on the default hierarchy, and bypasses the "{}no internal process"{} constraint. This is for utility type controllers which is transparent to userland.
+
+An implicit controller can be stolen from the default hierarchy anytime and thus must be okay with offline csses from previous hierarchies coexisting with csses for the current one. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00864}{864}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a80f8e070e789c21c32cf72fb29e8886f}\index{cgroup\_subsys@{cgroup\_subsys}!legacy\_cftypes@{legacy\_cftypes}}
+\index{legacy\_cftypes@{legacy\_cftypes}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{legacy\_cftypes}{legacy\_cftypes}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a80f8e070e789c21c32cf72fb29e8886f} 
+struct \doxymbox{\hyperlink{structcftype}{cftype}}\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+legacy\+\_\+cftypes}
+
+for the default hierarchy 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00902}{902}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a47156db590715f2570b0ed9b60b147e8}\index{cgroup\_subsys@{cgroup\_subsys}!legacy\_name@{legacy\_name}}
+\index{legacy\_name@{legacy\_name}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{legacy\_name}{legacy\_name}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a47156db590715f2570b0ed9b60b147e8} 
+const char\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+legacy\+\_\+name}
+
+optional, initialized automatically during boot if not set 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00883}{883}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a79f9e06224c72036fec374558d513594}\index{cgroup\_subsys@{cgroup\_subsys}!lhead@{lhead}}
+\index{lhead@{lhead}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{lhead}{lhead}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a79f9e06224c72036fec374558d513594} 
+struct llist\+\_\+head \+\_\+\+\_\+percpu\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+lhead}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00914}{914}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_abe4e13a434178274b8ae5c91aff6ddbf}\index{cgroup\_subsys@{cgroup\_subsys}!name@{name}}
+\index{name@{name}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_abe4e13a434178274b8ae5c91aff6ddbf} 
+const char\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+name}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00880}{880}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a0df71a5177e79bd0c9ba35a64d33d5cc}\index{cgroup\_subsys@{cgroup\_subsys}!release@{release}}
+\index{release@{release}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{release}{release}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a0df71a5177e79bd0c9ba35a64d33d5cc} 
+void(\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+release) (struct task\+\_\+struct \texorpdfstring{$\ast$}{*}task)}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00848}{848}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a3484b9e12a9d9db681374db52e490436}\index{cgroup\_subsys@{cgroup\_subsys}!root@{root}}
+\index{root@{root}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{root}{root}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a3484b9e12a9d9db681374db52e490436} 
+struct \doxymbox{\hyperlink{structcgroup__root}{cgroup\+\_\+root}}\texorpdfstring{$\ast$}{*} cgroup\+\_\+subsys::\+root}
+
+link to parent, protected by cgroup\+\_\+lock() 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00886}{886}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_a64d0c5b8f0ad413c8c6670da9144c6c6}\index{cgroup\_subsys@{cgroup\_subsys}!rstat\_ss\_lock@{rstat\_ss\_lock}}
+\index{rstat\_ss\_lock@{rstat\_ss\_lock}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{rstat\_ss\_lock}{rstat\_ss\_lock}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_a64d0c5b8f0ad413c8c6670da9144c6c6} 
+spinlock\+\_\+t cgroup\+\_\+subsys::\+rstat\+\_\+ss\+\_\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00913}{913}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__subsys_ae10008ab7728424f46863ac334b1ae49}\index{cgroup\_subsys@{cgroup\_subsys}!threaded@{threaded}}
+\index{threaded@{threaded}!cgroup\_subsys@{cgroup\_subsys}}
+\doxysubsubsection{\texorpdfstring{threaded}{threaded}}
+{\footnotesize\ttfamily \label{structcgroup__subsys_ae10008ab7728424f46863ac334b1ae49} 
+bool cgroup\+\_\+subsys::\+threaded}
+
+If true, the controller, supports threaded mode on the default hierarchy. In a threaded subtree, both process granularity and no-\/internal-\/process constraint are ignored and a threaded controllers should be able to handle that.
+
+Note that as an implicit controller is automatically enabled on all cgroups on the default hierarchy, it should also be threaded. implicit \&\& !threaded is not supported. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00876}{876}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{cgroup-defs_8h}{cgroup-\/defs.\+h}}\end{DoxyCompactItemize}

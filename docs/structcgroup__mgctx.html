@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structcgroup__
 <div class="dynheader">
 Collaboration diagram for cgroup_mgctx:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structcgroup__mgctx__coll__graph.svg" width="122" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structcgroup__mgctx__coll__graph.svg" width="1396" height="635"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -133,7 +133,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ac03ee1c359e9e2a93e1d35fce10aa863" id="r_ac03ee1c359e9e2a93e1d35fce10aa863"><td class="memItemLeft">struct <a class="el" href="structcgroup__taskset.html">cgroup_taskset</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac03ee1c359e9e2a93e1d35fce10aa863">tset</a></td></tr>
 <tr class="memitem:aff8b4e68192d23b75a1877f0988f96e8" id="r_aff8b4e68192d23b75a1877f0988f96e8"><td class="memItemLeft">u32&#160;</td><td class="memItemRight"><a class="el" href="#aff8b4e68192d23b75a1877f0988f96e8">ss_mask</a></td></tr>
 </table>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>migration context also tracks preloading</p>
+<p>struct Description: This structure holds the migration context for cgroup operations. It contains preloaded source and destination csets, the taskset to migrate, and the subsystem mask. It is used to guarantee atomic success or failure of cgroup migrations. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00160">160</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a75d6700a6aaff2e1793b457bfe323750" name="a75d6700a6aaff2e1793b457bfe323750"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75d6700a6aaff2e1793b457bfe323750">&#9670;&#160;</a></span>preloaded_dst_csets</h2>
 
@@ -145,6 +150,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00166">166</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -159,6 +166,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Preloaded source and destination csets. Used to guarantee atomic success or failure on actual migration. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00165">165</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -173,6 +183,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>subsystems affected by migration </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00172">172</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>
@@ -187,6 +200,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>tasks and csets to migrate </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup-internal_8h_source.html#l00169">169</a> of file <a class="el" href="cgroup-internal_8h_source.html">cgroup-internal.h</a>.</p>
 
 </div>
 </div>

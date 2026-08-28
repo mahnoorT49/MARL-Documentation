@@ -119,10 +119,12 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('swap_8h.html',
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;linux/atomic.h&gt;</code><br />
+<code>#include &lt;linux/swapops.h&gt;</code><br />
+<code>#include &lt;linux/blk_types.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for swap.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h__incl.svg" width="151" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h__incl.svg" width="396" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -156,10 +158,59 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a5d03c33edbcb4a7752b9c710fa4775fe" id="r_a5d03c33edbcb4a7752b9c710fa4775fe"><td class="memItemLeft">static unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a5d03c33edbcb4a7752b9c710fa4775fe">swp_cluster_offset</a> (swp_entry_t entry)</td></tr>
+<tr class="memitem:a20d9f1322009dea712da59c95b2bdaed" id="r_a20d9f1322009dea712da59c95b2bdaed"><td class="memItemLeft">static struct swap_info_struct *&#160;</td><td class="memItemRight"><a class="el" href="#a20d9f1322009dea712da59c95b2bdaed">__swap_type_to_info</a> (int type)</td></tr>
+<tr class="memitem:a423d9b69aac4ecff5ceac951cb14573a" id="r_a423d9b69aac4ecff5ceac951cb14573a"><td class="memItemLeft">static struct swap_info_struct *&#160;</td><td class="memItemRight"><a class="el" href="#a423d9b69aac4ecff5ceac951cb14573a">__swap_entry_to_info</a> (swp_entry_t entry)</td></tr>
+<tr class="memitem:a9b2318917f63a40b745c3fc381e456bb" id="r_a9b2318917f63a40b745c3fc381e456bb"><td class="memItemLeft">static struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a9b2318917f63a40b745c3fc381e456bb">__swap_offset_to_cluster</a> (struct swap_info_struct *si, pgoff_t offset)</td></tr>
+<tr class="memitem:a08d2f552cef3da2a696f3d65940fd432" id="r_a08d2f552cef3da2a696f3d65940fd432"><td class="memItemLeft">static struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a08d2f552cef3da2a696f3d65940fd432">__swap_entry_to_cluster</a> (swp_entry_t entry)</td></tr>
+<tr class="memitem:a84cec68212fa073368c256d418e12ce0" id="r_a84cec68212fa073368c256d418e12ce0"><td class="memItemLeft">static __always_inline struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a84cec68212fa073368c256d418e12ce0">__swap_cluster_lock</a> (struct swap_info_struct *si, unsigned long offset, bool irq)</td></tr>
+<tr class="memitem:a074b060542dd23eea18115458cc8e988" id="r_a074b060542dd23eea18115458cc8e988"><td class="memItemLeft">static struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a074b060542dd23eea18115458cc8e988">swap_cluster_lock</a> (struct swap_info_struct *si, unsigned long offset)</td></tr>
+<tr class="memitem:afb895af180a2cbee8334f11ef60c23c0" id="r_afb895af180a2cbee8334f11ef60c23c0"><td class="memItemLeft">static struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *&#160;</td><td class="memItemRight"><a class="el" href="#afb895af180a2cbee8334f11ef60c23c0">__swap_cluster_get_and_lock</a> (const struct folio *folio, bool irq)</td></tr>
+<tr class="memitem:a5de0d8a14fb93d0dc94a73b2a7fdc839" id="r_a5de0d8a14fb93d0dc94a73b2a7fdc839"><td class="memItemLeft">static struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5de0d8a14fb93d0dc94a73b2a7fdc839">swap_cluster_get_and_lock</a> (const struct folio *folio)</td></tr>
+<tr class="memitem:ab3746ac838b327ea1f7ee867ec46b856" id="r_ab3746ac838b327ea1f7ee867ec46b856"><td class="memItemLeft">static struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ab3746ac838b327ea1f7ee867ec46b856">swap_cluster_get_and_lock_irq</a> (const struct folio *folio)</td></tr>
+<tr class="memitem:a9df95245a7fe23d590d481c424c40abb" id="r_a9df95245a7fe23d590d481c424c40abb"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a9df95245a7fe23d590d481c424c40abb">swap_cluster_unlock</a> (struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *ci)</td></tr>
+<tr class="memitem:afc92154a658fdaf6587eb1b59acbb335" id="r_afc92154a658fdaf6587eb1b59acbb335"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#afc92154a658fdaf6587eb1b59acbb335">swap_cluster_unlock_irq</a> (struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *ci)</td></tr>
+<tr class="memitem:a4f016f41b8d218e843962ded4dad348e" id="r_a4f016f41b8d218e843962ded4dad348e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4f016f41b8d218e843962ded4dad348e">folio_alloc_swap</a> (struct folio *folio)</td></tr>
+<tr class="memitem:abd8cba2dabc02410e4c4fcf595c9d712" id="r_abd8cba2dabc02410e4c4fcf595c9d712"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#abd8cba2dabc02410e4c4fcf595c9d712">folio_dup_swap</a> (struct folio *folio, struct page *subpage)</td></tr>
+<tr class="memitem:a1e378a4dc95994290a80f625d481ad0f" id="r_a1e378a4dc95994290a80f625d481ad0f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1e378a4dc95994290a80f625d481ad0f">folio_put_swap</a> (struct folio *folio, struct page *subpage)</td></tr>
+<tr class="memitem:aaef639ee4ac647d24e473bd0a77e91c0" id="r_aaef639ee4ac647d24e473bd0a77e91c0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aaef639ee4ac647d24e473bd0a77e91c0">swap_entries_free</a> (struct swap_info_struct *si, struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *ci, unsigned long offset, unsigned int nr_pages)</td></tr>
+<tr class="memitem:afe1f966b5b17d8ae1bf81adf9f330299" id="r_afe1f966b5b17d8ae1bf81adf9f330299"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#afe1f966b5b17d8ae1bf81adf9f330299">sio_pool_init</a> (void)</td></tr>
+<tr class="memitem:a57179a8e98f8f5e98537cb986f5ea997" id="r_a57179a8e98f8f5e98537cb986f5ea997"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a57179a8e98f8f5e98537cb986f5ea997">swap_read_folio</a> (struct folio *folio, struct swap_iocb **plug)</td></tr>
+<tr class="memitem:acfe917466ebc3c96b38664378771b6c9" id="r_acfe917466ebc3c96b38664378771b6c9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acfe917466ebc3c96b38664378771b6c9">__swap_read_unplug</a> (struct swap_iocb *plug)</td></tr>
+<tr class="memitem:aeed14101401ef51386101e7ddf2840e2" id="r_aeed14101401ef51386101e7ddf2840e2"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#aeed14101401ef51386101e7ddf2840e2">swap_read_unplug</a> (struct swap_iocb *plug)</td></tr>
+<tr class="memitem:a0c065f14f83899476864ddaccbb4af74" id="r_a0c065f14f83899476864ddaccbb4af74"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c065f14f83899476864ddaccbb4af74">swap_write_unplug</a> (struct swap_iocb *sio)</td></tr>
+<tr class="memitem:a12b5e02cc4ee73e27cccf5256dc7b61e" id="r_a12b5e02cc4ee73e27cccf5256dc7b61e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a12b5e02cc4ee73e27cccf5256dc7b61e">swap_writeout</a> (struct folio *folio, struct swap_iocb **swap_plug)</td></tr>
+<tr class="memitem:aad9c8e50597e02475095ed126f711bb6" id="r_aad9c8e50597e02475095ed126f711bb6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aad9c8e50597e02475095ed126f711bb6">__swap_writepage</a> (struct folio *folio, struct swap_iocb **swap_plug)</td></tr>
+<tr class="memitem:a22896e845bf9933dc95cb24cd1756fc9" id="r_a22896e845bf9933dc95cb24cd1756fc9"><td class="memItemLeft">static struct address_space *&#160;</td><td class="memItemRight"><a class="el" href="#a22896e845bf9933dc95cb24cd1756fc9">swap_address_space</a> (swp_entry_t entry)</td></tr>
+<tr class="memitem:a99c4f629715fb95b5ace366975a762fc" id="r_a99c4f629715fb95b5ace366975a762fc"><td class="memItemLeft">static loff_t&#160;</td><td class="memItemRight"><a class="el" href="#a99c4f629715fb95b5ace366975a762fc">swap_dev_pos</a> (swp_entry_t entry)</td></tr>
+<tr class="memitem:aa8096753e307e50d875c1fbd14e29977" id="r_aa8096753e307e50d875c1fbd14e29977"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#aa8096753e307e50d875c1fbd14e29977">folio_matches_swap_entry</a> (const struct folio *folio, swp_entry_t entry)</td></tr>
+<tr class="memitem:ad3a4a32d56a920f5ed49beefbbd4e558" id="r_ad3a4a32d56a920f5ed49beefbbd4e558"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad3a4a32d56a920f5ed49beefbbd4e558">swap_cache_has_folio</a> (swp_entry_t entry)</td></tr>
+<tr class="memitem:af1c86ec8fd51b395cce7768da7423631" id="r_af1c86ec8fd51b395cce7768da7423631"><td class="memItemLeft">struct folio *&#160;</td><td class="memItemRight"><a class="el" href="#af1c86ec8fd51b395cce7768da7423631">swap_cache_get_folio</a> (swp_entry_t entry)</td></tr>
+<tr class="memitem:a3bb497d958494a1ce3f77146fe46b008" id="r_a3bb497d958494a1ce3f77146fe46b008"><td class="memItemLeft">void *&#160;</td><td class="memItemRight"><a class="el" href="#a3bb497d958494a1ce3f77146fe46b008">swap_cache_get_shadow</a> (swp_entry_t entry)</td></tr>
+<tr class="memitem:a1ccc548e73ca1abe906b47f1aea2b5df" id="r_a1ccc548e73ca1abe906b47f1aea2b5df"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1ccc548e73ca1abe906b47f1aea2b5df">swap_cache_del_folio</a> (struct folio *folio)</td></tr>
+<tr class="memitem:a7ee313d755ae0f2e8e911a88453bfd93" id="r_a7ee313d755ae0f2e8e911a88453bfd93"><td class="memItemLeft">struct folio *&#160;</td><td class="memItemRight"><a class="el" href="#a7ee313d755ae0f2e8e911a88453bfd93">swap_cache_alloc_folio</a> (swp_entry_t entry, gfp_t gfp_flags, struct mempolicy *mpol, pgoff_t ilx, bool *alloced)</td></tr>
+<tr class="memitem:a5bd5e7b4f3c0198a324989eea11e4a43" id="r_a5bd5e7b4f3c0198a324989eea11e4a43"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5bd5e7b4f3c0198a324989eea11e4a43">__swap_cache_add_folio</a> (struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *ci, struct folio *folio, swp_entry_t entry)</td></tr>
+<tr class="memitem:ae7e1adbd873a48daa11a49cbc78cb3d8" id="r_ae7e1adbd873a48daa11a49cbc78cb3d8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae7e1adbd873a48daa11a49cbc78cb3d8">__swap_cache_del_folio</a> (struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *ci, struct folio *folio, swp_entry_t entry, void *shadow)</td></tr>
+<tr class="memitem:a39106290ebc73af613155e6e26ba1d14" id="r_a39106290ebc73af613155e6e26ba1d14"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a39106290ebc73af613155e6e26ba1d14">__swap_cache_replace_folio</a> (struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *ci, struct folio *old, struct folio *new)</td></tr>
+<tr class="memitem:aecf0724e9d23fd18dab3652bd4b15f31" id="r_aecf0724e9d23fd18dab3652bd4b15f31"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aecf0724e9d23fd18dab3652bd4b15f31">__swap_cache_clear_shadow</a> (swp_entry_t entry, int nr_ents)</td></tr>
+<tr class="memitem:a72b7402254f964fbd5e7693910d22106" id="r_a72b7402254f964fbd5e7693910d22106"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a72b7402254f964fbd5e7693910d22106">show_swap_cache_info</a> (void)</td></tr>
+<tr class="memitem:a3c86fae5e345eedd493df9688d17d114" id="r_a3c86fae5e345eedd493df9688d17d114"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3c86fae5e345eedd493df9688d17d114">swapcache_clear</a> (struct swap_info_struct *si, swp_entry_t entry, int nr)</td></tr>
+<tr class="memitem:a2e9e893dee409a3cc7c81a5e585da347" id="r_a2e9e893dee409a3cc7c81a5e585da347"><td class="memItemLeft">struct folio *&#160;</td><td class="memItemRight"><a class="el" href="#a2e9e893dee409a3cc7c81a5e585da347">read_swap_cache_async</a> (swp_entry_t entry, gfp_t gfp_mask, struct vm_area_struct *vma, unsigned long addr, struct swap_iocb **plug)</td></tr>
+<tr class="memitem:aceca59cbeae940aa9770e6fd372ffcfa" id="r_aceca59cbeae940aa9770e6fd372ffcfa"><td class="memItemLeft">struct folio *&#160;</td><td class="memItemRight"><a class="el" href="#aceca59cbeae940aa9770e6fd372ffcfa">swap_cluster_readahead</a> (swp_entry_t entry, gfp_t flag, struct mempolicy *mpol, pgoff_t ilx)</td></tr>
+<tr class="memitem:a3ef1cce3c219bfeab24f3d73e1846067" id="r_a3ef1cce3c219bfeab24f3d73e1846067"><td class="memItemLeft">struct folio *&#160;</td><td class="memItemRight"><a class="el" href="#a3ef1cce3c219bfeab24f3d73e1846067">swapin_readahead</a> (swp_entry_t entry, gfp_t flag, struct vm_fault *vmf)</td></tr>
+<tr class="memitem:a081c1567f5b118b8d406cff8233ff80b" id="r_a081c1567f5b118b8d406cff8233ff80b"><td class="memItemLeft">struct folio *&#160;</td><td class="memItemRight"><a class="el" href="#a081c1567f5b118b8d406cff8233ff80b">swapin_folio</a> (swp_entry_t entry, struct folio *folio)</td></tr>
+<tr class="memitem:a587cd9f94e1a8595caa2a6e6989f0b09" id="r_a587cd9f94e1a8595caa2a6e6989f0b09"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a587cd9f94e1a8595caa2a6e6989f0b09">swap_update_readahead</a> (struct folio *folio, struct vm_area_struct *vma, unsigned long addr)</td></tr>
+<tr class="memitem:a0038ab15760d74e599ffc39684e400c9" id="r_a0038ab15760d74e599ffc39684e400c9"><td class="memItemLeft">static unsigned int&#160;</td><td class="memItemRight"><a class="el" href="#a0038ab15760d74e599ffc39684e400c9">folio_swap_flags</a> (struct folio *folio)</td></tr>
+<tr class="memitem:a222c21e3de8454551458f2f449ae60d0" id="r_a222c21e3de8454551458f2f449ae60d0"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a222c21e3de8454551458f2f449ae60d0">swap_zeromap_batch</a> (swp_entry_t entry, int max_nr, bool *is_zeromap)</td></tr>
+<tr class="memitem:a60b3795b4ec7e8cdc252c64dabebc132" id="r_a60b3795b4ec7e8cdc252c64dabebc132"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a60b3795b4ec7e8cdc252c64dabebc132">non_swapcache_batch</a> (swp_entry_t entry, int max_nr)</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:afe6446ed43e97033afbee53032a572dc" id="r_afe6446ed43e97033afbee53032a572dc"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#afe6446ed43e97033afbee53032a572dc">page_cluster</a></td></tr>
 <tr class="memitem:a8dfa59321607633f84d1cdfa1b7b29c3" id="r_a8dfa59321607633f84d1cdfa1b7b29c3"><td class="memItemLeft">struct swap_info_struct *&#160;</td><td class="memItemRight"><a class="el" href="#a8dfa59321607633f84d1cdfa1b7b29c3">swap_info</a> []</td></tr>
+<tr class="memitem:abed09f8ebbc1c690292697172e88a813" id="r_abed09f8ebbc1c690292697172e88a813"><td class="memItemLeft">struct address_space swap_space&#160;</td><td class="memItemRight"><a class="el" href="#abed09f8ebbc1c690292697172e88a813">__read_mostly</a> = GFP_BOOT_MASK</td></tr>
 </table>
 <a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="aed29f15be2c6b48e11c80779bb104868" name="aed29f15be2c6b48e11c80779bb104868"></a>
@@ -178,6 +229,8 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">0</div>
 </div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00016">16</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+
 </div>
 </div>
 <a id="a982cd09e49261d3ef936c241e1dd66a4" name="a982cd09e49261d3ef936c241e1dd66a4"></a>
@@ -191,6 +244,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00015">15</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
 
 </div>
 </div>
@@ -217,9 +272,1682 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ace24bc63617314bc2350f70ff32ddf46a2e284cb9518f0e7aaa787f9b332420a0" name="ace24bc63617314bc2350f70ff32ddf46a2e284cb9518f0e7aaa787f9b332420a0"></a>CLUSTER_FLAG_MAX&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00044">44</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   44</span>                        {</div>
+<div class="line"><span class="lineno">   45</span>    <a class="code hl_enumvalue" href="#ace24bc63617314bc2350f70ff32ddf46a454ed18711132cbe9419818e079cc356">CLUSTER_FLAG_NONE</a> = 0, <span class="comment">/* For temporary off-list cluster */</span></div>
+<div class="line"><span class="lineno">   46</span>    <a class="code hl_enumvalue" href="#ace24bc63617314bc2350f70ff32ddf46a6f0b4a315f8439d0d33f65f109cc710e">CLUSTER_FLAG_FREE</a>,</div>
+<div class="line"><span class="lineno">   47</span>    <a class="code hl_enumvalue" href="#ace24bc63617314bc2350f70ff32ddf46a50d044df37b04e05476f6b700d90cc29">CLUSTER_FLAG_NONFULL</a>,</div>
+<div class="line"><span class="lineno">   48</span>    <a class="code hl_enumvalue" href="#ace24bc63617314bc2350f70ff32ddf46ab5b17bd366984087888181de06418c47">CLUSTER_FLAG_FRAG</a>,</div>
+<div class="line"><span class="lineno">   49</span>    <span class="comment">/* Clusters with flags above are allocatable */</span></div>
+<div class="line"><span class="lineno">   50</span>    <a class="code hl_enumvalue" href="#ace24bc63617314bc2350f70ff32ddf46a4ff9a7fc56d2467ed0d9c93b3d7b0a23">CLUSTER_FLAG_USABLE</a> = <a class="code hl_enumvalue" href="#ace24bc63617314bc2350f70ff32ddf46ab5b17bd366984087888181de06418c47">CLUSTER_FLAG_FRAG</a>,</div>
+<div class="line"><span class="lineno">   51</span>    <a class="code hl_enumvalue" href="#ace24bc63617314bc2350f70ff32ddf46ab459a9c03fc240e11e1e55d3fab71e63">CLUSTER_FLAG_FULL</a>,</div>
+<div class="line"><span class="lineno">   52</span>    <a class="code hl_enumvalue" href="#ace24bc63617314bc2350f70ff32ddf46a497d4fd9705703e6035c2e88ce3d16b2">CLUSTER_FLAG_DISCARD</a>,</div>
+<div class="line"><span class="lineno">   53</span>    <a class="code hl_enumvalue" href="#ace24bc63617314bc2350f70ff32ddf46a2e284cb9518f0e7aaa787f9b332420a0">CLUSTER_FLAG_MAX</a>,</div>
+<div class="line"><span class="lineno">   54</span>};</div>
+<div class="ttc" id="aswap_8h_html_ace24bc63617314bc2350f70ff32ddf46a2e284cb9518f0e7aaa787f9b332420a0"><div class="ttname"><a href="#ace24bc63617314bc2350f70ff32ddf46a2e284cb9518f0e7aaa787f9b332420a0">CLUSTER_FLAG_MAX</a></div><div class="ttdeci">@ CLUSTER_FLAG_MAX</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00053">swap.h:53</a></div></div>
+<div class="ttc" id="aswap_8h_html_ace24bc63617314bc2350f70ff32ddf46a454ed18711132cbe9419818e079cc356"><div class="ttname"><a href="#ace24bc63617314bc2350f70ff32ddf46a454ed18711132cbe9419818e079cc356">CLUSTER_FLAG_NONE</a></div><div class="ttdeci">@ CLUSTER_FLAG_NONE</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00045">swap.h:45</a></div></div>
+<div class="ttc" id="aswap_8h_html_ace24bc63617314bc2350f70ff32ddf46a497d4fd9705703e6035c2e88ce3d16b2"><div class="ttname"><a href="#ace24bc63617314bc2350f70ff32ddf46a497d4fd9705703e6035c2e88ce3d16b2">CLUSTER_FLAG_DISCARD</a></div><div class="ttdeci">@ CLUSTER_FLAG_DISCARD</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00052">swap.h:52</a></div></div>
+<div class="ttc" id="aswap_8h_html_ace24bc63617314bc2350f70ff32ddf46a4ff9a7fc56d2467ed0d9c93b3d7b0a23"><div class="ttname"><a href="#ace24bc63617314bc2350f70ff32ddf46a4ff9a7fc56d2467ed0d9c93b3d7b0a23">CLUSTER_FLAG_USABLE</a></div><div class="ttdeci">@ CLUSTER_FLAG_USABLE</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00050">swap.h:50</a></div></div>
+<div class="ttc" id="aswap_8h_html_ace24bc63617314bc2350f70ff32ddf46a50d044df37b04e05476f6b700d90cc29"><div class="ttname"><a href="#ace24bc63617314bc2350f70ff32ddf46a50d044df37b04e05476f6b700d90cc29">CLUSTER_FLAG_NONFULL</a></div><div class="ttdeci">@ CLUSTER_FLAG_NONFULL</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00047">swap.h:47</a></div></div>
+<div class="ttc" id="aswap_8h_html_ace24bc63617314bc2350f70ff32ddf46a6f0b4a315f8439d0d33f65f109cc710e"><div class="ttname"><a href="#ace24bc63617314bc2350f70ff32ddf46a6f0b4a315f8439d0d33f65f109cc710e">CLUSTER_FLAG_FREE</a></div><div class="ttdeci">@ CLUSTER_FLAG_FREE</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00046">swap.h:46</a></div></div>
+<div class="ttc" id="aswap_8h_html_ace24bc63617314bc2350f70ff32ddf46ab459a9c03fc240e11e1e55d3fab71e63"><div class="ttname"><a href="#ace24bc63617314bc2350f70ff32ddf46ab459a9c03fc240e11e1e55d3fab71e63">CLUSTER_FLAG_FULL</a></div><div class="ttdeci">@ CLUSTER_FLAG_FULL</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00051">swap.h:51</a></div></div>
+<div class="ttc" id="aswap_8h_html_ace24bc63617314bc2350f70ff32ddf46ab5b17bd366984087888181de06418c47"><div class="ttname"><a href="#ace24bc63617314bc2350f70ff32ddf46ab5b17bd366984087888181de06418c47">CLUSTER_FLAG_FRAG</a></div><div class="ttdeci">@ CLUSTER_FLAG_FRAG</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00048">swap.h:48</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a5bd5e7b4f3c0198a324989eea11e4a43" name="a5bd5e7b4f3c0198a324989eea11e4a43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bd5e7b4f3c0198a324989eea11e4a43">&#9670;&#160;</a></span>__swap_cache_add_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __swap_cache_add_folio </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *</td>          <td class="paramname"><span class="paramname"><em>ci</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a5bd5e7b4f3c0198a324989eea11e4a43_icgraph.svg" width="3848" height="630"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aecf0724e9d23fd18dab3652bd4b15f31" name="aecf0724e9d23fd18dab3652bd4b15f31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecf0724e9d23fd18dab3652bd4b15f31">&#9670;&#160;</a></span>__swap_cache_clear_shadow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __swap_cache_clear_shadow </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nr_ents</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_aecf0724e9d23fd18dab3652bd4b15f31_icgraph.svg" width="2555" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae7e1adbd873a48daa11a49cbc78cb3d8" name="ae7e1adbd873a48daa11a49cbc78cb3d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7e1adbd873a48daa11a49cbc78cb3d8">&#9670;&#160;</a></span>__swap_cache_del_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __swap_cache_del_folio </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *</td>          <td class="paramname"><span class="paramname"><em>ci</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>shadow</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_ae7e1adbd873a48daa11a49cbc78cb3d8_icgraph.svg" width="3138" height="764"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a39106290ebc73af613155e6e26ba1d14" name="a39106290ebc73af613155e6e26ba1d14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39106290ebc73af613155e6e26ba1d14">&#9670;&#160;</a></span>__swap_cache_replace_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __swap_cache_replace_folio </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *</td>          <td class="paramname"><span class="paramname"><em>ci</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>old</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>new</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afb895af180a2cbee8334f11ef60c23c0" name="afb895af180a2cbee8334f11ef60c23c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb895af180a2cbee8334f11ef60c23c0">&#9670;&#160;</a></span>__swap_cluster_get_and_lock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> * __swap_cluster_get_and_lock </td>
+          <td>(</td>
+          <td class="paramtype">const struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>irq</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00134">134</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  136</span>{</div>
+<div class="line"><span class="lineno">  137</span>    VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);</div>
+<div class="line"><span class="lineno">  138</span>    VM_WARN_ON_ONCE_FOLIO(!folio_test_swapcache(folio), folio);</div>
+<div class="line"><span class="lineno">  139</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a84cec68212fa073368c256d418e12ce0">__swap_cluster_lock</a>(<a class="code hl_function" href="#a423d9b69aac4ecff5ceac951cb14573a">__swap_entry_to_info</a>(folio-&gt;swap),</div>
+<div class="line"><span class="lineno">  140</span>                   swp_offset(folio-&gt;swap), irq);</div>
+<div class="line"><span class="lineno">  141</span>}</div>
+<div class="ttc" id="aswap_8h_html_a423d9b69aac4ecff5ceac951cb14573a"><div class="ttname"><a href="#a423d9b69aac4ecff5ceac951cb14573a">__swap_entry_to_info</a></div><div class="ttdeci">static struct swap_info_struct * __swap_entry_to_info(swp_entry_t entry)</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00078">swap.h:78</a></div></div>
+<div class="ttc" id="aswap_8h_html_a84cec68212fa073368c256d418e12ce0"><div class="ttname"><a href="#a84cec68212fa073368c256d418e12ce0">__swap_cluster_lock</a></div><div class="ttdeci">static __always_inline struct swap_cluster_info * __swap_cluster_lock(struct swap_info_struct *si, unsigned long offset, bool irq)</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00097">swap.h:97</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_afb895af180a2cbee8334f11ef60c23c0_cgraph.svg" width="562" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_afb895af180a2cbee8334f11ef60c23c0_icgraph.svg" width="3136" height="734"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a84cec68212fa073368c256d418e12ce0" name="a84cec68212fa073368c256d418e12ce0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84cec68212fa073368c256d418e12ce0">&#9670;&#160;</a></span>__swap_cluster_lock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__always_inline struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> * __swap_cluster_lock </td>
+          <td>(</td>
+          <td class="paramtype">struct swap_info_struct *</td>          <td class="paramname"><span class="paramname"><em>si</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>irq</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00097">97</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   99</span>{</div>
+<div class="line"><span class="lineno">  100</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structswap__cluster__info.html">swap_cluster_info</a> *ci = <a class="code hl_function" href="#a9b2318917f63a40b745c3fc381e456bb">__swap_offset_to_cluster</a>(si, offset);</div>
+<div class="line"><span class="lineno">  101</span> </div>
+<div class="line"><span class="lineno">  102</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  103</span><span class="comment">     * Nothing modifies swap cache in an IRQ context. All access to</span></div>
+<div class="line"><span class="lineno">  104</span><span class="comment">     * swap cache is wrapped by swap_cache_* helpers, and swap cache</span></div>
+<div class="line"><span class="lineno">  105</span><span class="comment">     * writeback is handled outside of IRQs. Swapin or swapout never</span></div>
+<div class="line"><span class="lineno">  106</span><span class="comment">     * occurs in IRQ, and neither does in-place split or replace.</span></div>
+<div class="line"><span class="lineno">  107</span><span class="comment">     *</span></div>
+<div class="line"><span class="lineno">  108</span><span class="comment">     * Besides, modifying swap cache requires synchronization with</span></div>
+<div class="line"><span class="lineno">  109</span><span class="comment">     * swap_map, which was never IRQ safe.</span></div>
+<div class="line"><span class="lineno">  110</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  111</span>    VM_WARN_ON_ONCE(!in_task());</div>
+<div class="line"><span class="lineno">  112</span>    VM_WARN_ON_ONCE(percpu_ref_is_zero(&amp;si-&gt;users)); <span class="comment">/* race with swapoff */</span></div>
+<div class="line"><span class="lineno">  113</span>    <span class="keywordflow">if</span> (irq)</div>
+<div class="line"><span class="lineno">  114</span>        spin_lock_irq(&amp;ci-&gt;<a class="code hl_variable" href="structswap__cluster__info.html#a1cca77e496af5075ce8a2955acd8a3d9">lock</a>);</div>
+<div class="line"><span class="lineno">  115</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  116</span>        spin_lock(&amp;ci-&gt;<a class="code hl_variable" href="structswap__cluster__info.html#a1cca77e496af5075ce8a2955acd8a3d9">lock</a>);</div>
+<div class="line"><span class="lineno">  117</span>    <span class="keywordflow">return</span> ci;</div>
+<div class="line"><span class="lineno">  118</span>}</div>
+<div class="ttc" id="astructswap__cluster__info_html"><div class="ttname"><a href="structswap__cluster__info.html">swap_cluster_info</a></div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00030">swap.h:30</a></div></div>
+<div class="ttc" id="astructswap__cluster__info_html_a1cca77e496af5075ce8a2955acd8a3d9"><div class="ttname"><a href="structswap__cluster__info.html#a1cca77e496af5075ce8a2955acd8a3d9">swap_cluster_info::lock</a></div><div class="ttdeci">spinlock_t lock</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00031">swap.h:31</a></div></div>
+<div class="ttc" id="aswap_8h_html_a9b2318917f63a40b745c3fc381e456bb"><div class="ttname"><a href="#a9b2318917f63a40b745c3fc381e456bb">__swap_offset_to_cluster</a></div><div class="ttdeci">static struct swap_cluster_info * __swap_offset_to_cluster(struct swap_info_struct *si, pgoff_t offset)</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00083">swap.h:83</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a84cec68212fa073368c256d418e12ce0_cgraph.svg" width="372" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a84cec68212fa073368c256d418e12ce0_icgraph.svg" width="2715" height="768"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a08d2f552cef3da2a696f3d65940fd432" name="a08d2f552cef3da2a696f3d65940fd432"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08d2f552cef3da2a696f3d65940fd432">&#9670;&#160;</a></span>__swap_entry_to_cluster()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> * __swap_entry_to_cluster </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00091">91</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   92</span>{</div>
+<div class="line"><span class="lineno">   93</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a9b2318917f63a40b745c3fc381e456bb">__swap_offset_to_cluster</a>(<a class="code hl_function" href="#a423d9b69aac4ecff5ceac951cb14573a">__swap_entry_to_info</a>(entry),</div>
+<div class="line"><span class="lineno">   94</span>                    swp_offset(entry));</div>
+<div class="line"><span class="lineno">   95</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a08d2f552cef3da2a696f3d65940fd432_cgraph.svg" width="587" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a423d9b69aac4ecff5ceac951cb14573a" name="a423d9b69aac4ecff5ceac951cb14573a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a423d9b69aac4ecff5ceac951cb14573a">&#9670;&#160;</a></span>__swap_entry_to_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct swap_info_struct * __swap_entry_to_info </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00078">78</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   79</span>{</div>
+<div class="line"><span class="lineno">   80</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a20d9f1322009dea712da59c95b2bdaed">__swap_type_to_info</a>(swp_type(entry));</div>
+<div class="line"><span class="lineno">   81</span>}</div>
+<div class="ttc" id="aswap_8h_html_a20d9f1322009dea712da59c95b2bdaed"><div class="ttname"><a href="#a20d9f1322009dea712da59c95b2bdaed">__swap_type_to_info</a></div><div class="ttdeci">static struct swap_info_struct * __swap_type_to_info(int type)</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00069">swap.h:69</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a423d9b69aac4ecff5ceac951cb14573a_cgraph.svg" width="352" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a423d9b69aac4ecff5ceac951cb14573a_icgraph.svg" width="2340" height="627"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9b2318917f63a40b745c3fc381e456bb" name="a9b2318917f63a40b745c3fc381e456bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b2318917f63a40b745c3fc381e456bb">&#9670;&#160;</a></span>__swap_offset_to_cluster()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> * __swap_offset_to_cluster </td>
+          <td>(</td>
+          <td class="paramtype">struct swap_info_struct *</td>          <td class="paramname"><span class="paramname"><em>si</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pgoff_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00083">83</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   85</span>{</div>
+<div class="line"><span class="lineno">   86</span>    VM_WARN_ON_ONCE(percpu_ref_is_zero(&amp;si-&gt;users)); <span class="comment">/* race with swapoff */</span></div>
+<div class="line"><span class="lineno">   87</span>    VM_WARN_ON_ONCE(offset &gt;= si-&gt;max);</div>
+<div class="line"><span class="lineno">   88</span>    <span class="keywordflow">return</span> &amp;si-&gt;cluster_info[offset / <a class="code hl_define" href="#a982cd09e49261d3ef936c241e1dd66a4">SWAPFILE_CLUSTER</a>];</div>
+<div class="line"><span class="lineno">   89</span>}</div>
+<div class="ttc" id="aswap_8h_html_a982cd09e49261d3ef936c241e1dd66a4"><div class="ttname"><a href="#a982cd09e49261d3ef936c241e1dd66a4">SWAPFILE_CLUSTER</a></div><div class="ttdeci">#define SWAPFILE_CLUSTER</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00015">swap.h:15</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a9b2318917f63a40b745c3fc381e456bb_icgraph.svg" width="2734" height="779"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="acfe917466ebc3c96b38664378771b6c9" name="acfe917466ebc3c96b38664378771b6c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfe917466ebc3c96b38664378771b6c9">&#9670;&#160;</a></span>__swap_read_unplug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __swap_read_unplug </td>
+          <td>(</td>
+          <td class="paramtype">struct swap_iocb *</td>          <td class="paramname"><span class="paramname"><em>plug</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_acfe917466ebc3c96b38664378771b6c9_icgraph.svg" width="332" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a20d9f1322009dea712da59c95b2bdaed" name="a20d9f1322009dea712da59c95b2bdaed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20d9f1322009dea712da59c95b2bdaed">&#9670;&#160;</a></span>__swap_type_to_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct swap_info_struct * __swap_type_to_info </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00069">69</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   70</span>{</div>
+<div class="line"><span class="lineno">   71</span>    <span class="keyword">struct </span>swap_info_struct *si;</div>
+<div class="line"><span class="lineno">   72</span> </div>
+<div class="line"><span class="lineno">   73</span>    si = READ_ONCE(<a class="code hl_variable" href="#a8dfa59321607633f84d1cdfa1b7b29c3">swap_info</a>[type]); <span class="comment">/* rcu_dereference() */</span></div>
+<div class="line"><span class="lineno">   74</span>    VM_WARN_ON_ONCE(percpu_ref_is_zero(&amp;si-&gt;users)); <span class="comment">/* race with swapoff */</span></div>
+<div class="line"><span class="lineno">   75</span>    <span class="keywordflow">return</span> si;</div>
+<div class="line"><span class="lineno">   76</span>}</div>
+<div class="ttc" id="aswap_8h_html_a8dfa59321607633f84d1cdfa1b7b29c3"><div class="ttname"><a href="#a8dfa59321607633f84d1cdfa1b7b29c3">swap_info</a></div><div class="ttdeci">struct swap_info_struct * swap_info[]</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l00109">swapfile.c:109</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a20d9f1322009dea712da59c95b2bdaed_icgraph.svg" width="2532" height="627"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aad9c8e50597e02475095ed126f711bb6" name="aad9c8e50597e02475095ed126f711bb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad9c8e50597e02475095ed126f711bb6">&#9670;&#160;</a></span>__swap_writepage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __swap_writepage </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct swap_iocb **</td>          <td class="paramname"><span class="paramname"><em>swap_plug</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4f016f41b8d218e843962ded4dad348e" name="a4f016f41b8d218e843962ded4dad348e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f016f41b8d218e843962ded4dad348e">&#9670;&#160;</a></span>folio_alloc_swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int folio_alloc_swap </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>folio_alloc_swap - allocate swap space for a folio @folio: folio we want to move to swap</p>
+<p>Allocate swap space for the folio and add the folio to the swap cache.</p>
+<p>Context: Caller needs to hold the folio lock. Return: Whether the folio was added to the swap cache. </p>
+
+<p class="definition">Definition at line <a class="el" href="swapfile_8c_source.html#l01493">1493</a> of file <a class="el" href="swapfile_8c_source.html">swapfile.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1494</span>{</div>
+<div class="line"><span class="lineno"> 1495</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> order = folio_order(folio);</div>
+<div class="line"><span class="lineno"> 1496</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> = 1 &lt;&lt; order;</div>
+<div class="line"><span class="lineno"> 1497</span> </div>
+<div class="line"><span class="lineno"> 1498</span>    VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);</div>
+<div class="line"><span class="lineno"> 1499</span>    VM_BUG_ON_FOLIO(!folio_test_uptodate(folio), folio);</div>
+<div class="line"><span class="lineno"> 1500</span> </div>
+<div class="line"><span class="lineno"> 1501</span>    <span class="keywordflow">if</span> (order) {</div>
+<div class="line"><span class="lineno"> 1502</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 1503</span><span class="comment">         * Reject large allocation when THP_SWAP is disabled,</span></div>
+<div class="line"><span class="lineno"> 1504</span><span class="comment">         * the caller should split the folio and try again.</span></div>
+<div class="line"><span class="lineno"> 1505</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno"> 1506</span>        <span class="keywordflow">if</span> (!IS_ENABLED(CONFIG_THP_SWAP))</div>
+<div class="line"><span class="lineno"> 1507</span>            <span class="keywordflow">return</span> -EAGAIN;</div>
+<div class="line"><span class="lineno"> 1508</span> </div>
+<div class="line"><span class="lineno"> 1509</span>        <span class="comment">/*</span></div>
+<div class="line"><span class="lineno"> 1510</span><span class="comment">         * Allocation size should never exceed cluster size</span></div>
+<div class="line"><span class="lineno"> 1511</span><span class="comment">         * (HPAGE_PMD_SIZE).</span></div>
+<div class="line"><span class="lineno"> 1512</span><span class="comment">         */</span></div>
+<div class="line"><span class="lineno"> 1513</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a> &gt; <a class="code hl_define" href="#a982cd09e49261d3ef936c241e1dd66a4">SWAPFILE_CLUSTER</a>) {</div>
+<div class="line"><span class="lineno"> 1514</span>            VM_WARN_ON_ONCE(1);</div>
+<div class="line"><span class="lineno"> 1515</span>            <span class="keywordflow">return</span> -EINVAL;</div>
+<div class="line"><span class="lineno"> 1516</span>        }</div>
+<div class="line"><span class="lineno"> 1517</span>    }</div>
+<div class="line"><span class="lineno"> 1518</span> </div>
+<div class="line"><span class="lineno"> 1519</span>again:</div>
+<div class="line"><span class="lineno"> 1520</span>    local_lock(&amp;<a class="code hl_struct" href="structpercpu__swap__cluster.html">percpu_swap_cluster</a>.<a class="code hl_variable" href="structpercpu__swap__cluster.html#a35556c3f1a51c60124ba82d9c33b83d7">lock</a>);</div>
+<div class="line"><span class="lineno"> 1521</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="swapfile_8c.html#aaef572c7d96ff20ced97913cd223dc26">swap_alloc_fast</a>(folio))</div>
+<div class="line"><span class="lineno"> 1522</span>        <a class="code hl_function" href="swapfile_8c.html#a99bd7430d530aa92850534bcaefccb33">swap_alloc_slow</a>(folio);</div>
+<div class="line"><span class="lineno"> 1523</span>    local_unlock(&amp;<a class="code hl_struct" href="structpercpu__swap__cluster.html">percpu_swap_cluster</a>.<a class="code hl_variable" href="structpercpu__swap__cluster.html#a35556c3f1a51c60124ba82d9c33b83d7">lock</a>);</div>
+<div class="line"><span class="lineno"> 1524</span> </div>
+<div class="line"><span class="lineno"> 1525</span>    <span class="keywordflow">if</span> (!order &amp;&amp; unlikely(!folio_test_swapcache(folio))) {</div>
+<div class="line"><span class="lineno"> 1526</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="swapfile_8c.html#a2cacbe83a7ecf2d864051df307c839de">swap_sync_discard</a>())</div>
+<div class="line"><span class="lineno"> 1527</span>            <span class="keywordflow">goto</span> again;</div>
+<div class="line"><span class="lineno"> 1528</span>    }</div>
+<div class="line"><span class="lineno"> 1529</span> </div>
+<div class="line"><span class="lineno"> 1530</span>    <span class="comment">/* Need to call this even if allocation failed, for MEMCG_SWAP_FAIL. */</span></div>
+<div class="line"><span class="lineno"> 1531</span>    <span class="keywordflow">if</span> (unlikely(mem_cgroup_try_charge_swap(folio, folio-&gt;swap)))</div>
+<div class="line"><span class="lineno"> 1532</span>        <a class="code hl_function" href="#a1ccc548e73ca1abe906b47f1aea2b5df">swap_cache_del_folio</a>(folio);</div>
+<div class="line"><span class="lineno"> 1533</span> </div>
+<div class="line"><span class="lineno"> 1534</span>    <span class="keywordflow">if</span> (unlikely(!folio_test_swapcache(folio)))</div>
+<div class="line"><span class="lineno"> 1535</span>        <span class="keywordflow">return</span> -ENOMEM;</div>
+<div class="line"><span class="lineno"> 1536</span> </div>
+<div class="line"><span class="lineno"> 1537</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno"> 1538</span>}</div>
+<div class="ttc" id="ainclude_2linux_2slab_8h_html_af6ef73962e335cb2dfc15144f11215ba"><div class="ttname"><a href="include_2linux_2slab_8h.html#af6ef73962e335cb2dfc15144f11215ba">size</a></div><div class="ttdeci">static size_t size</div><div class="ttdef"><b>Definition</b> <a href="include_2linux_2slab_8h_source.html#l01189">slab.h:1189</a></div></div>
+<div class="ttc" id="astructpercpu__swap__cluster_html"><div class="ttname"><a href="structpercpu__swap__cluster.html">percpu_swap_cluster</a></div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l00121">swapfile.c:121</a></div></div>
+<div class="ttc" id="astructpercpu__swap__cluster_html_a35556c3f1a51c60124ba82d9c33b83d7"><div class="ttname"><a href="structpercpu__swap__cluster.html#a35556c3f1a51c60124ba82d9c33b83d7">percpu_swap_cluster::lock</a></div><div class="ttdeci">local_lock_t lock</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l00124">swapfile.c:124</a></div></div>
+<div class="ttc" id="aswap_8h_html_a1ccc548e73ca1abe906b47f1aea2b5df"><div class="ttname"><a href="#a1ccc548e73ca1abe906b47f1aea2b5df">swap_cache_del_folio</a></div><div class="ttdeci">void swap_cache_del_folio(struct folio *folio)</div></div>
+<div class="ttc" id="aswapfile_8c_html_a2cacbe83a7ecf2d864051df307c839de"><div class="ttname"><a href="swapfile_8c.html#a2cacbe83a7ecf2d864051df307c839de">swap_sync_discard</a></div><div class="ttdeci">static bool swap_sync_discard(void)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l01388">swapfile.c:1388</a></div></div>
+<div class="ttc" id="aswapfile_8c_html_a99bd7430d530aa92850534bcaefccb33"><div class="ttname"><a href="swapfile_8c.html#a99bd7430d530aa92850534bcaefccb33">swap_alloc_slow</a></div><div class="ttdeci">static void swap_alloc_slow(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l01348">swapfile.c:1348</a></div></div>
+<div class="ttc" id="aswapfile_8c_html_aaef572c7d96ff20ced97913cd223dc26"><div class="ttname"><a href="swapfile_8c.html#aaef572c7d96ff20ced97913cd223dc26">swap_alloc_fast</a></div><div class="ttdeci">static bool swap_alloc_fast(struct folio *folio)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l01318">swapfile.c:1318</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a4f016f41b8d218e843962ded4dad348e_cgraph.svg" width="1999" height="1384"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a4f016f41b8d218e843962ded4dad348e_icgraph.svg" width="2900" height="764"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="abd8cba2dabc02410e4c4fcf595c9d712" name="abd8cba2dabc02410e4c4fcf595c9d712"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd8cba2dabc02410e4c4fcf595c9d712">&#9670;&#160;</a></span>folio_dup_swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int folio_dup_swap </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct page *</td>          <td class="paramname"><span class="paramname"><em>subpage</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="swapfile_8c.html#abd8cba2dabc02410e4c4fcf595c9d712">folio_dup_swap()</a> - Increase swap count of swap entries of a folio. @folio: folio with swap entries bounded. : if not NULL, only increase the swap count of this subpage.</p>
+<p>Typically called when the folio is unmapped and have its swap entry to take its palce.</p>
+<p>Context: Caller must ensure the folio is locked and in the swap cache. NOTE: The caller also has to ensure there is no raced call to swap_put_entries_direct on its swap entry before this helper returns, or the swap map may underflow. Currently, we only accept == NULL for shmem due to the limitation of swap continuation: shmem always duplicates the swap entry only once, so there is no such issue for it. </p>
+
+<p class="definition">Definition at line <a class="el" href="swapfile_8c_source.html#l01555">1555</a> of file <a class="el" href="swapfile_8c_source.html">swapfile.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1556</span>{</div>
+<div class="line"><span class="lineno"> 1557</span>    <span class="keywordtype">int</span> err = 0;</div>
+<div class="line"><span class="lineno"> 1558</span>    swp_entry_t entry = folio-&gt;swap;</div>
+<div class="line"><span class="lineno"> 1559</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> nr_pages = folio_nr_pages(folio);</div>
+<div class="line"><span class="lineno"> 1560</span> </div>
+<div class="line"><span class="lineno"> 1561</span>    VM_WARN_ON_FOLIO(!folio_test_locked(folio), folio);</div>
+<div class="line"><span class="lineno"> 1562</span>    VM_WARN_ON_FOLIO(!folio_test_swapcache(folio), folio);</div>
+<div class="line"><span class="lineno"> 1563</span> </div>
+<div class="line"><span class="lineno"> 1564</span>    <span class="keywordflow">if</span> (subpage) {</div>
+<div class="line"><span class="lineno"> 1565</span>        entry.val += folio_page_idx(folio, subpage);</div>
+<div class="line"><span class="lineno"> 1566</span>        nr_pages = 1;</div>
+<div class="line"><span class="lineno"> 1567</span>    }</div>
+<div class="line"><span class="lineno"> 1568</span> </div>
+<div class="line"><span class="lineno"> 1569</span>    <span class="keywordflow">while</span> (!err &amp;&amp; <a class="code hl_function" href="swapfile_8c.html#a25fc2e2a8947f2299d0c263c9cce38e4">__swap_duplicate</a>(entry, 1, nr_pages) == -ENOMEM)</div>
+<div class="line"><span class="lineno"> 1570</span>        err = <a class="code hl_function" href="swapfile_8c.html#add176fcad246b678ddcd725efac1b317">add_swap_count_continuation</a>(entry, <a class="code hl_define" href="gfp__types_8h.html#aa9d5f32b75f79a459c1161e3519ed1e1">GFP_ATOMIC</a>);</div>
+<div class="line"><span class="lineno"> 1571</span> </div>
+<div class="line"><span class="lineno"> 1572</span>    <span class="keywordflow">return</span> err;</div>
+<div class="line"><span class="lineno"> 1573</span>}</div>
+<div class="ttc" id="agfp__types_8h_html_aa9d5f32b75f79a459c1161e3519ed1e1"><div class="ttname"><a href="gfp__types_8h.html#aa9d5f32b75f79a459c1161e3519ed1e1">GFP_ATOMIC</a></div><div class="ttdeci">#define GFP_ATOMIC</div><div class="ttdef"><b>Definition</b> <a href="gfp__types_8h_source.html#l00376">gfp_types.h:376</a></div></div>
+<div class="ttc" id="aswapfile_8c_html_a25fc2e2a8947f2299d0c263c9cce38e4"><div class="ttname"><a href="swapfile_8c.html#a25fc2e2a8947f2299d0c263c9cce38e4">__swap_duplicate</a></div><div class="ttdeci">static int __swap_duplicate(swp_entry_t entry, unsigned char usage, int nr)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l03657">swapfile.c:3657</a></div></div>
+<div class="ttc" id="aswapfile_8c_html_add176fcad246b678ddcd725efac1b317"><div class="ttname"><a href="swapfile_8c.html#add176fcad246b678ddcd725efac1b317">add_swap_count_continuation</a></div><div class="ttdeci">int add_swap_count_continuation(swp_entry_t entry, gfp_t gfp_mask)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l03712">swapfile.c:3712</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_abd8cba2dabc02410e4c4fcf595c9d712_cgraph.svg" width="1371" height="342"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa8096753e307e50d875c1fbd14e29977" name="aa8096753e307e50d875c1fbd14e29977"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8096753e307e50d875c1fbd14e29977">&#9670;&#160;</a></span>folio_matches_swap_entry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool folio_matches_swap_entry </td>
+          <td>(</td>
+          <td class="paramtype">const struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>folio_matches_swap_entry - Check if a folio matches a given swap entry. @folio: The folio. @entry: The swap entry to check against.</p>
+<p>Context: The caller should have the folio locked to ensure it's stable and nothing will move it in or out of the swap cache. Return: true or false. </p>
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00251">251</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  253</span>{</div>
+<div class="line"><span class="lineno">  254</span>    swp_entry_t folio_entry = folio-&gt;swap;</div>
+<div class="line"><span class="lineno">  255</span>    <span class="keywordtype">long</span> nr_pages = folio_nr_pages(folio);</div>
+<div class="line"><span class="lineno">  256</span> </div>
+<div class="line"><span class="lineno">  257</span>    VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);</div>
+<div class="line"><span class="lineno">  258</span>    <span class="keywordflow">if</span> (!folio_test_swapcache(folio))</div>
+<div class="line"><span class="lineno">  259</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  260</span>    VM_WARN_ON_ONCE_FOLIO(!IS_ALIGNED(folio_entry.val, nr_pages), folio);</div>
+<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">return</span> folio_entry.val == round_down(entry.val, nr_pages);</div>
+<div class="line"><span class="lineno">  262</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_aa8096753e307e50d875c1fbd14e29977_icgraph.svg" width="3064" height="358"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1e378a4dc95994290a80f625d481ad0f" name="a1e378a4dc95994290a80f625d481ad0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e378a4dc95994290a80f625d481ad0f">&#9670;&#160;</a></span>folio_put_swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void folio_put_swap </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct page *</td>          <td class="paramname"><span class="paramname"><em>subpage</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="swapfile_8c.html#a1e378a4dc95994290a80f625d481ad0f">folio_put_swap()</a> - Decrease swap count of swap entries of a folio. @folio: folio with swap entries bounded, must be in swap cache and locked. : if not NULL, only decrease the swap count of this subpage.</p>
+<p>This won't free the swap slots even if swap count drops to zero, they are still pinned by the swap cache. User may call folio_free_swap to free them. Context: Caller must ensure the folio is locked and in the swap cache. </p>
+
+<p class="definition">Definition at line <a class="el" href="swapfile_8c_source.html#l01584">1584</a> of file <a class="el" href="swapfile_8c_source.html">swapfile.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1585</span>{</div>
+<div class="line"><span class="lineno"> 1586</span>    swp_entry_t entry = folio-&gt;swap;</div>
+<div class="line"><span class="lineno"> 1587</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> nr_pages = folio_nr_pages(folio);</div>
+<div class="line"><span class="lineno"> 1588</span>    <span class="keyword">struct </span>swap_info_struct *si = <a class="code hl_function" href="#a423d9b69aac4ecff5ceac951cb14573a">__swap_entry_to_info</a>(entry);</div>
+<div class="line"><span class="lineno"> 1589</span> </div>
+<div class="line"><span class="lineno"> 1590</span>    VM_WARN_ON_FOLIO(!folio_test_locked(folio), folio);</div>
+<div class="line"><span class="lineno"> 1591</span>    VM_WARN_ON_FOLIO(!folio_test_swapcache(folio), folio);</div>
+<div class="line"><span class="lineno"> 1592</span> </div>
+<div class="line"><span class="lineno"> 1593</span>    <span class="keywordflow">if</span> (subpage) {</div>
+<div class="line"><span class="lineno"> 1594</span>        entry.val += folio_page_idx(folio, subpage);</div>
+<div class="line"><span class="lineno"> 1595</span>        nr_pages = 1;</div>
+<div class="line"><span class="lineno"> 1596</span>    }</div>
+<div class="line"><span class="lineno"> 1597</span> </div>
+<div class="line"><span class="lineno"> 1598</span>    <a class="code hl_function" href="swapfile_8c.html#a10ccf2eca90d2eb6acf08598dda561b6">swap_put_entries_cluster</a>(si, swp_offset(entry), nr_pages, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno"> 1599</span>}</div>
+<div class="ttc" id="aswapfile_8c_html_a10ccf2eca90d2eb6acf08598dda561b6"><div class="ttname"><a href="swapfile_8c.html#a10ccf2eca90d2eb6acf08598dda561b6">swap_put_entries_cluster</a></div><div class="ttdeci">static void swap_put_entries_cluster(struct swap_info_struct *si, unsigned long start, int nr, bool reclaim_cache)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l01426">swapfile.c:1426</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a1e378a4dc95994290a80f625d481ad0f_cgraph.svg" width="2184" height="846"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a1e378a4dc95994290a80f625d481ad0f_icgraph.svg" width="1543" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0038ab15760d74e599ffc39684e400c9" name="a0038ab15760d74e599ffc39684e400c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0038ab15760d74e599ffc39684e400c9">&#9670;&#160;</a></span>folio_swap_flags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int folio_swap_flags </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00304">304</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  305</span>{</div>
+<div class="line"><span class="lineno">  306</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a423d9b69aac4ecff5ceac951cb14573a">__swap_entry_to_info</a>(folio-&gt;swap)-&gt;flags;</div>
+<div class="line"><span class="lineno">  307</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a0038ab15760d74e599ffc39684e400c9_cgraph.svg" width="518" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a0038ab15760d74e599ffc39684e400c9_icgraph.svg" width="3050" height="764"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a60b3795b4ec7e8cdc252c64dabebc132" name="a60b3795b4ec7e8cdc252c64dabebc132"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60b3795b4ec7e8cdc252c64dabebc132">&#9670;&#160;</a></span>non_swapcache_batch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int non_swapcache_batch </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_nr</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00334">334</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  335</span>{</div>
+<div class="line"><span class="lineno">  336</span>    <span class="keywordtype">int</span> i;</div>
+<div class="line"><span class="lineno">  337</span> </div>
+<div class="line"><span class="lineno">  338</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  339</span><span class="comment">     * While allocating a large folio and doing mTHP swapin, we need to</span></div>
+<div class="line"><span class="lineno">  340</span><span class="comment">     * ensure all entries are not cached, otherwise, the mTHP folio will</span></div>
+<div class="line"><span class="lineno">  341</span><span class="comment">     * be in conflict with the folio in swap cache.</span></div>
+<div class="line"><span class="lineno">  342</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  343</span>    <span class="keywordflow">for</span> (i = 0; i &lt; max_nr; i++) {</div>
+<div class="line"><span class="lineno">  344</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="#ad3a4a32d56a920f5ed49beefbbd4e558">swap_cache_has_folio</a>(entry))</div>
+<div class="line"><span class="lineno">  345</span>            <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  346</span>        entry.val++;</div>
+<div class="line"><span class="lineno">  347</span>    }</div>
+<div class="line"><span class="lineno">  348</span> </div>
+<div class="line"><span class="lineno">  349</span>    <span class="keywordflow">return</span> i;</div>
+<div class="line"><span class="lineno">  350</span>}</div>
+<div class="ttc" id="aswap_8h_html_ad3a4a32d56a920f5ed49beefbbd4e558"><div class="ttname"><a href="#ad3a4a32d56a920f5ed49beefbbd4e558">swap_cache_has_folio</a></div><div class="ttdeci">bool swap_cache_has_folio(swp_entry_t entry)</div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a60b3795b4ec7e8cdc252c64dabebc132_cgraph.svg" width="367" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a2e9e893dee409a3cc7c81a5e585da347" name="a2e9e893dee409a3cc7c81a5e585da347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e9e893dee409a3cc7c81a5e585da347">&#9670;&#160;</a></span>read_swap_cache_async()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct folio * read_swap_cache_async </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfp_t</td>          <td class="paramname"><span class="paramname"><em>gfp_mask</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct vm_area_struct *</td>          <td class="paramname"><span class="paramname"><em>vma</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>addr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct swap_iocb **</td>          <td class="paramname"><span class="paramname"><em>plug</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a72b7402254f964fbd5e7693910d22106" name="a72b7402254f964fbd5e7693910d22106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72b7402254f964fbd5e7693910d22106">&#9670;&#160;</a></span>show_swap_cache_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void show_swap_cache_info </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe1f966b5b17d8ae1bf81adf9f330299" name="afe1f966b5b17d8ae1bf81adf9f330299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe1f966b5b17d8ae1bf81adf9f330299">&#9670;&#160;</a></span>sio_pool_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sio_pool_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_afe1f966b5b17d8ae1bf81adf9f330299_icgraph.svg" width="487" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a22896e845bf9933dc95cb24cd1756fc9" name="a22896e845bf9933dc95cb24cd1756fc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22896e845bf9933dc95cb24cd1756fc9">&#9670;&#160;</a></span>swap_address_space()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct address_space * swap_address_space </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00229">229</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  230</span>{</div>
+<div class="line"><span class="lineno">  231</span>    <span class="keywordflow">return</span> &amp;swap_space;</div>
+<div class="line"><span class="lineno">  232</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7ee313d755ae0f2e8e911a88453bfd93" name="a7ee313d755ae0f2e8e911a88453bfd93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ee313d755ae0f2e8e911a88453bfd93">&#9670;&#160;</a></span>swap_cache_alloc_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct folio * swap_cache_alloc_folio </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfp_t</td>          <td class="paramname"><span class="paramname"><em>gfp_flags</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct mempolicy *</td>          <td class="paramname"><span class="paramname"><em>mpol</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pgoff_t</td>          <td class="paramname"><span class="paramname"><em>ilx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *</td>          <td class="paramname"><span class="paramname"><em>alloced</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ccc548e73ca1abe906b47f1aea2b5df" name="a1ccc548e73ca1abe906b47f1aea2b5df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ccc548e73ca1abe906b47f1aea2b5df">&#9670;&#160;</a></span>swap_cache_del_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap_cache_del_folio </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a1ccc548e73ca1abe906b47f1aea2b5df_icgraph.svg" width="3074" height="467"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af1c86ec8fd51b395cce7768da7423631" name="af1c86ec8fd51b395cce7768da7423631"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1c86ec8fd51b395cce7768da7423631">&#9670;&#160;</a></span>swap_cache_get_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct folio * swap_cache_get_folio </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_af1c86ec8fd51b395cce7768da7423631_icgraph.svg" width="3075" height="430"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3bb497d958494a1ce3f77146fe46b008" name="a3bb497d958494a1ce3f77146fe46b008"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bb497d958494a1ce3f77146fe46b008">&#9670;&#160;</a></span>swap_cache_get_shadow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * swap_cache_get_shadow </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad3a4a32d56a920f5ed49beefbbd4e558" name="ad3a4a32d56a920f5ed49beefbbd4e558"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a4a32d56a920f5ed49beefbbd4e558">&#9670;&#160;</a></span>swap_cache_has_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool swap_cache_has_folio </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_ad3a4a32d56a920f5ed49beefbbd4e558_icgraph.svg" width="367" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5de0d8a14fb93d0dc94a73b2a7fdc839" name="a5de0d8a14fb93d0dc94a73b2a7fdc839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5de0d8a14fb93d0dc94a73b2a7fdc839">&#9670;&#160;</a></span>swap_cluster_get_and_lock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> * swap_cluster_get_and_lock </td>
+          <td>(</td>
+          <td class="paramtype">const struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00155">155</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  157</span>{</div>
+<div class="line"><span class="lineno">  158</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#afb895af180a2cbee8334f11ef60c23c0">__swap_cluster_get_and_lock</a>(folio, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  159</span>}</div>
+<div class="ttc" id="aswap_8h_html_afb895af180a2cbee8334f11ef60c23c0"><div class="ttname"><a href="#afb895af180a2cbee8334f11ef60c23c0">__swap_cluster_get_and_lock</a></div><div class="ttdeci">static struct swap_cluster_info * __swap_cluster_get_and_lock(const struct folio *folio, bool irq)</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00134">swap.h:134</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a5de0d8a14fb93d0dc94a73b2a7fdc839_cgraph.svg" width="792" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab3746ac838b327ea1f7ee867ec46b856" name="ab3746ac838b327ea1f7ee867ec46b856"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3746ac838b327ea1f7ee867ec46b856">&#9670;&#160;</a></span>swap_cluster_get_and_lock_irq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> * swap_cluster_get_and_lock_irq </td>
+          <td>(</td>
+          <td class="paramtype">const struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00170">170</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  172</span>{</div>
+<div class="line"><span class="lineno">  173</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#afb895af180a2cbee8334f11ef60c23c0">__swap_cluster_get_and_lock</a>(folio, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  174</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_ab3746ac838b327ea1f7ee867ec46b856_cgraph.svg" width="762" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_ab3746ac838b327ea1f7ee867ec46b856_icgraph.svg" width="3126" height="764"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a074b060542dd23eea18115458cc8e988" name="a074b060542dd23eea18115458cc8e988"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a074b060542dd23eea18115458cc8e988">&#9670;&#160;</a></span>swap_cluster_lock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> * swap_cluster_lock </td>
+          <td>(</td>
+          <td class="paramtype">struct swap_info_struct *</td>          <td class="paramname"><span class="paramname"><em>si</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>swap_cluster_lock - Lock and return the swap cluster of given offset. @si: swap device the cluster belongs to. @offset: the swap entry offset, pointing to a valid slot.</p>
+<p>Context: The caller must ensure the offset is in the valid range and protect the swap device with reference count or locks. </p>
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00128">128</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  130</span>{</div>
+<div class="line"><span class="lineno">  131</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="#a84cec68212fa073368c256d418e12ce0">__swap_cluster_lock</a>(si, offset, <span class="keyword">false</span>);</div>
+<div class="line"><span class="lineno">  132</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a074b060542dd23eea18115458cc8e988_cgraph.svg" width="550" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a074b060542dd23eea18115458cc8e988_icgraph.svg" width="2712" height="658"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aceca59cbeae940aa9770e6fd372ffcfa" name="aceca59cbeae940aa9770e6fd372ffcfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceca59cbeae940aa9770e6fd372ffcfa">&#9670;&#160;</a></span>swap_cluster_readahead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct folio * swap_cluster_readahead </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfp_t</td>          <td class="paramname"><span class="paramname"><em>flag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct mempolicy *</td>          <td class="paramname"><span class="paramname"><em>mpol</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pgoff_t</td>          <td class="paramname"><span class="paramname"><em>ilx</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9df95245a7fe23d590d481c424c40abb" name="a9df95245a7fe23d590d481c424c40abb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9df95245a7fe23d590d481c424c40abb">&#9670;&#160;</a></span>swap_cluster_unlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap_cluster_unlock </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *</td>          <td class="paramname"><span class="paramname"><em>ci</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00176">176</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  177</span>{</div>
+<div class="line"><span class="lineno">  178</span>    spin_unlock(&amp;ci-&gt;<a class="code hl_variable" href="structswap__cluster__info.html#a1cca77e496af5075ce8a2955acd8a3d9">lock</a>);</div>
+<div class="line"><span class="lineno">  179</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a9df95245a7fe23d590d481c424c40abb_icgraph.svg" width="2727" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="afc92154a658fdaf6587eb1b59acbb335" name="afc92154a658fdaf6587eb1b59acbb335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc92154a658fdaf6587eb1b59acbb335">&#9670;&#160;</a></span>swap_cluster_unlock_irq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap_cluster_unlock_irq </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *</td>          <td class="paramname"><span class="paramname"><em>ci</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00181">181</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  182</span>{</div>
+<div class="line"><span class="lineno">  183</span>    spin_unlock_irq(&amp;ci-&gt;<a class="code hl_variable" href="structswap__cluster__info.html#a1cca77e496af5075ce8a2955acd8a3d9">lock</a>);</div>
+<div class="line"><span class="lineno">  184</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_afc92154a658fdaf6587eb1b59acbb335_icgraph.svg" width="3139" height="764"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a99c4f629715fb95b5ace366975a762fc" name="a99c4f629715fb95b5ace366975a762fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99c4f629715fb95b5ace366975a762fc">&#9670;&#160;</a></span>swap_dev_pos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">loff_t swap_dev_pos </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00237">237</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  238</span>{</div>
+<div class="line"><span class="lineno">  239</span>    <span class="keywordflow">return</span> ((loff_t)swp_offset(entry)) &lt;&lt; PAGE_SHIFT;</div>
+<div class="line"><span class="lineno">  240</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aaef639ee4ac647d24e473bd0a77e91c0" name="aaef639ee4ac647d24e473bd0a77e91c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaef639ee4ac647d24e473bd0a77e91c0">&#9670;&#160;</a></span>swap_entries_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap_entries_free </td>
+          <td>(</td>
+          <td class="paramtype">struct swap_info_struct *</td>          <td class="paramname"><span class="paramname"><em>si</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structswap__cluster__info.html">swap_cluster_info</a> *</td>          <td class="paramname"><span class="paramname"><em>ci</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>nr_pages</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swapfile_8c_source.html#l01692">1692</a> of file <a class="el" href="swapfile_8c_source.html">swapfile.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno"> 1695</span>{</div>
+<div class="line"><span class="lineno"> 1696</span>    swp_entry_t entry = swp_entry(si-&gt;type, offset);</div>
+<div class="line"><span class="lineno"> 1697</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *map = si-&gt;swap_map + offset;</div>
+<div class="line"><span class="lineno"> 1698</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *map_end = map + nr_pages;</div>
+<div class="line"><span class="lineno"> 1699</span> </div>
+<div class="line"><span class="lineno"> 1700</span>    <span class="comment">/* It should never free entries across different clusters */</span></div>
+<div class="line"><span class="lineno"> 1701</span>    VM_BUG_ON(ci != <a class="code hl_function" href="#a9b2318917f63a40b745c3fc381e456bb">__swap_offset_to_cluster</a>(si, offset + nr_pages - 1));</div>
+<div class="line"><span class="lineno"> 1702</span>    VM_BUG_ON(<a class="code hl_function" href="swapfile_8c.html#a0c6532e5ff9f9fc19013b5405accbf65">cluster_is_empty</a>(ci));</div>
+<div class="line"><span class="lineno"> 1703</span>    VM_BUG_ON(ci-&gt;<a class="code hl_variable" href="structswap__cluster__info.html#a5c68b18a57b157cb62496738606e7a6f">count</a> &lt; nr_pages);</div>
+<div class="line"><span class="lineno"> 1704</span> </div>
+<div class="line"><span class="lineno"> 1705</span>    ci-&gt;<a class="code hl_variable" href="structswap__cluster__info.html#a5c68b18a57b157cb62496738606e7a6f">count</a> -= nr_pages;</div>
+<div class="line"><span class="lineno"> 1706</span>    <span class="keywordflow">do</span> {</div>
+<div class="line"><span class="lineno"> 1707</span>        VM_WARN_ON(*map &gt; 1);</div>
+<div class="line"><span class="lineno"> 1708</span>        *map = 0;</div>
+<div class="line"><span class="lineno"> 1709</span>    } <span class="keywordflow">while</span> (++map &lt; map_end);</div>
+<div class="line"><span class="lineno"> 1710</span> </div>
+<div class="line"><span class="lineno"> 1711</span>    mem_cgroup_uncharge_swap(entry, nr_pages);</div>
+<div class="line"><span class="lineno"> 1712</span>    <a class="code hl_function" href="swapfile_8c.html#af307fb4fd8c2bece26a0efd8a737c97f">swap_range_free</a>(si, offset, nr_pages);</div>
+<div class="line"><span class="lineno"> 1713</span>    <a class="code hl_function" href="swapfile_8c.html#a34a691015b4dafcee24cb2cb111c2e39">swap_cluster_assert_table_empty</a>(ci, offset, nr_pages);</div>
+<div class="line"><span class="lineno"> 1714</span> </div>
+<div class="line"><span class="lineno"> 1715</span>    <span class="keywordflow">if</span> (!ci-&gt;<a class="code hl_variable" href="structswap__cluster__info.html#a5c68b18a57b157cb62496738606e7a6f">count</a>)</div>
+<div class="line"><span class="lineno"> 1716</span>        <a class="code hl_function" href="swapfile_8c.html#a86f6c504b2f7860bcf3c30fc45ddb120">free_cluster</a>(si, ci);</div>
+<div class="line"><span class="lineno"> 1717</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno"> 1718</span>        <a class="code hl_function" href="swapfile_8c.html#a98f36cde0443516a7fd1d059cb3698fc">partial_free_cluster</a>(si, ci);</div>
+<div class="line"><span class="lineno"> 1719</span>}</div>
+<div class="ttc" id="astructswap__cluster__info_html_a5c68b18a57b157cb62496738606e7a6f"><div class="ttname"><a href="structswap__cluster__info.html#a5c68b18a57b157cb62496738606e7a6f">swap_cluster_info::count</a></div><div class="ttdeci">u16 count</div><div class="ttdef"><b>Definition</b> <a href="swap_8h_source.html#l00036">swap.h:36</a></div></div>
+<div class="ttc" id="aswapfile_8c_html_a0c6532e5ff9f9fc19013b5405accbf65"><div class="ttname"><a href="swapfile_8c.html#a0c6532e5ff9f9fc19013b5405accbf65">cluster_is_empty</a></div><div class="ttdeci">static bool cluster_is_empty(struct swap_cluster_info *info)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l00379">swapfile.c:379</a></div></div>
+<div class="ttc" id="aswapfile_8c_html_a34a691015b4dafcee24cb2cb111c2e39"><div class="ttname"><a href="swapfile_8c.html#a34a691015b4dafcee24cb2cb111c2e39">swap_cluster_assert_table_empty</a></div><div class="ttdeci">static void swap_cluster_assert_table_empty(struct swap_cluster_info *ci, unsigned int start, unsigned int nr)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l00848">swapfile.c:848</a></div></div>
+<div class="ttc" id="aswapfile_8c_html_a86f6c504b2f7860bcf3c30fc45ddb120"><div class="ttname"><a href="swapfile_8c.html#a86f6c504b2f7860bcf3c30fc45ddb120">free_cluster</a></div><div class="ttdeci">static void free_cluster(struct swap_info_struct *si, struct swap_cluster_info *ci)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l00670">swapfile.c:670</a></div></div>
+<div class="ttc" id="aswapfile_8c_html_a98f36cde0443516a7fd1d059cb3698fc"><div class="ttname"><a href="swapfile_8c.html#a98f36cde0443516a7fd1d059cb3698fc">partial_free_cluster</a></div><div class="ttdeci">static void partial_free_cluster(struct swap_info_struct *si, struct swap_cluster_info *ci)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l00694">swapfile.c:694</a></div></div>
+<div class="ttc" id="aswapfile_8c_html_af307fb4fd8c2bece26a0efd8a737c97f"><div class="ttname"><a href="swapfile_8c.html#af307fb4fd8c2bece26a0efd8a737c97f">swap_range_free</a></div><div class="ttdeci">static void swap_range_free(struct swap_info_struct *si, unsigned long offset, unsigned int nr_entries)</div><div class="ttdef"><b>Definition</b> <a href="swapfile_8c_source.html#l01259">swapfile.c:1259</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_aaef639ee4ac647d24e473bd0a77e91c0_cgraph.svg" width="2154" height="1067"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_aaef639ee4ac647d24e473bd0a77e91c0_icgraph.svg" width="2195" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a57179a8e98f8f5e98537cb986f5ea997" name="a57179a8e98f8f5e98537cb986f5ea997"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57179a8e98f8f5e98537cb986f5ea997">&#9670;&#160;</a></span>swap_read_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap_read_folio </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct swap_iocb **</td>          <td class="paramname"><span class="paramname"><em>plug</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeed14101401ef51386101e7ddf2840e2" name="aeed14101401ef51386101e7ddf2840e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeed14101401ef51386101e7ddf2840e2">&#9670;&#160;</a></span>swap_read_unplug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap_read_unplug </td>
+          <td>(</td>
+          <td class="paramtype">struct swap_iocb *</td>          <td class="paramname"><span class="paramname"><em>plug</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00218">218</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  219</span>{</div>
+<div class="line"><span class="lineno">  220</span>    <span class="keywordflow">if</span> (unlikely(plug))</div>
+<div class="line"><span class="lineno">  221</span>        <a class="code hl_function" href="#acfe917466ebc3c96b38664378771b6c9">__swap_read_unplug</a>(plug);</div>
+<div class="line"><span class="lineno">  222</span>}</div>
+<div class="ttc" id="aswap_8h_html_acfe917466ebc3c96b38664378771b6c9"><div class="ttname"><a href="#acfe917466ebc3c96b38664378771b6c9">__swap_read_unplug</a></div><div class="ttdeci">void __swap_read_unplug(struct swap_iocb *plug)</div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_aeed14101401ef51386101e7ddf2840e2_cgraph.svg" width="332" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a587cd9f94e1a8595caa2a6e6989f0b09" name="a587cd9f94e1a8595caa2a6e6989f0b09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a587cd9f94e1a8595caa2a6e6989f0b09">&#9670;&#160;</a></span>swap_update_readahead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap_update_readahead </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct vm_area_struct *</td>          <td class="paramname"><span class="paramname"><em>vma</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long</td>          <td class="paramname"><span class="paramname"><em>addr</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0c065f14f83899476864ddaccbb4af74" name="a0c065f14f83899476864ddaccbb4af74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c065f14f83899476864ddaccbb4af74">&#9670;&#160;</a></span>swap_write_unplug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap_write_unplug </td>
+          <td>(</td>
+          <td class="paramtype">struct swap_iocb *</td>          <td class="paramname"><span class="paramname"><em>sio</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a0c065f14f83899476864ddaccbb4af74_icgraph.svg" width="2915" height="764"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a12b5e02cc4ee73e27cccf5256dc7b61e" name="a12b5e02cc4ee73e27cccf5256dc7b61e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12b5e02cc4ee73e27cccf5256dc7b61e">&#9670;&#160;</a></span>swap_writeout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int swap_writeout </td>
+          <td>(</td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct swap_iocb **</td>          <td class="paramname"><span class="paramname"><em>swap_plug</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a12b5e02cc4ee73e27cccf5256dc7b61e_icgraph.svg" width="3119" height="764"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a222c21e3de8454551458f2f449ae60d0" name="a222c21e3de8454551458f2f449ae60d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a222c21e3de8454551458f2f449ae60d0">&#9670;&#160;</a></span>swap_zeromap_batch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int swap_zeromap_batch </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_nr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *</td>          <td class="paramname"><span class="paramname"><em>is_zeromap</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00314">314</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  316</span>{</div>
+<div class="line"><span class="lineno">  317</span>    <span class="keyword">struct </span>swap_info_struct *sis = <a class="code hl_function" href="#a423d9b69aac4ecff5ceac951cb14573a">__swap_entry_to_info</a>(entry);</div>
+<div class="line"><span class="lineno">  318</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> start = swp_offset(entry);</div>
+<div class="line"><span class="lineno">  319</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> end = start + max_nr;</div>
+<div class="line"><span class="lineno">  320</span>    <span class="keywordtype">bool</span> first_bit;</div>
+<div class="line"><span class="lineno">  321</span> </div>
+<div class="line"><span class="lineno">  322</span>    first_bit = test_bit(start, sis-&gt;zeromap);</div>
+<div class="line"><span class="lineno">  323</span>    <span class="keywordflow">if</span> (is_zeromap)</div>
+<div class="line"><span class="lineno">  324</span>        *is_zeromap = first_bit;</div>
+<div class="line"><span class="lineno">  325</span> </div>
+<div class="line"><span class="lineno">  326</span>    <span class="keywordflow">if</span> (max_nr &lt;= 1)</div>
+<div class="line"><span class="lineno">  327</span>        <span class="keywordflow">return</span> max_nr;</div>
+<div class="line"><span class="lineno">  328</span>    <span class="keywordflow">if</span> (first_bit)</div>
+<div class="line"><span class="lineno">  329</span>        <span class="keywordflow">return</span> find_next_zero_bit(sis-&gt;zeromap, end, start) - start;</div>
+<div class="line"><span class="lineno">  330</span>    <span class="keywordflow">else</span></div>
+<div class="line"><span class="lineno">  331</span>        <span class="keywordflow">return</span> find_next_bit(sis-&gt;zeromap, end, start) - start;</div>
+<div class="line"><span class="lineno">  332</span>}</div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a222c21e3de8454551458f2f449ae60d0_cgraph.svg" width="548" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3c86fae5e345eedd493df9688d17d114" name="a3c86fae5e345eedd493df9688d17d114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c86fae5e345eedd493df9688d17d114">&#9670;&#160;</a></span>swapcache_clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swapcache_clear </td>
+          <td>(</td>
+          <td class="paramtype">struct swap_info_struct *</td>          <td class="paramname"><span class="paramname"><em>si</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nr</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a081c1567f5b118b8d406cff8233ff80b" name="a081c1567f5b118b8d406cff8233ff80b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a081c1567f5b118b8d406cff8233ff80b">&#9670;&#160;</a></span>swapin_folio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct folio * swapin_folio </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct folio *</td>          <td class="paramname"><span class="paramname"><em>folio</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3ef1cce3c219bfeab24f3d73e1846067" name="a3ef1cce3c219bfeab24f3d73e1846067"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ef1cce3c219bfeab24f3d73e1846067">&#9670;&#160;</a></span>swapin_readahead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct folio * swapin_readahead </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gfp_t</td>          <td class="paramname"><span class="paramname"><em>flag</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct vm_fault *</td>          <td class="paramname"><span class="paramname"><em>vmf</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="swap_8h_a3ef1cce3c219bfeab24f3d73e1846067_icgraph.svg" width="1434" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5d03c33edbcb4a7752b9c710fa4775fe" name="a5d03c33edbcb4a7752b9c710fa4775fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d03c33edbcb4a7752b9c710fa4775fe">&#9670;&#160;</a></span>swp_cluster_offset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int swp_cluster_offset </td>
+          <td>(</td>
+          <td class="paramtype">swp_entry_t</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8h_source.html#l00060">60</a> of file <a class="el" href="swap_8h_source.html">swap.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   61</span>{</div>
+<div class="line"><span class="lineno">   62</span>    <span class="keywordflow">return</span> swp_offset(entry) % <a class="code hl_define" href="#a982cd09e49261d3ef936c241e1dd66a4">SWAPFILE_CLUSTER</a>;</div>
+<div class="line"><span class="lineno">   63</span>}</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="abed09f8ebbc1c690292697172e88a813" name="abed09f8ebbc1c690292697172e88a813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abed09f8ebbc1c690292697172e88a813">&#9670;&#160;</a></span>__read_mostly</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="mmzone_8h.html#a04aa43e69b0cf0163657c76c5dcd0761">page_group_by_mobility_disabled</a> __read_mostly = GFP_BOOT_MASK</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>These bitmasks identify subsystems with specific features to avoid having to do iterative checks repeatedly.</p>
+<p>Write protected by cgroup_mutex and write-lock of cgroup_threadgroup_rwsem, read protected by either.</p>
+<p>Can only be turned on, but not turned off. </p>
+
+<p class="definition">Definition at line <a class="el" href="cgroup_8c_source.html#l00252">252</a> of file <a class="el" href="cgroup_8c_source.html">cgroup.c</a>.</p>
+
+</div>
+</div>
 <a id="afe6446ed43e97033afbee53032a572dc" name="afe6446ed43e97033afbee53032a572dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe6446ed43e97033afbee53032a572dc">&#9670;&#160;</a></span>page_cluster</h2>
 
@@ -239,6 +1967,8 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swap_8c_source.html#l00047">47</a> of file <a class="el" href="swap_8c_source.html">swap.c</a>.</p>
 
 </div>
 </div>
@@ -261,6 +1991,8 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="swapfile_8c_source.html#l00109">109</a> of file <a class="el" href="swapfile_8c_source.html">swapfile.c</a>.</p>
 
 </div>
 </div>

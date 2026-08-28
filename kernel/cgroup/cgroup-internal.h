@@ -12,9 +12,13 @@
 #define TRACE_CGROUP_PATH_LEN 1024
 extern spinlock_t trace_cgroup_path_lock;
 extern char trace_cgroup_path[TRACE_CGROUP_PATH_LEN];
+
+/**
+ * Function Description: Enables debug mode for cgroup operations. This is called during initialization to set up debugging features. It may enable additional logging or debugging checks.
+ */
 extern void __init enable_debug_cgroup(void);
 
-/*
+/**
  * cgroup_path() takes a spin lock. It is good practice not to take
  * spin locks within trace point handlers, as they are mostly hidden
  * from normal view. As cgroup_path() can take the kernfs_rename_lock
@@ -39,22 +43,25 @@ extern void __init enable_debug_cgroup(void);
 		}							\
 	} while (0)
 
-/*
+/**
  * The cgroup filesystem superblock creation/mount context.
+ * 
+ * 
+ * struct Description: This structure holds the filesystem context for cgroup mounts. It contains the cgroup root, namespace, flags, and cgroup1-specific options like cpuset_clone_children, subsystem mask, name, and release agent path. It is used during cgroup filesystem mounting and remounting.
  */
 struct cgroup_fs_context {
 	struct kernfs_fs_context kfc;
 	struct cgroup_root	*root;
 	struct cgroup_namespace	*ns;
-	unsigned int	flags;			/* CGRP_ROOT_* flags */
+	unsigned int	flags;			/** CGRP_ROOT_* flags */
 
-	/* cgroup1 bits */
+	/** cgroup1 bits */
 	bool		cpuset_clone_children;
-	bool		none;			/* User explicitly requested empty subsystem */
-	bool		all_ss;			/* Seen 'all' option */
-	u32		subsys_mask;		/* Selected subsystems */
-	char		*name;			/* Hierarchy name */
-	char		*release_agent;		/* Path for release notifications */
+	bool		none;			/** User explicitly requested empty subsystem */
+	bool		all_ss;			/** Seen 'all' option */
+	u32		subsys_mask;		/** Selected subsystems */
+	char		*name;			/** Hierarchy name */
+	char		*release_agent;		/** Path for release notifications */
 };
 
 static inline struct cgroup_fs_context *cgroup_fc2context(struct fs_context *fc)
@@ -66,6 +73,9 @@ static inline struct cgroup_fs_context *cgroup_fc2context(struct fs_context *fc)
 
 struct cgroup_pidlist;
 
+/**
+ * struct Description: This structure holds the context for cgroup file operations. It contains namespace information, PSI trigger data, process iterator state, pidlist for cgroup1, and peak tracking data. It is used to maintain state during reads and writes of cgroup control files. 
+ */
 struct cgroup_file_ctx {
 	struct cgroup_namespace	*ns;
 
@@ -85,39 +95,47 @@ struct cgroup_file_ctx {
 	struct cgroup_of_peak peak;
 };
 
-/*
+/**
  * A cgroup can be associated with multiple css_sets as different tasks may
  * belong to different cgroups on different hierarchies.  In the other
  * direction, a css_set is naturally associated with multiple cgroups.
  * This M:N relationship is represented by the following link structure
  * which exists for each association and allows traversing the associations
  * from both sides.
+ * 
+ * 
+ * struct Description: This structure represents the association between a cgroup and a css_set. It contains pointers to both the cgroup and css_set, and links into both the cgroup's cset_links list and the css_set's cgrp_links list. This enables traversal of the M:N relationship between cgroups and css_sets.
  */
 struct cgrp_cset_link {
-	/* the cgroup and css_set this link associates */
+	/** the cgroup and css_set this link associates */
 	struct cgroup		*cgrp;
 	struct css_set		*cset;
 
-	/* list of cgrp_cset_links anchored at cgrp->cset_links */
+	/** list of cgrp_cset_links anchored at cgrp->cset_links */
 	struct list_head	cset_link;
 
-	/* list of cgrp_cset_links anchored at css_set->cgrp_links */
+	/** list of cgrp_cset_links anchored at css_set->cgrp_links */
 	struct list_head	cgrp_link;
 };
 
-/* used to track tasks and csets during migration */
+/**
+ * used to track tasks and csets during migration 
+ *
+ * 
+ * struct Description: This structure holds the set of tasks and css_sets involved in a cgroup migration. It contains source and destination cset lists, task count, subsystem ID being processed, and iteration state. It is used during task migration between cgroups.
+ */
 struct cgroup_taskset {
-	/* the src and dst cset list running through cset->mg_node */
+	/** the src and dst cset list running through cset->mg_node */
 	struct list_head	src_csets;
 	struct list_head	dst_csets;
 
-	/* the number of tasks in the set */
+	/** the number of tasks in the set */
 	int			nr_tasks;
 
-	/* the subsys currently being processed */
+	/** the subsys currently being processed */
 	int			ssid;
 
-	/*
+	/**
 	 * Fields for cgroup_taskset_*() iteration.
 	 *
 	 * Before migration is committed, the target migration tasks are on
@@ -133,19 +151,24 @@ struct cgroup_taskset {
 	struct task_struct	*cur_task;
 };
 
-/* migration context also tracks preloading */
+/**
+ * migration context also tracks preloading 
+ * 
+ * 
+ * struct Description: This structure holds the migration context for cgroup operations. It contains preloaded source and destination csets, the taskset to migrate, and the subsystem mask. It is used to guarantee atomic success or failure of cgroup migrations.
+ */
 struct cgroup_mgctx {
-	/*
+	/**
 	 * Preloaded source and destination csets.  Used to guarantee
 	 * atomic success or failure on actual migration.
 	 */
 	struct list_head	preloaded_src_csets;
 	struct list_head	preloaded_dst_csets;
 
-	/* tasks and csets to migrate */
+	/** tasks and csets to migrate */
 	struct cgroup_taskset	tset;
 
-	/* subsystems affected by migration */
+	/** subsystems affected by migration */
 	u32			ss_mask;
 };
 
@@ -170,7 +193,7 @@ extern struct cgroup_subsys *cgroup_subsys[];
 extern struct list_head cgroup_roots;
 extern bool cgrp_dfl_visible;
 
-/* iterate across the hierarchies */
+/** iterate across the hierarchies */
 #define for_each_root(root)						\
 	list_for_each_entry_rcu((root), &cgroup_roots, root_list,	\
 				lockdep_is_held(&cgroup_mutex))
@@ -184,18 +207,31 @@ extern bool cgrp_dfl_visible;
 	for ((ssid) = 0; (ssid) < CGROUP_SUBSYS_COUNT &&		\
 	     (((ss) = cgroup_subsys[ssid]) || true); (ssid)++)
 
+
+/**
+ * Function Description: Checks if a cgroup is dead (offline). Returns true if the CSS_ONLINE flag is not set. This indicates the cgroup has been removed and is no longer active.
+ */
 static inline bool cgroup_is_dead(const struct cgroup *cgrp)
 {
 	return !(cgrp->self.flags & CSS_ONLINE);
 }
 
+/**
+ * Function Description: Checks if a cgroup has the notify-on-release flag set. Returns true if CGRP_NOTIFY_ON_RELEASE is set. This flag indicates that the release agent should be notified when the cgroup becomes empty.
+ */
 static inline bool notify_on_release(const struct cgroup *cgrp)
 {
 	return test_bit(CGRP_NOTIFY_ON_RELEASE, &cgrp->flags);
 }
 
+/**
+ * Function Description: Puts a reference to a css_set while holding the css_set_lock. It decrements the reference count and handles the case where the count reaches zero. This is called internally by put_css_set().
+ */
 void put_css_set_locked(struct css_set *cset);
 
+/**
+ * Function Description: Puts a reference to a css_set. It decrements the reference count and if it reaches zero, it acquires the lock and calls put_css_set_locked(). This ensures safe cleanup of the css_set.
+ */
 static inline void put_css_set(struct css_set *cset)
 {
 	unsigned long flags;
@@ -213,8 +249,11 @@ static inline void put_css_set(struct css_set *cset)
 	spin_unlock_irqrestore(&css_set_lock, flags);
 }
 
-/*
+/**
  * refcounted get/put for css_set objects
+ * 
+ * 
+ * Function Description: Gets a reference to a css_set. It increments the reference count. This is called when a task or cgroup needs to hold a reference to a css_set.
  */
 static inline void get_css_set(struct css_set *cset)
 {

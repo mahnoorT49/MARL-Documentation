@@ -1,0 +1,110 @@
+\doxysection{cgroup\+\_\+freezer\+\_\+state Struct Reference}
+\hypertarget{structcgroup__freezer__state}{}\label{structcgroup__freezer__state}\index{cgroup\_freezer\_state@{cgroup\_freezer\_state}}
+
+
+{\ttfamily \+\#include $<$cgroup-\/defs.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \doxymbox{\hyperlink{structcgroup__freezer__state_a059a91dc124c642f5e7ad50c161e9623}{freeze}}
+\item 
+bool \doxymbox{\hyperlink{structcgroup__freezer__state_a9669aa9336fd9cb78d394dcccb572b19}{e\+\_\+freeze}}
+\item 
+int \doxymbox{\hyperlink{structcgroup__freezer__state_afbaedb7926faeed71a0d9d63d8f8a4ba}{nr\+\_\+frozen\+\_\+descendants}}
+\item 
+int \doxymbox{\hyperlink{structcgroup__freezer__state_a5d15990cb06bf49f8af14042a83909ae}{nr\+\_\+frozen\+\_\+tasks}}
+\item 
+seqcount\+\_\+spinlock\+\_\+t \doxymbox{\hyperlink{structcgroup__freezer__state_a78996b5a61682c9874be88f52a183a64}{freeze\+\_\+seq}}
+\item 
+u64 \doxymbox{\hyperlink{structcgroup__freezer__state_a92b84babad482790e87469019ec82a5f}{freeze\+\_\+start\+\_\+nsec}}
+\item 
+u64 \doxymbox{\hyperlink{structcgroup__freezer__state_ae04bc7f2a3f7bbae5d3ddd29e2040d3d}{frozen\+\_\+nsec}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct Description:\+ This structure stores the freezer state for a cgroup. It contains flags for whether the cgroup should be frozen, the number of frozen descendants and tasks, and timing information. The freezer subsystem uses this to manage process freezing. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00478}{478}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+\label{structcgroup__freezer__state_doc-variable-members}
+\Hypertarget{structcgroup__freezer__state_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structcgroup__freezer__state_a9669aa9336fd9cb78d394dcccb572b19}\index{cgroup\_freezer\_state@{cgroup\_freezer\_state}!e\_freeze@{e\_freeze}}
+\index{e\_freeze@{e\_freeze}!cgroup\_freezer\_state@{cgroup\_freezer\_state}}
+\doxysubsubsection{\texorpdfstring{e\_freeze}{e\_freeze}}
+{\footnotesize\ttfamily \label{structcgroup__freezer__state_a9669aa9336fd9cb78d394dcccb572b19} 
+bool cgroup\+\_\+freezer\+\_\+state::\+e\+\_\+freeze}
+
+Should the cgroup actually be frozen? 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00483}{483}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__freezer__state_a059a91dc124c642f5e7ad50c161e9623}\index{cgroup\_freezer\_state@{cgroup\_freezer\_state}!freeze@{freeze}}
+\index{freeze@{freeze}!cgroup\_freezer\_state@{cgroup\_freezer\_state}}
+\doxysubsubsection{\texorpdfstring{freeze}{freeze}}
+{\footnotesize\ttfamily \label{structcgroup__freezer__state_a059a91dc124c642f5e7ad50c161e9623} 
+bool cgroup\+\_\+freezer\+\_\+state::\+freeze}
+
+Should the cgroup and its descendants be frozen. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00480}{480}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__freezer__state_a78996b5a61682c9874be88f52a183a64}\index{cgroup\_freezer\_state@{cgroup\_freezer\_state}!freeze\_seq@{freeze\_seq}}
+\index{freeze\_seq@{freeze\_seq}!cgroup\_freezer\_state@{cgroup\_freezer\_state}}
+\doxysubsubsection{\texorpdfstring{freeze\_seq}{freeze\_seq}}
+{\footnotesize\ttfamily \label{structcgroup__freezer__state_a78996b5a61682c9874be88f52a183a64} 
+seqcount\+\_\+spinlock\+\_\+t cgroup\+\_\+freezer\+\_\+state::\+freeze\+\_\+seq}
+
+Freeze time data consistency protection 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00497}{497}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__freezer__state_a92b84babad482790e87469019ec82a5f}\index{cgroup\_freezer\_state@{cgroup\_freezer\_state}!freeze\_start\_nsec@{freeze\_start\_nsec}}
+\index{freeze\_start\_nsec@{freeze\_start\_nsec}!cgroup\_freezer\_state@{cgroup\_freezer\_state}}
+\doxysubsubsection{\texorpdfstring{freeze\_start\_nsec}{freeze\_start\_nsec}}
+{\footnotesize\ttfamily \label{structcgroup__freezer__state_a92b84babad482790e87469019ec82a5f} 
+u64 cgroup\+\_\+freezer\+\_\+state::\+freeze\+\_\+start\+\_\+nsec}
+
+Most recent time the cgroup was requested to freeze. Accesses guarded by freeze\+\_\+seq counter. Writes serialized by css\+\_\+set\+\_\+lock. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00504}{504}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__freezer__state_ae04bc7f2a3f7bbae5d3ddd29e2040d3d}\index{cgroup\_freezer\_state@{cgroup\_freezer\_state}!frozen\_nsec@{frozen\_nsec}}
+\index{frozen\_nsec@{frozen\_nsec}!cgroup\_freezer\_state@{cgroup\_freezer\_state}}
+\doxysubsubsection{\texorpdfstring{frozen\_nsec}{frozen\_nsec}}
+{\footnotesize\ttfamily \label{structcgroup__freezer__state_ae04bc7f2a3f7bbae5d3ddd29e2040d3d} 
+u64 cgroup\+\_\+freezer\+\_\+state::\+frozen\+\_\+nsec}
+
+Total duration the cgroup has spent freezing. Accesses guarded by freeze\+\_\+seq counter. Writes serialized by css\+\_\+set\+\_\+lock. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00511}{511}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__freezer__state_afbaedb7926faeed71a0d9d63d8f8a4ba}\index{cgroup\_freezer\_state@{cgroup\_freezer\_state}!nr\_frozen\_descendants@{nr\_frozen\_descendants}}
+\index{nr\_frozen\_descendants@{nr\_frozen\_descendants}!cgroup\_freezer\_state@{cgroup\_freezer\_state}}
+\doxysubsubsection{\texorpdfstring{nr\_frozen\_descendants}{nr\_frozen\_descendants}}
+{\footnotesize\ttfamily \label{structcgroup__freezer__state_afbaedb7926faeed71a0d9d63d8f8a4ba} 
+int cgroup\+\_\+freezer\+\_\+state::\+nr\+\_\+frozen\+\_\+descendants}
+
+Fields below are protected by css\+\_\+set\+\_\+lock Number of frozen descendant cgroups 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00488}{488}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+\Hypertarget{structcgroup__freezer__state_a5d15990cb06bf49f8af14042a83909ae}\index{cgroup\_freezer\_state@{cgroup\_freezer\_state}!nr\_frozen\_tasks@{nr\_frozen\_tasks}}
+\index{nr\_frozen\_tasks@{nr\_frozen\_tasks}!cgroup\_freezer\_state@{cgroup\_freezer\_state}}
+\doxysubsubsection{\texorpdfstring{nr\_frozen\_tasks}{nr\_frozen\_tasks}}
+{\footnotesize\ttfamily \label{structcgroup__freezer__state_a5d15990cb06bf49f8af14042a83909ae} 
+int cgroup\+\_\+freezer\+\_\+state::\+nr\+\_\+frozen\+\_\+tasks}
+
+Number of tasks, which are counted as frozen:\+ frozen, SIGSTOPped, and PTRACEd. 
+
+Definition at line \doxymbox{\hyperlink{cgroup-defs_8h_source_l00494}{494}} of file \doxymbox{\hyperlink{cgroup-defs_8h_source}{cgroup-\/defs.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+linux/\+\doxymbox{\hyperlink{cgroup-defs_8h}{cgroup-\/defs.\+h}}\end{DoxyCompactItemize}

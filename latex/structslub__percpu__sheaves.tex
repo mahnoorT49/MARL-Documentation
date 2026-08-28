@@ -1,0 +1,80 @@
+\doxysection{slub\+\_\+percpu\+\_\+sheaves Struct Reference}
+\hypertarget{structslub__percpu__sheaves}{}\label{structslub__percpu__sheaves}\index{slub\_percpu\_sheaves@{slub\_percpu\_sheaves}}
+
+
+Collaboration diagram for slub\+\_\+percpu\+\_\+sheaves:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structslub__percpu__sheaves__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+local\+\_\+trylock\+\_\+t \doxymbox{\hyperlink{structslub__percpu__sheaves_abf0c6a5cee8a2706d839b28e2446d2dc}{lock}}
+\item 
+struct \doxymbox{\hyperlink{structslab__sheaf}{slab\+\_\+sheaf}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structslub__percpu__sheaves_aefbb134e6445de4285386b55e721beec}{main}}
+\item 
+struct \doxymbox{\hyperlink{structslab__sheaf}{slab\+\_\+sheaf}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structslub__percpu__sheaves_a3234dc0cfdd7b52295fbd7b0920b1cfa}{spare}}
+\item 
+struct \doxymbox{\hyperlink{structslab__sheaf}{slab\+\_\+sheaf}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structslub__percpu__sheaves_af9f3456ea78e4820698f1c83f0a35da9}{rcu\+\_\+free}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct Description:\+ This structure holds per-\/\+CPU sheaves for a slab cache. It contains a local lock, main sheaf (always present), spare sheaf (may be NULL), and an rcu\+\_\+free sheaf for batching kfree\+\_\+rcu(). It is used to provide fast-\/path allocation and freeing. 
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00466}{466}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+
+
+\label{structslub__percpu__sheaves_doc-variable-members}
+\Hypertarget{structslub__percpu__sheaves_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structslub__percpu__sheaves_abf0c6a5cee8a2706d839b28e2446d2dc}\index{slub\_percpu\_sheaves@{slub\_percpu\_sheaves}!lock@{lock}}
+\index{lock@{lock}!slub\_percpu\_sheaves@{slub\_percpu\_sheaves}}
+\doxysubsubsection{\texorpdfstring{lock}{lock}}
+{\footnotesize\ttfamily \label{structslub__percpu__sheaves_abf0c6a5cee8a2706d839b28e2446d2dc} 
+local\+\_\+trylock\+\_\+t slub\+\_\+percpu\+\_\+sheaves::\+lock}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00467}{467}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structslub__percpu__sheaves_aefbb134e6445de4285386b55e721beec}\index{slub\_percpu\_sheaves@{slub\_percpu\_sheaves}!main@{main}}
+\index{main@{main}!slub\_percpu\_sheaves@{slub\_percpu\_sheaves}}
+\doxysubsubsection{\texorpdfstring{main}{main}}
+{\footnotesize\ttfamily \label{structslub__percpu__sheaves_aefbb134e6445de4285386b55e721beec} 
+struct \doxymbox{\hyperlink{structslab__sheaf}{slab\+\_\+sheaf}}\texorpdfstring{$\ast$}{*} slub\+\_\+percpu\+\_\+sheaves::\+main}
+
+
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00468}{468}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structslub__percpu__sheaves_af9f3456ea78e4820698f1c83f0a35da9}\index{slub\_percpu\_sheaves@{slub\_percpu\_sheaves}!rcu\_free@{rcu\_free}}
+\index{rcu\_free@{rcu\_free}!slub\_percpu\_sheaves@{slub\_percpu\_sheaves}}
+\doxysubsubsection{\texorpdfstring{rcu\_free}{rcu\_free}}
+{\footnotesize\ttfamily \label{structslub__percpu__sheaves_af9f3456ea78e4820698f1c83f0a35da9} 
+struct \doxymbox{\hyperlink{structslab__sheaf}{slab\+\_\+sheaf}}\texorpdfstring{$\ast$}{*} slub\+\_\+percpu\+\_\+sheaves::\+rcu\+\_\+free}
+
+empty or full, may be NULL 
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00470}{470}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+\Hypertarget{structslub__percpu__sheaves_a3234dc0cfdd7b52295fbd7b0920b1cfa}\index{slub\_percpu\_sheaves@{slub\_percpu\_sheaves}!spare@{spare}}
+\index{spare@{spare}!slub\_percpu\_sheaves@{slub\_percpu\_sheaves}}
+\doxysubsubsection{\texorpdfstring{spare}{spare}}
+{\footnotesize\ttfamily \label{structslub__percpu__sheaves_a3234dc0cfdd7b52295fbd7b0920b1cfa} 
+struct \doxymbox{\hyperlink{structslab__sheaf}{slab\+\_\+sheaf}}\texorpdfstring{$\ast$}{*} slub\+\_\+percpu\+\_\+sheaves::\+spare}
+
+never NULL when unlocked 
+
+Definition at line \doxymbox{\hyperlink{slub_8c_source_l00469}{469}} of file \doxymbox{\hyperlink{slub_8c_source}{slub.\+c}}.
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+mm/\+\doxymbox{\hyperlink{slub_8c}{slub.\+c}}\end{DoxyCompactItemize}

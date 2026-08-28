@@ -1,0 +1,478 @@
+\doxysection{gfp.\+h}
+\hypertarget{gfp_8h_source}{}\label{gfp_8h_source}\index{include/linux/gfp.h@{include/linux/gfp.h}}
+\doxymbox{\hyperlink{gfp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00001}00001\ \textcolor{comment}{/*\ SPDX-\/License-\/Identifier:\ GPL-\/2.0\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00002}00002\ \textcolor{preprocessor}{\#ifndef\ \_\_LINUX\_GFP\_H}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00003}00003\ \textcolor{preprocessor}{\#define\ \_\_LINUX\_GFP\_H}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{gfp__types_8h}{linux/gfp\_types.h}}>}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{mmzone_8h}{linux/mmzone.h}}>}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <linux/topology.h>}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <linux/alloc\_tag.h>}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <linux/cleanup.h>}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{sched_8h}{linux/sched.h}}>}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00013}00013\ \textcolor{keyword}{struct\ }vm\_area\_struct;}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00014}00014\ \textcolor{keyword}{struct\ }mempolicy;}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00016}00016\ \textcolor{comment}{/*\ Helper\ macro\ to\ avoid\ gfp\ flags\ if\ they\ are\ the\ default\ one\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00017}00017\ \textcolor{preprocessor}{\#define\ \_\_default\_gfp(a,b,...)\ b}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00018}00018\ \textcolor{preprocessor}{\#define\ default\_gfp(...)\ \_\_default\_gfp(,\#\#\_\_VA\_ARGS\_\_,GFP\_KERNEL)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00020}00020\ \textcolor{comment}{/*\ Convert\ GFP\ flags\ to\ their\ corresponding\ migrate\ type\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00021}00021\ \textcolor{preprocessor}{\#define\ GFP\_MOVABLE\_MASK\ (\_\_GFP\_RECLAIMABLE|\_\_GFP\_MOVABLE)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00022}00022\ \textcolor{preprocessor}{\#define\ GFP\_MOVABLE\_SHIFT\ 3}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00024}00024\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ gfp\_migratetype(\textcolor{keyword}{const}\ gfp\_t\ gfp\_flags)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00025}00025\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00026}00026\ \ \ \ \ VM\_WARN\_ON((gfp\_flags\ \&\ GFP\_MOVABLE\_MASK)\ ==\ GFP\_MOVABLE\_MASK);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00027}00027\ \ \ \ \ BUILD\_BUG\_ON((1UL\ <<\ GFP\_MOVABLE\_SHIFT)\ !=\ \doxymbox{\hyperlink{gfp__types_8h_a92ccbd2780825fce4ad9d5daba727c98}{\_\_\_GFP\_MOVABLE}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00028}00028\ \ \ \ \ BUILD\_BUG\_ON((\doxymbox{\hyperlink{gfp__types_8h_a92ccbd2780825fce4ad9d5daba727c98}{\_\_\_GFP\_MOVABLE}}\ >>\ GFP\_MOVABLE\_SHIFT)\ !=\ \doxymbox{\hyperlink{mmzone_8h_ae632273c4909482b279ed0e527a94b5fabc44279e195d07f6bd354560f14b2c24}{MIGRATE\_MOVABLE}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00029}00029\ \ \ \ \ BUILD\_BUG\_ON((\doxymbox{\hyperlink{gfp__types_8h_a928eeb8725d49e0f73bbc2d7b2b3493b}{\_\_\_GFP\_RECLAIMABLE}}\ >>\ GFP\_MOVABLE\_SHIFT)\ !=\ \doxymbox{\hyperlink{mmzone_8h_ae632273c4909482b279ed0e527a94b5fa4ea5e8f49c1c24e0312fa961c61e28e7}{MIGRATE\_RECLAIMABLE}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00030}00030\ \ \ \ \ BUILD\_BUG\_ON(((\doxymbox{\hyperlink{gfp__types_8h_a92ccbd2780825fce4ad9d5daba727c98}{\_\_\_GFP\_MOVABLE}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_a928eeb8725d49e0f73bbc2d7b2b3493b}{\_\_\_GFP\_RECLAIMABLE}})\ >>}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GFP\_MOVABLE\_SHIFT)\ !=\ \doxymbox{\hyperlink{mmzone_8h_ae632273c4909482b279ed0e527a94b5fa815da9ea8864e1dc9ca36032eb58f7b4}{MIGRATE\_HIGHATOMIC}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{if}\ (unlikely(\doxymbox{\hyperlink{mmzone_8h_a04aa43e69b0cf0163657c76c5dcd0761}{page\_group\_by\_mobility\_disabled}}))}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{mmzone_8h_ae632273c4909482b279ed0e527a94b5fa0e405888390b78b91656b4519076b05f}{MIGRATE\_UNMOVABLE}};}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00036}00036\ \ \ \ \ \textcolor{comment}{/*\ Group\ based\ on\ mobility\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{return}\ (\_\_force\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})(gfp\_flags\ \&\ GFP\_MOVABLE\_MASK)\ >>\ GFP\_MOVABLE\_SHIFT;}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00038}00038\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00039}00039\ \textcolor{preprocessor}{\#undef\ GFP\_MOVABLE\_MASK}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00040}00040\ \textcolor{preprocessor}{\#undef\ GFP\_MOVABLE\_SHIFT}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00042}00042\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ gfpflags\_allow\_blocking(\textcolor{keyword}{const}\ gfp\_t\ gfp\_flags)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00043}00043\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{return}\ !!(gfp\_flags\ \&\ \doxymbox{\hyperlink{gfp__types_8h_ab153fd7013afc4532247a97daa3f10f7}{\_\_GFP\_DIRECT\_RECLAIM}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00045}00045\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00047}00047\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ gfpflags\_allow\_spinning(\textcolor{keyword}{const}\ gfp\_t\ gfp\_flags)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00048}00048\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00049}00049\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00050}00050\ \textcolor{comment}{\ \ \ \ \ *\ !\_\_GFP\_DIRECT\_RECLAIM\ -\/>\ direct\ claim\ is\ not\ allowed.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00051}00051\ \textcolor{comment}{\ \ \ \ \ *\ !\_\_GFP\_KSWAPD\_RECLAIM\ -\/>\ it's\ not\ safe\ to\ wake\ up\ kswapd.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00052}00052\ \textcolor{comment}{\ \ \ \ \ *\ All\ GFP\_*\ flags\ including\ GFP\_NOWAIT\ use\ one\ or\ both\ flags.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00053}00053\ \textcolor{comment}{\ \ \ \ \ *\ alloc\_pages\_nolock()\ is\ the\ only\ API\ that\ doesn't\ specify\ either\ flag.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00054}00054\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00055}00055\ \textcolor{comment}{\ \ \ \ \ *\ This\ is\ stronger\ than\ GFP\_NOWAIT\ or\ GFP\_ATOMIC\ because}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00056}00056\ \textcolor{comment}{\ \ \ \ \ *\ those\ are\ guaranteed\ to\ never\ block\ on\ a\ sleeping\ lock.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00057}00057\ \textcolor{comment}{\ \ \ \ \ *\ Here\ we\ are\ enforcing\ that\ the\ allocation\ doesn't\ ever\ spin}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00058}00058\ \textcolor{comment}{\ \ \ \ \ *\ on\ any\ locks\ (i.e.\ only\ trylocks).\ There\ is\ no\ high\ level}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00059}00059\ \textcolor{comment}{\ \ \ \ \ *\ GFP\_\$FOO\ flag\ for\ this\ use\ in\ alloc\_pages\_nolock()\ as\ the}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00060}00060\ \textcolor{comment}{\ \ \ \ \ *\ regular\ page\ allocator\ doesn't\ fully\ support\ this}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00061}00061\ \textcolor{comment}{\ \ \ \ \ *\ allocation\ mode.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00062}00062\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{return}\ !!(gfp\_flags\ \&\ \doxymbox{\hyperlink{gfp__types_8h_aa314c864ecb41a84476ed07d6a35f8d9}{\_\_GFP\_RECLAIM}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00066}00066\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_HIGHMEM}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00067}00067\ \textcolor{preprocessor}{\#define\ OPT\_ZONE\_HIGHMEM\ ZONE\_HIGHMEM}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00068}00068\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00069}00069\ \textcolor{preprocessor}{\#define\ OPT\_ZONE\_HIGHMEM\ ZONE\_NORMAL}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00070}00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00072}00072\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ZONE\_DMA}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00073}00073\ \textcolor{preprocessor}{\#define\ OPT\_ZONE\_DMA\ ZONE\_DMA}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00074}00074\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00075}00075\ \textcolor{preprocessor}{\#define\ OPT\_ZONE\_DMA\ ZONE\_NORMAL}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00076}00076\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00078}00078\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ZONE\_DMA32}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00079}00079\ \textcolor{preprocessor}{\#define\ OPT\_ZONE\_DMA32\ ZONE\_DMA32}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00080}00080\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00081}00081\ \textcolor{preprocessor}{\#define\ OPT\_ZONE\_DMA32\ ZONE\_NORMAL}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00082}00082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00084}00084\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00085}00085\ \textcolor{comment}{\ *\ GFP\_ZONE\_TABLE\ is\ a\ word\ size\ bitstring\ that\ is\ used\ for\ looking\ up\ the}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00086}00086\ \textcolor{comment}{\ *\ zone\ to\ use\ given\ the\ lowest\ 4\ bits\ of\ gfp\_t.\ Entries\ are\ GFP\_ZONES\_SHIFT}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00087}00087\ \textcolor{comment}{\ *\ bits\ long\ and\ there\ are\ 16\ of\ them\ to\ cover\ all\ possible\ combinations\ of}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00088}00088\ \textcolor{comment}{\ *\ \_\_GFP\_DMA,\ \_\_GFP\_DMA32,\ \_\_GFP\_MOVABLE\ and\ \_\_GFP\_HIGHMEM.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00089}00089\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00090}00090\ \textcolor{comment}{\ *\ The\ zone\ fallback\ order\ is\ MOVABLE=>HIGHMEM=>NORMAL=>DMA32=>DMA.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00091}00091\ \textcolor{comment}{\ *\ But\ GFP\_MOVABLE\ is\ not\ only\ a\ zone\ specifier\ but\ also\ an\ allocation}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00092}00092\ \textcolor{comment}{\ *\ policy.\ Therefore\ \_\_GFP\_MOVABLE\ plus\ another\ zone\ selector\ is\ valid.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00093}00093\ \textcolor{comment}{\ *\ Only\ 1\ bit\ of\ the\ lowest\ 3\ bits\ (DMA,DMA32,HIGHMEM)\ can\ be\ set\ to\ "{}1"{}.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00094}00094\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00095}00095\ \textcolor{comment}{\ *\ \ \ \ \ \ \ bit\ \ \ \ \ \ \ result}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00096}00096\ \textcolor{comment}{\ *\ \ \ \ \ \ \ =================}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00097}00097\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x0\ \ \ \ =>\ NORMAL}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00098}00098\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x1\ \ \ \ =>\ DMA\ or\ NORMAL}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00099}00099\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x2\ \ \ \ =>\ HIGHMEM\ or\ NORMAL}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00100}00100\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x3\ \ \ \ =>\ BAD\ (DMA+HIGHMEM)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00101}00101\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x4\ \ \ \ =>\ DMA32\ or\ NORMAL}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00102}00102\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x5\ \ \ \ =>\ BAD\ (DMA+DMA32)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00103}00103\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x6\ \ \ \ =>\ BAD\ (HIGHMEM+DMA32)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00104}00104\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x7\ \ \ \ =>\ BAD\ (HIGHMEM+DMA32+DMA)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00105}00105\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x8\ \ \ \ =>\ NORMAL\ (MOVABLE+0)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00106}00106\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0x9\ \ \ \ =>\ DMA\ or\ NORMAL\ (MOVABLE+DMA)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00107}00107\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0xa\ \ \ \ =>\ MOVABLE\ (Movable\ is\ valid\ only\ if\ HIGHMEM\ is\ set\ too)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00108}00108\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0xb\ \ \ \ =>\ BAD\ (MOVABLE+HIGHMEM+DMA)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00109}00109\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0xc\ \ \ \ =>\ DMA32\ or\ NORMAL\ (MOVABLE+DMA32)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00110}00110\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0xd\ \ \ \ =>\ BAD\ (MOVABLE+DMA32+DMA)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00111}00111\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0xe\ \ \ \ =>\ BAD\ (MOVABLE+DMA32+HIGHMEM)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00112}00112\ \textcolor{comment}{\ *\ \ \ \ \ \ \ 0xf\ \ \ \ =>\ BAD\ (MOVABLE+DMA32+HIGHMEM+DMA)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00113}00113\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00114}00114\ \textcolor{comment}{\ *\ GFP\_ZONES\_SHIFT\ must\ be\ <=\ 2\ on\ 32\ bit\ platforms.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00115}00115\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00117}00117\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_ZONE\_DEVICE)\ \&\&\ (MAX\_NR\_ZONES-\/1)\ <=\ 4}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00118}00118\ \textcolor{comment}{/*\ ZONE\_DEVICE\ is\ not\ a\ valid\ GFP\ zone\ specifier\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00119}00119\ \textcolor{preprocessor}{\#define\ GFP\_ZONES\_SHIFT\ 2}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00120}00120\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00121}00121\ \textcolor{preprocessor}{\#define\ GFP\_ZONES\_SHIFT\ ZONES\_SHIFT}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00122}00122\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00124}00124\ \textcolor{preprocessor}{\#if\ 16\ *\ GFP\_ZONES\_SHIFT\ >\ BITS\_PER\_LONG}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00125}00125\ \textcolor{preprocessor}{\#error\ GFP\_ZONES\_SHIFT\ too\ large\ to\ create\ GFP\_ZONE\_TABLE\ integer}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00126}00126\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00128}00128\ \textcolor{preprocessor}{\#define\ GFP\_ZONE\_TABLE\ (\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00129}00129\ \textcolor{preprocessor}{\ \ \ \ (ZONE\_NORMAL\ <<\ 0\ *\ GFP\_ZONES\_SHIFT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00130}00130\ \textcolor{preprocessor}{\ \ \ \ |\ (OPT\_ZONE\_DMA\ <<\ \_\_\_GFP\_DMA\ *\ GFP\_ZONES\_SHIFT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00131}00131\ \textcolor{preprocessor}{\ \ \ \ |\ (OPT\_ZONE\_HIGHMEM\ <<\ \_\_\_GFP\_HIGHMEM\ *\ GFP\_ZONES\_SHIFT)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00132}00132\ \textcolor{preprocessor}{\ \ \ \ |\ (OPT\_ZONE\_DMA32\ <<\ \_\_\_GFP\_DMA32\ *\ GFP\_ZONES\_SHIFT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00133}00133\ \textcolor{preprocessor}{\ \ \ \ |\ (ZONE\_NORMAL\ <<\ \_\_\_GFP\_MOVABLE\ *\ GFP\_ZONES\_SHIFT)\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00134}00134\ \textcolor{preprocessor}{\ \ \ \ |\ (OPT\_ZONE\_DMA\ <<\ (\_\_\_GFP\_MOVABLE\ |\ \_\_\_GFP\_DMA)\ *\ GFP\_ZONES\_SHIFT)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00135}00135\ \textcolor{preprocessor}{\ \ \ \ |\ (ZONE\_MOVABLE\ <<\ (\_\_\_GFP\_MOVABLE\ |\ \_\_\_GFP\_HIGHMEM)\ *\ GFP\_ZONES\_SHIFT)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00136}00136\ \textcolor{preprocessor}{\ \ \ \ |\ (OPT\_ZONE\_DMA32\ <<\ (\_\_\_GFP\_MOVABLE\ |\ \_\_\_GFP\_DMA32)\ *\ GFP\_ZONES\_SHIFT)\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00137}00137\ \textcolor{preprocessor}{)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00139}00139\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00140}00140\ \textcolor{comment}{\ *\ GFP\_ZONE\_BAD\ is\ a\ bitmap\ for\ all\ combinations\ of\ \_\_GFP\_DMA,\ \_\_GFP\_DMA32}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00141}00141\ \textcolor{comment}{\ *\ \_\_GFP\_HIGHMEM\ and\ \_\_GFP\_MOVABLE\ that\ are\ not\ permitted.\ One\ flag\ per}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00142}00142\ \textcolor{comment}{\ *\ entry\ starting\ with\ bit\ 0.\ Bit\ is\ set\ if\ the\ combination\ is\ not}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00143}00143\ \textcolor{comment}{\ *\ allowed.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00144}00144\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00145}00145\ \textcolor{preprocessor}{\#define\ GFP\_ZONE\_BAD\ (\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00146}00146\ \textcolor{preprocessor}{\ \ \ \ 1\ <<\ (\_\_\_GFP\_DMA\ |\ \_\_\_GFP\_HIGHMEM)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00147}00147\ \textcolor{preprocessor}{\ \ \ \ |\ 1\ <<\ (\_\_\_GFP\_DMA\ |\ \_\_\_GFP\_DMA32)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00148}00148\ \textcolor{preprocessor}{\ \ \ \ |\ 1\ <<\ (\_\_\_GFP\_DMA32\ |\ \_\_\_GFP\_HIGHMEM)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00149}00149\ \textcolor{preprocessor}{\ \ \ \ |\ 1\ <<\ (\_\_\_GFP\_DMA\ |\ \_\_\_GFP\_DMA32\ |\ \_\_\_GFP\_HIGHMEM)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00150}00150\ \textcolor{preprocessor}{\ \ \ \ |\ 1\ <<\ (\_\_\_GFP\_MOVABLE\ |\ \_\_\_GFP\_HIGHMEM\ |\ \_\_\_GFP\_DMA)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00151}00151\ \textcolor{preprocessor}{\ \ \ \ |\ 1\ <<\ (\_\_\_GFP\_MOVABLE\ |\ \_\_\_GFP\_DMA32\ |\ \_\_\_GFP\_DMA)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00152}00152\ \textcolor{preprocessor}{\ \ \ \ |\ 1\ <<\ (\_\_\_GFP\_MOVABLE\ |\ \_\_\_GFP\_DMA32\ |\ \_\_\_GFP\_HIGHMEM)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00153}00153\ \textcolor{preprocessor}{\ \ \ \ |\ 1\ <<\ (\_\_\_GFP\_MOVABLE\ |\ \_\_\_GFP\_DMA32\ |\ \_\_\_GFP\_DMA\ |\ \_\_\_GFP\_HIGHMEM)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00154}00154\ \textcolor{preprocessor}{)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00156}00156\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{enum}\ \doxymbox{\hyperlink{mmzone_8h_a0fdf79ffb0b79648e58d693137ccfada}{zone\_type}}\ gfp\_zone(gfp\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}})}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00157}00157\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00158}00158\ \ \ \ \ \textcolor{keyword}{enum}\ \doxymbox{\hyperlink{mmzone_8h_a0fdf79ffb0b79648e58d693137ccfada}{zone\_type}}\ z;}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00159}00159\ \ \ \ \ \textcolor{keywordtype}{int}\ bit\ =\ (\_\_force\ int)\ (\doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}}\ \&\ \doxymbox{\hyperlink{gfp__types_8h_a029e5d00a4df009a62ff023b14a1d0aa}{GFP\_ZONEMASK}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00161}00161\ \ \ \ \ z\ =\ (GFP\_ZONE\_TABLE\ >>\ (bit\ *\ GFP\_ZONES\_SHIFT))\ \&}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((1\ <<\ GFP\_ZONES\_SHIFT)\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00163}00163\ \ \ \ \ VM\_BUG\_ON((GFP\_ZONE\_BAD\ >>\ bit)\ \&\ 1);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00164}00164\ \ \ \ \ \textcolor{keywordflow}{return}\ z;}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00165}00165\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00167}00167\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00168}00168\ \textcolor{comment}{\ *\ There\ is\ only\ one\ page-\/allocator\ function,\ and\ two\ main\ namespaces\ to}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00169}00169\ \textcolor{comment}{\ *\ it.\ The\ alloc\_page*()\ variants\ return\ 'struct\ page\ *'\ and\ as\ such}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00170}00170\ \textcolor{comment}{\ *\ can\ allocate\ highmem\ pages,\ the\ *get*page*()\ variants\ return}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00171}00171\ \textcolor{comment}{\ *\ virtual\ kernel\ addresses\ to\ the\ allocated\ page(s).}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00172}00172\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00174}00174\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ gfp\_zonelist(gfp\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}})}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00175}00175\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00176}00176\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_NUMA}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00177}00177\ \ \ \ \ \textcolor{keywordflow}{if}\ (unlikely(\doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}}\ \&\ \doxymbox{\hyperlink{gfp__types_8h_a791abea02bfdd8b0247411869a7648db}{\_\_GFP\_THISNODE}}))}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{mmzone_8h_a84820424b8da1e611570a924155e51f4a41c77fc8723374bc9196330123d81a15}{ZONELIST\_NOFALLBACK}};}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00179}00179\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00180}00180\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{mmzone_8h_a84820424b8da1e611570a924155e51f4a70fc005a767fdaafe724deb1d11ef8b8}{ZONELIST\_FALLBACK}};}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00181}00181\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00183}00183\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00184}00184\ \textcolor{comment}{\ *\ gfp\ flag\ masking\ for\ nested\ internal\ allocations.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00185}00185\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00186}00186\ \textcolor{comment}{\ *\ For\ code\ that\ needs\ to\ do\ allocations\ inside\ the\ public\ allocation\ API\ (e.g.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00187}00187\ \textcolor{comment}{\ *\ memory\ allocation\ tracking\ code)\ the\ allocations\ need\ to\ obey\ the\ caller}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00188}00188\ \textcolor{comment}{\ *\ allocation\ context\ constrains\ to\ prevent\ allocation\ context\ mismatches\ (e.g.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00189}00189\ \textcolor{comment}{\ *\ GFP\_KERNEL\ allocations\ in\ GFP\_NOFS\ contexts)\ from\ potential\ deadlock}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00190}00190\ \textcolor{comment}{\ *\ situations.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00191}00191\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00192}00192\ \textcolor{comment}{\ *\ It\ is\ also\ assumed\ that\ these\ nested\ allocations\ are\ for\ internal\ kernel}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00193}00193\ \textcolor{comment}{\ *\ object\ storage\ purposes\ only\ and\ are\ not\ going\ to\ be\ used\ for\ DMA,\ etc.\ Hence}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00194}00194\ \textcolor{comment}{\ *\ we\ strip\ out\ all\ the\ zone\ information\ and\ leave\ just\ the\ context\ information}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00195}00195\ \textcolor{comment}{\ *\ intact.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00196}00196\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00197}00197\ \textcolor{comment}{\ *\ Further,\ internal\ allocations\ must\ fail\ before\ the\ higher\ level\ allocation}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00198}00198\ \textcolor{comment}{\ *\ can\ fail,\ so\ we\ must\ make\ them\ fail\ faster\ and\ fail\ silently.\ We\ also\ don't}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00199}00199\ \textcolor{comment}{\ *\ want\ them\ to\ deplete\ emergency\ reserves.\ \ Hence\ nested\ allocations\ must\ be}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00200}00200\ \textcolor{comment}{\ *\ prepared\ for\ these\ allocations\ to\ fail.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00201}00201\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00202}00202\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ gfp\_t\ gfp\_nested\_mask(gfp\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}})}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00203}00203\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00204}00204\ \ \ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}}\ \&\ (\doxymbox{\hyperlink{gfp__types_8h_a44b9e863fd60efc9018a5524b77532ee}{GFP\_KERNEL}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_aa9d5f32b75f79a459c1161e3519ed1e1}{GFP\_ATOMIC}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_a6589d4c92768803b7acb0f38fd1f66b1}{\_\_GFP\_NOLOCKDEP}}))\ |}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00205}00205\ \ \ \ \ \ \ \ \ (\doxymbox{\hyperlink{gfp__types_8h_a1195bb948e91036359d29a1796eaae52}{\_\_GFP\_NORETRY}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_a4d80dd1fe42c9e3255cb4591f9022352}{\_\_GFP\_NOMEMALLOC}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_ad16e4916f64bf12d9016393d48ff9aa1}{\_\_GFP\_NOWARN}}));}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00206}00206\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00208}00208\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00209}00209\ \textcolor{comment}{\ *\ We\ get\ the\ zone\ list\ from\ the\ current\ node\ and\ the\ gfp\_mask.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00210}00210\ \textcolor{comment}{\ *\ This\ zone\ list\ contains\ a\ maximum\ of\ MAX\_NUMNODES*MAX\_NR\_ZONES\ zones.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00211}00211\ \textcolor{comment}{\ *\ There\ are\ two\ zonelists\ per\ node,\ one\ for\ all\ zones\ with\ memory\ and}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00212}00212\ \textcolor{comment}{\ *\ one\ containing\ just\ zones\ from\ the\ node\ the\ zonelist\ belongs\ to.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00213}00213\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00214}00214\ \textcolor{comment}{\ *\ For\ the\ case\ of\ non-\/NUMA\ systems\ the\ NODE\_DATA()\ gets\ optimized\ to}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00215}00215\ \textcolor{comment}{\ *\ \&contig\_page\_data\ at\ compile-\/time.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00216}00216\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00217}00217\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structzonelist}{zonelist}}\ *node\_zonelist(\textcolor{keywordtype}{int}\ nid,\ gfp\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}})}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00218}00218\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{return}\ NODE\_DATA(nid)-\/>node\_zonelists\ +\ gfp\_zonelist(\doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00220}00220\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00222}00222\ \textcolor{preprocessor}{\#ifndef\ HAVE\_ARCH\_FREE\_PAGE}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00223}00223\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ arch\_free\_page(\textcolor{keyword}{struct}\ page\ *page,\ \textcolor{keywordtype}{int}\ order)\ \{\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00224}00224\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00225}00225\ \textcolor{preprocessor}{\#ifndef\ HAVE\_ARCH\_ALLOC\_PAGE}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00226}00226\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ arch\_alloc\_page(\textcolor{keyword}{struct}\ page\ *page,\ \textcolor{keywordtype}{int}\ order)\ \{\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00227}00227\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00229}00229\ \textcolor{keyword}{struct\ }page\ *\doxymbox{\hyperlink{page__alloc_8c_a8fd1b0dcbd6bff428248c3d39859b6b7}{\_\_alloc\_pages\_noprof}}(gfp\_t\ gfp,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order,\ \textcolor{keywordtype}{int}\ preferred\_nid,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00230}00230\ \ \ \ \ \ \ \ \ nodemask\_t\ *nodemask);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00231}00231\ \textcolor{preprocessor}{\#define\ \_\_alloc\_pages(...)\ \ \ \ \ \ \ \ \ \ alloc\_hooks(\_\_alloc\_pages\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00233}00233\ \textcolor{keyword}{struct\ }folio\ *\doxymbox{\hyperlink{page__alloc_8c_aa1df8f2fab424a97d8dc9f2eca8091b5}{\_\_folio\_alloc\_noprof}}(gfp\_t\ gfp,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order,\ \textcolor{keywordtype}{int}\ preferred\_nid,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00234}00234\ \ \ \ \ \ \ \ \ nodemask\_t\ *nodemask);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00235}00235\ \textcolor{preprocessor}{\#define\ \_\_folio\_alloc(...)\ \ \ \ \ \ \ \ \ \ alloc\_hooks(\_\_folio\_alloc\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00237}00237\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{page__alloc_8c_aecdabeb2387fa62ff8ba3d7eb2a198b0}{alloc\_pages\_bulk\_noprof}}(gfp\_t\ gfp,\ \textcolor{keywordtype}{int}\ preferred\_nid,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nodemask\_t\ *nodemask,\ \textcolor{keywordtype}{int}\ nr\_pages,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ page\ **page\_array);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00240}00240\ \textcolor{preprocessor}{\#define\ \_\_alloc\_pages\_bulk(...)\ \ \ \ \ \ \ \ \ alloc\_hooks(alloc\_pages\_bulk\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00242}00242\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ alloc\_pages\_bulk\_mempolicy\_noprof(gfp\_t\ gfp,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ page\ **page\_array);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00245}00245\ \textcolor{preprocessor}{\#define\ \ alloc\_pages\_bulk\_mempolicy(...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00246}00246\ \textcolor{preprocessor}{\ \ \ \ alloc\_hooks(alloc\_pages\_bulk\_mempolicy\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00248}00248\ \textcolor{comment}{/*\ Bulk\ allocate\ order-\/0\ pages\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00249}00249\ \textcolor{preprocessor}{\#define\ alloc\_pages\_bulk(\_gfp,\ \_nr\_pages,\ \_page\_array)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00250}00250\ \textcolor{preprocessor}{\ \ \ \ \_\_alloc\_pages\_bulk(\_gfp,\ numa\_mem\_id(),\ NULL,\ \_nr\_pages,\ \_page\_array)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00252}00252\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00253}00253\ alloc\_pages\_bulk\_node\_noprof(gfp\_t\ gfp,\ \textcolor{keywordtype}{int}\ nid,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ page\ **page\_array)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00255}00255\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00256}00256\ \ \ \ \ \textcolor{keywordflow}{if}\ (nid\ ==\ NUMA\_NO\_NODE)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00257}00257\ \ \ \ \ \ \ \ \ nid\ =\ numa\_mem\_id();}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00258}00258\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00259}00259\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{page__alloc_8c_aecdabeb2387fa62ff8ba3d7eb2a198b0}{alloc\_pages\_bulk\_noprof}}(gfp,\ nid,\ NULL,\ nr\_pages,\ page\_array);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00260}00260\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00262}00262\ \textcolor{preprocessor}{\#define\ alloc\_pages\_bulk\_node(...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00263}00263\ \textcolor{preprocessor}{\ \ \ \ alloc\_hooks(alloc\_pages\_bulk\_node\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00265}00265\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ warn\_if\_node\_offline(\textcolor{keywordtype}{int}\ this\_node,\ gfp\_t\ gfp\_mask)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00266}00266\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00267}00267\ \ \ \ \ gfp\_t\ warn\_gfp\ =\ gfp\_mask\ \&\ (\doxymbox{\hyperlink{gfp__types_8h_a791abea02bfdd8b0247411869a7648db}{\_\_GFP\_THISNODE}}|\doxymbox{\hyperlink{gfp__types_8h_ad16e4916f64bf12d9016393d48ff9aa1}{\_\_GFP\_NOWARN}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00269}00269\ \ \ \ \ \textcolor{keywordflow}{if}\ (warn\_gfp\ !=\ (\doxymbox{\hyperlink{gfp__types_8h_a791abea02bfdd8b0247411869a7648db}{\_\_GFP\_THISNODE}}|\doxymbox{\hyperlink{gfp__types_8h_ad16e4916f64bf12d9016393d48ff9aa1}{\_\_GFP\_NOWARN}}))}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00270}00270\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00272}00272\ \ \ \ \ \textcolor{keywordflow}{if}\ (node\_online(this\_node))}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00273}00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00275}00275\ \ \ \ \ pr\_warn(\textcolor{stringliteral}{"{}\%pGg\ allocation\ from\ offline\ node\ \%d\(\backslash\)n"{}},\ \&gfp\_mask,\ this\_node);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00276}00276\ \ \ \ \ dump\_stack();}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00277}00277\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00279}00279\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00280}00280\ \textcolor{comment}{\ *\ Allocate\ pages,\ preferring\ the\ node\ given\ as\ nid.\ The\ node\ must\ be\ valid\ and}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00281}00281\ \textcolor{comment}{\ *\ online.\ For\ more\ general\ interface,\ see\ alloc\_pages\_node().}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00282}00282\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00283}00283\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }page\ *}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00284}00284\ \_\_alloc\_pages\_node\_noprof(\textcolor{keywordtype}{int}\ nid,\ gfp\_t\ gfp\_mask,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00285}00285\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00286}00286\ \ \ \ \ VM\_BUG\_ON(nid\ <\ 0\ ||\ nid\ >=\ MAX\_NUMNODES);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00287}00287\ \ \ \ \ warn\_if\_node\_offline(nid,\ gfp\_mask);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00289}00289\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{page__alloc_8c_a8fd1b0dcbd6bff428248c3d39859b6b7}{\_\_alloc\_pages\_noprof}}(gfp\_mask,\ order,\ nid,\ NULL);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00290}00290\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00292}00292\ \textcolor{preprocessor}{\#define\ \ \_\_alloc\_pages\_node(...)\ \ \ \ \ \ \ \ alloc\_hooks(\_\_alloc\_pages\_node\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00294}00294\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00295}00295\ \textcolor{keyword}{struct\ }folio\ *\_\_folio\_alloc\_node\_noprof(gfp\_t\ gfp,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order,\ \textcolor{keywordtype}{int}\ nid)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00296}00296\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00297}00297\ \ \ \ \ VM\_BUG\_ON(nid\ <\ 0\ ||\ nid\ >=\ MAX\_NUMNODES);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00298}00298\ \ \ \ \ warn\_if\_node\_offline(nid,\ gfp);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00300}00300\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{page__alloc_8c_aa1df8f2fab424a97d8dc9f2eca8091b5}{\_\_folio\_alloc\_noprof}}(gfp,\ order,\ nid,\ NULL);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00301}00301\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00303}00303\ \textcolor{preprocessor}{\#define\ \ \_\_folio\_alloc\_node(...)\ \ \ \ \ \ \ \ alloc\_hooks(\_\_folio\_alloc\_node\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00305}00305\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00306}00306\ \textcolor{comment}{\ *\ Allocate\ pages,\ preferring\ the\ node\ given\ as\ nid.\ When\ nid\ ==\ NUMA\_NO\_NODE,}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00307}00307\ \textcolor{comment}{\ *\ prefer\ the\ current\ CPU's\ closest\ node.\ Otherwise\ node\ must\ be\ valid\ and}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00308}00308\ \textcolor{comment}{\ *\ online.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00309}00309\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00310}00310\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }page\ *alloc\_pages\_node\_noprof(\textcolor{keywordtype}{int}\ nid,\ gfp\_t\ gfp\_mask,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00312}00312\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00313}00313\ \ \ \ \ \textcolor{keywordflow}{if}\ (nid\ ==\ NUMA\_NO\_NODE)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00314}00314\ \ \ \ \ \ \ \ \ nid\ =\ numa\_mem\_id();}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00316}00316\ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_alloc\_pages\_node\_noprof(nid,\ gfp\_mask,\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00317}00317\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00319}00319\ \textcolor{preprocessor}{\#define\ \ alloc\_pages\_node(...)\ \ \ \ \ \ \ \ \ \ alloc\_hooks(alloc\_pages\_node\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00320}00320\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00321}00321\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_NUMA}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00322}00322\ \textcolor{keyword}{struct\ }page\ *alloc\_pages\_noprof(gfp\_t\ gfp,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00323}00323\ \textcolor{keyword}{struct\ }folio\ *folio\_alloc\_noprof(gfp\_t\ gfp,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00324}00324\ \textcolor{keyword}{struct\ }folio\ *folio\_alloc\_mpol\_noprof(gfp\_t\ gfp,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00325}00325\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ mempolicy\ *mpol,\ pgoff\_t\ ilx,\ \textcolor{keywordtype}{int}\ nid);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00326}00326\ \textcolor{keyword}{struct\ }folio\ *vma\_alloc\_folio\_noprof(gfp\_t\ gfp,\ \textcolor{keywordtype}{int}\ order,\ \textcolor{keyword}{struct}\ vm\_area\_struct\ *vma,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00327}00327\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ addr);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00328}00328\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00329}00329\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }page\ *alloc\_pages\_noprof(gfp\_t\ gfp\_mask,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00330}00330\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00331}00331\ \ \ \ \ \textcolor{keywordflow}{return}\ alloc\_pages\_node\_noprof(numa\_node\_id(),\ gfp\_mask,\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00332}00332\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00333}00333\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }folio\ *folio\_alloc\_noprof(gfp\_t\ gfp,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00334}00334\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00335}00335\ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_folio\_alloc\_node\_noprof(gfp,\ order,\ numa\_node\_id());}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00336}00336\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00337}00337\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }folio\ *folio\_alloc\_mpol\_noprof(gfp\_t\ gfp,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00338}00338\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ mempolicy\ *mpol,\ pgoff\_t\ ilx,\ \textcolor{keywordtype}{int}\ nid)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00339}00339\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00340}00340\ \ \ \ \ \textcolor{keywordflow}{return}\ folio\_alloc\_noprof(gfp,\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00341}00341\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00342}00342\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }folio\ *vma\_alloc\_folio\_noprof(gfp\_t\ gfp,\ \textcolor{keywordtype}{int}\ order,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00343}00343\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ vm\_area\_struct\ *vma,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ addr)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00344}00344\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00345}00345\ \ \ \ \ \textcolor{keywordflow}{return}\ folio\_alloc\_noprof(gfp,\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00346}00346\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00347}00347\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00348}00348\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00349}00349\ \textcolor{preprocessor}{\#define\ alloc\_pages(...)\ \ \ \ \ \ \ \ \ \ \ \ alloc\_hooks(alloc\_pages\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00350}00350\ \textcolor{preprocessor}{\#define\ folio\_alloc(...)\ \ \ \ \ \ \ \ \ \ \ \ alloc\_hooks(folio\_alloc\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00351}00351\ \textcolor{preprocessor}{\#define\ folio\_alloc\_mpol(...)\ \ \ \ \ \ \ \ \ \ \ alloc\_hooks(folio\_alloc\_mpol\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00352}00352\ \textcolor{preprocessor}{\#define\ vma\_alloc\_folio(...)\ \ \ \ \ \ \ \ \ \ \ \ alloc\_hooks(vma\_alloc\_folio\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00354}00354\ \textcolor{preprocessor}{\#define\ alloc\_page(gfp\_mask)\ alloc\_pages(gfp\_mask,\ 0)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00356}00356\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{struct\ }page\ *alloc\_page\_vma\_noprof(gfp\_t\ gfp,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00357}00357\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ vm\_area\_struct\ *vma,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ addr)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00358}00358\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00359}00359\ \ \ \ \ \textcolor{keyword}{struct\ }folio\ *folio\ =\ vma\_alloc\_folio\_noprof(gfp,\ 0,\ vma,\ addr);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00360}00360\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00361}00361\ \ \ \ \ \textcolor{keywordflow}{return}\ \&folio-\/>page;}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00362}00362\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00363}00363\ \textcolor{preprocessor}{\#define\ alloc\_page\_vma(...)\ \ \ \ \ \ \ \ \ alloc\_hooks(alloc\_page\_vma\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00364}00364\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00365}00365\ \textcolor{keyword}{struct\ }page\ *\doxymbox{\hyperlink{page__alloc_8c_a8780a55d144abaf25c313e7d0aaf4333}{alloc\_pages\_nolock\_noprof}}(gfp\_t\ gfp\_flags,\ \textcolor{keywordtype}{int}\ nid,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00366}00366\ \textcolor{preprocessor}{\#define\ alloc\_pages\_nolock(...)\ \ \ \ \ \ \ \ \ alloc\_hooks(alloc\_pages\_nolock\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00367}00367\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00368}00368\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{page__alloc_8c_a0eac4eb2d9c1c8eda0d9be7e2185f0ce}{get\_free\_pages\_noprof}}(gfp\_t\ gfp\_mask,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00369}00369\ \textcolor{preprocessor}{\#define\ \_\_get\_free\_pages(...)\ \ \ \ \ \ \ \ \ \ \ alloc\_hooks(get\_free\_pages\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00370}00370\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00371}00371\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{page__alloc_8c_a86965880675f8251770e8471db22c4e6}{get\_zeroed\_page\_noprof}}(gfp\_t\ gfp\_mask);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00372}00372\ \textcolor{preprocessor}{\#define\ get\_zeroed\_page(...)\ \ \ \ \ \ \ \ \ \ \ \ alloc\_hooks(get\_zeroed\_page\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00373}00373\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00374}00374\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{page__alloc_8c_a3d2f10fbb22a0a8e1cda8d12b74796b9}{alloc\_pages\_exact\_noprof}}(\textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ gfp\_t\ gfp\_mask)\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(1);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00375}00375\ \textcolor{preprocessor}{\#define\ alloc\_pages\_exact(...)\ \ \ \ \ \ \ \ \ \ alloc\_hooks(alloc\_pages\_exact\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00376}00376\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00377}00377\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_aa0585d3acdf6b0d001ccaf5847a377a7}{free\_pages\_exact}}(\textcolor{keywordtype}{void}\ *virt,\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00378}00378\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00379}00379\ \_\_meminit\ \textcolor{keywordtype}{void}\ *\doxymbox{\hyperlink{page__alloc_8c_a40b8d0dd09f08f00d568ea80e7e57f99}{alloc\_pages\_exact\_nid\_noprof}}(\textcolor{keywordtype}{int}\ nid,\ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{include_2linux_2slab_8h_af6ef73962e335cb2dfc15144f11215ba}{size}},\ gfp\_t\ gfp\_mask)\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a7e9fa94904622bbae9915cfbedfe5169}{\_\_alloc\_size}}(2);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00380}00380\ \textcolor{preprocessor}{\#define\ alloc\_pages\_exact\_nid(...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00381}00381\ \textcolor{preprocessor}{\ \ \ \ alloc\_hooks(alloc\_pages\_exact\_nid\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00383}00383\ \textcolor{preprocessor}{\#define\ \_\_get\_free\_page(gfp\_mask)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00384}00384\ \textcolor{preprocessor}{\ \ \ \ \_\_get\_free\_pages((gfp\_mask),\ 0)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00385}00385\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00386}00386\ \textcolor{preprocessor}{\#define\ \_\_get\_dma\_pages(gfp\_mask,\ order)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00387}00387\ \textcolor{preprocessor}{\ \ \ \ \_\_get\_free\_pages((gfp\_mask)\ |\ GFP\_DMA,\ (order))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00389}00389\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_a09a84df4c6cb817075a2eece7c7c0345}{\_\_free\_pages}}(\textcolor{keyword}{struct}\ page\ *page,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00390}00390\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_aa26558c34bc1b8990acc19ca35ec97db}{free\_pages\_nolock}}(\textcolor{keyword}{struct}\ page\ *page,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00391}00391\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_a644e65789e77afa946f3d755e7a069f9}{free\_pages}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ addr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ order);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00392}00392\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00393}00393\ \textcolor{preprocessor}{\#define\ \_\_free\_page(page)\ \_\_free\_pages((page),\ 0)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00394}00394\ \textcolor{preprocessor}{\#define\ free\_page(addr)\ free\_pages((addr),\ 0)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00395}00395\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00396}00396\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_a74803302f0a68dd8bc94647a9ef3268c}{page\_alloc\_init\_cpuhp}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00397}00397\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{page__alloc_8c_ad82bfc8891008a9de9b79c399b9a044b}{decay\_pcp\_high}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzone}{zone}}\ *\doxymbox{\hyperlink{structzone}{zone}},\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structper__cpu__pages}{per\_cpu\_pages}}\ *pcp);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00398}00398\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_a577ce429c44fba8bf2ac14b8b6f53a96}{drain\_zone\_pages}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzone}{zone}}\ *\doxymbox{\hyperlink{structzone}{zone}},\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structper__cpu__pages}{per\_cpu\_pages}}\ *pcp);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00399}00399\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_a550ab719908214a2ea7ce87d6bd8a9d7}{drain\_all\_pages}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzone}{zone}}\ *\doxymbox{\hyperlink{structzone}{zone}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00400}00400\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_a21fb337e42adb123b4035e1f51799851}{drain\_local\_pages}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structzone}{zone}}\ *\doxymbox{\hyperlink{structzone}{zone}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00402}00402\ \textcolor{keywordtype}{void}\ page\_alloc\_init\_late(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00403}00403\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_aecc773dee1ca14d126d19b5ae230f38b}{setup\_pcp\_cacheinfo}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ cpu);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00405}00405\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00406}00406\ \textcolor{comment}{\ *\ gfp\_allowed\_mask\ is\ set\ to\ GFP\_BOOT\_MASK\ during\ early\ boot\ to\ restrict\ what}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00407}00407\ \textcolor{comment}{\ *\ GFP\ flags\ are\ used\ before\ interrupts\ are\ enabled.\ Once\ interrupts\ are}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00408}00408\ \textcolor{comment}{\ *\ enabled,\ it\ is\ set\ to\ \_\_GFP\_BITS\_MASK\ while\ the\ system\ is\ running.\ During}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00409}00409\ \textcolor{comment}{\ *\ hibernation,\ it\ is\ used\ by\ PM\ to\ avoid\ I/O\ during\ memory\ allocation\ while}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00410}00410\ \textcolor{comment}{\ *\ devices\ are\ suspended.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00411}00411\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00412}00412\ \textcolor{keyword}{extern}\ gfp\_t\ gfp\_allowed\_mask;}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00414}00414\ \textcolor{comment}{/*\ Returns\ true\ if\ the\ gfp\_mask\ allows\ use\ of\ ALLOC\_NO\_WATERMARK\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00415}00415\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{page__alloc_8c_a3184c0ed7e67aae54e9af396cf059aa8}{gfp\_pfmemalloc\_allowed}}(gfp\_t\ gfp\_mask);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00416}00416\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00417}00417\ \textcolor{comment}{/*\ A\ helper\ for\ checking\ if\ gfp\ includes\ all\ the\ specified\ flags\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00418}00418\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ gfp\_has\_flags(gfp\_t\ gfp,\ gfp\_t\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}})}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00419}00419\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00420}00420\ \ \ \ \ \textcolor{keywordflow}{return}\ (gfp\ \&\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}})\ ==\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a87339f115a0975a129ebf95946fe26d6}{flags}};}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00421}00421\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00422}00422\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00423}00423\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ gfp\_has\_io\_fs(gfp\_t\ gfp)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00424}00424\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00425}00425\ \ \ \ \ \textcolor{keywordflow}{return}\ gfp\_has\_flags(gfp,\ \doxymbox{\hyperlink{gfp__types_8h_a5684e34c96ff74038d8a26a02d822f43}{\_\_GFP\_IO}}\ |\ \doxymbox{\hyperlink{gfp__types_8h_acc4c173bc83c94ecbc3d825bc82bd3bf}{\_\_GFP\_FS}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00426}00426\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00427}00427\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00428}00428\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00429}00429\ \textcolor{comment}{\ *\ Check\ if\ the\ gfp\ flags\ allow\ compaction\ -\/\ GFP\_NOIO\ is\ a\ really}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00430}00430\ \textcolor{comment}{\ *\ tricky\ context\ because\ the\ migration\ might\ require\ IO.}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00431}00431\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00432}00432\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ gfp\_compaction\_allowed(gfp\_t\ gfp\_mask)}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00433}00433\ \{}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00434}00434\ \ \ \ \ \textcolor{keywordflow}{return}\ IS\_ENABLED(CONFIG\_COMPACTION)\ \&\&\ (gfp\_mask\ \&\ \doxymbox{\hyperlink{gfp__types_8h_a5684e34c96ff74038d8a26a02d822f43}{\_\_GFP\_IO}});}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00435}00435\ \}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00436}00436\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00437}00437\ \textcolor{keyword}{extern}\ gfp\_t\ vma\_thp\_gfp\_mask(\textcolor{keyword}{struct}\ vm\_area\_struct\ *vma);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00438}00438\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00439}00439\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_CONTIG\_ALLOC}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00440}00440\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00441}00441\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_\_bitwise\ acr\_flags\_t;}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00442}00442\ \textcolor{preprocessor}{\#define\ ACR\_FLAGS\_NONE\ ((\_\_force\ acr\_flags\_t)0)\ }\textcolor{comment}{//\ ordinary\ allocation\ request}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00443}00443\ \textcolor{preprocessor}{\#define\ ACR\_FLAGS\_CMA\ ((\_\_force\ acr\_flags\_t)BIT(0))\ }\textcolor{comment}{//\ allocate\ for\ CMA}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00445}00445\ \textcolor{comment}{/*\ The\ below\ functions\ must\ be\ run\ on\ a\ range\ from\ a\ single\ zone.\ */}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00446}00446\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{page__alloc_8c_ac112ada2f4a0184f9451da7c4526b03b}{alloc\_contig\_frozen\_range\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00447}00447\ \ \ \ \ \ \ \ \ acr\_flags\_t\ alloc\_flags,\ gfp\_t\ gfp\_mask);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00448}00448\ \textcolor{preprocessor}{\#define\ alloc\_contig\_frozen\_range(...)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00449}00449\ \textcolor{preprocessor}{\ \ \ \ alloc\_hooks(alloc\_contig\_frozen\_range\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00450}00450\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00451}00451\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{page__alloc_8c_aec291e09dd27beda0c19d07892ebf743}{alloc\_contig\_range\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ start,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ end,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00452}00452\ \ \ \ \ \ \ \ \ acr\_flags\_t\ alloc\_flags,\ gfp\_t\ gfp\_mask);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00453}00453\ \textcolor{preprocessor}{\#define\ alloc\_contig\_range(...)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00454}00454\ \textcolor{preprocessor}{\ \ \ \ alloc\_hooks(alloc\_contig\_range\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00455}00455\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00456}00456\ \textcolor{keyword}{struct\ }page\ *\doxymbox{\hyperlink{page__alloc_8c_a56039f9e09a38ab23be44bebebcbb8eb}{alloc\_contig\_frozen\_pages\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00457}00457\ \ \ \ \ \ \ \ \ gfp\_t\ gfp\_mask,\ \textcolor{keywordtype}{int}\ nid,\ nodemask\_t\ *nodemask);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00458}00458\ \textcolor{preprocessor}{\#define\ alloc\_contig\_frozen\_pages(...)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00459}00459\ \textcolor{preprocessor}{\ \ \ \ alloc\_hooks(alloc\_contig\_frozen\_pages\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00460}00460\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00461}00461\ \textcolor{keyword}{struct\ }page\ *\doxymbox{\hyperlink{page__alloc_8c_ab9554147a97c722fc339570de7be13a3}{alloc\_contig\_pages\_noprof}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages,\ gfp\_t\ gfp\_mask,}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00462}00462\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nid,\ nodemask\_t\ *nodemask);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00463}00463\ \textcolor{preprocessor}{\#define\ alloc\_contig\_pages(...)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00464}00464\ \textcolor{preprocessor}{\ \ \ \ alloc\_hooks(alloc\_contig\_pages\_noprof(\_\_VA\_ARGS\_\_))}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00465}00465\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00466}00466\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_aa834ac7e91351ceacefdedd543fe0147}{free\_contig\_frozen\_range}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pfn,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00467}00467\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{page__alloc_8c_a5727806ce58adedcdb53501764ece724}{free\_contig\_range}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pfn,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nr\_pages);}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00468}00468\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00469}00469\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00470}00470\ \doxymbox{\hyperlink{include_2linux_2slab_8h_a0dc7b0d3190bf3bb030ff44a06fd3459}{DEFINE\_FREE}}(free\_page,\ \textcolor{keywordtype}{void}\ *,\ free\_page((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})\_T))}
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{gfp_8h_source_l00472}00472\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_LINUX\_GFP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
